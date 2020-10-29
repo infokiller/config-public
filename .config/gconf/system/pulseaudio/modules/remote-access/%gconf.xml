@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="name1" mtime="1528579341" type="string">
+		<stringvalue>module-esound-protocol-tcp</stringvalue>
+	</entry>
+	<entry name="name0" mtime="1528579341" type="string">
+		<stringvalue>module-native-protocol-tcp</stringvalue>
+	</entry>
+	<entry name="zeroconf_enabled" mtime="1528579342" type="bool" value="false"/>
+	<entry name="args1" mtime="1528579341" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="args0" mtime="1528579341" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="anonymous_enabled" mtime="1528579342" type="bool" value="false"/>
+	<entry name="enabled" mtime="1528579342" type="bool" value="false"/>
+	<entry name="locked" mtime="1528579342" type="bool" value="false"/>
+</gconf>

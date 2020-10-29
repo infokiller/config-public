@@ -1,0 +1,18 @@
+[Unit]
+Description=Import environment from ~/.profile
+# By default, systemd adds a dependency from every unit to basic.target, but in
+# this case this will cause a dependency cycle, so we must disable this
+# dependency.
+DefaultDependencies=no
+Before=basic.target
+
+[Service]
+Type=oneshot
+ExecStart=bash -c 'source %h/.profile && systemctl --user import-environment'
+RestartSec=1
+# Consider this unit to be active if the start action exited successfully.
+# Without this, every unit that pulls this unit as a dependency will rerun it.
+RemainAfterExit=yes
+
+[Install]
+WantedBy=basic.target

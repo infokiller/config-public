@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="active_plugins" mtime="1409984760" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>core</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>composite</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>opengl</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>compiztoolbox</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>decor</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>regex</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>gnomecompat</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>mousepoll</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>grid</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>imgpng</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>vpswitch</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>move</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>wall</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>unitymtgrabhandles</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>animation</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>resize</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>snap</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>expo</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>put</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>place</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>session</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>workarounds</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>ezoom</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>fade</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>scale</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>unityshell</stringvalue>
+		</li>
+	</entry>
+</gconf>

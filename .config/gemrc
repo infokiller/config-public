@@ -1,0 +1,3 @@
+# This is needed so that gems are installed to the $GEM_HOME directory, see:
+# https://wiki.archlinux.org/index.php/Ruby#Installing_gems_per-user_or_system-wide
+gem: --no-user-install

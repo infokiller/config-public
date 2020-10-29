@@ -1,0 +1,20 @@
+[Unit]
+Description=Start i3 window manager
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+Wants=i3-autoname-workspaces.service
+Wants=i3-resurrect-save-all.timer
+
+[Service]
+Type=simple
+ExecStart=i3
+# TODO: This isn't getting triggered when I do `systemctl restart lightdm`, and
+# may not work for reboot too. Need to figure this out.
+ExecStop=%h/.my_scripts/i3/i3-resurrect-wrapper save --all
+# Using `i3-msg exit` seems to cause i3 to exit with 143, which usually means
+# it was killed with SIGTERM [1]. This makes systemd think that the unit failed
+# although it didn't, so we use SuccessExitStatus to suppress it.
+# [1] https://stackoverflow.com/a/25304814/1014208
+SuccessExitStatus=143
+Restart=no

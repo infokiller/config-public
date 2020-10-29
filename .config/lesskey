@@ -1,0 +1,44 @@
+# NOTE: The correct way to get the key sequence from a given terminal is to
+# start less (`echo $TERM | less`), enter search by typing "/", and then
+# using Ctrl-v like in the shell. This is different than doing it directly in
+# the shell, because when less is run the terminal mode can be set to
+# "application" mode, whereas in bash this is usually set to "normal" mode. See
+# also: https://github.com/kovidgoyal/kitty/issues/796#issuecomment-411267558
+
+#command
+i back-line
+j left-scroll
+k forw-line
+l right-scroll
+e visual
+^F forw-search
+t toggle-option
+T invalid
+# visual edits the file content
+e visual
+^P prev-file
+^N next-file
+
+#line-edit
+^A home
+^E end
+^W word-backspace
+# Ctrl+{left, right}: using generic terminal sequences supported by less.
+\e\kr word-right
+\e\kl word-left
+# Ctrl+{left, right} in tmux and termite.
+\e[1;5C word-right
+\e[1;5D word-left
+# Ctrl+{left, right} in kitty. 
+# NOTE: Kitty uses different key sequences for "normal" and "application"
+# mode. See also: 
+# https://github.com/kovidgoyal/kitty/issues/796#issuecomment-411267558
+\eOC word-right
+\eOD word-left
+
+#env
+# I don't set my less(1) related environment variables here anymore. I do it in
+# my `~/.zshenv' file. If all variables are set in the shell, I can also change
+# them in the shell, this uncomfortable, compared to changing them here and
+# re­running `lesskey' each time I experiment with something
+#LESS=RMFNJi

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+playbacks="$(amixer -M sget Master | grep -E 'Playback.*\[[0-9]*%\]')"
+# If none of the outputs are on, it's muted.
+if printf '%s\n' "${playbacks}" | grep --text -E -o '\[o.+\]' | grep --quiet -v on; then
+  echo 'muted'
+else
+  volume="$(printf '%s\n' "${playbacks}" | grep --text -o '[0-9]*%' | head -1)"
+  printf '%3s\n' "${volume}"
+fi

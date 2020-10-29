@@ -1,0 +1,58 @@
+renumber_workspaces = false
+
+[icons]
+enable = true
+enable_all_groups = false
+delimiter = ''
+prefix = ''
+suffix = ''
+min_duplicates_count = 4
+default_icon = ''
+# ﱡ  
+try_fallback_rules = true
+
+[[icons.rules]]
+property = 'instance'
+match = 'trello'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = '.*\bwhatsapp\b.*'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = 'gmail'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = '[gn]vim'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = 'file-manager'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = 'calendar.google.com'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = 'google-drive'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = 'ticktick'
+icon = ''
+
+[[icons.rules]]
+property = 'instance'
+match = 'virt-manager'
+icon = ''
+#度

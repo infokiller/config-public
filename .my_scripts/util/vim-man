@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+nvim_man() {
+  exec nvim -c 'Man!' -
+}
+
+vim_man() {
+  col -b | exec vim -c 'MANPAGER' -
+}
+
+vim_or_nvim_man() {
+  if vim --version | head -1 | grep -iq nvim; then
+    nvim_man "$@"
+  else
+    vim_man "$@"
+  fi
+}
+
+# NOTE: As of 2019-06-06, support for man pages in nvim is better and easier to
+# configure, so I always use nvim as the man pager, even if the default vim
+# variant is vim.
+nvim_man "$@"
+
+# NOTE: As of 2019-06-06, I stopped setting the following vim options because
+# both vim and nvim seem to set them correctly on Archlinux:
+# nolist

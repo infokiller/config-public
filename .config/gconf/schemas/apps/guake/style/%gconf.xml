@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="cursor_shape" mtime="1450345978" type="schema" stype="int" owner="guake">
+		<local_schema locale="C" short_desc="Cursor shape of the terminal">
+			<default type="int" value="0"/>
+			<longdesc>Controls the shape of the cursor in the terminals. 0: Block, 1: I-Beam, 2: Underline</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="cursor_blink_mode" mtime="1450345978" type="schema" stype="int" owner="guake">
+		<local_schema locale="C" short_desc="Cursor blink mode of the terminal">
+			<default type="int" value="0"/>
+			<longdesc>Controls the blink mode of the cursor in the terminals. 0: Follow GTK+ setting, 1: Blink on, 2: Blink off</longdesc>
+		</local_schema>
+	</entry>
+</gconf>

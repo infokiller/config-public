@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# Copied from:
+# https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
+# Used instead of the _dirname binary for performance.
+_dirname() {
+  # Usage: _dirname "path"
+  local tmp=${1:-.}
+
+  [[ $tmp != *[!/]* ]] && {
+    printf '/\n'
+    return
+  }
+
+  tmp=${tmp%%"${tmp##*[!/]}"}
+
+  [[ $tmp != */* ]] && {
+    printf '.\n'
+    return
+  }
+
+  tmp=${tmp%/*}
+  tmp=${tmp%%"${tmp##*[!/]}"}
+
+  printf '%s\n' "${tmp:-/}"
+}
+
+_first_existing_parent() {
+  local file="$1"
+  local dir
+  dir="$(_dirname "${file}")"
+  while [[ "${dir}" != '' && "${dir}" != '/' && ! -d "${dir}" ]]; do
+    dir="$(_dirname "${file}")"
+  done
+  printf '%s' "${dir}"
+}
+
+main() {
+  if (($# != 2)); then
+    echo >&2 'Usage: should-enable-lint <FILE> <REMTOE_WHITELIST_REGEX>'
+    # Return true so that linting will be enabled as a fall-back.
+    return 0
+  fi
+  local file="$1"
+  local remote_whitelist="${2:-}"
+  [[ "${file}" == /* ]] || file="${PWD}/${file}"
+  local dir
+  dir="$(_first_existing_parent "${file}")"
+  cd -- "${dir}"
+  local output
+  # Return false when the file is ignored by the repo, i.e. when `git
+  # check-ignore` returns true.
+  if output="$(git check-ignore --quiet -- "${file}" 2>&1)"; then
+    return 1
+  fi
+  # Since we use --quiet, the only possible output is a message in stderr that
+  # this is not a git repository. In this case we're conservative and enable
+  # linting.
+  if [[ -n "${output}" ]]; then
+    return 0
+  fi
+  git remote get-url origin | grep -q -- "${remote_whitelist}"
+}
+
+main "$@"

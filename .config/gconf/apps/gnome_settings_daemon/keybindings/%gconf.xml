@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="www" mtime="1373389126" type="string">
+		<stringvalue>&lt;Mod2&gt;Caps_Lock</stringvalue>
+	</entry>
+	<entry name="home" mtime="1360604522" type="string">
+		<stringvalue>&lt;Super&gt;e</stringvalue>
+	</entry>
+</gconf>

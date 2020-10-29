@@ -1,0 +1,163 @@
+#!/usr/bin/env python3
+
+import argparse
+import collections
+import logging
+import os
+import pathlib
+import subprocess
+import sys
+from typing import Dict, List, Optional
+
+_LOG_FMT = '%(asctime)s %(levelname)s [%(filename)s:%(lineno)d] %(message)s'
+
+logger = logging.getLogger(os.path.basename(__file__))
+
+
+def init_logger() -> None:
+    stdout_handler = logging.StreamHandler()
+    stdout_formatter = logging.Formatter(_LOG_FMT)
+    stdout_handler.setFormatter(stdout_formatter)
+    logger.addHandler(stdout_handler)
+
+
+def _create_args_parser() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=
+        'Move git repo files or directories while preserving symlinks.')
+    parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='If true, will only log changes without doing them.')
+    parser.add_argument('--no-dry-run', dest='dry_run', action='store_false')
+    parser.set_defaults(dry_run=True)
+    parser.add_argument('--log-level',
+                        choices=('debug', 'info', 'warning', 'error',
+                                 'critical'),
+                        default='info',
+                        help='Logging level for stderr.')
+    parser.add_argument('--source', required=True)
+    parser.add_argument('--target', required=True)
+    parser.add_argument(
+        '--already-moved',
+        action='store_true',
+        help='If true, will skip the actual move and only update symlinks.')
+    return parser
+
+
+def get_repo_root() -> str:
+    process = subprocess.run(['git', 'rev-parse', '--show-toplevel'],
+                             check=True,
+                             stdout=subprocess.PIPE,
+                             universal_newlines=True)
+    return process.stdout.strip()
+
+
+def list_repository_files(repo_root: str) -> List[str]:
+    process = subprocess.run(['git', 'ls-files'],
+                             cwd=repo_root,
+                             check=True,
+                             stdout=subprocess.PIPE,
+                             universal_newlines=True)
+    return [l for l in process.stdout.split('\n') if l]
+
+
+def _symlink_relative(source_path: str, target_path: str) -> str:
+    if os.path.lexists(target_path):
+        logger.info(f'Removing existing file: {target_path}')
+        os.remove(target_path)
+    target = os.path.dirname(target_path)
+    rel_path = os.path.relpath(source_path, target)
+    os.symlink(rel_path, target_path)
+
+
+def is_broken_symlink(path: str) -> bool:
+    return os.path.islink(path) and not os.path.exists(path)
+
+
+class CommandRunner:
+
+    def __init__(self, dry_run: bool):
+        self.dry_run = dry_run
+
+    def run(self, command: List[str]) -> None:
+        if self.dry_run:
+            log_prefix = '[dry-run] would execute'
+        else:
+            log_prefix = 'Executing:'
+        logger.info(f"{log_prefix} : '{command}'")
+        if not self.dry_run:
+            subprocess.run(command, check=True)
+
+
+def get_path_after_move(source: str, target: str, original_path: str) -> str:
+    if not original_path.startswith(source):
+        return original_path
+    if original_path == source:
+        return target
+    return os.path.join(target, os.path.relpath(original_path, source))
+
+
+def main():
+    args = _create_args_parser().parse_args()
+    init_logger()
+    logger.setLevel(getattr(logging, args.log_level.upper(), None))
+
+    source = os.path.abspath(args.source)
+    target = os.path.abspath(args.target)
+    if not args.already_moved:
+        if not os.path.exists(source):
+            sys.exit('Source must exist (pass --already-moved to skip).')
+        if os.path.exists(target):
+            sys.exit('Target must not exist (pass --already-moved to skip).')
+    logger.info(f'Resolved source: {source}, target: {target}')
+    cmd_runner = CommandRunner(args.dry_run)
+
+    repo_root = get_repo_root()
+    logger.info(f'Repo root: {repo_root}')
+    repo_files = list_repository_files(repo_root)
+    logger.info(f'Found {len(repo_files)} files in repo')
+    repo_files = [
+        os.path.normpath(os.path.join(repo_root, f)) for f in repo_files
+    ]
+    symlinks = [f for f in repo_files if os.path.islink(f)]
+    symlink_to_original_target = {f: os.path.realpath(f) for f in symlinks}
+    logger.debug(f'Repo symlinks found: {symlinks}')
+    logger.info(f'Found {len(symlinks)} symlinks in repo')
+    broken_symlinks = [f for f in repo_files if is_broken_symlink(f)]
+    logger.info('Detected {}/{} broken symlinks: {}'.format(
+        len(broken_symlinks), len(symlinks), broken_symlinks))
+
+    symlinks_to_source = set(
+        f for f in symlinks if os.path.realpath(f).startswith(source))
+
+    logger.info(f'Found {len(symlinks_to_source)} symlinks pointing to source')
+    logger.debug('Symlinks pointing to source: {symlinks_to_source}')
+
+    symlinks_in_source = set(f for f in symlinks if f.startswith(source))
+    logger.info(f'Found {len(symlinks_in_source)} symlinks in source')
+    logger.debug(f'Symlinks in source: {symlinks_in_source}')
+
+    if not args.already_moved:
+        cmd_runner.run(['git', 'mv', '--', source, target])
+    for symlink in symlinks_to_source:
+        symlink_after_move = get_path_after_move(source, target, symlink)
+        symlink_target = os.path.realpath(symlink)
+        symlink_target_after_move = get_path_after_move(source, target,
+                                                        symlink_target)
+        cmd_runner.run(
+            ['ln', '-srf', '--', symlink_target_after_move, symlink_after_move])
+
+    for symlink in symlinks_in_source:
+        # Already handled above.
+        if symlink in symlinks_to_source:
+            continue
+        symlink_after_move = get_path_after_move(source, target, symlink)
+        cmd_runner.run([
+            'ln', '-srf', '--', symlink_to_original_target[symlink],
+            symlink_after_move
+        ])
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,35 @@
+# coding: utf-8
+import re
+import datetime
+
+log_files = get_ipython().getoutput(u'ls -1 /var/log/dpkg.log*')
+r = re.compile(r'/var/log/dpkg\.log\.(\d+)')
+log_files = log_files[1:]
+log_files.sort(key=lambda s: int(r.match(s).groups()[0]))
+dpkg_install_logs = get_ipython().getoutput(
+    u"zgrep -h ' install ' {' '.join(log_files[::-1])}|less")
+dpkg_log_re = re.compile(r'(.*?) (.*?) install (.*?):.*? ')
+dpkg_packages_dates = []
+for dil in dpkg_install_logs:
+    m = dpkg_log_re.match(dil)
+    if m:
+        a = m.groups()
+        package = a[2]
+        dt = datetime.datetime.strptime(a[0] + ' ' + a[1], '%Y-%m-%d %H:%M:%S')
+        dpkg_packages_dates.append((package, dt))
+
+aptitude_packages_without_deps = get_ipython().getoutput(
+    u"aptitude search '~i!~M' -F '%p'")
+aptitude_packages_without_deps = [
+    p.strip() for p in aptitude_packages_without_deps
+]
+
+import os
+output_dir = os.path.join(os.path.expanduser('~'), '.config')
+with open(os.path.join(output_dir, 'aptitude_packages_dates.txt'), 'w') as f:
+    f.writelines(str(l) + '\n' for l in aptitude_packages_without_deps)
+
+with open(os.path.join(output_dir, 'dpkg_packages_dates_from_logs.txt'),
+          'w') as f:
+    f.writelines(
+        str(l[0]) + ' ' + str(l[1]) + '\n' for l in dpkg_packages_dates)

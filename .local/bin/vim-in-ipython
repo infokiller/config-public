@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# This command is defined as a separate executable so that it can be used for
+# IPython which reads the EDITOR env variable (putting the command there didn't
+# work).
+vim -c "set filetype=python" "$@"

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+google-chrome --app="http://devdocs.io" --profile-directory="Home" "$@"

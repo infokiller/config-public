@@ -1,0 +1,809 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+################################################################################
+#                                Basic settings                                #
+################################################################################
+
+set $mod Mod4
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+workspace_auto_back_and_forth yes
+
+# Focus on active windows.
+focus_on_window_activation focus
+
+# Don't change the focused window when the mouse moves.
+focus_follows_mouse no
+
+# Start workspaces with the stacking layout by default.
+# TODO: it would be better to automatically set the layout according to the
+# available space. For example, start with a horizontal split layout in a new
+# workspace, then stacking layout for each container.
+workspace_layout stacking
+
+set $exec_cli exec --no-startup-id
+set $exec_always_cli exec_always --no-startup-id
+set $unbound_key_in_mode exec --no-startup-id notify-send 'Key unbound in mode' -t 2000 
+
+################################################################################
+#                             General keybindings                              #
+################################################################################
+
+# Change focus
+# NOTE: I considered adding support for seamless navigation with tmux
+# panes. This was partially done in ~/.my_scripts/keyboard/tmux-i3-movement,
+# but I ditched the idea for now. see README in that directory.
+# Key: J
+bindcode $mod+44 focus left
+# Key: K
+bindcode $mod+45 focus down
+# Key: I
+bindcode $mod+31 focus up
+# Key: L
+bindcode $mod+46 focus right
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+# Key: Shift+J
+bindcode $mod+Shift+44 move left
+# Key: Shift+K
+bindcode $mod+Shift+45 move down
+# Key: Shift+I
+bindcode $mod+Shift+31 move up
+# Key: Shift+L
+bindcode $mod+Shift+46 move right
+
+# Alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Key: Control+Q
+bindcode $mod+Control+24 kill
+
+# Enter fullscreen mode for the focused container
+# Key: F
+bindcode $mod+41 fullscreen
+
+# TODO: Consider binding only `split toggle` and reserving H/V for other stuff.
+# Split in horizontal orientation
+# Key: H
+bindcode $mod+43 split horizontal
+# Split in vertical orientation
+# Key: V
+bindcode $mod+55 split vertical
+
+# Focus on last container
+# Key: semicolon
+bindcode $mod+47 [con_mark=_last] focus
+# Change focus between tiling / floating windows in current workspace
+# Key: E
+bindcode $mod+26 focus mode_toggle
+# Toggle tiling / floating
+# Key: Shift+E
+bindcode $mod+Shift+26 floating toggle
+
+# Toggle my common layouts: horizontal and stacking.
+# Key: T
+bindcode $mod+28 layout toggle stacking splith
+# Toggle all layouts: tililng, stacking, tabbed.
+# Key: Shift+T
+bindcode $mod+Shift+28 layout toggle all
+
+# Focus the parent container
+# Key: A
+bindcode $mod+38 focus parent
+# Focus the child container
+# Key: Shift+A
+bindcode $mod+Shift+38 focus child
+
+# Border changing
+# Key: B
+bindcode $mod+56 $exec_cli conda-run base_i3 ~/.my_scripts/i3/i3-toggle-border
+
+# Print screen
+# bindsym Print exec gnome-screenshot --interactive
+bindsym Print $exec_cli flameshot gui
+bindsym Shift+Print $exec_cli "maim -s | xclip -selection clipboard -t image/png"
+
+################################################################################
+#                         Built in workspace navigation                        #
+################################################################################
+
+# Switch to workspace
+bindsym $mod+Control+1 workspace number 1
+bindsym $mod+Control+2 workspace number 2
+bindsym $mod+Control+3 workspace number 3
+bindsym $mod+Control+4 workspace number 4
+bindsym $mod+Control+5 workspace number 5
+bindsym $mod+Control+6 workspace number 6
+bindsym $mod+Control+7 workspace number 7
+bindsym $mod+Control+8 workspace number 8
+bindsym $mod+Control+9 workspace number 9
+bindsym $mod+Control+0 workspace number 10
+
+# Switch to last workspace
+# Key: Alt+semicolon
+bindcode $mod+Mod1+47 workspace back_and_forth
+# Move container to last workspace
+# Key: Shift+semicolon
+bindcode $mod+Shift+47 move container to workspace back_and_forth
+
+# Move focused container to workspace
+bindsym $mod+Control+Shift+1 move container to workspace 1
+bindsym $mod+Control+Shift+2 move container to workspace 2
+bindsym $mod+Control+Shift+3 move container to workspace 3
+bindsym $mod+Control+Shift+4 move container to workspace 4
+bindsym $mod+Control+Shift+5 move container to workspace 5
+bindsym $mod+Control+Shift+6 move container to workspace 6
+bindsym $mod+Control+Shift+7 move container to workspace 7
+bindsym $mod+Control+Shift+8 move container to workspace 8
+bindsym $mod+Control+Shift+9 move container to workspace 9
+bindsym $mod+Control+Shift+0 move container to workspace 10
+
+# Switch to previous workspace (globally).
+# Key: P
+bindcode $mod+33 workspace prev
+# Switch to next workspace in group (globally)
+# Key: N
+bindcode $mod+57 workspace next
+# Move to previous workspace (globally).
+# Key: Shift+P
+bindcode $mod+Shift+33 move container to workspace prev
+# Move to next workspace (globally).
+# Key: Shift+N
+bindcode $mod+Shift+57 move container to workspace next
+
+################################################################################
+#                         Grouped workspaces navigation                        #
+################################################################################
+
+set $exec_i3_groups exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-workspace-groups conda-run i3_workspace_groups ~/submodules/desktop/i3-workspace-groups/scripts/i3-workspace-groups --window-icons
+set $exec_i3_groups_script exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-workspace-groups conda-run i3_workspace_groups ~/submodules/desktop/i3-workspace-groups/scripts/
+
+# Switch active workspace group
+# Key: G
+bindcode $mod+42 $exec_i3_groups_script/i3-switch-active-workspace-group --window-icons
+# Assign workspace to a group
+# Key: Shift+G
+bindcode $mod+Shift+42 $exec_i3_groups_script/i3-assign-workspace-to-group --window-icons
+
+bindsym $mod+1 $exec_i3_groups workspace-number 1
+bindsym $mod+2 $exec_i3_groups workspace-number 2
+bindsym $mod+3 $exec_i3_groups workspace-number 3
+bindsym $mod+4 $exec_i3_groups workspace-number 4
+bindsym $mod+5 $exec_i3_groups workspace-number 5
+bindsym $mod+6 $exec_i3_groups workspace-number 6
+bindsym $mod+7 $exec_i3_groups workspace-number 7
+bindsym $mod+8 $exec_i3_groups workspace-number 8
+bindsym $mod+9 $exec_i3_groups workspace-number 9
+bindsym $mod+0 $exec_i3_groups workspace-number 10
+
+bindsym $mod+Shift+1 $exec_i3_groups move-to-number 1
+bindsym $mod+Shift+2 $exec_i3_groups move-to-number 2
+bindsym $mod+Shift+3 $exec_i3_groups move-to-number 3
+bindsym $mod+Shift+4 $exec_i3_groups move-to-number 4
+bindsym $mod+Shift+5 $exec_i3_groups move-to-number 5
+bindsym $mod+Shift+6 $exec_i3_groups move-to-number 6
+bindsym $mod+Shift+7 $exec_i3_groups move-to-number 7
+bindsym $mod+Shift+8 $exec_i3_groups move-to-number 8
+bindsym $mod+Shift+9 $exec_i3_groups move-to-number 9
+bindsym $mod+Shift+0 $exec_i3_groups move-to-number 10
+
+# Focus on a new workspace in current group
+# Key: O
+bindcode $mod+32 $exec_i3_groups workspace-new
+# Move focused container to a new workspace in current group
+# Key: Shift+O
+bindcode $mod+Shift+32 $exec_i3_groups move-to-new
+
+# # Switch to previous workspace in group.
+# # Key: P
+# bindcode $mod+33 $exec_i3_groups workspace-prev
+# # Switch to next workspace in group.
+# # Key: N
+# bindcode $mod+57 $exec_i3_groups workspace-next
+#
+# # Move to previous workspace in group.
+# # Key: Shift+P
+# bindcode $mod+Shift+33 $exec_i3_groups move-to-prev
+# # Move to next workspace in group.
+# # Key: Shift+N
+# bindcode $mod+Shift+57 $exec_i3_groups move-to-next
+
+# NOTE: As of 2019-12-31, This is disabled because it conflicts with my Remmina
+# keybindings.
+# Key: F2
+# bindcode $mod+68 $exec_i3_groups_script/i3-rename-workspace
+# Key: Alt+n
+bindcode $mod+Mod1+57 $exec_i3_groups_script/i3-rename-workspace
+
+# Select workspace to focus on
+# Key: W
+bindcode $mod+25 $exec_i3_groups_script/i3-focus-on-workspace
+# Move container to selected workspace
+# Key: Shift+W
+bindcode $mod+Shift+25 $exec_i3_groups_script/i3-move-to-workspace
+# Select container to focus on
+# Key: Alt+W
+bindcode $mod+Mod1+25 exec rofi -show window -no-sort
+
+################################################################################
+#                             Scratchpad management                            #
+################################################################################
+
+set $exec_i3_scratchpad exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-scratchpad conda-run i3_scratchpad ~/submodules/desktop/i3-scratchpad/scripts/i3-scratchpad
+
+# Kill focused window if it's not a marked scrathpad window, otherwise move it to scratchpad.
+# Key: Q
+bindcode $mod+Shift+24 $exec_i3_scratchpad scratch-or-kill
+
+# Key: S
+bindcode $mod+39 fullscreen disable, $exec_i3_scratchpad toggle-last
+# Key: Shift+S
+bindcode $mod+Shift+39 $exec_i3_scratchpad move
+
+################################################################################
+#                                Notifications                                 #
+################################################################################
+
+# Key: x
+bindcode $mod+53 $exec_cli dunstctl close
+# Key: Shift+x
+bindcode $mod+Shift+53 $exec_cli dunstctl history-pop
+# Key: Ctrl+x
+bindcode $mod+Control+53 $exec_cli dunstctl close-all
+# Key: grave
+bindcode $mod+49 $exec_cli dunstctl context
+
+################################################################################
+#                              System management                               #
+################################################################################
+
+# Lock screen
+# Key: Control+L
+bindcode $mod+Control+46 $exec_cli ~/.my_scripts/desktop_env/lock-screen
+
+# Change keyboard layout:
+# Key: Insert
+# This is only an emergency keybinding in case the xkb settings get reset
+# while I'm in a foreign layout. The main keybinding I use is defined in xkb.
+bindcode $mod+shift+118 $exec_cli ~/.my_scripts/desktop_env/switch-keyboard-layout
+
+# TODO: Use a rofi based menu or yawhich-key [1]
+# [1] https://github.com/adelin-b/yawhich-key
+mode "System" {
+    # Reload the configuration file
+    # Key: C
+    bindcode 54 reload, mode "default"
+    # Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+    # Key: R
+    bindcode 27 restart, mode "default"
+    # Quit i3
+    # Key: Q
+    bindcode 24 exec ~/.my_scripts/i3/i3-quit-prompt, mode "default"
+    # Save i3 workspace layouts
+    # Key: Control+S
+    bindcode Control+39 $exec_cli ~/.my_scripts/i3/i3-resurrect-wrapper save, mode "default"
+    # Restore i3 workspace layouts
+    # Key: Control+R
+    bindcode Control+27 $exec_cli ~/.my_scripts/i3/i3-resurrect-wrapper restore, mode "default"
+
+    # Back to normal: Escape
+    bindsym Escape mode "default"
+
+    # Disable unused keys by default {{{ #
+    bindcode 10 $unbound_key_in_mode
+    bindcode 11 $unbound_key_in_mode
+    bindcode 12 $unbound_key_in_mode
+    bindcode 13 $unbound_key_in_mode
+    bindcode 14 $unbound_key_in_mode
+    bindcode 15 $unbound_key_in_mode
+    bindcode 16 $unbound_key_in_mode
+    bindcode 17 $unbound_key_in_mode
+    bindcode 18 $unbound_key_in_mode
+    bindcode 19 $unbound_key_in_mode
+    bindcode 20 $unbound_key_in_mode
+    bindcode 21 $unbound_key_in_mode
+    # Backspace
+    bindcode 22 $unbound_key_in_mode
+    # Tab
+    bindcode 23 $unbound_key_in_mode
+    # bindcode 24 $unbound_key_in_mode
+    bindcode 25 $unbound_key_in_mode
+    bindcode 26 $unbound_key_in_mode
+    # bindcode 27 $unbound_key_in_mode
+    bindcode 28 $unbound_key_in_mode
+    bindcode 29 $unbound_key_in_mode
+    bindcode 30 $unbound_key_in_mode
+    bindcode 31 $unbound_key_in_mode
+    bindcode 32 $unbound_key_in_mode
+    bindcode 33 $unbound_key_in_mode
+    bindcode 34 $unbound_key_in_mode
+    bindcode 35 $unbound_key_in_mode
+    # # Return
+    # bindcode 36 $unbound_key_in_mode
+    # Control_L
+    # bindcode 37 $unbound_key_in_mode
+    bindcode 38 $unbound_key_in_mode
+    bindcode 39 $unbound_key_in_mode
+    bindcode 40 $unbound_key_in_mode
+    bindcode 41 $unbound_key_in_mode
+    bindcode 42 $unbound_key_in_mode
+    bindcode 43 $unbound_key_in_mode
+    bindcode 44 $unbound_key_in_mode
+    bindcode 45 $unbound_key_in_mode
+    bindcode 46 $unbound_key_in_mode
+    bindcode 47 $unbound_key_in_mode
+    bindcode 48 $unbound_key_in_mode
+    bindcode 49 $unbound_key_in_mode
+    # # Shift_L
+    # bindcode 50 $unbound_key_in_mode
+    bindcode 51 $unbound_key_in_mode
+    bindcode 52 $unbound_key_in_mode
+    bindcode 53 $unbound_key_in_mode
+    # bindcode 54 $unbound_key_in_mode
+    bindcode 55 $unbound_key_in_mode
+    bindcode 56 $unbound_key_in_mode
+    bindcode 57 $unbound_key_in_mode
+    bindcode 58 $unbound_key_in_mode
+    bindcode 59 $unbound_key_in_mode
+    bindcode 60 $unbound_key_in_mode
+    bindcode 61 $unbound_key_in_mode
+    # # Shift_R
+    # bindcode 62 $unbound_key_in_mode
+    bindcode 63 $unbound_key_in_mode
+    # Alt_L
+    bindcode 64 $unbound_key_in_mode
+    # Space
+    bindcode 65 $unbound_key_in_mode
+    bindcode 66 $unbound_key_in_mode
+    bindcode 67 $unbound_key_in_mode
+    bindcode 68 $unbound_key_in_mode
+    bindcode 69 $unbound_key_in_mode
+    bindcode 70 $unbound_key_in_mode
+    # Control_R
+    # bindcode 105 $unbound_key_in_mode
+    # Alt_R
+    bindcode 108 $unbound_key_in_mode
+    # Super_L
+    bindcode 133 $unbound_key_in_mode
+    # Super_R
+    bindcode 134 $unbound_key_in_mode
+    # }}} Disable unused keys by default #
+}
+
+bindsym $mod+Shift+space mode "System"
+
+################################################################################
+#                                Launching apps                                #
+################################################################################
+
+# NOTE: Startup apps have been moved to .xsession and systemd user services.
+
+# Launch a command
+# Key: D
+bindcode $mod+40 exec rofi -show run -no-sort
+
+# Launch desktop apps
+# Key: Shift+D
+bindcode $mod+Shift+40 exec rofi -show drun -no-sort
+
+# Start a terminal with tmux
+# Key: Enter
+bindsym $mod+Return exec sensible-terminal -- tmux-main-or-zsh
+
+# Start a terminal with a shell
+# Key: Shift+Enter
+bindsym $mod+Shift+Return exec sensible-terminal
+
+# Toggle scratchpad terminal
+# # Key: T
+# NOTE: I'm disabling this till I figure out if I actually need to
+# launch terminals this way.
+# bindcode $mod+28 fullscreen disable, focus parent, focus parent, focus parent, split vertical, exec guake
+
+# Open rofi clipboard manager
+# Key: C
+bindcode $mod+54 exec rofi-clipboard
+# Open Copyq clipboard manager
+# Key: Shift+C
+bindcode $mod+shift+54 fullscreen disable, exec copyq toggle && i3-msg '[class="copyq"] move position center'
+
+mode "Launcher" {
+    set $focus_or_invoke mode "default", fullscreen disable, exec --no-startup-id i3-focus-or-invoke --instance
+    set $launcher_exec_cli mode "default", fullscreen disable, exec --no-startup-id
+    # These bindings trigger as soon as you enter the launcher mode
+
+    # Launch a Google Search.
+    # NOTE: launcher_exec_cli not used since rofi can run with fullscreen.
+    bindsym space $exec_cli rofi-google, mode "default"
+
+    # Terminal: j
+    # t is a better mnemonic but j is much easier to press
+    bindcode 44 mode "default", fullscreen disable, focus parent, focus parent, focus parent, split vertical, exec sensible-terminal
+    # Gmail: m
+    bindcode 58 $focus_or_invoke "gmail.com" gmail
+    # Outlook mail: M
+    bindcode Shift+58 $focus_or_invoke "outlook.office.com__mail" office365-outlook-mail
+    # Google Calendar: c
+    bindcode 54 $focus_or_invoke "calendar.google" google-calendar
+    # Outlook mail: C
+    bindcode Shift+54 $focus_or_invoke "outlook.office.com__calendar" office365-outlook-calendar
+    # Hangouts: h
+    # bindcode 43 $focus_or_invoke "hangouts.google" hangouts
+    # Trello / task manager: t
+    bindcode 28 $focus_or_invoke "trello" trello
+    # Reminders (Ticktick): r
+    bindcode 27 $focus_or_invoke "ticktick" ticktick
+    # Google Keep (notes): n
+    bindcode 57 $focus_or_invoke "keep.google" google-keep
+    # # Toggl / Time tracker: Shift+t
+    # bindcode Shift+28 $focus_or_invoke "toggl" toggl
+    # Whatsapp: w
+    bindcode 25 $focus_or_invoke "web.whatsapp.com" whatsapp
+    # Whatsapp: Shift+w
+    bindcode Shift+25 $focus_or_invoke "messenger.com" facebook-messenger
+    # Glances: g
+    bindcode 42 $focus_or_invoke "glances" sensible-terminal --window-name "scratchpad-glances" -- glances 
+    # # Grammar: g
+    # bindcode 42 $focus_or_invoke "writefull" /usr/local/writefull/Writefull_3beta
+    # Dev docs: d
+    bindcode 40 $focus_or_invoke "devdocs" devdocs
+    # Kill processes: k
+    bindcode 45 $launcher_exec_cli sensible-terminal --window-name 'kill-processes-terminal' -- kill-processes
+    # Find files (partial dirs only, always fresh but may be slow): f
+    bindcode 41 $launcher_exec_cli sensible-terminal --window-name 'find-file-terminal' -- find-file
+    # Find files (all files in the , but stale): F
+    bindcode Shift+41 $launcher_exec_cli sensible-terminal --window-name 'locate-file-terminal' -- locate-file
+    # Explore files: e
+    bindcode 26 $launcher_exec_cli file-manager
+    # Vim editing from anywhere: v
+    bindcode 55 $launcher_exec_cli vim-anywhere
+    # Vim markdown editing from anywhere (mostly for emails): Shift+v
+    bindcode Shift+55 $launcher_exec_cli vim-anywhere-markdown
+    # Password manager: p
+    # NOTE: launcher_exec_cli not used since rofi can run with fullscreen.
+    bindcode 33 mode "default", $exec_cli rofi-lastpass
+
+    # Back to normal: Escape
+    bindsym Escape mode "default"
+
+    # Disable unused keys by default {{{ #
+    bindcode 10 $unbound_key_in_mode
+    bindcode 11 $unbound_key_in_mode
+    bindcode 12 $unbound_key_in_mode
+    bindcode 13 $unbound_key_in_mode
+    bindcode 14 $unbound_key_in_mode
+    bindcode 15 $unbound_key_in_mode
+    bindcode 16 $unbound_key_in_mode
+    bindcode 17 $unbound_key_in_mode
+    bindcode 18 $unbound_key_in_mode
+    bindcode 19 $unbound_key_in_mode
+    bindcode 20 $unbound_key_in_mode
+    bindcode 21 $unbound_key_in_mode
+    # Backspace
+    bindcode 22 $unbound_key_in_mode
+    # Tab
+    bindcode 23 $unbound_key_in_mode
+    bindcode 24 $unbound_key_in_mode
+    # bindcode 25 $unbound_key_in_mode
+    # bindcode 26 $unbound_key_in_mode
+    bindcode 27 $unbound_key_in_mode
+    # bindcode 28 $unbound_key_in_mode
+    bindcode 29 $unbound_key_in_mode
+    bindcode 30 $unbound_key_in_mode
+    bindcode 31 $unbound_key_in_mode
+    bindcode 32 $unbound_key_in_mode
+    # bindcode 33 $unbound_key_in_mode
+    bindcode 34 $unbound_key_in_mode
+    bindcode 35 $unbound_key_in_mode
+    # Return
+    bindcode 36 $unbound_key_in_mode
+    # Control_L
+    bindcode 37 $unbound_key_in_mode
+    bindcode 38 $unbound_key_in_mode
+    bindcode 39 $unbound_key_in_mode
+    # bindcode 40 $unbound_key_in_mode
+    # bindcode 41 $unbound_key_in_mode
+    # bindcode 42 $unbound_key_in_mode
+    # bindcode 43 $unbound_key_in_mode
+    # bindcode 44 $unbound_key_in_mode
+    # bindcode 45 $unbound_key_in_mode
+    bindcode 46 $unbound_key_in_mode
+    bindcode 47 $unbound_key_in_mode
+    bindcode 48 $unbound_key_in_mode
+    bindcode 49 $unbound_key_in_mode
+    # Shift_L
+    # bindsym 50 $unbound_key_in_mode
+    bindcode 51 $unbound_key_in_mode
+    bindcode 52 $unbound_key_in_mode
+    bindcode 53 $unbound_key_in_mode
+    # bindcode 54 $unbound_key_in_mode
+    # bindcode 55 $unbound_key_in_mode
+    bindcode 56 $unbound_key_in_mode
+    bindcode 57 $unbound_key_in_mode
+    # bindcode 58 $unbound_key_in_mode
+    bindcode 59 $unbound_key_in_mode
+    bindcode 60 $unbound_key_in_mode
+    bindcode 61 $unbound_key_in_mode
+    # Shift_R
+    # bindcode 62 $unbound_key_in_mode
+    bindcode 63 $unbound_key_in_mode
+    # Alt_L
+    bindcode 64 $unbound_key_in_mode
+    # Space
+    # bindcode 65 $unbound_key_in_mode
+    bindcode 66 $unbound_key_in_mode
+    bindcode 67 $unbound_key_in_mode
+    bindcode 68 $unbound_key_in_mode
+    bindcode 69 $unbound_key_in_mode
+    bindcode 70 $unbound_key_in_mode
+    # Control_R
+    bindcode 105 $unbound_key_in_mode
+    # Alt_R
+    bindcode 108 $unbound_key_in_mode
+    # Super_L
+    bindcode 133 $unbound_key_in_mode
+    # Super_R
+    bindcode 134 $unbound_key_in_mode
+    # }}} Disable unused keys by default #
+}
+
+bindsym $mod+space mode "Launcher"
+
+################################################################################
+#                               Specific windows                               #
+################################################################################
+
+for_window [instance=".*-file-terminal"] floating enable
+for_window [instance="vim-anywhere$"] floating enable
+for_window [instance="kill-processes-terminal"] floating enable
+for_window [instance="chrome_app_list"] floating enable
+for_window [instance=".*bus-ui-gtk3.*"] floating enable
+for_window [instance="lpass-login"] floating enable
+for_window [instance="scratchpad-glances"] floating enable
+for_window [class="[Cc]opyq"] floating enable
+for_window [title="VLSub.*"] floating enable
+for_window [title="USB Device Inserted"] floating enable
+for_window [class="Writefull"] floating enable
+for_window [class="Cerebro"] floating enable
+for_window [title="Remmina Remote Desktop Client"] floating enable
+# JabRef popup windows start tiled, so this makes them floating. Unfortunately,
+# this also makes the main window floating (which I then need to manually tile).
+# I can't use the instance name to differentiate these windows because
+# apparently all the windows start with a generic instance name of "JabRef",
+# which is updated only after some time, at which point i3 no longer applies
+# these settings.
+for_window [class="org.jabref.JabRefMain"] floating enable
+# Pomello chrome app
+for_window [instance="crx_ahjnfakocpfoocnncbgmondnnnlfjide"] floating enable, border pixel 5
+# Pushbullet chrome app
+# for_window [instance="crx_chlffgpmiacpedhhbkiomidkjlcfhogd"] floating enable, move position center
+# Translation chrome app
+for_window [instance="crx_ihmgiclibbndffejedjimfjmfoabpcke"] floating enable, move position center
+# Tabs outliner
+for_window [instance="crx_eggkanocgddhmamlbiijnphhppkpkmkl"] floating enable, move position center
+# QuicKey popup window
+for_window [instance="crx_mdcofofdjbcoebhcmkmlheldobindagi"] floating enable, move position center
+for_window [instance="guake"] border pixel 5
+
+################################################################################
+#                                 Resize mode                                  #
+################################################################################
+
+# Resize window (you can also use the mouse for that)
+mode "Resize" {
+    set $exec_i3_resize exec --no-startup-id conda-run base_i3 ~/.my_scripts/i3/i3-resize-container
+
+    # Key: J
+    bindcode 44 resize shrink width 5 px or 5 ppt
+    bindcode Shift+44 $exec_i3_resize dec w
+    # Key: K
+    bindcode 45 resize grow height 5 px or 5 ppt
+    bindcode Shift+45 $exec_i3_resize inc h
+    # Key: I
+    bindcode 31 resize shrink height 5 px or 5 ppt
+    bindcode Shift+31 $exec_i3_resize dec h
+    # Key: L
+    bindcode 46 resize grow width 5 px or 5 ppt
+    bindcode Shift+46 $exec_i3_resize inc w
+
+    # Same bindings, but for the arrow keys
+    bindsym Left resize shrink width 5 px or 5 ppt
+    bindsym Shift+Left $exec_i3_resize dec w
+    bindsym Down resize grow height 5 px or 5 ppt
+    bindsym Shift+Down $exec_i3_resize inc h
+    bindsym Up resize shrink height 5 px or 5 ppt
+    bindsym Shift+Up $exec_i3_resize dec h
+    bindsym Right resize grow width 5 px or 5 ppt
+    bindsym Shift+Right $exec_i3_resize inc w
+
+    # Center the container (if it's floating)
+    # Key: C
+    bindcode 54 move position center
+
+    # Back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+
+    # Disable unused keys by default {{{ #
+    bindcode 10 $unbound_key_in_mode
+    bindcode 11 $unbound_key_in_mode
+    bindcode 12 $unbound_key_in_mode
+    bindcode 13 $unbound_key_in_mode
+    bindcode 14 $unbound_key_in_mode
+    bindcode 15 $unbound_key_in_mode
+    bindcode 16 $unbound_key_in_mode
+    bindcode 17 $unbound_key_in_mode
+    bindcode 18 $unbound_key_in_mode
+    bindcode 19 $unbound_key_in_mode
+    bindcode 20 $unbound_key_in_mode
+    bindcode 21 $unbound_key_in_mode
+    # Backspace
+    bindcode 22 $unbound_key_in_mode
+    # Tab
+    bindcode 23 $unbound_key_in_mode
+    bindcode 24 $unbound_key_in_mode
+    bindcode 25 $unbound_key_in_mode
+    bindcode 26 $unbound_key_in_mode
+    bindcode 27 $unbound_key_in_mode
+    bindcode 28 $unbound_key_in_mode
+    bindcode 29 $unbound_key_in_mode
+    bindcode 30 $unbound_key_in_mode
+    # bindcode 31 $unbound_key_in_mode
+    bindcode 32 $unbound_key_in_mode
+    bindcode 33 $unbound_key_in_mode
+    bindcode 34 $unbound_key_in_mode
+    bindcode 35 $unbound_key_in_mode
+    # # Return
+    # bindcode 36 $unbound_key_in_mode
+    # Control_L
+    bindcode 37 $unbound_key_in_mode
+    bindcode 38 $unbound_key_in_mode
+    bindcode 39 $unbound_key_in_mode
+    bindcode 40 $unbound_key_in_mode
+    bindcode 41 $unbound_key_in_mode
+    bindcode 42 $unbound_key_in_mode
+    bindcode 43 $unbound_key_in_mode
+    # bindcode 44 $unbound_key_in_mode
+    # bindcode 45 $unbound_key_in_mode
+    # bindcode 46 $unbound_key_in_mode
+    bindcode 47 $unbound_key_in_mode
+    bindcode 48 $unbound_key_in_mode
+    bindcode 49 $unbound_key_in_mode
+    # Shift_L
+    # bindcode 50 $unbound_key_in_mode
+    bindcode 51 $unbound_key_in_mode
+    bindcode 52 $unbound_key_in_mode
+    bindcode 53 $unbound_key_in_mode
+    # bindcode 54 $unbound_key_in_mode
+    bindcode 55 $unbound_key_in_mode
+    bindcode 56 $unbound_key_in_mode
+    bindcode 57 $unbound_key_in_mode
+    bindcode 58 $unbound_key_in_mode
+    bindcode 59 $unbound_key_in_mode
+    bindcode 60 $unbound_key_in_mode
+    bindcode 61 $unbound_key_in_mode
+    # Shift_R
+    # bindcode 62 $unbound_key_in_mode
+    bindcode 63 $unbound_key_in_mode
+    # Alt_L
+    bindcode 64 $unbound_key_in_mode
+    # Space
+    bindcode 65 $unbound_key_in_mode
+    bindcode 66 $unbound_key_in_mode
+    bindcode 67 $unbound_key_in_mode
+    bindcode 68 $unbound_key_in_mode
+    bindcode 69 $unbound_key_in_mode
+    bindcode 70 $unbound_key_in_mode
+    # Control_R
+    bindcode 105 $unbound_key_in_mode
+    # Alt_R
+    bindcode 108 $unbound_key_in_mode
+    # Super_L
+    bindcode 133 $unbound_key_in_mode
+    # Super_R
+    bindcode 134 $unbound_key_in_mode
+    # }}} Disable unused keys by default #
+}
+
+# Key: R
+bindcode $mod+27 mode "Resize"
+
+################################################################################
+#                               Multimedia keys                                #
+################################################################################
+
+# Pulse Audio controls
+# I used to change the volume by percentage (i.e `+5%`), but that was too coarse
+# when I was in low volume levels. For example, if the volume is 15%, a
+# reduction to 10% is too big for a single keypress. Therefore, I switched to
+# using db, which work better in this regard.
+bindsym XF86AudioRaiseVolume $exec_cli pactl set-sink-volume @DEFAULT_SINK@ +3db && killall --quiet -SIGUSR1 i3status
+bindsym XF86AudioLowerVolume $exec_cli pactl set-sink-volume @DEFAULT_SINK@ -3db && killall --quiet -SIGUSR1 i3status
+bindsym XF86AudioMute $exec_cli pactl set-sink-mute @DEFAULT_SINK@ toggle && killall -SIGUSR1 i3status
+# Media player controls
+bindsym XF86AudioPlay $exec_cli playerctl play
+bindsym XF86AudioPause $exec_cli playerctl pause
+bindsym XF86AudioNext $exec_cli playerctl next
+bindsym XF86AudioPrev $exec_cli playerctl previous
+# Screen brightness
+# bindsym XF86MonBrightnessUp $exec_cli light -A 10
+# bindsym XF86MonBrightnessDown $exec_cli light -U 10
+bindsym XF86MonBrightnessUp $exec_cli xbacklight -inc 10
+bindsym XF86MonBrightnessDown $exec_cli xbacklight -dec 10
+
+################################################################################
+#                                  Appearance                                  #
+################################################################################
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Sans 8
+
+# Keep these colors in sync with Polybar and the GTK and QT themes.
+set $bg     #222222
+set $bg_alt #444444
+set $fg     #cccccc
+set $fg_alt #666666
+set $alert  #dc322f
+set $focus  #0088cc
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+# NOTE: As of 2018-12-14, I'm using polybar instead of i3bar.
+# bar {
+#     status_command ~/.config/i3/i3-status-ikl
+#     position top
+#     strip_workspace_numbers yes
+#     font pango:Sans 10
+#     # button4 is "scroll wheel up"
+#     bindsym button4 nop
+#     # button5 is "scroll wheel down"
+#     bindsym button5 nop
+#     colors {
+#         separator  $bg_alt
+#         background $bg
+#         statusline $fg
+#         # class             border  bg      text
+#         focused_workspace   $focus  $focus  $fg
+#         active_workspace    $bg     $bg     $fg
+#         inactive_workspace  $bg     $bg     $fg_alt
+#         urgent_workspace    $bg     $alert  $fg
+#     }
+#     # tray_output none
+#     # mode invisible
+# }
+
+# class                 border  bg      text    indicator child_border
+client.focused          $focus  $focus  $fg     $bg_alt   $focus
+client.focused_inactive $bg     $bg     $fg     $bg_alt   $bg
+client.unfocused        $bg     $bg     $fg     $bg_alt   $bg
+client.urgent           $bg     $alert  $fg     $alert    $bg
+
+# Open new windows with a thin border.
+default_border pixel 1
+default_floating_border pixel 3
+
+# NOTE: Double quotes are important so that the environment variable expands.
+$exec_always_cli "systemctl --user restart polybar@i3-${HOST_ALIAS:-generic}"
+
+$exec_always_cli "systemctl --user start i3-track-last"
+
+# As of 2020-08-10, this is pulled by the i3wm.service unit.
+# $exec_always_cli systemctl --user restart i3-autoname-workspaces
+
+$exec_cli bash -c 'sleep 10 && ~/.my_scripts/i3/i3-resurrect-wrapper restore'
+
+# vim: set ft=conf :

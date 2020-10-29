@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_ORDERED_TERMINALS=(kitty gnome-terminal termite xterm st urxvt)
+
+declare -g window_name window_class
+declare -g cmd=()
+
+_print_usage() {
+  echo 'Usage: sensible-terminal [OPTION VALUE]*
+Options:
+    --window-name      windows name part of the WM_CLASS property
+    --window-class     windows class part of the WM_CLASS property
+    --command          command to run'
+}
+
+_print_error() {
+  printf >&2 '%s\n' "$*"
+}
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_quote_command_args() {
+  local cmd
+  for arg in "$@"; do
+    cmd+=("$(printf '%q' "${arg}")")
+  done
+  printf '%s\n' "${cmd[*]}"
+}
+
+# TODO: Parse the string into command arguments while respecting quotes.
+_set_cmd_from_string() {
+  cmd=(bash -c "exec -- $1")
+}
+
+_parse_args() {
+  while (($# > 0)); do
+    case "$1" in
+      --command)
+        _set_cmd_from_string "$2"
+        shift 2
+        ;;
+      --)
+        shift
+        cmd+=("$@")
+        break
+        ;;
+      --window-name)
+        window_name="$2"
+        shift 2
+        ;;
+      --window-class)
+        window_class="$2"
+        shift 2
+        ;;
+      *)
+        _print_error "Unknown option: $1"
+        _print_usage
+        exit 1
+        ;;
+    esac
+  done
+}
+
+_run_kitty() {
+  local -a terminal_cmd=(kitty)
+  if [[ -n ${window_name-} ]]; then
+    terminal_cmd+=('--name' "${window_name}")
+  fi
+  if [[ -n ${window_class-} ]]; then
+    terminal_cmd+=('--class' "${window_class}")
+  fi
+  if [[ -n ${cmd-} ]]; then
+    terminal_cmd+=("${cmd[@]}")
+  fi
+  exec "${terminal_cmd[@]}"
+}
+
+_run_gnome-terminal() {
+  local -a terminal_cmd=(gnome-terminal --wait)
+  if [[ -n ${window_name-} ]]; then
+    terminal_cmd+=('--name' "${window_name}")
+  fi
+  if [[ -n ${window_class-} ]]; then
+    terminal_cmd+=('--class' "${window_class}")
+  fi
+  if [[ -n ${cmd-} ]]; then
+    terminal_cmd+=(-- "${cmd[@]}")
+  fi
+  exec "${terminal_cmd[@]}"
+}
+
+_run_termite() {
+  local -a terminal_cmd=(termite)
+  terminal_cmd=(termite)
+  if [[ -n ${cmd-} ]]; then
+    terminal_cmd+=("--exec=$(_quote_command_args "${cmd[@]}")")
+  fi
+  if [[ -n ${window_name-} ]]; then
+    terminal_cmd+=("--name=${window_name}")
+  fi
+  if [[ -n ${window_class-} ]]; then
+    terminal_cmd+=("--class=${window_class}")
+  fi
+  exec "${terminal_cmd[@]}"
+}
+
+_run_xterm() {
+  local -a terminal_cmd=(xterm)
+  if [[ -n ${window_class-} ]]; then
+    terminal_cmd+=(-class "${window_class}")
+  fi
+  if [[ -n ${window_name-} ]]; then
+    terminal_cmd+=(-name "${window_name}")
+  fi
+  # Must be the last option on the cmd line.
+  if [[ -n ${cmd-} ]]; then
+    terminal_cmd+=(-e "${cmd[@]}")
+  fi
+  exec "${terminal_cmd[@]}"
+}
+
+_run_terminator() {
+  local -a terminal_cmd=(terminator)
+  # NOTE: Because of bug in terminator, setting the window class doesn't work.
+  # See also: https://bugs.launchpad.net/terminator/+bug/1695793
+  # if [[ -n ${window_class-} ]]; then
+  #   terminal_cmd+=("--classname=${window_class}")
+  # fi
+  # Must be the last option on the cmd line.
+  if [[ -n ${cmd-} ]]; then
+    terminal_cmd+=("--command=$(_quote_command_args "${cmd[@]}")")
+  fi
+  exec "${terminal_cmd[@]}"
+}
+
+main() {
+  _parse_args "$@"
+
+  for terminal in "${_ORDERED_TERMINALS[@]}"; do
+    if _command_exists "${terminal}"; then
+      eval "_run_${terminal}"
+      exit $?
+    fi
+  done
+}
+
+main "$@"

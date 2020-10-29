@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# NOTE(infokiller): This script MUST NOT depend on any script other than
+# get-wrapped-binary-command, because other scripts may transitively depend on
+# git, which can cause an infinite recursion.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+
+gpg-connect-agent updatestartuptty /bye &> /dev/null
+mapfile -t COMMAND < <(get-wrapped-binary-command "${DIR}/git")
+exec -- "${COMMAND[@]}" "$@"

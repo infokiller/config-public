@@ -1,0 +1,47 @@
+global !p
+from ultisnips_util import get_ale_lint_codes
+endglobal
+
+snippet ifn "if with round braces" b
+if ((${1:condition})); then
+  ${0:${VISUAL}}
+fi
+endsnippet
+
+snippet ifc "if with command" b
+if ${1:command}; then
+  ${0:${VISUAL}}
+fi
+endsnippet
+
+snippet ifv "if with variable assigned from command" b
+if ${1:var}=${2:command}; then
+  ${0:${VISUAL}}
+fi
+endsnippet
+
+snippet "fun|f" "function" rb
+${1:fname}() {
+  ${0:${VISUAL::}}
+}
+endsnippet
+
+snippet rr "repo root setting" b
+readonly REPO_ROOT="\$([[ \$\{CONFIG_GET_ROOT:-0\} == 1 ]] && config-repo-root "\$\{BASH_SOURCE[0]\}" || echo "\$\{HOME\}")"
+
+endsnippet
+
+snippet h "shell scripts template header" b
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+readonly REPO_ROOT="\$([[ \$\{CONFIG_GET_ROOT:-0\} == 1 ]] && config-repo-root "\$\{BASH_SOURCE[0]\}" || echo "\$\{HOME\}")"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+endsnippet
+
+snippet "shellcheck-disable|dl" "shellcheck: disable=...' marker" rb
+# shellcheck disable=${1:`!p snip.rv = ','.join(get_ale_lint_codes('shellcheck'))`}
+endsnippet

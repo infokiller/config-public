@@ -1,0 +1,225 @@
+[include]
+	path = config_private
+
+[core]
+	pager = "delta 2> /dev/null || { { { diff-so-fancy || cat ; } 2> /dev/null ; } | less --tabs=4 -RFX -- ; }"
+	excludesFile = ~/.config/git/ignore
+	hooksPath = ~/.config/git/hooks
+	# Don't convert line endings when checking out files. See also:
+	# https://help.github.com/en/articles/configuring-git-to-handle-line-endings
+	autocrlf = input
+	# Warn me if a line ending conversion is irreversible. Currently has no effect
+	# because of the autocrlf setting, but a good default.
+	safecrlf = warn
+
+[status]
+	# Show summary of changes to submodules. See also:
+	# https://git-scm.com/book/en/v2/Git-Tools-Submodules
+	submoduleSummary = true
+	showStash = true
+
+[diff]
+	tool = vimdiff
+	# Show more informative diff for submodules. See also:
+	# https://git-scm.com/book/en/v2/Git-Tools-Submodules
+	submodule = log
+	# Detect both renames and copies.
+	renames = copies
+	# "histogram" should provide a good combination of time and diff optimality.
+	# See also: https://news.ycombinator.com/item?id=11071410
+	algorithm = histogram
+  # Try to break up diffs at blank lines, so you don't get those brackets
+  # floating away. Already the default in newer git versions.
+  indentHeuristic = true
+	# Enable special coloring of moved lines.
+	colorMoved = default
+	# EXP: Remove a/ and b/ on filenames in diffs. There is already a +++
+	# and --- in front, so it adds nothing.
+  noprefix = true
+[difftool]
+	prompt = false
+[interactive]
+	# The echo before diff-so-fancy is mandatory, see:
+	# https://github.com/so-fancy/diff-so-fancy/issues/35#issuecomment-555778997
+  diffFilter = "{ delta --color-only 2> /dev/null || { { command -v diff-so-fancy > /dev/null ; } && echo && diff-so-fancy; } || cat ; }"
+[merge]
+	# Show the original hunk when there are merge conflicts.
+	conflictstyle = diff3
+	autoStash = true
+[mergetool]
+	prompt = false
+# https://nbdime.readthedocs.io/en/latest/vcs.html#git-integration
+[diff "jupyternotebook"]
+	command = git-nbdiffdriver diff
+[merge "jupyternotebook"]
+	driver = git-nbmergedriver merge %O %A %B %L %P
+	name = jupyter notebook merge driver
+[difftool "nbdime"]
+	cmd = git-nbdifftool diff \"$LOCAL\" \"$REMOTE\" \"$BASE\"
+[mergetool "nbdime"]
+	cmd = git-nbmergetool merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+
+[rebase]
+	autoStash = true
+
+[pull]
+	# EXP: use ff-only merges by default (can override per invocation).
+	ff = only
+	# Merge by default. This is git's default value, but without it git 2.27 or
+	# later warns about not using an explicit reconcile strategy when pulling.
+	# rebase = false
+
+[log]
+	# Use `--follow` by default when invoking `git log` on a single path.
+	follow = true
+	# Set default format.
+	date = format:%Y-%m-%d %H:%M
+
+[pretty]
+	# Aliases for my custom git-log formats.
+	myshort = %C(yellow)%h%C(reset) %C(green)%ad%C(red)%d %C(reset)%s%C(blue) [%cn]
+	mymedium = %C(yellow)%h%C(reset) %C(green)%ad %C(blue)%cn%C(red)%d%n%C(bold)%s%n
+
+[format]
+	# Use "myshort" format by default.
+	pretty = myshort
+
+[push]
+	# Before pushing the superproject, check that the commits of submodules are
+	# pushed to their remotes (otherwise, cloning this repo will probably fail).
+	# See also: https://git-scm.com/book/en/v2/Git-Tools-Submodules
+	recurseSubmodules = check
+	# Automatically set upstream branch. See also:
+	# https://stackoverflow.com/a/22933955/1014208
+	default = current
+	# Push annotated tags by default. Unfortunately, there's no equivalent option
+	# for lightweight tags since they seem to be designated as private/temporary
+	# labels.
+	followTags = true
+
+[credential]
+	helper = cache --timeout=86400
+
+[submodule]
+	# Use a "reasonable default" for the number of submodules that are
+	# fetched/cloned in parallel.
+	fetchJobs = 0
+
+[grep]
+	extendedRegexp = true
+
+[rerere]
+	# Activate recording of resolved conflicts, so that identical conflict hunks
+	# can be resolved automatically, should they be encountered again.
+  enabled = true
+	# If rerere resolved a conflict, stage it.
+  autoupdate = true
+
+[transfer]
+	fsckobjects = true
+[fetch]
+	fsckobjects = true
+[receive]
+	fsckObjects = true
+
+# https://github.com/dandavison/delta
+# Disable syntax highlighting in delta as I find it distracting.
+[delta]
+	# https://github.com/dandavison/delta#navigation-keybindings-for-large-diffs
+	# As of 2020-09-02, this is disabled because it has some issues, see:
+	# https://github.com/dandavison/delta/issues/310
+	# navigate = true
+	# As of 2020-09-02, hyperlinks cause a display issue and seem to require
+	# patched versions of tmux and less.
+	# hyperlinks = true
+	# Disable syntax highlighting in delta as I find it distracting.
+	syntax-theme = none
+	# syntax-theme = MySolarizedDark
+	diff-so-fancy = true
+	# As of 2020-09-02, side-by-side output doesn't look right:
+	# https://github.com/dandavison/delta/issues/308
+	# features = side-by-side
+
+[delta "side-by-side"]
+	side-by-side = true
+	line-numbers-left-format = ""
+	line-numbers-right-format = "│ "
+
+# NOTE: options containing hashes must be double quoted (not single quoted) so
+# that they're not interpreted as gitconfig comments.
+[delta "my-diff-so-fancy"]
+	minus-style = "normal #400000"
+	minus-emph-style = "normal #a00000"
+	plus-style = "normal #004000"
+	plus-emph-style = "normal #009000"
+	hunk-style = yellow
+	commit-style = box
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
+[color "diff"]
+	old = red bold
+	new = green bold
+	frag = magenta bold
+	commit = yellow bold
+	whitespace = red reverse
+	# Better separation of the filename and unchanged lines, which by default are
+	# both colored in white.
+	meta = 227
+
+# When authentication is needed, SSH is usually easier to use than HTTPS if the
+# key is in the SSH agent, since it only requires the SSH key password, and not
+# the account password. However, when no authentication is needed (for example,
+# for public repos), HTTPS is simpler and safer, since SSH will always use the
+# private key.
+# This configures SSH to be used automatically for any Github and GitLab push,
+# and for any GitLab pull from my account (which manages some private repos).
+[url "git@github.com:"]
+	pushInsteadOf = https://github.com/
+[url "ssh://git@gitlab.com/"]
+	pushInsteadOf = https://gitlab.com/
+[url "ssh://git@gitlab.com/infokiller/"]
+	insteadOf = https://gitlab.com/infokiller/
+
+# https://www.overleaf.com/blog/195-new-collaborate-online-and-offline-with-overleaf-and-git-beta
+[url "https://git.overleaf.com/"]
+	insteadOf = https://www.overleaf.com/project/
+	
+[advice]
+	addIgnoredFile = false
+
+[blacklist-hook]
+	# One of error, warning, or skip.
+	mode = error
+
+[secret-detection-hook]
+	# One of error, warning, or skip.
+	mode = error
+
+# NOTE: As of 2020-02-12, I disabled automatic PR fetching because it can
+# pollute the git references, which can add too much noise to some
+# autocompletions. If I need to fetch PRs I can use `git-fetch-prs`.
+# Automatically fetch pull and merge requests for Github and Gitlab. See also:
+# - https://github.com/tiimgreen/github-cheat-sheet#checking-out-pull-requests
+# - https://docs.gitlab.com/ee/user/project/merge_requests/#checkout-merge-requests-locally 
+# [remote "origin"]
+# 	# NOTE: As of 2020-02-12, I can't reproduce the activitywatch issue described
+# 	# below..
+# 	# Commented out because it causes the error "multiple updates for ref" when
+# 	# building activitywatch. See also: https://apple.stackexchange.com/a/352666.
+# 	fetch = +refs/heads/*:refs/remotes/origin/*
+# 	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+# 	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*
+
+# NOTE: As of 2020-02-12, this is disabled because it creates an invalid
+# upstream remote for every repo (it's invalid because there's no URL
+# specified).
+# [remote "upstream"]
+# 	# See comment above.
+# 	# fetch = +refs/heads/*:refs/remotes/origin/*
+# 	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
+# 	fetch = +refs/merge-requests/*/head:refs/remotes/origin/merge-requests/*

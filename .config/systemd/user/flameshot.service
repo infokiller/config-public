@@ -1,0 +1,15 @@
+[Unit]
+Description=Start Flaemshot screenshot tool
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=flameshot
+Restart=on-failure
+# Flameshot will exit with an error code of 143 when killed with SIGTERM, which
+# is the default systemd kill action. This will make systemd think that the
+# process failed, so we use SuccessExitStatus to suppress it.
+SuccessExitStatus=143
+RestartSec=10

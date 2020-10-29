@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# Adds the ability to exclude syslog identifiers from journalctl, which is not
+# supported as of 2019-05-18. See also: https://superuser.com/a/1198522
+
+_print_usage_and_die() {
+  printf >&2 'Usage: %s [--journalctl-options <options>] [--exclude <identifiers>]
+  Where <options> are space delimited options to pass to journalctl and
+  <identifiers> are space delimited syslog identifiers to exclude\n' "$0"
+  exit 1
+}
+
+main() {
+  local journalctl_options=()
+  local exclude=()
+
+  while (($# > 0)); do
+    case "$1" in
+      --journalctl-options)
+        IFS=' ' read -r -a journalctl_options <<< "$2"
+        shift 2
+        ;;
+      --exclude)
+        IFS=' ' read -r -a exclude <<< "$2"
+        shift 2
+        ;;
+      *)
+        _print_usage_and_die
+        ;;
+    esac
+  done
+
+  # Join the exclude identifiers with commas and quote them. For example, if
+  # exclude is (a b c), exclude_str should be '"a","b","c"'.
+  local exclude_str
+  if [[ -n ${exclude[*]} ]]; then
+    exclude_str="$(printf ',"%s"' "${exclude[@]}")"
+    exclude_str=${exclude_str:1}
+  fi
+  # shellcheck disable=SC2016
+  local jq_filter='[.SYSLOG_IDENTIFIER, ._COMM] as [$id1, $id2] | 
+      (if $id1 then $id1 else $id2 end) as $id |
+      select([$id] | inside (['"${exclude_str}"']) | not) |
+      select(.MESSAGE|type=="string") |
+      (.__REALTIME_TIMESTAMP | tonumber | . / (1000*1000) | strflocaltime("%b %d %H:%M:%S")) as $t |
+      "\($t) \($id): \(.MESSAGE)"'
+  journalctl --output=json --output-fields=SYSLOG_IDENTIFIER,_COMM,MESSAGE \
+    "${journalctl_options[@]}" | jq --raw-output "${jq_filter}"
+}
+
+main "$@"

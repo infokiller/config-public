@@ -1,0 +1,30 @@
+{
+    // Code Cell Configuration
+    // The configuration for all code cells.
+    "codeCellConfig": {
+        "autoClosingBrackets": true,
+        "fontFamily": "MyMono",
+        "rulers": [80],
+        "codeFolding": true
+    },
+        
+    // Markdown Cell Configuration
+    // The configuration for all markdown cells.
+    "markdownCellConfig": {
+        "autoClosingBrackets": true,
+        "matchBrackets": true
+    },
+        
+    // Raw Cell Configuration
+    // The configuration for all raw cells.
+    "rawCellConfig": {
+        "autoClosingBrackets": true,
+        "matchBrackets": true
+    },
+
+    // Recording timing
+    // Should timing data be recorded in cell metadata
+    "recordTiming": true
+}
+
+// vim: set ft=jsonc :

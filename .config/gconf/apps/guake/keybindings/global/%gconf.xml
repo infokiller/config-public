@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="show_hide" mtime="1450367420" schema="/schemas/apps/guake/keybindings/global/show_hide" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Super&gt;t</stringvalue>
+	</entry>
+</gconf>

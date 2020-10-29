@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+# VIM_VARIANT=nvim
+# mapfile -t COMMAND < <(get-wrapped-binary-command "${DIR}/${VIM_VARIANT}")
+# exec -- "${COMMAND[@]}" "$@"
+exec -- nvim "$@"

@@ -1,0 +1,8 @@
+# Paths matching the regular expressions in this file are excluded from file
+# existence checks in fast-files-checker.
+# The syntax is bash regular expressions. As a reminder, spaces must be
+# escaped with a backslash, and chars like tab are represented as $'\t'.
+# Lines starting with # are ignored.
+^/run/user/.*/kbfs/
+^${HOME}/(kbfs|drive)
+^/google/

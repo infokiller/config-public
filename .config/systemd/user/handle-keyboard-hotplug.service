@@ -1,0 +1,11 @@
+[Unit]
+Description=Handles keyboard connections/disconnections (triggered by udev)
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.my_scripts/desktop_env/set-x11-settings
+Restart=on-failure
+RestartSec=5

@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# This script can be called using sudo, so we can't fall back to $HOME.
+readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
+
+# Tries to determine if a file exists without using sudo.
+# Returns 0 if the file exists.
+# Returns 1 if the file doesn't exist.
+# Returns 2 if the file may exist but we don't have enough permissions to
+# determine it.
+_file_exists_no_sudo() {
+  if [[ -e "$1" ]]; then
+    return 0
+  fi
+  local dir="$1"
+  while dir="$(dirname -- "${dir}")" && [[ "${dir}" != / ]]; do
+    if [[ -r "${dir}" ]]; then
+      return 1
+    fi
+    if [[ -e "${dir}" ]]; then
+      return 2
+    fi
+  done
+  return 2
+}
+
+main() {
+  local system_path="$1"
+  local system_file_exists=1
+  local needs_sudo=0
+  if [[ ! -r "${system_path}" ]]; then
+    local file_exists_status=0
+    # Minimize sudo prompts by doing extra checks to verify if we can't read the
+    # file it's because of permissions (and not a type in the filename).
+    _file_exists_no_sudo "${system_path}" || file_exists_status=$?
+    if ((file_exists_status == 0)) || (
+      ((file_exists_status == 2)) && sudo bash -c "[[ -r '${system_path}' ]]"
+    ); then
+      needs_sudo=1
+    else
+      system_file_exists=0
+      echo >&2 "File not readable: ${system_path}"
+    fi
+  fi
+  local config_file_readable=1
+  config_path="${REPO_ROOT}/root/$1"
+  # Squeeze double slashes.
+  config_path="${config_path//\/\//\/}"
+  if [[ -r "${config_path}.${HOST_ALIAS-}" ]]; then
+    config_path="${config_path}.${HOST_ALIAS-}"
+  elif [[ ! -r "${config_path}" ]]; then
+    config_file_readable=0
+    echo >&2 "File not readable: ${config_path}"
+  fi
+  if ((!system_file_exists || !config_file_readable)); then
+    exit 1
+  fi
+  local maybe_sudo=()
+  if ((needs_sudo)); then
+    maybe_sudo+=(sudo)
+  fi
+  "${maybe_sudo[@]}" sensible-diff "${system_path}" "${config_path}"
+}
+
+main "$@"

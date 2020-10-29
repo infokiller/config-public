@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="suppresspreferred" mtime="1392585527" type="bool" value="true"/>
+	<entry name="hideconfirmation" mtime="1392585527" type="bool" value="false"/>
+	<entry name="appsdomain" mtime="1392585527" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="savepassword" mtime="1392585527" type="bool" value="false"/>
+	<entry name="user" mtime="1392585527" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+</gconf>

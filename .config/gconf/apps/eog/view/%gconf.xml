@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="use-background-color" mtime="1415272898" type="bool" value="true"/>
+	<entry name="background-color" mtime="1415272898" type="string">
+		<stringvalue>#204A87</stringvalue>
+	</entry>
+</gconf>

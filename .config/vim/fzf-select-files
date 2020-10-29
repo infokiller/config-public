@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+BASH_CMD_TEMPLATE="
+unset TMUX
+source '${REPO_ROOT}/.config/bash/fzf_select_files.sh'
+cd -- '%s'
+list-searched-files | fzf_select_file --multi --preview-window=up:30%% > '%s'
+"
+
+main() {
+  local tmpfile
+  tmpfile="$(mktemp -t 'vim_fzf_files_XXXXX')"
+  # NOTE: The path variable in trap must be expanded here because it may not be
+  # defined when the trap is ran.
+  # shellcheck disable=SC2064
+  trap "rm -- '${tmpfile}' &> /dev/null || true" EXIT ERR INT HUP TERM
+  local bash_cmd
+  # shellcheck disable=SC2059
+  bash_cmd="$(printf "${BASH_CMD_TEMPLATE}" "$1" "${tmpfile}")"
+  sensible-terminal --window-name 'vim-fzf-select-files' -- bash -c "${bash_cmd}"
+  cat -- "${tmpfile}"
+  rm -- "${tmpfile}"
+}
+
+main "$@"

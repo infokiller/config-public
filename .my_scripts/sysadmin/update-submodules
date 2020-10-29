@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
+
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+# shellcheck source=../lib/platform_detection.sh
+source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+
+_log_info() {
+  if ((${IKL_VERBOSE-})); then
+    printf 'update-submodules: %s\n' "$*"
+  fi
+}
+
+_log_error() {
+  print_error "$(printf 'update-submodules: %s' "$*")"
+}
+
+update_submodules() {
+  _log_info 'Syncing submodules remotes URLs'
+  git submodule sync --recursive > /dev/null
+  _log_info 'Initializing and updating required submodules'
+  # Exclude submodules in the optional directory using git's pathspec argument.
+  # https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpathspecapathspec
+  git submodule update --init --recursive ":(exclude)${SUBMODULES_DIR}/optional"
+  if [[ -z "$(git ls-files "${SUBMODULES_DIR}/optional")" ]]; then
+    _log_info 'Optional submodules not found, skipping'
+    return 0
+  fi
+  _log_info 'Initializing used optional submodules'
+  # Use an array to capture the output of get_optional_submodules_pathspec so
+  # that we can correctly pass the pathspec components separated.
+  mapfile -t opt_submodules < <(get_optional_submodules_pathspec) || return 1
+  if ((${#opt_submodules[@]})); then
+    git submodule update --init --recursive "${opt_submodules[@]}"
+  fi
+  _log_info 'Deinitializing unused optional submodules'
+  local deinit_excludes=()
+  for submodule in "${opt_submodules[@]}"; do
+    deinit_excludes+=(":(exclude)${submodule}")
+  done
+  # Exclude submodules which are not already initialized to avoid the git warning
+  # "warning: Could not unset core.worktree setting in submodule".
+  for submodule in "${SUBMODULES_DIR}/optional"/*; do
+    if [[ ! -e "${submodule}/.git" ]]; then
+      deinit_excludes+=(":(exclude)${submodule}")
+    fi
+  done
+  git submodule deinit "${SUBMODULES_DIR}/optional" "${deinit_excludes[@]}"
+}
+
+(cd "${REPO_ROOT}" && update_submodules)

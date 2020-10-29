@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+export DISPLAY="${DISPLAY:-:0}"
+export XAUTHORITY="${XAUTHORITY:-"${XDG_RUNTIME_DIR}/Xauthority"}"
+
+main() {
+  printf 'Starting script %s\n' "$0"
+  # if ! /opt/ikl/is-x11-ready; then
+  #   echo 'X11 not ready yet, exiting'
+  #   exit
+  # fi
+  echo 'X11 looks ready'
+
+  local monitors num_monitors last_monitor_index last_monitor
+  monitors=("$(xrandr | awk '( $2 == "connected" ){ print $1 }')")
+  num_monitors=${#monitors[@]}
+  last_monitor_index=$((num_monitors - 1))
+  last_monitor="${monitors[${last_monitor_index}]}"
+
+  local cmd=(xrandr '--output' "${last_monitor}" '--auto')
+  for i in $(seq 0 $((last_monitor_index - 1))); do
+    cmd+=('--output' "${monitors[${i}]}" '--off')
+  done
+  printf 'Running command: %s\n' "${cmd[*]}"
+  "${cmd[@]}"
+  /usr/bin/notify-send -u normal 'Monitor config reset' -t 5000
+}
+
+main "$@"

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+google-chrome --app="https://keep.google.com" --profile-directory="Home" "$@"

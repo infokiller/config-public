@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+xclip -selection clipboard -t "$(xdg-mime query filetype "$1")" "$1"

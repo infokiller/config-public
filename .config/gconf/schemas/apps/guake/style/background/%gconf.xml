@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="transparency" mtime="1450345978" type="schema" stype="int" owner="guake">
+		<local_schema locale="C" short_desc="Background transparency.">
+			<default type="int" value="10"/>
+			<longdesc>Alpha that will be applied to the terminal
+                background.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="image" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Background image.">
+			<default type="string">
+				<stringvalue></stringvalue>
+			</default>
+			<longdesc>Background image that will be used in terminal.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="color" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Background color.">
+			<default type="string">
+				<stringvalue>#000000000000</stringvalue>
+			</default>
+			<longdesc>Background color that will be used in terminal.</longdesc>
+		</local_schema>
+	</entry>
+</gconf>

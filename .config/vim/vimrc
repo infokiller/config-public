@@ -1,0 +1,182 @@
+" Vim initialization file with support for:
+" - Terminal Vim/Neovim
+" - GUI Vim
+" - Firenvim: https://github.com/glacambre/firenvim
+" - VSCode Neovim: https://github.com/asvetliakov/vscode-neovim
+" - Athame: https://github.com/ardagnir/athame
+"
+" The configuration is split across multiple files for the following reasons:
+" - Correctness: vim loads files in a certain order, so overriding default
+"   settings must be put in certain files.
+" - Readability: certain settings apply only in specific contexts (regular vim,
+"   firenvim, etc), and putting everything in this file means a lot of 
+"   "if <mode>..." code which makes the file less readable.
+" - Performance: lazy loading via autoloading and filetype settings.
+" - Easier editing of config files: I generally prefer to put all the
+"   configuration in a single file, but since I have 3K+ lines across my vim
+"   config files, some plugins start crawling and editing becomes harder.
+"
+" Guidelines:
+" - This file should only contain config that is shared by other config files,
+"   and sourcing of other config files.
+" - Functions that can be autoloaded should go into the autoload directory.
+" - Filetype specific settings that apply to all contexts (indentation, etc)
+"   should go into ftplugin (or after/ftplugin), syntax (or after/syntax), etc.
+" - Settings that apply to all contexts should go into *base.vim*.
+" - Settings that only apply when vim has control over the UI (meaning it can
+"   show a statusline, open new windows, etc.) should go into *ui.vim*.
+" - Settings that apply for contexts where vim can use advanced language editing
+"   capabilities (completion, linting, tags) should go into *lsp.vim*.
+"
+" TODO: Use a wrapper for defining keybindings so that I can track their usage
+" and surface them for discovery (like vim-which-key does).
+
+" This is necessary when launching regular vim with the `-u <vimrc>` option, or
+" otherwise many of the lines in this file and sourced plugins will emit errors.
+" vint: -ProhibitSetNoCompatible
+set nocompatible
+" The encoding will probably be utf-8 even without explicitly setting it here,
+" but I'm doing it explicitly because it is needed by vim-devicons (see
+" https://github.com/ryanoasis/vim-devicons#installation).
+set encoding=utf-8
+scriptencoding utf-8
+filetype off
+
+if get(environ(), 'VIMRC_DEBUG', 0)
+  exec 'set verbose=' . get(environ(), 'VIMRC_DEBUG', 0)
+  exec 'set verbosefile=' . expand('~/tmp/vim_messages.log')
+endif
+
+let g:ATHAME_MODE = get(g:, 'ATHAME_MODE', 0)
+let g:VSCODE_MODE = get(g:, 'vscode', 0)
+let g:FIRENVIM_MODE = get(g:, 'started_by_firenvim', 0)
+
+let g:REPO_ROOT = resolve(expand('<sfile>:p:h') . '/../..')
+" Use config directory relative to vimrc. This will be $XDG_CONFIG_HOME/vim when
+" $HOME/.vimrc is used.
+let g:VIM_CONFIG_DIR = g:REPO_ROOT . '/.config/vim'
+
+" Reset the vimrc augroup. Autocommands are added to this group throughout the
+" file
+augroup vimrc
+  autocmd!
+augroup END
+
+" Concatenations are hard to see and search for, so this makes it easier.
+" TODO: Add a JoinPath function and consider moving it to vimrc#base.
+" Alternatively, I can use maktaba by adding it to runtimepath.
+function! Concat(...) abort
+  return join(a:000, '')
+endfunction
+
+function! SourceVimConfig(relpath) abort
+  let l:path = Concat(g:VIM_CONFIG_DIR, '/', a:relpath)
+  execute Concat('source ', l:path)
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                        Configure runtime directories                         "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let $XDG_DATA_HOME = get(environ(), 'XDG_DATA_HOME', 
+      \ Concat($HOME, '/.local/share'))
+let g:VIM_DATA_DIR = Concat($XDG_DATA_HOME,  '/vim')
+for s:subdir in ['swap', 'backup', 'undo', 'session']
+  let s:dir = Concat(g:VIM_DATA_DIR, '/', s:subdir)
+  call mkdir(s:dir, 'p', 0700)
+endfor
+
+let $XDG_CACHE_HOME = get(environ(), 'XDG_CACHE_HOME', 
+    \ Concat($HOME, '/.cache'))
+let g:VIM_CACHE_DIR = Concat($XDG_CACHE_HOME,  '/vim')
+call mkdir(Concat(g:VIM_CACHE_DIR, '/tags'), 'p', 0700)
+
+" The double slash at the end is intentional and makes vim use the full path of
+" the file in the swap file name.
+let &directory = Concat(g:VIM_DATA_DIR, '/swap//, /var/tmp//, /tmp//')
+let &backupdir = Concat(g:VIM_DATA_DIR, '/backup/, /var/tmp/, /tmp/')
+let &undodir   = Concat(g:VIM_DATA_DIR, '/undo/, /var/tmp/, /tmp/')
+
+set runtimepath-=~/.vim
+let &runtimepath = Concat(g:VIM_CONFIG_DIR, ',', &runtimepath)
+set runtimepath-=~/.vim/after
+let &runtimepath = Concat(&runtimepath, ',', g:VIM_CONFIG_DIR, '/after')
+
+let g:submodules_dir = Concat(g:REPO_ROOT, '/submodules')
+let g:plugins_dir = Concat(g:submodules_dir, '/vim')
+" Enable adding plugins throughout the config, which are only loaded at the end.
+call plug#begin(g:plugins_dir)
+
+function! s:GetHistoryDir() abort
+  if !empty($HOST_HIST_DIR)
+    return $HOST_HIST_DIR
+  endif
+  let l:shell_profile_path = Concat(g:REPO_ROOT, '/.profile')
+  return trim(system(printf("bash -c 'source \"%s\" && echo \"${HOST_HIST_DIR}\"'",
+        \ l:shell_profile_path)))
+endfunction
+
+function! s:SetPluginsHistoryDir() abort
+  let l:dir = s:GetHistoryDir()
+  " Enable per-command history.
+  " CTRL-N and CTRL-P will be automatically bound to next-history and
+  " previous-history instead of down and up.
+  let g:fzf_history_dir = Concat(l:dir, '/fzf-vim')
+  let g:netrw_home = Concat(l:dir, '/vim/netrw')
+  call mkdir(g:netrw_home, 'p', 0700)
+endfunction
+
+call s:SetPluginsHistoryDir()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Source other files                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call SourceVimConfig('base.vim')
+" Only terminal vim doesn't have <M-x> keycodes defined, but neovim and GUI vim
+" are fine.
+if !has('nvim') && !has('gui_running')
+  call SourceVimConfig('fix_alt_mappings.vim')
+endif
+if g:VSCODE_MODE
+  " Mnemonic: Code Open
+  nnoremap <Leader>co :<C-U>call VSCodeNotify('editor.action.revealDefinition')<CR>
+  " Mnemonic: Code Rename
+  nnoremap <Leader>cr :<C-U>call VSCodeNotify('editor.action.rename')<CR>
+  " Mnemonic: Code Format
+  nnoremap <Leader>cf :<C-U>call VSCodeNotify('editor.action.formatDocument') 
+      \ <Bar> call VSCodeNotify('editor.action.organizeImports')<CR>
+elseif !g:ATHAME_MODE
+  call SourceVimConfig('autosync.vim')
+  call SourceVimConfig('lsp.vim')
+  command! -nargs=0 UpdateDisplayFromTmux call vimrc#UpdateDisplayFromTmux()
+endif
+if !g:ATHAME_MODE
+  call SourceVimConfig('ui.vim')
+  call SourceVimConfig('cli.vim')
+else
+  Plug 'ardagnir/vimbed'
+endif
+if g:FIRENVIM_MODE
+  call SourceVimConfig('firenvim.vim')
+endif
+
+let s:PRIVATE_CONFIG_PATH = Concat(g:VIM_CONFIG_DIR, '/vimrc_private')
+if filereadable(s:PRIVATE_CONFIG_PATH)
+  exec Concat('source ', s:PRIVATE_CONFIG_PATH)
+endif
+
+call plug#end()
+" This should go after calling plug#end().
+if exists('*glaive#Install')
+  call glaive#Install()
+endif
+
+if !g:ATHAME_MODE && !g:VSCODE_MODE
+  if exists('*g:VimrcSetColorScheme')
+    call g:VimrcSetColorScheme()
+  endif
+  " Enable detection, plugins and indenting in one step. Preferably, this should
+  " come late to improve runtime.
+  " NOTE: As of 2018-12-09 seems that vim-plug already enables it.
+  filetype plugin indent on
+endif
+

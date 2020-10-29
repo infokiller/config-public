@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+"Send email less reliably with no intermediate servers."
+import sys
+import smtplib
+
+import click
+import dns.resolver
+
+MESSAGE_FORMAT = '''From: {}
+To: {}
+Subject: {}
+
+{}
+'''
+
+@click.command()
+@click.option(
+    '--fromaddr',
+    default='jackmaybe@noreply.com')
+@click.option('--toaddr')
+@click.option('--subject')
+@click.option('--body', default='')
+def main(fromaddr, toaddr, subject, body):
+    if toaddr is None:
+        sys.exit('Must provide --toaddr')
+    if toaddr.count('@') != 1:
+        sys.exit('Invalid to email address: {}\n'.format(toaddr))
+    dest_domain = toaddr.partition('@')[2]
+    answers = dns.resolver.query(dest_domain, 'MX')
+    if len(answers) <= 0:
+        sys.stderr.write('No mail servers found for destination\n')
+        sys.exit(1)
+    # Just pick the first answer
+    server_address = str(answers[0].exchange)
+    server = smtplib.SMTP(server_address)
+    server.ehlo()
+    server.starttls()
+    server.set_debuglevel(1)
+    msg = MESSAGE_FORMAT.format(fromaddr, toaddr, subject, body)
+    server.sendmail(fromaddr, toaddr, msg)
+    server.quit()
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+# aconfmgr doesn't work correctly without this.
+shopt -s lastpipe
+
+# This script can be called using sudo, so we can't fall back to $HOME.
+readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
+readonly ACONFMGR_SRC="${SUBMODULES_DIR}/optional/aconfmgr/src"
+
+_load_aconfmgr() {
+  # tmp_dir is used by aconfmgr.
+  # shellcheck disable=SC2034
+  tmp_dir="$(mktemp -d)"
+  # shellcheck source=../../submodules/optional/aconfmgr/src/common.bash
+  source "${ACONFMGR_SRC}/common.bash"
+}
+
+main() {
+  local file="$1"
+  local package
+  package="$(pacman -Qo -q "${file}")"
+  _load_aconfmgr
+  AconfGetPackageOriginalFile "${package}" "${file}"
+  Exit
+}
+
+main "$@"

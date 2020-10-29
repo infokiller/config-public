@@ -1,0 +1,6 @@
+Defaults env_keep += "LESS LESSKEY"
+
+%wheel ALL=(ALL) ALL
+%sudo ALL=(ALL) ALL
+
+# vim: set ft=sudoers :

@@ -1,0 +1,335 @@
+###########################
+# xbindkeys configuration #
+###########################
+#
+# Version: 0.1.3
+#
+# If you edit this, do not forget to uncomment any lines that you change.
+# The pound(#) symbol may be used anywhere for comments.
+#
+# A list of keys is in /usr/include/X11/keysym.h and in
+# /usr/include/X11/keysymdef.h
+# The XK_ is not needed.
+#
+# List of modifier (on my keyboard):
+#   Control, Shift, Mod1 (Alt), Mod2 (NumLock),
+#   Mod3 (CapsLock), Mod4, Mod5 (Scroll).
+#
+# Another way to specifie a key is to use 'xev' and set the
+# keycode with c:nnn or the modifier with m:nnn where nnn is
+# the keycode or the state returned by xev
+#
+# This file is created by xbindkey_config
+# The structure is :
+# # Remark
+# "command"
+# m:xxx + c:xxx
+# Shift+...
+
+
+
+
+#keystate_numlock = enable
+#keystate_scrolllock = enable
+#keystate_capslock = enable
+
+
+
+#Ctrl+W all layouts
+"xdotool getactivewindow -- key --clearmodifiers Ctrl+w"
+   m:0x4 + c:25
+
+#Ctrl+C all layouts
+"xdotool getactivewindow -- key --clearmodifiers Ctrl+c"
+   m:0x4 + c:54
+
+#Ctrl+Z all layouts
+"xdotool getactivewindow -- key --clearmodifiers Ctrl+z"
+   m:0x4 + c:52
+
+#Ctrl+Shift+Z all layouts
+"xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+z"
+   m:0x5 + c:52
+
+#Ctrl+A all layouts
+"xdotool getactivewindow -- key --clearmodifiers Ctrl+a"
+   m:0x4 + c:38
+
+#Ctrl+X all layouts
+"xdotool getactivewindow -- key --clearmodifiers Ctrl+x"
+   m:0x4 + c:53
+
+#Left
+"register-keystroke Capslock+j; xdotool getactivewindow -- key --clearmodifiers Left"
+   m:0x20 + c:44
+
+#Right
+"register-keystroke Capslock+l; xdotool getactivewindow -- key --clearmodifiers Right"
+   m:0x20 + c:46
+
+#Up
+"register-keystroke Capslock+i; xdotool getactivewindow -- key --clearmodifiers Up"
+   m:0x20 + c:31
+
+#Down
+"register-keystroke Capslock+k; xdotool getactivewindow -- key --clearmodifiers Down"
+   m:0x20 + c:45
+
+#Ctrl+Left (Mod5+Ctrl+J)
+"register-keystroke Capslock+Ctrl+j; xdotool getactivewindow -- key --clearmodifiers Ctrl+Left"
+   m:0x24 + c:44
+
+#Shift+Left (Mod5+Shift+J)
+"register-keystroke Capslock+Shift+j; xdotool getactivewindow -- key --clearmodifiers Shift+Left"
+   m:0x21 + c:44
+
+#Ctrl+Shift+Left (Mod5+Ctrl+Shift+J)
+"register-keystroke Capslock+Ctrl+Shift+j; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Left"
+   m:0x25 + c:44
+
+#Ctrl+Right (Mod5+Ctrl+L)
+"register-keystroke Capslock+Ctrl+l; xdotool getactivewindow -- key --clearmodifiers Ctrl+Right"
+   m:0x24 + c:46
+
+#Shift+Right (Mod5+Shift+L)
+"register-keystroke Capslock+Shift+l; xdotool getactivewindow -- key --clearmodifiers Shift+Right"
+   m:0x21 + c:46
+
+#Ctrl+Shift+Right (Mod5+Ctrl+Shift+L)
+"register-keystroke Capslock+Ctrl+Shift+l; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Right"
+   m:0x25 + c:46
+
+#Ctrl+Up (Mod5+Ctrl+I)
+"register-keystroke Capslock+Ctrl+i; xdotool getactivewindow -- key --clearmodifiers Ctrl+Up"
+   m:0x24 + c:31
+
+#Shift+Up (Mod5+Shift+I)
+"register-keystroke Capslock+Shift+i; xdotool getactivewindow -- key --clearmodifiers Shift+Up"
+   m:0x21 + c:31
+
+#Ctrl+Shift+Up (Mod5+Ctrl+Shift+I)
+"register-keystroke Capslock+Ctrl+Shift+i; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Up"
+   m:0x25 + c:31
+
+#Ctrl+Down (Mod5+Ctrl+K)
+"register-keystroke Capslock+Ctrl+k; xdotool getactivewindow -- key --clearmodifiers Ctrl+Down"
+   m:0x24 + c:45
+
+#Shift+Down (Mod5+Shift+K)
+"register-keystroke Capslock+Shift+k; xdotool getactivewindow -- key --clearmodifiers Shift+Down"
+   m:0x21 + c:45
+
+#Ctrl+Shift+Down (Mod5+Ctrl+Shift+K)
+"register-keystroke Capslock+Ctrl+Shift+k; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Down"
+   m:0x25 + c:45
+
+#Ctrl+Right (Mod5+E)
+"register-keystroke Capslock+e; xdotool getactivewindow -- key --clearmodifiers Ctrl+Right"
+   m:0x20 + c:26
+
+#Ctrl+Shift+Right (Mod5+Shift+L)
+"register-keystroke Capslock+Shift+e; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Right"
+   m:0x21 + c:26
+
+#Ctrl+Left (Mod5+W)
+"register-keystroke Capslock+w; xdotool getactivewindow -- key --clearmodifiers Ctrl+Left"
+   m:0x20 + c:25
+
+#Ctrl+Shift+Left (Mod5+Shift+W)
+"register-keystroke Capslock+Shift+w; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Left"
+   m:0x21 + c:25
+
+#Backspace
+"register-keystroke Capslock+x; xdotool getactivewindow -- key --clearmodifiers BackSpace"
+   m:0x20 + c:53
+
+#Ctrl+Backspace
+"register-keystroke Capslock+d; xsendkeys --app=terminal Ctrl+W || xsendkeys Ctrl+BackSpace"
+   m:0x20 + c:40
+
+#Delete (Mod5+Alt+x)
+"register-keystroke Capslock+Alt+x; xdotool getactivewindow -- key --clearmodifiers Delete"
+   m:0x28 + c:53
+
+#Delete (Mod5+Alt+Backspace)
+"register-keystroke Capslock+Alt+x; xdotool getactivewindow -- key --clearmodifiers Delete"
+   m:0x28 + c:22
+
+#Ctrl+Delete
+"register-keystroke Capslock+Alt+d; xdotool getactivewindow -- key --clearmodifiers Ctrl+Delete"
+   m:0x28 + c:40
+
+#Copy that works in GUI and terminal(Mod5+C)
+"register-keystroke Capslock+c; xsendkeys --app=terminal Ctrl+Shift+c || xsendkeys Ctrl+c"
+   m:0x20 + c:54
+
+#Paste that works in GUI and terminal(Mod5+V)
+"register-keystroke Capslock+v; xsendkeys --app=terminal Ctrl+Shift+v || xsendkeys Ctrl+v"
+   m:0x20 + c:55
+
+#Undo that works in GUI and terminal (Mod5+U)
+"register-keystroke Capslock+u; xsendkeys --app=terminal Alt+Shift+underscore || xsendkeys Ctrl+z"
+   m:0x20 + c:110
+
+#Undo that works in GUI and terminal (Mod5+U)
+"register-keystroke Capslock+Shift+u; xsendkeys --app=terminal Alt+Shift+plus || xsendkeys Ctrl+Shift+z"
+   m:0x28 + c:110
+
+#Switch keyboard language (previously Enter) (Mod5+M)
+"register-keystroke Capslock+m; ~/.my_scripts/desktop_env/switch-keyboard-layout"
+   m:0x20 + c:58
+
+#Enter (Mod5+Space)
+"register-keystroke Capslock+Space; xdotool getactivewindow -- key --clearmodifiers Return"
+   m:0x20 + c:36
+
+#Ctrl+Enter (Mod5+Ctrl+Space)
+"register-keystroke Capslock+Ctrl+Space; xdotool getactivewindow -- key --clearmodifiers Ctrl+Return"
+   m:0x24 + c:36
+
+#Shift+Enter (Mod5+Shift+Space)
+"register-keystroke Capslock+Shift+Space; xdotool getactivewindow -- key --clearmodifiers Shift+Return"
+   m:0x21 + c:36
+
+#Escape (Mod5+Q)
+"register-keystroke Capslock+q; xdotool getactivewindow -- key --clearmodifiers Escape"
+   m:0x20 + c:24
+
+#End (Mod5+Alt+L)
+"register-keystroke Capslock+Alt+l; xdotool getactivewindow -- key --clearmodifiers End"
+   m:0x28 + c:46
+
+#Ctrl+End (Mod5+Ctrl+Alt+L)
+"register-keystroke Capslock+Ctrl+Alt+l; xdotool getactivewindow -- key --clearmodifiers Ctrl+End"
+   m:0x2c + c:46
+
+#Shift+End (Mod5+Alt+Shift+L)
+"register-keystroke Capslock+Alt+Shift+l; xdotool getactivewindow -- key --clearmodifiers Shift+End"
+   m:0x29 + c:46
+
+#Ctrl+Shift+End (Mod5+Ctrl+Alt+Shift+L)
+"register-keystroke Capslock+Ctrl+Alt+Shift+l; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+End"
+   m:0x2d + c:46
+
+#End (Mod5+Alt+Right)
+"register-keystroke Capslock+Alt+l; xdotool getactivewindow -- key --clearmodifiers End"
+   m:0x28 + c:114
+
+#Ctrl+End (Mod5+Ctrl+Alt+Right)
+"register-keystroke Capslock+Ctrl+Alt+l; xdotool getactivewindow -- key --clearmodifiers Ctrl+End"
+   m:0x2c + c:114
+
+#Shift+End (Mod5+Alt+Shift+Right)
+"register-keystroke Capslock+Alt+Shift+l; xdotool getactivewindow -- key --clearmodifiers Shift+End"
+   m:0x29 + c:114
+
+#Ctrl+Shift+End (Mod5+Ctrl+Alt+Shift+Right)
+"register-keystroke Capslock+Ctrl+Alt+Shift+l; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+End"
+   m:0x2d + c:114
+
+#Home (Mod5+Alt+J)
+"register-keystroke Capslock+Alt+j; xdotool getactivewindow -- key --clearmodifiers Home"
+   m:0x28 + c:44
+
+#Ctrl+Home (Mod5+Ctrl+Alt+J)
+"register-keystroke Capslock+Ctrl+Alt+j; xdotool getactivewindow -- key --clearmodifiers Ctrl+Home"
+   m:0x2c + c:44
+
+#Shift+Home (Mod5+Alt+Shift+J)
+"register-keystroke Capslock+Alt+Shift+j; xdotool getactivewindow -- key --clearmodifiers Shift+Home"
+   m:0x29 + c:44
+
+#Ctrl+Shift+Home (Mod5+Ctrl+Alt+Shift+J)
+"register-keystroke Capslock+Ctrl+Alt+Shift+j; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Home"
+   m:0x2d + c:44
+
+#Home (Mod5+Alt+Left)
+"register-keystroke Capslock+Alt+j; xdotool getactivewindow -- key --clearmodifiers Home"
+   m:0x28 + c:113
+
+#Ctrl+Home (Mod5+Ctrl+Alt+Left)
+"register-keystroke Capslock+Ctrl+Alt+j; xdotool getactivewindow -- key --clearmodifiers Ctrl+Home"
+   m:0x2c + c:113
+
+#Shift+Home (Mod5+Alt+Shift+Left)
+"register-keystroke Capslock+Alt+Shift+j; xdotool getactivewindow -- key --clearmodifiers Shift+Home"
+   m:0x29 + c:113
+
+#Ctrl+Shift+Home (Mod5+Ctrl+Alt+Shift+Left)
+"register-keystroke Capslock+Ctrl+Alt+Shift+j; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Home"
+   m:0x2d + c:113
+
+#Page_Down (Mod5+Alt+K)
+"register-keystroke Capslock+Alt+k; xdotool getactivewindow -- key --clearmodifiers Page_Down"
+   m:0x28 + c:45
+
+#Ctrl+Page_Down (Mod5+Ctrl+Alt+K)
+"register-keystroke Capslock+Ctrl+Alt+k; xdotool getactivewindow -- key --clearmodifiers Ctrl+Page_Down"
+   m:0x2c + c:45
+
+#Shift+Page_Down (Mod5+Alt+Shift+K)
+"register-keystroke Capslock+Alt+Shift+k; xdotool getactivewindow -- key --clearmodifiers Shift+Page_Down"
+   m:0x29 + c:45
+
+#Ctrl+Shift+Page_Down (Mod5+Ctrl+Alt+Shift+K)
+"register-keystroke Capslock+Ctrl+Alt+Shift+k; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Page_Down"
+   m:0x2d + c:45
+
+#Page_Down (Mod5+Alt+Down)
+"register-keystroke Capslock+Alt+k; xdotool getactivewindow -- key --clearmodifiers Page_Down"
+   m:0x28 + c:116
+
+#Ctrl+Page_Down (Mod5+Ctrl+Alt+Down)
+"register-keystroke Capslock+Ctrl+Alt+k; xdotool getactivewindow -- key --clearmodifiers Ctrl+Page_Down"
+   m:0x2c + c:116
+
+#Shift+Page_Down (Mod5+Alt+Shift+Down)
+"register-keystroke Capslock+Alt+Shift+k; xdotool getactivewindow -- key --clearmodifiers Shift+Page_Down"
+   m:0x29 + c:116
+
+#Ctrl+Shift+Page_Down (Mod5+Ctrl+Alt+Shift+Down)
+"register-keystroke Capslock+Ctrl+Alt+Shift+k; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Page_Down"
+   m:0x2d + c:116
+
+#Page_Up (Mod5+Alt+I)
+"register-keystroke Capslock+Alt+i; xdotool getactivewindow -- key --clearmodifiers Page_Up"
+   m:0x28 + c:31
+
+#Ctrl+Page_Up (Mod5+Ctrl+Alt+I)
+"register-keystroke Capslock+Ctrl+Alt+i; xdotool getactivewindow -- key --clearmodifiers Ctrl+Page_Up"
+   m:0x2c + c:31
+
+#Shift+Page_Up (Mod5+Alt+Shift+I)
+"register-keystroke Capslock+Alt+Shift+i; xdotool getactivewindow -- key --clearmodifiers Shift+Page_Up"
+   m:0x29 + c:31
+
+#Ctrl+Shift+Page_Up (Mod5+Ctrl+Alt+Shift+I)
+"register-keystroke Capslock+Ctrl+Alt+Shift+i; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Page_Up"
+   m:0x2d + c:31
+
+#Page_Up (Mod5+Alt+Up)
+"register-keystroke Capslock+Alt+i; xdotool getactivewindow -- key --clearmodifiers Page_Up"
+   m:0x28 + c:111
+
+#Ctrl+Page_Up (Mod5+Ctrl+Alt+Up)
+"register-keystroke Capslock+Ctrl+Alt+i; xdotool getactivewindow -- key --clearmodifiers Ctrl+Page_Up"
+   m:0x2c + c:111
+
+#Shift+Page_Up (Mod5+Alt+Shift+Up)
+"register-keystroke Capslock+Alt+Shift+i; xdotool getactivewindow -- key --clearmodifiers Shift+Page_Up"
+   m:0x29 + c:111
+
+#Ctrl+Shift+Page_Up (Mod5+Ctrl+Alt+Shift+Up)
+"register-keystroke Capslock+Ctrl+Alt+Shift+i; xdotool getactivewindow -- key --clearmodifiers Ctrl+Shift+Page_Up"
+   m:0x2d + c:111
+
+#Ctrl+F (Mod5+F)
+"register-keystroke Capslock+f; xdotool getactivewindow -- key --clearmodifiers Ctrl+f"
+   m:0x20 + c:41
+
+#Ctrl+T (Mod5+T)
+"register-keystroke Capslock+t; xdotool getactivewindow -- key --clearmodifiers Ctrl+t"
+   m:0x20 + c:28
+
+#
+# End of xbindkeys configuration

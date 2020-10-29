@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="launcher_hide_mode" mtime="1410334373" type="int" value="0"/>
+	<entry name="num_launchers" mtime="1403107161" type="int" value="0"/>
+	<entry name="show_hud" mtime="1360250301" type="string">
+		<stringvalue>&lt;Alt&gt;l</stringvalue>
+	</entry>
+</gconf>

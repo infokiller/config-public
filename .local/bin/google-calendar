@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+google-chrome --app="https://calendar.google.com" --profile-directory="Home" "$@"

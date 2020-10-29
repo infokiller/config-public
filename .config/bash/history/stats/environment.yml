@@ -1,0 +1,11 @@
+name: shell_history_stats
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.6
+  - pip
+  - click
+  - pip:
+    - bashlex
+    - tabulate

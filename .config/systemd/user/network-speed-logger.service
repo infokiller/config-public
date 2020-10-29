@@ -1,0 +1,19 @@
+[Unit]
+Description=Start Network Speed Logger
+# I wanted this service to depend on the network being online, but
+# network-online.target is a system systemd service, which is isolated from user
+# services.
+# Requires=network-online.target
+# After=network-online.target
+# Wants=network-online.target
+
+# The default RestartSec is 100ms which causes a burst of restarts (burst because
+# when the network is down this service will always fail) that disables the
+# unit. In any case, it doesn't really make sense to restart this unit more than
+# once a minute.
+
+[Service]
+Type=simple
+ExecStart=%h/.my_scripts/network/log-network-speed
+Restart=on-failure
+RestartSec=60

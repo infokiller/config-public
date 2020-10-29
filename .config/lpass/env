@@ -1,0 +1,2 @@
+LPASS_AGENT_TIMEOUT=86400
+LPASS_PINENTRY=/usr/bin/pinentry-curses

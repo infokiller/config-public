@@ -1,0 +1,332 @@
+#!/usr/bin/env bash
+#
+# Syncs a git repo with upstream and checks out the latest "sensible" version
+# with the following order of precedence:
+# - The newest tag newer than HEAD if it exists
+# - Default branch (usually master) if it's newer than HEAD
+#
+# Assumptions:
+# 1. Every git repo has a remote named origin
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+USERNAME='infokiller'
+
+_log_info() {
+  printf 'git-sensible-update: %s\n' "$*"
+}
+
+_log_info_bold() {
+  print_bold "$(_log_info "$@")"
+}
+
+_log_error() {
+  print_error "$(printf 'git-sensible-update: %s' "$*")"
+}
+
+get_commit_timestamp() {
+  git log -1 --pretty="format:%ct" "$@"
+}
+
+get_commit_datetime() {
+  git log -1 --pretty="format:%ci" "$@"
+}
+
+get_github_repo_name() {
+  local github_url="$1"
+  if [[ ${github_url} =~ ^http[s]://github.com/(.*)$ ]]; then
+    local repo_name=${BASH_REMATCH[1]}
+  elif [[ ${github_url} =~ ^git@github.com:(.*)$ ]]; then
+    local repo_name=${BASH_REMATCH[1]}
+  elif [[ ${github_url} =~ ^git://github.com/(.*)$ ]]; then
+    local repo_name=${BASH_REMATCH[1]}
+  else
+    return 1
+  fi
+  # Remove .git suffix if it exists.
+  printf '%s\n' "${repo_name%.git}"
+}
+
+is_owned_repo() {
+  local url="$1"
+  [[ ${url} == *"${USERNAME}"* ]]
+}
+
+get_gitmodules_branch() {
+  local branch superproject_working_tree
+  superproject_working_tree="$(git rev-parse --show-superproject-working-tree)"
+  if [[ -z "${superproject_working_tree}" ]]; then
+    return 1
+  fi
+  local submodule_name
+  submodule_name="$(basename "$(git rev-parse --show-toplevel)")"
+  branch="$(git config \
+    --file="${superproject_working_tree}/.gitmodules" --get-regexp \
+    '.*'"/${submodule_name}.branch" |
+    head -1 |
+    sed -r 's/^\s*submodule.*\.branch\s+(.*)$/\1/')"
+  if [[ -z "${branch}" ]]; then
+    return 1
+  fi
+  printf '%s' "${branch}"
+}
+
+get_default_branch() {
+  local remote="$1"
+  local gitmodules_branch
+  if gitmodules_branch="$(get_gitmodules_branch)"; then
+    printf '%s' "${gitmodules_branch}"
+    return 0
+  fi
+  local default_branch
+  if ! default_branch="$(git remote show "${remote}" |
+    grep --text -E '^\s*HEAD branch:' |
+    sed -r 's/^\s*HEAD branch:\s*(.*)$/\1/')"; then
+    return 1
+  fi
+  printf '%s' "${default_branch}"
+}
+
+detect_repo_upstream() {
+  local repo_root
+  if ! repo_root="$(git rev-parse --show-toplevel 2>&1)"; then
+    print_error 'Not inside a git repo'
+    return 1
+  fi
+  if [[ -r "${repo_root}/.git-upstream-url" ]]; then
+    # NOTE: Outputting to stderr because this function uses stdout to return a
+    # value.
+    _log_info >&2 'Found a .git-upstream-url file, using it to set upstream'
+    cat "${repo_root}/.git-upstream-url"
+    return 0
+  fi
+  local origin_url
+  origin_url="$(git remote get-url origin)"
+  local repo_name
+  if repo_name="$(get_github_repo_name "${origin_url}")"; then
+    local repo_json
+    # hub may prompt for credentials on stdin, and because it's running in a
+    # command expansion, it will hang in this case. Therefore, we redirect
+    # /dev/null to its stdin so it fails more clearly.
+    if ! repo_json="$(hub api repos/"${repo_name}" < /dev/null 2>&1)"; then
+      _log_error 'hub error: '"${repo_json}"
+      return 1
+    fi
+    local parent_url
+    if ! parent_url="$(jq --raw-output --exit-status .parent.html_url <<< "${repo_json}")"; then
+      return 1
+    fi
+    if [[ -n "${parent_url}" ]]; then
+      printf '%s\n' "${parent_url}"
+      return 0
+    fi
+  fi
+  return 1
+}
+
+config_repo_upstream() {
+  local current_upstream detected_upstream
+  if ! detected_upstream="$(detect_repo_upstream)"; then
+    return 0
+  fi
+  _log_info 'Detected upstream repo: ' "${detected_upstream}"
+  if ! current_upstream="$(git remote get-url upstream 2>&1)"; then
+    git remote add upstream "${detected_upstream}"
+  elif [[ "${current_upstream}" != "${detected_upstream}" ]]; then
+    # Handle different URLs because of https, ssh, and git URL differences. Only
+    # supported for github.
+    local current_name
+    current_name="$(get_github_repo_name "${current_upstream}")"
+    local detected_name
+    detected_name="$(get_github_repo_name "${detected_upstream}")"
+    if [[ -z ${current_name} || -z ${detected_name} || "${current_name}" != "${detected_name}" ]]; then
+      print_warning "Repo already has a different upstream defined: ${current_upstream}"
+      print_warning "Skipping the setting of upstream from file"
+    fi
+  fi
+}
+
+fetch_remotes() {
+  local branch="$1"
+  # Shallow repos can't be merged.
+  if [[ "$(git rev-parse --is-shallow-repository)" == true ]]; then
+    _log_info 'Unshallowing repo...'
+    git fetch --unshallow
+  fi
+  config_repo_upstream
+  _log_info 'Fetching all remotes...'
+  git fetch --all --tags --quiet
+}
+
+should_sync_fork() {
+  local origin_url
+  origin_url="$(git remote get-url origin)"
+  is_owned_repo "${origin_url}" && git remote get-url upstream &> /dev/null
+}
+
+maybe_merge_from_fork() {
+  local branch="$1"
+  if ! should_sync_fork; then
+    _log_info "Repo doesn't look like a fork"
+    return
+  fi
+  _log_info 'Repo has an upstream remote, using it to sync repo'
+  local upstream_branch
+  upstream_branch="$(get_default_branch upstream)"
+  # If the branch doesn't exist locally, we must create it.
+  if [[ -z $(git branch --list "${upstream_branch}") ]]; then
+    git checkout --track "upstream/${upstream_branch}"
+  fi
+  git checkout --quiet "${upstream_branch}"
+  git merge --no-edit --quiet "upstream/${upstream_branch}"
+  git checkout --quiet "${branch}"
+  git merge --no-edit --quiet "${upstream_branch}"
+}
+
+merge_and_maybe_push() {
+  local branch="$1"
+  # We don't use checkout_if_safe here because maybe some commits will be added
+  # only after the sync with upstream.
+  git checkout --quiet "${branch}"
+  _log_info 'Merging changes from origin...'
+  git merge --no-edit --quiet "origin/${branch}"
+  if is_owned_repo "${origin_url}"; then
+    maybe_merge_from_fork "${branch}"
+    _log_info 'Pushing changes to origin remote...'
+    git push origin --all
+  fi
+}
+
+checkout_if_safe() {
+  local rev="$1"
+  num_lost_commits="$(git log --oneline HEAD "^${rev}" | wc -l)"
+  if ((num_lost_commits > 0)); then
+    print_warning "Will lose ${num_lost_commits} commits, bailing out."
+    return 1
+  fi
+  git checkout "${rev}"
+}
+
+rollback_if_lost_commits() {
+  local original_head="$1"
+  local num_lost_commits
+  num_lost_commits="$(git log --oneline "${original_head}" '^HEAD' | wc -l)"
+  if ((num_lost_commits > 0)); then
+    print_warning "Lost ${num_lost_commits} commits after update, rolling back."
+    git checkout --quiet "${original_head}"
+  fi
+}
+
+# See: https://stackoverflow.com/a/3899339
+is_repo_dirty() {
+  # This command will always succeed, but should print the modified files if
+  # there are any. Therefore, we check if the output is empty.
+  [[ -n "$(git status --porcelain --untracked-files=no --ignore-submodules)" ]]
+  # I suspect this command has random issues with ignoring submodules.
+  # ! git diff-index --ignore-submodules --quiet HEAD
+}
+
+maybe_stash_changes() {
+  is_repo_dirty || return 1
+  _log_info_bold 'Repo has uncommitted changes, stashing them.'
+  git stash push
+}
+
+get_head_branch_or_commit() {
+  # `git symbolic-ref` prints the current branch if a branch is checked out, but
+  # returns an error when there's a detached HEAD. `git rev-parse` returns the
+  # SHA-1..
+  git symbolic-ref --short -q HEAD || git rev-parse HEAD
+}
+
+sensible_update() {
+  local branch="$1"
+  _log_info 'HEAD datetime:' "$(get_commit_datetime HEAD)"
+  local head_timestamp
+  head_timestamp="$(get_commit_timestamp HEAD)"
+  local branch_timestamp
+  branch_timestamp="$(get_commit_timestamp "${branch}")"
+  _log_info "${branch}" 'datetime: ' "$(get_commit_datetime "${branch}")"
+  local current_timestamp
+  current_timestamp="$(date +"%s")"
+  if ((current_timestamp - branch_timestamp >= 2 * 365 * 24 * 60 * 60)); then
+    _log_info_bold "${branch} not updated in the last two years"
+  fi
+  local latest_tag
+  if latest_tag="$(git describe --tags --abbrev=0 origin/"${branch}" 2> /dev/null)"; then
+    _log_info "$(printf 'Lastest tag reachable from origin/%s: %s, datetime: %s\n' \
+      "${branch}" "${latest_tag}" "$(get_commit_datetime "${latest_tag}")")"
+    local latest_tag_timestamp
+    latest_tag_timestamp="$(get_commit_timestamp "${latest_tag}")"
+    if ((latest_tag_timestamp >= head_timestamp)); then
+      if ((latest_tag_timestamp > head_timestamp)); then
+        _log_info_bold 'Latest tag newer than HEAD, checking it out'
+        checkout_if_safe "${latest_tag}"
+      else
+        _log_info 'HEAD pointing to latest tag, leaving HEAD as is'
+      fi
+      if ((branch_timestamp - latest_tag_timestamp >= 2 * 365 * 24 * 60 * 60)); then
+        print_warning "${branch} newer than latest tag by more than 2 years"
+      fi
+      return 0
+    else
+      _log_info 'Latest tag not newer than HEAD, leaving HEAD as is'
+    fi
+  else
+    _log_info 'Did not find a tag reachable from origin/'"${branch}"
+  fi
+  if ((branch_timestamp > head_timestamp)); then
+    _log_info_bold "$(printf '%s newer than HEAD, checking it out' "${branch}")"
+    checkout_if_safe "${branch}"
+  else
+    _log_info "${branch}"' not newer than HEAD, leaving HEAD as is'
+  fi
+}
+
+fail() {
+  false
+}
+
+main() {
+  local origin_url
+  if ! origin_url="$(git remote get-url origin)"; then
+    print_error 'No remote named origin found'
+    exit 2
+  fi
+  _log_info_bold 'Processing repo with origin '"${origin_url}"
+  # Store original HEAD.
+  local original_head
+  original_head="$(get_head_branch_or_commit)"
+  # Rollback HEAD if anything goes wrong.
+  trap '(($? != 0 )) && git checkout --quiet "${original_head}"' \
+    EXIT SIGABRT SIGHUP SIGINT SIGTERM SIGPIPE SIGQUIT
+  local default_branch
+  if ! default_branch="$(get_default_branch origin)"; then
+    print_error 'Could not detect default branch'
+    exit 2
+  fi
+  _log_info 'Default branch: '"${default_branch}"
+  # We must fetch the remote changes separately before stashing the changes,
+  # because the fetch may change the ~/.ssh/known_hosts file which could be part
+  # of the repo, leading to a merge conflict.
+  fetch_remotes "${default_branch}"
+  local dirty=0
+  maybe_stash_changes && dirty=1
+  merge_and_maybe_push "${default_branch}"
+  # Rollback HEAD since sensible_update expects the original HEAD before deciding
+  # how to update.
+  git checkout --quiet "${original_head}"
+  sensible_update "${default_branch}"
+  rollback_if_lost_commits "${original_head}"
+  if ((dirty)) && ! git stash pop; then
+    print_error 'Could not apply stashed changes'
+    exit 2
+  fi
+}
+
+main "$@"

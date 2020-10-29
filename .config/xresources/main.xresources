@@ -1,0 +1,31 @@
+#include "rofi.xresources"
+#include "xterm.xresources"
+#include "urxvt.xresources"
+#include "dark.xresources"
+
+#ifndef DPI
+  #define DPI 96
+#endif
+
+#ifndef ROFI_FONT_SIZE
+  #define ROFI_FONT_SIZE 16
+#endif
+
+#ifndef TERMINAL_FONT_SIZE
+  #define TERMINAL_FONT_SIZE 14
+#endif
+
+! Check dpi with: `xdpyinfo | grep -B 2 resolution` and calculate the real one
+! from the screen size and resolution to verify they match. See also:
+! https://wiki.archlinux.org/index.php/HiDPI#X_Server
+! Originally copied from: https://github.com/stapelberg/configfiles
+Xft.dpi: DPI
+Xft.lcdfilter: lcddefault
+Xft.autohint: false
+! Font hinting settings. See also:
+! https://wiki.archlinux.org/index.php/Font_configuration#Hinting
+Xft.hinting: true
+Xft.hintstyle: hintfull
+! set to vrgb for subpixel hinting on LCDs, or none on CRTs
+Xft.antialias: true
+Xft.rgba: rgb

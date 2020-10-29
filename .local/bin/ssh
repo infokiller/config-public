@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+WRAPPER_PATH="$(readlink -f "$0")"
+
+# This directory is used for ssh multiplexing files and if it doesn't exist, ssh
+# will fail.
+mkdir -p -- "${HOME}/.ssh/sockets"
+find "${HOME}/.ssh" -type f -print0 |
+  xargs --null --no-run-if-empty chmod 600 --
+find "${HOME}/.ssh" -type d -print0 |
+  xargs --null --no-run-if-empty chmod 700 --
+# TODO: Figure out if this is really needed. It seems that SSH will set this
+# correctly anyway.
+echo "XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority" >| "${HOME}/.ssh/environment"
+
+gpg-connect-agent updatestartuptty /bye &> /dev/null
+
+mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+exec -- "${COMMAND[@]}" "$@"

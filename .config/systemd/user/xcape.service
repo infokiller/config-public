@@ -1,0 +1,12 @@
+[Unit]
+Description=Start xcape
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=forking
+# Launch it using env so that $PATH will be used.
+ExecStart=%h/.local/bin/run-xcape
+Restart=on-failure
+RestartSec=30

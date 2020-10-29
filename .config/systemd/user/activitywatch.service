@@ -1,0 +1,18 @@
+[Unit]
+Description=Start ActivityWatch self tracker
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+# NOTE: This used not to work because it complained about a permission error
+# when calling os.setpgrp(), but as of 2020-08-10 it works when running from an
+# activitywatch release.
+# NOTE: The sleep is a dirty hack so that activity watch will only be started
+# after the tray is loaded in polybar.
+ExecStart=bash -c 'sleep 10 && ~/submodules/desktop/activitywatch/dist/aw-qt'
+# ExecStart=%h/.local/bin/conda-run activitywatch aw-qt
+# ExecStart=python -c 'import os; os.setpgrp()'
+Restart=on-failure
+RestartSec=10

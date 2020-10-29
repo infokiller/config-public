@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="switch_to_workspace_up" mtime="1375269147" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Alt&gt;Up</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_down" mtime="1375269149" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Alt&gt;Down</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_right" mtime="1359985141" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;Right</stringvalue>
+	</entry>
+	<entry name="switch_to_workspace_left" mtime="1359985141" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;Left</stringvalue>
+	</entry>
+	<entry name="panel_run_dialog" mtime="1360228604" type="string">
+		<stringvalue>&lt;Super&gt;r</stringvalue>
+	</entry>
+	<entry name="run_command_terminal" mtime="1359985141" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;T</stringvalue>
+	</entry>
+	<entry name="panel_main_menu" mtime="1359985141" type="string">
+		<stringvalue>disabled</stringvalue>
+	</entry>
+	<entry name="show_desktop" mtime="1360228737" type="string">
+		<stringvalue>&lt;Super&gt;d</stringvalue>
+	</entry>
+</gconf>

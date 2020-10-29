@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="prompt_on_close_tab" mtime="1451899794" type="int" value="0"/>
+	<entry name="custom_command_file" mtime="1450345978" schema="/schemas/apps/guake/general/custom_command_file"/>
+	<entry name="focus_if_open" mtime="1450345978" schema="/schemas/apps/guake/general/focus_if_open"/>
+	<entry name="toolbar_visible_in_fullscreen" mtime="1450345978" schema="/schemas/apps/guake/general/toolbar_visible_in_fullscreen"/>
+	<entry name="show_resizer" mtime="1450345978" schema="/schemas/apps/guake/general/show_resizer"/>
+	<entry name="word_chars" mtime="1450345978" schema="/schemas/apps/guake/general/word_chars"/>
+	<entry name="max_tab_name_length" mtime="1450345978" schema="/schemas/apps/guake/general/max_tab_name_length"/>
+	<entry name="use_vte_titles" mtime="1451899794" schema="/schemas/apps/guake/general/use_vte_titles" type="bool" value="false"/>
+	<entry name="use_palette_font_and_background_color" mtime="1451899794" schema="/schemas/apps/guake/general/use_palette_font_and_background_color" type="bool" value="true"/>
+	<entry name="scroll_output" mtime="1450345978" schema="/schemas/apps/guake/general/scroll_output"/>
+	<entry name="window_valignment" mtime="1451899794" schema="/schemas/apps/guake/general/window_valignment" type="int" value="1"/>
+	<entry name="window_halignment" mtime="1451899794" schema="/schemas/apps/guake/general/window_halignment" type="int" value="0"/>
+	<entry name="window_height_f" mtime="1451899794" schema="/schemas/apps/guake/general/window_height_f" type="float" value="91.9375"/>
+	<entry name="window_width_f" mtime="1451899794" schema="/schemas/apps/guake/general/window_width_f" type="float" value="100"/>
+	<entry name="window_width" mtime="1451899794" schema="/schemas/apps/guake/general/window_width" type="int" value="100"/>
+	<entry name="use_visible_bell" mtime="1450345978" schema="/schemas/apps/guake/general/use_visible_bell"/>
+	<entry name="use_audible_bell" mtime="1450345978" schema="/schemas/apps/guake/general/use_audible_bell"/>
+	<entry name="start_fullscreen" mtime="1450345978" schema="/schemas/apps/guake/general/start_fullscreen"/>
+	<entry name="startup_script" mtime="1450617840" schema="/schemas/apps/guake/general/startup_script" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="quick_open_in_current_terminal" mtime="1450345978" schema="/schemas/apps/guake/general/quick_open_in_current_terminal"/>
+	<entry name="quick_open_command_line" mtime="1451899794" schema="/schemas/apps/guake/general/quick_open_command_line" type="string">
+		<stringvalue>gedit %(file_path)s</stringvalue>
+	</entry>
+	<entry name="quick_open_enable" mtime="1450345978" schema="/schemas/apps/guake/general/quick_open_enable"/>
+	<entry name="tab_ontop" mtime="1450345978" schema="/schemas/apps/guake/general/tab_ontop"/>
+	<entry name="prompt_on_close_Tab" mtime="1450345978" schema="/schemas/apps/guake/general/prompt_on_close_tab"/>
+	<entry name="use_login_shell" mtime="1450345978" schema="/schemas/apps/guake/general/use_login_shell"/>
+	<entry name="default_shell" mtime="1451899800" schema="/schemas/apps/guake/general/default_shell" type="string">
+		<stringvalue>/bin/zsh</stringvalue>
+	</entry>
+	<entry name="display_n" mtime="1451899794" schema="/schemas/apps/guake/general/display_n" type="int" value="0"/>
+	<entry name="mouse_display" mtime="1451899794" schema="/schemas/apps/guake/general/mouse_display" type="bool" value="true"/>
+	<entry name="debug_mode" mtime="1450345978" schema="/schemas/apps/guake/general/debug_mode"/>
+	<entry name="window_height" mtime="1451899794" type="int" value="91"/>
+	<entry name="compat_delete" mtime="1451899794" schema="/schemas/apps/guake/general/compat_delete" type="string">
+		<stringvalue>delete-sequence</stringvalue>
+	</entry>
+	<entry name="compat_backspace" mtime="1451899794" schema="/schemas/apps/guake/general/compat_backspace" type="string">
+		<stringvalue>ascii-delete</stringvalue>
+	</entry>
+	<entry name="use_default_font" mtime="1450345978" schema="/schemas/apps/guake/general/use_default_font" type="bool" value="false"/>
+	<entry name="scroll_keystroke" mtime="1451899794" schema="/schemas/apps/guake/general/scroll_keystroke" type="bool" value="true"/>
+	<entry name="history_size" mtime="1451899794" schema="/schemas/apps/guake/general/history_size" type="int" value="100000"/>
+	<entry name="use_scrollbar" mtime="1451899794" schema="/schemas/apps/guake/general/use_scrollbar" type="bool" value="true"/>
+	<entry name="window_tabbar" mtime="1450617847" schema="/schemas/apps/guake/general/window_tabbar" type="bool" value="false"/>
+	<entry name="prompt_on_quit" mtime="1451899794" schema="/schemas/apps/guake/general/prompt_on_quit" type="bool" value="true"/>
+	<entry name="use_popup" mtime="1451899794" schema="/schemas/apps/guake/general/use_popup" type="bool" value="true"/>
+	<entry name="use_trayicon" mtime="1451899794" schema="/schemas/apps/guake/general/use_trayicon" type="bool" value="true"/>
+	<entry name="window_losefocus" mtime="1451899794" schema="/schemas/apps/guake/general/window_losefocus" type="bool" value="false"/>
+	<entry name="window_ontop" mtime="1451899794" schema="/schemas/apps/guake/general/window_ontop" type="bool" value="false"/>
+</gconf>

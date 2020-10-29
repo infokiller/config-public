@@ -1,0 +1,24 @@
+Description="Solarized Dark"
+
+Default        = { Colour="#839496" }
+Canvas         = { Colour="#002b36" }
+Number         = { Colour="#2aa198" }
+Escape         = { Colour="#cb4b16" }
+String         = { Colour="#2aa198" }
+StringPreProc  = { Colour="#dc322f" }
+BlockComment   = { Colour="#586e75" }
+PreProcessor   = { Colour="#6c71c4" }
+LineNum        = { Colour="#586e75" }
+Operator       = { Colour="#859900" }
+LineComment    = BlockComment
+Interpolation  = Escape
+
+Keywords = {
+  Operator,
+  Operator,
+  Operator,
+  -- Functions
+  Default,
+}
+
+-- vim: set ft=lua

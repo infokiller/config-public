@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="action" mtime="1373388754" type="string">
+		<stringvalue>x-terminal-emulator</stringvalue>
+	</entry>
+	<entry name="name" mtime="1373388754" type="string">
+		<stringvalue>Launch Terminal</stringvalue>
+	</entry>
+</gconf>

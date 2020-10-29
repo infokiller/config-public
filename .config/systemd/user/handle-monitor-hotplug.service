@@ -1,0 +1,12 @@
+[Unit]
+Description=Handles monitor connections/disconnections (triggered by udev)
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecCondition=/opt/ikl/is-x11-ready
+ExecStart=%h/.my_scripts/udev/set-monitor-config
+Restart=on-failure
+RestartSec=5

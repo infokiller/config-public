@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+#
+# This tool was extracted to a separate script since it uses some bash specific
+# features that make it easier to implement, so it could not easily be written
+# to support both bash and zsh.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+main() {
+  local commits
+  if ! commits="$(run-interactive-function git-select-commits-fzf --prompt 'Select commits to diff > ')"; then
+    return 1
+  fi
+  mapfile -t commits < <(echo -E "${commits}")
+  if [[ "${#commits[@]}" -ne 2 ]]; then
+    print_error 'Must select exactly two commits'
+    return 1
+  fi
+  local cmd=(git diff "${commits[0]}" "${commits[1]}")
+  print_bold "Executing: ${cmd[*]}"
+  "${cmd[@]}"
+}
+
+main "$@"

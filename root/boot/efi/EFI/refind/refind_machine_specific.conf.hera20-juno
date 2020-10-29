@@ -1,0 +1,18 @@
+menuentry "Arch Linux" {
+    icon     /EFI/refind/icons/os_arch.png
+    volume   b78b6107-d7fb-4700-9657-f5ab668cec10
+    loader   vmlinuz-linux-hardened
+    initrd   initramfs-linux-hardened.img
+    options  "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=2c9ccb5f-9cd5-4052-bbec-29da0fd77e25:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=20000"
+    submenuentry "linux-hardened: fallback initramfs" {
+        initrd initramfs-linux-hardened-fallback.img
+    }
+    submenuentry "linux-hardened: boot to terminal" {
+        add_options "systemd.unit=multi-user.target"
+    }
+    submenuentry "linux: standard" {
+        initrd    initramfs-linux.img
+        loader    vmlinuz-linux
+        options   "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=2c9ccb5f-9cd5-4052-bbec-29da0fd77e25:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
+    }
+}

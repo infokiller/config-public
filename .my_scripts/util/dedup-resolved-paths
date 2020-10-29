@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+import os
+import sys
+
+
+def dedup_resolved_paths():
+    symlinks = []
+    seen = set()
+    # Print initially only non-symlinks, and then print symlinks that do not
+    # point to any of the other files.
+    for line in sys.stdin:
+        path = line[:-1]
+        if not path:
+            continue
+        abspath = os.path.abspath(path)
+        if abspath in seen:
+            continue
+        seen.add(abspath)
+        if os.path.islink(abspath):
+            symlinks.append(path)
+            continue
+        print(path)
+    for path in symlinks:
+        resolved = os.path.realpath(path)
+        if resolved in seen or not os.path.isfile(resolved):
+            continue
+        seen.add(resolved)
+        print(path)
+        # print(os.path.relpath(resolved))
+
+
+def main():
+    # https://docs.python.org/3/library/signal.html#note-on-sigpipe
+    try:
+        dedup_resolved_paths()
+    except BrokenPipeError:
+        # Python flushes standard streams on exit; redirect remaining output
+        # to devnull to avoid another BrokenPipeError at shutdown
+        devnull = os.open(os.devnull, os.O_WRONLY)
+        os.dup2(devnull, sys.stdout.fileno())
+
+
+if __name__ == '__main__':
+    main()

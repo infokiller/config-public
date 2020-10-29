@@ -1,0 +1,9 @@
+#compdef dephell
+#autoload
+
+if [[ -z "${_dephell_sourced-}" ]]; then
+  : "${XDG_DATA_HOME:=${HOME}/.local/share}"
+  source -- "${XDG_DATA_HOME}/dephell/_dephell_zsh_autocomplete"
+  _dephell_sourced=1
+fi
+_dephell "$@"

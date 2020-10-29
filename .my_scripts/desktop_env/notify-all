@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+_kill_voice() {
+  # Trick to silence the bash message about killing a child job. See also:
+  # http://stackoverflow.com/a/5722874
+  local jobs_pids
+  mapfile -t jobs_pids < <(jobs -rp)
+  if ((${#jobs_pids[@]} > 0)); then
+    kill "${jobs_pids[@]}"
+    wait "${jobs_pids[@]}" 2> /dev/null
+  fi
+}
+
+trap _kill_voice SIGINT
+
+# Desktop notification
+notify-send --icon 'dialog-information' "$@"
+# Pushbullet notification
+# notify-pushbullet "$@" &
+# Sound notification
+# Convert arguments array to string.
+# args_string="'$*'"
+# Limit the size of the string in text2speech.
+# espeak "${args_string:0:20}" &
+espeak "$@" &> /dev/null &
+# Timeout for espeak
+sleep 2 && _kill_voice

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Vim
+Comment=Launches vim in a new terminal window
+Categories=Utility;TextEditor;
+Keywords=Text;editor;
+Icon=gvim
+# NOTE: We launch this is a new terminal window, so the command itself shouldn't
+# run in a terminal, hence Terminal is set to false. I originally set this to
+# true, but then Chromium doesn't open files.
+Terminal=false
+TryExec=vim
+Exec=sensible-terminal --window-name vim-terminal -- vim
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;

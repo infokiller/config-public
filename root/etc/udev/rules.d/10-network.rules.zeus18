@@ -1,0 +1,10 @@
+# zeus18 has a X299 SLI PLUS mobo which has two onboard NICs by Intel - i211
+# and i219. The i211 seems to have more advanced features, but is connected
+# over PCIe, while the i219 is "on chip", which doesn't consume PCIe lanes. See
+# also:
+# - https://www.computerbase.de/forum/threads/intel-i219-v-vs-intel-i211.1828627/
+# - http://ark.intel.com/compare/82186,64404
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="30:9c:23:21:f0:c8", NAME="eth-i211"
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="30:9c:23:21:f0:c9", NAME="eth-i219"
+
+# vim: set ft=udevrules :

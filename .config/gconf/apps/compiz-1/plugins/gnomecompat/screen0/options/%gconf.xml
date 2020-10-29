@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="main_menu_key" mtime="1359985138" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="run_key" mtime="1359985138" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+</gconf>

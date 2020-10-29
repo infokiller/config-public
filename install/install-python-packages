@@ -1,0 +1,240 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
+readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
+
+# shellcheck source=../.my_scripts/lib/platform_detection.sh
+source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+# shellcheck source=setup_installation_env
+source "${REPO_ROOT}/install/setup_installation_env"
+
+declare -A INSTALLED_BINARIES=(
+  ['activate']=''
+  ['black']=''
+  ['buku']=''
+  ['codespell']=''
+  ['conda']=''
+  ['deactivate']=''
+  ['detect-secrets']=''
+  ['detect-secrets-hook']=''
+  # gh
+  ['git-nbdiffdriver']=''
+  ['git-nbdifftool']=''
+  ['git-nbmergedriver']=''
+  ['git-nbmergetool']=''
+  ['gitlab']=''
+  # gitsome
+  ['glances']=''
+  ['gping']=''
+  ['gpu']='gpu-cli'
+  ['gpustat']=''
+  ['grip']=''
+  ['ipython']=''
+  ['isort']=''
+  ['jupyter']=''
+  ['jupyter-qtconsole']=''
+  ['jupytext']=''
+  ['litecli']=''
+  ['mamba']=''
+  ['nbdiff']=''
+  ['nbdiff-web']=''
+  ['nbdime']=''
+  ['nbmerge']=''
+  ['nbmerge-web']=''
+  ['nbshow']=''
+  ['pip']=''
+  ['pipenv']=''
+  ['pipenv-resolver']=''
+  ['poetry']=''
+  ['proselint']=''
+  ['py']=''
+  ['pydf']=''
+  ['pylint']=''
+  ['semantic-release']='python-semantic-release'
+  ['pytype']=''
+  ['s-tui']=''
+  ['semgrep']=''
+  ['twine']=''
+  ['ueberzug']=''
+  ['undervolt']=''
+  ['vint']=''
+  ['yapf']=''
+)
+
+_print_bold() {
+  local bold normal
+  bold="$(tput bold 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf '%s' "${bold}"
+  printf '%s' "${@}"
+  printf '%s\n' "${normal}"
+}
+
+_log_info() {
+  printf 'install-python-packages: %s\n' "$*"
+}
+
+_log_info_bold() {
+  _print_bold "$(_log_info "$@")"
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_log_error() {
+  _print_error "$(printf 'install-python-packages: %s' "$*")"
+}
+
+_print_usage_and_die() {
+  _print_error "$(printf 'Usage: %s [--graphical] [--non-graphical]' \
+    "$(basename "$0")")"
+  exit 1
+}
+
+_fastest_conda() {
+  local bin="${CONDA}"
+  # As of 2020-10-14, mamba wasn't faster than conda in this script, though I
+  # think it's faster when installing envrionments from scratch. I'll consider
+  # enabling it in the future.
+  # if [[ -x "${CONDA_LOCAL_DIR}/bin/mamba" ]]; then
+  #   bin="${CONDA_LOCAL_DIR}/bin/mamba"
+  # fi
+  "${bin}" "$@"
+}
+
+_create_python_env_wrappers() {
+  # Source profile again to make sure create-wrappers is in the PATH.
+  # shellcheck source=../.profile
+  source "${REPO_ROOT}/.profile"
+
+  # NOTE: As of 2018-11-25 I'm using the conda-run script instead of generating
+  # wrappers.
+  _log_info_bold "Installing conda exec-wrappers"
+  pip install exec-wrappers
+  # cd "${SUBMODULES_DIR}/exec-wrappers"
+  # "${HOME}/.local/pkg/conda/bin/python" setup.py install
+  _log_info_bold 'Creating python environment wrappers'
+  # local envs=(base_i3 base_shell_history)
+  # local bin_dirs=("${HOME}/.my_scripts/i3" "${HOME}/.config/bash/history")
+  local envs=()
+  local bin_dirs=()
+  for i in "${!envs[@]}"; do
+    local dest_dir="${bin_dirs[${i}]}/wrappers"
+    [[ -d ${dest_dir} ]] || mkdir -- "${dest_dir}"
+    "${CONDA_LOCAL_DIR}/bin/create-wrappers" --type conda --conda-env-dir "${CONDA_LOCAL_DIR}/envs/${envs[${i}]}" --bin-dir "${bin_dirs[${i}]}" --dest-dir "${dest_dir}"
+  done
+}
+
+_install_conda() {
+  # TODO: Install man pages. I need to clone:
+  # https://github.com/conda/conda-docs
+  # And then build the man files and link them to my path.
+  miniconda_path="${HOME}/.local/pkg/conda"
+  miniconda_installer='Miniconda3-py37_4.8.2-Linux-x86_64.sh'
+  miniconda_md5='87e77f097f6ebb5127c77662dfc3165e' # pragma: allowlist secret
+  if [[ -d ${miniconda_path} ]]; then
+    _log_info_bold 'Looks like miniconda is already installed'
+    return
+  fi
+  _log_info_bold 'Installing miniconda'
+  cd "${INSTALLATION_TMP_DIR}"
+  if [[ ! -f ${miniconda_installer} ]] ||
+    ! (md5sum "${miniconda_installer}" | grep -q "${miniconda_md5}"); then
+    wget --continue "https://repo.continuum.io/miniconda/${miniconda_installer}"
+  fi
+  bash "${miniconda_installer}" -b -p "${miniconda_path}"
+}
+
+_install_conda_envs_from_dir() {
+  local dir="$1"
+  while IFS= read -r -d '' conda_env_file; do
+    _log_info_bold "Installing conda environment from file: ${conda_env_file}"
+    # --prune removes packages not specified in environment file
+    local cmd=(_fastest_conda env update --prune -f "${conda_env_file}")
+    if ! "${cmd[@]}"; then
+      _log_info_bold 'Removing compiler_compat/ld and retrying'
+      rm -- "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
+        "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
+      "${cmd[@]}"
+    fi
+  done < <(\find -L "${dir}" -maxdepth 1 -type f -print0 | sort --zero-terminated)
+}
+
+_setup_conda() {
+  do_basic_setup
+  _install_conda
+  # Source profile again to get the conda bin path.
+  # shellcheck source=../.profile
+  source "${REPO_ROOT}/.profile"
+  _log_info_bold 'Updating conda'
+  # NOTE: we must specify the environment in case another environment is active
+  # when this script is called.
+  # NOTE: if conda-build is not installed, updating conda will fail.
+  "${CONDA}" install --name root --yes conda-build
+  "${CONDA}" update --name root --yes conda
+  _log_info_bold 'Removing compiler_compat/ld'
+  rm "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
+    "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
+}
+
+_symlink_base_env_binaries() {
+  _log_info_bold 'Symlinking binaries from conda base environment'
+  local bin install_name
+  for bin in "${!INSTALLED_BINARIES[@]}"; do
+    if [[ -n "${INSTALLED_BINARIES[${bin}]}" ]]; then
+      install_name="${INSTALLED_BINARIES[${bin}]}"
+      _log_info "Installing ${bin} as ${install_name}"
+    else
+      install_name="${bin}"
+      _log_info "Installing ${bin}"
+    fi
+    symlink_binary "${CONDA_LOCAL_DIR}/bin/${bin}" "${install_name}"
+  done
+}
+
+main() {
+  local install_non_graphical=0
+  local install_graphical=0
+  if (($# == 0)); then
+    install_non_graphical=1
+    install_graphical=1
+  fi
+  while (($# > 0)); do
+    case "$1" in
+      --non-graphical)
+        install_non_graphical=1
+        shift 1
+        ;;
+      --graphical)
+        install_graphical=1
+        shift 1
+        ;;
+      *)
+        _print_usage_and_die
+        ;;
+    esac
+  done
+
+  _setup_conda
+
+  if ((install_non_graphical)); then
+    _log_info_bold 'Installing non-graphical conda environments'
+    _install_conda_envs_from_dir "${REPO_ROOT}/install/conda_envs"
+    _symlink_base_env_binaries
+  fi
+  if ((install_graphical)); then
+    _log_info_bold 'Installing graphical conda environments'
+    _install_conda_envs_from_dir "${REPO_ROOT}/install/conda_envs/graphical"
+  fi
+}
+
+main "$@"

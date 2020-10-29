@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+_is_ssh() {
+  [[ -n ${SSH_CLIENT-} || -n ${SSH_TTY-} || -n ${SSH_CONNECTION-} ]]
+}
+
+main() {
+  if _is_ssh; then
+    echo 1>&2 'sensible-browser: no support for SSH'
+    exit 1
+  fi
+  if command -v google-chrome-home &> /dev/null; then
+    exec google-chrome-home "$@"
+  fi
+  if command -v google-chrome &> /dev/null; then
+    exec google-chrome "$@"
+  fi
+  exec firefox "$@"
+}
+
+main "$@"

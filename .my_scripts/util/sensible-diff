@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_ORDERED_DIFFERS=(diff-so-fancy icdiff delta diff)
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_run_diff-so-fancy() {
+  # Use diff-so-fancy for diffing files outside git. See also:
+  # https://github.com/so-fancy/diff-so-fancy/issues/220#issuecomment-283244546
+  # git diff --no-index --color "$@" | diff-so-fancy
+  # As of v1.2.5, diff-so-fancy supports diff output as well:
+  # https://github.com/so-fancy/diff-so-fancy/releases/tag/v1.2.5
+  diff -u "$@" | diff-so-fancy
+}
+
+_run_icdiff() {
+  icdiff "$@"
+}
+
+_run_delta() {
+  git diff --no-index --color "$@" | delta
+}
+
+_run_diff() {
+  diff -u --color=auto "$@"
+}
+
+main() {
+  for differ in "${_ORDERED_DIFFERS[@]}"; do
+    if _command_exists "${differ}"; then
+      eval "_run_${differ}" "$@"
+      return
+    fi
+  done
+  exit 1
+}
+
+main "$@"

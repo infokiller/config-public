@@ -1,0 +1,118 @@
+# Copied from:
+# https://github.com/MarkLodato/dotfiles/blob/master/.zsh/functions/cycle-quotes
+#
+# Cycle the quoting of the current word between single quoting, double
+# quoting, backslash escaping, and back to the original input (if different
+# than any of the previous).
+#
+# Example:
+#   Pressing ALT-' when the cursor is at the end of the following line cycles
+#   through the following:
+#     foo bar --flag=one\ 'two ${three}'
+#     foo bar '--flag=one two ${three}'
+#     foo bar "--flag=one two \${three}"
+#     foo bar --flag=one\ two\ \${three}
+#
+# Usage:
+#   autoload -U cycle-quotes
+#   zle -N cycle-quotes
+#   bindkey "^['" cycle-quotes
+#   bindkey "\\M-'" cycle-quotes
+#
+# Known issues:
+# - The entire word is quoted/escaped, including globbing characters and
+#   dollar signs.  I wish it could optionally keep all of those things
+#   unescaped (e.g. "a $b" -> a\ "$b") but that would be a ton of work.
+# - Unclosed quotes are not handled well.  For example, typing:
+#       echo 'one two
+#   and then pressing the binding incorrectly treats the unclosed quote as
+#   a literal character, as in:
+#       echo ''\''one two'
+#   rather than closing the quote, as in:
+#       echo 'one two'
+# The following is a copy of zsh's modify-current-argument except that instead
+# of using 'eval', the argument is a function to call that is expected to set
+# ${repl}.
+function _cycle-quotes-modify-current-argument {
+  setopt localoptions noksharrays multibyte
+  local -a reply
+  integer REPLY REPLY2 fromend endoffset
+  autoload -Uz split-shell-arguments
+  split-shell-arguments
+  # Can't do this unless there's some text under or left of us.
+  (( REPLY < 2 )) && return 1
+  # Get the index of the word we want.
+  if (( REPLY & 1 )); then
+    # Odd position; need previous word.
+    (( REPLY-- ))
+    # Pretend position was just after the end of it.
+    (( REPLY2 = ${#reply[REPLY]} + 1 ))
+  fi
+  # Work out offset from end of string
+  (( fromend = ${REPLY2} - ${#reply[REPLY]} - 1 ))
+  if (( fromend >= -1 )); then
+    # Cursor is near the end of the word, we'll try to keep it there.
+    endoffset=1
+  fi
+  # Length of all characters before current.
+  # Force use of character (not index) counting and join without IFS.
+  integer wordoff="${(cj..)#reply[1,REPLY-1]}"
+  # Replacement for current word.  This could do anything to ${reply[REPLY]}.
+  local ARG="${reply[REPLY]}"
+  local repl="${ARG}"
+  "$@"
+  if (( !endoffset )) && [[ ${repl[fromend,-1]} = ${ARG[fromend,-1]} ]]; then
+    # If the part of the string from here to the end hasn't changed,
+    # leave the cursor this distance from the end instead of the beginning.
+    endoffset=1
+  fi
+  # New line:  all words before and after current word, with
+  # no additional spaces since we've already got the whitespace
+  # and the replacement word in the middle.
+  local left="${(j..)reply[1,REPLY-1]}${repl}"
+  local right="${(j..)reply[REPLY+1,-1]}"
+  if [[ endoffset -ne 0 && ${#repl} -ne 0 ]]; then
+    # Place cursor relative to end.
+    LBUFFER="${left}"
+    RBUFFER="${right}"
+    (( CURSOR += fromend ))
+  else
+    BUFFER="${left}${right}"
+    # Keep cursor at same position in replaced word.
+    # Redundant here, but useful if ${repl} changes the length.
+    # Limit to the next position after the end of the word.
+    integer repmax=$(( ${#repl} + 1 ))
+    # Remember CURSOR starts from offset 0 for some reason, so
+    # subtract 1 from positions.
+    (( CURSOR = wordoff + (REPLY2 > repmax ? repmax : REPLY2) - 1 ))
+  fi
+}
+function _cycle-quotes-helper {
+  setopt localoptions unset
+  local ARG_UNQUOTED="${(Q)ARG}"
+  local ARG_ESCAPED="${(q)ARG_UNQUOTED}"
+  local ARG_SINGLE_QUOTED="${(qq)ARG_UNQUOTED}"
+  local ARG_DOUBLE_QUOTED="${(qqq)ARG_UNQUOTED}"
+  if [[ ${ARG_UNQUOTED} != ${_CYCLE_QUOTES_CURRENT_UNQUOTED} ]]; then
+    _CYCLE_QUOTES_CURRENT_UNQUOTED="${ARG_UNQUOTED}"
+    _CYCLE_QUOTES_ORIGINAL_VALUE="${ARG}"
+  fi
+  if [[ ${ARG} == ${ARG_SINGLE_QUOTED} ]]; then
+    repl="${ARG_DOUBLE_QUOTED}"
+  elif [[ ${ARG} == ${ARG_DOUBLE_QUOTED} ]]; then
+    repl="${ARG_ESCAPED}"
+  elif [[ ${ARG} == ${ARG_ESCAPED} ]]; then
+    # Go back to the original value, unless it was in the cycle already.
+    if [[ ${_CYCLE_QUOTES_ORIGINAL_VALUE} == ${ARG_SINGLE_QUOTED} ||
+          ${_CYCLE_QUOTES_ORIGINAL_VALUE} == ${ARG_DOUBLE_QUOTED} ||
+          ${_CYCLE_QUOTES_ORIGINAL_VALUE} == ${ARG_ESCAPED} ]]; then
+      repl="${ARG_SINGLE_QUOTED}"
+    else
+      repl="${_CYCLE_QUOTES_ORIGINAL_VALUE}"
+    fi
+  else
+    repl="${ARG_SINGLE_QUOTED}"
+  fi
+}
+_cycle-quotes-modify-current-argument _cycle-quotes-helper
+# vim: set sw=2 sts=2 et ft=zsh :

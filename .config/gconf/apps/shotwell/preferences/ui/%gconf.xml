@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="pane_position" mtime="1377180687" type="int" value="228"/>
+	<entry name="show_welcome_dialog" mtime="1377180684" type="bool" value="false"/>
+	<entry name="events_sort_ascending" mtime="1377180684" type="bool" value="false"/>
+	<entry name="display_basic_properties" mtime="1377180684" type="bool" value="true"/>
+</gconf>

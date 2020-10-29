@@ -1,0 +1,16 @@
+name: analyze_ping_log
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.6
+  - yapf
+  - jedi
+  - ipython
+  - pandas
+  - matplotlib
+  - scipy
+  - seaborn
+  - plotly
+  - bokeh
+  - pip

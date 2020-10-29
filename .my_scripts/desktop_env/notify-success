@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Success sound and then regular notification.
+# sound_file="${XDG_DATA_HOME:-${HOME}/.local/share}/sounds/notify_success.wav"
+sound_file="/usr/share/sounds/freedesktop/stereo/dialog-error.oga"
+paplay "${sound_file}" &> /dev/null
+exec notify-all --icon 'emblem-default' -- "$@"

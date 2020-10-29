@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# NOTE: There are discrepancies between `rg --files` and `git ls-files`:
+#
+# 1. `rg --files` doesn't list files in ignore files that are in the repo
+# 2. `rg --files` doesn't list symbolic links files
+# 3. `git ls-files` doesn't list untracked files
+#
+# I'd like to search files in (1) and (3) by default. (2) is not
+# important since the original files will be searched anyway (and possibly it
+# will also cause duplicate results?).
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly DEDUP_CMD=("${REPO_ROOT}/.my_scripts/util/dedup-resolved-paths")
+readonly PUBLIC_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-public"
+readonly PRIVATE_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-private"
+
+readonly ORDERED_CMDS=(git-list-files rg fd find)
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_run_git-list-files() {
+  local repo_root
+  repo_root="$(git rev-parse --show-toplevel 2> /dev/null)" || return
+  if [[ "${repo_root}" == "${HOME}" ]]; then
+    GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" git-list-files
+    GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" git-list-files
+  else
+    git-list-files
+  fi
+}
+
+_run_rg() {
+  rg --files
+}
+
+_run_fd() {
+  fd --type f
+}
+
+_run_find() {
+  find . -type f
+}
+
+main() {
+  for cmd in "${ORDERED_CMDS[@]}"; do
+    if _command_exists "${cmd}"; then
+      eval "_run_${cmd} | ${DEDUP_CMD[*]}" && return
+    fi
+  done
+  exit 1
+}
+
+main "$@"

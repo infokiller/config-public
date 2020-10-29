@@ -1,0 +1,13 @@
+global !p
+from ultisnips_util import get_ale_lint_codes
+endglobal
+
+snippet "f" "Function" rb
+const ${1:fname} = ($2) => {
+	$0
+};
+endsnippet
+
+snippet "eslint-disable|dl" "Disable eslint errors in next line" rb
+// eslint-disable-next-line ${1:`!p snip.rv = ', '.join(get_ale_lint_codes('eslint'))`}
+endsnippet

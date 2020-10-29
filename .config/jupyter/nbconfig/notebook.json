@@ -1,0 +1,105 @@
+{
+  "load_extensions": {
+    "notify/notify": true,
+    "search-replace/main": true,
+    "contrib_nbextensions_help_item/main": true,
+    "highlighter/highlighter": true,
+    "spellchecker/main": true,
+    "table_beautifier/main": true,
+    "keyboard_shortcut_editor/main": true,
+    "nbextensions_configurator/config_menu/main": true,
+    "toc2/main": true,
+    "comment-uncomment/main": true,
+    "code_prettify/code_prettify": true,
+    "navigation-hotkeys/main": true,
+    "select_keymap/main": false,
+    "execute_time/ExecuteTime": false
+  },
+  "kse_show_rebinds": true,
+  "kse_rebinds": {
+    "command": [],
+    "edit": [
+      {
+        "from": "ctrl-l",
+        "to": "alt-ctrl-f",
+        "action_name": "code_prettify:process_selected_cells"
+      },
+      {
+        "from": "ctrl-shift-l",
+        "to": "alt-ctrl-shift-f",
+        "action_name": "code_prettify:process_all_cells"
+      }
+    ]
+  },
+  "keys": {
+    "command": {
+      "unbind": [
+        "alt-enter",
+        "k",
+        "j",
+        "space",
+        "shift-space",
+        "i,i",
+        "z",
+        "shift-v",
+        "v",
+        "p",
+        "shift-k",
+        "shift-j",
+        "c",
+        "y",
+        "m",
+        "a",
+        "b",
+        "shift-l"
+      ],
+      "bind": {
+        "c,c": "jupyter-notebook:change-cell-to-code",
+        "y,y": "jupyter-notebook:copy-cell",
+        "c,r": "jupyter-notebook:change-cell-to-raw",
+        "ctrl-d": "jupyter-notebook:scroll-notebook-down",
+        "ctrl-u": "jupyter-notebook:scroll-notebook-up",
+        "o": "jupyter-notebook:insert-cell-below",
+        "ctrl-i": "jupyter-notebook:move-cell-up",
+        "shift-i": "jupyter-notebook:extend-selection-above",
+        "ctrl-/": "auto:toggle-comment",
+        "p": "jupyter-notebook:paste-cell-below",
+        "k": "jupyter-notebook:select-next-cell",
+        "shift-k": "jupyter-notebook:extend-selection-below",
+        "c,m": "jupyter-notebook:change-cell-to-markdown",
+        " ,c, ": "auto:toggle-comment",
+        "shift-p": "jupyter-notebook:paste-cell-above",
+        "shift-o": "jupyter-notebook:insert-cell-above",
+        "ctrl-k": "jupyter-notebook:move-cell-down",
+        "i": "jupyter-notebook:select-previous-cell",
+        "ctrl-space": "jupyter-notebook:run-cell",
+        "space,t,l": "jupyter-notebook:toggle-all-line-numbers",
+        "space,t,m": "jupyter-notebook:toggle-menubar",
+        "f2": "jupyter-notebook:rename-notebook",
+        "e": "jupyter-notebook:enter-edit-mode",
+        "space,i": "jupyter-notebook:enter-edit-mode",
+        "c,h,1": "jupyter-notebook:change-cell-to-heading-1",
+        "c,h,2": "jupyter-notebook:change-cell-to-heading-2",
+        "c,h,3": "jupyter-notebook:change-cell-to-heading-3",
+        "c,h,4": "jupyter-notebook:change-cell-to-heading-4",
+        "c,h,5": "jupyter-notebook:change-cell-to-heading-5",
+        "c,h,6": "jupyter-notebook:change-cell-to-heading-6",
+        "?": "jupyter-notebook:show-keyboard-shortcuts",
+        "space,t,h": "jupyter-notebook:toggle-header",
+        "space,y,d": "jupyter-notebook:duplicate-notebook",
+        "space,d": "jupyter-notebook:show-command-palette",
+        "ctrl-z": "jupyter-notebook:undo-cell-deletion",
+        "ctrl-shift-c": "jupyter-notebook:interrupt-kernel"
+      }
+    }
+  },
+  "Notebook": {
+    "Toolbar": true,
+    "Header": true
+  },
+  "Cell": {
+    "cm_config": {
+      "lineNumbers": false
+    }
+  }
+}

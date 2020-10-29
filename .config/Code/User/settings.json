@@ -1,0 +1,120 @@
+{
+    "editor.dragAndDrop": false,
+    "editor.fontFamily": "MyMono",
+    "editor.formatOnSaveMode": "modifications",
+    "editor.minimap.enabled": false,
+    "editor.parameterHints.cycle": true,
+    "editor.renderWhitespace": "trailing",
+    "editor.rulers": [100],
+    "editor.smoothScrolling": true,
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 100,
+    "editor.wrappingIndent": "indent",
+    // vscode-neovim says to disable editor.scrollBeyondLastLine
+    "editor.scrollBeyondLastLine": false,
+    // VS IntelliCode sets this automatically
+    "editor.suggestSelection": "first",
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+        "**/*.zwc": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.watcherExclude": {
+        "~/.java": true,
+        "~/.local": true
+    },
+    // https://github.com/microsoft/vscode/issues/23991
+    // "keyboard.dispatch": "keyCode",
+    "search.smartCase": true,
+    "terminal.integrated.cursorBlinking": true,
+    "terminal.integrated.fontFamily": "MyMono",
+    "terminal.integrated.inheritEnv": false,
+    "terminal.integrated.rendererType": "canvas",
+    "terminal.integrated.scrollback": 10000,
+    "terminal.external.linuxExec": "sensible-terminal",
+    "workbench.commandPalette.history": 1000000,
+    // "workbench.colorTheme": "Github Dark",
+    // Also nice:
+    // - "Github Dark"
+    // - "Community Material Theme Darker High Contrast"
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.iconTheme": "vs-minimal",
+    "workbench.statusBar.visible": true,
+    "workbench.editor.showTabs": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    // By default, VSCode first opens files in "preview mode", which means that
+    // if they're note edited and then another file is opened, it replaces the
+    // previous file. I often open multiple files without editing them, so this
+    // behavior is annoying for me.
+    "workbench.editor.enablePreview": false,
+    "workbench.enableExperiments": false,
+    "window.customMenuBarAltFocus": false,
+    "window.enableMenuBarMnemonics": false,
+    "window.menuBarVisibility": "hidden",
+    "window.restoreWindows": "all",
+    "window.title": "${rootName}${separator}${dirty}${activeEditorShort}",
+    "window.titleSeparator": "  ",
+    "window.zoomLevel": 1,
+    // I like inline values in Chrome Dev Tools, but it's too noisy in VSCode.
+    // In addition, the docs say that this can be slow.
+    // "debug.inlineValues": true,
+    "remote.extensionKind": {
+        "igorsbitnev.error-gutters": ["ui"],
+        "joeberria.statusbarerror": ["ui"],
+        "wakatime.vscode-wakatime": ["ui"]
+    },
+    "remote.SSH.showLoginTerminal": true,
+    "remote.SSH.defaultExtensions": [
+        "eamodio.gitlens",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "visualstudioexptteam.vscodeintellicode",
+        "rlivings39.fzf-quick-open"
+    ],
+    // As of 2020-10-14, git.autofetch is disabled because it can randomly
+    // trigger pinentry.
+    // "git.autofetch": true,
+    // These git settings are an attempt to remove the annoying git warning
+    // about too many submodules. See:
+    // https://github.com/Microsoft/vscode/issues/50165
+    "git.detectSubmodules": false,
+    "git.detectSubmodulesLimit": 500,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.defaultDateShortFormat": "YYYY-MM-DD",
+    "gitlens.defaultDateFormat": "YYYY-MM-DD HH:mm",
+    "gitlens.codeLens.enabled": false,
+    "python.dataScience.askForKernelRestart": false,
+    "python.languageServer": "Pylance",
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.autoComplete.addBrackets": true,
+    "python.formatting.provider": "yapf",
+    "python.linting.pylintEnabled": true,
+    "python.dataScience.alwaysTrustNotebooks": true,
+    "python.dataScience.codeLenses": "python.datascience.runcell,  python.datascience.debugcell",
+    "go.useLanguageServer": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim-nightly",
+    "fzf-quick-open.findDirectoriesCmd": "fd --type d",
+    "fzf-quick-open.ripgrepSearchStyle": "Smart case",
+    // https://github.com/yzhang-gh/vscode-markdown#math
+    "markdown.extension.math.enabled": false,
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "markdown-preview-enhanced.configPath": ".config/mume",
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    // "todohighlight.keywords": ["TODO", "NOTE", "EXP", "FIXME", "XXX"],
+    "todohighlight.keywordsPattern": "(TODO|NOTE|EXP|FIXME|XXX|TBD)(\\(\\w+\\))?:(\\s|$)",
+    "todohighlight.defaultStyle": {
+        "color": "#d33682",
+        "backgroundColor": ""
+    },
+    "remote.SSH.remotePlatform": {
+        "dgx3": "linux"
+    },
+    // As of 2020-10-14, using the local server stopped working on my desktop.
+    "remote.SSH.useLocalServer": false
+}
+
+// vim: set ft=jsonc :

@@ -1,0 +1,14 @@
+[Unit]
+Description=Save all i3 workspaces using i3-resurrect
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+BindsTo=i3wm.service
+After=i3wm.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/.my_scripts/i3/i3-resurrect-wrapper save --all
+ExecStartPost=%h/.my_scripts/i3/i3-resurrect-wrapper prune
+Restart=on-failure
+RestartSec=30

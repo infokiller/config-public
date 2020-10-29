@@ -1,0 +1,134 @@
+global !p
+from ultisnips_util import get_ale_lint_codes
+endglobal
+
+# The following global definitions are copied from vim-snippets
+global !p
+
+class Arg(object):
+	def __init__(self, arg):
+		self.arg = arg
+		name_and_type = arg.split('=')[0].split(':')
+		self.name = name_and_type[0].strip()
+		self.type = name_and_type[1].strip() if len(name_and_type) == 2 else None
+
+	def __str__(self):
+		return self.name
+
+	def __unicode__(self):
+		return self.name
+
+	def is_kwarg(self):
+		return '=' in self.arg
+
+	def is_vararg(self):
+		return '*' in self.name
+
+
+def get_args(arglist):
+	args = [Arg(arg) for arg in arglist.split(',') if arg]
+	args = [arg for arg in args if arg.name != 'self']
+	return args
+
+
+def write_init_body(args, parents, snip):
+	parents = [p.strip() for p in parents.split(",")]
+	parents = [p for p in parents if p and p != 'object']
+
+	for p in parents:
+		snip += p + ".__init__(self)"
+
+	for arg in filter(lambda arg: not arg.is_vararg(), args):
+		snip += "self.%s = %s" % (arg, arg)
+
+def remove_parent_classes_parenthesis_if_needed(snip):
+  if snip.tabstop == 0 and not snip.tabstops[2].current_text:
+    updated_line = snip.buffer[snip.snippet_start[0]].replace('():', ':')
+    snip.buffer[snip.snippet_start[0]] = updated_line
+
+endglobal
+
+global !p
+
+def get_python_extra_paths(python_version):
+    python_folder_name = 'python{}'.format(python_version)
+    extra_paths = []
+    for dir_pattern in [
+            '/usr/lib/{}/dist-packages',
+            '/usr/lib/{}/site-packages',
+            '/usr/local/lib/{}/site-packages',
+            '/usr/local/lib/{}/dist-packages',
+            '~/.local/lib/{}/site-packages',
+            '~/.local/pkg/conda/lib/{}/site-packages/',
+    ]:
+        dir_name = os.path.expanduser(dir_pattern).format(python_folder_name)
+        if os.path.isdir(dir_name):
+          extra_paths.append(dir_name)
+    return extra_paths
+
+def get_python_extra_paths_snippet(python_version):
+  indendation_str = ' ' * int(snip.opt('&shiftwidth', '2'))
+  extra_paths = get_python_extra_paths(python_version)
+  lines = ['import sys', 'extra_paths = [', ]
+  for extra_path in get_python_extra_paths(python_version):
+    lines.append("{}'{}',".format(indendation_str, extra_path))
+  lines.append(']')
+  lines.append('sys.path.extend(extra_paths)')
+  return '\n'.join(snip.mkline(l) for l in lines)
+
+endglobal
+
+snippet sysl2 "Adds local python packages to sys modules" b
+`!p
+snip.rv = get_python_extra_paths_snippet('2.7')
+`
+endsnippet
+
+snippet sysl3 "Adds local python packages to sys modules" b
+`!p
+snip.rv = get_python_extra_paths_snippet('3.6')
+`
+endsnippet
+
+# Clear default python snippets which are not expected to be used and may
+# confuse me.
+clearsnippets deff defs
+
+# Changes from the default python class snippet:
+# - Use python3 style (no need to inherit from object)
+# - If not inheriting from any class, remove the inheritance after the last
+#   placeholder jump
+# - Don't add a docstring
+# - Add "cls" and "c" aliases
+# post_jump "if snip.tabstop == 0 and not snip.tabstops[2].current_text: snip.buffer[snip.snippet_start[0]] = snip.buffer[snip.snippet_start[0]].replace('():', ':')"
+post_jump "remove_parent_classes_parenthesis_if_needed(snip)"
+snippet "class|cls|c" "Class" rb
+class ${1:MyClass}(${2}):
+
+	def __init__(self, $3):`!p
+snip >> 2
+args = get_args(t[3])
+write_init_body(args, t[2], snip)
+`
+		$0
+endsnippet
+
+# Add self to the parameter list if indented.
+snippet "def|f" "Function (indented)" "re.match('^\s+', snip.buffer[snip.line])" rbe
+def ${1:fname}(self$2):
+	$0
+endsnippet
+
+snippet "def|f" "Function" rb
+def ${1:fname}($2):
+	$0
+endsnippet
+
+snippet "pylint-disable|dl" "Disable pylint errors in next line" rb
+# pylint: disable=${1:`!p snip.rv = ','.join(get_ale_lint_codes('pylint'))`}
+endsnippet
+
+snippet "jupytext-cell|jc" "Jupyter cell marker" rb
+# %%
+$0
+endsnippet

@@ -1,0 +1,94 @@
+global !p
+from vimsnippets import foldmarker, make_box, get_comment_format
+
+_USERNAME = 'infokiller'
+
+def get_comment_prefix():
+  commentstring_parts = vim.eval('&commentstring').split('%s')
+  if len(commentstring_parts) != 2:
+    return '#'
+  return commentstring_parts[0].strip()
+
+def comment_if_needed(text):
+  # Without this, ultisnips complains about cyclic dependencies. I think it's
+  # because this function reads `snip.buffer`, but don't understand why.
+  if snip.c:
+    return snip.c
+  comment_prefix = get_comment_prefix()
+  commented_line_pattern = r'^\s*{}'.format(comment_prefix)
+  if not re.match(commented_line_pattern, snip.buffer.line_till_cursor):
+    return '{} {}'.format(comment_prefix, text)
+  return text
+
+endglobal
+
+snippet todo "TODO in comment"
+`!p
+# NOTE: the 'TODO' is intentionally split to avoid matching when I search for
+# TODOs across my config.
+snip.rv = comment_if_needed('TODO' + ': ')
+`${1:desc}
+endsnippet
+
+snippet "utodo|todou" "TODO in comment with username" r
+`!p
+snip.rv = comment_if_needed('TODO(%s): ' % (_USERNAME))
+`${1:desc}
+endsnippet
+
+snippet dns "DO NOT SUBMIT in comment"
+`!p
+snip.rv = comment_if_needed('DO NOT SUBMIT')
+`
+endsnippet
+
+snippet note "NOTE in comment"
+`!p
+snip.rv = comment_if_needed('NOTE: ')
+`${1:desc}
+endsnippet
+
+snippet "unote|noteu" "NOTE in comment with username" r
+`!p
+snip.rv = comment_if_needed('NOTE(%s): ' % (_USERNAME))
+`${1:desc}
+endsnippet
+
+snippet exp "EXP in comment"
+`!p
+snip.rv = comment_if_needed('EXP: ')
+`${1:desc}
+endsnippet
+
+snippet "uexp|expu" "EXP in comment with username" r
+`!p
+snip.rv = comment_if_needed('EXP(%s): ' % (_USERNAME))
+`${1:desc}
+endsnippet
+
+snippet asof "Comment with current date"
+`!p
+import datetime
+now = datetime.datetime.utcnow()
+snip.rv = comment_if_needed('As of {}, '.format(now.strftime('%Y-%m-%d')))
+`
+endsnippet
+
+# Copied from vim-snippets/UltiSnips/all.snippets to use "fp" instead of
+# "foldp".
+snippet fp "Insert a vim fold marker pair" b
+`!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]` `!p snip.rv = get_comment_format()[2]`
+${2:${VISUAL:Content}}
+`!p snip.rv = get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` $1 `!p snip.rv = get_comment_format()[2]`
+endsnippet
+
+# Modeline just for setting the filetype.
+snippet mlt "Vim modeline"
+`!p
+snip.rv = comment_if_needed('vim: set ft={} :'.format(vim.eval('&ft')))
+`
+endsnippet
+
+snippet uname "OS version for bug reports"
+`uname -sr`
+endsnippet

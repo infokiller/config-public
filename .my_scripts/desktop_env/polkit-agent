@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#
+# Needed to make privilege elevation prompt work in i3. See also:
+# http://superuser.com/questions/389397/ubuntu-and-privilege-elevation-in-i3wm
+
+POLKIT_GNOME_AGENT_DIRS=('/usr/lib/policykit-1-gnome/' '/usr/lib/polkit-gnome/')
+for dir in "${POLKIT_GNOME_AGENT_DIRS[@]}"; do
+  polkit_daemon_path="${dir}/polkit-gnome-authentication-agent-1"
+  if [[ -x ${polkit_daemon_path} ]]; then
+    exec "${polkit_daemon_path}"
+  fi
+done
+printf >&2 'polkit agent binary not found in directories: %s\n' "${POLKIT_GNOME_AGENT_DIRS[*]}"
+exit 1

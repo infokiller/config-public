@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+readonly SELECTOR=(
+  fzf_select_file
+  --history="${HIST_DIR}/find_file_history"
+  --history-size=100000
+)
+readonly XDG_DOWNLOAD_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/downloads}"
+readonly EXTRA_SEARCHED_DIRS=(
+  "${HOME}/media"
+  "${HOME}/org"
+  "${HOME}/gdrive"
+  # kbfs causes find to output an error about an infinite loop
+  # "${HOME}/kbfs"
+  "${HOME}/sync"
+)
+# These directories may contain many irrelevant files, so we search them with
+# limited depth.
+readonly EXTRA_SEARCHED_DIRS_LIMITED=(
+  "${XDG_DOWNLOAD_DIR}"
+  "${HOME}/tmp"
+  "${HOME}/src/config/dotfiles/top"
+  "${HOME}/src"
+  "${HOME}/projects"
+)
+
+# shellcheck source=../../.config/bash/fzf_select_files.sh
+source "${REPO_ROOT}/.config/bash/fzf_select_files.sh"
+
+_list_relevant_files() {
+  # List config files
+  (cd -- "${HOME}" && list-searched-files)
+  local searched_dirs=()
+  for dir in "${EXTRA_SEARCHED_DIRS[@]}"; do
+    if [[ -d "${dir}" ]]; then
+      searched_dirs+=("${dir}")
+    fi
+  done
+  local searched_dirs_limited=()
+  for dir in "${EXTRA_SEARCHED_DIRS_LIMITED[@]}"; do
+    if [[ -d "${dir}" ]]; then
+      searched_dirs_limited+=("${dir}")
+    fi
+  done
+  # The options passed to find prevents "Permission denied" errors for
+  # directories/files that are not readable. See also:
+  # http://stackoverflow.com/a/25234419
+  local prune_opts=('(' ! -readable -o -path '/proc/*' ')' -prune)
+  {
+    find -L "${searched_dirs[@]}" "${prune_opts[@]}" -o -type f -print
+    find -L "${searched_dirs_limited[@]}" -maxdepth 2 "${prune_opts[@]}" \
+      -o -print
+  }
+}
+
+main() {
+  local selected
+  # mapfile is not used because it doesn't propagate errors and we select only a
+  # single file
+  local s=0
+  selected="$(_list_relevant_files | "${SELECTOR[@]}" "$@")" || s=$?
+  # NOTE: If the file is selected before find finishes there will be an exit
+  # code of 141, but this isn't really an error. See also:
+  # http://stackoverflow.com/questions/19120263/why-exit-code-141-with-grep-q
+  if ((s != 0 && s != 141)); then
+    exit ${s}
+  fi
+  # fzf returns 130 when the selection was cancelled, so we try to imitate that.
+  if [[ -z "${selected}" ]]; then
+    exit 130
+  fi
+  sensible-open "${selected}"
+}
+
+main "$@"

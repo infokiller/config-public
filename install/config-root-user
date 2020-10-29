@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_maybe_link_file() {
+  local file="$1"
+  local src="${HOME}/${file}"
+  local dst="/root/${file}"
+  local resolved_src resolved_dst
+  resolved_src="$(readlink -f -- "${src}")"
+  local dst_exists=0
+  if sudo test -e "${dst}"; then
+    dst_exists=1
+  fi
+  resolved_dst="$(sudo readlink -f -- "${dst}")"
+  if ((dst_exists)) && [[ "${resolved_src}" == "${resolved_dst}" ]]; then
+    return
+  fi
+  sudo mkdir -p -- "$(dirname -- "${dst}")"
+  if ((dst_exists)) && [[ -d "${src}" ]]; then
+    sudo mv --backup=numbered -- "${dst}" "${dst}.backup"
+  fi
+  sudo ln --backup=numbered -sf -- "${src}" "${dst}"
+}
+
+main() {
+  if ((EUID == 0)); then
+    _error 'Do not run this script as root'
+    exit 1
+  fi
+  sudo mkdir -p -- "/root/.local/var/hist/${HOSTNAME}/shell"
+  local src dst resolved_src resolved_dst
+  for f in .profile .zshenv .bashrc .my_scripts submodules .local/bin; do
+    _maybe_link_file "${f}"
+  done
+  # I used to symlink .config but it also causes all my user systemd services to
+  # be enabled for the root user, so I'm now symlink all directories under
+  # .config except systemd.
+  if sudo test -L /root/.config; then
+    sudo rm /root/.config
+  fi
+  sudo mkdir -p /root/.config
+  while IFS='' read -r file; do
+    _maybe_link_file ".config/${file}"
+  done < <(find "${HOME}/.config" -mindepth 1 -maxdepth 1 -not -name systemd \
+    -exec basename '{}' \;)
+}
+
+main "$@"

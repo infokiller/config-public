@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_GRAPHICAL_ORDER=(pinentry-qt pinentry-gnome3 pinentry-gtk-2 pinentry-curses pinentry-tty)
+# Opening a graphical window using X11 over a network can be slow, so we prefer
+# terminal based pinentry programs in this case. There are also cases where
+# there is no graphical environment available, like in a linux console.
+_TERMINAL_ORDER=(pinentry-curses pinentry-tty pinentry-qt pinentry-gnome3 pinentry-gtk-2)
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_is_ssh() {
+  [[ -n ${SSH_CLIENT-} || -n ${SSH_TTY-} || -n ${SSH_CONNECTION-} ]]
+}
+
+main() {
+  local programs=()
+  # I tried checking that a graphical env is available by checking $DISPLAY but
+  # it doesn't work: it always uses _TERMINAL_ORDER.
+  # TODO: Fix pinentry in non-graphical mode.
+  # if [[ -z "${DISPLAY-}" ]] || _is_ssh; then
+  if _is_ssh; then
+    programs=("${_TERMINAL_ORDER[@]}")
+  else
+    programs=("${_GRAPHICAL_ORDER[@]}")
+  fi
+  for program in "${programs[@]}"; do
+    if _command_exists "${program}"; then
+      "${program}" "$@" && exit
+    fi
+  done
+  exit 1
+}
+
+main "$@"

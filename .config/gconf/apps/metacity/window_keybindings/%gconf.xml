@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="move_to_workspace_up" mtime="1359985142" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;Up</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_down" mtime="1359985141" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;Down</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_right" mtime="1359985141" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;Right</stringvalue>
+	</entry>
+	<entry name="move_to_workspace_left" mtime="1359985141" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;Left</stringvalue>
+	</entry>
+	<entry name="move_to_corner_ne" mtime="1359985141" type="string">
+		<stringvalue>&lt;Super&gt;KP_Prior</stringvalue>
+	</entry>
+	<entry name="move_to_corner_nw" mtime="1359985141" type="string">
+		<stringvalue>&lt;Super&gt;KP_Home</stringvalue>
+	</entry>
+	<entry name="move_to_side_n" mtime="1410107231" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Super&gt;Up</stringvalue>
+	</entry>
+	<entry name="move_to_side_e" mtime="1410107221" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Super&gt;Right</stringvalue>
+	</entry>
+	<entry name="move_to_side_w" mtime="1410107213" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Super&gt;Left</stringvalue>
+	</entry>
+	<entry name="move_to_corner_se" mtime="1359985141" type="string">
+		<stringvalue>&lt;Super&gt;KP_Next</stringvalue>
+	</entry>
+	<entry name="move_to_corner_sw" mtime="1359985141" type="string">
+		<stringvalue>&lt;Super&gt;KP_End</stringvalue>
+	</entry>
+	<entry name="move_to_side_s" mtime="1410107246" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Control&gt;&lt;Primary&gt;&lt;Super&gt;Down</stringvalue>
+	</entry>
+	<entry name="unmaximize" mtime="1394018054" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;Down</stringvalue>
+	</entry>
+	<entry name="toggle_shaded" mtime="1359985141" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;s</stringvalue>
+	</entry>
+	<entry name="toggle_maximized" mtime="1359985141" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Primary&gt;&lt;Alt&gt;KP_5</stringvalue>
+	</entry>
+	<entry name="minimize" mtime="1360250676" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="maximize" mtime="1394018051" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Super&gt;Up</stringvalue>
+	</entry>
+</gconf>

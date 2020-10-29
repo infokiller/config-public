@@ -1,0 +1,4 @@
+# This is a workaround to an issue in Debian where LightDM doesn't source
+# .profile. See also: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=636108
+[ -f /etc/profile ] && . /etc/profile
+[ -f ~/.profile ] && . ~/.profile

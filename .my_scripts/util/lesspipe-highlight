@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#
+# Less preprocessor that combines lesspipe.sh (which support using less on
+# archive and media files by showing metadata) and highlight (which adds syntax
+# highlighting). See also:
+# - https://gitlab.com/saalen/highlight/issues/129
+# - http://linux-tips.org/t/syntax-highlighting-in-less/208
+# - https://gist.github.com/textarcana/4611277
+# - http://andre-simon.de/doku/highlight/en/integration.php
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+maybe_lesspipe() {
+  if _command_exists lesspipe.sh; then
+    # The sed command removes ANSI color codes, since syntax highlighting is
+    # already done by the highlight program. See also:
+    # https://stackoverflow.com/a/46262090/1014208
+    LESSQUIET=1 lesspipe.sh "$1" | sed -r "s/[[:cntrl:]]\[[0-9]{1,3}m//g"
+  else
+    cat "$1"
+  fi
+}
+
+run_gnu_source_highlight() {
+  local basename="${1##*/}"
+  local file_extension="${basename##*.}"
+  local tmpfile
+  tmpfile="$(mktemp -t "${basename}.XXXXX")"
+  # NOTE: The path variable in trap must be expanded here because it may not be
+  # defined when the trap is ran.
+  # shellcheck disable=SC2064
+  trap "rm -- '${tmpfile}' &> /dev/null || true" EXIT ERR INT HUP TERM
+  cat - > "${tmpfile}"
+  source-highlight --failsafe \
+    --src-lang="${file_extension}" \
+    --tab="${TABWIDTH}" \
+    --line-number \
+    --quiet \
+    --style-file="${REPO_ROOT}/.config/source-highlight/esc-solarized.style" \
+    --out-format=esc \
+    --input="$tmpfile" \
+    --output=STDOUT
+  rm -- "${tmpfile}"
+}
+
+run_andre_simon_highlight() {
+  highlight \
+    --syntax-by-name="$1" \
+    --out-format=truecolor \
+    --line-numbers \
+    --quiet \
+    --force \
+    --no-trailing-nl
+}
+
+maybe_highlight() {
+  if _command_exists highlight; then
+    run_andre_simon_highlight "$@"
+  elif _command_exists source-highlight; then
+    run_gnu_source_highlight "$@"
+  fi
+}
+
+maybe_lesspipe "$1" | maybe_highlight "$1"

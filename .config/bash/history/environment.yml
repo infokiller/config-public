@@ -1,0 +1,13 @@
+name: base_shell_history
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - pip
+  - click
+  - pygments
+  - pip:
+    - colored
+    - bashlex
+    - tabulate

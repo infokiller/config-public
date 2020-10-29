@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+WRAPPER_PATH="$(readlink -f "$0")"
+
+gpg-connect-agent updatestartuptty /bye &> /dev/null
+mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+exec -- "${COMMAND[@]}" "$@"

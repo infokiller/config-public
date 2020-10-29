@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# TODO: Merge this functionality into dconf_diff.py. I can add appropriate
+# subcommands to dconf_diff.py (like "diff-system" and "update-system")
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly DCONF_DIR="${REPO_ROOT}/.config/dconf"
+
+cat_config() {
+  cat -- "${DCONF_DIR}/base.ini"
+  if [[ -f "${DCONF_DIR}/${HOST_ALIAS}.ini" ]]; then
+    cat -- "${DCONF_DIR}/${HOST_ALIAS}.ini"
+  fi
+}
+
+dconf reset -f /
+cat_config | dconf load /

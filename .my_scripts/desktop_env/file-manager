@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Open ranger directly if we're connected to a terminal, otherwise spawn a new
+# terminal window.
+if [[ -t 0 && -t 1 ]]; then
+  ranger "$@"
+else
+  sensible-terminal --window-name 'file-manager' -- ranger "$@"
+fi

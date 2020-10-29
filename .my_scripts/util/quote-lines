@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+import sys
+import shlex
+
+
+def main():
+    for line in sys.stdin:
+        # Remove newline.
+        line = line[:-1]
+        print(shlex.quote(line))
+
+
+if __name__ == '__main__':
+    main()

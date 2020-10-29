@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="visual_bell_type" mtime="1359985141" type="string">
+		<stringvalue>frame_flash</stringvalue>
+	</entry>
+	<entry name="auto_raise_delay" mtime="1359985141" type="int" value="1000"/>
+	<entry name="auto_raise" mtime="1359985141" type="bool" value="true"/>
+</gconf>

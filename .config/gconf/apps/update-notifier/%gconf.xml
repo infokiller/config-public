@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="regular_auto_launch_interval" mtime="1360508586" type="int" value="7"/>
+</gconf>

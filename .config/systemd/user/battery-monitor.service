@@ -1,0 +1,11 @@
+[Unit]
+Description=Low battery monitoring service
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=60
+ExecStart=%h/.my_scripts/desktop_env/battery-monitor -v

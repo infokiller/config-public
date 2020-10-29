@@ -1,0 +1,252 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+readonly BLACKLIST_DIR="${DIR}/blacklist.d"
+readonly SECRET_DETECTION_IGNORED_FILES=(
+  'package-lock\.json'
+  'yarn\.lock'
+  'poetry\.lock'
+  '\.config/detect-secret'
+)
+readonly ALL_CHECKS=(
+  blacklist
+  shfmt
+  shellcheck
+  detect_secrets
+  # As of 2020-06-01, `gitleaks --uncommitted` hangs.
+  # gitleaks
+  deleted_file_refs
+  broken_symlinks
+)
+
+_print_bold() {
+  local bold normal
+  bold="$(tput bold 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf '%s' "${bold}"
+  printf '%s' "${@}"
+  printf '%s\n' "${normal}"
+}
+
+_print_warning() {
+  local warning normal
+  # Yellow color
+  warning="$(tput setaf 3 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${warning}${*}${normal}"
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_check_blacklist() {
+  local mode
+  mode="$(git config --get blacklist-hook.mode)" || mode='error'
+  if [[ "${mode}" == 'skip' ]]; then
+    echo 'Skipping blacklisted patterns'
+    return
+  fi
+  echo 'Checking blacklisted patterns...'
+  local patterns=()
+  local git_exclude_pattern=()
+  while IFS= read -r -d '' patterns_file; do
+    if [[ -n "$(git ls-files "${patterns_file}" 2> /dev/null)" ]]; then
+      git_exclude_pattern+=(":(exclude)${patterns_file}")
+    fi
+    mapfile -t -O "${#patterns[@]}" patterns < "${patterns_file}"
+  done < <(\find -L "${BLACKLIST_DIR}" -type f -print0)
+  # look for blacklisted strings in the commit
+  local found=0
+  local string
+  for string in "${patterns[@]}"; do
+    if git diff-index --patch --cached --find-renames --text \
+      -G"${string}" HEAD "${git_exclude_pattern[@]}" |
+      grep --text -E '^\+' |
+      grep --text -E --color=auto -- "${string}"; then
+      local msg="Commit contains blacklisted pattern '${string}'"
+      if [[ "${mode}" == 'error' ]]; then
+        _print_error "${msg}"
+      else
+        _print_warning "${msg}"
+      fi
+      found=1
+    fi
+  done
+  if ((found)) && [[ "${mode}" == 'error' ]]; then
+    return 1
+  fi
+}
+
+_list_changed_shell_scripts() {
+  local -a changed_files_cmd
+  mapfile -t changed_files_cmd < <(git diff --staged --ignore-submodules=all --name-only)
+  if [[ -z "${changed_files_cmd[*]}" ]]; then
+    return 1
+  fi
+  printf '%s\n' "${changed_files_cmd[@]}" | filter-shell-scripts
+}
+
+_check_shfmt() {
+  echo 'Checking shfmt...'
+  if ! _command_exists shfmt; then
+    _print_warning 'Warning: shfmt not found, skipping test.'
+    return
+  fi
+  local changed_shell_scripts
+  mapfile -t changed_shell_scripts < <(_list_changed_shell_scripts)
+  if ((${#changed_shell_scripts[@]} == 0)); then
+    echo 'No changed shell scripts, skipping test'
+    return
+  fi
+  if ! shfmt -i 2 -sr -ci -d -- "${changed_shell_scripts[@]}"; then
+    _print_error 'shfmt diff found.'
+    _print_bold 'To fix the formatting, run "git-fix-shfmt"'
+    return 1
+  fi
+}
+
+_check_shellcheck() {
+  echo 'Checking shellcheck...'
+  if ! _command_exists shellcheck; then
+    _print_warning 'Warning: shellcheck not found, skipping test.'
+    return
+  fi
+  local -a changed_shell_scripts=()
+  mapfile -t changed_shell_scripts < <(_list_changed_shell_scripts)
+  if ((${#changed_shell_scripts[@]} == 0)); then
+    echo 'No changed shell scripts, skipping test'
+    return
+  fi
+  local has_errors=0
+  while IFS='' read -r fullpath; do
+    dir="$(dirname "${fullpath}")"
+    filename="$(basename "${fullpath}")"
+    printf 'Running shellcheck on %s\n' "${filename}"
+    (cd "${dir}" && shellcheck --external-sources --color "${filename}") || has_errors=1
+  done < <(printf '%s\n' "${changed_shell_scripts[@]}")
+  if ((has_errors == 1)); then
+    _print_error 'shellcheck failed'
+    return 1
+  fi
+}
+
+# https://github.com/zricethezav/gitleaks/wiki/Scanning
+_check_gitleaks() {
+  echo 'Checking gitleaks...'
+  if ! _command_exists gitleaks; then
+    _print_warning 'Warning: gitleaks not found, skipping test.'
+    return
+  fi
+  local cmd=(gitleaks --uncommitted --verbose --pretty)
+  if [[ -r "${HOME}/.config/gitleaks.toml" ]]; then
+    cmd+=("--config=${HOME}/.config/gitleaks.toml")
+  fi
+  "${cmd[@]}"
+}
+
+# https://github.com/zricethezav/gitleaks/wiki/Scanning
+_check_detect_secrets() {
+  local mode
+  mode="$(git config --get secret-detection-hook.mode)" || mode='error'
+  if [[ "${mode}" == 'skip' ]]; then
+    echo 'Skipping secrets detection'
+    return
+  fi
+  echo 'Checking detect-secrets...'
+  if ! _command_exists detect-secrets-hook; then
+    _print_warning 'Warning: detect-secrets-hook not found, skipping test.'
+    return
+  fi
+  mapfile -t scanned_files < <(git diff --staged --name-only |
+    grep --text -v -f <(printf '%s\n' "${SECRET_DETECTION_IGNORED_FILES[@]}"))
+  if ((${#scanned_files[@]} == 0)) ||
+    detect-secrets-hook -- "${scanned_files[@]}"; then
+    return
+  fi
+  if [[ "${mode}" == 'error' ]]; then
+    _print_error 'Secret detection failed'
+    return 1
+  fi
+  _print_warning 'Secret detection failed, continuing because mode is set' \
+    'to warning'
+}
+
+_check_deleted_file_refs() {
+  echo 'Checking references to deleted files...'
+  local found=0
+  while IFS='' read -r fullpath; do
+    printf 'Searching for references to deleted file %s\n' "${fullpath}"
+    # I stopped using the `--fixed-strings` option in order to be able to use
+    # word delimiters, but that makes this exposed to to regex escaping issues.
+    # Hopefully most filenames shouldn't have this problem.
+    # TODO: Escape the regex properly.
+    # if git --no-pager grep --cached --fixed-strings "$(basename "${fullpath}")"; then
+    if git --no-pager grep --cached "\b$(basename "${fullpath}")\b"; then
+      found=1
+    fi
+  done < <(git --no-pager diff --name-only --no-renames --staged --diff-filter=D)
+  if ((found == 1)); then
+    _print_error 'Found references to deleted files'
+    return 1
+  fi
+}
+
+_check_broken_symlinks() {
+  echo 'Checking broken symlinks...'
+  local changed_files_cmd=(git diff --staged --no-renames --name-only)
+  local s=0
+  # If there is an added file or a file that changed its type to a symlink,
+  # check those files individually.
+  local file
+  while IFS='' read -r file; do
+    if [[ -L "${file}" && ! -e "${file}" ]]; then
+      _print_error "Found broken symlink: ${file}"
+      s=1
+    fi
+  done < <("${changed_files_cmd[@]}" --diff-filter=AT)
+  # If there are no deleted file, we don't need to check the other files in the
+  # repo.
+  if [[ -z "$("${changed_files_cmd[@]}" --diff-filter=D)" ]]; then
+    return "${s}"
+  fi
+  local broken_symlinks
+  broken_symlinks="$(git ls-files |
+    xargs -d '\n' -I '%' find '%' -maxdepth 1 -xtype l)"
+  if [[ -n "${broken_symlinks}" ]]; then
+    _print_error "Found broken symlinks: ${broken_symlinks}"
+    return 1
+  fi
+  return "${s}"
+}
+
+_check_all() {
+  if ! git log -0 &> /dev/null; then
+    _print_bold 'Looks like an empty repo, skipping checks'
+    return 0
+  fi
+  local status=0
+  local before after
+  for name in "${ALL_CHECKS[@]}"; do
+    before=$(($(date +%s%N) / 1000000))
+    eval "_check_${name}" || status=1
+    after=$(($(date +%s%N) / 1000000))
+    if ((after - before > 100)); then
+      echo "Check duration: $((after - before)) ms"
+    fi
+  done
+  return "${status}"
+}
+
+_check_all || exit $?

@@ -1,0 +1,41 @@
+#compdef install-crossdistro-local-packages
+#autoload
+
+: "${REPO_ROOT:="${$(print -r -- "${ZSHENV_DIR}/../.."):P}"}"
+
+_icdlp_describe_commands() {
+  local cmds=(list run)
+  _describe -t commands 'Commands' cmds
+}
+
+_icdlp_list_tasks() {
+  local _tasks
+  _tasks=("${(f)$("${REPO_ROOT}/install/install-crossdistro-local-packages" list)}")
+  _describe tasks _tasks
+}
+
+_icdlp_comp() {
+  # for k in "${(k)compstate[@]}"; do
+  #   echo "${k} = "${compstate[${k}]}""
+  # done
+  # echo "${words[@]}"
+  # echo
+  if ((CURRENT == 1)); then
+    local cmds=(list run)
+    _describe -t commands 'Commands' cmds
+    return
+  fi
+  case "$words[1]" in
+    list)
+      _message 'no options'
+      ;;
+    run)
+      _arguments \
+        '--all[Run all tasks]' \
+        '--parallel[Run tasks in parallel]' \
+        '*::Tasks:_icdlp_list_tasks'
+      ;;
+  esac
+}
+
+_arguments '*::install-crossdistro-local-packages commands:_icdlp_comp'

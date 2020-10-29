@@ -1,0 +1,58 @@
+! Xft.* values originally copied from: https://github.com/stapelberg/configfiles
+
+! Originally this was set to rxvt-256color (not rxvt-unicode-256color) and this
+! was causing issues with Ctrl+F2 in tmux (for changing session name).
+! Commenting this out means the default is used (which is rxvt-unicode-256color
+! at the time of testing), and this fixes the issue.
+! URxvt.termName:             rxvt-unicode-256color
+URxvt.iso14755:             false
+
+! Use the same escape sequence for Ctrl+{up,down,left,right} that Terminator is
+! using in order to make it easier to map these key sequences in vim.
+! NOTE 2018-02-15: This was originally needed for my vimrc, but the Ctrl+Arrow
+! mapping in vimrc are now disabled.
+! URxvt.keysym.Control-Up    : \033[1;5A
+! URxvt.keysym.Control-Down  : \033[1;5B
+! URxvt.keysym.Control-Left  : \033[1;5D
+! URxvt.keysym.Control-Right : \033[1;5C
+! Use the same escape sequence for Home/End that Terminator is
+! using in order to make it easier to map these key sequences in vim.
+! Fix behavior of Home/End
+! NOTE 2018-02-15: This was needed when setting termName to rxvt-256color, but
+! not after the default is used (rxvt-unicode-256color).
+! URxvt.keysym.Home: \033[1~
+! URxvt.keysym.End: \033[4~
+! URxvt.keysym.KP_Home: \033[1~
+! URxvt.keysym.KP_End:  \033[4~
+
+URxvt.perl-ext-common : default,keyboard-select,url-select,clipboard,font-size
+
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.keysym.M-C-v:           perl:clipboard:paste_escaped
+! https://github.com/majutsushi/urxvt-font-size
+URxvt.keysym.C-equal:         perl:font-size:increase
+URxvt.keysym.C-minus:         perl:font-size:decrease
+URxvt.keysym.C-0:             perl:font-size:reset
+! Disable these as they are unused and may cause conflicts.
+! URxvt.keysym.M-s: perl:keyboard-select:search
+! URxvt.keysym.M-x: perl:keyboard-select:activate
+! URxvt.keysym.M-u: perl:url-select:select_next
+
+URxvt.font:                 xft:MyMono:pixelsize=TERMINAL_FONT_SIZE
+URxvt.urgentOnBell:         true
+URxvt.saveLines:            12000
+URxvt.scrollBar:            false
+URxvt.scrollstyle:          false
+URxvt.scrollTtyKeypress:    true
+URxvt.letterSpace:          -1.5
+URxvt.font-size.step:       2
+URxvt.url-select.launcher:  xdg-open
+URxvt.url-select.autocopy:  true
+URxvt.url-select.underline: true
+URxvt.matcher.button:       1
+
+! Fading
+! Disabled because compton already provides dimming/fading.
+! URxvt.fading    : 50
+! URxvt.fadeColor : #29303a

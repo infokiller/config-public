@@ -1,0 +1,103 @@
+# See readline(3readline) and `info rluserman' for more information.
+$include /etc/inputrc
+
+# Be 8 bit clean.
+set input-meta on
+set convert-meta off
+set output-meta on
+
+set enable-bracketed-paste on
+
+# Adds punctuation as word delimiters
+set bind-tty-special-chars off
+# Disable bell.
+set bell-style none
+
+# List all matches in case multiple possible completions are possible
+set show-all-if-ambiguous on
+set show-all-if-unmodified off
+# Case insensitive filename completion.
+set completion-ignore-case on
+# Treats hyphens (-) and underscores (_) as equivalent when performing
+# case-insensitive filename matching and completion.
+set completion-map-case on
+set completion-prefix-display-length 15
+# Show all autocomplete results at once
+set page-completions off
+# If there are more than 200 possible completions for a word, ask to show them all
+set completion-query-items 200
+# Show extra file information when completing, like `ls -F` does
+set visible-stats on
+# Be more intelligent when autocompleting by also looking at the text after
+# the cursor. For example, when the current line is "cd ~/src/mozil", and
+# the cursor is on the "z", pressing Tab will not autocomplete it to "cd
+# ~/src/mozillail", but to "cd ~/src/mozilla". (This is supported by the
+# Readline used by Bash 4.)
+set skip-completed-text on
+
+# Set unlimited history size.
+set history-size 9999999999
+
+# Immediately add a trailing slash when autocompleting symlinks to directories
+set mark-symlinked-directories on
+
+# Use colors for different file types in completions. See also:
+# https://unix.stackexchange.com/a/133866/126543
+set colored-stats on
+
+################################################################################
+#                                 Keybindings                                  #
+################################################################################
+
+# NOTE: readline doesn't seem to support using terminfo (like, for example, zsh
+# does), so the user is required to set specific terminal sequences for special
+# keys. I initially use control key sequences from bash in termite (without
+# tmux), so they should work for all VTE-based terminals. Later, I set the key
+# sequences set for other terminals I use where these keys don't work.
+
+set editing-mode emacs
+# set editing-mode vi
+# set keymap vi-insert
+
+"\C-q": quoted-insert
+"\C-w": backward-kill-word
+
+# From
+# http://stackoverflow.com/questions/7179642/how-can-i-make-bash-tab-completion-behave-like-vim-tab-completion
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+# Up/Down: use the text that has already been typed as the prefix for searching
+# the command history.
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+# Home/End.
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+# Delete actually shows up as "^?", but using that sequence causes a delay
+# because readline waits for the sequence to complete (the delay is controlled
+# by the `keyseq-timeout` variable).
+"\e[3~": delete-char
+# Ctrl-Left and Ctrl-Right for word navigation.
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[3;7~": kill-word
+
+"\e_": undo
+
+# NOTE: For the terminal specific settings below, the word on the right side of
+# `term=` is tested against the full name of the terminal and the portion of the
+# terminal name before the first -. Therefore, `term=rxvt` will match both the
+# "rxvt" and "rxvt-unicode" terminals.
+
+$if term=screen
+  "\e[1~": beginning-of-line
+  "\e[4~": end-of-line
+$endif
+
+$if term=xterm-kitty
+  "\e[1;3H": beginning-of-line
+  "\e[1;3F": end-of-line
+  "\e[C": forward-word
+  "\e[D": backward-word
+$endif

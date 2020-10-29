@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="show_hide" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Keybinding to show/hide guake.">
+			<default type="string">
+				<stringvalue>F12</stringvalue>
+			</default>
+			<longdesc>Global keybinding to allow user call guake from each
+                place after it&apos;s opened without clicks.</longdesc>
+		</local_schema>
+	</entry>
+</gconf>

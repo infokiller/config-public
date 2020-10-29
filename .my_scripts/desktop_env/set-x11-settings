@@ -1,0 +1,234 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+# For HOST_ALIAS
+# shellcheck source=../../.profile
+source "${REPO_ROOT}/.profile"
+
+print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+set_keyboard_settings() {
+  # Keys autorepeat: set delay to 200ms (default 660) and frequency to 60 hz
+  # (default 25).
+  xset r rate 200 60
+  # Load custom XKB keymap
+  xkbcomp -w 1 "${REPO_ROOT}/.config/xkb/keymap.xkb" "${DISPLAY}"
+
+  # # Clear the xkb options (to avoid duplicates)
+  # setxkbmap -option ''
+  # # XKB map options:
+  # # * Set Capslock as ISO_Level5_Shift to use it as an extra modifier key.
+  # # * Set both shifts to enable caps lock (old behavior of upper case letters
+  # # mode, one of them to cancel it.
+  # # * Both shifts enable old caps lock, once shift cancels it.
+  # setxkbmap -option \
+  #   'shift:both_capslock_cancel,misc:extend,lv5:caps_switch_lock,grp:shifts_toggle,terminate:ctrl_alt_bksp'
+
+}
+
+set_mouse_settings() {
+  # Set mouse acceleration to 3.5 (specified as 7/2, default is 2) and threshold
+  # to 1 (default is 4).
+  xset mouse 7/2 1
+  # NOTE: As of 2020-01-07, it seems that `xset mouse` doesn't do anything and
+  # xinput needs to be used directly.
+  mapfile -t pointer_devices < <(xinput list | grep --text pointer | sed -r 's/^.*id\=([0-9]+).*$/\1/')
+  for device in "${pointer_devices[@]}"; do
+    xinput set-prop "${device}" 'libinput Accel Speed' 1 &> /dev/null || true
+    # TODO: Are these needed? the Logitech G500s used in zeus18 doesn't have
+    # these properties, but they're listed in some online resources as relevant.
+    # xinput set-prop "${device}" "Device Accel Constant Deceleration" 0.5 &> /dev/null
+    # xinput set-prop "${device}" "Device Accel Adaptive Deceleration" 0.5 &> /dev/null
+  done
+}
+
+get_touchpad_name() {
+  local TOUCHPAD_NAMES=(
+    'SynPS/2 Synaptics TouchPad'
+    'Elan Touchpad'
+  )
+  local input_devices
+  input_devices="$(xinput list --name-only)"
+  for touchpad_name in "${TOUCHPAD_NAMES[@]}"; do
+    if [[ "${input_devices}" == *"${touchpad_name}"* ]]; then
+      printf '%s\n' "${touchpad_name}"
+      return 0
+    fi
+  done
+  return 1
+}
+
+set_touchpad_settings() {
+  local touchpad_name
+  if ! touchpad_name="$(get_touchpad_name)"; then
+    printf 'Touchpad not detected\n'
+    return 0
+  fi
+  printf 'Detected touchpad: %s\n' "${touchpad_name}"
+  declare -A touchpad_props
+  # For documentation on libinput touchpad properties see:
+  # https://wayland.freedesktop.org/libinput/doc/latest/touchpads.html
+  touchpad_props["Device Accel Constant Deceleration"]=1.5
+  touchpad_props["libinput Tapping Enabled"]=1
+  # NOTE: As of 2019-12-30, this seems to be the right setting for enabling
+  # tapping on hera17. See also (search for "Synaptics Tap Action"):
+  # https://www.x.org/archive/X11R7.5/doc/man/man4/synaptics.4.html
+  touchpad_props["Synaptics Tap Action"]="1 1 1 1 1 2 3"
+  touchpad_props["libinput Accel Speed"]=0.75
+  local available_props
+  available_props="$(xinput list-props "${touchpad_name}" |
+    sed -r 's/^\s+(.*)\s+\([0-9]+\).*$/\1/')"
+  # First line is device name.
+  # available_props=("${available_props:1}")
+  for prop in "${!touchpad_props[@]}"; do
+    if [[ ${available_props} == *"${prop}"* ]]; then
+      xinput set-prop "${touchpad_name}" "${prop}" ${touchpad_props[${prop}]}
+    fi
+  done
+}
+
+set_screenlock_settings() {
+  # NOTE: The screenlocking script I use will force DPMS off mode by calling
+  # `xset dpms force off`, so the DPMS values are only used as fallback in case
+  # screenlocking doesn't work.
+  if [[ "${HOST_ALIAS}" == zeus18 ]]; then
+    # Set automatic locking notification to trigger after 10 minutes, and actual
+    # locking to trigger 30 seconds later.
+    xset s 600 30
+    xset dpms 600 600 600
+  # NOTE: hera11 is used as an HDTV, so screenlock and DPMS are configured less
+  # strictly. Otherwise, they can trigger while watching a video.
+  elif [[ "${HOST_ALIAS}" == hera11 ]]; then
+    # Set automatic locking notification to trigger after 1 hour, and actual
+    # locking to trigger 5 minutes later. This is configured using the X11
+    # screensaver params.
+    xset s 3600 300
+    xset dpms 5400 5400 5400
+  else
+    # Set automatic locking notification to trigger after 3 minutes, and actual
+    # locking to trigger 20 seconds later. This is configured using the X11
+    # screensaver params.
+    xset s 180 20
+    xset dpms 600 600 600
+  fi
+}
+
+# NOTE: This must stay in sync with the `set_gdk_settings` function in xsession.
+set_dpi_and_xresources() {
+  local dpi=96
+  local rofi_font_size=16
+  local terminal_font_size=14
+  case "${HOST_ALIAS}" in
+    zeus18)
+      dpi=117
+      ;;
+    hera17)
+      dpi=192
+      rofi_font_size=30
+      terminal_font_size=26
+      ;;
+    hera20-juno | zeus20-juno | hera11)
+      dpi=96
+      ;;
+    *)
+      printf >&2 'No dpi/scaling set for host %s (%s), using default.\n' \
+        "${HOST_ALIAS}" "${HOSTNAME}"
+      ;;
+  esac
+  printf 'Using xresources DPI: %s\n' "${dpi}"
+  # Load custom xresources
+  xrdb -DDPI="${dpi}" \
+    -DROFI_FONT_SIZE="${rofi_font_size}" \
+    -DTERMINAL_FONT_SIZE="${terminal_font_size}" \
+    -merge "${REPO_ROOT}/.config/xresources/main.xresources"
+}
+
+set_x11_permissions() {
+  # Allow access to x11 display to the root user, which is needed for some
+  # scripts that run as root (crontab, keydope, etc). See also:
+  # - https://wiki.archlinux.org/index.php/Xhost
+  # - https://lists.debian.org/debian-user/2014/07/msg01324.html
+  xhost "si:localuser:root"
+  local user
+  user="$(whoami)"
+  # Same as above for the logged in user. Not sure why this is needed.
+  if [[ -n "${user}" ]] && [[ "${user}" != root ]]; then
+    xhost "si:localuser:${user}"
+  fi
+}
+
+set_background() {
+  # Set background color
+  # NOTE: xsetroot doesn't work with compton, so this is not really working. See
+  # also:
+  # https://wiki.archlinux.org/index.php/compton#Unable_to_change_the_background_color_with_xsetroot
+  xsetroot -solid "#555555"
+}
+
+# Sets the X11 font paths. According to the Archlinux wiki this is only relevant
+# for old applications:
+# https://wiki.archlinux.org/index.php/Fonts#Older_applications
+set_font_path() {
+  # Reset the fontpath to the default beceause:
+  # - Repeated invocations of this function will cause the fontpath to have many
+  #   duplicates
+  # - If one one the directories already in there doesn't exist anymore
+  #   (because, for example, we moved files around), the `xset +fp` calls below
+  #   will fail.
+  xset fp default
+  # According to the Archlinux wiki[1], Xorg doesn't recursively search through
+  # font directories like fontconfig does, so we must do it manually.
+  # [1] https://wiki.archlinux.org/index.php/Font_configuration#Font_paths
+  local user_fonts_dir="${HOME:-}/.local/share/fonts"
+  if [[ ! -d "${user_fonts_dir}" ]]; then
+    printf "User fonts dir doesn't exist: %s\n" "${user_fonts_dir}"
+    return
+  fi
+  while IFS='' read -r -d '' dir; do
+    (cd -- "${dir}" && mkfontdir && mkfontscale)
+    xset +fp "${dir}"
+  done < <(\find -L "${user_fonts_dir}" -type d -print0)
+  xset fp rehash
+}
+
+sync_x11_clipboards() {
+  # Synchronizes x11 primary and selection clipboards
+  # autocutsel &
+  # autocutsel -s PRIMARY &
+  :
+}
+
+main() {
+  if [[ -z "${DISPLAY-}" ]]; then
+    echo 'DISPLAY not set, setting it to default value'
+    export DISPLAY=':0'
+  fi
+  if ! xset q &> /dev/null; then
+    print_error "No X server at \${DISPLAY} [${DISPLAY-}]"
+    exit 1
+  fi
+  set_keyboard_settings
+  set_mouse_settings
+  set_touchpad_settings
+  set_screenlock_settings
+  set_dpi_and_xresources
+  set_x11_permissions
+  set_background
+  # NOTE: set_font_path is slow (~250 ms on zeus18), so it should be called
+  # last.
+  set_font_path
+  xset -b # Disable audible bell
+  # sync_x11_clipboards
+}
+
+main "$@"

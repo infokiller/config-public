@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# I don't remember the original reason for using a different user-data-dir here,
+# but I think it was that Chrome won't open a window in a different display if
+# there's already a window in another display in the same user data dir.
+google-chrome --user-data-dir="${REPO_ROOT}/.config/google-chrome-remote" "$@"

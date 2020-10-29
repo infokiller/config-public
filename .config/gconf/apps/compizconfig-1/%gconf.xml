@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="current_profile" mtime="1359985138" type="schema" stype="string" owner="compizconfig-1">
+		<local_schema locale="C" short_desc="Current profile">
+			<default type="string">
+				<stringvalue>unity</stringvalue>
+			</default>
+			<longdesc>Current profile of gconf backend</longdesc>
+		</local_schema>
+	</entry>
+</gconf>

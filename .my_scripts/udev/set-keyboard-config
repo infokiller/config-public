@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+LOCKFILE='/tmp/keyboard.lock'
+
+# NOTE: As of 2020-05-20, my tests show that this script can be replaced by a
+# much simpler alternative: using `touch /tmp/keyboard.lock` in the udev rule
+# that calls this file.
+
+printf 'Starting script %s\n' "$0"
+
+if ! /opt/ikl/is-x11-ready; then
+  echo 'X11 not ready yet, exiting'
+  exit
+fi
+
+echo 'X11 looks ready'
+
+if ! pgrep --full "file-inotify ${LOCKFILE}" > /dev/null; then
+  echo 'Did not find process listening to lockfile, exiting'
+  exit
+fi
+
+# Lock the file (other atomic alternatives would be "ln" or "mkdir")
+# Copied from:
+# https://bbs.archlinux.org/viewtopic.php?pid=1440918#p1440918
+exec {fd}> "${LOCKFILE}"
+if ! flock -n "${fd}"; then
+  # notify-send -t 5000 "Keyboard script is already running."
+  echo 'Cannot lock file, probably locked by another instance'
+  exit 1
+else
+  echo 'Successfully locked file'
+fi
+
+echo '' >| "${LOCKFILE}" &
+
+# The lock file will be unlocked when the script ends, which will trigger an
+# inotifywait instance setting the x11 settings.

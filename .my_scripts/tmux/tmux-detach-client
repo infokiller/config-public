@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# shellcheck disable=SC2034
+delim=':::'
+# A command to list clients that is usable when presenting to the user.
+
+# TODO: Use the client activity time to infer the current client and
+# label it.
+
+# shellcheck disable=SC2034
+presentation_header="Session | Size | Last active | Created"
+# shellcheck disable=SC2016,SC1004
+clients_presentation_cmd='tmux list-clients \
+  -F "#{client_session}${delim}#{window_width}x#{window_height}${delim}#{client_activity}${delim}#{client_created}" \
+  | sed -r "s|.*$(tty)|[CURRENT] \0|" \
+  | gawk -F"${delim}" '"'"'{OFS=" | "; $3=strftime("%Y-%m-%d %H:%M", $3); $4=strftime("%Y-%m-%d %H:%M", $4); print $0}'"'"' \
+  | (printf "%s\n" "${presentation_header}" && cat) \
+  | column -t -s "|"'
+
+# A command to list clients that is easily parsable.
+clients_parsing_cmd='tmux list-clients -F "#{client_tty}"'
+
+client_lines_selected=$(eval "${clients_presentation_cmd}" |
+  fzf-tmux --header-lines=1 --prompt="Clients > " --multi)
+status=$?
+if ((status != 0)); then
+  exit ${status}
+fi
+
+while IFS='' read -r client_line; do
+  client_line_index=$(eval "${clients_presentation_cmd}" |
+    grep --text -n "${client_line}" |
+    cut -f1 -d:)
+  # First line is the header that isn't printed in clients_parsing_cmd, so we
+  # need to decrement the returned index.
+  client_line_index=$((client_line_index - 1))
+  client_tty=$(eval "${clients_parsing_cmd}" | head -"${client_line_index}" | tail -1)
+  tmux detach-client -t "${client_tty}"
+done < <(printf '%s\n' "${client_lines_selected}")

@@ -1,0 +1,163 @@
+# Based on: https://github.com/noctuid/dotfiles/blob/master/media/.pqivrc
+
+[options]
+# Initially hide info display.
+hide-info-box=true
+slideshow-interval=2
+end-of-files-action=wrap-no-reshuffle
+thumbnail-size=256x256
+scale-images-up=true
+fade=false
+transparent-background=false
+
+[actions]
+# Hide cursor after 1 second of inactivtity.
+set_cursor_auto_hide(1)
+
+[keybindings]
+# Scrolling
+<Up> { shift_y(+5) }
+<Down> { shift_y(-5) }
+<Left> { shift_x(+5) }
+<Right> { shift_x(-5) }
+i { shift_y(+20) }
+k { shift_y(-20) }
+j { shift_x(+20) }
+l { shift_x(-20) }
+I { shift_y(+100) }
+K { shift_y(-100) }
+J { shift_x(+100) }
+L { shift_x(-100) }
+
+# Zoom
+<equal> { set_scale_level_relative(1.2) }
+<minus> { set_scale_level_relative(0.8) }
+0 { reset_scale_level() }
+zi { set_scale_level_relative(1.2) }
+zo { set_scale_level_relative(0.8) }
+z0 { reset_scale_level() }
+
+# File navigation
+gg { goto_file_byindex(0) }
+G { goto_file_byindex(-1) }
+<semicolon> { goto_earlier_file() }
+p { goto_file_relative(-1) }
+n { goto_file_relative(1) }
+o { jump_dialog() }
+O { command(| \( find ~/downloads ~/projects -maxdepth 3; find ~/drive/ ~/media/ \) | grep --extended-regexp --ignore-case '\.\(jpe?g|png|svg|bmp|tiff?|gif\)$' | rofi -dmenu | xargs -d '\n' cat) }
+
+# Toggle settings
+ti { toggle_info_box() }
+tr { toggle_shuffle_mode() }
+
+# Change the scale mode: 1 to disable scaling, 2 for automated scaledown
+# (default), 3 to always scale images up, 4 to maintain the user-set zoom level,
+# and 5 to maintain the window's size.
+# d- disable
+sd { toggle_scale_mode(1) }
+# a- automated
+sa { toggle_scale_mode(2) }
+# u- up
+su { toggle_scale_mode(3) }
+# m- manual
+sm { toggle_scale_mode(4) }
+# w- window
+sw { toggle_scale_mode(5) }
+# Switch to next scaling mode
+ss { toggle_scale_mode() }
+
+# Rotation and flipping
+h { flip_horizontally() }
+v { flip_vertically() }
+r { rotate_right() }
+
+# Filters
+cg { command(|convert - -colorspace Gray -) }
+cn { command(|convert - -negate -) }
+cb { command(|convert - -blur 20 -) }
+cs { command(|convert - -sharpen 50 -) }
+cc { command(|convert - -contrast 50 -) }
+
+# Reload image from disk
+<Control>r { reload() }
+# Disable exiting with escape. Use q to exit.
+<Escape> { nop() }
+# Disable action of linking image to .pqiv-select
+a { nop() }
+# NOTE: The `echo $1 > /dev/null` is a workaround needed because pqiv appends
+# the filename to the command, which we don't want in this case.
+# Show keybindings.
+? { command(echo $1 > /dev/null && pqiv --show-bindings | rofi -dmenu) }
+# Edit config.
+ec { command(echo $1 > /dev/null && sensible-terminal --window-name floating-terminal -- "${EDITOR:-vim}" "${HOME}/.config/pqivrc") }
+# Copy basename to clipboard.
+yn { command(copy-string-to-clipboard "$\(basename $1\)") }
+# Copy full path to clipboard.
+yp { command(copy-string-to-clipboard "$\(realpath $1\)") }
+# Copy content to clipboard.
+yc { command(copy-image-to-clipboard "$\(realpath $1\)") }
+
+@MONTAGE {
+  <space> { montage_mode_return_proceed() }
+	gg { montage_mode_return_cancel(); goto_file_byindex(0); montage_mode_enter(); }
+	G { montage_mode_return_cancel(); goto_file_byindex(-1); montage_mode_enter(); }
+	k { montage_mode_shift_y(1) }
+	i { montage_mode_shift_y(-1) }
+	j { montage_mode_shift_x(-1) }
+	l { montage_mode_shift_x(1) }
+	f { montage_mode_follow(asdfjkl<semicolon>) }
+
+}
+
+# Thumbnail size in montage mode.
+@MONTAGE {
+  <minus> { send_keys(:t192) }
+  zo { send_keys(:t192) }
+  <equal> { send_keys(:t320) }
+  zi { send_keys(:t320) }
+  0 { send_keys(:t256) }
+	:t128 {
+		set_thumbnail_size(128, 128);
+		bind_key(@MONTAGE { <minus> { nop(\); }})
+		bind_key(@MONTAGE { zo { nop(\); }})
+		bind_key(@MONTAGE { <equal> { send_keys(:t192\) } });
+		bind_key(@MONTAGE { zi { send_keys(:t192\) } });
+	}
+	:t192 {
+		set_thumbnail_size(192, 192);
+		bind_key(@MONTAGE { <minus> { send_keys(:t128\) } });
+		bind_key(@MONTAGE { zo { send_keys(:t128\) } });
+		bind_key(@MONTAGE { <equal> { send_keys(:t256\) } });
+		bind_key(@MONTAGE { zi { send_keys(:t256\) } });
+	}
+	:t256 {
+		set_thumbnail_size(256, 256);
+		bind_key(@MONTAGE { <minus> { send_keys(:t192\) } });
+		bind_key(@MONTAGE { zo { send_keys(:t192\) } });
+		bind_key(@MONTAGE { <equal> { send_keys(:t320\) } });
+		bind_key(@MONTAGE { zi { send_keys(:t320\) } });
+	}
+	:t320 {
+		set_thumbnail_size(320, 320);
+		bind_key(@MONTAGE { <minus> { send_keys(:t256\) } });
+		bind_key(@MONTAGE { zo { send_keys(:t256\) } });
+		bind_key(@MONTAGE { <equal> { send_keys(:t384\) } });
+		bind_key(@MONTAGE { zi { send_keys(:t384\) } });
+	}
+	:t384 {
+		set_thumbnail_size(384, 384);
+		bind_key(@MONTAGE { <minus> { send_keys(:t320\) } });
+		bind_key(@MONTAGE { zo { send_keys(:t320\) } });
+		bind_key(@MONTAGE { <equal> { send_keys(:t512\) } });
+		bind_key(@MONTAGE { zi { send_keys(:t512\) } });
+	}
+	:t512 {
+		set_thumbnail_size(512, 512);
+		bind_key(@MONTAGE { <minus> { send_keys(:t384\) } });
+		bind_key(@MONTAGE { zo { send_keys(:t384\) } });
+		bind_key(@MONTAGE { <equal> { nop(\); } });
+		bind_key(@MONTAGE { zi { nop(\); } });
+	}
+}
+
+# vim: set ft=dosini commentstring=#%s :

@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Wrapper over the fzf provided fzf-tmux script. Needed because I ran into
+# issues when ${TMUX} points to an inaccessible socket, for example when running
+# a shell from a firejailed ranger. Therefore, this script does its own check.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+is_tmux_robust() {
+  # NOTE: I used to check that ${TMUX} exists, but I ran into issues when it
+  # pointed to an inaccessible socket, for example when running a shell from a
+  # firejailed ranger. Additionally checking if tmux commands succeed should be
+  # more robust.
+  # shellcheck disable=SC2236
+  [[ -n ${TMUX-} ]] && tmux list-clients &> /dev/null
+}
+
+is_tmux_robust || unset TMUX
+exec "${REPO_ROOT}/submodules/terminal/fzf/bin/fzf-tmux" "$@"

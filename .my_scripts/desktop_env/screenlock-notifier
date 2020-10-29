@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+/usr/lib/xsecurelock/until_nonidle /usr/lib/xsecurelock/dimmer &
+notify-send --urgency=normal --expire-time=10000 -- 'Locking screen in 20 seconds'

@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+import argparse
+import os
+import re
+import subprocess
+# pylint: disable=unused-import
+from typing import Dict, List, Optional
+
+import installation_util as util
+
+# TODO: Lock the versions of installed packages similarly to
+# `install-npm-packages` so that the build is fully reproducible.
+# TODO: Install man pages and shell completions (for example the watchexec
+# package has them).
+
+CARGO_BIN_DIR = os.path.expanduser('~/.local/pkg/cargo/bin')
+CARGO = os.path.join(CARGO_BIN_DIR, 'cargo')
+
+
+class PackageInstallSpec:
+
+    def __init__(self,
+                 name,
+                 installed_binaries=None,
+                 install_flags='--locked --all-features',
+                 distro_regex=''):
+        self.name = name
+        self.installed_binaries = installed_binaries
+        self.install_flags = install_flags
+        self.distro_regex = re.compile(distro_regex)
+
+
+PACKAGES = [
+    PackageInstallSpec('cargo-update', installed_binaries={}),
+    # As of 2020-08-30, this is disabled because it had some issues compared to
+    # GNU parallel.
+    # PackageInstallSpec('parallel'),
+    PackageInstallSpec('tokei'),
+    PackageInstallSpec('watchexec'),
+    PackageInstallSpec('hyperfine'),
+    PackageInstallSpec('functiontrace-server'),
+    PackageInstallSpec('git-delta', installed_binaries={'delta': 'delta'}),
+    # NOTE(2018-07-21): exa is now installed from the arch repos for Arch.
+    # --git https://github.com/ogham/exa
+    # NOTE(2018-07-21): ripgrep is now installed from the arch repos for Arch.
+    PackageInstallSpec('exa', distro_regex='debian|ubuntu'),
+    PackageInstallSpec('ripgrep',
+                       installed_binaries={'rg': 'rg'},
+                       distro_regex='debian|ubuntu',
+                       install_flags='--locked'),
+    PackageInstallSpec('bat', distro_regex='debian|ubuntu'),
+]
+
+
+def _log_info(msg: str) -> None:
+    print(f'install-cargo-packages: {msg}')
+
+
+def _log_bold(msg: str) -> None:
+    _log_info(util.bold(msg))
+
+
+def _log_warning(msg: str) -> None:
+    _log_info(util.yellow(msg))
+
+
+def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
+    installed = []
+    errors = []
+    distro = util.get_linux_distro()
+    binary_to_install_name = {}
+    for pkg in packages:
+        if not re.match(pkg.distro_regex, distro):
+            _log_info(
+                f'Package {pkg.name} not needed in current distro, skipping')
+            continue
+        if pkg.installed_binaries is None:
+            binary_to_install_name[pkg.name] = pkg.name
+        else:
+            for binary_name, installed_name in pkg.installed_binaries.items():
+                binary_to_install_name[binary_name] = installed_name
+        is_installed = os.system(
+            f'{CARGO} install --list | grep -q {pkg.name}') == 0
+        # It seems that cargo sometimes rebuild packages even if they're already
+        # installed, presumably because the build configuration changed
+        # (toolchain, features, etc.). This is probably what I want, so I'm
+        # running `cargo install` even if it's already installed.
+        # if is_installed:
+        #     _log_info(f'Package {pkg.name} is already installed, skipping')
+        #     continue
+        success = os.system(
+            f'{CARGO} install {pkg.install_flags} {pkg.name}') == 0
+        if not success:
+            errors.append(pkg)
+            _log_warning(f'Failed installing package {pkg}')
+            continue
+        if not is_installed:
+            installed.append(pkg)
+    for binary_name, installed_name in binary_to_install_name.items():
+        _log_info(f'Symlinking binary {binary_name}')
+        util.symlink_relative(os.path.join(CARGO_BIN_DIR, binary_name),
+                              os.path.join(util.USER_BIN_DIR, installed_name))
+    _log_bold('Packages installed:\n{}'.format('\n'.join(installed)))
+    if errors:
+        _log_warning('Packages with errors:\n{}\n'.format('\n'.join(errors)))
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Install and/or upgrade config repo cargo packages.')
+    parser.add_argument('--upgrade',
+                        action='store_true',
+                        help='Upgrade cargo packages to their latest version.')
+    args = parser.parse_args()
+
+    util.create_user_dirs()
+    _install_cargo_packages(PACKAGES)
+    # Update all cargo packages if requested.
+    # Cargo doesn't support directly updating a package - it requires
+    # uninstalling and reinstalling a package. The `install-update` command is
+    # an extension subcommand provided by
+    # https://github.com/nabijaczleweli/cargo-update. See also:
+    # https://github.com/rust-lang/cargo/issues/2082
+    if args.upgrade:
+        subprocess.run(f'{CARGO} install-update -a'.split(), check=True)
+    subprocess.run('bat cache --build'.split(), check=True)
+
+
+if __name__ == '__main__':
+    main()

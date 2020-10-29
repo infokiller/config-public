@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# Get the first binary in ${PATH} that is not the wrapper script itself. Useful
+# to avoid recursion from wrapper scripts.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# NOTE(infokiller): this script MUST NOT source or depend on any other script
+# because many scripts depend on it, which may cause an infinite recursion.
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+main() {
+  if (($# != 1)); then
+    _print_error 'Error: expecting a single argument'
+    return 1
+  fi
+  wrapper_path="$(readlink -f "$1")"
+  local is_firejailed=0
+  local binary_name
+  binary_name="$(basename "${wrapper_path}")" || return 2
+  # I tried to use the output directly in the while loop using the `while ...
+  # done <(cmd)` idiom, but that doesn't work when this function is called for
+  # opening files in vim from ranger.
+  local tmpfile
+  tmpfile="$(mktemp -t "${binary_name}.XXXXX")" || return 2
+  # NOTE: The path variable in trap must be expanded when we run trap because if
+  # it runs on EXIT the variable will not be defined.
+  # shellcheck disable=SC2064
+  trap "rm -- '${tmpfile}' &> /dev/null || true" EXIT ERR INT HUP TERM
+  type -aPf "${binary_name}" >| "${tmpfile}"
+  while IFS='' read -r binary_path; do
+    binary_path="$(readlink -f "${binary_path}")"
+    if [[ "${binary_path}" == "${wrapper_path}" ]]; then
+      continue
+    fi
+    # Handle firejail symlinks.
+    if [[ "${binary_path}" == */firejail ]]; then
+      is_firejailed=1
+      continue
+    fi
+    # We found a binary that is not the wrapper and is not firejail.
+    if ((is_firejailed == 1)); then
+      echo 'firejail'
+    fi
+    printf '%s\n' "${binary_path}"
+    return 0
+  done < "${tmpfile}"
+  return 3
+}
+
+main "$@"

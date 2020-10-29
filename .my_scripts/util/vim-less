@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# This script based on /usr/share/nvim/runtime/macros/less.sh
+
+# Shell script to start Vim with less.vim.
+# Read stdin if no arguments were given and stdin was redirected.
+
+readonly VIM_LESS=(vim -c 'set nomodified nomodifiable nolist foldlevel=50 cc=')
+
+main() {
+  if (($# == 0)) && [[ -t 0 ]]; then
+    echo 1>&2 'Missing filename'
+    exit 1
+  fi
+  if [[ -t 1 ]]; then
+    if (($# == 0)); then
+      "${VIM_LESS[@]}" -
+    else
+      "${VIM_LESS[@]}" -- "$@"
+    fi
+  else
+    # Output is not a terminal, cat arguments or stdin
+    if (($# == 0)); then
+      cat
+    else
+      cat -- "$@"
+    fi
+  fi
+}
+
+main "$@"

@@ -1,0 +1,14 @@
+[Unit]
+Description=Start CopyQ clipboard manager
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=10
+ExecStart=copyq
+# NOTE: Using the default kill action (sending SIGTERM) causes copyq to exit
+# with an error.
+ExecStop=copyq exit

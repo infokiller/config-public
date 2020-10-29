@@ -1,0 +1,16 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/mapper/arch-root
+UUID=e3d80abd-664b-4a78-ae81-3b552eb95aa1	/         	ext4      	rw,relatime,data=ordered	0 1
+
+# /dev/mapper/arch-home
+UUID=99d504eb-db27-4bf3-a093-f2c29eee33c1	/home     	ext4      	rw,relatime,data=ordered,nodev,nosuid	0 2
+
+# /dev/mapper/arch-swap LABEL=swap
+UUID=a7673418-bb2e-455d-b080-72571ef5ca33	none      	swap      	defaults,pri=-2	0 0
+
+UUID=021E47E5403EA47A /mnt/DataInternal ntfs-3g rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show 0 0
+
+# vim: set ft=fstab :

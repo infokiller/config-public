@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Usage: file-inotify <file> <command>
+# Command is run when file is written.
+#
+# This script was copied from:
+# https://bbs.archlinux.org/viewtopic.php?pid=1440918#p1440918
+
+path=$(realpath "$1")
+job="$2"
+#basename=$(basename "$1")
+dirname=$(dirname "$1")
+
+inotifywait -m -e close_write --format '%w%f' "${dirname}" |
+  while read -r file; do
+    if [[ $(realpath "${file}") == "${path}" ]]; then
+      bash -c "${job}"
+    fi
+  done

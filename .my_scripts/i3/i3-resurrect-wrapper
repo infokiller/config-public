@@ -1,0 +1,213 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+I3_RESURRECT_DIR="${HOME}/.local/var/i3-resurrect"
+
+readonly HELP_FORMAT='<span alpha="50%%" size="smaller"><b>%s</b>
+%s</span>'
+
+readonly SAVE_WS_HEADING='Select workspaces to save using <u>Enter</u> (single selection) or <u>Tab</u> (multiple selections)'
+readonly SAVE_WS_CONTENT='The selected workspaces will be saved in a new snapshot.'
+# shellcheck disable=SC2059
+readonly SAVE_WS_MESSAGE="$(printf "${HELP_FORMAT}" \
+  "${SAVE_WS_HEADING}" "${SAVE_WS_CONTENT}")"
+
+readonly SELECT_SNAPSHOT_HEADING='Select a snapshot to restore using <u>Enter</u>'
+readonly SELECT_SNAPSHOT_CONTENT='After the snapshot is selected, you will be prompted to select the set of workspaces you want to restore, and you will still have a chance to exit with no modifications to your workspaces.'
+# shellcheck disable=SC2059
+readonly SELECT_SNAPSHOT_MESSAGE="$(printf "${HELP_FORMAT}" \
+  "${SELECT_SNAPSHOT_HEADING}" "${SELECT_SNAPSHOT_CONTENT}")"
+
+readonly SELECT_WS_CONTENT='Select workspaces to restore using <u>Enter</u> (single selection) or <u>Tab</u> (multiple selections).'
+
+readonly MAX_SNAPSHOTS_ANNOTATED=20
+
+readonly PRUNE_PYTHON_CODE='
+import sys
+
+n = int(sys.argv[1])
+for i, line in enumerate(sys.stdin):
+    if not n or i % n != n - 1:
+        print(line[:-1])
+'
+
+_print_usage_and_die() {
+  printf >&2 'Usage: %s (save [--all] | restore | prune)\n' "$0"
+  exit 1
+}
+
+format_message() {
+  printf '<span alpha="60%%" style="italic">%s</span>' "$1"
+}
+
+list_workspaces() {
+  local jq_script='recurse(.nodes[]) | select(.type == "workspace") |
+    select(.output != "__i3") | .name'
+  i3-msg -t get_tree | jq --raw-output "${jq_script}"
+}
+
+save_workspace() {
+  local dir="$1"
+  local workspace="$2"
+  conda-run i3_resurrect i3-resurrect save --directory "${dir}" --layout-only \
+    --swallow class,instance,title --workspace "${workspace}"
+}
+
+restore_workspace() {
+  local dir="$1"
+  local workspace="$2"
+  conda-run i3_resurrect i3-resurrect restore --directory "${dir}" --layout-only \
+    --workspace "${workspace}"
+}
+
+cmd_save() {
+  local save_all=0
+  while (($# > 0)); do
+    case "$1" in
+      --all)
+        save_all=1
+        shift
+        ;;
+      *)
+        _print_usage_and_die
+        ;;
+    esac
+  done
+  local workspaces
+  mapfile -t workspaces < <(list_workspaces)
+  if ((save_all)); then
+    selected=("${workspaces[@]}")
+  else
+    mapfile -t selected < <((
+      echo '<all>'
+      printf '%s\n' "${workspaces[@]}"
+    ) |
+      rofi -dmenu -multi-select -kb-row-tab '' -kb-accept-alt 'Tab' \
+        -p 'Workspace' -mesg "$(format_message "${SAVE_WS_MESSAGE}")")
+    if ((${#selected[@]} == 0)); then
+      exit 2
+    fi
+    if [[ "${selected[0]}" == '<all>' ]]; then
+      selected=("${workspaces[@]}")
+    fi
+  fi
+  local dir
+  dir="${I3_RESURRECT_DIR}/$(date +"%Y-%m-%dT%H-%M-%S")"
+  for workspace in "${selected[@]}"; do
+    printf 'Saving workspace: %s\n' "${workspace}"
+    if ! save_workspace "${dir}" "${workspace}"; then
+      printf >&2 'Failure saving workspace: %s\n' "${workspace}"
+    fi
+  done
+}
+
+cmd_restore() {
+  mapfile -t snapshots < <(find "${I3_RESURRECT_DIR}" -mindepth 1 \
+    -maxdepth 1 -printf '%f\n' |
+    sort -r)
+  mapfile -t presented_snapshots < <(printf '%s\n' "${snapshots[@]}" |
+    sed -r 's/T([0-9]*)-([0-9]*)-([0-9]*)/ \1:\2:\3/')
+  for i in "${!snapshots[@]}"; do
+    if ((i == MAX_SNAPSHOTS_ANNOTATED)); then
+      break
+    fi
+    local snapshot_dir="${I3_RESURRECT_DIR}/${snapshots[${i}]}"
+    local ws_count
+    ws_count="$(find "${snapshot_dir}" -mindepth 1 -maxdepth 1 \
+      -name 'workspace_*_layout.json' | wc -l)"
+    presented_snapshots[$i]+="$(printf ' (%d workspaces)' "${ws_count}")"
+  done
+  local index=0
+  while true; do
+    if ! index="$(printf '%s\n' "${presented_snapshots[@]}" |
+      rofi -dmenu -format i -p 'Snapshot' -selected-row "${index}" \
+        -mesg "$(format_message "${SELECT_SNAPSHOT_MESSAGE}")")"; then
+      exit 2
+    fi
+    local snapshot_dir="${I3_RESURRECT_DIR}/${snapshots[${index}]}"
+    local workspaces=()
+
+    mapfile -d '' -t workspace_filenames < <(find "${snapshot_dir}" \
+      -mindepth 1 -maxdepth 1 -print0)
+    mapfile -t workspaces < <(jq --raw-output '.name' \
+      "${workspace_filenames[@]}" | sort -k1 -n)
+    local mesg_heading
+    mesg_heading="$(printf 'Snapshot: <u>%s</u>' \
+      "${presented_snapshots[${index}]}")"
+    local mesg
+    # shellcheck disable=SC2059
+    mesg="$(printf "${HELP_FORMAT}" "${mesg_heading}" "${SELECT_WS_CONTENT}")"
+    mapfile -t selected_indices < <((
+      echo '<all>'
+      printf '%s\n' "${workspaces[@]}"
+    ) |
+      rofi -dmenu -format i -multi-select -kb-row-tab '' -kb-accept-alt 'Tab' \
+        -p 'Workspace' -mesg "$(format_message "${mesg}")")
+    if ! ((${#selected_indices[@]})); then
+      continue
+    fi
+    local selected_workspaces=()
+    if [[ "${selected_indices[0]}" == 0 ]]; then
+      selected_workspaces=("${workspaces[@]}")
+    else
+      for i in "${selected_indices[@]}"; do
+        # We use i-1 to offset for '<all>'.
+        selected_workspaces+=("${workspaces[$((i - 1))]}")
+      done
+    fi
+    for workspace in "${selected_workspaces[@]}"; do
+      printf 'Restoring workspace: %s\n' "${workspace}"
+      if ! restore_workspace "${snapshot_dir}" "${workspace}"; then
+        printf 'Failed restoring workspace: %s\n' "${workspace}"
+      fi
+    done
+    exit
+  done
+}
+
+# TODO: Implement proper idempotent time-based pruning.
+cmd_prune() {
+  local find_snapshots=(find "${I3_RESURRECT_DIR}" -mindepth 1 -maxdepth 1)
+  local snapshots=()
+  local pruned_snapshots=()
+  mapfile -t snapshots < <("${find_snapshots[@]}" -mtime +30 | sort)
+  if ((${#snapshots[@]} > 100)); then
+    mapfile -t pruned_snapshots < <(
+      python -c "${PRUNE_PYTHON_CODE}" 24 < <(printf '%s\n' "${snapshots[@]}")
+    )
+  fi
+  mapfile -t snapshots < <("${find_snapshots[@]}" -mtime +7 -mtime -30 | sort)
+  if ((${#snapshots[@]} > 100)); then
+    mapfile -t pruned_snapshots -O "${#pruned_snapshots[@]}" < <(
+      python -c "${PRUNE_PYTHON_CODE}" 6 < <(printf '%s\n' "${snapshots[@]}")
+    )
+  fi
+  printf 'Pruning %d snapshots\n' "${#pruned_snapshots[@]}"
+  printf '%s\n' "${pruned_snapshots[@]}" |
+    xargs --no-run-if-empty --delimiter='\n' rm -rf
+}
+
+main() {
+  (($# > 0)) || _print_usage_and_die
+  case "$1" in
+    save)
+      shift
+      cmd_save "$@"
+      ;;
+    restore)
+      shift
+      cmd_restore "$@"
+      ;;
+    prune)
+      shift
+      cmd_prune "$@"
+      ;;
+    *)
+      _print_usage_and_die
+      ;;
+  esac
+}
+
+main "$@"

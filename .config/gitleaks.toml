@@ -1,0 +1,8 @@
+[whitelist]
+  description = "Whitelist integrity hashes"
+  files = ['''yarn.lock''', '''package.lock''']
+  # paths = [ '''path-regex-a''', '''path-regex-b''']
+  # repos = [ '''repo-regex-a''', '''repo-regex-b''']
+
+# [[rules]]
+#   regex = '''my-secret-regex'''

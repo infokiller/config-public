@@ -1,0 +1,5 @@
+# File extensions of generated files
+*.pyc
+*.pyo
+*.zwc
+.tags

@@ -1,0 +1,16 @@
+{
+    // Text Editor
+    // @jupyterlab/fileeditor-extension:plugin
+    // Text editor settings.
+    // ***************************************
+
+    // Editor Configuration
+    // The configuration for all text editors.
+    // If `fontFamily`, `fontSize` or `lineHeight` are `null`,
+    // values from current theme are used.
+    "editorConfig": {
+        "fontFamily": "MyMono",
+        "rulers": [80],
+        "codeFolding": true
+    }
+}

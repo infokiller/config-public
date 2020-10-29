@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+google-chrome --app="https://web.whatsapp.com/" --profile-directory="Home" "$@"

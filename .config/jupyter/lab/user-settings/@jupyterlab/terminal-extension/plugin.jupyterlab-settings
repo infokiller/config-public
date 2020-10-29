@@ -1,0 +1,18 @@
+{
+    // Terminal
+    // @jupyterlab/terminal-extension:plugin
+    // Terminal settings.
+    // *************************************
+    
+    // Font family
+    // The font family used to render text.
+    "fontFamily": "MyMono",
+    
+    // Scrollback Buffer
+    // The amount of scrollback beyond initial viewport
+    "scrollback": 10000,
+
+    // Theme
+    // The theme for the terminal.
+    "theme": "dark"
+}

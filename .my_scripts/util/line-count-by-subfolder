@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_dir_line_counts() {
+  while IFS='' read -r f; do
+    count="$(find "${f}" -type f -exec grep -Iq . '{}' ';' -and -exec cat '{}' \
+      '+' | wc -l)"
+    printf '%s: %s\n' "${f}" "${count}"
+  done < <(find "$@" -mindepth 1 -maxdepth 1)
+}
+
+main() {
+  local file_or_dir
+  for file_or_dir in "$@"; do
+    if [[ -d "${file_or_dir}" ]]; then
+      _dir_line_counts "${file_or_dir}"
+    else
+      printf '%s: %s\n' "${file_or_dir}" "$(wc -l < "${file_or_dir}")"
+    fi
+  done
+}
+
+main "$@"

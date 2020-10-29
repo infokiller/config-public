@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# This script can be called using sudo, so we can't fall back to $HOME.
+readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
+
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+_update_pacman_mirrors() {
+  # Refresh keys. This is required for handling new and expired keys properly.
+  # As of 2020-05-29, `pacman-key --refresh-keys` has issues.
+  # TODO: Fix `pacman-key --refresh-keys`.
+  # sudo pacman-key --refresh-keys
+  # Create package database- needed to be done once.
+  sudo pacman --files --refresh
+  sudo pacman --sync --needed --noconfirm reflector
+  sudo reflector --latest 200 --protocol http --protocol https --sort rate \
+    --save /etc/pacman.d/mirrorlist
+}
+
+main() {
+  local last_update_date
+  last_update_date="$(grep -Ei '#\s+Retrieved:' /etc/pacman.d/mirrorlist |
+    head -1 | sed -r 's/#\s*Retrieved:\s*(\S+).*$/\1/')" || true
+  if [[ -n "${last_update_date}" ]]; then
+    print_bold 'Pacman mirrors last update date: ' "${last_update_date}"
+  else
+    print_warning 'Could not detect last pacman mirrors update'
+    _update_pacman_mirrors
+    return $?
+  fi
+  # Update mirrors using reflector if more than one week has passed since the
+  # last update.
+  local last_update_timestamp
+  if ! last_update_timestamp="$(date -d "${last_update_date}" +%s 2>&1)"; then
+    print_warning "Could not parse mirrors update date, updating them."
+  elif [[ "${last_update_timestamp}" -lt "$(date -d '-30 days' +%s)" ]]; then
+    print_bold 'Pacman mirrors not updated in more than 30 days, updating keys and mirrors.'
+  else
+    print_bold 'Pacman mirrors fresh enough, not updating.'
+    return 0
+  fi
+  _update_pacman_mirrors
+}
+
+main "$@"

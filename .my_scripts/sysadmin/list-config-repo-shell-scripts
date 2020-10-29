@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+_list_with_dups() {
+  # All repo files that pass the `filter-shell-scripts` test, which has false
+  # negative, especially when files have both bash and zsh code in them.
+  list-searched-files | grep -E -v '(^submodules/|klfc/xkb_output)' | filter-shell-scripts
+  find .config/bash .config/zsh -type f |
+    grep --text -E -v '\.(zwc|py|pyc|yml)$' |
+    grep --text -E -v 'run-tracked|p10k.zsh'
+}
+
+(cd "${REPO_ROOT}" && _list_with_dups) | sort -u

@@ -1,0 +1,68 @@
+{
+    // Document Manager
+    // @jupyterlab/docmanager-extension:plugin
+    // Document Manager settings.
+    // ***************************************
+
+    // Autosave Documents
+    // Whether to autosave documents
+    "autosave": true,
+
+    // Autosave Interval
+    // Length of save interval in seconds
+    // TODO(infokiller): verify this doesn't have a performance impact,
+    // especially with remote notebooks.
+    "autosaveInterval": 1,
+
+    // Default Viewers
+    // Overrides for the default viewers for file types.
+    // Specify a mapping from file type name to document viewer name, for example:
+    // 
+    // defaultViewers: {
+    //   markdown: "Markdown Preview"
+    // }
+    // 
+    // If you specify non-existent file types or viewers, or if a viewer cannot
+    // open a given file type, the override will not function.
+    // 
+    // Available viewers:
+    // JSON    
+    // PDF    
+    // Vega5    
+    // Vega-Lite4    
+    // Notebook    
+    // Markdown Preview    
+    // CSVTable    
+    // TSVTable    
+    // HTML Viewer    
+    // Image    
+    // VDOM    
+    // Editor
+    // 
+    // Available file types:
+    // text    
+    // notebook    
+    // directory    
+    // markdown    
+    // python    
+    // json    
+    // csv    
+    // tsv    
+    // r    
+    // yaml    
+    // svg    
+    // tiff    
+    // jpeg    
+    // gif    
+    // png    
+    // bmp    
+    // PDF    
+    // vega5    
+    // vega-lite4    
+    // vega-lite3    
+    // html    
+    // vdom
+    "defaultViewers": {}
+}
+
+// vim: set ft=jsonc :

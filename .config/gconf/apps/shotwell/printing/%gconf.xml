@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="content_ppi" mtime="1410336261" type="int" value="600"/>
+	<entry name="images_per_page_selection" mtime="1410336261" type="int" value="1"/>
+	<entry name="print_titles_font" mtime="1410336261" type="string">
+		<stringvalue>Sans Bold 12</stringvalue>
+	</entry>
+	<entry name="print_titles" mtime="1410336261" type="bool" value="false"/>
+	<entry name="match_aspect_ratio" mtime="1410336261" type="bool" value="false"/>
+	<entry name="content_layout" mtime="1410336261" type="int" value="3"/>
+	<entry name="size_selection" mtime="1410336261" type="int" value="3"/>
+	<entry name="content_height" mtime="1410336261" type="float" value="4"/>
+	<entry name="content_width" mtime="1410336261" type="float" value="6"/>
+	<entry name="content_units" mtime="1410336261" type="int" value="1"/>
+</gconf>

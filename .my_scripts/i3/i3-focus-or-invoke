@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+LOGGING_NAME="$(basename "$0")"
+
+log() {
+  logger --tag="${LOGGING_NAME}" "$@"
+}
+
+search_with_retry() {
+  mapfile -t search_output < <(xdotool search "$@" 2>&1)
+  search_status=$?
+  while [[ -z ${search_output-} && ${search_output[*]} == *"failed request"* ]]; do
+    log --priority=notice "Retrying xdotool search $*"
+    mapfile -t search_output < <(xdotool search "$@" 2>&1)
+    search_status=$?
+  done
+  printf '%s\n' "${search_output[@]}"
+  return "${search_status}"
+}
+
+main() {
+  # Class and instance have the same meaning as in i3.
+  # Only one of them must be specified.
+  class=''
+  instance=''
+  # Parse command line args
+  while (($# > 0)); do
+    case "$1" in
+      --class)
+        class="$2"
+        shift 2
+        ;;
+      --instance)
+        instance="$2"
+        shift 2
+        ;;
+      -*)
+        printf >&2 'Unknown option: %s\n' "$1"
+        exit 1
+        ;;
+      *) break ;;
+    esac
+  done
+  if [[ -n ${class} ]]; then
+    selector_type='--class'
+    selector_value="${class}"
+  else
+    selector_type='--classname'
+    selector_value="${instance}"
+  fi
+  readonly selector_type selector_value
+  success=0
+  if window_ids=$(search_with_retry "${selector_type}" "${selector_value}"); then
+    for wid in ${window_ids}; do
+      echo "${wid}"
+      if i3-msg "[id=\"${wid}\"] move workspace current, focus, [floating] move position center"; then
+        success=1
+      fi
+    done
+  fi
+  if ((success == 1)); then
+    log --priority=info "Found windows matching criteria: ${window_ids}"
+    exit 0
+  fi
+  readonly command=("$@")
+  "${command[@]}" &
+  IFS=" " read -r -a window_ids <<< "$(search_with_retry --sync "${selector_type}" "${selector_value}")"
+  # Only use the first window if there are multiple ones, but log a warning.
+  if ((${#window_ids[@]} > 1)); then
+    log --priority=warning "Found multiple windows matching criteria ${selector_type} ${selector_value}"
+  fi
+  wid="${window_ids[0]}"
+  mark="_sp:${selector_value}:${wid}"
+  i3-msg "[id=\"${wid}\"] floating enable, move position center, mark --add ${mark}"
+}
+
+main "$@"

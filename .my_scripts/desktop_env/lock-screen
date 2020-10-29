@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+#
+# xss-lock reference:
+# /usr/share/doc/xss-lock/transfer-sleep-lock-generic-delay.sh
+# /usr/share/doc/xss-lock/transfer-sleep-lock-i3lock.sh
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# Without setting this environment variable my screen flickered when tested
+# on my desktop on 2018-10-12. The xsecurelock docs list a known issue with
+# nvidia drivers which may be the issue:
+# https://github.com/google/xsecurelock#known-compatibility-issues
+# UPDATE 2018-10-14: Seems that the flickering only happens with old
+# versions of xsecurelock. This workaround is now disabled, and I will
+# delete these comments once the code is stable.
+# export XSECURELOCK_NO_COMPOSITE=1
+
+declare -g is_sound_on=0
+
+_log() {
+  logger --tag 'lock-screen' --stderr "$@" 2>&1
+}
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+# https://unix.stackexchange.com/a/206859/126543
+_is_fd_open() {
+  eval "(command >&$1 2<> /dev/null)"
+}
+
+_save_sound_status() {
+  # TODO: This doesn't work on my desktop when the output device is the
+  # Plantronics headphones. It seems that I need to check and possibly mute/unmute
+  # all sound cards, not just Master in the default device. Snippet to list all
+  # sound cards IDs:
+  # sound_cards_ids=($(aplay --list-devices | \grep '^card' | sed -r 's/^card ([0-9]+).*/\1/' | sort -u))
+  if amixer -D pulse sget Master | 'grep' --text -q '\[on\]'; then
+    is_sound_on=1
+  fi
+  _log "Sound is on: ${is_sound_on}"
+}
+
+# _kill_locker() {
+#   pkill --exact --euid ${EUID} "$@" "${LOCKER}"
+# }
+
+_pre_lock() {
+  _log 'Muting sound'
+  amixer -D pulse set Master 1+ mute
+  _log 'Turning off monitor'
+  xset dpms force off
+  # _log 'Setting XKB layout to English'
+  # setxkbmap us
+  _log 'Resetting keyboard settings'
+  set-x11-settings
+  _log 'Pausing dunst'
+  # Starting from dunst 1.5.0, pausing can be done using:
+  # `dunstctl set-paused true`
+  killall -SIGUSR1 dunst
+}
+
+_post_lock() {
+  _log 'Resuming dunst'
+  # Starting from dunst 1.5.0, resuming can be done using:
+  # `dunstctl set-paused false`
+  killall -SIGUSR2 dunst
+  if ((is_sound_on)); then
+    _log 'Restoring sound'
+    amixer -D pulse set Master 1+ unmute
+  fi
+}
+
+main() {
+  _log 'Starting script'
+  if ! _command_exists xsecurelock; then
+    _print_error "Locker not found: xsecurelock"
+    exit 1
+  fi
+  _save_sound_status
+  trap _post_lock EXIT SIGABRT SIGHUP SIGINT SIGTERM SIGPIPE SIGQUIT
+  _pre_lock
+  # trap _kill_locker SIGTERM SIGINT
+  if [[ -e /dev/fd/${XSS_SLEEP_LOCK_FD:--1} ]]; then
+    _log 'Activating locker in suspend mode'
+
+    # NOTE: Lockers that don't handle XSS_SLEEP_LOCK_FD need to be launched with
+    # `{XSS_SLEEP_LOCK_FD}<&-` so they don't inherit the XSS_SLEEP_LOCK_FD file
+    # descriptor. See also:
+    # /usr/share/doc/xss-lock/transfer-sleep-lock-generic-delay.sh
+    # However, xsecurelock does handle XSS_SLEEP_LOCK_FD, and in this case it's
+    # actually harmful to not pass the file descriptor.
+    # "${LOCKER[@]}" {XSS_SLEEP_LOCK_FD}<&-
+    xsecurelock
+    # now close our fd (only remaining copy) to indicate we're ready to sleep
+    # In general this may have a race condition: the locker may fork and there
+    # haven't finished locking the screen before we close the fd, so the system
+    # may suspend before locking is done. To fix this we need to properly wait
+    # for the locker to give a signal that it finished locking.
+    # xsecurelock specifically handles XSS_SLEEP_LOCK_FD itself:
+    # https://github.com/google/xsecurelock/blob/0857969bf327227b4dc3eb5fa914e58df40ebd27/main.c#L670
+    # TODO: As of 2020-05-13, my tests show that the fd is still open after
+    # resuming from suspend, and the suspension takes a bit of time, so I think
+    # xsecurelock may not have close it.
+    exec {XSS_SLEEP_LOCK_FD}<&-
+  else
+    _log 'Activating locker in normal mode (no pending suspend)'
+    # trap 'printf "Got kill signal\n"; kill %%' SIGTERM SIGINT
+    xsecurelock
+  fi
+}
+
+main "$@"

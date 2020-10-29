@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+main() {
+  # This is required to avoid resetting the user-dirs file on every login. See
+  # also: http://askubuntu.com/a/213970
+  # shellcheck source=../../.config/user-dirs.dirs
+  source "${REPO_ROOT}/.config/user-dirs.dirs"
+  [[ -n ${XDG_DOWNLOAD_DIR} && ! -d ${XDG_DOWNLOAD_DIR} ]] &&
+    mkdir -p -- "${XDG_DOWNLOAD_DIR}"
+  [[ -n ${XDG_DESKTOP_DIR} && ! -d ${XDG_DESKTOP_DIR} ]] &&
+    mkdir -p -- "${XDG_DESKTOP_DIR}"
+  [[ -n ${XDG_TEMPLATES_DIR} && ! -d ${XDG_TEMPLATES_DIR} ]] &&
+    mkdir -p -- "${XDG_TEMPLATES_DIR}"
+  [[ -n ${XDG_PUBLICSHARE_DIR} && ! -d ${XDG_PUBLICSHARE_DIR} ]] &&
+    mkdir -p -- "${XDG_PUBLICSHARE_DIR}"
+  [[ -n ${XDG_DOCUMENTS_DIR} && ! -d ${XDG_DOCUMENTS_DIR} ]] &&
+    mkdir -p -- "${XDG_DOCUMENTS_DIR}"
+  [[ -n ${XDG_MUSIC_DIR} && ! -d ${XDG_MUSIC_DIR} ]] &&
+    mkdir -p -- "${XDG_MUSIC_DIR}"
+  [[ -n ${XDG_DOCUMENTS_DIR} && ! -d ${XDG_DOCUMENTS_DIR} ]] &&
+    mkdir -p -- "${XDG_DOCUMENTS_DIR}"
+  [[ -n ${XDG_PICTURES_DIR} && ! -d ${XDG_PICTURES_DIR} ]] &&
+    mkdir -p -- "${XDG_PICTURES_DIR}"
+  [[ -n ${XDG_VIDEOS_DIR} && ! -d ${XDG_VIDEOS_DIR} ]] &&
+    mkdir -p -- "${XDG_VIDEOS_DIR}"
+  true
+}
+
+main "$@"

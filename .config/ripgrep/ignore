@@ -1,0 +1,54 @@
+# This file is used by both rg and ag.
+
+# VCS files/dirs
+.git
+.hg
+.svn
+
+# Generated/temp files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+*.swp
+*.zwc
+
+# Archives
+*.7z
+*.bz2
+*.gz
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.tbz2
+*.tgz
+*.xz
+*.zip
+*.Z
+
+# Logs and databases
+*.log
+*.sqlite
+
+# OS generated files
+.DS_Store
+.DS_Store*
+.DS_Store?
+.Spotlight-V100
+.Trashes
+._*
+Icon?
+Thumbs.db
+ehthumbs.db
+
+# IDE and editor files
+tags
+.tags
+*~
+.idea

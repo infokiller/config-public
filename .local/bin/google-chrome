@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Sometimes chromium will output many warnings or errors, which floods the
+# ~/.xsession-error file. To filter out these errors, run chromium as following:
+#
+#   chromium <args> 2> >(grep -v <filtered_error_regex> 1>&2)
+#
+# For reference, see https://stackoverflow.com/a/15936384/1014208
+#
+# Filtered out errors:
+# - As of 2018-09-26 Chrome outputs many errors on zeus18 from
+#   gles2_cmd_decoder. As of 2020-07-26, these errors are not reproducible, so
+#   their filtering is disabled.
+chromium "$@"

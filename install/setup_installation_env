@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+# We can't just set these unconditionally, since this script is sourced by
+# others, which may have already set it using readonly.
+: "${REPO_ROOT:=$(config-repo-root "${BASH_SOURCE[0]}" 2> /dev/null || echo "${HOME}")}"
+: "${SUBMODULES_DIR:="${REPO_ROOT}/submodules"}"
+: "${USER_BIN_DIR:="${HOME}/.local/bin"}"
+: "${USER_MAN_DIR:="${HOME}/.local/share/man/man1"}"
+: "${CARGO_BIN:="${CARGO_HOME:-${HOME}/.local/pkg/cargo}/bin"}"
+
+# For print_bold
+# shellcheck source=../.my_scripts/lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+# shellcheck source=../.profile
+source "${REPO_ROOT}/.profile"
+
+_log_info() {
+  if ((${IKL_VERBOSE-})); then
+    printf 'setup_installation_env: %s\n' "$*"
+  fi
+}
+
+_log_info_bold() {
+  if ((${IKL_VERBOSE-})); then
+    print_bold "$(_log_info "$@")"
+  fi
+}
+
+symlink_binary() {
+  local src="$1"
+  local installed_name="${2:-"$(basename "${src}")"}"
+  if [[ ! -x "${src}" ]]; then
+    print_error "Source path not executable: ${src}"
+    return 1
+  fi
+  _log_info "Symlinking binary: ${installed_name}"
+  ln -srf -- "${src}" "${USER_BIN_DIR}/${installed_name}"
+}
+
+symlink_man_page() {
+  local src="$1"
+  if [[ ! -r "${src}" ]]; then
+    print_error "Source path not readable: ${src}"
+    return 1
+  fi
+  _log_info "Symlinking man page: ${src}"
+  mkdir -p -- "${USER_MAN_DIR}"
+  ln -srf -- "${src}" "${USER_MAN_DIR}/$(basename "${src}")"
+}
+
+_make_installation_tmpdir() {
+  declare -g INSTALLATION_TMP_DIR
+  # See https://freedesktop.org/wiki/Software/xdg-user-dirs/ on how to get the
+  # standard downloads dir.
+  local user_dirs="${XDG_CONFIG_HOME:-${HOME}/.config}/user-dirs.dirs"
+  # shellcheck source=../.config/user-dirs.dirs
+  [[ -f ${user_dirs} ]] && source "${user_dirs}"
+  INSTALLATION_TMP_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/downloads}/installation_files"
+  [[ -d ${INSTALLATION_TMP_DIR} ]] || mkdir -p -- "${INSTALLATION_TMP_DIR}"
+}
+
+link_files_in_dir() {
+  if (($# != 2)); then
+    printf 1>&2 '%s\n' 'Expecting 2 arguments in link_files_in_dir function.'
+    return 1
+  fi
+  source_dir="$1"
+  target_dir="$2"
+  # Get all regular files and symlinks in the source directory.
+  _log_info "Linking files from directory ${source_dir} to directory " \ "${target_dir}"
+  while IFS= read -r -d '' file; do
+    _log_info "Linking file: ${file}"
+    [[ -f ${file} ]] && _log_info 'Overwriting existing file'
+    ln -srf -- "${file}" "${target_dir}"
+    # NOTE: -print0 needs to be specified after every file type, otherwise it
+    # won't be printed for the other file type.
+  done < <(find "${source_dir}" -mindepth 1 -maxdepth 1 -type f -print0 -o -type l -print0)
+}
+
+download_file() {
+  # NOTE: we don't use `--continue` because it can result in a garbled file when
+  # the remote file was changed and is bigger than the local file, in which case
+  # wget assumes that the file has new data appended, and will only download the
+  # delta.
+  # TODO: use a commit hash and a filename based on this hash so that the
+  # download will be more deterministic.
+  local url="$1"
+  local filename="${2-}"
+  if [[ -z "${filename}" ]]; then
+    filename="$(basename "${url}")"
+  fi
+  wget -q -O "${filename}" "${url}"
+}
+
+_ctrl_c_handler() {
+  _log_info_bold 'Got kill signal, exiting.'
+  exit 1
+}
+
+do_basic_setup() {
+  _log_info_bold "Repo root: ${REPO_ROOT}"
+  _log_info_bold "Submodules dir: ${SUBMODULES_DIR}"
+
+  mkdir -p -- "${USER_BIN_DIR}"
+
+  _make_installation_tmpdir
+  _log_info "Installation tmp files dir: ${INSTALLATION_TMP_DIR}"
+
+  "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
+
+  trap _ctrl_c_handler INT
+
+  # Needed for the python scripts to find installation_util.py.
+  export PYTHONPATH="${REPO_ROOT}/install"
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+VIM_CONFIG_DIR="${REPO_ROOT}/.config/vim"
+(
+  [[ -r "${VIM_CONFIG_DIR}/spell/en.utf-8.add" ]] && cat "${VIM_CONFIG_DIR}/spell/en.utf-8.add"
+  [[ -r '/usr/share/dict/words' ]] && cat '/usr/share/dict/words'
+  [[ -r '/usr/share/dict/american-english' ]] && cat '/usr/share/dict/american-english'
+) | grep -E '\w{5}' | sort -u

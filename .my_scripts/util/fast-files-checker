@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Checks for file existence only if a path points to a local file, since
+# checking for existence in remoe filesystems can be very slow.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly _EXCLUDES_FILE="${REPO_ROOT}/.config/fast-files-checker/excludes"
+
+declare -g _excludes=()
+
+_load_excludes() {
+  if [[ ! -r "${_EXCLUDES_FILE}" ]]; then
+    return
+  fi
+  while IFS='' read -r line; do
+    # Skip lines starting with a hash.
+    if [[ ! "${line}" =~ ^[\ $'\t']*# ]]; then
+      _excludes+=("${line}")
+    fi
+  done < "${_EXCLUDES_FILE}"
+}
+
+_is_file_local() {
+  for exclude_regex in "${_excludes[@]}"; do
+    if [[ "$1" =~ ${exclude_regex} ]]; then
+      return 1
+    fi
+  done
+  return 0
+  # TODO: This is very slow so it's disabled (very noticeable with 1000+ files).
+  # I can try to implement it by parsing the /proc/mounts file and checking if
+  # the path is a prefix of a mount point.
+  # filesystem=$(df -P -T "$@" | tail -n +2 | awk '{print $2}')
+  # if [[ ${filesystem} =~ (btrfs|ext[2-4]|fat32|ntfs|zfs) ]]; then
+  #   return 0
+  # fi
+  # return 2
+}
+
+main() {
+  _load_excludes
+  while IFS='' read -r line; do
+    if ! _is_file_local "${line}" || [[ -e "${line}" ]]; then
+      printf '%s\n' "${line}"
+    fi
+  done
+}
+
+main

@@ -1,0 +1,149 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+# pylint: disable=unused-import
+
+import argparse
+import logging
+import pprint
+from typing import List, Optional
+
+import i3ipc
+
+_LOG_FMT = '%(asctime)s %(levelname)s [%(filename)s:%(lineno)d] %(message)s'
+_MAX_LAST_FOCUSED = 100
+
+_logger = logging.getLogger('i3-track-last')
+
+
+def _init_logger(logger) -> None:
+    stdout_handler = logging.StreamHandler()
+    formatter = logging.Formatter(_LOG_FMT)
+    stdout_handler.setFormatter(formatter)
+    logger.addHandler(stdout_handler)
+
+
+def _create_args_parser() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description='Daemon tracking the last focused container.')
+    parser.add_argument('--log-level',
+                        choices=('debug', 'info', 'warning', 'error',
+                                 'critical'),
+                        default='warning',
+                        help='Logging level for stderr.')
+    parser.add_argument('--include-scratchpad',
+                        dest='include_scratchpad',
+                        action='store_true')
+    parser.add_argument('--no-include-scratchpad',
+                        dest='include_scratchpad',
+                        action='store_false')
+    parser.set_defaults(include_scratchpad=False)
+    return parser
+
+
+def dedup_list(my_list):
+    added = set()
+    result = []
+    for x in my_list:
+        if x not in added:
+            added.add(x)
+            result.append(x)
+    return result
+
+
+def is_scratchpad_mark(mark: str) -> bool:
+    return mark.startswith('_sp')
+
+
+def is_scratchpad_container(container: i3ipc.Con) -> bool:
+    return any(is_scratchpad_mark(m) for m in container.marks)
+
+
+def is_floating(container):
+    if container.type == 'floating_con':
+        return True
+    if not container.parent:
+        return False
+    return container.parent.type == 'floating_con'
+
+
+def mark_container_as_last(i3_connection: i3ipc.Connection, con_id: int):
+    _logger.info(f'Marking container: {con_id}')
+    reply = i3_connection.command(f'[con_id={con_id}] mark --add _last')[0]
+    if not reply.success:
+        _logger.warning('i3 command error: %s', reply.error)
+        return False
+    return True
+
+
+def _log_event(_: i3ipc.Connection, event: i3ipc.events.IpcBaseEvent) -> None:
+    name = type(event).__name__
+    if _logger.isEnabledFor(logging.DEBUG):
+        _logger.debug('Got event %s: %s', name, pprint.pformat(vars(event)))
+
+
+class LastWindowTracker:
+
+    def __init__(self, include_scratchpad: bool):
+        self.include_scratchpad = include_scratchpad
+        self.last_focused: List[int] = []
+
+    def mark_last(self, i3_connection: i3ipc.Connection):
+        # NOTE: get_tree can be slow (5ms on my desktop), so if I run into
+        # issues with that I can revert to the previous code where I didn't
+        # check that the containers still exist.
+        id_to_con = {con.id: con for con in i3_connection.get_tree()}
+        self.last_focused = [
+            cid for cid in self.last_focused if cid in id_to_con
+        ]
+        # Remove duplicates, but keep the id that is closest to the end of the
+        # list.
+        self.last_focused = list(
+            reversed(dedup_list(reversed(self.last_focused))))
+        _logger.info(f'last focused: {self.last_focused}')
+        unfocused = [
+            cid for cid in self.last_focused if not id_to_con[cid].focused
+        ]
+        if not unfocused:
+            return
+        mark_container_as_last(i3_connection, unfocused[-1])
+
+    def on_window_focus(self, i3_connection: i3ipc.Connection,
+                        event: i3ipc.WindowEvent):
+        _logger.info('on_window_focus')
+        self.mark_last(i3_connection)
+        is_floating_scratchpad = (is_scratchpad_container(event.container) and
+                                  not is_floating(event.container))
+        if self.include_scratchpad or not is_floating_scratchpad:
+            self.last_focused.append(event.container.id)
+            if len(self.last_focused) > _MAX_LAST_FOCUSED:
+                self.last_focused = self.last_focused[_MAX_LAST_FOCUSED // 2:]
+
+    def on_window_close(self, _: i3ipc.Connection, event: i3ipc.WindowEvent):
+        _logger.info('on_window_close')
+        try:
+            self.last_focused.remove(event.container.id)
+        except ValueError:
+            pass
+
+    def on_workspace_init(self, i3_connection: i3ipc.Connection,
+                          _: i3ipc.WorkspaceEvent):
+        _logger.info('on_workspace_init')
+        self.mark_last(i3_connection)
+
+
+def main():
+    _init_logger(_logger)
+    args = _create_args_parser().parse_args()
+    _logger.setLevel(getattr(logging, args.log_level.upper(), None))
+    i3_connection = i3ipc.Connection()
+    tracker = LastWindowTracker(args.include_scratchpad)
+    i3_connection.on(i3ipc.Event.WINDOW, _log_event)
+    i3_connection.on(i3ipc.Event.WORKSPACE, _log_event)
+    i3_connection.on(i3ipc.Event.WINDOW_FOCUS, tracker.on_window_focus)
+    i3_connection.on(i3ipc.Event.WINDOW_CLOSE, tracker.on_window_close)
+    i3_connection.on(i3ipc.Event.WORKSPACE_INIT, tracker.on_workspace_init)
+    i3_connection.main()
+
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+main() {
+  local tmpfile
+  tmpfile="$(mktemp -t tmux-edit-pane-content-XXXXX)"
+  tmux capture-pane -J -p -S - -E - > "${tmpfile}"
+  tmux new-window -- "'${EDITOR:-vim}' -- '${tmpfile}'; rm -- '${tmpfile}'"
+}
+
+main "$@"

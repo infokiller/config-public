@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_print_usage_and_die() {
+  local name
+  name="$(basename "$0")"
+  _print_error "$(
+    printf 'Usage:\n%s unique_pane_id\n%s session window pane' \
+      "${name}" "${name}"
+  )"
+  exit 1
+}
+
+_unique_pane_id_to_all_ids() {
+  # Delimiter that shouldn't appear in a session name, window index or pane index.
+  # TODO: Set this delimiter dynamically by checking the maximum number of colons
+  # in the output of `tmux list-panes`.
+  local delim=$'\t'
+  local pane_id="$1"
+  while IFS='' read -r line; do
+    if [[ "${line}" == "${pane_id}${delim}"* ]]; then
+      local fields
+      mapfile -d "${delim}" -t fields < <(printf '%s' "${line}")
+      printf '%s\0' "${fields[@]:1}"
+      return 0
+    fi
+  done < <(tmux list-panes -a -F "#{pane_id}${delim}#{session_name}${delim}#{window_index}${delim}#{pane_index}")
+  return 1
+}
+
+_switch_by_all_ids() {
+  local session="$1"
+  local window="$2"
+  local pane="$3"
+  # Must run as background process- see below.
+  tmux switch-client -t "${session}" &
+  wait "$!"
+  # Must run as background process- see below.
+  tmux select-window -t "${window}" &
+  wait "$!"
+  # This command must be run as a background process, otherwise tmux will try to
+  # run the select-pane in the session in which this command was run from.
+  tmux select-pane -t "${pane}" &
+  wait "$!"
+}
+
+main() {
+  # This seems to help make tmux commands to work properly when run from a tmux
+  # session.
+  unset TMUX TMUX_PANE
+  if (($# == 1)); then
+    if [[ "$1" != %* ]]; then
+      _print_error 'Unique pane id must start with a percent sign'
+      _print_usage_and_die
+    fi
+    # TODO: Use the unique session id directly in `tmux select-pane`. For some
+    # reason it doesn't work, may need to open an issue in tmux repo.
+    local all_ids
+    mapfile -t -d '' all_ids < <(_unique_pane_id_to_all_ids "$1")
+    _switch_by_all_ids "${all_ids[@]}"
+  elif (($# == 3)); then
+    _switch_by_all_ids "$@"
+  else
+    _print_usage_and_die
+  fi
+}
+
+main "$@"

@@ -1,0 +1,109 @@
+# vim: set ft=cfg :
+
+# This files contains all ubuntu packages needed to install a new workstation,
+# including ones that are used by submodules.
+
+# Installed in install-external-packages:
+# google-chrome-stable
+# i3
+# i3-wm
+
+# Packages that used to be listed in this file that are not in the official
+# repositories and must be installed from a ppa or built from source:
+# zsh-completions
+# zathura-pdf-mupdf
+
+git
+bash
+bash-completion
+zsh
+tmux
+# The default vim package (vim) is quite restricted and doesn't have support for
+# clipboard, clientserver, etc. See also:
+# https://askubuntu.com/questions/347519/unable-to-copy-from-vim-to-system-clipboard
+vim-gtk
+silversearcher-ag
+at
+autoconf
+automake
+binutils
+gcc
+patch
+usbutils
+pkg-config
+zip
+cmake
+earlyoom
+ripgrep
+copyq
+xdotool
+trash-cli
+
+lightdm
+xss-lock
+physlock
+xbacklight
+# Provides xrandr, xrdb, xset, xhost, and other utils.
+x11-xserver-utils
+x11-xkb-utils
+xclip
+xsel
+xcape
+conky
+compton
+# Provides syndaemon
+xserver-xorg-input-synaptics
+# Required by my udev rules that reset the keyboard layout.
+inotify-tools
+ibus
+# Provides notify-send.
+libnotify-bin
+alsa-utils
+pulseaudio
+pulseaudio-utils
+rxvt-unicode-256color
+vlc
+geeqie
+pinta
+zathura
+zathura-djvu
+zathura-ps
+# ranger is build from source
+# ranger
+pcmanfm
+udisks2
+udiskie
+qbittorrent
+wget
+curl
+# text to speech.
+espeak
+gawk
+sed
+htop
+ncdu
+apt-file
+# GUI for xrandr. Should also consider lxrandr as an alternative.
+arandr
+# Tool to compute lines of code.
+cloc
+# Notifications daemon.
+dunst
+# Hides mouse cursor after inactivity.
+unclutter
+redshift-gtk
+policykit-1-gnome
+network-manager
+# Provides nm-applet
+network-manager-gnome
+# Provices volumeicon
+volumeicon-alsa
+# Utility for autostarting apps. Used in xsession file to launch cinnamon
+# daemons.
+dex
+gnupg2
+seahorse
+
+fonts-dejavu
+fonts-inconsolata
+# ttf-ubuntu-font-family

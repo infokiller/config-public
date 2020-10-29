@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="theme_name" mtime="1364481092" type="string">
+		<stringvalue>ubuntu</stringvalue>
+	</entry>
+	<entry name="event_sounds" mtime="1364481092" type="bool" value="true"/>
+</gconf>

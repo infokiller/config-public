@@ -1,0 +1,3 @@
+data_archive_path: ~/projects/fastai/data
+data_path: ~/projects/fastai/data
+model_path: ~/projects/fastai/models

@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Ranger
+Comment=Launches ranger in a new terminal window
+Categories=ConsoleOnly;System;FileTools;FileManager
+Keywords=File;Manager;Browser;Explorer;Launcher;Vi;Vim;Python
+Icon=file-manager
+# I originally set terminal to true and just used "ranger" in the Exec field,
+# but it seems to open it with urxvt and I don't see where I can change the
+# default terminal.
+Terminal=false
+TryExec=ranger
+Exec=sensible-terminal --window-name ranger -- ranger
+MimeType=inode/directory;inode/mount-point;

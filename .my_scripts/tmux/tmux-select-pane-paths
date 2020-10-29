@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_SELECTOR=(fzf-tmux --multi --exit-0)
+# _SELECTOR=(rofi -dmenu -multi-select -kb-accept-alt 'Tab')
+
+main() {
+  # Fetch visible pane contents and extract paths.
+  mapfile -t filepaths < <(tmux capture-pane -J -p "$@" |
+    path-extractor |
+    sed "s%^~%${HOME}%" |
+    sort -u |
+    fast-files-checker)
+  if ((${#filepaths[@]} == 0)); then
+    exit 0
+  fi
+  mapfile -t selected < <(printf '%s\n' "${filepaths[@]}" |
+    sed "s%^${HOME}%~%" |
+    "${_SELECTOR[@]}" |
+    sed "s%^~%${HOME}%")
+  # NOTE: fzf returns 130 if the selection was canceled, but it won't propagate
+  # from the subshell that feeds into mapfile, so we need to check if the variable
+  # exists after that.
+  if ((${#selected[@]} == 0)); then
+    exit 130
+  fi
+  printf '%s\n' "${selected[@]}"
+}
+
+main "$@"

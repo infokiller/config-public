@@ -1,0 +1,18 @@
+[Unit]
+Description=Auto names i3 workspaces according to the open windows
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+BindsTo=i3wm.service
+After=i3wm.service
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=10
+# The script already logs directly to syslog, so no need to log the standard
+# output as well.
+StandardOutput=null
+# Wait for i3 socket to be available.
+ExecStartPre=bash -c 'while true; do i3-msg nop &>/dev/null && break; sleep 1; done'
+ExecStart=%h/.my_scripts/i3/launch-i3-autoname-workspaces --log-level info

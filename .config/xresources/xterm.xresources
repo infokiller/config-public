@@ -1,0 +1,37 @@
+XTerm*saveLines: 10000
+
+! Fixing setting titles in tmux sessions. See:
+! http://unix.stackexchange.com/a/75322
+! NOTE: As of 2019-06-15, this is disabled because according to the xterm man
+! page:
+!
+! Note that allowing such events would create a very large security hole,
+! therefore enabling this resource forcefully disables the allowXXXOps
+! resources.
+!
+! Instead, allowTitleOps is set below, though it is not clear if it is really
+! needed because the default should already be true. Perhaps when I originally
+! ran into this issue, allowTitleOps was set to false by a system config file.
+! XTerm*allowSendEvents: true
+XTerm*allowTitleOps: true
+
+! Use escape for Alt instead of 8-bit chars, which works better with unicode.
+XTerm*metaSendsEscape: true
+
+! The urgency hint is needed for the window manager to show the window in an
+! urgent state.
+XTerm*bellIsUrgent: true
+
+! Scroll asynchronously.
+XTerm*multiScroll: true
+
+XTerm.vt100.translations: #override \
+    Shift Ctrl <KeyPress> C: copy-selection(CLIPBOARD)\n \
+    Shift Ctrl <KeyPress> V: insert-selection(CLIPBOARD)\n \
+    Shift Ctrl <KeyPress> T: spawn-new-terminal()\n \
+    Ctrl <KeyPress> minus: smaller-vt-font()\n \
+    Ctrl <KeyPress> equal: larger-vt-font()\n \
+    Ctrl <KeyPress> 0: set-vt-font(d)
+
+xterm*faceName: MyMono
+XTerm*faceSize: TERMINAL_FONT_SIZE

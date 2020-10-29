@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+# TODO: Consider reimplementing this in Python or Go and adding proper support
+# for my use cases:
+# - Conditioning on terminal/GUI
+# - Conditioning on local/remote (remote is usually over SSH).
+# - Configuring if a new terminal window should be opened when used from a
+#   terminal
+# - Configuring if multiple matches should use the first one or prompt the user
+# - xdg-open compatibility
+# TODO: Add xdg-open compatibility mode (by checking $0 and/or a flag and/or an
+# environment variable) so that it can be used as an xdg-open replacement, which
+# is required for integrating with programs that don't support an alternative
+# opener. My last experience with xdg-open was terrible: I tried to write an
+# Exec command with an argument that contains a space and failed.
+# TODO: Support URLs. I should detect if a URL was given so that I can figure
+# out if it's supported by rifle or other openers that don't support URLs.
+# TODO: Look into alternative openers:
+# - https://wiki.archlinux.org/index.php/Default_applications#Resource_openers
+# - rifle
+# - https://github.com/isamert/jaro#a1
+# - <https://github.com/hckiang/slopen> - too simplistic
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly _NON_SSH_OPENERS=(rifle xdg-open)
+readonly _SSH_OPENERS=(rifle)
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_is_terminal() {
+  [[ -t 0 && -t 1 ]]
+}
+
+_is_ssh() {
+  [[ -n ${SSH_CLIENT-} || -n ${SSH_TTY-} || -n ${SSH_CONNECTION-} ]]
+}
+
+_open_from_local() {
+  for opener in "${_NON_SSH_OPENERS[@]}"; do
+    if _command_exists "${opener}"; then
+      "${opener}" "$@"
+      break
+    fi
+  done
+}
+
+_open_from_ssh() {
+  for opener in "${_SSH_OPENERS[@]}"; do
+    if _command_exists "${opener}"; then
+      "${opener}" "$@"
+      break
+    fi
+  done
+}
+
+main() {
+  local files=()
+  local dirs=()
+  local file_or_dir
+  for file_or_dir in "$@"; do
+    file_or_dir="$(readlink -f "${file_or_dir}")"
+    if [[ -d "${file_or_dir}" ]]; then
+      dirs+=("${file_or_dir}")
+    else
+      files+=("${file_or_dir}")
+    fi
+  done
+  if ((${#dirs[@]} > 0)); then
+    # If there are also files to open, launch the file manager in the background
+    # and continue to open the other files. Otherwise, launch it in the
+    # foreground so that it can use the current terminal.
+    if _is_terminal && ((${#files[@]} == 0)); then
+      file-manager "${dirs[@]}"
+    else
+      file-manager "${dirs[@]}" &
+    fi
+  fi
+  if ((${#files[@]} > 0)); then
+    if _is_ssh; then
+      _open_from_ssh "${files[@]}"
+    else
+      _open_from_local "${files[@]}"
+    fi
+  fi
+  wait
+}
+
+main "$@"

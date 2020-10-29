@@ -1,0 +1,15 @@
+# Copied from the markdown.snippets file distributed with vim-snippets and
+# modified slightly:
+# - Don't start visual mode on the text
+# - Use the second placeholder
+snippet "link|l" "markdown link" r
+[${1:text}](${2:link})$0
+endsnippet
+
+snippet details "HTML details tag" b
+<details>
+  <summary>${1:summary}</summary>
+${2:details}
+</details>
+$0
+endsnippet

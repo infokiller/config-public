@@ -1,0 +1,304 @@
+#!/usr/bin/env bash
+# Inspired by: https://github.com/romkatv/dotfiles-public/blob/master/dotfiles/functions/sync-dotfiles
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+# NOTE: Consider using git dirs that are relative to this file so that this
+# script can be run for working directories outside HOME.
+readonly PUBLIC_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-public"
+readonly PRIVATE_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-private"
+
+readonly HISTORY_REPO_DIR="${HOME}/.local/var/hist"
+
+readonly CONFIG_PUBLIC_REMOTE_URL='https://gitlab.com/infokiller/config-public'
+readonly CONFIG_PRIVATE_REMOTE_URL='https://gitlab.com/infokiller/config-private'
+readonly HISTORY_REMOTE_URL='https://gitlab.com/infokiller/history'
+
+readonly DCONF_DIR="${REPO_ROOT}/.config/dconf"
+
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+# shellcheck source=../lib/platform_detection.sh
+source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+# For HOST_ALIAS
+# shellcheck source=../../.profile
+source "${REPO_ROOT}/.profile"
+
+_log_info() {
+  printf 'sync-config-repos: %s\n' "$*"
+}
+
+_log_error() {
+  print_error "$(printf 'sync-config-repos: %s' "$*")"
+}
+
+_log_warning() {
+  print_warning "$(printf 'sync-config-repos: %s' "$*")"
+}
+
+_git_public_config=(git --git-dir="${PUBLIC_CONFIG_GIT_DIR}"
+  --work-tree="${HOME}")
+_git_private_config=(git --git-dir="${PRIVATE_CONFIG_GIT_DIR}"
+  --work-tree="${HOME}")
+
+_migrate_private_repo() {
+  if [[ -d "${PRIVATE_CONFIG_GIT_DIR}" ]]; then
+    _log_info 'Private config repo already migrated'
+    return
+  fi
+  if [[ ! -d "${HOME}/.git" ]]; then
+    _log_error "No git repo dir found in ${HOME}"
+    return 1
+  fi
+  _log_info 'Found old git dir, migrating it to private config repo'
+  mkdir -p -- "$(dirname "${PRIVATE_CONFIG_GIT_DIR}")"
+  mv -- "${HOME}/.git" "${PRIVATE_CONFIG_GIT_DIR}"
+  # Fix submodule path corruption from move.
+  if [[ -d "${PRIVATE_CONFIG_GIT_DIR}/modules" ]]; then
+    find "${PRIVATE_CONFIG_GIT_DIR}/modules" -name config -print0 |
+      xargs --null --no-run-if-empty sed -i -r \
+        's%../submodules%../../../../submodules%'
+  fi
+  find "${HOME}/submodules" -name .git -type f -print0 |
+    xargs --null --no-run-if-empty sed -i -r \
+      's%(gitdir:.*\.\./)\.git%\1.local/var/git_dirs/config-private%'
+}
+
+_move_packages_if_needed() {
+  local prefix="${HOME}/.local"
+  local rebuild_required=0
+  if [[ ! -d "${prefix}/pkg" ]]; then
+    rebuild_required=1
+    mkdir -p -- "${prefix}/pkg"
+  fi
+  local package_manager
+  for package_manager in go cargo gem standalone; do
+    if [[ -d "${prefix}/${package_manager}" ]]; then
+      rebuild_required=1
+      mv -- "${prefix}/${package_manager}" "${prefix}/pkg"
+    fi
+  done
+  # npm is a special case: it contains tracked files so we only need to move the
+  # other files.
+  if [[ -d "${prefix}/npm" ]]; then
+    rebuild_required=1
+    mv -- "${prefix}/npm/node_modules" "${prefix}/pkg/npm/node_modules"
+    rm -rf -- "${prefix}/npm"
+  fi
+  # conda is a special case: we can't just move it because libraries and
+  # binaries have the full path hardcoded in them. We could do a search and
+  # replace, but it's probably safer to remove it and recreate it.
+  if [[ -d "${prefix}/conda" ]]; then
+    rebuild_required=1
+    rm -rf -- "${prefix}/conda"
+  fi
+  if ((rebuild_required)); then
+    _log_info 'Rebuilding packages'
+    "${REPO_ROOT}/install/install-crossdistro-local-packages"
+  fi
+}
+
+_update_private_repo_url() {
+  local git=(git "--git-dir=${PRIVATE_CONFIG_GIT_DIR}" "--work-tree=${HOME}")
+  if [[ "$("${git[@]}" remote get-url origin)" == *'/infokiller/config-git'* ]]; then
+    _log_info 'Updating origin to point to the new private config URL'
+    # Workaround to the error 'warning: remote.origin.url has multiple values'.
+    "${git[@]}" remote remove origin
+    "${git[@]}" remote add origin "${CONFIG_PRIVATE_REMOTE_URL[@]}"
+  fi
+}
+
+_init_repo_in_existing_dir() {
+  local git_dir="$1"
+  local work_tree="$2"
+  local remote_url="$3"
+  local git=(git "--git-dir=${git_dir}" "--work-tree=${work_tree}")
+  if [[ -d "${git_dir}" ]]; then
+    _log_info 'Repo exists, not initializing it.'
+    # Not sure why, but git can delete a lot of repo files after a hard reset
+    # which is needed when the history changed, so we restore them.
+    "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
+      xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
+    return
+  fi
+  _log_info 'Repo not found, initializing it'
+  mkdir -p -- "$(dirname "${work_tree}")"
+  "${git[@]}" clone --bare "${remote_url}" "${git_dir}"
+  "${git[@]}" init
+  # Workaround to the remote not being set correctly.
+  "${git[@]}" remote remove origin
+  "${git[@]}" remote add origin "${remote_url}"
+  "${git[@]}" fetch origin
+  "${git[@]}" branch --set-upstream-to=origin/master master
+  # Unstage all files. I'm not sure why, but after initializing the bare repo
+  # git may have some files staged.
+  "${git[@]}" reset --quiet
+  # Restore files that are marked as deleted because they are in master but
+  # were not in the directory before cloning the repo.
+  "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
+    xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
+}
+
+_file_has_line() {
+  local filename="$1"
+  local line=$2
+  # TODO: This is incorrect for lines with special regex characters, fix this.
+  # Using --fixed-strings is also incorrect, because README matches a/README.
+  grep -q '^'"${line}"'$' "${filename}"
+  # This is slow for files that are not very small.
+  # while IFS='' read -r l; do
+  #   if [[ "${l}" == "${line}" ]]; then
+  #     return 0
+  #   fi
+  # done < "${filename}"
+  # return 1
+}
+
+_add_excludes() {
+  local gitdir="$1"
+  local exclude_file="${gitdir}/info/exclude"
+  [[ -f "${exclude_file}" ]] || touch -- "${exclude_file}"
+  for exclude in "${@:2}"; do
+    if ! _file_has_line "${exclude_file}" "${exclude}"; then
+      printf '%s\n' "${exclude}" >> "${exclude_file}"
+    fi
+  done
+}
+
+_verify_dconf() {
+  local dconf_dump
+  dconf_dump="$(mktemp -t dconf_dump_XXX)"
+  # NOTE: The path variable in trap must be expanded here because it may not be
+  # defined when the trap is ran.
+  # shellcheck disable=SC2064
+  trap "rm -- '${dconf_dump}' &> /dev/null || true" EXIT ERR INT HUP TERM
+  dconf dump / > "${dconf_dump}"
+  local configs=("${DCONF_DIR}/base.ini")
+  if [[ -f "${DCONF_DIR}/${HOST_ALIAS}.ini" ]]; then
+    configs+=("${DCONF_DIR}/${HOST_ALIAS}.ini")
+  fi
+  if ! "${DCONF_DIR}/dconf_diff.py" \
+    --base-configs "$(join_by ',' "${configs[@]}")" \
+    --other-configs "${dconf_dump}"; then
+    _log_warning 'dconf diff found'
+    _log_warning 'To update repo config, update files in ~/.config/dconf'
+    _log_warning 'To update machine config, run ~/.config/dconf/load-config'
+  fi
+  rm -- "${dconf_dump}"
+}
+
+_set_local_excludes() {
+  mapfile -t public_repo_excludes < <(
+    cd -- "${HOME}" || return
+    "${_git_private_config[@]}" ls-files | awk '{print "/"$0}'
+  )
+  mapfile -t private_repo_excludes < <(
+    cd -- "${HOME}" || return
+    "${_git_public_config[@]}" ls-files | awk '{print "/"$0}'
+  )
+  # DGX machines create some files in the home directory that should be ignored.
+  # In addition, as of 2020-04-12 they don't have recent versions of exa.
+  # TODO: Is this general to Ubuntu 18.04?
+  if is_nvidia_dgx; then
+    local dgx_excludes=(
+      '/.sudo_as_admin_successful'
+      '/.Xauthority'
+      '/.xsel.log'
+      '/.config/desktop/Getting\ Started'
+    )
+    private_repo_excludes+=("${dgx_excludes[@]}")
+    public_repo_excludes+=("${dgx_excludes[@]}")
+  fi
+  _log_info 'Adding public repo excludes'
+  printf '' >| "${PUBLIC_CONFIG_GIT_DIR}/info/exclude"
+  _add_excludes "${PUBLIC_CONFIG_GIT_DIR}" "${public_repo_excludes[@]}"
+  _log_info 'Adding private repo excludes'
+  printf '' >| "${PRIVATE_CONFIG_GIT_DIR}/info/exclude"
+  _add_excludes "${PRIVATE_CONFIG_GIT_DIR}" "${private_repo_excludes[@]}"
+  # # Exclude all files by default from public repo.
+  # _add_excludes "${PUBLIC_CONFIG_GIT_DIR}" '*'
+}
+
+_set_local_git_config() {
+  # Setting ${GIT_WORK_TREE} is needed for powerlevel10k. See:
+  # https://github.com/romkatv/powerlevel10k/issues/491#issuecomment-586580015
+  "${_git_public_config[@]}" config core.worktree "${HOME}"
+  "${_git_private_config[@]}" config core.worktree "${HOME}"
+  _log_info 'Setting precommit config'
+  "${_git_public_config[@]}" config blacklist-hook.mode error
+  "${_git_public_config[@]}" config secret-detection-hook.mode error
+  "${_git_private_config[@]}" config blacklist-hook.mode warning
+  "${_git_private_config[@]}" config secret-detection-hook.mode warning
+  # Ignore files with machine specific modifications.
+  (
+    cd -- "${HOME}" || return
+    "${_git_public_config[@]}" update-index --assume-unchanged \
+      .config/dunst/dunstrc
+    "${_git_private_config[@]}" update-index --assume-unchanged \
+      .config/rclone/rclone.conf
+  )
+  _set_local_excludes
+}
+
+_init_repos() {
+  _migrate_private_repo
+  _update_private_repo_url
+  _log_info 'Checking if public config repo needs initialization'
+  _init_repo_in_existing_dir "${PUBLIC_CONFIG_GIT_DIR}" "${HOME}" \
+    "${CONFIG_PUBLIC_REMOTE_URL}"
+  _log_info 'Checking if private config repo needs initialization'
+  _init_repo_in_existing_dir "${PRIVATE_CONFIG_GIT_DIR}" "${HOME}" \
+    "${CONFIG_PRIVATE_REMOTE_URL}"
+  _log_info 'Checking if history repo needs initialization'
+  _init_repo_in_existing_dir "${HISTORY_REPO_DIR}/.git" "${HISTORY_REPO_DIR}" \
+    "${HISTORY_REMOTE_URL}"
+  _log_info 'Setting public repo to primary'
+  # Add public repo as default repo in ${HOME}.
+  # NOTE: As of 2020-02-14, I'm using a symlink because of:
+  # https://github.com/romkatv/powerlevel10k/issues/491
+  [[ -L "${HOME}/.git" ]] && rm -- "${HOME}/.git"
+  printf 'gitdir: %s\n' "${PUBLIC_CONFIG_GIT_DIR}" >| "${HOME}/.git"
+}
+
+main() {
+  # Run the script from the repo root to have a consistent environment between
+  # runs. I tried to make the code robust to running from other working
+  # directories, but let's do this just in case I missed something.
+  cd -- "${HOME}"
+  _init_repos
+  # shellcheck disable=SC2030,SC2031
+  (
+    export GIT_WORK_TREE="${HOME}" GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}"
+    "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
+    "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
+  )
+  # shellcheck disable=SC2030,SC2031
+  (
+    export GIT_WORK_TREE="${HOME}" GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}"
+    "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
+    "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
+  )
+  # shellcheck disable=SC2030,SC2031
+  (
+    _log_info 'Syncing history repo'
+    export GIT_WORK_TREE="${HISTORY_REPO_DIR}" GIT_DIR="${HISTORY_REPO_DIR}/.git"
+    git pull --rebase
+    if [[ -n "$(git status --porcelain -- "${GIT_WORK_TREE}/${HOSTNAME}")" ]]; then
+      git add "${GIT_WORK_TREE}/${HOSTNAME}"
+      git commit --no-verify -m "Update ${HOSTNAME} history"
+      git push
+    fi
+  )
+  # NOTE: this should be done after updating the config repos because the
+  # excluded files may be changed in the update.
+  _set_local_git_config
+  _log_info 'Verifying dconf data is synced with config'
+  _verify_dconf
+  _log_info 'Checking if local package managers need migration'
+  _move_packages_if_needed
+}
+
+main "$@"

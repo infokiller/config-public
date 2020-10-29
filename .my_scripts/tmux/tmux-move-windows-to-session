@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
+if ! target_session=$(tmux-select-session --prompt 'Target session > '); then
+  exit $?
+fi
+[[ -n ${target_session} ]] || exit 1
+
+# A command to list panes that is usable when presenting the panes to the user.
+windows_list_presentation_cmd='tmux list-windows -a -F "#{session_name}:#{window_index}%#{window_name}%#{window_panes} panes" | column -t -s "%"'
+delim=":::"
+# A command to list panes that is easily parsable.
+windows_list_parsing_cmd="tmux list-windows -a -F \"#{session_name}${delim}#{window_index}\""
+windows_lines_selected=$(eval "${windows_list_presentation_cmd}" |
+  fzf-tmux --prompt="Windows > " --multi --toggle-sort=ctrl-r --history="${HIST_DIR}/tmux_move_windows_history" --history-size=100000)
+# shellcheck disable=SC2181
+if [[ $? -ne 0 ]]; then
+  exit $?
+fi
+
+while IFS='' read -r window_line_selected; do
+  window_index_selected="$(eval "${windows_list_presentation_cmd}" | grep --text --line-number --fixed-strings "${window_line_selected}" | cut -f1 -d:)"
+  window_line_for_parsing="$(eval "${windows_list_parsing_cmd}" | head --lines="${window_index_selected}" | tail -1)"
+  source_session="$(awk -F "${delim}" '{print $1}' <<< "${window_line_for_parsing}")"
+  local_window_name="$(awk -F "${delim}" '{print $2}' <<< "${window_line_for_parsing}")"
+  global_window_name="${source_session}:${local_window_name}"
+  # This command must be run as a background process, otherwise tmux will try to
+  # run the select-pane in the session in which this command was run from.
+  tmux move-window -s "${global_window_name}" -t "${target_session}":1000 &
+  wait "$!"
+  tmux move-window -r -t "${target_session}"
+done < <(printf '%s\n' "${windows_lines_selected}")

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+if ! _command_exists xkblayout-state; then
+  setxkbmap -query | grep layout | awk '{print $2}'
+  exit
+fi
+
+group_index="$(xkblayout-state print '%c')"
+case "${group_index}" in
+  0) layout="us" ;;
+  1) layout="il" ;;
+  *)
+    _print_error "Unknown XKB group index: ${group_index}"
+    exit 1
+    ;;
+esac
+printf '%s\n' "${layout}"

@@ -1,0 +1,58 @@
+#!/usr/bin/env python3
+
+# TODO: Convert to a bash script to remove Python dependency (I don't gain much
+# by using Python here). I can probably merge this file with
+# ~/install/debian/configure-system and maybe
+# ~/install/debian/install-external-packages.
+
+import os
+
+import installation_util as util
+
+
+def _install_debian_packages(packages):
+    for apt_action in ['update', 'upgrade', 'autoclean']:
+        os.system(f'sudo apt-get {apt_action} -y')
+    installed = []
+    not_found = []
+    chose_not_to_install = []
+    for pkg in packages:
+        # I previously used `dpkg-query -l {}` but there was a failure case in
+        # my laptop where it showed a package that is not installed (cmake) as
+        # being installed with version <none>.
+        # Therefore, I switched to `dpkg-query -s`, which worked on that case as
+        # well.
+        is_installed = os.system(
+            'dpkg-query -s {} &> /dev/null'.format(pkg)) == 0
+        if is_installed:
+            print('Package {} is already installed'.format(pkg))
+            continue
+        package_found = os.system(
+            f'apt-cache show {pkg} &> /dev/null') == 0
+        if package_found:
+            installed_package = os.system(
+                'sudo apt-get install -y {}'.format(pkg)) == 0
+            if installed_package:
+                installed.append(pkg)
+            else:
+                chose_not_to_install.append(pkg)
+        else:
+            not_found.append(pkg)
+            print(util.yellow('Package {} not found'.format(pkg)))
+        os.system('')
+    print('\n============ SUMMARY =============\n')
+    print('Packages installed:\n' + '\n'.join(installed))
+    print('\nPackages not found:\n' + '\n'.join(not_found))
+    print('\nPackages chose not to install:\n' +
+          '\n'.join(chose_not_to_install))
+
+
+def main():
+    packages = util.read_packages_file('debian/packages.txt')
+    crossdistro_local_packages_deps = util.read_packages_file(
+        'debian/crossdistro_local_packages_deps.txt')
+    _install_debian_packages(packages + crossdistro_local_packages_deps)
+
+
+if __name__ == '__main__':
+    main()

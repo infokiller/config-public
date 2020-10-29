@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="set_window_title" mtime="1422271209" type="string">
+		<stringvalue>&lt;Primary&gt;F2</stringvalue>
+	</entry>
+	<entry name="close_window" mtime="1420982124" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Alt&gt;ampersand</stringvalue>
+	</entry>
+	<entry name="close_tab" mtime="1420982081" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Alt&gt;asciicircum</stringvalue>
+	</entry>
+</gconf>

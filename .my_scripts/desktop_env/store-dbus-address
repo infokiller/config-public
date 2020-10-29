@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# This script saves the dbus address so that cron jobs will be able to read it
+# to send desktop notifications. For details see:
+# http://unix.stackexchange.com/questions/111188/using-notify-send-with-cron
+
+output_path="${HOME}/.local/var/dbus_address"
+output_dir="$(dirname "${output_path}")"
+if ! [[ -d ${output_dir} ]]; then
+  mkdir -p -- "${output_dir}"
+fi
+touch -- "${output_path}"
+chmod 600 -- "${output_path}"
+env | grep DBUS_SESSION_BUS_ADDRESS > "${output_path}"
+printf 'export DBUS_SESSION_BUS_ADDRESS\n' >> "${output_path}"

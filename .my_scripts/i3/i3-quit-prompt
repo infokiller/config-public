@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+QUIT_CMD="${DIR}/i3-resurrect-wrapper save --all && i3-msg exit"
+MESSAGE='Do you really want to quit i3? This will end your X session.'
+i3-nagbar -t warning -m "${MESSAGE}" -B 'Yes' "${QUIT_CMD}"

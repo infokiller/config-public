@@ -1,0 +1,42 @@
+" Use shift+i to get into insert mode instead of i. This is necessary because
+" i will be occupied for movement.
+nnoremap I i
+
+" Use jkil for movement.
+" Normal mode.
+nnoremap j <Left>
+nnoremap k <Down>
+nnoremap i <Up>
+nnoremap l <Right>
+" Visual and select modes.
+vnoremap j <Left>
+vnoremap k <Down>
+vnoremap i <Up>
+vnoremap l <Right>
+" Navigating windows.
+nnoremap <C-W>j <C-W>h
+nnoremap <C-W>k <C-W>j
+nnoremap <C-W>i <C-W>k
+nnoremap <C-W>l <C-W>l
+" Now that h is free use h and v for horizontal and vertical splitting. The
+" splitting is done in a way that is consistent with i3 and tmux.
+nnoremap <C-W>v <C-W>s
+nnoremap <C-W>h <C-W>v
+
+" Navigating windows with Alt+Shift+J/K/I/L.
+nnoremap <A-S-J> <C-W>h
+nnoremap <A-S-K> <C-W>j
+nnoremap <A-S-I> <C-W>k
+nnoremap <A-S-L> <C-W>l
+
+set smartindent         " Smart auto-indenting for new lines.
+set scrolloff=5         " Keep at least 5 lines above/below
+
+set ignorecase
+set smartcase
+set incsearch
+
+set shiftwidth=2
+
+set clipboard=unnamedplus
+

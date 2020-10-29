@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="picture_filename" mtime="1410334392" type="string">
+		<stringvalue>file:///usr/share/backgrounds/Gwallpaper-Black-Goobuntu-default.png</stringvalue>
+	</entry>
+</gconf>

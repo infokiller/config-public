@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+
+import argparse
+
+import i3ipc
+
+import i3_util
+
+C = i3ipc.Connection()
+
+FLOATING_FRACTIONS = [1.0 / 3.0, 1.0 / 2.0, 3.0 / 4.0, 0.95, 1.0]
+TILING_FRACTIONS = [
+    0.1, 1.0 / 4.0, 1.0 / 3.0, 1.0 / 2.0, 2.0 / 3.0, 3.0 / 4.0, 0.9
+]
+
+EPS = 0.02
+
+
+def _fractions_for_container(container):
+    if i3_util.is_floating(container):
+        return FLOATING_FRACTIONS
+    return TILING_FRACTIONS
+
+
+def is_valid_sequence(seq):
+    if len(seq) < 2:
+        return False
+    for i in range(len(seq) - 1):
+        if seq[i] + EPS >= seq[i + 1]:
+            return False
+    return True
+
+
+def next_in_sequence(sequence, value):
+    assert is_valid_sequence(sequence)
+    length = len(sequence)
+    if value < sequence[0] - EPS:
+        return sequence[0]
+    for i in range(length - 1):
+        if sequence[i] <= value + EPS <= sequence[i + 1]:
+            return sequence[i + 1]
+    return sequence[-1]
+
+
+def prev_in_sequence(sequence, value):
+    assert is_valid_sequence(sequence)
+    length = len(sequence)
+    if value > sequence[-1] + EPS:
+        return sequence[-1]
+    for i in range(length - 1, 0, -1):
+        if sequence[i - 1] <= value - EPS <= sequence[i]:
+            return sequence[i - 1]
+    return sequence[0]
+
+
+def get_current_size_fractions(container):
+    con_rect = container.rect
+    workspace_rect = container.workspace().rect
+    wsh, wsw = workspace_rect.height, workspace_rect.width
+    conh, conw = con_rect.height, con_rect.width
+    height_fraction = conh / float(wsh)
+    width_fraction = conw / float(wsw)
+    print('current fractions:', height_fraction, width_fraction)
+    return height_fraction, width_fraction
+
+
+def _resize_tiling_container(container, current_fraction, target_fraction,
+                             direction):
+    assert direction in ['height', 'width']
+    diff_percentage = int(round(100 * (target_fraction - current_fraction)))
+    print('diff_percentage: ', diff_percentage)
+    operation = 'grow' if diff_percentage > 0 else 'shrink'
+    container.command('resize {} {} 0 px or {} ppt'.format(
+        operation, direction, abs(diff_percentage)))
+
+
+def _resize_floating_container(container, height_fraction, width_fraction):
+    workspace_rect = container.workspace().rect
+    container_height = int(round(workspace_rect.height * height_fraction))
+    container_width = int(round(workspace_rect.width * width_fraction))
+    print(container_height, container_width)
+    container.command('resize set {} {}'.format(container_width,
+                                                container_height))
+
+
+def resize_container(container, height_fraction, width_fraction):
+    # if i3_util.is_floating(container):
+    #   container = container.parent
+    assert height_fraction > 0
+    assert width_fraction > 0
+    if i3_util.is_floating(container):
+        _resize_floating_container(container, height_fraction, width_fraction)
+        return
+    fractions = get_current_size_fractions(container)
+    _resize_tiling_container(container, fractions[0], height_fraction, 'height')
+    _resize_tiling_container(container, fractions[1], width_fraction, 'width')
+
+
+def resize_height(container, should_increase):
+    height_fraction, width_fraction = get_current_size_fractions(container)
+    next_function = next_in_sequence if should_increase else prev_in_sequence
+    fractions = _fractions_for_container(container)
+    next_height_fraction = next_function(fractions, height_fraction)
+    print("next: ", next_height_fraction)
+    resize_container(container, next_height_fraction, width_fraction)
+
+
+def resize_width(container, should_increase):
+    height_fraction, width_fraction = get_current_size_fractions(container)
+    next_function = next_in_sequence if should_increase else prev_in_sequence
+    fractions = _fractions_for_container(container)
+    next_width_fraction = next_function(fractions, width_fraction)
+    print("next: ", next_width_fraction)
+    resize_container(container, height_fraction, next_width_fraction)
+
+
+def main():
+    parser = argparse.ArgumentParser(description='Control i3 container size.')
+    parser.add_argument(
+        '--no_center',
+        action='store_true',
+        help='Center container after resize if it\'s floating')
+    parser.add_argument('direction', choices=['inc', 'dec'])
+    parser.add_argument('dimension', choices=['h', 'w'], help='Height or width')
+    args = parser.parse_args()
+    i3_connection = i3ipc.Connection()
+    tree = i3_connection.get_tree()
+    container = tree.find_focused()
+    # height_fraction, width_fraction = get_current_size_fractions(container)
+    is_inc = args.direction == 'inc'
+    if args.dimension == 'h':
+        resize_height(container, is_inc)
+    else:
+        resize_width(container, is_inc)
+    if not args.no_center:
+        container.command('move position center')
+
+
+if __name__ == '__main__':
+    main()

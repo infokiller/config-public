@@ -1,0 +1,4 @@
+# vim: set ft=conf :
+
+read-only ${HOME}/.local/bin
+read-only ${HOME}/.local/pkg/*/bin

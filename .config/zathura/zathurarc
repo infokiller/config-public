@@ -1,0 +1,176 @@
+# Some parts are copied from:
+# https://github.com/noctuid/dotfiles/blob/master/media/.config/zathura/zathurarc
+
+set incremental-search true
+# Show the full path of the file, not just its basename.
+set window-title-basename false
+# Show $HOME as ~ in filenames.
+set window-title-home-tilde true
+set statusbar-home-tilde true
+set zoom-step 20
+set n-completion-items 20
+set selection-clipboard clipboard
+
+# Appearance
+set font "MyMono 16"
+set statusbar-bg "#1d282c"
+# Default; padding when statusbar opened (:something)
+set statusbar-v-padding 2
+set statusbar-h-padding 8
+# Blank space between pages
+set page-padding 2
+# Default
+set adjust-open best-fit
+set show-scrollbars false
+# Default; on abort (<esc>) clear highlight (like :nohl)
+set abort-clear-search true
+
+# i - scroll up
+map [normal]       i scroll up
+map [fullscreen]   i scroll up
+map [presentation] i scroll up
+map [index]        i scroll up
+# j - scroll left
+map [normal]       j scroll left
+map [fullscreen]   j scroll left
+map [presentation] j scroll left
+map [index]        j scroll left
+# k - scroll down
+map [normal]       k scroll down
+map [fullscreen]   k scroll down
+map [presentation] k scroll down
+map [index]        k scroll down
+# l - scroll right
+map [normal]       l scroll right
+map [fullscreen]   l scroll right
+map [presentation] l scroll right
+map [index]        l scroll right
+
+# I - previous page
+map [normal]       I navigate previous
+map [fullscreen]   I navigate previous
+map [presentation] I navigate previous
+map [index]        I navigate previous
+# K - next page
+map [normal]       K navigate next
+map [fullscreen]   K navigate next
+map [presentation] K navigate next
+map [index]        K navigate next
+
+# u - half page up
+map [normal]       u scroll half-up
+map [fullscreen]   u scroll half-up
+map [presentation] u scroll half-up
+map [index]        u scroll half-up
+# d - half page down
+map [normal]       d scroll half-down
+map [fullscreen]   d scroll half-down
+map [presentation] d scroll half-down
+map [index]        d scroll half-down
+
+# J - go back in jumplist
+map [normal]       J jumplist backward
+map [fullscreen]   J jumplist backward
+map [presentation] J jumplist backward
+map [index]        J jumplist backward
+# L - go forward in jumplist
+map [normal]       L jumplist forward
+map [fullscreen]   L jumplist forward
+map [presentation] L jumplist forward
+map [index]        L jumplist forward
+
+# Unmap t so that we can map t[key] below.
+unmap [normal]       t
+unmap [fullscreen]   t
+unmap [presentation] t
+unmap [index]        t
+# tf - toggle fullscreen
+map [normal]       tf toggle_fullscreen
+map [fullscreen]   tf toggle_fullscreen
+map [presentation] tf toggle_fullscreen
+map [index]        tf toggle_fullscreen
+# tp - toggle presentation
+map [normal]       tp toggle_presentation
+map [fullscreen]   tp toggle_presentation
+map [presentation] tp toggle_presentation
+map [index]        tp toggle_presentation
+# tp - toggle index
+map [normal]       ti toggle_index
+map [fullscreen]   ti toggle_index
+map [presentation] ti toggle_index
+map [index]        ti toggle_index
+# tb - toggle status bar
+map [normal]       tb toggle_statusbar
+map [fullscreen]   tb toggle_statusbar
+map [presentation] tb toggle_statusbar
+map [index]        tb toggle_statusbar
+
+# zoom in
+map [normal]       <C-=> zoom in
+map [fullscreen]   <C-=> zoom in
+map [presentation] <C-=> zoom in
+map [index]        <C-=> zoom in
+map [normal]       <C-+> zoom in
+map [fullscreen]   <C-+> zoom in
+map [presentation] <C-+> zoom in
+map [index]        <C-+> zoom in
+map [normal]       zi    zoom in
+map [fullscreen]   zi    zoom in
+map [presentation] zi    zoom in
+map [index]        zi    zoom in
+# zoom out
+map [normal]       <C--> zoom out
+map [fullscreen]   <C--> zoom out
+map [presentation] <C--> zoom out
+map [index]        <C--> zoom out
+map [normal]       <C-_> zoom out
+map [fullscreen]   <C-_> zoom out
+map [presentation] <C-_> zoom out
+map [index]        <C-_> zoom out
+map [normal]       zo    zoom out
+map [fullscreen]   zo    zoom out
+map [presentation] zo    zoom out
+map [index]        zo    zoom out
+# zoom reset
+map [normal]       <C-0> zoom default
+map [fullscreen]   <C-0> zoom default
+map [presentation] <C-0> zoom default
+map [index]        <C-0> zoom default
+map [normal]       <C-)> zoom default
+map [fullscreen]   <C-)> zoom default
+map [presentation] <C-)> zoom default
+map [index]        <C-)> zoom default
+map [normal]       z0    zoom default
+map [fullscreen]   z0    zoom default
+map [presentation] z0    zoom default
+map [index]        z0    zoom default
+
+# Clear searching highlighting with Ctrl-l. This is hackish because abort is
+# actually used to switch to normal mode (there's no documented command for
+# clearing search highlighting), but because abort-clear-search is set to true
+# this works.
+map [normal] <C-l> abort
+
+# NOTE: As of 2019-06-05, the change_mode command doesn't seem to work, although
+# it's documented in the man page.
+# https://github.com/pwmt/zathura/blob/68eaadf1304630eff77aedad9170676533092d7f/zathura/config.c#L469
+# gn - change to normal mode
+# map [normal]       gn change_mode normal
+# map [fullscreen]   gn change_mode normal
+# map [presentation] gn change_mode normal
+# map [index]        gn change_mode normal
+# # gf - change to fullscreen mode
+# map [normal]       gf change_mode fullscreen
+# map [fullscreen]   gf change_mode fullscreen
+# map [presentation] gf change_mode fullscreen
+# map [index]        gf change_mode fullscreen
+# # gp - change to presentation mode
+# map [normal]       gp change_mode presentation
+# map [fullscreen]   gp change_mode presentation
+# map [presentation] gp change_mode presentation
+# map [index]        gp change_mode presentation
+# # gi - change to index mode
+# map [normal]       gi change_mode index
+# map [fullscreen]   gi change_mode index
+# map [presentation] gi change_mode index
+# map [index]        gi change_mode index

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+if pip3_path="$(command -p -v pip3)"; then
+  exec "${pip3_path}" "$@"
+fi
+exec pip "$@"

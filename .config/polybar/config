@@ -1,0 +1,564 @@
+[settings]
+# Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events
+screenchange-reload = true
+
+[colors]
+# The main colors are shades of gray.
+background = #222222
+background-alt = #444444
+foreground = #cccccc
+foreground-alt = #666666
+# Warning and alert colors use orange/red variants.
+warning = #ff9000
+alert = #dc322f
+# I use a blue variant for focused elements- focused window borders, underline
+# of focused workspace, etc.
+# Blue variants sampled from Adwaita-dark: #215d9c , #1c5289
+# Blue variant from i3 default config: #0088cc
+# Blue variant used on 2018-12-17: #268bd2
+# Visual comparison: https://goo.gl/V2dJqS
+focus = #0088cc
+focus-alt = #215d9c
+separator = " %{F${foreground-alt}}|%{F-} "
+
+[global/wm]
+margin-top = 2%
+margin-bottom = 0
+
+[bar-template]
+# monitor = ${env:MONITOR:HDMI-1}
+width = 100%
+height = 2%
+# offset-x = 1%
+# offset-y = 1%
+# Controls the rounding of the bar corners. Setting it to 0 disables rounded
+# corners.
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+# The colors needs to stay in sync with foreground-alt
+separator = " %{F#666666}|%{F-} "
+
+spacing = 0
+
+line-size = 2
+line-color = ${colors.focus}
+
+border-top-size = 0
+border-bottom-size = 1
+border-bottom-color = #00000000
+
+padding-left = 1%
+padding-right = 1%
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = Sans:pixelsize=12
+font-1 = NotoSansDisplay Nerd Font:style=Regular:pixelsize=12
+font-2 = MyMonoLargeIcons:pixelsize=12
+# font-2 = NotoSansDisplay Nerd Font:pixelsize=16
+
+modules-left = i3
+modules-center = window
+
+tray-position = right
+tray-padding = 0
+
+# override-redirect = true
+wm-restack = i3
+
+[bar/i3-generic]
+inherit = bar-template
+modules-right = temperature filesystem memory cpu keyboard-layout alsa date
+
+[bar/i3-zeus18]
+inherit = bar-template
+modules-right = eth-zeus18 temperature filesystem memory cpu keyboard-layout alsa date
+
+[bar/i3-hera17]
+inherit = bar-template
+modules-center = window-hera17
+modules-right = xbacklight battery wifi-hera17 temperature filesystem memory cpu keyboard-layout alsa date
+font-0 = Sans:pixelsize=15
+font-1 = NotoSansDisplay Nerd Font:style=Regular:pixelsize=15
+font-2 = MyMonoLargeIcons:pixelsize=16
+
+[bar/i3-hera20-juno]
+inherit = bar-template
+modules-center = window-hera20-juno
+modules-right = xbacklight battery wifi-hera20-juno temperature filesystem memory cpu keyboard-layout alsa date
+font-0 = Sans:pixelsize=10
+font-1 = NotoSansDisplay Nerd Font:style=Regular:pixelsize=10
+font-2 = MyMonoLargeIcons:pixelsize=10
+
+[bar/i3-zeus20-juno]
+inherit = bar-template
+modules-center = window-zeus20-juno
+modules-right = eth-zeus20 temperature filesystem memory cpu keyboard-layout alsa date
+
+[bar/i3-hera11]
+inherit = bar-template
+modules-center = window-hera11
+modules-right = wifi-hera11 temperature filesystem memory cpu keyboard-layout alsa date
+font-0 = Sans:pixelsize=10
+font-1 = NotoSansDisplay Nerd Font:style=Regular:pixelsize=10
+font-2 = MyMonoLargeIcons:pixelsize=10
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:10:50:...%
+label-foreground = ${colors.foreground-alt}
+
+[module/window]
+type = custom/script
+# NOTE: this is disabled because it wastes too much CPU, see script.
+# exec = ~/.my_scripts/desktop_env/get-window-title
+exec = echo
+interval = 9999999
+label = %output:10:50:...%
+label-foreground = ${colors.foreground-alt}
+
+[module/window-hera17]
+inherit = module/window
+label = %output:10:30:...%
+
+[module/window-zeus20-juno]
+inherit = module/window
+label = %output:10:60:...%
+
+[module/window-hera20-juno]
+inherit = module/window
+label = %output:10:30:...%
+
+[module/window-hera11]
+inherit = module/window
+label = %output:5:10:...%
+
+[module/keyboard-layout]
+type = custom/script
+exec = get-keyboard-layout | awk '{print toupper($0)}'
+label = "  %output%"
+interval = 0.2
+
+# Prints the minimum remaining space out of "/", "/home", and "/var".
+[module/filesystem]
+type = custom/script
+exec = df --output=avail --block-size=1K / /home /var | \grep -E '[0-9]+' | sort -n | head -1 | numfmt --from-unit=1024 --to iec | awk '{print $1}'
+label = "%{T3}%{F#666666}%{F-}%{T-}  %output%"
+interval = 30
+
+# [module/filesystem]
+# type = internal/fs
+# interval = 30
+# mount-0 = /
+#
+# ; label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %free%
+# label-mounted = %{T3}%{F#666666}%{F-}%{T-}  %free%
+# label-unmounted = %mountpoint% not mounted
+# label-unmounted-foreground = ${colors.foreground-alt}
+
+[module/i3]
+type = internal/i3
+# Available tags:
+#   <label-state> (default) - gets replaced with <label-(focused|unfocused|visible|urgent)>
+#   <label-mode> (default)
+format = <label-state> <label-mode>
+# Sort the workspaces by index (like i3bar does) instead of the default sorting
+# that groups the workspaces by output. Default: false
+index-sort = true
+# Similar to strip_workspace_numbers in i3bar config.
+strip-wsnumbers = true
+# Only show workspaces on the same output as the bar.
+pin-workspaces = true
+# Enable clicks in the workspace bar.
+enable-click = true
+# Enable scrolling in the workspace bar.
+enable-scroll = false
+# Wrap around when scrolling to the next/previous workspace.
+wrapping-scroll = false
+workspaces-max-count = 12
+workspaces-max-width = 120
+
+# Available tokens:
+#   %mode%
+# Default: %mode%
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = ${colors.alert}
+label-mode-foreground = #ffffff
+
+ws-display-name = "%display_name%"
+
+# focused = Active workspace on focused monitor
+# Default: %icon%  %name%
+label-focused = "%name%"
+label-focused-minlen = 3
+label-focused-maxlen = 30
+label-focused-alignment = center
+label-focused-foreground = ${colors.foreground}
+label-focused-background = ${colors.background}
+label-focused-underline = ${colors.focus}
+
+# urgent = Workspace with urgency hint set
+label-urgent = ${self.ws-display-name}
+label-urgent-minlen = 3
+label-urgent-maxlen = 15
+label-urgent-foreground = ${colors.foreground-alt}
+label-urgent-underline = ${colors.warning}
+# label-urgent-background = ${colors.warning}
+
+# unfocused = Inactive workspace on any monitor
+label-unfocused = ${self.ws-display-name}
+label-unfocused-minlen = 3
+label-unfocused-maxlen = 15
+label-unfocused-alignment = center
+
+# visible = Active workspace on unfocused monitor
+label-visible = ${self.ws-display-name}
+label-visible-background = ${self.label-focused-background}
+label-visible-minlen = 3
+label-visible-maxlen = 20
+label-visible-alignment = center
+
+# inactive-group = Workspaces in inactive groups
+label-inactive-group = ${self.ws-display-name}
+label-inactive-group-minlen = 3
+label-inactive-group-maxlen = 10
+label-inactive-group-alignment = center
+label-inactive-group-foreground = ${colors.foreground-alt}
+
+# ellipsis = used when not all workspaces fit
+label-ellipsis = "..."
+label-ellipsis-alignment = center
+label-ellipsis-foreground = ${colors.foreground-alt}
+
+# Separator in between workspaces
+label-separator = "|"
+label-separator-padding = 1
+label-separator-foreground = ${colors.foreground-alt}
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-prefix = " "
+# format-prefix = "CPU"
+format-prefix-foreground = ${colors.foreground-alt}
+# format-underline = #f90000
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = "RAM "
+format-prefix-foreground = ${colors.foreground-alt}
+# format-underline = #4bffdc
+label = %percentage_used:2%%
+
+# TODO: Add latency, wifi signal, and automatic active network interface
+# detection.
+# todo
+[module/network-base]
+type = internal/network
+interval = 3.0
+
+format-connected = <label-connected>
+label-connected-foreground = ${colors.foreground-alt}
+format-connected-prefix = "%{T3}%{T-} "
+format-connected-prefix-foreground = ${colors.foreground-alt}
+# format-connected-underline = #55aa55
+
+format-disconnected = <label-disconnected>
+label-disconnected-foreground = ${colors.foreground}
+format-disconnected-prefix = "%{T3}%{T-} "
+label-disconnected = "%ifname:3:8:...%"
+format-disconnected-underline = ${colors.warning}
+
+[module/wifi]
+inherit = module/network-base
+format-connected = <label-connected>
+label-connected = %essid%
+label-connected-minlen = 4
+label-connected-alignment = center
+label-connected-maxlen = 10
+label-connected-ellipsis = true
+
+# I couldn't find suitable free icons for the signal, so this is disabeld for
+# now.
+# format-connected = <ramp-signal> <label-connected>
+# ramp-signal-foreground = ${colors.foreground-alt}
+# ramp-signal-0 = 
+# ramp-signal-1 = 
+# ramp-signal-2 = 
+# ramp-signal-3 = 
+# ramp-signal-4 = 
+
+[module/wifi-hera17]
+inherit = module/wifi
+interface = wlp59s0
+
+[module/wifi-hera20-juno]
+inherit = module/wifi
+interface = wlp0s20f3
+
+[module/wifi-hera11]
+inherit = module/wifi
+interface = wlp2s0
+
+[module/eth-zeus18]
+inherit = module/network-base
+interface = eth-i219
+label-connected = %linkspeed%
+
+[module/eth-zeus20]
+inherit = module/network-base
+interface = eno1
+label-connected = %linkspeed%
+
+# Ethernet glyphs:
+#    
+#  
+
+[module/date]
+type = internal/date
+interval = 0.5
+
+date = %Y-%m-%d
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix-foreground = ${colors.foreground-alt}
+# format-underline = ${colors.focus-alt}
+# label-foreground = ${colors.focus}
+
+label = %date% %time%
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+label-volume =  %percentage:2%%
+label-volume-foreground = ${root.foreground}
+
+format-muted = <label-muted>
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = ﱝ muted
+
+# ramp-volume-0 = 
+ramp-volume-0 = 
+ramp-volume-0-foreground = ${colors.foreground-alt}
+ramp-volume-1 = 
+ramp-volume-1-foreground = ${colors.foreground-alt}
+ramp-volume-2 = 
+ramp-volume-2-foreground = ${colors.foreground-alt}
+ramp-volume-3 = 
+ramp-volume-3-foreground = ${colors.foreground-alt}
+ramp-volume-4 = 
+ramp-volume-4-foreground = ${colors.warning}
+ramp-volume-5 = 
+ramp-volume-5-foreground = ${colors.alert}
+ramp-volume-font = 3
+
+# Relevant glyhps:
+# ﱛ ﱜ ﱝ
+#              
+#    
+#       
+# ♪ ♫ ♩ ♪ ♫ ♬
+# 🎵 🎶 🔈 🔉 🔊
+
+# NOTE: As of 2019-05-07, I switched from a bar to a numerical percentage.
+# format-volume = <label-volume> <bar-volume>
+bar-volume-width = 5
+bar-volume-foreground-0 = ${colors.foreground-alt}
+bar-volume-foreground-1 = ${colors.foreground-alt}
+bar-volume-foreground-2 = ${colors.foreground-alt}
+bar-volume-foreground-3 = ${colors.warning}
+bar-volume-foreground-4 = ${colors.warning}
+bar-volume-foreground-5 = ${colors.alert}
+bar-volume-foreground-6 = ${colors.alert}
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+# Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+# If not, uses default sink
+# sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+# Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+# Default: true
+use-ui-max = true
+
+# Interval for volume increase/decrease (in percent points) (unreleased)
+# Default: 5
+interval = 5
+
+format-volume = ${alsa.format-volume}
+label-volume = ${alsa.label-volume}
+label-volume-foreground = ${alsa.label-volume-foreground}
+
+format-muted = ${alsa.format-muted}
+format-muted-foreground = ${alsa.format-muted-foreground}
+label-muted = ${alsa.label-muted}
+
+[module/battery]
+type = internal/battery
+poll-interval = 5
+
+battery = BAT0
+adapter = AC
+full-at = 98
+
+# format-charging = <ramp-capacity> <label-charging>
+format-charging = <label-charging>
+label-charging =  %percentage:2%%
+animation-charging-foreground = ${colors.foreground-alt}
+
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage:2%%
+# format-discharging-underline = ${self.format-charging-underline}
+
+format-full = <label-full>
+label-full = %percentage%%
+format-full-prefix = " "
+# format-full-prefix-foreground = ${colors.foreground-alt}
+# format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-foreground = ${colors.foreground-alt}
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+ramp-capacity-10 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-5 = 
+animation-charging-6 = 
+animation-charging-framerate = 500
+
+animation-discharging-0 = ﴅ
+animation-discharging-1 = ﴎ
+animation-discharging-2 = ﴍ
+animation-discharging-3 = ﴌ
+animation-discharging-4 = ﴊ
+animation-discharging-5 = ﴉ
+animation-discharging-6 = ﴈ
+animation-discharging-7 = ﴆ
+animation-discharging-8 = ﴐ
+animation-discharging-framerate = 500
+
+# Battery glyphs:
+#         
+# ﴐ ﴆ ﴇ ﴈ ﴉ ﴊ ﴋ ﴌ ﴍ ﴎ ﴅ ﴏ 
+#                
+#     
+
+# Charging/discharging glyphs:
+#      免勤
+# 
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 75
+
+format = <ramp>  <label>
+format-warn = <ramp>  <label-warn>
+format-warn-underline = ${colors.warning}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.warning}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-foreground = ${colors.foreground-alt}
+ramp-font = 3
+#
+# Temp glyhps:
+#     
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <label> <bar>
+label = 
+enable_scroll = true
+bar-width = 5
+bar-indicator = |
+# bar-indicator-foreground = #ff
+bar-indicator-font = 2
+# bar-fill = ─
+bar-fill = -
+bar-fill-font = 2
+bar-fill-foreground = ${colors.foreground-alt}
+# bar-empty = ─
+bar-empty = -
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+# Brightness glyhps:
+# ☼   
+
+# [module/backlight-acpi]
+# inherit = module/xbacklight
+# type = internal/backlight
+# card = intel_backlight
+
+# [module/mpd]
+# type = internal/mpd
+# format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+# icon-prev = 
+# icon-stop = 
+# icon-play = 
+# icon-pause = 
+# icon-next = 
+#
+# Media player glyhps:
+#         
+#        
+
+# label-song-maxlen = 25
+# label-song-ellipsis = true
+
+#
+# Phone glyhps:
+#      
+
+# Glyhps that may be relevant, copied from browsing Nerd Font patched
+# DejaVu Sans Mono with FontForge:
+#                                                                                                                                                                          
+#                                                                                                                                                                                                                                    
+#                                                     
+#                                                                                                                                                                                                      
+#                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+#                                                                                                                                                                          
+#                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 豈 更 車 賈 滑 串 句 龜 龜 契 金 喇 奈 懶 癩 羅 蘿 螺 裸 邏 樂 洛 烙 珞 落 酪 駱 亂 卵 欄 爛 蘭 鸞 嵐 濫 藍 襤 拉 臘 蠟 廊 朗 浪 狼 郎 來 冷 勞 擄 櫓 爐 盧 老 蘆 虜 路 露 魯 鷺 碌 祿 綠 菉 錄 鹿 論 壟 弄 籠 聾 牢 磊 賂 雷 壘 屢 樓 淚 漏 累 縷 陋 勒 肋 凜 凌 稜 綾 菱 陵 讀 拏 樂 諾 丹 寧 怒 率 異 北 磻 便 復 不 泌 數 索 參 塞 省 葉 說 殺 辰 沈 拾 若 掠 略 亮 兩 凉 梁 糧 良 諒 量 勵 呂 女 廬 旅 濾 礪 閭 驪 麗 黎 力 曆 歷 轢 年 憐 戀 撚 漣 煉 璉 秊 練 聯 輦 蓮 連 鍊 列 劣 咽 烈 裂 說 廉 念 捻 殮 簾 獵 令 囹 寧 嶺 怜 玲 瑩 羚 聆 鈴 零 靈 領 例 禮 醴 隸 惡 了 僚 寮 尿 料 樂 燎 療 蓼 遼 龍 暈 阮 劉 杻 柳 流 溜 琉 留 硫 紐 類 六 戮 陸 倫 崙 淪 輪 律 慄 栗 率 隆 利 吏 履 易 李 梨 泥 理 痢 罹 裏 裡 里 離 匿 溺 吝 燐 璘 藺 隣 鱗 麟 林 淋 臨 立 笠 粒 狀 炙 識 什 茶 刺 切 度 拓 糖 宅 洞 暴 輻 行 降 見 廓 兀 嗀 﨎 﨏 塚 﨑 晴 﨓 﨔 凞 猪 益 礼 神 祥 福 靖 精 羽 﨟 蘒 﨡 諸 﨣 﨤 逸 都 﨧 﨨 﨩 飯 飼 館 鶴 郞 隷 侮 僧 免 勉 勤 卑 喝 嘆 器 塀 墨 層 屮 悔 慨 憎 懲 敏 既 暑 梅 海 渚 漢 煮 爫 琢 碑 社 祉 祈 祐 祖 祝 禍 禎 穀 突 節 練 縉 繁 署 者 臭 艹 艹 著 褐 視 謁 謹 賓 贈 辶 逸 難 響 頻 恵 𤋮 舘 﩮 﩯 並 况 全 侀 充 冀 勇 勺 喝 啕 喙 嗢 塚 墳 奄 奔 婢 嬨 廒 廙 彩 徭 惘 慎 愈 憎 慠 懲 戴 揄 搜 摒 敖 晴 朗 望 杖 歹 殺 流 滛 滋 漢 瀞 煮 瞧 爵 犯 猪 瑱 甆 画 瘝 瘟 益 盛 直 睊 着 磌 窱 節 类 絛 練 缾 者 荒 華 蝹 襁 覆 視 調 諸 請 謁 諾 諭 謹 變 贈 輸 遲 醙 鉶 陼 難 靖 韛 響 頋 頻 鬒 龜 𢡊 𢡄 𣏕 㮝 䀘 䀹 𥉉 𥳐 𧻓 齃 龎 﫚 﫛 﫜 﫝 﫞 﫟 﫠 﫡 﫢 﫣 﫤 﫥 﫦 﫧 﫨 﫩 﫪 﫫 﫬 﫭 﫮 﫯 﫰 﫱 﫲 﫳 﫴 﫵 﫶 﫷 﫸 﫹 﫺 﫻 﫼 﫽 﫾 﫿 ﬀ ﬁ ﬂ ﬃ ﬄ ﬅ ﬆ ﬇ ﬈ ﬉ ﬊ ﬋ ﬌ ﬍ ﬎ ﬏ ﬐ ﬑ ﬒ ﬓ ﬔ ﬕ ﬖ ﬗ ﬘ ﬙ ﬚ ﬛ ﬜ יִ ﬞ ײַ ﬠ ﬡ ﬢ ﬣ ﬤ ﬥ ﬦ ﬧ ﬨ ﬩ שׁ שׂ שּׁ שּׂ אַ אָ אּ בּ גּ דּ הּ וּ זּ ﬷ טּ יּ ךּ כּ לּ ﬽ מּ ﬿ נּ סּ ﭂ ףּ פּ ﭅ צּ קּ רּ שּ תּ וֹ בֿ כֿ פֿ ﭏ ﭐ ﭑ ﭒ ﭓ ﭔ ﭕ ﭖ ﭗ ﭘ ﭙ ﭚ ﭛ ﭜ ﭝ ﭞ ﭟ ﭠ ﭡ ﭢ ﭣ ﭤ ﭥ ﭦ ﭧ ﭨ ﭩ ﭪ ﭫ ﭬ ﭭ ﭮ ﭯ ﭰ ﭱ ﭲ ﭳ ﭴ ﭵ ﭶ ﭷ ﭸ ﭹ ﭺ ﭻ ﭼ ﭽ ﭾ ﭿ ﮀ ﮁ ﮂ ﮃ ﮄ ﮅ ﮆ ﮇ ﮈ ﮉ ﮊ ﮋ ﮌ ﮍ ﮎ ﮏ ﮐ ﮑ ﮒ ﮓ ﮔ ﮕ ﮖ ﮗ ﮘ ﮙ ﮚ ﮛ ﮜ ﮝ ﮞ ﮟ ﮠ ﮡ ﮢ ﮣ ﮤ ﮥ ﮦ ﮧ ﮨ ﮩ ﮪ ﮫ ﮬ ﮭ ﮮ ﮯ ﮰ ﮱ ﮲ ﮳ ﮴ ﮵ ﮶ ﮷ ﮸ ﮹ ﮺ ﮻ ﮼ ﮽ ﮾ ﮿ ﯀ ﯁ ﯂ ﯃ ﯄ ﯅ ﯆ ﯇ ﯈ ﯉ ﯊ ﯋ ﯌ ﯍ ﯎ ﯏ ﯐ ﯑ ﯒ ﯓ ﯔ ﯕ ﯖ ﯗ ﯘ ﯙ ﯚ ﯛ ﯜ ﯝ ﯞ ﯟ ﯠ ﯡ ﯢ ﯣ ﯤ ﯥ ﯦ ﯧ ﯨ ﯩ ﯪ ﯫ ﯬ ﯭ ﯮ ﯯ ﯰ ﯱ ﯲ ﯳ ﯴ ﯵ ﯶ ﯷ ﯸ ﯹ ﯺ ﯻ ﯼ ﯽ ﯾ ﯿ ﰀ ﰁ ﰂ ﰃ ﰄ ﰅ ﰆ ﰇ ﰈ ﰉ ﰊ ﰋ ﰌ ﰍ ﰎ ﰏ ﰐ ﰑ ﰒ ﰓ ﰔ ﰕ ﰖ ﰗ ﰘ ﰙ ﰚ ﰛ ﰜ ﰝ ﰞ ﰟ ﰠ ﰡ ﰢ ﰣ ﰤ ﰥ ﰦ ﰧ ﰨ ﰩ ﰪ ﰫ ﰬ ﰭ ﰮ ﰯ ﰰ ﰱ ﰲ ﰳ ﰴ ﰵ ﰶ ﰷ ﰸ ﰹ ﰺ ﰻ ﰼ ﰽ ﰾ ﰿ ﱀ ﱁ ﱂ ﱃ ﱄ ﱅ ﱆ ﱇ ﱈ ﱉ ﱊ ﱋ ﱌ ﱍ ﱎ ﱏ ﱐ ﱑ ﱒ ﱓ ﱔ ﱕ ﱖ ﱗ ﱘ ﱙ ﱚ ﱛ ﱜ ﱝ ﱞ ﱟ ﱠ ﱡ ﱢ ﱣ ﱤ ﱥ ﱦ ﱧ ﱨ ﱩ ﱪ ﱫ ﱬ ﱭ ﱮ ﱯ ﱰ ﱱ ﱲ ﱳ ﱴ ﱵ ﱶ ﱷ ﱸ ﱹ ﱺ ﱻ ﱼ ﱽ ﱾ ﱿ ﲀ ﲁ ﲂ ﲃ ﲄ ﲅ ﲆ ﲇ ﲈ ﲉ ﲊ ﲋ ﲌ ﲍ ﲎ ﲏ ﲐ ﲑ ﲒ ﲓ ﲔ ﲕ ﲖ ﲗ ﲘ ﲙ ﲚ ﲛ ﲜ ﲝ ﲞ ﲟ ﲠ ﲡ ﲢ ﲣ ﲤ ﲥ ﲦ ﲧ ﲨ ﲩ ﲪ ﲫ ﲬ ﲭ ﲮ ﲯ ﲰ ﲱ ﲲ ﲳ ﲴ ﲵ ﲶ ﲷ ﲸ ﲹ ﲺ ﲻ ﲼ ﲽ ﲾ ﲿ ﳀ ﳁ ﳂ ﳃ ﳄ ﳅ ﳆ ﳇ ﳈ ﳉ ﳊ ﳋ ﳌ ﳍ ﳎ ﳏ ﳐ ﳑ ﳒ ﳓ ﳔ ﳕ ﳖ ﳗ ﳘ ﳙ ﳚ ﳛ ﳜ ﳝ ﳞ ﳟ ﳠ ﳡ ﳢ ﳣ ﳤ ﳥ ﳦ ﳧ ﳨ ﳩ ﳪ ﳫ ﳬ ﳭ ﳮ ﳯ ﳰ ﳱ ﳲ ﳳ ﳴ ﳵ ﳶ ﳷ ﳸ ﳹ ﳺ ﳻ ﳼ ﳽ ﳾ ﳿ ﴀ ﴁ ﴂ ﴃ ﴄ ﴅ ﴆ ﴇ ﴈ ﴉ ﴊ ﴋ ﴌ ﴍ ﴎ ﴏ ﴐ ﴑ ﴒ ﴓ ﴔ ﴕ ﴖ ﴗ ﴘ ﴙ ﴚ ﴛ ﴜ ﴝ ﴞ ﴟ ﴠ ﴡ ﴢ ﴣ ﴤ ﴥ ﴦ ﴧ ﴨ ﴩ ﴪ ﴫ ﴬ ﴭ ﴮ ﴯ ﴰ ﴱ ﴲ ﴳ ﴴ ﴵ ﴶ ﴷ ﴸ ﴹ ﴺ ﴻ ﴼ ﴽ ﴾ ﴿ ﵀ ﵁ ﵂ ﵃ ﵄ ﵅ ﵆
+
+# vim: ft=dosini commentstring=#%s :

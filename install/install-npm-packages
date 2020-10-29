@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+import argparse
+import json
+import os
+import subprocess
+
+import installation_util as util
+
+# The node modules will be installed in a directory named node_modules under
+# this directory.
+# NOTE: `yarn global add` installs packages to ~/.config/yarn/global by default.
+LOCAL_MODULES_PARENT_DIR = os.path.expanduser('~/.local/pkg/npm')
+
+
+def _log_info(msg: str) -> None:
+    print(f'install_npm_packages: {msg}')
+
+
+def _log_warning(msg: str) -> None:
+    print(util.yellow(f'install_npm_packages: {msg}'))
+
+
+def _install_packages():
+    subprocess.run(['yarn', 'install'],
+                   cwd=LOCAL_MODULES_PARENT_DIR,
+                   check=True)
+
+
+def _upgrade_packages(packages):
+    # NOTE(infokiller): This doesn't upgrade package.json with the new versions,
+    # see: https://github.com/yarnpkg/yarn/issues/3266
+    # Steps:
+    # 1. Upgrade using `--latest` to get the latest versions of all packages,
+    #    which may upgrade the major version, thus breaking stuff (but I'm
+    #    living on the bleeding edge...). Since the `package.json` file is in
+    #    the config repo, I should notice any changes before committing them.
+    # 2. Upgrade using `--carret` to register the major versions for each
+    #    package in `package.json`, so that all my computers use consistent
+    #    package versions.
+    # subprocess.run(['yarn', 'upgrade', '--latest'],
+    #                cwd=LOCAL_MODULES_PARENT_DIR,
+    #                check=True)
+    # subprocess.run(['yarn', 'upgrade', '--caret'],
+    #                cwd=LOCAL_MODULES_PARENT_DIR,
+    #                check=True)
+    subprocess.run(['yarn', 'add'] + packages + ['--exact'],
+                   cwd=LOCAL_MODULES_PARENT_DIR,
+                   check=True)
+
+
+def _link_package_files(package_path, get_binary_install_name=lambda x: x):
+    package_spec = os.path.basename(package_path)
+    package_metadata_path = os.path.join(package_path, 'package.json')
+    with open(package_metadata_path) as f:
+        package_metadata = json.loads(f.read())
+    package_bins = package_metadata.get('bin', {})
+    if isinstance(package_bins, str):
+        package_bins = {package_spec: package_bins}
+    assert isinstance(package_bins, dict)
+    for name, path in package_bins.items():
+        install_name = get_binary_install_name(name)
+        if install_name is None:
+            _log_warning(f'Skipping binary not explicitly listed: {name}')
+            continue
+        if not install_name:
+            _log_info(f'Skipping explicitly disabled binary: {name}')
+            continue
+        _log_info(f'Installing binary {name} from package {package_spec} '
+                  f'as {install_name}')
+        util.symlink_relative(os.path.join(package_path, path),
+                              os.path.join(util.USER_BIN_DIR, install_name))
+    for path in package_metadata.get('man', {}).items():
+        name = os.path.basename(path)
+        _log_info(f'Installing man page {name} from package {package_path}')
+        util.symlink_relative(os.path.join(package_path, path),
+                              os.path.join(util.USER_MAN_DIR, name))
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Install and/or upgrade config repo npm packages.')
+    parser.add_argument('--upgrade',
+                        action='store_true',
+                        help='Upgrade npm packages to their latest version.')
+    args = parser.parse_args()
+
+    util.create_user_dirs()
+
+    _install_packages()
+    with open(os.path.join(LOCAL_MODULES_PARENT_DIR, 'package.json')) as f:
+        packages_json = json.loads(f.read())
+    packages = list(packages_json.get('dependencies', {}).keys())
+    if args.upgrade:
+        _upgrade_packages(packages)
+
+    explicitly_installed_binaries = packages_json.get(
+        'explicitly_installed_binaries', {})
+    for package in packages:
+        get_binary_install_name = lambda x: x
+        if package in explicitly_installed_binaries:
+            get_binary_install_name = explicitly_installed_binaries[package].get
+        package_path = os.path.join(LOCAL_MODULES_PARENT_DIR, 'node_modules',
+                                    package)
+        _link_package_files(package_path, get_binary_install_name)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,11 @@
+[Unit]
+Description=Tests the system randomness using rngtest
+ConditionACPower=true
+
+[Service]
+Type=simple
+IOSchedulingClass=idle
+CPUSchedulingPolicy=idle
+ExecStart=%h/.my_scripts/sysadmin/test-system-randomness
+Restart=on-failure
+RestartSec=30

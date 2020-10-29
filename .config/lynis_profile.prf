@@ -1,0 +1,185 @@
+# NOTE: The default.prf lynis profile is loaded before this one anyway, so this
+# file only includes my customizations.
+
+# Defines the role of the system (personal, workstation or server)
+machine-role=workstation
+
+# Profile name, will be used as title/description
+profile-name=infokiller
+
+#################################################################################
+#
+# Tests that are not relevant to me
+#
+#################################################################################
+
+# Checks for password strength PAM modules such as pam_cracklib, but that's not
+# necessary for me- I can assess the security of a password on my own.
+# https://cisofy.com/lynis/controls/AUTH-9262
+skip-test=AUTH-9262
+# Checks for password age policies.
+# https://cisofy.com/lynis/controls/AUTH-9286
+skip-test=AUTH-9286
+# Checks that /etc/hosts contains an entry for the current machine, but assumes
+# the tested machine is a server.
+# https://cisofy.com/lynis/controls/NAME-4404
+skip-test=NAME-4404
+# Checks that a domain name is configured. Only relevant to company servers.
+# https://cisofy.com/lynis/controls/NAME-4028
+skip-test=NAME-4028
+# Checks that a legal banner is presented to users.
+# https://cisofy.com/lynis/controls/BANN-7126
+skip-test=BANN-7126
+# Checks that there is a compiler installed.
+# https://cisofy.com/lynis/controls/HRDN-7220
+skip-test=HRDN-7220
+# Checks that compilers are restricted to root.
+# https://cisofy.com/lynis/controls/HRDN-7222
+skip-test=HRDN-7222
+# Checks if system is managed by a configuration management tool such as
+# Ansible. Partially relevant for me, but I already use aconfmgr which I think
+# is sufficient here.
+# https://cisofy.com/lynis/controls/TOOL-5002
+skip-test=TOOL-5002
+# Checks if USB storage devices are allowed. It makes sense on servers, but not
+# practical for my personal machines.
+# https://cisofy.com/lynis/controls/STRG-1840
+skip-test=STRG-1840
+# https://cisofy.com/lynis/controls/STRG-1842
+skip-test=STRG-1842
+
+#################################################################################
+#
+# Tests that are relevant but have false positives
+#
+#################################################################################
+
+# Complains about missing services such as acipd and syslog. Not clear why this
+# is a security concern.
+# https://cisofy.com/lynis/controls/PLGN-3834
+skip-test=PLGN-3834
+# As of 2018-10-19, complained that there is a newer kernel available because it
+# found `4.18.14-arch1-1-ARCH` while `4.18.14.a-1-hardened` was running.
+# https://cisofy.com/lynis/controls/KRNL-5830
+skip-test=KRNL-5830
+# Checks if failed login attempts are logged by checking for the setting
+# `FAILLOG_ENAB` in `/etc/login.defs`. As of 2018-10-19, the man page on Arch
+# linux doesn't mention this option, so it was probably removed.
+# https://cisofy.com/lynis/controls/AUTH-9408
+skip-test=AUTH-9408
+# Complains about a umask of 022 set in /etc/profile, but this is set in
+# ~/.profile to 027.
+# https://cisofy.com/lynis/controls/SHLL-6230
+skip-test=SHLL-6230
+# Unused iptables rules- not sure what that means but I suspect it's related to
+# one of:
+# 1. Using ufw to set the rules.
+# 2. Setting some rules that are often not "running", like whitelisting
+#    torrent clients.
+# https://cisofy.com/lynis/controls/FIRE-4513
+skip-test=FIRE-4513
+# PermitUserEnvironment doesn't introduce an additional security risk given that
+# there is interactive shell access. See also:
+# https://serverfault.com/a/527648/469445
+# https://cisofy.com/lynis/controls/SSH-7408
+skip-test=SSH-7408
+# From the sshd_config documentation:
+# "Note that disabling agent forwarding does not improve security unless users
+# are also denied shell access, as they can always install their own
+# forwarders."
+# https://cisofy.com/lynis/controls/SSH-7408
+skip-test=SSH-7408
+# From the sshd_config documentation:
+# "Note that disabling TCP forwarding does not improve security unless users are
+# also denied shell access, as they can always install their own forwarders.""
+# https://cisofy.com/lynis/controls/SSH-7408
+skip-test=SSH-7408
+# Complains about deleted files in use, but almost all of them are in the path
+# `/dev/shm/.org.chromium.Chromium*` which means they are used by Chromium for
+# shared memory. I didn't find useful information about this, but I suspect this
+# is a false positive.
+# https://cisofy.com/lynis/controls/LOGG-2190
+skip-test=LOGG-2190
+# Complains about missing process accounting information, and mentions that
+# there's a chance it just didn't find it. The source code also labels this as
+# Slackware, so it's may be different in Arch:
+# https://github.com/CISOfy/lynis/blob/c52edc49c7/include/tests_accounting#L73
+# Looked a bit in the Arch wiki and didn't find anything about the tools the
+# test mentions. I think process accounting is enabled but I'm just not looking
+# for the right tools.
+# https://cisofy.com/lynis/controls/ACCT-9622
+skip-test=ACCT-9622
+# Checks if "sysstat" is enabled. Probably not relevant for Arch.
+# https://cisofy.com/lynis/controls/ACCT-9626
+skip-test=ACCT-9626
+# Lynis recommends disabling sysrq, but I couldn't find a good explanation for
+# this online. It also seems to only be relevant when having physical access,
+# and in that situation I don't think it makes things any worse.
+skip-test=KRNL-6000:kernel.sysrq
+# Unreliable ntp peers. This seems to suggest it's a false positive:
+# https://unix.stackexchange.com/q/156350/126543
+skip-test=TIME-3120
+
+#################################################################################
+#
+# Known issues: failing tests that I plan to fix
+#
+#################################################################################
+
+# Systemd services are not hardened.
+skip-test=BOOT-5264
+# /var should be on a different partition from the root filesystem.
+# https://cisofy.com/lynis/controls/FILE-6310
+skip-test=FILE-6310
+# /proc should be mounted with the `hidepid` option so that every user can only
+# see their own processes. I don't think this will improve security much in my
+# case since only trusted people can use my Linux machines (usually it's only
+# me). In addition, if a remote hacker is able to get shell access to my user,
+# they can probably easily get root access as well.
+# The Arch wiki also mentions that using this setting requires other changes so
+# things don't break. See: https://wiki.archlinux.org/index.php/security#hidepid
+# https://cisofy.com/lynis/controls/FILE-6344
+skip-test=FILE-6344
+# Missing ARP monitoring software (like arpwatch).
+# https://cisofy.com/lynis/controls/NETW-3032
+skip-test=NETW-3032
+# Reported vulnerabilities from arch-audit. The reality is that it doesn't seem
+# practical to only use software with no known vulnerabilities, so I'm not sure
+# if I'll ever be in a position to pass this test most of the time.
+# https://cisofy.com/lynis/controls/PKGS-7322
+skip-test=PKGS-7322
+# X11 forwarding is not considered safe.
+# https://cisofy.com/lynis/controls/SSH-7408
+skip-test=SSH-7408
+# SSH is on the default port (22). This suggests changing it.
+# https://cisofy.com/lynis/controls/SSH-7408
+skip-test=SSH-7408
+# Missing file integrity software.
+# https://cisofy.com/lynis/controls/FINT-4350
+skip-test=FINT-4350
+# No antivirus installed. Apparently clamav isn't sufficient here?
+# https://cisofy.com/lynis/controls/MALW-3280
+skip-test=MALW-3280
+# No IDS/IPS installed.
+# https://cisofy.com/lynis/controls/TOOL-5190
+skip-test=TOOL-5190
+# auditd is not enabled. I want to verify the performance impact before
+# enabling it.
+skip-test=ACCT-9628
+
+#################################################################################
+#
+# Needs further investigation
+#
+#################################################################################
+
+# Whitelist the virt-manager bridge device which is reported as promiscuous.
+# TODO: Verify it's ok for virt-manager bridge devices to be promiscuous.
+if_promisc:virbr0-nic:
+# Core dumps are not disabled.
+skip-test=KRNL-5820
+# Remote logging is not enabled.
+skip-test=LOGG-2154
+# Warns about missing software PRNG. I'm actually using rngd from rng-tools,
+# which is not included in the test, but perhaps it's not good enough.
+skip-test=CRYP-8005

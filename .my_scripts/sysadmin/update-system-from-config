@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# This script can be called using sudo, so we can't fall back to $HOME.
+readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
+
+main() {
+  local file
+  for file in "$@"; do
+    if [[ "${file}" == "${REPO_ROOT}/root"* ]]; then
+      config_path="${file}"
+      system_path="${file#"${REPO_ROOT}/root"}"
+      if [[ "${system_path}" == *."${HOST_ALIAS-}" ]]; then
+        system_path="${system_path%".${HOST_ALIAS-}"}"
+      fi
+    else
+      system_path="${file}"
+      config_path="${REPO_ROOT}/root/${file}"
+      if [[ -r "${config_path}.${HOST_ALIAS-}" ]]; then
+        config_path="${config_path}.${HOST_ALIAS-}"
+      fi
+    fi
+    if [[ ! -r "${config_path}" ]]; then
+      printf >&2 'File not readable: %s\n' "${config_path}"
+      exit 1
+    fi
+    # Note that install will set the permissions to rwxr-xr-x which may not be
+    # desired.
+    sudo install -D -- "${config_path}" "${system_path}"
+  done
+}
+
+main "$@"

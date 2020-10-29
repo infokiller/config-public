@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+
+# Based on:
+# https://github.com/pigmonkey/spark/blob/master/roles/laptop/files/lowbatt.sh
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# Battery percentages considered critical and low. Not readonly because they are
+# adjusted if there are multiple batteries.
+CRITICAL_LEVEL=3
+LOW_LEVEL=15
+
+readonly CHECK_INTERVAL=60
+# Maximum time to wait in seconds before subsequent notifications about low
+# battery is sent.
+readonly MAX_NOTIFY_TIME=300
+# Maximum change in battery level before a subsequent notification about low
+# battery is sent.
+readonly MAX_NOTIFY_LEVEL_CHANGE=3
+# Time to wait in seconds before suspending after reaching the critical level.
+readonly SUSPEND_NOTICE_TIME=120
+readonly ICON='battery-caution'
+
+VERBOSE=0
+
+declare -g capacity=0
+declare -g last_notify_level=100
+declare -g last_notify_timestamp=0
+
+_print_usage() {
+  echo 'Usage: battery-monitor [OPTION...]
+Options:
+    -h      print usage
+    -v      be verbose'
+}
+
+_log_info() {
+  if ((VERBOSE)); then
+    printf '%s\n' "$1"
+  fi
+}
+
+_log_error() {
+  # NOTE: The <n> prefix is used by systemd to specify the priority of the
+  # logging.
+  printf >&2 '<4> %s\n' "$*"
+}
+
+# Warn if the capacity is low.
+_handle_low_level() {
+  local message="Battery is low: ${capacity}% left"
+  _log_info "${message}"
+  local current_timestamp
+  current_timestamp="$(date +"%s")"
+  if ((current_timestamp - last_notify_timestamp >= MAX_NOTIFY_TIME)) ||
+    ((capacity - last_notify_level >= MAX_NOTIFY_LEVEL_CHANGE)); then
+    last_notify_timestamp="${current_timestamp}"
+    last_notify_level="${capacity}"
+    notify-send --urgency=critical --icon="${ICON}" --expire-time=20000 \
+      "${message}"
+    # wall sends a message to all ttys of all users. This can be a nice feature
+    # but spams all my open terminals so I'm disabling it.
+    # wall "${message}"
+  fi
+}
+
+# Suspend if the capacity is critical.
+_handle_critical_level() {
+  local message="Battery at ${capacity}%, suspending in ${SUSPEND_NOTICE_TIME} seconds."
+  _log_error "${message}"
+  notify-send --urgency=critical --icon="${ICON}" --expire-time=300000 \
+    "${message}"
+  sleep "${SUSPEND_NOTICE_TIME}"
+  if ! _is_charging; then
+    /usr/bin/systemctl suspend
+  fi
+}
+
+# Determine if the system is on battery or AC power.
+_is_charging() {
+  [[ "$(cat '/sys/class/power_supply/AC/online' 2>&1)" == 1 ]]
+}
+
+_find_batteries() {
+  find /sys/class/power_supply -maxdepth 1 -name 'BAT*' -o -name 'battery'
+}
+
+# Adjust the low and critical levels by the number of batteries.
+_adjust_levels() {
+  local num_batteries="$1"
+  CRITICAL_LEVEL=$((CRITICAL_LEVEL * num_batteries))
+  LOW_LEVEL=$((LOW_LEVEL * num_batteries))
+  _log_info "Adjusted critical is ${CRITICAL_LEVEL}%"
+  _log_info "Adjusted low is ${LOW_LEVEL}%"
+}
+
+# Get the total capacity of all batteries.
+_compute_capacity() {
+  local batteries=("$@")
+  capacity=0
+  for i in "${batteries[@]}"; do
+    capacity=$((capacity + $(cat "${i}"/capacity)))
+  done
+  _log_info "Total capacity is ${capacity}"
+}
+
+# Determine if the capacity is low or critical.
+_handle_capacity() {
+  if ((capacity <= CRITICAL_LEVEL)); then
+    _handle_critical_level
+  elif ((capacity <= LOW_LEVEL)); then
+    _handle_low_level
+  else
+    _log_info 'Capacity is within acceptable limits'
+  fi
+}
+
+main() {
+  while getopts 'vh' opt; do
+    case ${opt} in
+      v) VERBOSE=1 ;;
+      h)
+        _print_usage
+        exit
+        ;;
+      *)
+        _log_error 'Unknown option'
+        exit 1
+        ;;
+    esac
+  done
+
+  while true; do
+    # The batteries may change if a battery is connected or disconnected, so we
+    # check it in every iteration.
+    mapfile -t batteries < <(_find_batteries)
+    if ! _is_charging && ((${#batteries[@]} > 0)); then
+      _adjust_levels "${#batteries[@]}"
+      _compute_capacity "${batteries[@]}"
+      _handle_capacity
+    fi
+    sleep "${CHECK_INTERVAL}"
+  done
+}
+
+main "$@"

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Simple wrapper around xsel to copy to the X clipboard.
+xsel --input --clipboard <<< "$@"

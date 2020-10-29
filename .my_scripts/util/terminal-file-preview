@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SCOPE="${REPO_ROOT}/.config/ranger/scope.sh"
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_print_usage_and_die() {
+  printf >&2 'Usage: %s [--[no-]image-preview] FILE' "$0"
+  exit 1
+}
+
+draw_image() {
+  echo 'Image previews are not supported yet'
+}
+
+_has_image_preview() {
+  false
+  # TODO: Support ueberzug image previews:
+  # https://github.com/seebye/ueberzug/blob/master/examples/fzfimg.sh
+  # As of 2020-08-16, w3mimgdisplay doesn't work.
+  # _command_exists ueberzug && _command_exists perl
+}
+
+main() {
+  local file
+  local image_preview=0
+  while (($# > 0)); do
+    case "$1" in
+      --image-preview)
+        image_preview=1
+        shift 1
+        ;;
+      --no-image-preview)
+        image_preview=0
+        shift 1
+        ;;
+      --)
+        shift 1
+        break
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
+  if (($# != 1)); then
+    _print_usage_and_die
+  fi
+  file="$1"
+  file="${file/\~/${HOME}}"
+  if [[ -d "${file}" ]]; then
+    local ls=(ls --color)
+    if _command_exists exa; then
+      ls=(exa --color=always -l)
+    fi
+    "${ls[@]}" -- "${file}"
+    exit
+  fi
+  local cmd=("${SCOPE}" "${file}" 80 '')
+  if ((image_preview)) && _has_image_preview; then
+    local image_path
+    image_path="$(mktemp -t "terminal_file_preview_image.XXXXX")"
+    cmd+=("${image_path}" 'True')
+  else
+    cmd+=('' 'False')
+  fi
+  local s=0
+  # NOTE: scope can output errors to stderr about commands that are not
+  # installed, so we ignore stderr.
+  SCOPE_TRUECOLOR=1 \
+    HIGHLIGHT_OPTIONS='--line-numbers --line-number-length=0 --no-trailing-nl' \
+    "${cmd[@]}" 2> /dev/null || s=$?
+  if ((s == 1)); then
+    return 1
+  fi
+  if ((s == 6)); then
+    draw_image "${image_path}"
+  elif ((s == 7)); then
+    draw_image "${file}"
+  fi
+}
+
+main "$@"

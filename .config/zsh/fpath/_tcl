@@ -1,0 +1,43 @@
+#compdef tcl
+#autoload
+# This file is used to test completion settings.
+
+# Tests:
+# |----+-------+---------------------------+--------------|
+# | N  | Input | Candidates                | Expected     |
+# |----+-------+---------------------------+--------------|
+# | 01 | "a"   | "a", "AAA"                | "a", "AAA"   |
+# | 02 | "-a"  | "-a", "--ab"              | "-a", "--ab" |
+# | 03 | "ac"  | "abc", "aac"              | "aac"        |
+# | 04 | "a-b" | "a--b", "a_b"             | "a_b"        |
+# | 05 | "A"   | "Aa", "aa"                | "Aa"         |
+# | 06 | "A"   | "a"                       | "a"          |
+# | 07 | "pl"  | "pool-list", "pool-build" | "pool-list"  |
+# | 08 | "pl"  | "pool-list", "display"    | "pool-list"  |
+# | 09 | "abc" | "aa.bb.cc", "axbxcx"      | "aa.bb.cc"   |
+# | 10 | "A_"  | "a_"                      | "a_"         |
+# | 11 | "fzy" | "xfxfxzxxxy"              | "xfxfxzxxxy" |
+# | 12 | "-"   | "-a", "_a"                | "-a"         |
+# | 13 | "ab"  | "A-Ab", "axb"            | "A-Ab"       |
+# |----+-------+---------------------------+--------------|
+#
+# Notes:
+# 7. "pl" should complete "pool-list", not "pool-build", since the former has
+#    only sequential letters in each hyphen-delimited word.
+# 8. "pl" should complete "pool-list", not display, since a prefix is preferred
+#    over a substring.
+_arguments \
+  '-01: :(aaa AAA)' \
+  '-02: :(-a --ab)' \
+  '-03: :(abc aac)' \
+  '-04: :(a--b a_b)' \
+  '-05: :(Aa aa)' \
+  '-06: :(a)' \
+  '-07: :(pool-list pool-build)' \
+  '-08: :(pool-list display)' \
+  '-09: :(aa.bb.cc axbxcx)' \
+  '-10: :(a_)' \
+  '-11: :(xfxfxzxxxy)' \
+  '-12: :(-a _a)' \
+  '-13: :(A-Ab axb)' \
+  && return 0

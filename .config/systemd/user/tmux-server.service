@@ -1,0 +1,28 @@
+# NOTE: This file MUST NOT be named tmux.service, because otherwise it would be
+# overwritten and possibly disabled by the tmux-continuum plugin.
+
+[Unit]
+Description=tmux with automatic sessions snapshotting
+
+[Service]
+Type=forking
+ExecCondition=bash -c '(command -v tmux &> /dev/null) && (! tmux ls 2>/dev/null)'
+# Fixes an issue with the last symlink sometimes missing.
+ExecStartPre=bash -c 'cd ~/.local/var/tmux/resurrect && ln -srf "$(ls -1 . | grep tmux_resurrect | tail -1)" last'
+ExecStart=bash -c 'tmux start-server \\; run-shell ~/submodules/tmux/tmux-resurrect/scripts/restore.sh'
+ExecStop=%h/submodules/tmux/tmux-resurrect/scripts/save.sh
+# The binary may be locally built from source, in which case we want the locally
+# built version to be used, so we must launch it indirectly using bash so that
+# $PATH will be used.
+ExecStop=env tmux kill-server
+RestartSec=1
+# Consider this unit to be active if the start action exited successfully.
+# Without this, every unit that pulls this unit as a dependency will rerun it.
+RemainAfterExit=yes
+# This unit can take a long time to start/stop if there were many panes to
+# resurrect/save.
+TimeoutStartSec=2min
+TimeoutStopSec=2min
+
+[Install]
+WantedBy=default.target

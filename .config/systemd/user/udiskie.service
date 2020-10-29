@@ -1,0 +1,11 @@
+[Unit]
+Description=Start udiskie, udisks2 front end
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=udiskie --smart-tray --automount
+Restart=on-failure
+RestartSec=10

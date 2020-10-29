@@ -1,0 +1,45 @@
+// Extend layout based on DreymaR's Extend mappings
+// https://forum.colemak.com/topic/2014-extend-extra-extreme/
+{
+  "filter": "no klc,keylayout",
+  "singletonKeys": [
+    [ "CapsLock", "Extend" ]
+  ],
+  "shiftlevels": [ "Extend", "Alt+Extend", "Shift+Extend" ],
+  "keys": [
+    { "pos": "Escape", "letters": [ "CapsLock" ] },
+    { "pos": "1", "letters": [ "F1" ] },
+    { "pos": "2", "letters": [ "F2" ] },
+    { "pos": "3", "letters": [ "F3" ] },
+    { "pos": "4", "letters": [ "F4" ] },
+    { "pos": "5", "letters": [ "F5" ] },
+    { "pos": "6", "letters": [ "F6" ] },
+    { "pos": "7", "letters": [ "F7" ] },
+    { "pos": "8", "letters": [ "F8" ] },
+    { "pos": "9", "letters": [ "F9" ] },
+    { "pos": "0", "letters": [ "F10" ] },
+    { "pos": "-", "letters": [ "F11" ] },
+    { "pos": "+", "letters": [ "F12" ] },
+    { "pos": "Q", "letters": [ "Esc" ] },
+    { "pos": "W", "letters": [ "Control+Left" ] },
+    { "pos": "E", "letters": [ "Control+Right" ] },
+    { "pos": "Y", "letters": [ "PageUp" ] },
+    { "pos": "U", "letters": [ "Undo", "Redo" ] },
+    { "pos": "I", "letters": [ "Up", "PageUp" ] },
+    { "pos": "D", "letters": [ "Control+Backspace", "Control+Delete" ] },
+    { "pos": "F", "letters": [ "Control+F" ] },
+    { "pos": "T", "letters": [ "Control+T" ] },
+    { "pos": "H", "letters": [ "PageDown" ] },
+    { "pos": "J", "letters": [ "Left", "Home" ] },
+    { "pos": "K", "letters": [ "Down", "PageDown" ] },
+    { "pos": "L", "letters": [ "Right", "End" ] },
+    { "pos": "'", "letters": [ "Menu" ] },
+    { "pos": "X", "letters": [ "Backspace", "Delete" ] },
+    { "pos": "C", "letters": [ "Copy" ] },
+    { "pos": "V", "letters": [ "Paste" ] },
+    { "pos": "/", "letters": [ "compose" ] },
+    { "pos": "Space", "letters": [ "Enter" ] }
+  ]
+}
+
+// vim: set ft=jsonc :

@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly DESKTOP_ENV_UTILS_DIR="${REPO_ROOT}/.my_scripts/desktop_env"
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_log_executed_lines() {
+  # Log every line executed to the journal. See also:
+  # https://unix.stackexchange.com/q/393097/126543
+  exec {BASH_XTRACEFD}> >(command logger --tag xsession)
+  PS4='${LINENO}: '
+  set -x
+}
+
+_log_boxed_message() {
+  {
+    printf '=================================================================\n'
+    printf '== [%s] %s\n' "$(date +"%F %T.%6N")" "$*"
+    printf '=================================================================\n'
+  } 1>&2
+}
+
+_load_system_config() {
+  # Source additional system config. Arch wiki notes it should be done:
+  # https://wiki.archlinux.org/index.php/Xinit#xinitrc
+  if [ -d /etc/X11/xinit/xinitrc.d ]; then
+    for f in /etc/X11/xinit/xinitrc.d/*; do
+      if [ -x "${f}" ]; then
+        # shellcheck source=/dev/null
+        source "${f}"
+      fi
+    done
+    unset f
+  fi
+}
+
+# NOTE: This must stay in sync with the `set_dpi_and_xresources` function in
+# set-x11-settings.
+_set_gdk_scaling() {
+  local gsettings_scaling_factor=1
+  local gdk3_scale=1
+  local gdk3_dpi_scale=1
+  _command_exists gsettings &&
+    gsettings set org.gnome.desktop.interface scaling-factor ${gsettings_scaling_factor}
+  export GDK_SCALE="${gdk3_scale}"
+  export GDK_DPI_SCALE="${gdk3_dpi_scale}"
+}
+
+_setup_environment() {
+  # Source .profile so that its settings will apply to graphical logins from a
+  # display manager (which is my default login procedure).
+  # NOTE: For this to be safe, .profile must be safe to run without a terminal,
+  # since some display managers like xdm source this file without a controlling
+  # terminal. For more background see: https://wiki.debian.org/DotFiles
+  # shellcheck source=../../.profile
+  source "${REPO_ROOT}/.profile"
+
+  # Directory for storing KDE configuration and data. By default this is
+  # ${HOME}/.kde4. See also:
+  # https://userbase.kde.org/KDE_System_Administration/KDE_Filesystem_Hierarchy
+  export KDEHOME="${HOME}/.local/kde"
+  # Configures QT applications to use qt5ct (a configuration app) for the theme.
+  export QT_QPA_PLATFORMTHEME="qt5ct"
+
+  # Set ibus as the input method for GTK and QT. See also:
+  # https://unix.stackexchange.com/questions/260601/understanding-setting-up-different-input-methods
+  export GTK_IM_MODULE='ibus'
+  export QT_IM_MODULE='ibus'
+  export XMODIFIERS='@im=ibus'
+
+  # Reduce clutter in home directory.
+  export XAUTHORITY="${XDG_RUNTIME_DIR}/Xauthority"
+  [[ -e "${HOME}/.Xauthority" ]] && mv -f "${HOME}/.Xauthority" "${XAUTHORITY}"
+
+  _set_gdk_scaling
+
+  # Export environment variables to dbus and systemd. Critical for things that
+  # rely on DISPLAY, XAUTHORITY, PATH, etc, but also important for stuff like
+  # GNUPG_HOME and GDK_SCALE.
+  dbus-update-activation-environment --systemd --all
+  # NOTE: As of 2019-05-24, there seems to be a race condition between the
+  # updating of the environment and the start of services from xsession.target.
+  # This is evident when hovering with the mouse over the applets, where some
+  # of them don't have the correct mouse size (at least in zeus18).
+  # Since I only start xsession.target after this function, I suspect that
+  # dbus-update-activation-environment returns without blocking till the update
+  # is complete, so I'm experimenting with calling import-environment directly
+  # as well.
+  # NOTE: As of 2019-06-02, this systemctl command doesn't improve things and
+  # there are still issues with the environment not being fully set before copyq
+  # and usbguard-applet are launched.
+  # systemctl --user --wait import-environment
+}
+
+main() {
+  # Logging for every line executed in the xsession script.
+  _log_executed_lines
+  _log_boxed_message 'Logging to systemd journal'
+  _load_system_config
+  _setup_environment
+  # shellcheck source=./set-x11-settings
+  "${DESKTOP_ENV_UTILS_DIR}/set-x11-settings"
+  # Start xsession services and i3 and block till i3 exits, as expected by the
+  # display manager. Note that xsession.target pulls i3, but it doesn't affect
+  # the later command that waits for i3 to terminate.
+  # NOTE: I originally waited on xsession.target, but that "hanged", even when
+  # i3 exited, presumably because it requires all xsession services to
+  # terminate.
+  systemctl --user start xsession.target
+  systemctl --user start --wait i3wm.service
+  systemctl --user stop graphical-session.target
+}
+
+main "$@"

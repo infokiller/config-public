@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Script to initiate JSON formatted status on i3bar using conky.
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# NOTE: the full path to conkyrc must be resolved, otherwise the conky command
+# complains when running in firejail.
+CONKYRC="${REPO_ROOT}/.config/conky/conkyrc"
+
+# Send the header so that i3bar knows we want to use JSON:
+printf '%s\n' '{"version":1}'
+
+# Begin the endless array.
+printf '%s\n' '['
+
+# We send an empty first array of blocks to make the loop simpler:
+printf '%s\n' '[],'
+
+# Now send blocks with information forever:
+exec conky -c "${CONKYRC}"

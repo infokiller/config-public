@@ -1,0 +1,212 @@
+-- vim: set ft=lua :
+
+conky.config = {
+  background = false,
+  own_window = false,
+  out_to_console = true,
+  out_to_x = false,
+  -- This is the number of times Conky will update before quitting.
+  -- Set to zero to run forever.o
+  total_run_times = 0,
+  -- Shortens units to a single character (kiB->k, GiB->G, etc.). Default is off.
+  short_units = true,
+  pad_percents = 2,
+  -- Add spaces to keep things from moving about?  This only affects certain objects.
+  -- use_spacer should have an argument of left, right, or none
+  use_spacer = 'left',
+
+  -- How strict should if_up be when testing an interface for being up?
+  -- The value is one of up, link or address, to check for the interface
+  -- being solely up, being up and having link or being up, having link
+  -- and an assigned IP address.
+  if_up_strictness = address,
+
+  update_interval = 0.2,
+  update_interval_on_battery = 2,
+
+  -- Force UTF8
+  override_utf8_locale = true,
+}
+
+conky.text = [[
+
+[
+  # Home directory space:
+  {
+    "full_text": " ",
+    # Relevant glyhps:   
+    "color": "\#888888",
+    "separator": false,
+    "separator_block_width": 6
+  },
+  {
+    "full_text": "${exec df $HOME -h --output=avail|tail -1|awk '{print $1}'} ",
+    "color": "\#EEEEEE"
+  },
+
+  # Memory:
+  {
+    "full_text": " RAM",
+    "color": "\#888888",
+    "separator": false,
+    "separator_block_width": 6
+  },
+  {
+    "full_text": "$memperc% ",
+    "color":
+      ${if_match ${memperc} > 90}
+        "\#FF0000",
+      ${else}
+        ${if_match ${memperc} > 70}
+          "\#FFD700",
+        ${else}
+          "\#EEEEEE",
+        ${endif}
+      ${endif}
+    "separator": true,
+    "separator_block_width": 6
+  },
+  # CPU:
+  {
+    "full_text": " ",
+    "color": "\#888888",
+    "separator": false,
+    "separator_block_width": 6
+  },
+  {
+    "full_text": "${cpu cpu0}% ",
+    "color":
+      ${if_match ${cpu cpu0} > 90}
+        "\#FF0000",
+      ${else}
+        ${if_match ${cpu cpu0} > 70}
+          "\#FFD700",
+        ${else}
+          "\#EEEEEE",
+        ${endif}
+      ${endif}
+    "separator": true,
+    "separator_block_width": 6
+  },
+  # # Download network speed:
+  # {
+  #   "full_text" : " ",
+  # # Relevant glyhps:   ﲓ 
+  #   "color"     : "\#888888",
+  #   "separator" : false,
+  #   "separator_block_width": 2
+  # },
+  # {
+  #   "full_text" :
+  #     ${if_up em1}
+  #       "${downspeed em1}/s ",
+  #     ${else}
+  #       ${if_up wlan0}
+  #         "${downspeed wlan0}/s ",
+  #       ${endif}
+  #     ${endif}
+  #   "color"     : "\#EEEEEE"
+  # },
+  # # Upload network speed:
+  # {
+  #   "full_text" : " ",
+  # # Other relevant glyhps:  ﲔ  
+  #   "color"     : "\#888888",
+  #   "separator" : false,
+  #   "separator_block_width": 6
+  # },
+  # {
+  #   "full_text" :
+  #     ${if_up em1}
+  #       "${upspeed em1}/s ",
+  #     ${else}
+  #       ${if_up wlan0}
+  #         "${upspeed wlan0}/s ",
+  #       ${endif}
+  #     ${endif}
+  #   "color"     : "\#EEEEEE"
+  # },
+  # Keyboard layout:
+  {
+    "full_text": " ",
+    # Relevant glyhps: 
+    "color": "\#888888",
+    "separator": false,
+    "separator_block_width": 6
+  },
+  {
+    "full_text": "${exec get-keyboard-layout | awk '{print toupper($0)}'} ",
+    "color": "\#EEEEEE",
+    "separator": true,
+    "separator_block_width": 6
+  },
+  # Volume:
+  {
+    "full_text": 
+    ${if_match "${exec ~/.my_scripts/desktop_env/get-volume}" == "muted"}
+    # NOTE: For some reason the space needs to be after the muted icon in order
+    # to display properly.
+      "ﱝ ",
+    ${else}
+      " ",
+    ${endif}
+    # Relevant glyhps: ♪   ﱘ ﱙ ﱛ ﱜ ﱝ                    
+    "color": "\#888888",
+    "separator": false
+  },
+  {
+    "full_text": "${exec ~/.my_scripts/desktop_env/get-volume} ",
+    "color": "\#EEEEEE"
+  },
+  ${if_empty ${battery}}
+  ${else}
+    # Battery:
+    {
+      "full_text": 
+      ${if_match ${battery_percent} > 90}
+        " ",
+      ${else}
+        ${if_match ${battery_percent} > 70}
+          " ",
+        ${else}
+          ${if_match ${battery_percent} > 50}
+          " ",
+          ${else}
+            ${if_match ${battery_percent} > 30}
+              " ",
+            ${else}
+              " ",
+            ${endif}
+          ${endif}
+        ${endif}
+      ${endif}
+      "color": "\#888888",
+      "separator": false,
+      "separator_block_width": 6
+    },
+    {
+      "full_text": "${battery} ",
+      "color":
+        ${if_match ${battery_percent} > 30}
+          "\#EEEEEE"
+        ${else}
+          "\#FF0000"
+        ${endif}
+    },
+  ${endif}
+  # Date:
+  {
+    "full_text": " ${time %Y-%m-%d} ",
+    "color": "\#268BD2",
+    "separator": true,
+    "separator_block_width": 6
+  },
+  # Time:
+  {
+    "full_text": " ${time %H:%M} ",
+    "color": "\#268BD2",
+    "separator": true
+  }
+],
+
+]]

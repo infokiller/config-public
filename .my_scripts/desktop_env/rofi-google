@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+# set -o errexit -o errtrace -o nounset -o pipefail
+
+# Copied from: https://hacker-tools.github.io/web/
+get_google_suggestions() {
+  local url
+  url='https://www.google.com/complete/search?client=hp&hl=en&xhr=t'
+  # NB: user-agent must be specified to get back UTF-8 data!
+  curl -H 'user-agent: Mozilla/5.0' -sSG --data-urlencode "q=$*" "$url" |
+    jq -r ".[1][][0]" |
+    sed 's,</\?b>,,g'
+}
+
+rofi_read_query() {
+  rofi -dmenu -p 'Google' -kb-custom-1 'Control+space' -kb-row-select '' -width 20 "$@"
+}
+
+main() {
+  query="$(rofi_read_query -lines 0)"
+  status="$?"
+  while ((status == 10)); do
+    query="$({
+      echo "${query}"
+      get_google_suggestions "$query"
+    } | uniq | rofi_read_query -lines 10)"
+    status="$?"
+  done
+  if ((status == 0)); then
+    sensible-browser "http://www.google.com/search?q=${query}"
+  fi
+}
+
+main "$@"

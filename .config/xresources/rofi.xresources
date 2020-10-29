@@ -1,0 +1,60 @@
+! Enabled modi
+rofi.modi:                        window,run
+rofi.width:                       50
+rofi.lines:                       15
+rofi.columns:                     1
+rofi.font:                        MyMono ROFI_FONT_SIZE
+! Border width
+rofi.bw:                          1
+! Location on screen
+rofi.location:                    0
+rofi.padding:                     5
+! Keep a fixed number of visible lines
+rofi.fixed-num-lines:             true
+! drun and window modes: show icons.
+rofi.show-icons:                  true
+! drun mode: the command to execute when running an application in a shell
+rofi.run-shell-command:           sensible-terminal -- bash -c '{cmd}'
+! The command to execute when starting a ssh session
+rofi.ssh-command:                 sensible-terminal -- {ssh-client} {host}
+! NOTE: Setting window-format is done to fix an alignment issue with scratchpad
+! windows. "\011" is the ascii octal code for tab and "\040" is the ascii octal
+! code for space [1] which are recognized by XrmGetFileDatabase [2], which is
+! used for parsing this file.
+! [1] https://www.sciencebuddies.org/science-fair-projects/references/ascii-table
+! [2] https://jlk.fjfi.cvut.cz/arch/manpages/man/XrmGetDatabase.3#FILE_SYNTAX
+rofi.window-format:               {w}\011{c}\040\040\040{t}
+rofi.case-sensitive:              false
+! Do not sort matches by default, because it has surprising behavior. For
+! example, when using `printf 'a 1 3\na 2' | rofi -dmenu -sort` and then typing
+! "a", the second line is ordered first, presumably because it is shorter, even
+! though both contain only a single instance of "a". This is especially annoying
+! when the output is sorted in a certain way. For example, when using
+! i3-focus-on-workspace (from i3-workspace-groups) and typing the group name,
+! the workspaces in that group are re-ordered.
+rofi.sort:                        false
+! levenshtein (default) or fzf.
+rofi.sorting-method:              fzf
+! normal, regex, glob, or fuzzy.
+rofi.matching:                    fuzzy
+! Monitor to show rofi on. -1 means the currently focused monitor.
+rofi.m:                           -1
+! Threads to use for string matching. 0 means use number of CPU cores.
+rofi.threads:                     0
+! Color scheme for normal row
+rofi.color-normal:                #fdf6e3,#002b36,#eee8d5,#586e75,#eee8d5
+! Color scheme for urgent row
+rofi.color-urgent:                #fdf6e3,#dc322f,#eee8d5,#dc322f,#fdf6e3
+! Color scheme for active row
+rofi.color-active:                #fdf6e3,#268bd2,#eee8d5,#268bd2,#fdf6e3
+! Color scheme for rofi window
+rofi.color-window:                #fdf6e3,#002b36
+! Keybindings
+rofi.kb-move-word-back:           Control+Left
+rofi.kb-move-word-forward:        Control+Right
+rofi.kb-remove-word-back:         Control+BackSpace
+rofi.kb-remove-word-forward:      Control+Delete
+rofi.kb-toggle-sort:              Super+d
+! Disable the default keybinding for Tab (Go to next row, if one left, accept
+! it, if no left next mode), so that it is available for multiple selections.
+rofi.kb-row-tab:

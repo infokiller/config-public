@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Runs an interactive function or alias from my shell config.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
+
+# shellcheck source=../../.my_scripts/lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+# shellcheck source=../../.my_scripts/lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+# shellcheck source=../../.config/bash/functions.sh
+source "${REPO_ROOT}/.config/bash/functions.sh"
+
+shopt -s expand_aliases
+
+# The first argument must not be single quoted, since otherwise alias expansion
+# will not work. However, the latter arguments must be single quoted, or
+# otherwise word splitting will occur.
+eval -- "$1" '"${@:2}"'

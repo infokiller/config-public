@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+import os
+import sys
+
+
+def main():
+    if len(sys.argv) != 3:
+        sys.exit('Usage: {} <original> <replacement>'.format(sys.argv[0]))
+    original = sys.argv[1]
+    replacement = sys.argv[2]
+    if original == '\\n':
+        original = '\n'
+    if replacement == '\\n':
+        replacement = '\n'
+    input_text = sys.stdin.read()
+    output_text = input_text.replace(original, replacement)
+    # https://docs.python.org/3/library/signal.html#note-on-sigpipe
+    try:
+        sys.stdout.write(output_text)
+    except BrokenPipeError:
+        # Python flushes standard streams on exit; redirect remaining output
+        # to devnull to avoid another BrokenPipeError at shutdown
+        devnull = os.open(os.devnull, os.O_WRONLY)
+        os.dup2(devnull, sys.stdout.fileno())
+
+
+if __name__ == '__main__':
+    main()

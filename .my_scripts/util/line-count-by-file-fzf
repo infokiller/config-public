@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# shellcheck disable=SC2034,SC2016
+_FZF_PREVIEW='
+filepath="$(sed -r "s/^\s*[0-9]+\s*//" <<< {})"
+[[ -f $filepath ]] && highlight --force "${filepath}" --out-format=truecolor'
+
+# shellcheck disable=SC2038
+find "${1:-.}" -path '*/.git/*' -prune -o \
+  -type f -exec grep -Iq . '{}' ';' -and -print |
+  xargs -d '\n' wc -l |
+  grep -Ev '^\s*[0-9]+\s+total$' |
+  sort -n -k1 |
+  fzf --tac --multi --no-sort --toggle-sort=ctrl-r --ansi \
+    --preview "${_FZF_PREVIEW}"

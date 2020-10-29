@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+I3_GROUPS_REPO_PATH="${REPO_ROOT}/submodules/desktop/i3-workspace-groups"
+export PYTHONPATH="${I3_GROUPS_REPO_PATH}"
+"${REPO_ROOT}/.my_scripts/util/conda-run" i3_workspace_groups "${I3_GROUPS_REPO_PATH}/scripts/i3-autoname-workspaces" "$@"

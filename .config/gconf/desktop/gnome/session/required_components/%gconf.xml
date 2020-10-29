@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="windowmanager" mtime="1416162574" type="string">
+		<stringvalue>i3</stringvalue>
+	</entry>
+</gconf>

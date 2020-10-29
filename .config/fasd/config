@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# Remove shellcheck errors about unused variables.
+# shellcheck disable=SC2034
+
+: "${XDG_CACHE_HOME:=${HOME}/.cache}"
+readonly XDG_CACHE_HOME
+
+# typeset -A _FASD_BACKENDS
+# The recently-used backend sometimes causes issues so it needs to be specified
+# at the end (otherwise fasd won't try the other ones).
+declare -ga _FASD_BACKENDS=(native recently-used)
+# Configure fasd to write to a directory under ~/.cache to reduce clutter in
+# homedir.
+declare -g _FASD_DATA="${XDG_CACHE_HOME}/fasd/.fasd"
+declare -ga _FASD_PATH_CHECK_BLACKLIST=(
+  '^/run/user/.*/kbfs'
+  "^${HOME}/kbfs"
+  "^${HOME}/drive"
+)
+declare -g _FASD_VIMINFO="${HOME}/.local/share/vim/viminfo"
+
+# Uncomment to enable logging. Useful for debugging.
+# declare -g _FASD_LOG_PATH="${HOME}/.cache/fasd/fasd.log"
+
+# Uncomment to enable logging of executed lines.
+# declare -g _FASD_LOG_EXECUTED_LINES=1
+
+_load_local_fasd_config() {
+  local dir
+  dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" || return 1
+  if [[ -f "${dir}/config_private" ]]; then
+    # shellcheck disable=SC1090
+    source "${dir}/config_private"
+  fi
+}
+
+_load_local_fasd_config

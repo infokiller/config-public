@@ -1,0 +1,102 @@
+# vim: set ft=cfg :
+
+# tmux
+# https://github.com/tmux/tmux
+libevent-dev
+libncurses5-dev
+
+# Zsh
+# https://github.com/zsh-users/zsh
+# Deps for building from source:
+git-core
+gcc
+make
+autoconf
+yodl
+libncursesw5-dev
+texinfo
+
+# xdotool
+# https://github.com/jordansissel/xdotool
+# https://github.com/jordansissel/xdotool/blob/master/ext/debian/xdotool.control
+#
+# Used in various scripts, including from xbindkeys.
+# Deps for building from source:
+libx11-dev
+libxtst-dev
+# Needed for setting the RPATH of the built binary.
+patchelf
+
+# CopyQ
+# https://github.com/hluk/CopyQ
+# https://github.com/hluk/CopyQ/blob/master/INSTALL
+#
+# TODO: CopyQ is now installed from a release in the install script
+# because building from source didn't work. Since the author releases regular
+# deb packages, it's a decent solution for now.
+#
+# Deps for building from source:
+# libqt4-dev
+# cmake
+# libxfixes-dev
+# libxtst-dev
+# libqtwebkit-dev
+#
+# Deps for installing the deb package:
+libc6
+libgcc1
+libqt4-network
+libqt4-script
+libqtcore4
+libqtgui4
+libstdc++6
+libx11-6
+libxtst6
+libqt4-xml
+libqt4-svg
+libqt5script5
+
+# fzf
+# https://github.com/junegunn/fzf
+# NODEPS
+
+# Rofi
+# https://github.com/DaveDavenport/rofi
+# https://davedavenport.github.io/rofi/p08-INSTALL.html
+# Deps for building from source:
+gcc
+make
+autoconf
+automake
+pkg-config
+flex
+bison
+libxinerama-dev
+libpango1.0-dev
+libpangocairo-1.0-0
+# libcairo2-dev includes libcairo-xcb.
+libcairo2-dev
+libglib2.0-dev
+librsvg2-dev
+libx11-dev
+libstartup-notification0-dev
+libxkbcommon-dev
+libxkbcommon-x11-dev
+libxcb1-dev
+libx11-xcb-dev
+libxcb-util0-dev
+libxcb-ewmh-dev
+libxcb-icccm4-dev
+libxcb-xrm-dev
+libxcb-xinerama0-dev
+libxcb-xkb-dev
+
+# Dunst
+# https://github.com/knopwob/dunst
+libxss-dev
+libdbus-1-dev
+libxinerama-dev
+git
+
+# Needed for blaze-notify.
+# python-appindicator

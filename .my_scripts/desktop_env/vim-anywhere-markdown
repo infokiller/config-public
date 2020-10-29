@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+#
+# This is inspired by https://github.com/cknadler/vim-anywhere
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+tmpfile_dir=/tmp/vim-anywhere
+tmpfile="${tmpfile_dir}/doc-$(date +"%y%m%d%H%M%S").md"
+
+mkdir -p -- "${tmpfile_dir}"
+touch -- "${tmpfile}"
+
+chmod o-r -- "${tmpfile}" # Make file only readable by you
+
+if sensible-terminal --window-name 'vim-anywhere-markdown' -- vim "${tmpfile}" --cmd ':let g:vimrc_oss_only = 1' -c 'set filetype=markdown textwidth=0 wrapmargin=0'; then
+  xsel --input --clipboard < "${tmpfile}"
+fi

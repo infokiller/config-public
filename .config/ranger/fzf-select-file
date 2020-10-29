@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../../.config/bash/fzf_select_files.sh
+source "${REPO_ROOT}/.config/bash/fzf_select_files.sh"
+
+fzf_select_file "$@"

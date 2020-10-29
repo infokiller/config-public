@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+# Benchmark script for config-repo-root for zsh and bash.
+# Run it using:
+# (bash|zsh) -c "${HOME}/.my_scripts/lib/benchmark-config-repo-root"
+# bash -c "${HOME}/.my_scripts/lib/benchmark-config-repo-root"
+
+_is_bash() {
+  [[ -n "${BASH_VERSION-}" ]]
+}
+
+_is_zsh() {
+  [[ -n "${ZSH_VERSION-}" ]]
+}
+
+_get_shell_name() {
+  if _is_bash; then
+    echo 'bash'
+  elif _is_zsh; then
+    echo 'zsh'
+  else
+    _print_error 'Unsupported shell'
+    exit 1
+  fi
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_print_bold() {
+  local bold normal
+  bold="$(tput bold 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf '%s' "${bold}"
+  printf '%s' "${@}"
+  printf '%s\n' "${normal}"
+}
+
+_benchmark() {
+  local use_source="${1:-0}"
+  local cmd=(config-repo-root)
+  if ((use_source)); then
+    cmd=(source config-repo-root)
+  fi
+  local before
+  before=$(($(date +%s%N) / 1000000))
+  for _ in $(seq 1 "${2:-100}"); do
+    "${cmd[@]}" > /dev/null
+  done
+  local after
+  after=$(($(date +%s%N) / 1000000))
+  local per_run
+  per_run=$(bc < <(printf 'scale=2; %d/%d\n' $((after - before)) "${num_runs}"))
+  _print_bold "${per_run} ms per run ($((after - before)) ms total)"
+}
+
+_benchmark_this_shell() {
+  echo "Benchmarking shell: $(_get_shell_name)"
+  local num_runs="${1:-100}"
+  printf 'Sourcing: '
+  _benchmark 1 "${num_runs}"
+  printf 'Executing: '
+  _benchmark 0 "${num_runs}"
+}
+
+main() {
+  (($# <= 1)) || {
+    _print_error 'Usage: benchmark-config-repo-root [num_runs]'
+    exit 1
+  }
+  if ((${BENCHMARK_THIS_SHELL:-0})); then
+    _benchmark_this_shell "$@"
+    return
+  fi
+  local mypath
+  mypath="$(readlink -f "$0")" || exit 1
+  BENCHMARK_THIS_SHELL=1 bash -c "source ${mypath} $*"
+  BENCHMARK_THIS_SHELL=1 zsh -c "source ${mypath} $*"
+}
+
+main "$@"

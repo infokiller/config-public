@@ -1,0 +1,59 @@
+# vim: set ft=cfg :
+#
+# Dependencies for packages installed in install-crossdistro-local-packages.
+# Packages installed in install-external-packages should install their
+# dependencies directly in that script.
+
+# YouCompleteMe
+build-essential
+cmake
+python-dev
+python3-dev
+
+# Terminal notifications
+# https://github.com/marzocchi/zsh-notify
+wmctrl
+
+# universal-ctags
+python-docutils
+
+# Selfspy
+python-dbus-dev
+libdbus-1-dev
+
+# Polybar
+# https://github.com/polybar/polybar/wiki/Compiling#dependencies
+# Build deps
+clang
+cmake
+cmake-data
+git
+pkg-config
+python3
+# Required deps
+libcairo2-dev
+libxcb1-dev
+libxcb-util0-dev
+libxcb-randr0-dev
+libxcb-composite0-dev
+python-xcbgen
+xcb-proto
+libxcb-image0-dev
+libxcb-ewmh-dev
+libxcb-icccm4-dev
+# Optional deps
+libxcb-xkb-dev
+libxcb-xrm-dev
+libxcb-cursor-dev
+libasound2-dev
+libpulse-dev
+libjsoncpp-dev
+libcurl4-openssl-dev
+libiw-dev
+libnl-genl-3-dev
+
+# cargo-update
+libssl-dev
+
+# yank
+# NODEPS

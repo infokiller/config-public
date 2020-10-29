@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# References:
+# - https://serverfault.com/q/487891
+# - http://freelinuxtutorials.com/tutorials/configuring-multiple-interfaces-multiple-default-routes-linux/
+# - https://askubuntu.com/questions/868942/how-to-configure-2-network-interfaces-with-different-gateways
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+# Echo running bash code.
+set +x
+
+NIC1='eth-i219'
+NIC2='eth-i211'
+
+add_nic_routing_table() {
+  local nic="$1"
+  if grep -q "${nic}" /etc/iproute2/rt_tables; then
+    echo "Routing table for NIC ${nic} already exists, no need to create it"
+    return
+  fi
+  echo "Adding a separate routing table for NIC ${nic} named ${nic}"
+  mapfile -t used_numbers < <(grep -E -o '^\s*[0-9]+' /etc/iproute2/rt_tables)
+  i=1
+  while [[ " ${used_numbers[*]} " == *" ${i} "* ]]; do
+    ((i++))
+  done
+  echo "First available routing table id found: ${i}"
+  sudo bash -c "echo ${i} ${nic} >> /etc/iproute2/rt_tables"
+}
+
+# TODO: Don't hardcode IP addresses, instead try to get them automatically.
+add_nic_routing_rules() {
+  local nic="$1"
+  local net_prefix="$2"
+  local net_prefix_cidr="${net_prefix}.0/24"
+  local default_gateway_addr="${net_prefix}.1"
+  local host_addr="${net_prefix}.18"
+  echo "Adding routing rules to routing table of NIC ${nic}"
+  sudo ip route add "${net_prefix_cidr}" dev "${nic}" src "${host_addr}" table "${nic}" 2> /dev/null || true
+  sudo ip route add default via "${default_gateway_addr}" dev "${nic}" table "${nic}" 2> /dev/null || true
+  echo "Adding routing policy for using table ${nic}"
+  sudo ip rule add from "${net_prefix_cidr}" table "${nic}" priority 100 2> /dev/null || true
+  sudo ip rule add to "${net_prefix_cidr}" table "${nic}" priority 100 2> /dev/null || true
+}
+
+remove_nic_from_main_routing_table() {
+  local nic="$1"
+  echo "Removing NIC ${nic} from main routing table"
+  if nic_rules_main_table="$(ip route show table main | grep "dev ${nic}")"; then
+    while read -r -a nic_route; do
+      sudo ip route del "${nic_route[@]}" table main
+    done <<< "${nic_rules_main_table}"
+  fi
+}
+
+main() {
+  add_nic_routing_table "${NIC1}"
+  add_nic_routing_rules "${NIC1}" '192.168.0'
+  # NOTE: NIC1 rules are not removed from the main table so that there will
+  # always be a default gateway defined for the main table.
+  add_nic_routing_table "${NIC2}"
+  add_nic_routing_rules "${NIC2}" '192.168.14'
+  remove_nic_from_main_routing_table "${NIC2}"
+}
+
+main "$@"

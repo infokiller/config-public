@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
+mapfile -t selected < <(ps aux --sort -rss |
+  fzf --header-lines=1 --multi \
+    --prompt="Kill > " --no-sort --toggle-sort=ctrl-r \
+    --history="${HIST_DIR}/kill_search_history" \
+    --history-size=100000 |
+  awk '{print $2}')
+status=$?
+# NOTE: fzf returns 130 if the selection was canceled.
+if [[ ${status} -ne 0 ]]; then
+  exit "${status}"
+fi
+kill "${selected[@]}"

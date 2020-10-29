@@ -1,0 +1,67 @@
+{
+    "shortcuts": [
+        {
+            "command": "completer:invoke-notebook",
+            "keys": [
+                "Ctrl Space"
+            ],
+            "selector": ".jp-Notebook.jp-mod-editMode .jp-mod-completer-enabled"
+        },
+        {
+            "command": "completer:invoke-console",
+            "keys": [
+                "Ctrl Space"
+            ],
+            "selector": ".jp-CodeConsole-promptCell .jp-mod-completer-enabled"
+        },
+        {
+            "command": "completer:invoke-file",
+            "keys": [
+                "Ctrl Space"
+            ],
+            "selector": ".jp-FileEditor .jp-mod-completer-enabled"
+        },
+        {
+            "command": "console:run-forced",
+            "keys": [
+                "Ctrl Enter"
+            ],
+            "selector": ".jp-CodeConsole[data-jp-interaction-mode='notebook'] .jp-CodeConsole-promptCell"
+        },
+        {
+            "command": "application:toggle-left-area",
+            "keys": [
+                "Ctrl Shift P"
+            ],
+            "selector": ".p-CommandPalette-input"
+        },
+        {
+            "command": "apputils:activate-command-palette",
+            "keys": [
+                "Ctrl Shift P"
+            ],
+            "selector": "body"
+        },
+        {
+            "command": "tabsmenu:activate-previously-used-tab",
+            "keys": [
+                "Ctrl Shift ;"
+            ],
+            "selector": "body"
+        },
+        {
+            "command": "notebook:insert-cell-above",
+            "keys": [
+                "Shift O"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:insert-cell-below",
+            "keys": [
+                "O"
+            ],
+            "selector": ".jp-Notebook:focus"
+        }
+     ]
+}

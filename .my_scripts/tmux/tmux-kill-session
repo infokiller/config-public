@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_confirm() {
+  # call with a prompt string or use a default
+  IFS= read -r -p "${1:-Are you sure? [y/yes/n/no]} " response
+  while true; do
+    case "${response}" in
+      y | yes)
+        return 0
+        ;;
+      n | no)
+        return 1
+        ;;
+      *)
+        IFS= read -r -p 'Invalid response, please type yes or no: ' response
+        ;;
+    esac
+  done
+}
+
+main() {
+  local sessions=()
+  mapfile -t sessions < <(tmux-select-session --multi "$@")
+  # mapfile doesn't return an error, so we check if the array is empty.
+  if ((${#sessions[@]} == 0)); then
+    return 130
+  fi
+  _confirm "Kill sessions ${sessions[*]}?" || return $?
+  while IFS='' read -r session; do
+    tmux kill-session -t "${session}"
+  done < <(printf '%s\n' "${sessions[@]}")
+}
+
+main "$@"

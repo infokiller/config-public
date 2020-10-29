@@ -1,0 +1,24 @@
+# Parameters usage explanation:
+#
+# - apparmor and security: enable AppArmor support.
+#
+# - consoleblank and powersave: needed so that the monitor will enter power
+#   saving when using physlock. See also:
+#   https://github.com/muennich/physlock/issues/9
+#
+# - audit_backlog_limit: needed to avoid kmesg errors of the type "audit:
+#   kauditd hold queue overflow". See also:
+#   https://www.redhat.com/archives/linux-audit/2017-September/msg00081.html
+#
+# - intel_idle.max_cstate and i915.enable_dc: attempting to mitigate freezes
+#   with Intel integrated GPUs in kernels version 5.3 and 5.4. See:
+#   - https://bbs.archlinux.org/viewtopic.php?id=250765
+#   - https://gitlab.freedesktop.org/drm/intel/issues/673#note_389910
+#   NOTE: As of kernel 5.5 the freezes should be fixed, but I'm keeping these
+#   flags for the linux kernel (not linux-hardened) in case they are still
+#   needed.
+
+"linux-hardened"  "rw initrd=/intel-ucode.img initrd=/initramfs-linux-hardened.img apparmor=1 security=apparmor audit_backlog_limit=8192 root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300"
+"linux"  "rw initrd=/intel-ucode.img initrd=/initramfs-linux.img root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
+
+# vim: set ft=conf :

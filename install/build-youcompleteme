@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+#
+# Script for installing youcompleteme. Needed because different arguments are
+# used for the youcompleteme command depending on the Linux distro.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly YCM_DIR="${REPO_ROOT}/submodules/vim/YouCompleteMe"
+
+install_with_clangd() {
+  echo 'Installing YCM with clangd'
+  # This is needed to fix an issue with seemingly old .so files which cause ycm
+  # to check if they can be loaded, which will fail.
+  find "${YCM_DIR}/third_party/ycmd/third_party/clang/lib" \
+    \( -name '*.so' -o -name '*.so.*' \) -exec rm {} \;
+  python3 ./install.py --clangd-completer "$@"
+}
+
+install_with_libclang() {
+  echo 'Installing YCM with libclang'
+  extra_args=()
+  # case "${DISTRO}" in
+  #   arch)
+  #     extra_args=('--system-libclang')
+  #     ;;
+  # esac
+  python3 ./install.py --clang-completer "${extra_args[@]}" "$@"
+  # https://github.com/ycm-core/YouCompleteMe/issues/3584
+  patchelf --set-rpath "${YCM_DIR}/third_party/ycmd/third_party/clang/lib" "${YCM_DIR}/third_party/ycmd/ycm_core.so"
+}
+
+main() {
+  # Detect distro- see https://unix.stackexchange.com/a/6348
+  source /etc/os-release
+  DISTRO="${ID}"
+  printf 'Running on Linux distribution: %s\n' "${DISTRO}"
+
+  if [[ "$(realpath "$(pwd)")" != "${YCM_DIR}" ]]; then
+    printf 'Not in YCM directory, switching to: %s\n' "${YCM_DIR}"
+    cd "${YCM_DIR}" || exit 1
+  fi
+
+  # NOTE: As of 2020-02-10, I switched to using clangd instead of libclang,
+  # since one of the YCM developers said it's now stable (although the docs say
+  # it's experimental). See:
+  # https://github.com/ycm-core/YouCompleteMe/issues/3584#issuecomment-584142715
+  install_with_clangd --go-completer --ts-completer "$@"
+}
+
+main "$@"

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Test system randomness using rngtest.
+# Reports failures to the system log and all available kdeconnect devices.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+LOGGING_NAME="$(basename "$0")"
+
+main() {
+  local num_tests=100
+  local num_failures failure_fraction over_threshold
+  num_failures="$(rngtest -c "${num_tests}" < /dev/random 2>&1 | \grep --text -o 'failures:.*' | awk '{print $2}')"
+  failure_fraction="$(bc <<< "scale=4; ${num_failures}/${num_tests}")"
+  # Allow up to 1% failures.
+  over_threshold="$(bc <<< "${failure_fraction} > 0.01")"
+  echo "Num tests: ${num_tests}, num failures: ${num_failures}, failures fraction: ${failure_fraction}"
+  if ((over_threshold)); then
+    local msg
+    msg="$(printf 'Randomness test failed %s/%s times' "${num_failures}" "${num_tests}")"
+    logger --stderr -t "${LOGGING_NAME}" -p err "${msg}"
+    for device_id in $(kdeconnect-cli --list-available --id-only); do
+      kdeconnect-cli --device "${device_id}" --ping --ping-msg "${msg}"
+    done
+  fi
+}
+
+main "$@"

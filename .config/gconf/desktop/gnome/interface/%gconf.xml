@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="menubar_accel" mtime="1363861568" type="string">
+		<stringvalue>&lt;Shift&gt;&lt;Alt&gt;F10</stringvalue>
+	</entry>
+	<entry name="accessibility" mtime="1415305019" type="bool" value="false"/>
+</gconf>

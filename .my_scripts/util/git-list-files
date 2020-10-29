@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Lists both committed files and untracked files in a git repo and its
+# submodules. Ideally, we could use something like:
+#
+#     git ls-files --recurse-submodules --cached --others --exclude-standard
+#
+# However, `git ls-files` only supports `--recurse-submodules` with `--cached`
+# (which shows repo files), not with `--others`.
+#
+# NOTE: When using --recurse-submodules this is very slow with many submodules,
+# however this is not really needed for my current usage, since the output does
+# contain the submodules directories (just not the files themselves), so when
+# passing the output to ripgrep it will still search in submodules.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_LIST_UNTRACKED_CMD_TMPL='
+git ls-files --others --exclude-standard |
+  _make_fullpath |
+  xargs -d "\n" --no-run-if-empty realpath --relative-to="%s"'
+
+_SUBMODULES_RELATIVE_PATH_CMD='
+git submodule foreach --quiet --recursive pwd |
+  xargs -d "\n" --no-run-if-empty realpath --relative-to="%s"'
+
+_make_fullpath() {
+  python -c $'import os, sys\nfor line in sys.stdin: print(os.path.join(os.getcwd(), line[-1]))'
+}
+
+main() {
+  local recurse_submodules=0
+  for arg in "$@"; do
+    if [[ "${arg}" == --recurse-submodules ]]; then
+      recurse_submodules=1
+    fi
+  done
+  local ls_repo_files_args=('--cached')
+  if ((recurse_submodules)); then
+    ls_repo_files_args+=('--recurse-submodules')
+  fi
+  # List all files committed to the repo (and its submodules if requested).
+  git ls-files "${ls_repo_files_args[@]}"
+  # List untracked files in the repo.
+  git ls-files --others --exclude-standard
+  if ((!recurse_submodules)); then
+    return
+  fi
+  local pwd_tmpfile
+  pwd_tmpfile="$(mktemp -t 'gls_files.XXXXX')"
+  # NOTE: The path variable in trap must be expanded here because it may not be
+  # defined when the trap is ran.
+  # shellcheck disable=SC2064
+  trap "rm -- '${pwd_tmpfile}' &> /dev/null || true" EXIT ERR INT HUP TERM
+  printf '%s\n' "$(pwd)" > "${pwd_tmpfile}"
+  # List untracked files in submodules below current directory.
+  local submodules_relative_path_cmd
+  # shellcheck disable=SC2059
+  submodules_relative_path_cmd="$(printf "${_SUBMODULES_RELATIVE_PATH_CMD}" \
+    "$(cat "${pwd_tmpfile}")")"
+  local list_untracked_cmd
+  # shellcheck disable=SC2059
+  list_untracked_cmd="$(printf "${_LIST_UNTRACKED_CMD_TMPL}" "$(cat "${pwd_tmpfile}")")"
+  rm -- "${pwd_tmpfile}"
+
+  while IFS= read -r submodule; do
+    (cd "${submodule}" && eval "${list_untracked_cmd}")
+  done < <(git submodule foreach --quiet --recursive "${submodules_relative_path_cmd}" | grep -v '^\.\.')
+}
+
+main "$@"

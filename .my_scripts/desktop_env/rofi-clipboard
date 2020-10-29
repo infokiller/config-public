@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# From: https://stackoverflow.com/a/17841619/10142j8
+_join_by() {
+  local IFS="$1"
+  shift
+  printf '%s\n' "$*"
+}
+
+_print_escaped_clipboard() {
+  copyq eval -- '
+  var MAX_LENGTH = 200;
+  var ELLIPSIS = "…";
+  for (var i = 0; i < count(); ++i) {
+    var value = "";
+    var mimeType = str(read("?", i)).split("\n")[0];
+    if (mimeType === "text/plain") {
+      value = str(read(i)).replace(/\n/g, "↵");
+    } else {
+      value = "<" + mimeType + ">";
+    }
+    if (value.length > MAX_LENGTH) {
+      value = value.substring(0, MAX_LENGTH / 2) +
+              ELLIPSIS +
+              value.substring(value.length - MAX_LENGTH / 2 + ELLIPSIS.length)
+    }
+    print(value);
+    print("\n");
+  }
+  '
+  # Old code- calls copyq externally and is therefore slow.
+  # count="$(copyq count)"
+  # for (( i = 0; i < "${count}"; i++ )); do
+  #   copyq read "${i}" | replace-all-lines '\n' '↵'
+  #   # Write a newline to communicate that this is a single item.
+  #   echo
+  # done
+}
+
+_print_selected_clipboard_items() {
+  local jsIndicesArray
+  jsIndicesArray="$(_join_by ', ' "$@")"
+  jsIndicesArray="[${jsIndicesArray}]"
+  local copyq_script="
+    var jsIndicesArray = ${jsIndicesArray};
+    for (var i = 0; i < jsIndicesArray.length; i++) {
+      var j = jsIndicesArray[i];
+      var mimeType = str(read('?', j)).split('\\n')[0];
+      if (mimeType === 'text/plain') {
+        print(str(read(j)));
+      } else {
+        print('<' + mimeType + '>')
+      }
+      print('\\n');
+    }
+  "
+  copyq eval -- "${copyq_script}"
+}
+
+main() {
+  mapfile -t selected < <(_print_escaped_clipboard |
+    rofi -dmenu -format 'i' -i -p 'Clipboard' \
+      -multi-select -kb-row-tab '' -kb-accept-alt 'Tab')
+  if ((${#selected[@]} == 0)); then
+    exit 1
+  elif ((${#selected[@]} == 1)); then
+    copyq select "${selected[0]}"
+  else
+    copyq add "$(_print_selected_clipboard_items "${selected[@]}")"
+    copyq select 0
+  fi
+}
+
+main "$@"

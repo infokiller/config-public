@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+#
+# Tests terminal capabilities such as truecolor, styled underlines, bold/italic,
+# strikethrough, etc.
+
+# https://gist.github.com/XVilka/8346728
+_test_truecolor() {
+  awk 'BEGIN{
+    s="/\\/\\/\\/\\/\\"; s=s s s s s s s s;
+    for (colnum = 0; colnum<77; colnum++) {
+        r = 255-(colnum*255/76);
+        g = (colnum*510/76);
+        b = (colnum*255/76);
+        if (g>255) g = 510-g;
+        printf "\033[48;2;%d;%d;%dm", r,g,b;
+        printf "\033[38;2;%d;%d;%dm", 255-r,255-g,255-b;
+        printf "%s\033[0m", substr(s,colnum+1,1);
+    }
+    printf "\n";
+  }'
+}
+
+_test_basic_styles() {
+  echo -e '\e[1mbold\e[0m'
+  echo -e '\e[3mitalic\e[0m'
+  echo -e '\e[4munderline\e[0m'
+  echo -e '\e[9mstrikethrough\e[0m'
+  echo -e '\e[31mred\e[39m'
+  echo -e '\e[91mbright red\e[39m'
+  echo -e '\e[33myellow\e[39m'
+  echo -e '\e[46mcyan background\e[49m'
+  echo -e '\e[7mreverse\e[27m'
+}
+
+# https://askubuntu.com/a/985386/368043
+_test_extended_styles() {
+  echo -e '\e[2mdim\e[22m'
+  echo -e '\e[21mdouble underline\e[24m'
+  echo -e '\e[4:3mcurly underline\e[4:0m'
+  echo -e '\e[5mblink\e[25m'
+  echo -e '\e[8minvisible\e[28m <- invisible (but copy-pasteable)'
+  echo -e '\e[53moverline\e[55m'
+
+  echo -e '\e[38:5:42m256-color, de jure standard (ITU-T T.416)\e[39m'
+  echo -e '\e[38;5;42m256-color, de facto standard (commonly used)\e[39m'
+  echo -e '\e[38:2::240:143:104mtruecolor, de jure standard (ITU-T T.416)\e[39m'
+  echo -e '\e[38;2;240;143;104mtruecolor, de facto standard (commonly used)\e[39m'
+
+  echo -e '\e[48:5:42m256-color background, de jure standard (ITU-T T.416)\e[49m'
+  echo -e '\e[48;5;42m256-color background, de facto standard (commonly used)\e[49m'
+  echo -e '\e[48:2::240:143:104mtruecolor background, de jure standard (ITU-T T.416)\e[49m'
+  echo -e '\e[48;2;240;143;104mtruecolor background, de facto standard (commonly used)\e[49m'
+
+  echo -e '\e[21m\e[58;5;42m256-color double underline\e[59m\e[24m'
+  echo -e '\e[4:2m\e[58:2::240:143:104mtruecolor double underline\e[59m\e[4:0m'
+}
+
+main() {
+  local sep='---------------------------'
+  printf '%s\n' "${sep}"
+  echo 'Testing basic styles'
+  printf '%s\n' "${sep}"
+  _test_basic_styles
+  printf '\n%s\n' "${sep}"
+  echo 'Testing extended styles'
+  printf '%s\n' "${sep}"
+  _test_extended_styles
+  printf '\n%s\n' "${sep}"
+  echo 'Testing truecolor'
+  printf '%s\n' "${sep}"
+  _test_truecolor
+}
+
+main "$@"

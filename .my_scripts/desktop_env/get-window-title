@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+# TODO: Rewrite this script in Python or Go, it's slow and wastes too much CPU,
+# so it's disabled for now.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+CLEAN_WINDOW_TITLE="${REPO_ROOT}/.my_scripts/desktop_env/clean-window-title.py"
+
+get_short_title() {
+  local title
+  title="$(xdotool getwindowfocus getwindowname)"
+  if tmux_pane_title="$(awk -v FS=$' \ue0b1 ' '{print $4}' <<< "${title}")" &&
+    [[ -n "${tmux_pane_title}" ]]; then
+    printf '%s\n' "${tmux_pane_title}"
+  else
+    printf '%s\n' "${title}"
+  fi
+}
+
+get_window_instance() {
+  local windowid
+  windowid="$(xprop -root 32x '\t$0' _NET_ACTIVE_WINDOW | cut -f 2)"
+  xprop -id "${windowid}" WM_CLASS | sed -r 's/^.*"([^"]+)".*$/\1/'
+}
+
+RTL_UTF8_REGEXES=(
+  # Arabic
+  '0xd[89ab] 0x[89ab][0-9a-f]'
+  # Hebrew punctuation: etnahta to point rafe
+  '0xd6 0x(9[1-9a-f]|a[0-9a-f]|b[0-9a-f])'
+  # Hebrew punctuation: paseq to qamats qatan
+  '0xd7 0x8[0-7]'
+  # Hebrew letters: Alef to Tav
+  '0xd7 0x(9[0-9a-f]|a[0-9a])'
+  # Hebrew punctuation: yiddish double vav to gershayim
+  '0xd7 0xb[0-4]'
+)
+
+# Remove rtl chars which are not displayed well in Polybar. This is done by
+# converting them to utf8 bytes and then filtering them out.
+# Reference for utf8 encodings:
+# https://www.fileformat.info/info/charset/UTF-8/list.htm?start=1024
+filter_out_rtl() {
+  # Possibly useful as well: iconv -c -f utf-8 -t ascii
+  local hexstr sed_exp
+  hexstr="$(cat - | hexdump -ve '1/1 "0x%.2x "')"
+  for regex in "${RTL_UTF8_REGEXES[@]}"; do
+    sed_exp="$(printf 's/%s//g' "${regex}")"
+    hexstr="$(sed -r "${sed_exp}" <<< "${hexstr}")"
+  done
+  xxd -revert -plain <<< "${hexstr}"
+}
+
+contains_rtl() {
+  local hexstr
+  hexstr="$(printf '%s\n' "$@" | hexdump -ve '1/1 "0x%.2x "')"
+  for regex in "${RTL_UTF8_REGEXES[@]}"; do
+    if grep -E -q "${regex}" <<< "${hexstr}"; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+get_punctuation_re() {
+  local punctuation_chars=(
+    ' '
+    '\t'
+    '\.'
+    ','
+    ':'
+    ';'
+  )
+  # NOTE: seq understands hex codes, but still outputs in decimal, so we convert
+  # to hex inside the loop.
+  for i in $(seq 0x2000 0x20ff); do
+    local hexcode
+    hexcode="$(printf '%x' "${i}")"
+    # shellcheck disable=SC2059
+    punctuation_chars+=("$(printf '\u'"${hexcode}")")
+  done
+  # Add dash at the end so that it won't be interpreted to exclude another char
+  # in a regex.
+  punctuation_chars+=(-)
+  punctuation_chars_str="$(printf '%s' "${punctuation_chars[@]}")"
+  printf '[%s]+' "${punctuation_chars_str}"
+}
+
+remove_leading_punctuation() {
+  cat - | sed -r "$(printf 's/^%s//' "$(get_punctuation_re)")"
+}
+
+remove_trailing_punctuation() {
+  cat - | sed -r "$(printf 's/%s$//' "$(get_punctuation_re)")"
+}
+
+compress_whitespace() {
+  cat - | sed -r 's/\s+/ /g'
+}
+
+_print_usage_and_die() {
+  printf >&2 'Usage: %s [--[no-]filter-out-rtl]' "$0"
+  exit 1
+}
+
+main() {
+  local should_filter_out_rtl=1
+  while (($# > 0)); do
+    arg="$1"
+    case ${arg} in
+      --filter-out-rtl)
+        should_filter_out_rtl=1
+        shift 1
+        ;;
+      --no-filter-out-rtl)
+        should_filter_out_rtl=0
+        shift 1
+        ;;
+      *)
+        _print_usage_and_die
+        ;;
+    esac
+  done
+
+  local title
+  title="$(get_short_title)"
+  if ((should_filter_out_rtl == 1)) && contains_rtl "${title}"; then
+    # title="$(printf '%s\n' "${title}" | filter_out_rtl)"
+    if ! title="$(get_window_instance)"; then
+      printf '\n'
+      return
+    fi
+  fi
+  "${CLEAN_WINDOW_TITLE}" <<< "${title}"
+  # printf '%s\n' "${title}" |
+  #   remove_leading_punctuation |
+  #   remove_trailing_punctuation |
+  #   compress_whitespace
+}
+
+main "$@"

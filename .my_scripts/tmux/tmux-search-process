@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
+# From: https://stackoverflow.com/a/17841619/10142j8
+_join_by() {
+  local IFS="$1"
+  shift
+  printf '%s\n' "$*"
+}
+
+_select_process_tty() {
+  # NOTE(infokiller): can also get pid  from `tmux list-panes` by using
+  # `pane_pid`.
+  local tmux_ttys
+  mapfile -t tmux_ttys < <(tmux list-panes -a -F '#{pane_tty}')
+
+  # TODO: Search only processes with a tty controlled by tmux.
+  # shellcheck disable=SC2009
+  process_selected="$(ps -o 'user,tname,pid,ppid,start_time,%cpu,rss,cmd' \
+    --tty "$(_join_by ',' "${tmux_ttys[@]}")" |
+    grep --text -E -v '(/bin/zsh|bin/gitstatusd.*)$' |
+    fzf --header-lines=1 --prompt="Process > " \
+      --history="${HIST_DIR}/tmux_search_process_history" \
+      --history-size=100000)"
+  awk '{print $2}' <<< "${process_selected}"
+}
+
+_select_pane_by_process() {
+  local pane_tty
+  pane_tty="$(_select_process_tty)"
+  # Delimiter that shouldn't appear in a session name, window index or pane index.
+  # TODO: Set this delimiter dynamically by checking the maximum number of colons
+  # in the output of `tmux list-panes`.
+  local delim=$'\t'
+  while IFS='' read -r line; do
+    if [[ "${line}" == "/dev/${pane_tty}${delim}"* ]]; then
+      local fields
+      mapfile -d "${delim}" -t fields < <(printf '%s' "${line}")
+      printf '%s' "${fields[1]}"
+      return 0
+    fi
+  done < <(tmux list-panes -a -F "#{pane_tty}${delim}#{pane_id}")
+  return 1
+}
+
+main() {
+  local pane
+  pane="$(_select_pane_by_process)"
+  tmux-switch-pane "${pane}"
+}
+
+main "$@"

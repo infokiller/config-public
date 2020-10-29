@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# Workaround for https://github.com/ranger/ranger/issues/1386
+# Also fixes RTL when the terminal already supports it.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+WRAPPER_PATH="$(readlink -f "$0")"
+
+# Ranger changes the tmux window title (even though I have `set
+# update_tmux_title false` in my config), so we save and restore it after
+# ranger is done.
+declare -g tmux_window_id
+declare -g tmux_window_name
+
+_is_tmux() {
+  [[ -n ${TMUX-} ]]
+}
+
+_get_real_terminal() {
+  if _is_tmux; then
+    tmux display-message -p '#{client_termname}'
+  else
+    printf '%s' "${TERM}"
+  fi
+}
+
+_get_terminal_options() {
+  local terminal
+  terminal="$(_get_real_terminal)"
+  # The linux terminal (virtual console) can't render non-default themes.
+  if [[ "${terminal}" == linux ]]; then
+    echo '--cmd=set colorscheme default'
+  fi
+  # bidi_support should only be enabled in terminals that don't support RTL
+  # natively, otherwise the text is actually rendered backwards. See also
+  # comments in my rc.conf.
+  # Note that mlterm sets $TERM to xterm, and we must detect it using $MLTERM.
+  if [[ "${terminal}" == xterm-kitty || -n "${MLTERM-}" ]]; then
+    echo '--cmd=set bidi_support false'
+  else
+    echo '--cmd=set bidi_support true'
+  fi
+}
+
+_maybe_save_tmux_window_name() {
+  _is_tmux || return 0
+  local tmux_output
+  # Call tmux to print the window_id and the window_name separated by a newline,
+  # and grab the first two lines in the output (using mapfile's `-n 2` arg).
+  mapfile -t -n 2 tmux_output < <(tmux list-panes -F \
+    "$(printf '#{window_id}\n#{window_name}')" -t "${TMUX_PANE-}")
+  if ((${#tmux_output[@]} != 2)); then
+    return 1
+  fi
+  tmux_window_id="${tmux_output[0]}"
+  tmux_window_name="${tmux_output[1]}"
+}
+
+_maybe_restore_tmux_window_name() {
+  [[ -n "${tmux_window_id-}" ]] || return 0
+  tmux rename-window -t "${tmux_window_id}" "${tmux_window_name}"
+}
+
+main() {
+  local cmd
+  mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  local args
+  mapfile -t args < <(_get_terminal_options)
+  while (($# > 0)); do
+    case "$1" in
+      -*)
+        args+=("$1")
+        shift 1
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
+  if [[ "$#" -gt 0 && -f "$1" ]]; then
+    args+=('--selectfile')
+  fi
+  _maybe_save_tmux_window_name
+  trap '_maybe_restore_tmux_window_name' EXIT SIGABRT SIGHUP SIGINT SIGTERM \
+    SIGPIPE SIGQUIT
+  "${cmd[@]}" "${args[@]}" "$@"
+}
+
+main "$@"

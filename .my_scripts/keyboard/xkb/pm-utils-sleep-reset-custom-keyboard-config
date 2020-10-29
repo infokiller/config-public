@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SET_X11_SETTINGS="${REPO_ROOT}/.my_scripts/desktop_env/set-x11-settings"
+
+printf 'Starting script %s\n' "$0"
+
+if ! /opt/ikl/is-x11-ready; then
+  echo 'X11 not ready yet, exiting'
+  exit
+fi
+
+echo 'X11 looks ready'
+
+export DISPLAY=:0
+
+printf 'Got args: %s\n' "$*"
+
+case $1 in
+  hibernate)
+    echo 'Suspending to disk.'
+    ;;
+  suspend)
+    echo 'Suspending to RAM.'
+    ;;
+  thaw | resume)
+    printf 'Suspend is over, we are in %s phase.\n' "$1"
+    # Set Display
+    # DISPLAY=:0.0 ; export DISPLAY
+    sleep 2 && "${SET_X11_SETTINGS}"
+    /usr/bin/notify-send -u normal "Finished with sleep hook" -t 5000
+    ;;
+  *)
+    echo 'Somebody is calling me totally wrong.'
+    /usr/bin/notify-send -u critical "Invalid call to pm sleep hook script $0" -t 60000
+    ;;
+esac

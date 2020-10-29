@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
+readonly SYSTEM_FILES_DIR="${REPO_ROOT}/root"
+# shellcheck source=../.my_scripts/lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+# shellcheck source=../.my_scripts/lib/platform_detection.sh
+source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+
+# Building Arch packages requires packages from base-devel. However, we can't
+# install it directly on WSL because its base-devel contains the fakeroot
+# package, but WSL uses the alternative package fakeroot-tcp which conflicts
+# with it. See: https://github.com/yuk7/ArchWSL/wiki/Known-issues#fakeroot
+_install_arch_build_deps() {
+  local package
+  local packages_to_install=()
+  while read -r package; do
+    if [[ "${package}" != "fakeroot" ]] || ! is_wsl; then
+      packages_to_install+=("${package}")
+    fi
+  done < <(pacman -Sgq base-devel)
+  sudo pacman --sync --needed --noconfirm "${packages_to_install[@]}"
+}
+
+_prepare_arch_package_repos() {
+  # Install pacman config file.
+  sudo cp -- "${SYSTEM_FILES_DIR}/etc/pacman.conf" /etc/pacman.conf
+  # Initialize the pacman keyring if needed. If the keyring already exists,
+  # this does nothing.
+  sudo pacman-key --init
+  sudo pacman-key --populate archlinux
+  "${REPO_ROOT}/.my_scripts/sysadmin/pacman-refresh-mirrors"
+  _install_arch_build_deps
+  # Install an AUR helper if needed.
+  # NOTE: aconfmgr should install yay automatically, so this part can probably
+  # be removed.
+  if command_exists yay; then
+    print_bold 'yay already installed, skipping installation.'
+    return
+  fi
+  print_bold 'yay not found, installing it.'
+  cd "${INSTALLATION_TMP_DIR}"
+  [[ -d yay ]] && rm -rf yay
+  git clone 'https://aur.archlinux.org/yay.git'
+  cd yay
+  makepkg -fcs
+  sudo pacman -U --noconfirm --needed yay*.pkg.tar.xz
+}
+
+_symlink_local_arch_files() {
+  symlink_binary "${SUBMODULES_DIR}/optional/pacnanny/pacnanny"
+  symlink_binary "${REPO_ROOT}/.my_scripts/sysadmin/aconfmgr"
+  symlink_binary "${REPO_ROOT}/.my_scripts/sysadmin/sensible-pacman"
+  symlink_binary "${REPO_ROOT}/.my_scripts/sysadmin/pacman-original-file"
+  symlink_man_page "${SUBMODULES_DIR}/optional/aconfmgr/aconfmgr.1"
+}
+
+main() {
+  # shellcheck source=./setup_installation_env
+  source "${REPO_ROOT}/install/setup_installation_env"
+  do_basic_setup
+
+  print_bold 'Creating XDG directories'
+  "${REPO_ROOT}/.my_scripts/desktop_env/create-xdg-dirs"
+
+  print_bold "Running on Linux distribution: ${DISTRO}"
+  case "${DISTRO}" in
+    *buntu | debian)
+      "${REPO_ROOT}/install/debian/configure-system"
+      ;;
+    arch)
+      print_bold 'Symlinking arch specific files'
+      _symlink_local_arch_files
+      print_bold 'Preparing arch repos, mirrors, AUR, and packages'
+      _prepare_arch_package_repos
+      print_bold 'Running aconfmgr to configure whole system'
+      # NOTE: I used to add the `--yes` argument to run this script with no
+      # prompts, but it causes issues when there's multiple packages that
+      # provide the same "virtual package".
+      aconfmgr --config "${REPO_ROOT}/install/aconfmgr/" --aur-helper yay apply
+      ;;
+    *)
+      print_bold 'Unknown distro, exiting'
+      exit 1
+      ;;
+  esac
+
+  print_bold 'Installing cross distro local packages'
+  "${REPO_ROOT}/install/install-crossdistro-local-packages"
+}
+
+main "$@"

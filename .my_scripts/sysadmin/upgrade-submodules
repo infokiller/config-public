@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_log_info() {
+  printf 'upgrade-submodules: %s\n' "$*"
+}
+
+_log_error() {
+  print_error "$(printf 'upgrade-submodules: %s' "$*")"
+}
+
+# Running git-sensible-update in parallel causes many pinentry requests for the
+# SSH key in repos I own (including forks), so it's easier to do the upgrade
+# separately for owned and unowned repos.
+_upgrade_submodules() {
+  # Quickest way I could think of to check if the current repo (public or
+  # private) contains submodules. If it does, the command will run at least
+  # once, which will make it exit with an error.
+  if git submodule foreach -q exit 1 &> /dev/null; then
+    return
+  fi
+  local s=0
+  git submodule foreach -q bash -c \
+    '{ git remote -v | grep -Eqi infokiller; } || pwd' |
+    parallel 'cd -- "{}"; git-sensible-update' || s=1
+  git submodule foreach -q bash -c \
+    'if git remote -v | grep -Eqi infokiller; then git-sensible-update; fi' ||
+    s=1
+  return "${s}"
+}
+
+main() {
+  cd -- "${HOME}"
+  local s=0
+  # Upgrade submodules in public repo
+  _upgrade_submodules || s=1
+  # Upgrade submodules in private repo
+  {
+    sed -i 's/config-public/config-private/' "${HOME}/.git"
+    trap 'sed -i s/config-private/config-public/ "${HOME}/.git"' ERR EXIT INT HUP TERM
+    _upgrade_submodules || s=1
+  }
+  return "${s}"
+}
+
+main

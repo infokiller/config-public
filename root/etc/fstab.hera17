@@ -1,0 +1,25 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/mapper/arch-root
+UUID=89f8ca20-7ff3-4c5d-b9d6-ae0e9b391656	/         	ext4      	rw,relatime,data=ordered	0 1
+
+# /dev/nvme0n1p5
+UUID=e56d6b9f-4693-4311-ab6f-beaca31b7609	/boot     	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid	0 2
+
+# /dev/nvme0n1p1 LABEL=SYSTEM
+UUID=E81E-4E76      	/boot/efi 	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
+
+# /dev/mapper/arch-home
+UUID=a355a6d5-8bcb-4b87-ad7c-692f2df69a90	/home     	ext4      	rw,relatime,data=ordered,nodev,nosuid	0 2
+
+# /dev/mapper/arch-swap LABEL=swap
+UUID=e8e3b085-8310-4428-9f28-0d23dac299ec	none      	swap      	defaults	0 0
+
+# /dev/nvme0n1p7 LABEL=Data
+# /dev/mapper/veracrypt1	/mnt/ssd      	ntfs-3g      	rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show,noauto,nofail,x-systemd.device-timeout=5	0 0
+# /dev/mapper/veracrypt2	/mnt/hdd      	ntfs-3g      	rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show,noauto,nofail,x-systemd.device-timeout=5	0 0
+UUID=3c023daa-d28e-44cd-9b67-9496636dd4a2	/mnt/hdd     	ext4      	rw,relatime,data=ordered,nodev,nosuid	0 2
+
+# vim: set ft=fstab :

@@ -1,0 +1,73 @@
+let g:ATHAME_MODE = 1
+source ~/.config/vim/vimrc
+
+" Don't delete from the previous history entry when hitting backspace in insert
+" mode at the start of a line.
+set backspace-=eol
+" Required for deleting shell completions.
+set backspace+=start
+
+" Don't try to wrap text
+set textwidth=0
+set noautoindent
+set nosmartindent
+
+iunmap <C-v>
+
+" These make arrows more shell like.
+if v:version>=800 || has('patch928')
+  " These maps can segfault in earlier vim versions.
+  inoremap <Up> <Up><ESC>A
+  inoremap <Down> <Down><ESC>A
+endif
+
+" Uncomment these maps to have the up and down arrow
+" only match lines that share text before cursor
+" (Similar to how arrows work for vim ex expressions)
+inoremap <Up> <C-\><C-O>:silent call HistorySearchBackward()<CR>
+inoremap <Down> <C-\><C-O>:silent call HistorySearchForward()<CR>
+nnoremap <Up> :silent call HistorySearchBackward()<CR>
+nnoremap <Down> :silent call HistorySearchForward()<CR>
+
+"Similar to bash's history-search-backward.
+function! HistorySearchBackward()
+  let curcol = col('.')
+  if curcol > 1
+    let searchText = getline('.')[0:curcol - 2]
+    for line in range(line('.') - 1, 1, -1)
+      if getline(line)[0:curcol - 2] == searchText
+        call cursor(line, curcol)
+        break
+      endif
+    endfor
+  elseif line('.') > 1
+    call cursor(line('.') - 1, 1)
+  endif
+endfunction
+
+"Similar to bash's history-search-forward.
+function! HistorySearchForward()
+  let curcol = col('.')
+  if curcol > 1
+    let searchText = getline('.')[0:curcol - 2]
+    for line in range(line('.') + 1, line('$'))
+      if getline(line)[0:curcol - 2] == searchText
+        call cursor(line, curcol)
+        break
+      endif
+    endfor
+  else
+    call cursor(line('.') + 1, 1)
+  endif
+endfunction
+
+
+" This was copied from the default config.
+" NOTE: As of 2018-12-17, it's not required from my testing- the `startinsert`
+" command is sufficient
+" Start each line in insert mode. Most shell vi-modes do this:
+" autocmd User Vimbed_StartLine call feedkeys("\<C-\>\<C-N>i","n")
+
+startinsert
+
+" vim: set ft=vim :

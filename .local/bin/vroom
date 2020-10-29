@@ -1,0 +1,7 @@
+#!/usr/bin/python
+
+import sys
+
+import vroom.__main__
+
+sys.exit(vroom.__main__.main())

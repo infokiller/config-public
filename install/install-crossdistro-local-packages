@@ -1,0 +1,497 @@
+#!/usr/bin/env bash
+#
+# Installs packages common to all Linux distros I use.
+#
+# TODO: Switch to Bazel and/or Nix/GUIX, or if I decide against it, use a task
+# runner. Features missing from this script:
+# - Reproducible builds
+# - Dependencies between tasks
+#
+# - Task runners (should have minimal deps):
+#   - https://github.com/pydoit/doit
+#   - http://www.pyinvoke.org
+#   - https://github.com/stylemistake/runner
+#   - Makefile
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+# shellcheck source=../.my_scripts/lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+# shellcheck source=../.my_scripts/lib/platform_detection.sh
+source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+# shellcheck source=./setup_installation_env
+source "${REPO_ROOT}/install/setup_installation_env"
+
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
+readonly XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+readonly XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+readonly _GOLANG_BIN_DIR="${HOME}/.local/pkg/go/bin"
+# TODO: Lock the versions of golang packages (and their transitive deps).
+readonly -A _GOLANG_PACKAGES=(
+  ['github.com/aykamko/tag']='tag'
+  ['github.com/edi9999/path-extractor/path-extractor']='path-extractor'
+  ['github.com/direnv/direnv']='direnv'
+  ['github.com/zricethezav/gitleaks/v4']='gitleaks'
+  ['mvdan.cc/sh/cmd/shfmt']='shfmt'
+  ['golang.org/x/lint/golint']='golint'
+  # ['github.com/errata-ai/vale']='vale'
+)
+# shellcheck disable=SC2034
+readonly _VSCODE_EXTENSIONS=(
+  ### General editing
+  # Edit using local neovim server for full neovim editing capabilities
+  'asvetliakov.vscode-neovim'
+  'rlivings39.fzf-quick-open'
+  'wayou.vscode-todo-highlight'
+  'IgorSbitnev.error-gutters'
+  'JoeBerria.statusbarerror'
+  'VisualStudioExptTeam.vscodeintellicode'
+  # TODO: Verify these extensions are useful and enable them.
+  # 'streetsidesoftware.code-spell-checker'
+  # 'kortina.run-in-terminal'
+  # 'ryuta46.multi-command'
+  ### Time tracking
+  'lindraupe.aw-watcher-vscode'
+  'WakaTime.vscode-wakatime'
+  ### Git and github
+  # https://github.com/chdsbd/vscode-githubinator
+  'chdsbd.githubinator'
+  'eamodio.gitlens'
+  ### Remote dev
+  'ms-vscode-remote.remote-ssh'
+  'ms-vscode-remote.remote-ssh-edit'
+  ### Golang
+  'golang.go'
+  ### Python
+  'ms-python.python'
+  'ms-python.vscode-pylance'
+  ### Shell
+  'mads-hartmann.bash-ide-vscode'
+  ### Markdown
+  'yzhang.markdown-all-in-one'
+  'goessner.mdmath'
+  # markdown-preview-enhanced looks powerful but it overlaps with the other
+  # markdown extensions and has many open issues.
+  # TODO: Figure out if I need markdown-preview-enhanced.
+  # 'shd101wyy.markdown-preview-enhanced'
+  'davidanson.vscode-markdownlint'
+  'tchayen.markdown-links'
+  'mushan.vscode-paste-image'
+  # Preview images on hover
+  'kisstkondoros.vscode-gutter-preview'
+  # TODO: Test if I need one of these table formatting markdown extensions since
+  # prettier and markdown-all-in-one already provide table formatting.
+  # 'fcrespo82.markdown-table-formatter'
+  # 'darkriszty.markdown-table-prettify'
+  # 'dendron.dendron'
+  # 'dendron.dendron-markdown-notes'
+  # 'dendron.dendron-markdown-preview-enhanced'
+  # 'dendron.dendron-paste-image'
+  ### Web
+  'dbaeumer.vscode-eslint'
+  'esbenp.prettier-vscode'
+  # No support for extensions.
+  # 'msjsdiag.debugger-for-chrome'
+  ### Themes
+  'github.github-vscode-theme'
+)
+readonly _NERD_FONTS_DIRECTORY="${XDG_DATA_HOME}/fonts/NerdFonts"
+readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
+  # 'syncthing.service'
+  'keybase.service'
+  'kbfs.service'
+)
+# shellcheck disable=SC2016
+readonly -A _TASK_TO_CMD=(
+  ['vim-plugins']='_install_vim_plugins'
+  ['doom-emacs']='_install_doom_emacs'
+  ['fzf']='_install_fzf'
+  ['histcat']='_install_histcat'
+  ['universal-ctags']='_install_universal_ctags'
+  ['stderred']='(
+    cd "${SUBMODULES_DIR}/terminal/stderred" && make
+  )'
+  ['device-services']='_configure_personal_device_services'
+  ['golang-packages']='_install_golang_packages'
+  ['python-packages-non-graphical']='
+    "${REPO_ROOT}/install/install-python-packages" --non-graphical
+  '
+  ['npm-packages']="${REPO_ROOT}/install/install-npm-packages"
+  # Graphical tasks
+  ['yank']='(
+    cd "${SUBMODULES_DIR}/terminal/yank" && make && symlink_binary yank
+  )'
+  ['polybar']='_install_polybar'
+  ['fonts']='_install_nerd_fonts'
+  ['firenvim']='_install_firenvim'
+  ['firefox-settings']='_install_firefox_settings'
+  ['activitywatch']='_install_activitywatch_from_release'
+  ['xkblayout-state']='(
+    cd "${SUBMODULES_DIR}/desktop/xkblayout-state"
+    make
+    symlink_binary xkblayout-state
+  )'
+  ['vscode-extensions']='_install_vscode_extensions'
+  ['python-packages-graphical']='
+    "${REPO_ROOT}/install/install-python-packages" --graphical
+  '
+)
+# Assoicative arrays don't maintain the order of the keys as specified, so we
+# must use a separate array to control the order.
+declare -g _ORDERED_TASKS=(
+  'fzf'
+  'histcat'
+  'vim-plugins'
+  'doom-emacs'
+  'universal-ctags'
+  'npm-packages'
+  'golang-packages'
+  'python-packages-non-graphical'
+  'device-services'
+  'stderred'
+)
+# shellcheck disable=SC2016
+readonly -a _ORDERED_GRAPHICAL_TASKS=(
+  'fonts'
+  'xkblayout-state'
+  'polybar'
+  'vscode-extensions'
+  'firenvim'
+  'firefox-settings'
+  'yank'
+  'activitywatch'
+  'python-packages-graphical'
+)
+if uses_local_graphics; then
+  _ORDERED_TASKS+=("${_ORDERED_GRAPHICAL_TASKS[@]}")
+fi
+
+_print_usage_and_die() {
+  print_error "$(printf 'Usage: %s [list | run [--all] [--parallel] task*]' \
+    "$(basename "$0")")"
+  exit 1
+}
+
+_install_golang_packages() {
+  # Switch to a directory without a go.mod file. Otherwise, `go install` will
+  # install the packages to that module.
+  cd "${REPO_ROOT}" || exit 1
+  for package in "${!_GOLANG_PACKAGES[@]}"; do
+    local binary_name="${_GOLANG_PACKAGES["${package}"]}"
+    print_bold "$(printf 'Installing %s (%s)' "${binary_name}" "${package}")"
+    # NOTE: As of 2020-04-10 and go 1.14, `go install` doesn't work: it
+    # complains about the working directory not being part of a module. The
+    # documentation of `go install` and `go get` make it seem like `go install`
+    # is more appropriate for my use case, so I need to figure this out.
+    # go install -v "${package}"
+    go get -v "${package}"
+    symlink_binary "${_GOLANG_BIN_DIR}/${binary_name}"
+  done
+}
+
+_install_nerd_fonts() {
+  cd "${INSTALLATION_TMP_DIR}"
+  download_file \
+    'https://gitlab.com/infokiller/fonts/-/archive/master/fonts-master.zip' \
+    'fonts.zip'
+  # Note that unzip is very picky about the order of options, so don't change it
+  # without testing.
+  unzip -oq 'fonts.zip' -d fonts
+  mkdir -p -- "${_NERD_FONTS_DIRECTORY}"
+  cp -rf fonts/fonts-master/* "${_NERD_FONTS_DIRECTORY}"
+  # Refresh fontconfig cache
+  fc-cache
+}
+
+_install_firefox_settings() {
+  local FIREFOX_DIR="${HOME}/.mozilla/firefox"
+  if [[ ! -d "${FIREFOX_DIR}" ]]; then
+    print_warning 'Firefox data not found, skipping settings installation'
+  fi
+  cd "${INSTALLATION_TMP_DIR}"
+  mkdir -p firefox && cd firefox
+  download_file \
+    'https://raw.githubusercontent.com/arkenfox/user.js/master/updater.sh'
+  chmod +x 'updater.sh'
+  [[ -d 'MaterialFox' ]] && rm -rf -- 'MaterialFox'
+  git clone --depth 1 'https://github.com/muckSponge/MaterialFox'
+  # Detect firefox profiles by the presence of the prefs.js file.
+  # NOTE: there's also a ~/.mozilla/firefox/profiles.ini file, but I wasn't sure
+  # if parsing it with regexes would be robust enough.
+  local backup
+  while IFS= read -r -d '' profile_dir; do
+    [[ -f "${profile_dir}/prefs.js" ]] || continue
+    local profile_name
+    profile_name="$(basename "${profile_dir}")"
+    print_bold "Firefox profile: ${profile_name}"
+    if [[ "${profile_name}" == *test* ]]; then
+      echo 'Skipping profile'
+      continue
+    fi
+    # TODO: Use the cleanup script [1]. Currently it can't be used directly
+    # because it doesn't support unattended invocations, and also always tries
+    # to run from its own directory. I should submit PRs to fix this.
+    # [1] https://github.com/arkenfox/user.js/blob/master/prefsCleaner.sh
+    # NOTE: We back up the user.js file even though updater.sh does it too since
+    # I'm not sure if I can rely on the latter to have consistent backup paths.
+    echo 'Installing user.js'
+    backup="${profile_dir}/backup_user.js"
+    if [[ -f "${profile_dir}/user.js" ]]; then
+      cp -rf -- "${profile_dir}/user.js" "${backup}"
+    fi
+    # -b: only keep one backup (I don't need backups but there's no option to
+    #     disable them)
+    # -s: don't ask for confirmation
+    # -d: don't check for updates to the updater.sh script (I already download
+    #     the latest version from Github).
+    ./updater.sh -b -s -d -p "${profile_dir}" \
+      -o "${REPO_ROOT}/.config/firefox/user-overrides.js"
+    if [[ -f "${backup}" ]]; then
+      sensible-diff "${backup}" "${profile_dir}/user.js" || true
+    fi
+    echo 'Installing MaterialFox'
+    cp -rf -t "${profile_dir}" 'MaterialFox/chrome'
+  done < <(\find "${FIREFOX_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
+}
+
+_install_polybar() {
+  cd "${SUBMODULES_DIR}/desktop/polybar"
+  git submodule update --init --recursive
+  # Try to do an incremental build, and only if it fails do a full build.
+  local build_cmd=(./build.sh --i3 --alsa --pulseaudio --network
+    --curl --ipc --no-install --auto)
+  local build_dir='build'
+  if [[ ! -d "${build_dir}" ]]; then
+    "${build_cmd[@]}"
+    return
+  fi
+  if ! (cd "${build_dir}" && make); then
+    print_bold 'Polybar build failed, rebuilding from scratch'
+    "${build_cmd[@]}" -f
+  fi
+  symlink_binary "${build_dir}/bin/polybar"
+}
+
+_install_universal_ctags() {
+  cd "${SUBMODULES_DIR}/terminal/ctags"
+  # Try to do an incremental build, and only if it fails do a full build.
+  if [[ ! -f Makefile ]]; then
+    ./autogen.sh && ./configure && make && cd man && make man
+    return
+  fi
+  if ! make; then
+    ./autogen.sh && ./configure && make && cd man && make man
+  fi
+  symlink_binary ctags
+}
+
+_install_activitywatch_from_release() {
+  cd "${SUBMODULES_DIR}/desktop/activitywatch"
+  local tag
+  if ! tag="$(git describe --exact-match --abbrev=0)"; then
+    print_error 'activitywatch submodule must point to a tag'
+  fi
+  local releases_base_url='https://github.com/ActivityWatch/activitywatch/releases/download'
+  local filename="activitywatch-${tag}-linux-x86_64.zip"
+  local url="${releases_base_url}/${tag}/${filename}"
+  cd "${INSTALLATION_TMP_DIR}"
+  echo 'Downloading activitywatch release archive...'
+  wget -q --continue "${url}"
+  # Note that unzip is very picky about the order of options, so don't change it
+  # without testing.
+  unzip -oq "${filename}"
+  local dest_dir="${SUBMODULES_DIR}/desktop/activitywatch/dist"
+  if [[ -d "${dest_dir}" ]]; then
+    \rm -rf -- "${dest_dir}"
+  fi
+  mv -- "${INSTALLATION_TMP_DIR}/activitywatch" "${dest_dir}"
+}
+
+# Building activitywatch from source was flaky a few times and I track the
+# latest tags anyway, so I switched to downloading releases.
+_install_activitywatch_from_src() {
+  cd "${SUBMODULES_DIR}/desktop/activitywatch"
+  git submodule update --init --recursive
+  # activitywatch requires cargo nightly, see:
+  # https://github.com/ActivityWatch/aw-server-rust/issues/116
+  if ! [[ -f "${CARGO_BIN}/rustup" ]]; then
+    curl 'https://sh.rustup.rs' -sSf |
+      sh -s -- --no-modify-path -y --profile minimal
+  fi
+  "${CARGO_BIN}/rustup" toolchain install nightly
+  local nightly_toolchain
+  nightly_toolchain="$("${CARGO_BIN}/rustup" toolchain list |
+    grep --text '^nightly' | head -1 | awk '{print $1}')"
+  local RUSTUP_HOME="${RUSTUP_HOME:-${HOME}/.rustup}"
+  local nightly_rust_bin="${RUSTUP_HOME}/toolchains/${nightly_toolchain}/bin"
+  # shellcheck source=../.local/bin/activate
+  # shellcheck disable=SC2030
+  (
+    PATH="${nightly_rust_bin}:${PATH}"
+    source activate activitywatch && make build
+  )
+  # activitywatch frequently has modified submodule commits and files after
+  # installation, this should get rid of it.
+  git submodule update --recursive
+  git checkout -- .
+  git submodule foreach --recursive git checkout -- .
+}
+
+_install_firenvim() {
+  (
+    cd "${SUBMODULES_DIR}/vim/firenvim"
+    npm install
+    npm run build
+    npm run install_manifests
+    cd "${REPO_ROOT}"
+    git checkout -- "${XDG_DATA_HOME:-${HOME}/.local/share}/firenvim/"
+  )
+}
+
+_install_vscode_extensions() {
+  for extension in "${_VSCODE_EXTENSIONS[@]}"; do
+    # The `--force` argument updates the extension if there is a newer version.
+    code --install-extension "${extension}" --force
+  done
+  print_bold 'Installating neovim nightly for vscode-neovim'
+  # vscode-neovim requires neovim nightly
+  # https://github.com/asvetliakov/vscode-neovim#installation
+  cd "${INSTALLATION_TMP_DIR}"
+  download_file 'https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage'
+  mv -f 'nvim.appimage' "${USER_BIN_DIR}/nvim-nightly"
+  chmod +x "${USER_BIN_DIR}/nvim-nightly"
+}
+
+_install_doom_emacs() {
+  if ! command_exists emacs; then
+    print_warning 'Emacs not found, skipping doom-emacs installation'
+    return
+  fi
+  doom --yes install
+  doom env --clear
+  # --packages: only upgrade packages, not doom itself. I update doom by using
+  # git-sensible-update, so I don't need to do it here.
+  # --force: discard local changes.
+  doom upgrade --packages --force
+}
+
+_install_vim_plugins() {
+  # print_bold 'Installing vim plugins'
+  # NOTE: As of 2018-12-8 I'm managing all my plugins via submodules, so they
+  # don't need to be installed with the exception of youcompleteme.
+  # Note that we need to exit twice in the vim command: once from the vimplug
+  # window and then from the new buffer.
+  # vim -u "${REPO_ROOT}/.config/vim/vimrc" -c ":PlugInstall | q | q"
+  print_bold 'Installing vim helptags'
+  vim -u "${REPO_ROOT}/.config/vim/vimrc" -c "call plug#helptags() | q"
+  print_bold 'Installing YouCompleteMe'
+  "${REPO_ROOT}/install/build-youcompleteme" \
+    --build-dir "${XDG_CACHE_HOME}/ycm_build"
+  print_bold 'Installing NeoVim remote plugins'
+  nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins | q'
+}
+
+_install_fzf() {
+  cd "${SUBMODULES_DIR}/terminal/fzf"
+  make bin/fzf
+  symlink_binary bin/fzf
+  # go.mod might change
+  git checkout -- .
+  # I used to run the install scripts, but it downloads release binaries, and I
+  # prefer to build from source, which is consistent with all the other go
+  # programs here.
+  # ./install --bin
+}
+
+_install_histcat() {
+  (
+    cd "${SUBMODULES_DIR}/terminal/histcat"
+    go build -v cmd/histcat/histcat.go
+    symlink_binary histcat
+  )
+}
+
+_configure_personal_device_services() {
+  if is_personal_device; then
+    print_bold 'Looks like a personal device, enabling appropriate services'
+    systemctl --user enable --now "${_PERSONAL_DEVICE_SYSTEMD_UNITS[@]}"
+  else
+    print_bold 'Looks like a shared device, disabling appropriate services'
+    systemctl --user disable --now "${_PERSONAL_DEVICE_SYSTEMD_UNITS[@]}" || true
+  fi
+}
+
+cmd_run() {
+  (($# > 0)) || _print_usage_and_die
+  local tasks=()
+  local all=0
+  local parallel=0
+  while (($# > 0)); do
+    case "$1" in
+      --all)
+        tasks=("${_ORDERED_TASKS[@]}")
+        all=1
+        shift
+        ;;
+      --parallel)
+        parallel=1
+        shift
+        ;;
+      *)
+        if [[ -z "${_TASK_TO_CMD[$1]-}" ]]; then
+          print_error "Unknown task: '$1', available tasks:"
+          printf '%s\n' "${_ORDERED_TASKS[@]}"
+          exit 1
+        fi
+        if ((!all)); then
+          tasks+=("$1")
+        fi
+        shift
+        ;;
+    esac
+  done
+  if ((parallel)); then
+    printf '%s\n' "${tasks[@]}" | /usr/bin/parallel -j '50%' "$0" run {}
+    return
+  fi
+  local durations=()
+  for task in "${tasks[@]}"; do
+    before=$(($(date +%s%N) / 1000000))
+    print_bold "Running task: ${task}"
+    eval "${_TASK_TO_CMD[${task}]}"
+    after=$(($(date +%s%N) / 1000000))
+    durations+=("$(echo "scale=2; (${after} - ${before})/1000" | bc)")
+  done
+  for ((i = 0; i < "${#tasks[@]}"; i++)); do
+    print_bold "Task ${tasks[${i}]} finished in ${durations[${i}]} seconds"
+  done
+}
+
+cmd_run_all_parallel() {
+  "$0" list | parallel -j '50%' "$@" "$0" run {}
+}
+
+main() {
+  do_basic_setup
+  if (($# == 0)); then
+    cmd_run --all --parallel
+    return
+  fi
+  case "$1" in
+    list)
+      printf '%s\n' "${_ORDERED_TASKS[@]}"
+      ;;
+    run)
+      shift
+      cmd_run "$@"
+      ;;
+    *)
+      _print_usage_and_die
+      ;;
+  esac
+}
+
+main "$@"

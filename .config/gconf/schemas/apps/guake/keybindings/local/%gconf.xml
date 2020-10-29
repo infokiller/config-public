@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="toggle_hide_on_lose_focus" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Toggle hide on lose focus.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;h</stringvalue>
+			</default>
+			<longdesc>Toggle whether guake will hide when it loses focus.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="toggle_fullscreen" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Toggle Fullscreen.">
+			<default type="string">
+				<stringvalue>F11</stringvalue>
+			</default>
+			<longdesc>Toggle main guake window fullscreen.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="clipboard_paste" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Paste clipboard.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;v</stringvalue>
+			</default>
+			<longdesc>Paste the clipboard content.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="clipboard_copy" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Copy clipboard.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;c</stringvalue>
+			</default>
+			<longdesc>Copy the clipboard content.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="decrease_transparency" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Decrease transparency.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Shift&gt;Down</stringvalue>
+			</default>
+			<longdesc>Decrease the terminal transparency.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="increase_transparency" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Increase transparency.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Shift&gt;Up</stringvalue>
+			</default>
+			<longdesc>Increase the terminal transparency.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="decrease_height" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Decrease height.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Up</stringvalue>
+			</default>
+			<longdesc>Decrease the screen height.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="increase_height" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Increase height.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Down</stringvalue>
+			</default>
+			<longdesc>Increase the screen height.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="zoom_out" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Zoom out.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;minus</stringvalue>
+			</default>
+			<longdesc>Decrease the font size of the terminals.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="zoom_in_alt" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Zoom in (alternative)">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;equal</stringvalue>
+			</default>
+			<longdesc>Additional shortcut for zooming in.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="zoom_in" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Zoom in.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;plus</stringvalue>
+			</default>
+			<longdesc>Increase the font size of the terminals.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="rename_current_tab" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Rename current tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F2</stringvalue>
+			</default>
+			<longdesc>Shows a dialog to rename the current tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab10" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Tenth tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F10</stringvalue>
+			</default>
+			<longdesc>Switch to the tenth tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab9" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Ninth tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F9</stringvalue>
+			</default>
+			<longdesc>Switch to the ninth tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab8" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="eighth tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F8</stringvalue>
+			</default>
+			<longdesc>Switch to the eighth tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab7" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Seventh tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F7</stringvalue>
+			</default>
+			<longdesc>Switch to the seventh tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab6" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Sixth tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F6</stringvalue>
+			</default>
+			<longdesc>Switch to the sixth tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab5" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Fifth tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F5</stringvalue>
+			</default>
+			<longdesc>Switch to the fifth tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab4" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Fourth tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F4</stringvalue>
+			</default>
+			<longdesc>Switch to the fourth tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab3" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Third tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F3</stringvalue>
+			</default>
+			<longdesc>Switch to the third tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab2" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Second tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F2</stringvalue>
+			</default>
+			<longdesc>Switch to the second tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="switch_tab1" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="First tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;F1</stringvalue>
+			</default>
+			<longdesc>Switch to the first tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="next_tab" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Next tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Page_Down</stringvalue>
+			</default>
+			<longdesc>Shows the next tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="previous_tab" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Previous tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Page_Up</stringvalue>
+			</default>
+			<longdesc>Shows the previous tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="move_tab_right" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Move right current tab">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Shift&gt;Page_Down</stringvalue>
+			</default>
+			<longdesc>Move the current tab to the right</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="move_tab_left" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Move left current tab">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;Shift&gt;Page_Up</stringvalue>
+			</default>
+			<longdesc>Move the current tab to the left</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="search_on_web" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Search current selected text on the web">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;l</stringvalue>
+			</default>
+			<longdesc>Accelerator to active function that search on the web the current selected text on the terminal.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="close_tab" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Closes the current tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;w</stringvalue>
+			</default>
+			<longdesc>Accelerator to active function that closes the current selected tab.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="new_tab" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Add a new tab.">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;t</stringvalue>
+			</default>
+			<longdesc>Calls the function to add a new tab in guake window.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="quit" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Quit">
+			<default type="string">
+				<stringvalue>&lt;Control&gt;&lt;Shift&gt;q</stringvalue>
+			</default>
+			<longdesc>Quit Guake.</longdesc>
+		</local_schema>
+	</entry>
+	<entry name="reset_terminal" mtime="1450345978" type="schema" stype="string" owner="guake">
+		<local_schema locale="C" short_desc="Reset">
+			<default type="string">
+				<stringvalue></stringvalue>
+			</default>
+			<longdesc>Reset terminal</longdesc>
+		</local_schema>
+	</entry>
+</gconf>

@@ -1,0 +1,17 @@
+[Unit]
+Description=Start KDEConnect indicator applet
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+# https://www.freedesktop.org/software/systemd/man/systemd.unit.html#BindsTo=
+BindsTo=kdeconnect-daemon.service
+After=kdeconnect-daemon.service
+
+[Service]
+Type=simple
+# NOTE: Without resetting QT_QPA_PLATFORMTHEME the tray icon doesn't load
+# correctly.
+Environment=QT_QPA_PLATFORMTHEME=
+ExecStart=kdeconnect-indicator
+Restart=always
+RestartSec=10

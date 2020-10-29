@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+if hash tmux 2> /dev/null; then
+  exec tmux -2 new-session -A -s main
+fi
+exec zsh

@@ -1,0 +1,20 @@
+# Static information about the filesystems.
+# See fstab(5) for details.
+
+# <file system> <dir> <type> <options> <dump> <pass>
+# /dev/mapper/arch-root
+UUID=5360f629-1ba6-4ce9-b9cf-767e35539da9	/         	ext4      	rw,relatime	0 1
+
+# /dev/nvme0n1p6 LABEL=LinuxBoot
+UUID=35dd6bec-d9da-419a-814a-6b0a92f955a0	/boot     	ext4      	rw,relatime	0 2
+
+# /dev/nvme0n1p2
+UUID=C818-8208	/boot/efi     	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
+
+# /dev/mapper/arch-home
+UUID=d2516bb2-97e2-4d5f-990c-83fb8a56c8db	/home     	ext4      	rw,relatime	0 2
+
+# /dev/mapper/arch-swap LABEL=swap
+UUID=f1830c82-cb95-4ece-aa74-615f10596d59	none      	swap      	defaults  	0 0
+
+# vim: set ft=fstab :

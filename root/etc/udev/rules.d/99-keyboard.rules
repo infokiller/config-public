@@ -1,0 +1,19 @@
+# I used to use the condition `ENV{ID_INPUT_KEYBOARD}=="1"` to match only
+# keyboards, but that didn't work when I used my QuickRapid keyboard with my
+# StarTech KVM.
+# EXP: As of 2020-05-13, I'm testing the usage of
+# ENV{ID_INPUT_KEYBOARD}=="?*" which is used in:
+# /usr/lib/udev/rules.d/60-persistent-input.rules
+ACTION=="remove", GOTO="keyboard_end"
+SUBSYSTEM!="input", GOTO="keyboard_end"
+KERNEL!="event*", GOTO="keyboard_end"
+ENV{ID_INPUT_KEYBOARD}!="?*", GOTO="keyboard_end"
+ENV{ID_SECURITY_TOKEN}=="?*", GOTO="keyboard_end"
+TAG=="u2f", GOTO="keyboard_end"
+
+# NOTE: this only triggers for the first time a device is added, so I can't use
+# `udevadm trigger --action=add` for testing, I have to really unplug and replug
+# it.
+TAG+="systemd", ENV{SYSTEMD_USER_WANTS}+="handle-keyboard-hotplug.service"
+
+LABEL="keyboard_end"

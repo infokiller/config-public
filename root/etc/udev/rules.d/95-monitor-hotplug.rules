@@ -1,0 +1,7 @@
+ACTION!="add|remove|change", GOTO="monitor_hotplug_end"
+SUBSYSTEM!="drm", GOTO="monitor_hotplug_end"
+
+# As of 2020-05-14, I'm using a systemd service instead of set-keyboard-config.
+TAG+="systemd", ENV{SYSTEMD_USER_WANTS}+="handle-monitor-hotplug.service"
+
+LABEL="monitor_hotplug_end"

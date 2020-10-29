@@ -1,0 +1,77 @@
+# The root environment contains tools that are useful in a general context or
+# for a large number of projects.
+name: root
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.7
+  - pip
+  ###
+  # Python dev tools
+  ###
+  - ipython
+  - yapf
+  - black
+  - isort
+  - pylint
+  - pytype
+  - twine
+  - python-semantic-release
+  - pipenv
+  - poetry
+  - mamba
+  - conda-tree
+  ###
+  # Jupyter
+  ###
+  - jupytext
+  - jupyterlab
+  - nbdime
+  - ipywidgets
+  - ipdb
+  - qtconsole
+  - jupyter
+  # jupyter_contrib_nbextensions and jupyter_contrib_nbextensions only work in
+  # the classic Notebook, not JupyterLab [1][2].  However, they are still needed
+  # to avoid errors in JupyterLab, because both notebook frontends share a
+  # config file jupyter_notebook_config.json that specifies to load these
+  # extensions. 
+  # [1] https://github.com/ipython-contrib/jupyter_contrib_nbextensions#jupyterlab
+  # [2] https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/issues/64
+  # As of 2020-05-09, jupyter_contrib_nbextensions caused update errors in
+  # zeus18, and I needed to reinstall the environment to work around that.
+  - jupyter_contrib_nbextensions
+  - jupyter_nbextensions_configurator
+
+  - pip:
+    ###
+    # Python dev tools
+    ###
+    - dephell
+    - pypiserver
+    ###
+    # General tools that happen to be implemented in python
+    ###
+    - pythonpy
+    - codespell
+    - proselint
+    - vim-vint
+    - glances
+    # py3nvml provides GPU stats for glances
+    - py3nvml
+    - buku
+    - pinggraph
+    - litecli
+    - grip
+    - gpustat
+    - gpu-utils
+    - pydf
+    - python-gitlab
+    - s-tui
+    - ueberzug
+    - undervolt
+    - detect-secrets
+    # Experimental JupyterLab extensions
+    - jupyterlab_github
+    - jupyterlab-git

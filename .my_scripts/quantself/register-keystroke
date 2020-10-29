@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
+file_path="${HIST_DIR}/xbindkeys_keystrokes"
+[[ -f ${file_path} ]] || echo 'timestamp,keystroke' >> "${file_path}"
+printf '%s\n' "$(date +%s),$*" >> "${file_path}"

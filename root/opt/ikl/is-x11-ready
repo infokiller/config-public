@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# The user service and $HOME are no longer checked, instead I just check if the
+# script is available in launch-logged-script.
+# TARGET_USER='@USERNAME@'
+#
+# _get_user_homedir() {
+#   local user="$1"
+#   getent passwd "${TARGET_USER}" | cut -d: -f6
+# }
+#
+# _is_user_active() {
+#   local target_user_id
+#   target_user_id="$(id -u "${user}")"
+#   if ! systemctl --quiet is-active "user@${target_user_id}.service" &> /dev/null; then
+#     return 1
+#   fi
+#   if [[ -r "$(_get_user_homedir "${TARGET_USER}")" ]]; then
+#     return 1
+#   fi
+#   return 0
+# }
+
+_is_x11_server_running() {
+  pgrep -a -x -r=R,S,D,I Xorg
+}
+
+main() {
+  local graphical_active=0
+  if systemctl --quiet is-active graphical.target &> /dev/null; then
+    graphical_active=1
+  fi
+  local runlevel5_active=0
+  if systemctl --quiet is-active runlevel5.target &> /dev/null; then
+    runlevel5_active=1
+  fi
+  local x11_server_active=0
+  local x11_server_process
+  # The -r values indicate a functional process (running, waiting for event,
+  # etc.).
+  if x11_server_process="$(pgrep -a -x -r=R,S,D,I Xorg)"; then
+    x11_server_active=1
+    printf 'X11 server process: %s\n' "${x11_server_process}"
+  fi
+
+  printf 'graphical_active=%s, runlevel5_active=%s, x11_server_active:%s\n' \
+    "${graphical_active}" "${runlevel5_active}" "${x11_server_active}"
+  if ! ((graphical_active && runlevel5_active && x11_server_active)); then
+    exit 1
+  fi
+
+  # Return an error if X11 doesn't seem to be running locally.
+  # NOTE: I ran into serious issues when running xset from udev rules triggered
+  # from boot- the system looked like it booted successfully to the lightdm
+  # password prompt, but it was unresponsive to the keyboard and mouse.
+  # if ! xset -display ":0" q &> /dev/null; then
+  #   exit 15
+  # fi
+}
+
+main "$@"

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+readonly SELECTOR=(
+  fzf_select_file
+  --history="${HIST_DIR}/locate_file_history"
+  --history-size=100000
+)
+
+# shellcheck source=../../.config/bash/fzf_select_files.sh
+source "${REPO_ROOT}/.config/bash/fzf_select_files.sh"
+
+main() {
+  local s=0
+  selected="$(locate / | "${SELECTOR[@]}" "$@")" || s=$?
+  # NOTE: If the file is selected before locate finishes there will be an exit
+  # code of 141, but this isn't really an error. See also:
+  # http://stackoverflow.com/questions/19120263/why-exit-code-141-with-grep-q
+  if ((s != 0 && s != 141)); then
+    exit ${s}
+  fi
+  # fzf returns 130 when the selection was cancelled, so we try to imitate that.
+  if [[ -z "${selected}" ]]; then
+    exit 130
+  fi
+  sensible-open "${selected}"
+}
+
+main "$@"

@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+# https://superuser.com/a/784102/407543
+_pidtree() (
+  declare -A parent_to_children
+  while read -r p pp; do
+    if [[ -n "${pp}" ]]; then
+      parent_to_children["${pp}"]+=" $p"
+    fi
+  done < <(ps -e -o pid= -o ppid=)
+
+  _walk() {
+    for pid in ${parent_to_children[$1]-}; do
+      echo "${pid}"
+      _walk "${pid}"
+    done
+  }
+
+  for pid in "$@"; do
+    _walk "${pid}"
+  done
+)
+
+_kill_inotify() {
+  echo 'Killing inotify'
+  _pidtree $$ | xargs -d '\n' --no-run-if-empty kill 2> /dev/null
+}
+
+_run_rsync() {
+  # -a: recurse directories and preserve attributes
+  # -A: preserve ACLs
+  # -X: preserve extended attributes
+  # -u: don't overwrite newer files on the receiver side
+  # -zz: use new rsync compression
+  # --info=*: specify what to log
+  # --partial-dir=*: keep partial transfers to enable resuming
+  rsync -aAX -u -zz --info=flist2,name,progress --partial-dir=.rsync-part "$@"
+}
+
+main() {
+  if (($# < 2)); then
+    print_error 'Usage: rsync-cont [RSYNC_OPTIONS] SRC... DEST'
+    return 1
+  fi
+  # We assume that the last arg is the destination, and the first N-1 args are
+  # either rsync options or source paths.
+  local src_files=()
+  for arg in "${@:1:(($# - 1))}"; do
+    if [[ "${arg}" != -* ]]; then
+      src_files+=("${arg}")
+    fi
+  done
+  if ((${#src_files[@]} == 0)); then
+    print_error 'rsync-cont: no source files provided'
+    print_error 'Usage: rsync-cont [RSYNC_OPTIONS] SRC... DEST'
+    return 1
+  fi
+  echo 'Doing an initial sync'
+  _run_rsync "$@"
+  local inotify_cmd=(inotifywait --monitor --recursive
+    --event='modify,attrib,create,move'
+    --exclude='\.git/'
+    --format='%w%f'
+    -- "${src_files[@]}")
+  trap '_kill_inotify' EXIT
+  exec {inotify_fd}< <("${inotify_cmd[@]}")
+  local last_sync_timestamp=0
+  while true; do
+    # We may get multiple inotify events for the same file, so we use this
+    # associative array to dedup the events.
+    local -A files_checked=()
+    local files=()
+    # Read as much events as possible, and wait up to 0.1 seconds after the last
+    # event was read before deciding there's no more events.
+    while IFS='' read -r -t 0.1 -u ${inotify_fd} file; do
+      if [[ -n "${files_checked["${file}"]-}" ]]; then
+        continue
+      fi
+      files_checked["${file}"]=1
+      if [[ ! -f "${file}" ]]; then
+        continue
+      fi
+      for src_file in "${src_files[@]}"; do
+        if [[ "${file}" == "${src_file}"* ]]; then
+          # rsync expects files in the `--files-from` argument to be relative
+          # their source directory, so we remove the directory prefix.
+          if [[ -d "${src_file}" ]]; then
+            file="${file#"${src_file}"}"
+          fi
+          files+=("${file}")
+          break
+        fi
+      done
+    done
+    # Without this sleep, Ctrl-C doesn't work.
+    sleep 0.1
+    # Timeout reached.
+    local timestamp
+    timestamp="$(date +'%s')"
+    if ((${#files[@]} > 0)); then
+      printf 'Syncing %d files: ' "${#files[@]}"
+      printf '"%s" ' "${files[@]}"
+      printf '\n'
+      last_sync_timestamp="${timestamp}"
+      _run_rsync --files-from=<(printf '%s\n' "${files[@]}") "$@"
+    elif ((timestamp - last_sync_timestamp > 600)); then
+      last_sync_timestamp="${timestamp}"
+      echo 'Trying to keep SSH auth alive'
+      rsync --files-from=/dev/null "$@"
+    fi
+  done
+}
+
+main "$@"

@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly _TERMINAL_WINDOW_REGEX='(X-terminal-emulator|terminator|URxvt|guake|st|kitty|termite)'
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+# https://github.com/dylanaraps/pure-bash-bible#strip-pattern-from-start-of-string
+_lstrip() {
+  # Usage: lstrip "string" "pattern"
+  printf '%s\n' "${1##$2}"
+}
+
+_function_exists() {
+  declare -f "$1" > /dev/null
+}
+
+# TODO: add option to send keys via tmux as `tmux send-keys` seems much faster
+# than using xdotool.
+_print_usage_and_die() {
+  printf >&2 'Usage: %s [--app=terminal] [--window-class=<class_regex>] [--window-title=<title_regex>] <keys>\n' "$(basename "$0")"
+  exit 1
+}
+
+_does_xprop_match() {
+  if [[ $# -ne 2 ]]; then
+    echo 'Invalid number of arguments'
+    return 1
+  fi
+  local xprop_name_regex="$1"
+  local xprop_value_regex="$2"
+
+  local active_window_id
+  local active_window_xprop_value
+  active_window_id="$(xdotool getactivewindow)" || return 2
+  active_window_xprop_value="$(xprop -id "${active_window_id}" | grep --text -- "${xprop_name_regex}")"
+  if [[ ${active_window_xprop_value} =~ ${xprop_value_regex} ]]; then
+    return 0
+  fi
+  printf 'Window does not match xprop [%s], regex [%s]: value is [%s]\n' \
+    "${xprop_name_regex}" "${xprop_value_regex}" "${active_window_xprop_value}"
+  return 1
+}
+
+_does_window_match() {
+  _does_xprop_match '^WM_CLASS' "$1"
+}
+
+_does_title_match() {
+  _does_xprop_match '^WM_NAME' "$1"
+}
+
+_is_tmux_window() {
+  _does_title_match 'client_termname'
+}
+
+_is_terminal_app_window() {
+  _does_window_match "${_TERMINAL_WINDOW_REGEX}" || _is_tmux_window
+}
+
+_send_keys() {
+  echo 'Sending keystrokes to active x11 window...'
+  # TODO: The sleep is required on my new Arch installation as of
+  # 2018-05-27, otherwise the xdotool key is not captured by the active window
+  # (I suspect xbindkeys captures it).
+  sleep 0.1s
+
+  # sudo "${HOME}/.local/pkg/conda/envs/base_keyboard/bin/python" -c 'import keyboard keyboard.press_and_release("'"$1"'")'
+
+  xdotool getactivewindow -- key --clearmodifiers --delay 0 "$1"
+}
+
+main() {
+  local app_filters=()
+  local wclass_filters=()
+  local title_filters=()
+  while (($# > 0)); do
+    case "$1" in
+      '--app='*)
+        app_filters+=("$(_lstrip "$1" '--app=')")
+        shift
+        ;;
+      '--window-class='*)
+        wclass_filters+=("$(_lstrip "$1" '--window-class=')")
+        shift
+        ;;
+      '--window-title='*)
+        title_filters+=("$(_lstrip "$1" '--window-title=')")
+        shift
+        ;;
+      '--')
+        shift
+        break
+        ;;
+      '--'*) _print_usage_and_die ;;
+      *) break ;;
+    esac
+  done
+  if (($# != 1)); then
+    _print_usage_and_die
+  fi
+  local keys="$1"
+  for app_name in "${app_filters[@]}"; do
+    local app_filter_function
+    app_filter_function="$(printf '_is_%s_app_window' "${app_name}")"
+    if ! _function_exists "${app_filter_function}"; then
+      _print_error "Unknown app: ${app_name}"
+      _print_usage_and_die
+    fi
+    eval -- "${app_filter_function}" || return 2
+  done
+  for wclass_regex in "${wclass_filters[@]}"; do
+    _does_window_match "${wclass_regex}" || return 2
+  done
+  for title_regex in "${title_filters[@]}"; do
+    _does_title_match "${title_regex}" || return 2
+  done
+  _send_keys "${keys}"
+}
+
+main "$@"

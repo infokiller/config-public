@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
+# A command to list panes that is usable when presenting the panes to the user.
+# TODO: the '%' char is used to separate columns, but this is a hack that will
+# break if this char is in the columns content. I also can't use more than one
+# char because the column command used below doesn't seem to support it.
+# I can solve this by using the null character as a delimiter, though tmux
+# doesn't seem to support it in its format, so I will need to use another
+# delimiter and replace it will nulls manually.
+panes_list_header='Session%Window%Pane'
+panes_list_presentation_cmd='tmux list-panes -a -F "#{=15:session_name}%#{=20:window_name}%#{=50:pane_title}"'
+# The presentation must be evaluated only once for both selection and parsing,
+# otherwise it might change between them.
+panes_list_presentation="$(eval "${panes_list_presentation_cmd}")"
+panes_list_presentation="$(printf '%s\n%s\n' "${panes_list_header}" "${panes_list_presentation}" | column -t -s '%')"
+pane_line_selected=$(
+  printf '%s\n' "${panes_list_presentation}" |
+    nl |
+    fzf --with-nth '2..' --header-lines=1 --prompt="Pane > " --tac \
+      --toggle-sort=ctrl-r \
+      "--history=${HIST_DIR}/tmux_select_pane_history" \
+      --history-size=100000
+)
+status=$?
+# NOTE: fzf returns 130 if the selection was canceled.
+if [[ ${status} -ne 0 ]]; then
+  exit "${status}"
+fi
+pane_index_selected="$(awk '{print $1}' <<< "${pane_line_selected}")"
+# Offset for the header row which is present in the presentation command but not
+# in the parsing command.
+pane_index_selected=$((pane_index_selected - 1))
+# A command to list panes that is easily parsable.
+delim=':::'
+panes_list_parsing_cmd="tmux list-panes -a -F \"#{session_name}${delim}#{window_index}${delim}#{pane_index}\""
+pane_line_for_parsing=$(
+  eval "${panes_list_parsing_cmd}" |
+    head -n"${pane_index_selected}" |
+    tail -n1
+)
+# NOTE: We print the arguments separated by the null char in order to support
+# session names that contain whitespace.
+awk -v FS="${delim}" -v OFS='\0' -v ORS='' '{print $1,$2,$3}' <<< "${pane_line_for_parsing}"

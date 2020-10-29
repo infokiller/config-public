@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly WRAPPER_PATH="$(readlink -f "$0")"
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly LOCAL_NVIM_DIR="${REPO_ROOT}/submodules/optional/neovim"
+readonly LOCAL_NVIM_BUILD_DIR="${LOCAL_NVIM_DIR}/build"
+readonly LOCAL_NVIM_BIN="${LOCAL_NVIM_BUILD_DIR}/bin/nvim"
+
+main() {
+  if [[ -x "${LOCAL_NVIM_BIN}" ]]; then
+    # The locally built neovim doesn't use the standard neovim runtime directory,
+    # which will cause errors about missing files.
+    export VIMRUNTIME="${LOCAL_NVIM_DIR}/runtime"
+    exec -- "${LOCAL_NVIM_BIN}" "$@"
+  fi
+  mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  exec -- "${cmd[@]}" "$@"
+}
+
+main "$@"

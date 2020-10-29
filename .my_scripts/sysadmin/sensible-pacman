@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+
+# Heuristic for figuring out if pacman needs to run with sudo.
+_does_pacman_need_sudo() {
+  # Bash's getopts doesn't support long options, so we start by parsing them
+  # manually.
+  local -A long_options
+  local keep_parsing=1
+  local args_without_long_options=()
+  for arg in "$@"; do
+    # Skip anything but long options.
+    if [[ "${arg}" != --* ]]; then
+      args_without_long_options+=("${arg}")
+      continue
+    fi
+    # `--sync` and `--database` sometimes require sudo, depending on the other
+    # options. The other operations always require or do not require sudo, so if
+    # we observe them we can return immediately.
+    if [[ "${arg}" =~ --(upgrade|remove|refresh) ]]; then
+      return 0
+    fi
+    if [[ "${arg}" =~ --(query|deptest|version|help) ]]; then
+      return 1
+    fi
+    if [[ "${arg}" == -- ]]; then
+      keep_parsing=0
+      break
+    fi
+    # Remove the leading --.
+    long_options["${arg##--}"]=1
+  done
+  local -A short_options
+  if ((keep_parsing)); then
+    local opt
+    # The prefix colon to getopts is to ignore errors (unknown args).
+    while getopts ':DQRSTUFVhilgsky' opt "${args_without_long_options[@]}"; do
+      case ${opt} in
+        U | R | y) return 0 ;;
+        Q | T | V | h) return 1 ;;
+        *) short_options["${opt}"]=1 ;;
+      esac
+    done
+  fi
+  if ((long_options[database] || short_options[D])); then
+    if ((long_options[check] || short_options[k])) ||
+      ((long_options[asexplicit])); then
+      return 1
+    fi
+    return 0
+  fi
+  if ((long_options[sync] || short_options[S])); then
+    if ((long_options[groups] || short_options[g])) ||
+      ((long_options[info] || short_options[i])) ||
+      ((long_options[list] || short_options[l])); then
+      return 1
+    fi
+    return 0
+  fi
+  return 1
+}
+
+main() {
+  local cmd=()
+  if _does_pacman_need_sudo "$@"; then
+    cmd+=(sudo)
+  fi
+  # Use pacnanny by default. See also:
+  # https://github.com/brandoninvergo/pacnanny
+  if command -v pacnanny &> /dev/null; then
+    cmd+=(pacnanny)
+  else
+    cmd+=(pacman)
+  fi
+  exec -- "${cmd[@]}" "$@"
+}
+
+main "$@"

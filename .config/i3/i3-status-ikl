@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+if command -v conky &> /dev/null; then
+  exec "${REPO_ROOT}/.config/i3/conky-i3bar" "$@"
+else
+  exec i3status "$@"
+fi

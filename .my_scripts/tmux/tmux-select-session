@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+# TODO: Unify with tmux-search-process
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
+FZF_CMD=(
+  fzf
+  '--height=40%'
+  '--reverse'
+  '--prompt=Session >'
+  '--toggle-sort=ctrl-r'
+  "--history=${HIST_DIR}/tmux_select_session_history"
+  '--history-size=100000'
+)
+SESSION_LIST_PRESENTATION_CMD='tmux list-sessions'
+SESSION_LIST_PARSING_CMD='tmux list-sessions -F "#{session_name}"'
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+# Given input lines in stdin and a target line given in $1, returns the zero
+# based line number.
+_get_line_number() {
+  local i=0
+  while IFS='' read -r line; do
+    if [[ ${line} == "$1" ]]; then
+      echo "${i}"
+      return
+    fi
+    ((i += 1))
+  done
+  return 1
+  # rg --line-number --fixed-strings "$1" | cut -f1 -d:
+}
+
+main() {
+  local fzf_cmd=("${FZF_CMD[@]}" "$@")
+  local session_list_presentation=()
+  mapfile -t session_list_presentation < <(eval "${SESSION_LIST_PRESENTATION_CMD}")
+  # mapfile doesn't return an error, so we check if the array is empty.
+  if ((${#session_list_presentation[@]} == 0)); then
+    _print_error 'Could not get any tmux session'
+    return 1
+  fi
+  local session_list_parsing=()
+  mapfile -t session_list_parsing < <(eval "${SESSION_LIST_PARSING_CMD}")
+  local session_lines_selected=()
+  mapfile -t session_lines_selected < <(printf '%s\n' "${session_list_presentation[@]}" |
+    "${fzf_cmd[@]}")
+  # mapfile doesn't return an error, so we check if the array is empty.
+  if ((${#session_lines_selected[@]} == 0)); then
+    return 130
+  fi
+  while IFS='' read -r line; do
+    local i
+    i="$(printf '%s\n' "${session_list_presentation[@]}" |
+      _get_line_number "${line}")"
+    printf '%s\n' "${session_list_parsing[$i]}"
+  done < <(printf '%s\n' "${session_lines_selected[@]}")
+}
+
+main "$@"

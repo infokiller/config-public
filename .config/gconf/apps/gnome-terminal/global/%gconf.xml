@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="use_mnemonics" mtime="1425208787" type="bool" value="false"/>
+</gconf>

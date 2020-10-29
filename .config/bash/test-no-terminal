@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Tests that my basic shell scripts can be run without a controlling terminal.
+# Example usage:
+#   termite --exec="bash -c 'nohup test-no-terminal'"
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+# set -o errexit -o errtrace -o nounset -o pipefail
+
+# Redirect stdout and stderr to a log file.
+exec >> ~/terminal_test.log
+exec 2>&1
+
+# set -x
+
+test_shell_scripts_no_term() {
+  local is_stdout_term
+  is_stdout_term="$( ([[ -t 1 ]] && echo true) || echo false)"
+  printf '[[ -t 1 ]]: %s\n' "${is_stdout_term}"
+  local tty_status
+  tty_status="$( ( (tty &> /dev/null) && echo true) || echo false)"
+  printf 'tty: %s\n' "${tty_status}"
+  echo 'Sourcing profile'
+  bash -c 'source ~/.profile' || echo
+  echo 'Sourcing bashrc'
+  bash -c 'PS1=TEST source ~/.bashrc'
+  echo "All done"
+}
+
+signal_handler() {
+  trap 'echo "Got another signal!"' HUP EXIT TERM
+  echo "Got signal, starting test"
+  kill "${sleep_pid}"
+  # (kill "${sleep_pid}" &> /dev/null) || true
+}
+
+sleep inf &
+sleep_pid=$!
+
+start_test() {
+  printf '===================================================================\n'
+  printf '== [%s] %s\n' "$(date +"%F %T.%6N")" 'Starting test in wait mode'
+  printf '===================================================================\n'
+  wait
+  test_shell_scripts_no_term
+}
+
+trap 'signal_handler' INT HUP EXIT TERM
+start_test &

@@ -1,0 +1,30 @@
+# NOTE: As of 2020-01-27, universal-ctags gives an error when defining a
+# language that's already defined.
+# In addition, the latest git version seems to already support the definitions
+# in this file, so I commented them out.
+
+--langdef=zsh
+--langmap=zsh:.zsh.zshrc.zshenv.zprofile
+--regex-zsh=/^(function)?[\t ]*([a-zA-Z0-9_-]+)\(\)/\2/f,function/
+--regex-zsh=/^([A-Z0-9_]+)=/\1/c,const/
+
+# --langdef=protobuf
+# --langmap=protobuf:.proto
+# --regex-protobuf=/^message[ \t]*([a-zA-Z0-9_]+)/\1/m,message/
+# --regex-protobuf=/^[ \t]*(optional|required|repeated){0,1}[ \t]+([a-zA-Z0-9_\.]+)[ \t]+([a-zA-Z0-9_]+)[ \t]*=[ \t]*[0-9]/\3/f,field/
+# --regex-protobuf=/^enum[ \t]*([a-zA-Z0-9_]+)/\1/e,enumerator/
+
+# --regex-javascript=/(var|let|const)\s+([A-Za-z0-9._$]+)\s*=\s*\(.*\)\s*=>/\2/f,function/
+# --regex-javascript=/class[ \t]+([A-Za-z0-9._$]+)[ \t]*/\1/c,class/
+
+# --langdef=markdown
+# --langmap=markdown:.md
+# --regex-markdown=/^(#+)[ \t]+([^#]*)/\1 \2/h,header,Markdown Headers/
+# --regex-markdown=/\[([^\[]+)\]\(([^\)]+)\)/\1/l,link,Markdown Links/
+# --regex-markdown=/!\[\]\(.*[\/ ](.*\.[a-z]{3})\)/\1/i,image,Markdown Image/
+
+# --langdef=powershell
+# --langmap=powershell:.ps1.psm1
+# --regex-powershell=/^[Ff]unction[\t ]*([a-zA-Z0-9_-]+)/\1/f,function/
+# --regex-powershell=/^[Ff]ilter[\t ]*([a-zA-Z0-9_-]+)/\1/i,filter/
+# --regex-powershell=/^[sS]et-[Aa]lias[\t ]*([a-zA-Z0-9_-]+)/\1/a,alias/

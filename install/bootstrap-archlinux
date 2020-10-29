@@ -1,0 +1,184 @@
+#!/usr/bin/env bash
+#
+# This script is intended to do the most basic system setup from a Linux
+# distribution ISO. It is may be too tailored for Arch Linux, which is what I
+# targeted when writing this script.
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+# Print every command executed.
+set -x
+
+_print_error() {
+  printf >&2 '%s\n' "$*"
+}
+
+while (($# > 0)); do
+  arg="$1"
+  case ${arg} in
+    --machine-name)
+      machine_name="$2"
+      shift 2
+      ;;
+    *)
+      _print_error "Usage: $0 --machine-name <name>"
+      exit 1
+      ;;
+  esac
+done
+
+if [[ -z "${machine_name-}" ]]; then
+  _print_error "you must choose a machine name"
+  exit 1
+fi
+
+# NOTE: target_disk will be completely nuked.
+
+# Configurable vars.
+UEFI=true
+case "${machine_name}" in
+  # This is what I used for my 2018 desktop with a Windows dual boot:
+  zeus18)
+    target_disk=/dev/nvme0n1
+    efi_system_part="${target_disk}"p2
+    boot_part="${target_disk}"p5
+    encrypted_part="${target_disk}"p6
+    swap_size=8G
+    root_size=75G
+    # parted "${target_disk}" mkpart primary 160432128s 161363968s
+    # parted "${target_disk}" mkpart primary 161363969s 561920000s
+    ;;
+  hera17)
+    target_disk=/dev/nvme0n1
+    efi_system_part="${target_disk}"p1
+    boot_part="${target_disk}"p5
+    encrypted_part="${target_disk}"p6
+    swap_size=8G
+    root_size=25G
+    # parted "${target_disk}" mkpart primary 159625216s 160444415s
+    # parted "${target_disk}" mkpart primary 160444416s 317730815s
+    ;;
+  hera20-juno)
+    target_disk=/dev/nvme0n1
+    efi_system_part="${target_disk}"p2
+    boot_part="${target_disk}"p6
+    encrypted_part="${target_disk}"p7
+    swap_size=8G
+    root_size=100G
+    # parted "${target_disk}" mkpart primary 631455744s 632504319s
+    # parted "${target_disk}" mkpart primary 632504320s 1999044607s
+    ;;
+  zeus20-juno)
+    target_disk=/dev/nvme0n1
+    efi_system_part="${target_disk}"p1
+    boot_part="${target_disk}"p2
+    encrypted_part="${target_disk}"p3
+    swap_size=8G
+    root_size=100G
+    # parted "${target_disk}" mkpart primary 1MiB 751MiB
+    # parted "${target_disk}" mkpart primary 751MiB 1501MiB
+    ;;
+  vbox_uefi)
+    # This is what I used for a single boot Linux installation from scratch
+    # (tested on VirtualBox):
+    target_disk=/dev/sda
+    efi_system_part="${target_disk}"1
+    boot_part="${target_disk}"2
+    encrypted_part="${target_disk}"3
+    swap_size=4G
+    root_size=20G
+    # Now partition the target disk:
+    # Partition the disk with GPT. 3 partitions are defined:
+    # - sda1: EFI System Partition, will be mounted on /boot/efi
+    # - sda2: Boot partition, will be mounted on /boot
+    # - sda3: LVM on LUKS partition that includes volumes for root, home, and swap.
+    # EFI_PARTITION_END=513MiB
+    # BOOT_PARTITION_END=1024MiB
+    # parted --script "${target_disk}" mklabel gpt
+    # parted --script "${target_disk}" mkpart primary fat32 1MiB "${EFI_PARTITION_END}"
+    # parted --script "${target_disk}" set 1 boot on
+    # parted --script "${target_disk}" set 1 esp on
+    # parted --script "${target_disk}" mkpart primary "${EFI_PARTITION_END}" "${BOOT_PARTITION_END}"
+    ;;
+  hera11)
+    UEFI=false
+    # This is what I used for a dual boot Linux installation on hera11:
+    target_disk=/dev/sda
+    encrypted_part="${target_disk}"5
+    swap_size=12G
+    root_size=25G
+    ;;
+  *)
+    printf >&2 'Unknown machine: %s\n' "${machine_name}"
+    exit 1
+    ;;
+esac
+
+# Ensure the system clock is accurate.
+timedatectl set-ntp true
+cryptsetup luksFormat "${encrypted_part}"
+cryptsetup luksOpen "${encrypted_part}" cryptlvm
+pvcreate /dev/mapper/cryptlvm
+vgcreate arch /dev/mapper/cryptlvm
+lvcreate --size "${swap_size}" arch --name swap
+lvcreate --size "${root_size}" arch --name root
+lvcreate --extents +100%FREE arch --name home
+lvdisplay
+
+# Create filesystems:
+mkswap --label swap /dev/mapper/arch-swap
+swapon /dev/mapper/arch-swap
+mkfs.ext4 /dev/mapper/arch-root
+# -m 0: ext4 reserves 5% of the blocks to root, but it's not critical to do it when
+# /home is separate, so we disable it.
+mkfs.ext4 -m 0 /dev/mapper/arch-home
+
+# Mount partitions:
+mount /dev/mapper/arch-root /mnt
+[[ -d /mnt/home ]] || mkdir /mnt/home
+mount /dev/mapper/arch-home /mnt/home
+
+# shellcheck disable=SC2237
+if [[ -n ${efi_system_part-} ]]; then
+  mkfs.ext4 "${boot_part}"
+  e2label "${boot_part}" "LinuxBoot"
+  [[ -d /mnt/boot ]] || mkdir /mnt/boot
+  mount "${boot_part}" /mnt/boot
+  [[ -d /mnt/boot/efi ]] || mkdir /mnt/boot/efi
+  mount "${efi_system_part}" /mnt/boot/efi
+fi
+
+# Install the base system:
+base_packages=(base linux linux-firmware lvm2 cryptsetup dhcpcd net-tools wireless_tools iw wpa_supplicant intel-ucode sudo openssh polkit ntp wget zsh git)
+if [[ ${UEFI} == true ]]; then
+  base_packages+=(refind-efi)
+else
+  base_packages+=(grub)
+fi
+pacstrap /mnt "${base_packages[@]}"
+
+# Generate fstab:
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Chroot to the new system and run the chroot script.
+cp -p /bootstrap-archlinux-chroot /mnt
+bootstrap_archlinux_chroot_args=(--machine-name "${machine_name}" --target-disk "${target_disk}" --encrypted-part "${encrypted_part}")
+if [[ ${UEFI} == true ]]; then
+  bootstrap_archlinux_chroot_args+=('--uefi')
+fi
+arch-chroot /mnt /bootstrap-archlinux-chroot "${bootstrap_archlinux_chroot_args[@]}"
+
+# This is needed only for VirtualBox
+if [[ ${machine_name} == vbox_uefi ]]; then
+  [[ -d /mnt/boot/efi/EFI/boot/ ]] || mkdir /mnt/boot/efi/EFI/boot/
+  cp /mnt/boot/efi/EFI/refind/refind_x64.efi /mnt/boot/efi/EFI/boot/bootx64.efi
+fi
+
+cat > /mnt/etc/sudoers << EOL
+root ALL=(ALL) ALL
+%wheel ALL=(ALL) ALL
+EOL
+
+# Cleanup and reboot:
+# umount -R /mnt
+# reboot

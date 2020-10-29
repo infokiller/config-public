@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="toggle_hide_on_lose_focus" mtime="1450348459" schema="/schemas/apps/guake/keybindings/local/toggle_hide_on_lose_focus" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="toggle_fullscreen" mtime="1450348432" schema="/schemas/apps/guake/keybindings/local/toggle_fullscreen" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="clipboard_paste" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/clipboard_paste"/>
+	<entry name="clipboard_copy" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/clipboard_copy"/>
+	<entry name="decrease_transparency" mtime="1450348656" schema="/schemas/apps/guake/keybindings/local/decrease_transparency" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="increase_transparency" mtime="1450348659" schema="/schemas/apps/guake/keybindings/local/increase_transparency" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="decrease_height" mtime="1450348654" schema="/schemas/apps/guake/keybindings/local/decrease_height" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="increase_height" mtime="1450348658" schema="/schemas/apps/guake/keybindings/local/increase_height" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="zoom_out" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/zoom_out"/>
+	<entry name="zoom_in_alt" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/zoom_in_alt"/>
+	<entry name="zoom_in" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/zoom_in"/>
+	<entry name="rename_current_tab" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/rename_current_tab" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;F2</stringvalue>
+	</entry>
+	<entry name="switch_tab10" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab10" type="string">
+		<stringvalue>&lt;Primary&gt;parenright</stringvalue>
+	</entry>
+	<entry name="switch_tab9" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab9" type="string">
+		<stringvalue>&lt;Primary&gt;parenleft</stringvalue>
+	</entry>
+	<entry name="switch_tab8" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab8" type="string">
+		<stringvalue>&lt;Primary&gt;asterisk</stringvalue>
+	</entry>
+	<entry name="switch_tab7" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab7" type="string">
+		<stringvalue>&lt;Primary&gt;ampersand</stringvalue>
+	</entry>
+	<entry name="switch_tab6" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab6" type="string">
+		<stringvalue>&lt;Primary&gt;asciicircum</stringvalue>
+	</entry>
+	<entry name="switch_tab5" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab5" type="string">
+		<stringvalue>&lt;Primary&gt;percent</stringvalue>
+	</entry>
+	<entry name="switch_tab4" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab4" type="string">
+		<stringvalue>&lt;Primary&gt;dollar</stringvalue>
+	</entry>
+	<entry name="switch_tab3" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab3" type="string">
+		<stringvalue>&lt;Primary&gt;numbersign</stringvalue>
+	</entry>
+	<entry name="switch_tab2" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab2" type="string">
+		<stringvalue>&lt;Primary&gt;at</stringvalue>
+	</entry>
+	<entry name="switch_tab1" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/switch_tab1" type="string">
+		<stringvalue>&lt;Primary&gt;exclam</stringvalue>
+	</entry>
+	<entry name="next_tab" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/next_tab"/>
+	<entry name="previous_tab" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/previous_tab"/>
+	<entry name="move_tab_right" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/move_tab_right" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;Page_Down</stringvalue>
+	</entry>
+	<entry name="move_tab_left" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/move_tab_left" type="string">
+		<stringvalue>&lt;Primary&gt;&lt;Shift&gt;Page_Up</stringvalue>
+	</entry>
+	<entry name="search_on_web" mtime="1450367398" schema="/schemas/apps/guake/keybindings/local/search_on_web" type="string">
+		<stringvalue>&lt;Control&gt;&lt;Shift&gt;l</stringvalue>
+	</entry>
+	<entry name="close_tab" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/close_tab" type="string">
+		<stringvalue>&lt;Primary&gt;F4</stringvalue>
+	</entry>
+	<entry name="new_tab" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/new_tab"/>
+	<entry name="quit" mtime="1450345978" schema="/schemas/apps/guake/keybindings/local/quit"/>
+	<entry name="reset_terminal" mtime="1450348672" schema="/schemas/apps/guake/keybindings/local/reset_terminal" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="rename_tab" mtime="1435655649" type="string">
+		<stringvalue>&lt;Primary&gt;F2</stringvalue>
+	</entry>
+</gconf>

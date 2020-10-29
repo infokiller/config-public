@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="layouts" mtime="1360001974" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>us</stringvalue>
+		</li>
+		<li type="string">
+			<stringvalue>il</stringvalue>
+		</li>
+	</entry>
+	<entry name="options" mtime="1360001958" type="list" ltype="string">
+		<li type="string">
+			<stringvalue>grp	grp:alt_shift_toggle</stringvalue>
+		</li>
+	</entry>
+</gconf>

@@ -1,0 +1,1 @@
+-a never,exit -F arch=b64 -S all -F path=/opt/google/chrome/chrome -F key=bug456535

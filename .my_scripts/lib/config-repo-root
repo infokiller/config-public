@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+# Outputs the config repository root to stdout. Used widely throughout the
+# config repo from scripts that refer to other files in the repo relative to the
+# repository root.
+# Special notes:
+# 1. This script MUST NOT source or depend on any other script because many
+#    scripts depend on it, which may cause an infinite recursion.
+# 2. I originally implemented this script using the git CLI and directly
+#    checking ${GIT_WORK_TREE}, but I ran into issues when scripts where used in
+#    the context of git operations. For example, the pre-commit hook, which is
+#    part of the config repo, was executed with git environment variables that
+#    broke things, and similarly my vim shell wrapper had issues when invoked
+#    for writing a commit message in other repositories.  The fundamental issue
+#    is that if ${GIT_WORK_TREE} is set when a script is executed, it's not
+#    possible to know if it's set because this is the git working tree of the
+#    config repo, or if it's set for another repo and the script is executed
+#    independently.
+# 3. Sourcing this script in both bash and zsh is twice faster than executing
+#    it. On zeus18 on bash from my home directory, sourcing is about 2ms while
+#    executing is about 4ms. Note that using it from a deeper working directory
+#    will take longer (because of traversing the directory hierarchy).
+
+if [[ -n "${BASH_VERSION-}" ]]; then
+  # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+  set -o errexit -o errtrace -o nounset -o pipefail
+fi
+
+# File which is used as a marker that the current directory is the config
+# repository root. Currently set to '.git' for simplicity as this directory
+# already exists, but can be changed in the future if I'll want to set
+# ${GIT_DIR}.
+if [[ -z "${_SENTINEL_FILE-}" ]]; then
+  readonly _SENTINEL_FILE='.git'
+fi
+
+# Copied from:
+# https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
+# Used instead of the dirname binary for performance.
+# Usage: _dirname "path"
+_dirname() {
+  local tmp=${1:-.}
+
+  [[ $tmp != *[!/]* ]] && {
+    printf '/\n'
+    return
+  }
+
+  tmp=${tmp%%"${tmp##*[!/]}"}
+
+  [[ $tmp != */* ]] && {
+    printf '.\n'
+    return
+  }
+
+  tmp=${tmp%/*}
+  tmp=${tmp%%"${tmp##*[!/]}"}
+
+  printf '%s\n' "${tmp:-/}"
+}
+
+_get_target_dir() {
+  if (($# == 0)); then
+    printf '%s\n' "${PWD}"
+  elif [[ -d "$1" ]]; then
+    printf '%s\n' "$1"
+  else
+    printf '%s\n' "$(_dirname "$1")"
+  fi
+}
+
+_find_by_sentinel() {
+  local dir="$1"
+  local sentinel="$2"
+  while [[ "${dir}" != '/' ]]; do
+    if [[ -e "${dir}/${sentinel}" ]]; then
+      printf '%s\n' "${dir}"
+      return 0
+    fi
+    dir="$(_dirname "${dir}")"
+  done
+  return 1
+}
+
+# We only try to use a system git binary, not a wrapper in $PATH, since the
+# latter might transitively call this script, which will lead to infinite
+# recursion.
+# Will this work in nix? can I assume that /bin/git is always installed?
+# If not, another alternative is to iterate over all git binaries as is done in
+# `get-wrapped-binary-command` and use the first one that is not owned by the
+# user or not writable by the user.
+# get_git_bin() {
+#   local git_bin
+#   for git_bin in '/bin/git' '/usr/bin/git'; do
+#     if [[ -x "${git_bin}" ]]; then
+#       printf '%s\n' "${git_bin}"
+#       return 0
+#     fi
+#   done
+#   return 1
+# }
+
+# Old main function that relies on git. Kept here for documentation about the
+# issues I encountered (see file comment).
+# main() {
+#   if [[ -n ${GIT_WORK_TREE-} ]]; then
+#     printf '%s\n' "${GIT_WORK_TREE}"
+#     return 0
+#   fi
+#   local target_dir
+#   target_dir="$(_get_target_dir "$@")"
+#   local git_bin
+#   # The ${GIT_INDEX_FILE} check is intended to work around an issue where this
+#   # script can be called during a git commit (which sets this variable and
+#   # others for the editor). However, this workaround will break for repos that
+#   # don't have a `.git` directory at their root (i.e. those that rely on
+#   # ${GIT_DIR}).
+#   if [[ -z "${GIT_INDEX_FILE-}" ]] && git_bin="$(get_git_bin)"; then
+#     # NOTE: This is incorrect if ${GIT_WORK_TREE} is a relative path, because
+#     # in this case it's interpreted relative to the working directory, which we
+#     # change below. This does not matter here since we can only reach this point
+#     # if ${GIT_WORK_TREE} is not empty.
+#     (cd "${target_dir}" && "${git_bin}" rev-parse --show-toplevel)
+#     return
+#   fi
+#   _find_by_sentinel "${target_dir}" '.git'
+# }
+
+main() {
+  local target_dir
+  target_dir=$(readlink -f "$(_get_target_dir "$@")")
+  _find_by_sentinel "${target_dir}" "${_SENTINEL_FILE}"
+}
+
+main "$@"

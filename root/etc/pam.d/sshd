@@ -1,0 +1,14 @@
+#%PAM-1.0
+#auth     required  pam_securetty.so     #disable remote root
+
+# Enable Google Authenticator and try to make it work with a private key
+# (instead of password).
+# See also: https://serverfault.com/a/754877/469445
+# NOTE(2018-07-18): I disabled the Google Auth requirement because I'm not sure
+# if it adds much (or any) security to using ssh keys (which are also
+# encrypted).
+# auth [success=done new_authtok_reqd=done default=die] pam_google_authenticator.so nullok
+auth      include   system-remote-login
+account   include   system-remote-login
+password  include   system-remote-login
+session   include   system-remote-login

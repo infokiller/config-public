@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="needs_terminal" mtime="1360069138" type="bool" value="false"/>
+	<entry name="enabled" mtime="1360069138" type="bool" value="true"/>
+	<entry name="command" mtime="1360069138" type="string">
+		<stringvalue>gnome-gmail %s</stringvalue>
+	</entry>
+</gconf>

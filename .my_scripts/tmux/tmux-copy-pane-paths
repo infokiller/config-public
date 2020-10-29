@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+
+# Like `printf '%s\n' "${array[@]}"` without the final newline.
+_join_by_newlines() {
+  # Write all paths to a single clipboard entry separated by newlines.
+  if (($# <= 1)); then
+    printf '%s' "$@"
+  else
+    # Print all the paths except the last with a newline.
+    printf '%s\n' "${@:1:(($# - 1))}"
+    printf '%s' "${@: -1}"
+  fi
+}
+
+main() {
+  while IFS='' read -r filepath; do
+    xsel --input --clipboard <<< "${filepath}"
+    # It seems that writing to the clipboard too fast overrides the previous
+    # entry, so this is a hacky workaround.
+    sleep 0.01
+  done < <("${REPO_ROOT}/.my_scripts/tmux/tmux-select-pane-paths" "$@" |
+    xargs -d '\n' --no-run-if-empty readlink -f |
+    # Remove duplicates that can exist because of the realpath command
+    # normalizing the paths.
+    sort -u)
+
+  # Write all paths to a single clipboard entry separated by newlines.
+  # _join_by_newlines "${filepaths[@]}" | xsel --input --clipboard
+}
+
+main "$@"

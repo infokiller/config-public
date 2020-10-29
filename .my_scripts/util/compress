@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# Copied from
+# https://github.com/leofa/dotfiles/blob/master/.bashrc
+if [[ -n $1 ]]; then
+  file=$1
+  case ${file} in
+    *.tar) shift && tar cf "${file}" "$@" ;;
+    *.tar.bz2) shift && tar cjf "${file}" "$@" ;;
+    *.tar.gz) shift && tar czf "${file}" "$@" ;;
+    *.tgz) shift && tar czf "${file}" "$@" ;;
+    *.zip) shift && zip "${file}" "$@" ;;
+    *.rar) shift && rar "${file}" "$@" ;;
+  esac
+else
+  printf 'Usage: compress <foo.tar.gz> ./foo ./bar\n'
+fi

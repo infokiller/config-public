@@ -1,0 +1,13 @@
+# This unit is needed to make privilege elevation prompt work in i3. See also:
+# http://superuser.com/questions/389397/ubuntu-and-privilege-elevation-in-i3wm
+[Unit]
+Description=PolicyKit Authentication Agent
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.my_scripts/desktop_env/polkit-agent
+Restart=on-failure
+RestartSec=5

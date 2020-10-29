@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<gconf>
+	<entry name="Password" mtime="1421790421" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="UserName" mtime="1421790421" type="string">
+		<stringvalue></stringvalue>
+	</entry>
+	<entry name="Port" mtime="1421790421" type="int" value="9091"/>
+	<entry name="Address" mtime="1421790421" type="string">
+		<stringvalue>127.0.0.1</stringvalue>
+	</entry>
+</gconf>

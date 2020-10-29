@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+WRAPPER_PATH="$(readlink -f "$0")"
+
+main() {
+  local cmd
+  mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  # EXP: enable GPU rasterization on code. See also
+  # ~/.config/chromium-flags.conf.
+  exec -- "${cmd[@]}" --enable-gpu-rasterization "$@"
+}
+
+main "$@"

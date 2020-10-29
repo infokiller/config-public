@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+while read -r filename; do
+  file -F '' "${filename}" | grep 'shell script' | awk '{print $1}'
+done

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+list_changed_shell_scripts() {
+  local -a changed_files
+  mapfile -t changed_files < <(git diff --staged --ignore-submodules=all --name-only)
+  if [[ -z "${changed_files[*]}" ]]; then
+    return 1
+  fi
+  printf '%s\n' "${changed_files[@]}" | filter-shell-scripts
+}
+
+main() {
+  if ! repo_root=$(git rev-parse --show-toplevel); then
+    exit 1
+  fi
+  cd "${repo_root}" || exit 1
+
+  local -a changed_shell_scripts
+  mapfile -t changed_shell_scripts < <(list_changed_shell_scripts)
+  if [[ -z "${changed_shell_scripts[*]}" ]]; then
+    echo 'No changed shell scripts'
+    exit
+  fi
+
+  printf '%s\n' "${changed_shell_scripts[@]}" |
+    xargs -d '\n' shfmt -i 2 -sr -ci -w
+}
+
+main "$@"

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sensible-browser "$("ip" route show default | grep 'default via' | head -1 | awk '{print $3}')"

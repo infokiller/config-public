@@ -1,0 +1,12 @@
+[Unit]
+Description=Start USBGuard applet
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+ConditionFileIsExecutable=/usr/bin/usbguard
+
+[Service]
+Type=simple
+ExecStart=usbguard-applet-qt
+Restart=on-failure
+RestartSec=10

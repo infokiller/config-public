@@ -1,0 +1,152 @@
+#!/usr/bin/env bash
+#
+# Originally copied from:
+# - https://github.com/leofa/dotfiles/blob/master/.bashrc
+# - https://github.com/robbyrussell/oh-my-zsh/blob/f960e2be6f01abe5f185d668be661b57051322ac/plugins/extract/extract.plugin.zsh
+#
+# TODO: Support listing and creating archives and/or unify with archive [1].
+# [1] https://github.com/romkatv/archive
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly EXTENSIONS=(tar.gz tgz tar.bz2 tbz tbz2 tar.xz txz tar.zst tar.lzma
+  tar gz bz2 xz zst lzma zip jar apk rar 7z)
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_print_usage_and_die() {
+  _print_error "Usage: $0 <archive> [<destination_folder>]"
+  exit 1
+}
+
+_log_extraction() {
+  printf 'Extracting %s to %s (%s)\n' "$1" "$2" "$3"
+}
+
+_get_archive_extension() {
+  local filename="$1"
+  local ext
+  for ext in "${EXTENSIONS[@]}"; do
+    if [[ "${filename}" == *.${ext} ]]; then
+      printf '%s' "${ext}"
+      return
+    fi
+  done
+  return 1
+}
+
+_get_available_file() {
+  local prefix="$1"
+  for suffix in '' {1..100}; do
+    if [[ ! -e "${prefix}.${suffix}" ]]; then
+      printf '%s' "${prefix}.${suffix}"
+      return
+    fi
+  done
+  return 1
+}
+
+main() {
+  (($# > 0)) || _print_usage_and_die
+  if [[ ! -r $1 ]]; then
+    _print_error 'File does not exist or is not readable.'
+    exit 1
+  fi
+
+  local extension
+  if ! extension="$(_get_archive_extension "$1")"; then
+    _print_error 'File has unsupported extension'
+    printf 'Supported extensions: %s\n' "${EXTENSIONS[*]}"
+    exit 1
+  fi
+  local filename_no_extension="${1%.${extension}}"
+
+  local target
+  if [[ -n ${2-} ]]; then
+    target="$2"
+  elif ! target=$(_get_available_file "${filename_no_extension}"); then
+    _print_error 'Could not find an available extraction dir, giving up'
+    exit 1
+  fi
+  if [[ "${extension}" == tar.* ]]; then
+    mkdir -p -- "${target}"
+  fi
+
+  case "${extension}" in
+    # NOTE: the tar.xxx checks must be done before xxx, or otherwise the latter
+    # will always match.
+    tar.gz | tgz)
+      _log_extraction "$1" "${target}" 'gzip compressed tar'
+      tar --gzip -xvf "$1" -C "${target}"
+      ;;
+    tar.bz2 | tbz | tbz2)
+      _log_extraction "$1" "${target}" 'bzip compressed tar'
+      tar --bzip2 -xvf "$1" -C "${target}"
+      ;;
+    tar.xz | txz)
+      _log_extraction "$1" "${target}" 'xz compressed tar'
+      tar --xz -xvf "$1" -C "${target}"
+      ;;
+    tar.lzma)
+      _log_extraction "$1" "${target}" 'lzma compressed tar'
+      tar --lzma -xvf "$1" -C "${target}"
+      ;;
+    tar.zst)
+      _log_extraction "$1" "${target}" 'zstandard compressed tar'
+      tar --zstd -xvf "$1" -C "${target}"
+      ;;
+    tar)
+      _log_extraction "$1" "${target}" 'uncompressed tar'
+      tar -xvf "$1" -C "${target}"
+      ;;
+    gz)
+      _log_extraction "$1" "${target}" 'gzip compressed file'
+      (command_exists pigz && pigz -d "${target}") || gunzip "$1"
+      ;;
+    bz2)
+      _log_extraction "$1" "${target}" 'bzip compressed file'
+      bunzip2 "$1"
+      [[ "${filename_no_extension}" != "${target}" ]] &&
+        mv -- "${filename_no_extension}" "${target}"
+      ;;
+    xz)
+      _log_extraction "$1" "${target}" 'xz compressed file'
+      # xz --decompress "$1" --to-stdout >
+      [[ "${filename_no_extension}" != "${target}" ]] &&
+        mv -- "${filename_no_extension}" "${target}"
+      ;;
+    lzma)
+      unlzma "$1"
+      ;;
+    zst)
+      _log_extraction "$1" "${target}" 'zstandard compressed file'
+      zstd -d "$1" -o "${target}"
+      ;;
+    zip | jar | apk)
+      _log_extraction "$1" "${target}" 'zip compressed file'
+      unzip "$1" -d "${target}"
+      ;;
+    rar)
+      _log_extraction "$1" "${target}" 'rar compressed file'
+      unrar x "$1" "${target}"
+      ;;
+    7z)
+      _log_extraction "$1" "${target}" '7zip compressed file'
+      7za e "$1" -o"${target}"
+      ;;
+    *)
+      _print_error 'File has unsupported extension'
+      _print_error 'Unknown archive format!'
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

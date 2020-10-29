@@ -1,0 +1,19 @@
+[Unit]
+Description=Download new Pacman packages (no installation)
+ConditionACPower=true
+
+[Service]
+Type=simple
+IOSchedulingClass=idle
+CPUSchedulingPolicy=idle
+# NOTE: `checkupdates --downloadonly` should be safer than running 
+# `pacman -Syu --downloadonly`. I think that running pacman like this is only
+# unsafe when followed by a single package installation, i.e. running 
+# `pacman -S pkg`. This asks pacman to install `pkg` without syncing the
+# database (which is NOT considered a partial upgrade, so it's supported by
+# Arch). However, `pacman -Syu --downloadonly` may have already updated the
+# database, which will lead to `pkg` being installed with a version that is
+# incompatible with the rest of the system. See:
+# https://www.reddit.com/r/archlinux/comments/9gy7gk/when_you_use_cron_jobs_to_update_arch/e683akq/
+ExecStart=/usr/bin/env checkupdates --download
+# ExecStart=/usr/bin/pacman -Syu --noconfirm --downloadonly
