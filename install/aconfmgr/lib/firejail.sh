@@ -5,21 +5,6 @@ CreateFile '/etc/ld.so.preload' > /dev/null
 id -un >| "$(CreateFile '/etc/firejail/firejail.users')"
 CopyFile '/etc/firejail/disable-common.local'
 
-# https://github.com/netblue30/firejail/issues/3659
-# TODO: Remove this once firejail is updated in Arch to fix this issue.
-_fix_firejail_apparmor_profile() {
-  local prof
-  prof="$(GetPackageOriginalFile firejail '/etc/apparmor.d/firejail-default')"
-  if grep -q '\s*#include\s+<tunables/global>' "${prof}"; then
-    return
-  fi
-  prepend_to_file "${prof}" \
-    '# AppArmor 3.0 uses the @{run} variable in <abstractions/dbus-strict>' \
-    '# and <abstractions/dbus-session-strict>.' \
-    '#include <tunables/global>'
-}
-_fix_firejail_apparmor_profile
-
 # AddPackage --foreign firejail-apparmor # Apparmor support for Firejail
 CopyFile '/etc/apparmor.d/local/firejail-default'
 
