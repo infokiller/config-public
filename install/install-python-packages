@@ -16,12 +16,9 @@ source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
 source "${REPO_ROOT}/install/setup_installation_env"
 
 declare -A INSTALLED_BINARIES=(
-  ['activate']=''
   ['black']=''
   ['buku']=''
   ['codespell']=''
-  ['conda']=''
-  ['deactivate']=''
   ['detect-secrets']=''
   ['detect-secrets-hook']=''
   # gh
@@ -144,8 +141,7 @@ _install_conda() {
   # TODO: Install man pages. I need to clone:
   # https://github.com/conda/conda-docs
   # And then build the man files and link them to my path.
-  miniconda_path="${HOME}/.local/pkg/conda"
-  if [[ -d ${miniconda_path} ]]; then
+  if [[ -d ${CONDA_LOCAL_DIR} ]]; then
     _log_info_bold 'Looks like miniconda is already installed'
     return
   fi
@@ -156,7 +152,7 @@ _install_conda() {
     _log_error 'Miniconda installer sha256 check failed'
     return 1
   fi
-  bash "${MINICONDA_INSTALLER}" -b -p "${miniconda_path}"
+  bash "${MINICONDA_INSTALLER}" -b -p "${CONDA_LOCAL_DIR}"
 }
 
 _install_conda_envs_from_dir() {
@@ -193,7 +189,7 @@ _setup_conda() {
 }
 
 _symlink_tools_binaries() {
-  _log_info_bold 'Symlinking binaries from conda base environment'
+  _log_info_bold 'Symlinking binaries from conda tools environment'
   local bin install_name
   for bin in "${!INSTALLED_BINARIES[@]}"; do
     if [[ -n "${INSTALLED_BINARIES[${bin}]}" ]]; then
@@ -235,6 +231,9 @@ main() {
   if ((install_non_graphical)); then
     _log_info_bold 'Installing non-graphical conda environments'
     _install_conda_envs_from_dir "${REPO_ROOT}/install/conda_envs"
+    for base_tool in conda activate deactivate; do
+      symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
+    done
     _symlink_tools_binaries
   fi
   if ((install_graphical)); then

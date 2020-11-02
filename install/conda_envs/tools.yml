@@ -75,6 +75,7 @@ dependencies:
     - ueberzug
     - undervolt
     - detect-secrets
+    - semgrep
     # Experimental JupyterLab extensions
     - jupyterlab_github
     - jupyterlab-git
