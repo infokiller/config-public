@@ -7,6 +7,8 @@ readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BA
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
 readonly CONDA_TOOLS_BIN_DIR="${CONDA_LOCAL_DIR}/envs/tools/bin"
+readonly MINICONDA_INSTALLER='Miniconda3-py38_4.8.3-Linux-x86_64.sh'
+readonly MINICONDA_SHA256='879457af6a0bf5b34b48c12de31d4df0ee2f06a8e68768e5758c3293b2daf688' # pragma: allowlist secret
 
 # shellcheck source=../.my_scripts/lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
@@ -143,19 +145,18 @@ _install_conda() {
   # https://github.com/conda/conda-docs
   # And then build the man files and link them to my path.
   miniconda_path="${HOME}/.local/pkg/conda"
-  miniconda_installer='Miniconda3-py37_4.8.2-Linux-x86_64.sh'
-  miniconda_md5='87e77f097f6ebb5127c77662dfc3165e' # pragma: allowlist secret
   if [[ -d ${miniconda_path} ]]; then
     _log_info_bold 'Looks like miniconda is already installed'
     return
   fi
   _log_info_bold 'Installing miniconda'
-  cd "${INSTALLATION_TMP_DIR}"
-  if [[ ! -f ${miniconda_installer} ]] ||
-    ! (md5sum "${miniconda_installer}" | grep -q "${miniconda_md5}"); then
-    wget --continue "https://repo.continuum.io/miniconda/${miniconda_installer}"
+  cd -- "${INSTALLATION_TMP_DIR}"
+  wget --continue "https://repo.continuum.io/miniconda/${MINICONDA_INSTALLER}"
+  if ! sha256sum --status --check - <<< "${MINICONDA_SHA256} ${MINICONDA_INSTALLER}"; then
+    _log_error 'Miniconda installer sha256 check failed'
+    return 1
   fi
-  bash "${miniconda_installer}" -b -p "${miniconda_path}"
+  bash "${MINICONDA_INSTALLER}" -b -p "${miniconda_path}"
 }
 
 _install_conda_envs_from_dir() {

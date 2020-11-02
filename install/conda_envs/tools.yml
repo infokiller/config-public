@@ -3,7 +3,7 @@
 # NOTE: the base (previously root) environment should contain as little packages
 # as possible to avoid breaking conda, so general tools are installed into this
 # environment.
-name: base_tools
+name: tools
 channels:
   - conda-forge
   - defaults
