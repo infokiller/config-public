@@ -185,8 +185,8 @@ _setup_conda() {
   # NOTE: we must specify the environment in case another environment is active
   # when this script is called.
   # NOTE: if conda-build is not installed, updating conda will fail.
-  "${CONDA}" install --name root --yes conda-build
-  "${CONDA}" update --name root --yes conda
+  "${CONDA}" install --name base --channel defaults --yes conda-build
+  "${CONDA}" update --name base --channel defaults --yes conda
   _log_info_bold 'Removing compiler_compat/ld'
   rm "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
     "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
