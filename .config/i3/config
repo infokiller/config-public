@@ -109,7 +109,7 @@ bindcode $mod+Shift+38 focus child
 
 # Border changing
 # Key: B
-bindcode $mod+56 $exec_cli conda-run base_i3 ~/.my_scripts/i3/i3-toggle-border
+bindcode $mod+56 $exec_cli conda-run i3_scripts ~/.my_scripts/i3/i3-toggle-border
 
 # Print screen
 # bindsym Print exec gnome-screenshot --interactive
@@ -604,7 +604,7 @@ for_window [instance="guake"] border pixel 5
 
 # Resize window (you can also use the mouse for that)
 mode "Resize" {
-    set $exec_i3_resize exec --no-startup-id conda-run base_i3 ~/.my_scripts/i3/i3-resize-container
+    set $exec_i3_resize exec --no-startup-id conda-run i3_scripts ~/.my_scripts/i3/i3-resize-container
 
     # Key: J
     bindcode 44 resize shrink width 5 px or 5 ppt

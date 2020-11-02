@@ -135,7 +135,7 @@ source "${SUBMODULES_DIR}/terminal/fzf/shell/key-bindings.bash"
 # Original function is at:
 # https://github.com/junegunn/fzf/blob/master/shell/key-bindings.bash
 __fzf_history__() {
-  # conda-run base_shell_history \
+  # conda-run shell_history \
   #   "$HOME/.config/bash/history/shell_history_choose_line.py"
   output="$(histcat-select "$@")"
   READLINE_LINE=${output#*$'\t'}

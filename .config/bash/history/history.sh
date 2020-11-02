@@ -84,7 +84,7 @@ histcat-verify() {
   # TODO: Remove these checks after all machines are migrated.
   if [[ -e "$(_get_base_history_dir)/bash_history" ]]; then
     printf 'Migrating history\n'
-    conda-run base_shell_history \
+    conda-run shell_history \
       "$HOME/.config/bash/history/migration-tool.py"
     while IFS='' read -r -d '' file; do
       printf 'Moving file %s to host directory\n' "${file}"

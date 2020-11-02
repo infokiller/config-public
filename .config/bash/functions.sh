@@ -406,7 +406,7 @@ alias pg='ps aux | \grep -v --fixed-strings " ${_BEST_GREP[*]} " | ${_BEST_GREP[
 alias eg='env | ${_BEST_GREP[*]}'
 # Grep for a history entry
 # shellcheck disable=SC2139
-alias hg="conda-run base_shell_history ${REPO_ROOT}/.config/bash/history/shell_history_choose_line.py --max-entries 100000 --initial-query"
+alias hg="conda-run shell_history ${REPO_ROOT}/.config/bash/history/shell_history_choose_line.py --max-entries 100000 --initial-query"
 
 _RG_OR_TAG='rg'
 # AG_OR_TAG="ag --path-to-ignore ${REPO_ROOT}/.config/ripgrep/ignore"

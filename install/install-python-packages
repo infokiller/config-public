@@ -6,6 +6,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
+readonly CONDA_TOOLS_BIN_DIR="${CONDA_LOCAL_DIR}/envs/tools/bin"
 
 # shellcheck source=../.my_scripts/lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
@@ -105,8 +106,8 @@ _fastest_conda() {
   # As of 2020-10-14, mamba wasn't faster than conda in this script, though I
   # think it's faster when installing envrionments from scratch. I'll consider
   # enabling it in the future.
-  # if [[ -x "${CONDA_LOCAL_DIR}/bin/mamba" ]]; then
-  #   bin="${CONDA_LOCAL_DIR}/bin/mamba"
+  # if [[ -x "${CONDA_TOOLS_BIN_DIR}/mamba" ]]; then
+  #   bin="${CONDA_TOOLS_BIN_DIR}/mamba"
   # fi
   "${bin}" "$@"
 }
@@ -123,14 +124,17 @@ _create_python_env_wrappers() {
   # cd "${SUBMODULES_DIR}/exec-wrappers"
   # "${HOME}/.local/pkg/conda/bin/python" setup.py install
   _log_info_bold 'Creating python environment wrappers'
-  # local envs=(base_i3 base_shell_history)
+  # local envs=(i3_scripts shell_history)
   # local bin_dirs=("${HOME}/.my_scripts/i3" "${HOME}/.config/bash/history")
   local envs=()
   local bin_dirs=()
   for i in "${!envs[@]}"; do
     local dest_dir="${bin_dirs[${i}]}/wrappers"
     [[ -d ${dest_dir} ]] || mkdir -- "${dest_dir}"
-    "${CONDA_LOCAL_DIR}/bin/create-wrappers" --type conda --conda-env-dir "${CONDA_LOCAL_DIR}/envs/${envs[${i}]}" --bin-dir "${bin_dirs[${i}]}" --dest-dir "${dest_dir}"
+    "${CONDA_TOOLS_BIN_DIR}/create-wrappers" --type conda \
+      --conda-env-dir "${CONDA_LOCAL_DIR}/envs/${envs[${i}]}" \
+      --bin-dir "${bin_dirs[${i}]}" \
+      --dest-dir "${dest_dir}"
   done
 }
 
@@ -158,7 +162,8 @@ _install_conda_envs_from_dir() {
   local dir="$1"
   while IFS= read -r -d '' conda_env_file; do
     _log_info_bold "Installing conda environment from file: ${conda_env_file}"
-    # --prune removes packages not specified in environment file
+    # --prune should remove packages not specified in environment file, though
+    #  it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
     local cmd=(_fastest_conda env update --prune -f "${conda_env_file}")
     if ! "${cmd[@]}"; then
       _log_info_bold 'Removing compiler_compat/ld and retrying'
@@ -186,7 +191,7 @@ _setup_conda() {
     "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
 }
 
-_symlink_base_env_binaries() {
+_symlink_tools_binaries() {
   _log_info_bold 'Symlinking binaries from conda base environment'
   local bin install_name
   for bin in "${!INSTALLED_BINARIES[@]}"; do
@@ -197,7 +202,7 @@ _symlink_base_env_binaries() {
       install_name="${bin}"
       _log_info "Installing ${bin}"
     fi
-    symlink_binary "${CONDA_LOCAL_DIR}/bin/${bin}" "${install_name}"
+    symlink_binary "${CONDA_TOOLS_BIN_DIR}/${bin}" "${install_name}"
   done
 }
 
@@ -229,7 +234,7 @@ main() {
   if ((install_non_graphical)); then
     _log_info_bold 'Installing non-graphical conda environments'
     _install_conda_envs_from_dir "${REPO_ROOT}/install/conda_envs"
-    _symlink_base_env_binaries
+    _symlink_tools_binaries
   fi
   if ((install_graphical)); then
     _log_info_bold 'Installing graphical conda environments'

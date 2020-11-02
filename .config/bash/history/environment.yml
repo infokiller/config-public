@@ -1,4 +1,4 @@
-name: base_shell_history
+name: shell_history
 channels:
   - conda-forge
   - defaults

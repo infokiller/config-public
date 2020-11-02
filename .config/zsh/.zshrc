@@ -915,7 +915,7 @@ fzf-history-widget() {
   local selected
   # NOTE: I replaced the expression "${(qqq)LBUFFER}" with "${LBUFFER//$/\\$}"
   # because otherwise I got two quotation marks in the initial query.
-  # selected=$(conda-run base_shell_history \
+  # selected=$(conda-run shell_history \
   #     "$HOME/.config/bash/history/shell_history_choose_line.py" \
   #     --initial-query "${LBUFFER//$/\\$}")
   # selected="$(histcat select --initial-query "${LBUFFER//$/\\$}")"

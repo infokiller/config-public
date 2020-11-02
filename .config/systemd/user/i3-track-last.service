@@ -12,4 +12,4 @@ Restart=on-failure
 RestartSec=10
 # Wait for i3 socket to be available.
 ExecStartPre=bash -c 'while true; do i3-msg nop &>/dev/null && break; sleep 1; done'
-ExecStart=%h/.local/bin/conda-run base_i3 %h/.my_scripts/i3/i3-track-last
+ExecStart=%h/.local/bin/conda-run i3_scripts %h/.my_scripts/i3/i3-track-last
