@@ -71,6 +71,13 @@
         "visualstudioexptteam.vscodeintellicode",
         "rlivings39.fzf-quick-open"
     ],
+    // As of 2020-10-14, using the local server stopped working on my desktop.
+    // As of 2020-11-07, I can't reproduce the issue again.
+    // "remote.SSH.useLocalServer": false,
+    // "remote.SSH.remotePlatform": {
+    //     "dgx3": "linux"
+    // }
+
     // As of 2020-10-14, git.autofetch is disabled because it can randomly
     // trigger pinentry.
     // "git.autofetch": true,
@@ -109,12 +116,7 @@
     "todohighlight.defaultStyle": {
         "color": "#d33682",
         "backgroundColor": ""
-    },
-    "remote.SSH.remotePlatform": {
-        "dgx3": "linux"
-    },
-    // As of 2020-10-14, using the local server stopped working on my desktop.
-    "remote.SSH.useLocalServer": false
+    }
 }
 
 // vim: set ft=jsonc :
