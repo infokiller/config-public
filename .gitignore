@@ -184,6 +184,7 @@
 /.config/sxhkd
 /.config/kalu/news.conf
 /.config/keybase
+/.config/gsmartcontrol/gsmartcontrol.conf
 /.config/kwalletrc
 /.config/yarn/global
 /.config/direnv
