@@ -79,7 +79,8 @@ get_gitmodules_branch() {
 get_default_branch() {
   local remote="$1"
   local gitmodules_branch
-  if gitmodules_branch="$(get_gitmodules_branch)"; then
+  if [[ "${remote}" == 'origin' ]] &&
+    gitmodules_branch="$(get_gitmodules_branch)"; then
     printf '%s' "${gitmodules_branch}"
     return 0
   fi
