@@ -27,8 +27,10 @@ _FIREJAILED_BINS=(
   exiftool
   ffmpeg
   freshclam
+  gapplication
   gcloud
   geeqie
+  gnome-screenshot
   highlight
   img2txt
   less
@@ -44,10 +46,12 @@ _FIREJAILED_BINS=(
   lowriter
   mediainfo
   mpv
+  nslookup
   krita
   ncdu
   odt2txt
   patch
+  pavucontrol
   pdftotext
   qbittorrent
   qutebrowser
@@ -61,7 +65,12 @@ _FIREJAILED_BINS=(
   ssh
   strings
   transmission-cli
+  transmission-create
+  transmission-daemon
+  transmission-edit
+  transmission-remote
   transmission-show
+  udiskie
   vlc
   w3m
   wget
@@ -79,6 +88,14 @@ _FIREJAILED_BINS=(
 #   google-chrome-stable
 #   firefox
 #   vivaldi-stable
+#   tor-browser
+# )
+
+# Other stuff I want to test before enabling firejail by default.
+# _FIREJAILED_BINS+=(
+#   code
+#   et
+#   remmina
 # )
 
 for bin in "${_FIREJAILED_BINS[@]}"; do
