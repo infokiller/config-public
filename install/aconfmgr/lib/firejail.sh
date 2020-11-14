@@ -54,7 +54,6 @@ _FIREJAILED_BINS=(
   pavucontrol
   pdftotext
   qbittorrent
-  qutebrowser
   # Not much benefit in firejailing ranger, see my ranger.profile for details.
   # ranger
   redshift
@@ -89,6 +88,7 @@ _FIREJAILED_BINS=(
 #   firefox
 #   vivaldi-stable
 #   tor-browser
+#   qutebrowser
 # )
 
 # Other stuff I want to test before enabling firejail by default.
