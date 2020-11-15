@@ -2,9 +2,11 @@ Plug 'glacambre/firenvim'
 
 nnoremap <C-R> <Nop>
 
-" Note that <C-Q> is already used by The Great Suspender.
-noremap <expr> <C-Z> vimrc#GetCommandForMode('call firenvim#hide_frame()')
-noremap! <expr> <C-Z> vimrc#GetCommandForMode('call firenvim#hide_frame()')
+" Note that <C-Q> is already used by TGS (The Great Suspender).
+" As of 2020-11-15, I no longer use TGS, and I also think that <C-Q> is not
+" necessary for TGS because I can just refresh the page with <C-R>.
+noremap <expr> <C-Q> vimrc#GetCommandForMode('call firenvim#hide_frame()')
+noremap! <expr> <C-Q> vimrc#GetCommandForMode('call firenvim#hide_frame()')
 " Mapping <Esc><Esc> turns out to be very annoying because then vim waits for
 " the second escape each time I want to exit normal mode.
 " noremap <expr> <Esc><Esc> vimrc#GetCommandForMode('call firenvim#focus_page()')
