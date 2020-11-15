@@ -58,6 +58,7 @@
     // I like inline values in Chrome Dev Tools, but it's too noisy in VSCode.
     // In addition, the docs say that this can be slow.
     // "debug.inlineValues": true,
+
     "remote.extensionKind": {
         "igorsbitnev.error-gutters": ["ui"],
         "joeberria.statusbarerror": ["ui"],
@@ -71,6 +72,16 @@
         "visualstudioexptteam.vscodeintellicode",
         "rlivings39.fzf-quick-open"
     ],
+    // As of 2020-10-14, using the local server stopped working on my desktop,
+    // which required the settings below [1].
+    // As of 2020-11-15, it seems there was an issue with firejail which I now
+    // fixed.
+    // [1] https://github.com/microsoft/vscode-remote-release/issues/3845
+    // "remote.SSH.remotePlatform": {
+    //     "dgx3": "linux"
+    // },
+    // "remote.SSH.useLocalServer": false,
+
     // As of 2020-10-14, git.autofetch is disabled because it can randomly
     // trigger pinentry.
     // "git.autofetch": true,
@@ -109,12 +120,7 @@
     "todohighlight.defaultStyle": {
         "color": "#d33682",
         "backgroundColor": ""
-    },
-    "remote.SSH.remotePlatform": {
-        "dgx3": "linux"
-    },
-    // As of 2020-10-14, using the local server stopped working on my desktop.
-    "remote.SSH.useLocalServer": false
+    }
 }
 
 // vim: set ft=jsonc :
