@@ -163,6 +163,10 @@ source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
 ################################################################################
 #                               General settings                               #
 ################################################################################
+# NOTE: I already set the umask in .profile which is read by .zshenv, but it
+# seems to be reset once zshrc is parsed.
+umask 027
+
 # Print hex/oct numbers as 0xFF/077 instead of 16#FF/8#77.
 setopt C_BASES
 
