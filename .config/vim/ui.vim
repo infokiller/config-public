@@ -907,6 +907,9 @@ function! VimrcSetColorScheme() abort
   " colorscheme resets all preexisting groups.
   highlight ActiveWindow guibg=#002b36
   highlight InactiveWindow guibg=#00242e
+  " I changed DiffText to show the part of line changed as having yellow
+  " background. The rest are the defaults of DiffChange from solarized8.
+  highlight! DiffText cterm=inverse,bold gui=inverse,bold ctermbg=5 guifg=#b58900 guibg=#073642 guisp=#b58900
   highlight! link ALEVirtualText Comment
   highlight! link ALEVirtualTextWarning ALEVirtualText
   highlight! link ALEVirtualTextError ALEVirtualText
