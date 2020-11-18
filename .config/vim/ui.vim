@@ -418,8 +418,11 @@ else
   set diffopt=filler,vertical
 endif
 
-function! s:MaybeDiffBindings() abort
+function! s:MaybeSetDiffOptions() abort
   if &diff
+    " Syntax highlighting in diff mode is confusing me because the color overlap
+    " with the colors used for changed lines/part of lines.
+    syntax off
     " Navigate diff changes with Ctrl+{p,n}
     nnoremap <buffer> <C-P> [c
     nnoremap <buffer> <C-N> ]c
@@ -436,14 +439,14 @@ function! s:MaybeDiffBindings() abort
 endfunction
 
 augroup vimrc
-  autocmd BufEnter * call s:MaybeDiffBindings()
+  autocmd BufEnter * call s:MaybeSetDiffOptions()
 augroup END
 
 " DiffUpdated is needed for diffs triggered by fugitive to work.
 " DiffUpdated is not supported in older versions of vim.
 if exists('##DiffUpdated')
   augroup vimrc
-    autocmd BufEnter,DiffUpdated * call s:MaybeDiffBindings()
+    autocmd BufEnter,DiffUpdated * call s:MaybeSetDiffOptions()
   augroup END
 endif
 
@@ -967,7 +970,7 @@ endif
 " https://github.com/neovim/neovim/pull/12279
 if has('##TextYankPost')
   augroup vimrc
-    autocmd BufEnter * call s:MaybeDiffBindings()
+    autocmd BufEnter * call s:MaybeSetDiffOptions()
     autocmd TextYankPost * silent! lua
         \ require'highlight'.on_yank('IncSearch', 500, vim.v.event)
   augroup END
