@@ -1,6 +1,8 @@
 " When a file has been detected to have been changed outside of Vim and it has
 " not been changed inside of Vim, automatically read it again, without
 " bothering me.
+" References:
+" - https://github.com/djoshea/vim-autoread
 set autoread
 " Save the buffer if it's modified after using various commands (switching
 " buffers, quit, exit, etc.)
@@ -106,6 +108,11 @@ function! SyncAllBuffersThrottled(...) abort
   endif
 endfunction
 
+" TODO: Add an option to do more frequent saves using timer_start [1] or more
+" events (like CursorHold, CursorHoldI, CursorMoved, CursorMovedI).
+" [1] https://stackoverflow.com/a/53860166/1014208
+" TODO: Consider using vim-autoread [2]
+" [2] https://github.com/chrisbra/vim-autoread
 augroup vimrc
   " Notes:
   " - Originally this also had the InsertLeave event, but it triggers a bug with
