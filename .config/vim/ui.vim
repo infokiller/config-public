@@ -430,7 +430,9 @@ function! s:MaybeSetDiffOptions() abort
     nnoremap <buffer> dp :<C-U>diffput<CR>
     nnoremap <buffer> dg :<C-U>diffget<CR>
   else
-    setlocal syntax=on
+    if !empty(&filetype)
+      setlocal syntax=on
+    endif
     silent! nunmap <buffer> <C-P>
     silent! nunmap <buffer> <C-N>
     silent! nunmap <buffer> du
