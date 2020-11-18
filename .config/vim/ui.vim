@@ -422,7 +422,7 @@ function! s:MaybeSetDiffOptions() abort
   if &diff
     " Syntax highlighting in diff mode is confusing me because the color overlap
     " with the colors used for changed lines/part of lines.
-    syntax off
+    setlocal syntax=off
     " Navigate diff changes with Ctrl+{p,n}
     nnoremap <buffer> <C-P> [c
     nnoremap <buffer> <C-N> ]c
@@ -430,6 +430,7 @@ function! s:MaybeSetDiffOptions() abort
     nnoremap <buffer> dp :<C-U>diffput<CR>
     nnoremap <buffer> dg :<C-U>diffget<CR>
   else
+    setlocal syntax=on
     silent! nunmap <buffer> <C-P>
     silent! nunmap <buffer> <C-N>
     silent! nunmap <buffer> du
@@ -439,14 +440,15 @@ function! s:MaybeSetDiffOptions() abort
 endfunction
 
 augroup vimrc
-  autocmd BufEnter * call s:MaybeSetDiffOptions()
+  autocmd WinNew,WinEnter,BufNew,BufEnter * call s:MaybeSetDiffOptions()
+  autocmd OptionSet diff call s:MaybeSetDiffOptions()
 augroup END
 
 " DiffUpdated is needed for diffs triggered by fugitive to work.
 " DiffUpdated is not supported in older versions of vim.
 if exists('##DiffUpdated')
   augroup vimrc
-    autocmd BufEnter,DiffUpdated * call s:MaybeSetDiffOptions()
+    autocmd DiffUpdated * call s:MaybeSetDiffOptions()
   augroup END
 endif
 
