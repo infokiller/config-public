@@ -27,8 +27,13 @@ function! s:SyncBuffer(buf_dict, force) abort
   " Reload buffer from file.
   " echom printf('Reading buffer from disk: %s', a:buf_dict.name)
   " `checktime` checks for changes to file one time after `updatetime`
-  " milliseconds of inactivity in normal mode.  Without this, autoread doesn't
-  " work well for me. See also: http://stackoverflow.com/a/18866818
+  " milliseconds of inactivity in normal mode. Without this, autoread doesn't
+  " work well, because vim only uses it after invoking an external command. See: 
+  " - autocmd FocusGained echo 'focus gained'
+  " - http://stackoverflow.com/a/18866818
+  " I don't remember why `silent` is needed here, but at the very least it seems
+  " needed to prevent errors from appearing when it's invoked in command line
+  " mode: https://vi.stackexchange.com/q/13692
   exec printf('silent! checktime %d', a:buf_dict['bufnr'])
   " NOTE: As of 2020-02-09, I disabled writing the buffers to disk in this
   " function because the vim commands `:write` and `:update` seem to only work
