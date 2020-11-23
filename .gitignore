@@ -275,6 +275,7 @@
 /.config/google-chrome-remote
 /.config/grip/cache
 /.config/gtk-3.0/bookmarks
+/.config/helm
 /.config/htop/htoprc
 /.config/ibus
 /.config/icedtea-web
@@ -310,6 +311,7 @@
 /.i-nex
 /.joe-data
 /.kodi/addons
+/.kube
 /.lesshst
 /.mono
 /.mozilla
