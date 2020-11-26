@@ -1,5 +1,5 @@
 [Unit]
-Description=Start Network Speed Logger
+Description=Network Speed Logger
 # I wanted this service to depend on the network being online, but
 # network-online.target is a system systemd service, which is isolated from user
 # services.
