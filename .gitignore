@@ -411,13 +411,16 @@
 !/.local/share/wakatime
 /.local/share/wakatime/*
 !/.local/share/wakatime/.wakatime.cfg
-# qBittorrent
-!/.config/qBittorrent
-/.config/qBittorrent/*
-!/.config/qBittorrent/rss
 # # Chromium
 # !/.config/chromium
 # /.config/chromium/*
 # !/.config/chromium/Home
 # /.config/chromium/Home/*
 # !/.config/chromium/Home/exported_extensions.txt
+
+# qBittorrent
+/.config/qBittorrent
+/.config/qBittorrentrc
+# !/.config/qBittorrent
+# /.config/qBittorrent/*
+# !/.config/qBittorrent/rss
