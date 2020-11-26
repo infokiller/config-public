@@ -38,6 +38,7 @@ ripgrep
 copyq
 xdotool
 trash-cli
+shellcheck
 
 lightdm
 xss-lock
