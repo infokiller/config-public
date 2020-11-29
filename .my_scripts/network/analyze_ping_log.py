@@ -38,8 +38,9 @@ def _parse_packet_loss(log_content, min_datetime):
     received = 0
     last_datetime = None
     for line in log_content.split('\n'):
-        match = PING_TIME_REGEX.match(line)
+        match = PING_STATS_REGEX.match(line)
         if match:
+            print(f'-------------------MATCH: {match.groups()}')
             timestamp = decimal.Decimal(match.groups()[0])
             last_datetime = datetime.datetime.fromtimestamp(timestamp)
             continue
@@ -58,6 +59,7 @@ def compute_percentile(values, percentile):
     return sorted(values)[int(percentile * len(values))]
 
 
+# pylint: disable=too-many-locals
 def main():
     parser = argparse.ArgumentParser(description='Analyze ping times log.')
     parser.add_argument('--ping-log-files',
