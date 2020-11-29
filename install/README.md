@@ -78,33 +78,6 @@ different, probably because it was somehow done in the Windows installation.
   relevant guest tools are
   [Spice Windows guest tools](https://www.spice-space.org/download.html)
 
-- Install Chocolately package manager: open PowerShell as admin and then run:
-
-  ```powershell
-  Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-  ```
-
-- Install packages: open PowerShell as admin and then run the commands below.
-
-  - Essential packages: usually required in all installations.
-
-  NOTE: On Windows it's better to install Chrome and not Chromium because Chrome
-  gets automatic updates. Additionally, the version of Chromium in Chocholately
-  was very old the last time I checked (2019-12-28).
-
-  ```powershell
-  choco install -y googlechrome google-backup-and-sync 7zip copyq windirstat autohotkey vlc inconsolata paint.net notepadplusplus git
-  ```
-
-  - Extra packages
-
-  ```powershell
-  choco install -y winrar veracrypt malwarebytes qbittorrent wox ueli f.lux python vscode sysinternals handbrake
-  ```
-
-  > TODO: Look into [winget](https://github.com/microsoft/winget-cli). TODO:
-  > Look into [Scoop](https://github.com/lukesampson/scoop).
-
 - Tweak Windows settings
 
   - Download <https://github.com/infokiller/Win10-Initial-Setup-Script> and run
@@ -120,6 +93,49 @@ different, probably because it was somehow done in the Windows installation.
   - [Bitlocker with Linux dual boot guide](https://www.ctrl.blog/entry/dual-boot-bitlocker-device.html)
 
   - [Veracrypt Windows 10 guide](https://www.howtogeek.com/234826/how-to-enable-full-disk-encryption-on-windows-10/))
+
+### Install Windows packages
+
+[winget](https://github.com/microsoft/winget-cli) is an official CLI package
+manager by Microsoft. As of 2020-11-26 it is still in preview, but in the long
+term it should be the best solution. Other Alternatives are Chocolately (see
+instructions below) and [Scoop](https://github.com/lukesampson/scoop) which
+looks interesting but I haven't tested it yet.
+
+#### winget
+
+- Install winget: As of 2020-11-26, winget is still in preview and hence manual
+  installation is needed by downloading and installing the
+  [latest release](https://github.com/microsoft/winget-cli/releases/latest).
+
+- Install packages: open PowerShell as admin and run:
+
+  ```powershell
+  winget install Microsoft.WindowsTerminal qbittorrent <more packages>
+  ```
+
+#### Chocolately
+
+- Install Chocolately: open PowerShell as admin and run:
+
+  ```powershell
+  Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+  ```
+
+- Install packages: open PowerShell as admin and run:
+
+  > NOTE: On Windows it's better to install Chrome and not Chromium because
+  > Chrome gets automatic updates. Additionally, the version of Chromium in
+  > Chocolately was very old the last time I checked (2019-12-28).
+
+  > NOTE: The backticks in the powershell command are line continuations
+  > (similar to a backslash in bash).
+
+  ```powershell
+  choco install -y 7zip copyq windirstat autohotkey vlc inconsolata paint.net `
+    notepadplusplus git winrar googlechrome google-backup-and-sync veracrypt `
+    malwarebytes qbittorrent wox ueli f.lux python vscode sysinternals handbrake
+  ```
 
 ### Notes
 
@@ -273,8 +289,8 @@ automated in the Arch installation, but not in Debian (yet) include:
 - Install git if needed: `sudo apt install -y git`
 
 > TODO: Add more specific instructions for following the installation media to
-> make sure my settings are consistent across installations.
-> TODO: Verify these are the only changes needed in Debian.
+> make sure my settings are consistent across installations. TODO: Verify these
+> are the only changes needed in Debian.
 
 ### Cross distro setup
 
