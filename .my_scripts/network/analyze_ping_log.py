@@ -38,9 +38,8 @@ def _parse_packet_loss(log_content, min_datetime):
     received = 0
     last_datetime = None
     for line in log_content.split('\n'):
-        match = PING_STATS_REGEX.match(line)
+        match = PING_TIME_REGEX.match(line)
         if match:
-            print(f'-------------------MATCH: {match.groups()}')
             timestamp = decimal.Decimal(match.groups()[0])
             last_datetime = datetime.datetime.fromtimestamp(timestamp)
             continue
