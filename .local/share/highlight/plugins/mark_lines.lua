@@ -140,7 +140,7 @@ function themeUpdate(desc)
   end
 
   if (HL_OUTPUT == HL_FORMAT_TRUECOLOR) then
-    StoreValue("ansiOpenSeq", lighten(Canvas.Colour, "\x1B[48;2;%02x;%02x;%02xm"))
+    StoreValue("ansiOpenSeq", lighten(Canvas.Colour, "\x1B[48;2;%03d;%03d;%03dm"))
   elseif (HL_OUTPUT == HL_FORMAT_XTERM256) then
     --https://gist.github.com/MicahElliott/719710/8b8b962033efed8926ad8a8635b0a48630521a67
     lightCanvas = lighten(Canvas.Colour, "%03d %03d %03d")
