@@ -28,6 +28,11 @@ _make_fullpath() {
   python -c $'import os, sys\nfor line in sys.stdin: print(os.path.join(os.getcwd(), line[-1]))'
 }
 
+# https://stackoverflow.com/a/11532197
+_dedup() {
+  awk '!seen[$0]++'
+}
+
 main() {
   local recurse_submodules=0
   for arg in "$@"; do
@@ -40,7 +45,9 @@ main() {
     ls_repo_files_args+=('--recurse-submodules')
   fi
   # List all files committed to the repo (and its submodules if requested).
-  git ls-files "${ls_repo_files_args[@]}"
+  # This can yield duplicates if we're in a merge or rebase, so we dedup the
+  # output.
+  git ls-files "${ls_repo_files_args[@]}" | _dedup
   # List untracked files in the repo.
   git ls-files --others --exclude-standard
   if ((!recurse_submodules)); then
