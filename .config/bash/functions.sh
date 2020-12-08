@@ -1268,7 +1268,7 @@ benchmark-command() {
 alias bm='benchmark-command'
 
 alias rif='run-interactive-function'
-alias w='watch run-interactive-function '
+alias w='watch run-interactive-function'
 
 run-if-executable-exists() {
   local e1="$1"
