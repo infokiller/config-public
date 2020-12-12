@@ -81,6 +81,7 @@ let s:FIRENVIM_DISABLED_URLS = [
       \ 'outlook.office.com/mail',
       \ '.*.officeapps.live.com',
       \ 'script.google.com',
+      \ 'messages.google.com',
       \ 'facebook\.com',
       \ 'excalidraw\.com',
       \ 'overleaf\.com',
