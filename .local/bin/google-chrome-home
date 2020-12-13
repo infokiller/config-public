@@ -1,2 +1,43 @@
 #!/usr/bin/env bash
-google-chrome --profile-directory="Home" "$@"
+
+FLAGS=(
+  # Without this, chromium stores passwords unencrypted, even though I have the
+  # Secrets Service running.
+  # https://rtfm.co.ua/en/chromium-linux-keyrings-secret-service-passwords-encryption-and-store/
+  '--password-store=gnome'
+  # EXP: use GPU acceleration for rasterization and/or video encode/decode. See:
+  # - https://github.com/qutebrowser/qutebrowser/issues/5378#issuecomment-617931657
+  # - https://wiki.archlinux.org/index.php/Hardware_video_acceleration
+  # - https://wiki.debian.org/HardwareVideoAcceleration
+  '--enable-gpu-rasterization'
+  '--ignore-gpu-blocklist'
+  # NOTE(2018-10-16): Disabled because things are too small on hera17. The
+  # automatic scaling prior to using this flag seemed to work better.
+  # --force-device-scale-factor=1.2
+  '--enable-dom-distiller'
+  # Enables dark mode for all of Chrome's UI. I'm already using the
+  # Material Dark theme [1], which changes the color of the top bar and tabs, but
+  # this also changes the color of the menus (and maybe other UI elements).
+  # [1] https://chrome.google.com/webstore/detail/material-dark/npadhaijchjemiifipabpmeebeelbmpd?hl=en
+  '--force-dark-mode'
+  # Configure `chrome://flags` experiments.
+  # NOTE: All the features must be enabled/disabled in the same flag delimited by
+  # commas.
+  # As of 2020-02-10, I stopped enabling TabGroups.
+  # Features enabled/disabled:
+  # - ExtensionsToolbarMenu: add a button next to the extension icons that shows
+  #   all extensions.
+  # - NativeNotifications: show native desktop notifications.
+  # - ReaderMode: add a button to show the current page in reader mode. The button
+  #   is shown on the right end of the address bar for some pages such as the Arch
+  #   wiki.
+  # - ProminentDarkModeActiveTabTitle: show the title of the active tab more
+  #   prominently.
+  # - WebUIDarkMode: use a dark theme for chrome pages such as chrome://settings.
+  # - OmniboxTabSwitchSuggestions: when an Omnibox search matches an existing tab,
+  #   add a suggestions to switch to it.
+  '--enable-features=ExtensionsToolbarMenu,NativeNotifications,ReaderMode,ProminentDarkModeActiveTabTitle,WebUIDarkMode'
+  '--disable-features=OmniboxTabSwitchSuggestions'
+)
+
+google-chrome "${FLAGS[@]}" --profile-directory="Home" "$@"
