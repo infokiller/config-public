@@ -315,6 +315,7 @@
 /.lesshst
 /.mono
 /.mozilla
+/.mujoco
 /.ndb
 /.node-gyp
 /.node_repl_history
