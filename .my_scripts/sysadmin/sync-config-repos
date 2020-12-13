@@ -190,15 +190,9 @@ _verify_dconf() {
   rm -- "${dconf_dump}"
 }
 
-_set_local_excludes() {
-  mapfile -t public_repo_excludes < <(
-    cd -- "${HOME}" || return
-    "${_git_private_config[@]}" ls-files | awk '{print "/"$0}'
-  )
-  mapfile -t private_repo_excludes < <(
-    cd -- "${HOME}" || return
-    "${_git_public_config[@]}" ls-files | awk '{print "/"$0}'
-  )
+_get_common_excludes() {
+  # Private excludes shared by both public and private repos.
+  cat -- "${HOME}/.gitignore_private"
   # DGX machines create some files in the home directory that should be ignored.
   # In addition, as of 2020-04-12 they don't have recent versions of exa.
   # TODO: Is this general to Ubuntu 18.04?
@@ -209,9 +203,22 @@ _set_local_excludes() {
       '/.xsel.log'
       '/.config/desktop/Getting\ Started'
     )
-    private_repo_excludes+=("${dgx_excludes[@]}")
-    public_repo_excludes+=("${dgx_excludes[@]}")
+    printf '%s\n' "${dgx_excludes[@]}"
   fi
+}
+
+_set_local_excludes() {
+  mapfile -t common_excludes < <(_get_common_excludes)
+  local public_repo_excludes=("${common_excludes[@]}")
+  mapfile -t -O "${#public_repo_excludes[@]}" public_repo_excludes < <(
+    cd -- "${HOME}" || return
+    "${_git_private_config[@]}" ls-files | awk '{print "/"$0}'
+  )
+  local private_repo_excludes=("${common_excludes[@]}")
+  mapfile -t -O "${#private_repo_excludes[@]}" private_repo_excludes < <(
+    cd -- "${HOME}" || return
+    "${_git_public_config[@]}" ls-files | awk '{print "/"$0}'
+  )
   _log_info 'Adding public repo excludes'
   printf '' >| "${PUBLIC_CONFIG_GIT_DIR}/info/exclude"
   _add_excludes "${PUBLIC_CONFIG_GIT_DIR}" "${public_repo_excludes[@]}"
