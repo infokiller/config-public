@@ -243,7 +243,7 @@ _check_all() {
     eval "_check_${name}" || status=1
     after=$(($(date +%s%N) / 1000000))
     if ((after - before > 100)); then
-      echo "Check duration: $((after - before)) ms"
+      echo "    Duration: $((after - before)) ms"
     fi
   done
   return "${status}"
