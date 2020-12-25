@@ -304,6 +304,7 @@
 /.config/vlc/vlc-qt-interface.conf
 /.config/wireshark
 /.config/zsh/completion/_npm
+/.electron-gyp
 /.esd_auth
 /.gconf/system
 /.git-backup*
