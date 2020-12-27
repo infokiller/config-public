@@ -226,6 +226,7 @@
 /.config/gnupg/random_seed
 /.config/gnupg/reader_*.status
 /.config/gnupg/trustdb.gpg*
+/.config/gnupg/tofu.db
 # kdeconnect/config contains only the device name, the real config is in
 # subdirectories.
 /.config/kdeconnect/config
