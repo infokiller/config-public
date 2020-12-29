@@ -13,6 +13,10 @@ _print_error() {
   printf >&2 '%s\n' "$*"
 }
 
+_disk_by_id() {
+  readlink -f "/dev/disk/by-id/$1"
+}
+
 while (($# > 0)); do
   arg="$1"
   case ${arg} in
@@ -39,7 +43,7 @@ UEFI=true
 case "${machine_name}" in
   # This is what I used for my 2018 desktop with a Windows dual boot:
   zeus18)
-    target_disk=/dev/nvme0n1
+    target_disk="$(_disk_by_id nvme-Samsung_SSD_960_EVO_500GB_S3X4NF0JB26518N)"
     efi_system_part="${target_disk}"p2
     boot_part="${target_disk}"p5
     encrypted_part="${target_disk}"p6
@@ -59,7 +63,7 @@ case "${machine_name}" in
     # parted "${target_disk}" mkpart primary 160444416s 317730815s
     ;;
   hera20-juno)
-    target_disk=/dev/nvme0n1
+    target_disk="$(_disk_by_id nvme-SAMSUNG_MZVLB1T0HALR-000L7_S3TPNX0M715600)"
     efi_system_part="${target_disk}"p2
     boot_part="${target_disk}"p6
     encrypted_part="${target_disk}"p7

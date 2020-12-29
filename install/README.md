@@ -220,12 +220,14 @@ If there's no internet connection, this is probably a driver issue that needs to
 be fixed before continuing.
 
 The next step is to enable to connect via ssh so that the next steps can be done
-from a machine I'm more comfortable with. NOTE: If running in VirtualBox, the
-network adapter type should be changed from "NAT" to "Bridged Adapter" so that
-the guest machine will be accessible to the host machine. If this was done after
-the machine booted, dhcpcd will need to be restarted using
-`systemctl restart dhcpcd`. Next, sshd needs to be started and a root password
-set:
+from a machine I'm more comfortable with.
+
+> NOTE: If running in VirtualBox, the network adapter type should be changed
+> from "NAT" to "Bridged Adapter" so that the guest machine will be accessible
+> to the host machine. If this was done after the machine booted, dhcpcd will
+> need to be restarted using `systemctl restart dhcpcd`.
+
+Next, sshd needs to be started and a root password set:
 
 ```sh
 systemctl start sshd
