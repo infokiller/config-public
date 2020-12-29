@@ -3,7 +3,7 @@ menuentry "Arch Linux" {
     volume   01ea550c-c9b4-431a-82c7-4362ca0a5460
     loader   vmlinuz-linux-hardened
     initrd   initramfs-linux-hardened.img
-    options  "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=20000 pci=nommconf"
+    options  "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192 pci=nommconf"
     submenuentry "linux-hardened: fallback initramfs" {
         initrd initramfs-linux-hardened-fallback.img
     }
