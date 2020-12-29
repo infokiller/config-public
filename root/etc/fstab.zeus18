@@ -32,7 +32,7 @@ UUID=20508873-8848-4f27-ac16-301f6f318371	none      	swap      	defaults	0 0
 #UUID=5AF494BA50008898	/mnt/veracrypt      	ntfs-3g      	rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show,noauto,nofail,x-systemd.device-timeout=5	0 0
 # /dev/mapper/veracrypt1	/mnt/veracrypt      	ntfs-3g      	rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show,noauto,nofail,x-systemd.device-timeout=5	0 0
 
-UUID=bba8d586-b7f6-4b6b-b92b-f6990844ea14	/mnt/mx500         	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid	0 2
-UUID=9083e4c8-3459-4cd5-a16a-7afc52222ba0	/mnt/evo970       	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid	0 2
+UUID=bba8d586-b7f6-4b6b-b92b-f6990844ea14	/mnt/mx500         	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid,nofail,x-systemd.device-timeout=5	0 2
+UUID=9083e4c8-3459-4cd5-a16a-7afc52222ba0	/mnt/evo970       	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid,nofail,x-systemd.device-timeout=5	0 2
 
 # vim: set ft=fstab :
