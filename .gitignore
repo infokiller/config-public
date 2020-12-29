@@ -164,9 +164,8 @@
 # Config files that are currently ignored but may be added in the future. These
 # files are usually used either experimental or mixed with host specific config
 # (like window sizes) and credentials.
-/.Tribler
 /.PyCharm*
-/.config/Bitcoin
+/.Tribler
 /.config/Dharkael/flameshot.ini
 /.config/VirtualBox
 /.config/QtProject
@@ -208,15 +207,6 @@
 # can't install kitty and update the system terminfo DB at /usr/share/terminfo.
 /.terminfo
 
-# Interactive Brokers TWS
-# TODO: Dockerize TWS and remove its junk.
-/Jts
-/.hwid
-/.i4j_jres
-/*.ib-tws
-/.install4j
-/.java
-/.oracle_jre_usage
 # GPG. For a list of gnupg files see:
 # https://www.gnupg.org/documentation/manuals/gnupg/GPG-Configuration.html
 /.config/gnupg/crls.d
