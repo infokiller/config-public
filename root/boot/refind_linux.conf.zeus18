@@ -18,7 +18,7 @@
 # have only 2 entries in total. See:
 # https://www.rodsbooks.com/refind/linux.html#efistub
 
-"linux-hardened"  "rw initrd=/intel-ucode.img initrd=/initramfs-linux-hardened.img apparmor=1 security=apparmor audit_backlog_limit=8192 root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
-"linux"  "rw initrd=/intel-ucode.img initrd=/initramfs-linux.img root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
+"linux-hardened"  "rw initrd=intel-ucode.img initrd=initramfs-linux-hardened.img apparmor=1 security=apparmor audit_backlog_limit=8192 root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
+"linux"  "rw initrd=intel-ucode.img initrd=initramfs-linux.img root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
 
 # vim: set ft=conf :

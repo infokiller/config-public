@@ -18,7 +18,7 @@
 #   flags for the linux kernel (not linux-hardened) in case they are still
 #   needed.
 
-"linux-hardened"  "rw initrd=/intel-ucode.img initrd=/initramfs-linux-hardened.img apparmor=1 security=apparmor audit_backlog_limit=8192 root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300"
-"linux"  "rw initrd=/intel-ucode.img initrd=/initramfs-linux.img root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
+"linux-hardened"  "rw initrd=intel-ucode.img initrd=initramfs-linux-hardened.img apparmor=1 security=apparmor audit_backlog_limit=8192 root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300"
+"linux"  "rw initrd=intel-ucode.img initrd=initramfs-linux.img root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
 
 # vim: set ft=conf :
