@@ -910,8 +910,8 @@ augroup END
 " so this function tries to fix it.
 function! s:FixALEForBashLibraries() abort
   " TODO: Remove setting b:ale_sh_shellcheck_dialect and use `# shellcheck
-  " shell=bash` instead in any non-executable scripts once the ALE PR is merged:
-  " https://github.com/dense-analysis/ale/pull/3216
+  " shell=bash` instead in any non-executable scripts once the ALE PR is merged
+  " and released: https://github.com/dense-analysis/ale/pull/3216
   let b:ale_sh_shellcheck_dialect = 'bash'
   " ALE assumes the shell is sh without a shebang line, which will cause an
   " error with the "shell" linter.
@@ -923,7 +923,7 @@ let g:ale_fixers['sh'] = ['shfmt']
 let g:ale_sh_shfmt_options = '-i 2 -sr -ci'
 augroup vimrc
   autocmd BufReadPost,BufNewFile 
-      \ */.config/bash/*.sh,*/.my_scripts/lib/*.sh,*/install/aconfmgr/**
+      \ .envrc,*/.config/bash/*.sh,*/.my_scripts/lib/*.sh,*/install/aconfmgr/**
       \ call <SID>FixALEForBashLibraries()
 augroup END
 

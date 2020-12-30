@@ -5,6 +5,7 @@ endif
 
 augroup filetypedetect
   autocmd BufReadPost,BufNewFile *.zsh nested setfiletype zsh
+  autocmd BufReadPost,BufNewFile .envrc nested setfiletype sh
   autocmd BufReadPost,BufNewFile *.xresources nested setfiletype xdefaults
   autocmd BufReadPost,BufNewFile *.xkb nested setfiletype xkb
   " Machine specific user/group files.
