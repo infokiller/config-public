@@ -1,9 +1,12 @@
+# NOTE: The loader and initrd refind params and the initrd kernel param are all
+# relative to the root of the volume param.
+# NOTE: The initrd param in the kernel command line needs to use backslashes.
 menuentry "Arch Linux" {
     icon     /EFI/refind/icons/os_arch.png
     volume   01ea550c-c9b4-431a-82c7-4362ca0a5460
     loader   vmlinuz-linux-hardened
     initrd   initramfs-linux-hardened.img
-    options  "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192 pci=nommconf"
+    options  "initrd=intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192 pci=nommconf"
     submenuentry "linux-hardened: fallback initramfs" {
         initrd initramfs-linux-hardened-fallback.img
     }
@@ -13,6 +16,6 @@ menuentry "Arch Linux" {
     submenuentry "linux: standard" {
         initrd    initramfs-linux.img
         loader    vmlinuz-linux
-        options   "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300"
+        options   "initrd=intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300"
     }
 }
