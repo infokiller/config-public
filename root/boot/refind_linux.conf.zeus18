@@ -1,3 +1,14 @@
+# NOTE: rEFInd detects all the Linux kernels in the /boot directory and then
+# generates a submenu boot entry for each combination of kernel and
+# configuration line in the refind_linux.conf file that is in the same
+# directory. In my case, it will create 4 entries in total (2 entries for each
+# of the two kernels I have installed, /boot/vmlinuz-linux and
+# /boot/vmlinuz-linux-hardened). In my setup, it would probably make more sense
+# to have only two entries in the submenu (linux-hardened with hardened params
+# and linux without the hardened params), but it seems there's no way to do it
+# using the refind_linux.conf file. For more details ee:
+# https://www.rodsbooks.com/refind/linux.html#efistub
+#
 # Parameters usage explanation:
 #
 # - apparmor and security: enable AppArmor support.
@@ -9,16 +20,8 @@
 # - audit_backlog_limit: needed to avoid kmesg errors of the type "audit:
 #   kauditd hold queue overflow". See also:
 #   https://www.redhat.com/archives/linux-audit/2017-September/msg00081.html
-#
-# TODO: This file (and refind_linux.conf files for other machines) doesn't make
-# sense, since refind will create boot entries with for each command line below
-# for each kernel it detects. In my case, it will create "linux-hardened" and
-# "linux" entries for each of /boot/vmlinuz-linux and
-# /boot/vmlinuz-linux-hardened, i.e. 4 entries in total, but my intention was to
-# have only 2 entries in total. See:
-# https://www.rodsbooks.com/refind/linux.html#efistub
 
-"linux-hardened"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192"
-"linux"  "initrd=intel-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
+"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192"
+"Regular kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
 
 # vim: set ft=conf :

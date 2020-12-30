@@ -1,3 +1,13 @@
+# NOTE: rEFInd detects all the Linux kernels in the /boot directory and then
+# generates a submenu boot entry for each combination of kernel and
+# configuration line in the refind_linux.conf file that is in the same
+# directory. In my case, it will create 4 entries in total (2 entries for each
+# of the two kernels I have installed, /boot/vmlinuz-linux and
+# /boot/vmlinuz-linux-hardened). In my setup, it would probably make more sense
+# to have only two entries in the submenu (linux-hardened with hardened params
+# and linux without the hardened params), but it seems there's no way to do it
+# using the refind_linux.conf file. For more details ee:
+# https://www.rodsbooks.com/refind/linux.html#efistub
 # Parameters usage explanation:
 #
 # - apparmor and security: enable AppArmor support.
@@ -18,7 +28,7 @@
 #   flags for the linux kernel (not linux-hardened) in case they are still
 #   needed.
 
-"linux-hardened"  "rw initrd=intel-ucode.img initrd=initramfs-linux-hardened.img apparmor=1 security=apparmor audit_backlog_limit=8192 root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300"
-"linux"  "rw initrd=intel-ucode.img initrd=initramfs-linux.img root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
+"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192"
+"Regular kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
 
 # vim: set ft=conf :
