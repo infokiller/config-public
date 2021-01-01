@@ -28,7 +28,7 @@ declare -g _FASD_VIMINFO="${HOME}/.local/share/vim/viminfo"
 
 _load_local_fasd_config() {
   local dir
-  dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" || return 1
+  dir="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)" || return 1
   if [[ -f "${dir}/config_private" ]]; then
     # shellcheck disable=SC1090
     source "${dir}/config_private"

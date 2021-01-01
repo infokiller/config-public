@@ -7,7 +7,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-DIR="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 gpg-connect-agent updatestartuptty /bye &> /dev/null
 mapfile -t COMMAND < <(get-wrapped-binary-command "${DIR}/git")
