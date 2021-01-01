@@ -273,6 +273,7 @@
 /.config/ipython/profile_default/startup/README
 /.config/jupyter/lab/workspaces
 /.config/kconf_updaterc
+/.config/kde.org
 /.config/kritadisplayrc
 /.config/kritarc
 /.config/libreoffice
