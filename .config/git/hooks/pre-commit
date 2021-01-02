@@ -71,11 +71,24 @@ _check_blacklist() {
   local found=0
   local string
   for string in "${patterns[@]}"; do
-    if git diff-index --patch --cached --find-renames --text \
+    # Search files content
+    if git diff-index --cached --patch --find-renames --text \
       -G"${string}" HEAD "${git_exclude_pattern[@]}" |
       grep --text -Ei '^\+' |
       grep --text -Ei --color=auto -- "${string}"; then
       local msg="Commit contains blacklisted pattern '${string}'"
+      if [[ "${mode}" == 'error' ]]; then
+        _print_error "${msg}"
+      else
+        _print_warning "${msg}"
+      fi
+      found=1
+    fi
+    # Search file names/paths
+    if git diff-index --name-only --diff-filter=A \
+      HEAD "${git_exclude_pattern[@]}" |
+      grep --text -Ei --color=auto -- "${string}"; then
+      local msg="Commit added path with blacklisted pattern '${string}'"
       if [[ "${mode}" == 'error' ]]; then
         _print_error "${msg}"
       else

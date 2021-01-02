@@ -14,7 +14,7 @@ _print_error() {
 main() {
   # Prevent pushes to branches with "prx" or "prv" in their name
   # https://stackoverflow.com/a/30471886
-  if grep -E --color=auto 'prx|prv'; then
+  if [[ $2 != *gitlab.com/infokiller/* ]] && grep -E --color=auto 'prx|prv'; then
     _print_error 'pre-push: preventing push to private looking branch'
     return 1
   fi
