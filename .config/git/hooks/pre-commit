@@ -51,6 +51,16 @@ _command_exists() {
   command -v -- "$1" &> /dev/null
 }
 
+# Both git-diff and git-diff-index can be used to list the files that changed in
+# this commit, but git-diff-index is always faster, sometimes significantly.
+# Note that --ignore-submodules=all is critical for performance with many
+# submodules.
+# TODO: invoke `git diff-index --name-status` once and store a mapping from
+# status to path to improve speed.
+_git_changed_files() {
+  git diff-index --cached --name-only --ignore-submodules=all "$@"
+}
+
 _check_blacklist() {
   local mode
   mode="$(git config --get blacklist-hook.mode)" || mode='error'
@@ -67,6 +77,8 @@ _check_blacklist() {
     fi
     mapfile -t -O "${#patterns[@]}" patterns < "${patterns_file}"
   done < <(\find -L "${BLACKLIST_DIR}" -type f -print0)
+  local added_files
+  mapfile -t added_files < <(_git_changed_files --diff-filter=A HEAD)
   # look for blacklisted strings in the commit
   local found=0
   local string
@@ -85,8 +97,7 @@ _check_blacklist() {
       found=1
     fi
     # Search file names/paths
-    if git diff-index --name-only --diff-filter=A \
-      HEAD "${git_exclude_pattern[@]}" |
+    if printf '%s\n' "${added_files[@]}" |
       grep --text -Ei --color=auto -- "${string}"; then
       local msg="Commit added path with blacklisted pattern '${string}'"
       if [[ "${mode}" == 'error' ]]; then
@@ -103,12 +114,7 @@ _check_blacklist() {
 }
 
 _list_changed_shell_scripts() {
-  local -a changed_files_cmd
-  mapfile -t changed_files_cmd < <(git diff --staged --ignore-submodules=all --name-only)
-  if [[ -z "${changed_files_cmd[*]}" ]]; then
-    return 1
-  fi
-  printf '%s\n' "${changed_files_cmd[@]}" | filter-shell-scripts
+  _git_changed_files HEAD | filter-shell-scripts
 }
 
 _check_shfmt() {
@@ -182,7 +188,7 @@ _check_detect_secrets() {
     _print_warning 'Warning: detect-secrets-hook not found, skipping test.'
     return
   fi
-  mapfile -t scanned_files < <(git diff --staged --name-only |
+  mapfile -t scanned_files < <(_git_changed_files |
     grep --text -v -f <(printf '%s\n' "${SECRET_DETECTION_IGNORED_FILES[@]}"))
   if ((${#scanned_files[@]} == 0)) ||
     detect-secrets-hook -- "${scanned_files[@]}"; then
@@ -206,10 +212,10 @@ _check_deleted_file_refs() {
     # Hopefully most filenames shouldn't have this problem.
     # TODO: Escape the regex properly.
     # if git --no-pager grep --cached --fixed-strings "$(basename "${fullpath}")"; then
-    if git --no-pager grep --cached "\b$(basename "${fullpath}")\b"; then
+    if git grep --cached "\b$(basename "${fullpath}")\b"; then
       found=1
     fi
-  done < <(git --no-pager diff --name-only --no-renames --staged --diff-filter=D)
+  done < <(_git_changed_files --no-renames --diff-filter=D HEAD)
   if ((found == 1)); then
     _print_error 'Found references to deleted files'
     return 1
@@ -218,7 +224,6 @@ _check_deleted_file_refs() {
 
 _check_broken_symlinks() {
   echo 'Checking broken symlinks...'
-  local changed_files_cmd=(git diff --staged --no-renames --name-only)
   local s=0
   # If there is an added file or a file that changed its type to a symlink,
   # check those files individually.
@@ -228,10 +233,10 @@ _check_broken_symlinks() {
       _print_error "Found broken symlink: ${file}"
       s=1
     fi
-  done < <("${changed_files_cmd[@]}" --diff-filter=AT)
+  done < <(_git_changed_files --no-renames --diff-filter=AT HEAD)
   # If there are no deleted file, we don't need to check the other files in the
   # repo.
-  if [[ -z "$("${changed_files_cmd[@]}" --diff-filter=D)" ]]; then
+  if [[ -z "$(_git_changed_files --no-renames --diff-filter=D HEAD)" ]]; then
     return "${s}"
   fi
   local broken_symlinks
