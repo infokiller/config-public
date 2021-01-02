@@ -84,6 +84,10 @@ _check_blacklist() {
   local string
   for string in "${patterns[@]}"; do
     # Search files content
+    # NOTE: I used to use the argument -G"${string}" to make the git-diff-index
+    # call faster, but then the regex is case sensitive which is problematic to
+    # configure (i.e. "SECRET" won't be detected if the blacklist regex is
+    # "secret").
     if git diff-index --cached --patch --find-renames --text \
       HEAD "${git_exclude_pattern[@]}" |
       grep --text -Ei '^\+' |
