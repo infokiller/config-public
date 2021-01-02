@@ -85,7 +85,7 @@ _check_blacklist() {
   for string in "${patterns[@]}"; do
     # Search files content
     if git diff-index --cached --patch --find-renames --text \
-      -G"${string}" HEAD "${git_exclude_pattern[@]}" |
+      HEAD "${git_exclude_pattern[@]}" |
       grep --text -Ei '^\+' |
       grep --text -Ei --color=auto -- "${string}"; then
       local msg="Commit contains blacklisted pattern '${string}'"
