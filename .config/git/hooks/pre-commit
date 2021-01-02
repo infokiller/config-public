@@ -188,7 +188,7 @@ _check_detect_secrets() {
     _print_warning 'Warning: detect-secrets-hook not found, skipping test.'
     return
   fi
-  mapfile -t scanned_files < <(_git_changed_files |
+  mapfile -t scanned_files < <(_git_changed_files HEAD |
     grep --text -v -f <(printf '%s\n' "${SECRET_DETECTION_IGNORED_FILES[@]}"))
   if ((${#scanned_files[@]} == 0)) ||
     detect-secrets-hook -- "${scanned_files[@]}"; then
