@@ -52,6 +52,7 @@ AddPackage dnsmasq        # Lightweight, easy to configure DNS forwarder and DHC
 AddPackage ebtables       # Ethernet bridge filtering utilities
 AddPackage openbsd-netcat # TCP/IP swiss army knife. OpenBSD variant.
 AddPackage edk2-ovmf      # Tianocore UEFI firmware for qemu.
+AddPackage swtpm          # Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface
 CreateLink '/etc/systemd/system/multi-user.target.wants/libvirtd.service' '/usr/lib/systemd/system/libvirtd.service'
 CreateLink '/etc/systemd/system/sockets.target.wants/libvirtd-ro.socket' '/usr/lib/systemd/system/libvirtd-ro.socket'
 CreateLink '/etc/systemd/system/sockets.target.wants/libvirtd.socket' '/usr/lib/systemd/system/libvirtd.socket'
@@ -60,6 +61,7 @@ CreateLink '/etc/systemd/system/sockets.target.wants/virtlogd.socket' '/usr/lib/
 # This file is created by the brltty package, which is not used, but is required
 # by qemu.
 IgnorePath '/etc/brlapi.key'
+CopyFile /etc/modprobe.d/kvm.conf
 
 AddPackage emacs                # The extensible, customizable, self-documenting real-time display editor
 AddPackage bat                  # cat clone with Git integration and syntax highlighting support

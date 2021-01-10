@@ -77,6 +77,7 @@ CreateLink '/etc/systemd/user/sockets.target.wants/gpg-agent-ssh.socket' '/usr/l
 CreateLink '/etc/systemd/user/sockets.target.wants/gpg-agent.socket' '/usr/lib/systemd/user/gpg-agent.socket'
 
 # Auth
+AddPackage libfido2                    # Library functionality for FIDO 2.0, including communication with a device over USB
 AddPackage keybase                     # CLI tool for GPG with keybase.io
 AddPackage lastpass-cli                # LastPass command line interface tool
 AddPackage libpam-google-authenticator # PAM module for google authenticator app
