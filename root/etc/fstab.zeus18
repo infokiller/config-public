@@ -11,6 +11,9 @@ UUID=739eacab-c3a7-4ef9-8968-4305f57a4990	/boot     	ext4      	rw,relatime,data
 # /dev/nvme0n1p2
 UUID=44D0-0EF4      	/boot/efi 	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
 
+# /dev/nvme0n1p4
+UUID=edfff482-4b68-4d95-b1b1-5bf5974f48f9	/mnt/vms       	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid,nofail,x-systemd.device-timeout=5	0 2
+
 # /dev/mapper/arch-home
 UUID=22b8f3ee-20f2-47ef-ba60-5dcd7ec56a41	/home     	ext4      	rw,relatime,data=ordered,nodev,nosuid	0 2
 
