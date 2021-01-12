@@ -257,20 +257,45 @@ _install_firefox_settings() {
   done < <(\find "${FIREFOX_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
 }
 
+_cmake_polybar() {
+  cmake \
+    -DENABLE_I3=ON \
+    -DENABLE_ALSA=ON \
+    -DENABLE_PULSEAUDIO=ON \
+    -DENABLE_NETWORK=ON \
+    -DENABLE_CURL=ON \
+    -DBUILD_POLYBAR_MSG=ON \
+    "${SUBMODULES_DIR}/desktop/polybar"
+}
+
 _install_polybar() {
   cd "${SUBMODULES_DIR}/desktop/polybar"
   git submodule update --init --recursive
+  local cmake_cmd=(
+    cmake
+    -DENABLE_I3=ON
+    -DENABLE_ALSA=ON
+    -DENABLE_PULSEAUDIO=ON
+    -DENABLE_NETWORK=ON
+    -DENABLE_CURL=ON
+    -DBUILD_POLYBAR_MSG=ON
+    -DBUILD_DOC=OFF
+    -DCMAKE_BUILD_TYPE=Release
+    "${SUBMODULES_DIR}/desktop/polybar"
+  )
   # Try to do an incremental build, and only if it fails do a full build.
-  local build_cmd=(./build.sh --i3 --alsa --pulseaudio --network
-    --curl --ipc --no-install --auto)
   local build_dir='build'
   if [[ ! -d "${build_dir}" ]]; then
-    "${build_cmd[@]}"
+    mkdir -p -- "${build_dir}"
+    cd -- "${build_dir}"
+    "${cmake_cmd[@]}"
+    make
     return
   fi
-  if ! (cd "${build_dir}" && make); then
+  if ! (cd -- "${build_dir}" && make); then
     print_bold 'Polybar build failed, rebuilding from scratch'
-    "${build_cmd[@]}" -f
+    "${cmake_cmd[@]}"
+    make
   fi
   symlink_binary "${build_dir}/bin/polybar"
 }
