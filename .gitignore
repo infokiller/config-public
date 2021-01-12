@@ -42,6 +42,7 @@
 /.local/bin/livedown
 /.local/bin/markdown-toc
 /.local/bin/markdownlint
+/.local/bin/markdownlint-cli2
 /.local/bin/prettier
 /.local/bin/pyright
 /.local/bin/pyright-langserver

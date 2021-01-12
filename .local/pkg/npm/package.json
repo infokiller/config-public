@@ -36,6 +36,10 @@
     "corona-cli": {
       "corona-cli": "corona-cli",
       "corona": ""
+    },
+    "markdownlint-cli2": {
+      "markdownlint-cli2": "markdownlint-cli2",
+      "markdownlint-cli2-fix": ""
     }
   },
   "private": true
