@@ -287,15 +287,12 @@ _install_polybar() {
   local build_dir='build'
   if [[ ! -d "${build_dir}" ]]; then
     mkdir -p -- "${build_dir}"
-    cd -- "${build_dir}"
-    "${cmake_cmd[@]}"
-    make
+    (cd -- "${build_dir}" && "${cmake_cmd[@]}" && make)
     return
   fi
   if ! (cd -- "${build_dir}" && make); then
     print_bold 'Polybar build failed, rebuilding from scratch'
-    "${cmake_cmd[@]}"
-    make
+    (cd -- "${build_dir}" && "${cmake_cmd[@]}" && make)
   fi
   symlink_binary "${build_dir}/bin/polybar"
 }
