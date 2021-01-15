@@ -106,10 +106,20 @@ _export_path_vars() {
 }
 
 _export_xdg_user_dirs() {
-  if test -r "${XDG_CONFIG_HOME}/user-dirs.dirs"; then
-    # shellcheck source=/.config/user-dirs.dirs
-    . "${XDG_CONFIG_HOME}/user-dirs.dirs"
+  if ! test -r "${XDG_CONFIG_HOME}/user-dirs.dirs"; then
+    return
   fi
+  # shellcheck source=/.config/user-dirs.dirs
+  . "${XDG_CONFIG_HOME}/user-dirs.dirs"
+  export \
+    XDG_DESKTOP_DIR \
+    XDG_DOWNLOAD_DIR \
+    XDG_TEMPLATES_DIR \
+    XDG_PUBLICSHARE_DIR \
+    XDG_DOCUMENTS_DIR \
+    XDG_MUSIC_DIR \
+    XDG_PICTURES_DIR \
+    XDG_VIDEOS_DIR
 }
 
 _export_history_vars() {
