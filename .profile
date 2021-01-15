@@ -105,6 +105,13 @@ _export_path_vars() {
   _prepend_to_manpath "${XDG_DATA_HOME}/man"
 }
 
+_export_xdg_user_dirs() {
+  if test -r "${XDG_CONFIG_HOME}/user-dirs.dirs"; then
+    # shellcheck source=/.config/user-dirs.dirs
+    . "${XDG_CONFIG_HOME}/user-dirs.dirs"
+  fi
+}
+
 _export_history_vars() {
   # Custom environment variable used by bash, zsh, vim, and others for storing
   # command history for the local host.
@@ -245,6 +252,7 @@ _increase_xdg_conformance() {
 
 _export_profile_env() {
   _export_path_vars
+  _export_xdg_user_dirs
   _export_history_vars
   _maybe_set_auto_logout
   _increase_xdg_conformance
@@ -305,7 +313,7 @@ _profile_main() {
   _export_profile_env
 
   if test -r "${HOME}/.profile_private"; then
-    # shellcheck disable=SC1090
+    # shellcheck source=/.profile_private
     . "${HOME}/.profile_private"
   fi
 }
