@@ -74,13 +74,12 @@ different, probably because it was somehow done in the Windows installation.
 - Install any remaining drivers. To verify that all the hardware is detected
   correctly, go to Device Manager and verify that there are no warnings.
 
-- If this is a VM, install Windows guest tools. For virt-manager/QEMU the
-  relevant guest tools are
-  [Spice Windows guest tools](https://www.spice-space.org/download.html)
+- If this is a VM, see the
+  [Trello card](https://trello.com/c/msnAYmXM/276-windows-10-vm).
 
 - Tweak Windows settings
 
-  - Download <https://github.com/infokiller/Win10-Initial-Setup-Script> and run
+  - Download <https://gitlab.com/infokiller/Win10-Initial-Setup-Script> and run
     one of the cmd scripts depending on the environment.
 
   - Set touchpad scrolling to be non-natural.
@@ -149,6 +148,8 @@ looks interesting but I haven't tested it yet.
   [Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10) seems
   fully contained in Win10-Initial-Setup-Script. The latter also seems to have
   higher quality code, better documentation, and is easier to customize.
+- TODO: Look into <https://github.com/henrypp/simplewall> for controlling
+  internet access of apps.
 
 ### Deprecated software installation
 
@@ -191,7 +192,7 @@ partitions for Linux and a shared partition for Windows and Linux. This step
 should be performed from a shell in a Linux Live ISO. The Arch Linux ISO seems
 to be a good fit for this job. Partitions configured in this step:
 
-> TODO: Add a GPT partition with the Arch Linux ISO for rescue.
+> NOTE: Consider adding a GPT partition with the Arch Linux ISO for rescue.
 
 | Number | Short description                       | Size                 | Filesystem | Comments                                                                                                                                   |
 | ------ | --------------------------------------- | -------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -291,8 +292,9 @@ automated in the Arch installation, but not in Debian (yet) include:
 - Install git if needed: `sudo apt install -y git`
 
 > TODO: Add more specific instructions for following the installation media to
-> make sure my settings are consistent across installations. TODO: Verify these
-> are the only changes needed in Debian.
+> make sure my settings are consistent across installations.
+>
+> TODO: Verify these are the only changes needed in Debian.
 
 ### Cross distro setup
 
