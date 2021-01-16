@@ -200,6 +200,11 @@
 	# One of error, warning, or skip.
 	mode = error
 
+# Get rid of the warning about the git initial branch being subject to change. I
+# will wait to see which new branch name becomes popular and then change it.
+[init]
+	defaultBranch = master
+
 # NOTE: As of 2020-02-12, I disabled automatic PR fetching because it can
 # pollute the git references, which can add too much noise to some
 # autocompletions. If I need to fetch PRs I can use `git-fetch-prs`.
