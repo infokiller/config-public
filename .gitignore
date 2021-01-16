@@ -257,6 +257,7 @@
 /.config/borg/security
 /.config/configstore
 /.config/dconf/user*
+/.config/docker
 /.config/dolphinrc
 /.config/dotdrop.yaml
 /.config/evolution
