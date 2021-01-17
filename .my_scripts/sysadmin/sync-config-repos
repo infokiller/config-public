@@ -101,6 +101,22 @@ _move_packages_if_needed() {
   fi
 }
 
+_migrate_dir_if_needed() {
+  local old="$1"
+  local new="$2"
+  if [[ ! -d "${old}" ]]; then
+    return
+  fi
+  if [[ ! -d "${new}" ]]; then
+    mv -- "${old}" "${new}"
+    return
+  fi
+  mkdir -p -- "${new}"
+  find -- "${old}" -mindepth 1 -maxdepth 1 |
+    xargs --no-run-if-empty --null mv -t "${new}"
+  rmdir -- "${old}"
+}
+
 _update_private_repo_url() {
   local git=(git "--git-dir=${PRIVATE_CONFIG_GIT_DIR}" "--work-tree=${HOME}")
   if [[ "$("${git[@]}" remote get-url origin)" == *'/infokiller/config-git'* ]]; then
@@ -304,8 +320,8 @@ main() {
   _set_local_git_config
   _log_info 'Verifying dconf data is synced with config'
   _verify_dconf
-  _log_info 'Checking if local package managers need migration'
   _move_packages_if_needed
+  _migrate_dir_if_needed "${HOME}/downloads" "${HOME}/dl"
 }
 
 main "$@"
