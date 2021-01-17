@@ -126,4 +126,7 @@ if ! is_wsl; then
   # much better supported Windows drivers.
   AddPackage cups     # The CUPS Printing System - daemon package
   AddPackage cups-pdf # PDF printer for cups
+  # Not sure if fwupd will work in WSL, and Windows probably has better support
+  # for installing firmware anyway.
+  AddPackage fwupd # Simple daemon to allow session software to update firmware
 fi
