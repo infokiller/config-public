@@ -53,6 +53,9 @@ readonly _VSCODE_EXTENSIONS=(
   # 'streetsidesoftware.code-spell-checker'
   # 'kortina.run-in-terminal'
   # 'ryuta46.multi-command'
+  # 'editorconfig.editorconfig'
+  # 'eamodio.toggle-excluded-files'
+  # 'pflannery.vscode-versionlens'
   ### Time tracking
   'lindraupe.aw-watcher-vscode'
   'WakaTime.vscode-wakatime'
@@ -97,6 +100,10 @@ readonly _VSCODE_EXTENSIONS=(
   # 'msjsdiag.debugger-for-chrome'
   ### Themes
   'github.github-vscode-theme'
+  ### Docker/k8s
+  # TODO: Review these extensions.
+  # 'ms-kubernetes-tools.vscode-kubernetes-tools'
+  # 'ms-azuretools.vscode-docker'
 )
 readonly _NERD_FONTS_DIRECTORY="${XDG_DATA_HOME}/fonts/NerdFonts"
 readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
