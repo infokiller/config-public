@@ -110,7 +110,7 @@ looks interesting but I haven't tested it yet.
 - Install packages: open PowerShell as admin and run:
 
   ```powershell
-  winget install Microsoft.WindowsTerminal qbittorrent <more packages>
+  winget install windirstat Microsoft.WindowsTerminal copyq ...
   ```
 
 #### Chocolately
