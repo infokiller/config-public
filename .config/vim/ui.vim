@@ -53,9 +53,9 @@ if g:VSCODE_MODE
   " `Wq` and `Wqall` are defined in vscode-neovim
   let s:win_quit = 'Wq'
   let s:win_quit_all = 'Wqall'
-  let s:buf_close = "call VSCodeNotify('workbench.action.closeActiveEditor')"
-  let s:buf_next = "call VSCodeNotify('workbench.action.nextEditor')"
-  let s:buf_prev = "call VSCodeNotify('workbench.action.previousEditor')"
+  let s:buf_close = 'call VSCodeNotify("workbench.action.closeActiveEditor")'
+  let s:buf_next = 'call VSCodeNotify("workbench.action.nextEditor")'
+  let s:buf_prev = 'call VSCodeNotify("workbench.action.previousEditor")'
 else
   " TODO: Verify if undo works correctly, i.e. the full sequence of commands is
   " undone as a single unit. It doesn't matter right now because I don't use it
