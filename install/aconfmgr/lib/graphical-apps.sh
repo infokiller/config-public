@@ -77,8 +77,6 @@ if is_primary_dev_machine; then
 
   AddPackage krita           # Edit and paint images
   AddPackage audacity        # A program that lets you manipulate digital audio waveforms
-
-  AddPackage --foreign teams # Microsoft Teams for Linux is your chat-centered workspace in Office 365
 fi
 
 # hera11 is used as a media center.
