@@ -46,8 +46,8 @@ shopt -s dotglob
 # above) to expand to a null string, rather than themselves.
 shopt -s nullglob
 
-# Makes sure that exeucting previous commands using !prefix will not execute "blindly"
-# See:
+# Makes sure that executing previous commands using !prefix will not execute
+# "blindly". See:
 # http://superuser.com/questions/7414/how-can-i-search-the-bash-history-and-rerun-a-command
 shopt -s histverify
 
