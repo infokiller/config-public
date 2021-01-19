@@ -144,4 +144,4 @@ function! s:ToggleAutosave() abort
   endif
 endfunction
 
-nnoremap <Leader>tas :<C-U>call <SID>ToggleAutosave()<CR>
+nnoremap <Leader>tas <Cmd>call <SID>ToggleAutosave()<CR>

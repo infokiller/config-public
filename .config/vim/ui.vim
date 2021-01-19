@@ -29,116 +29,103 @@ if g:VSCODE_MODE
   endfunction
 
   " See https://github.com/asvetliakov/vscode-neovim/blob/master/vim/vscode-window-commands.vim
-  let s:win_left = ":\<C-U>call VSCodeNotify('workbench.action.navigateLeft')\<CR>"
-  let s:win_down = ":\<C-U>call VSCodeNotify('workbench.action.navigateDown')\<CR>"
-  let s:win_up = ":\<C-U>call VSCodeNotify('workbench.action.navigateUp')\<CR>"
-  let s:win_right = ":\<C-U>call VSCodeNotify('workbench.action.navigateRight')\<CR>"
-  let s:win_move_left = ":\<C-U>call VSCodeNotify('workbench.action.moveEditorToLeftGroup')\<CR>"
-  let s:win_move_down = ":\<C-U>call VSCodeNotify('workbench.action.moveEditorToBelowGroup')\<CR>"
-  let s:win_move_up = ":\<C-U>call VSCodeNotify('workbench.action.moveEditorToAboveGroup')\<CR>"
-  let s:win_move_right = ":\<C-U>call VSCodeNotify('workbench.action.moveEditorToRightGroup')\<CR>"
-  let s:win_max = ":\<C-U>call VSCodeNotify('workbench.action.toggleEditorWidths')\<CR>"
-  let s:win_split_down = ":\<C-U>call VSCodeNotify('workbench.action.splitEditorDown')\<CR>"
-  let s:win_split_right = ":\<C-U>call VSCodeNotify('workbench.action.splitEditorRight')\<CR>"
-  let s:win_prev = ":\<C-U>call VSCodeNotify('workbench.action.focusPreviousGroup')\<CR>"
-  let s:win_resize_eq = ":\<C-U>call VSCodeNotify('workbench.action.evenEditorWidths')\<CR>"
-  let s:win_inc_height = "\<SID>RepeatVSCodeNotify(v:count, 'workbench.action.increaseViewSize')\<CR>"
-  let s:win_dec_height = "\<SID>RepeatVSCodeNotify(v:count, 'workbench.action.decreaseViewSize')\<CR>"
+  let s:win_left = "call VSCodeNotify('workbench.action.navigateLeft')"
+  let s:win_down = "call VSCodeNotify('workbench.action.navigateDown')"
+  let s:win_up = "call VSCodeNotify('workbench.action.navigateUp')"
+  let s:win_right = "call VSCodeNotify('workbench.action.navigateRight')"
+  let s:win_move_left = "call VSCodeNotify('workbench.action.moveEditorToLeftGroup')"
+  let s:win_move_down = "call VSCodeNotify('workbench.action.moveEditorToBelowGroup')"
+  let s:win_move_up = "call VSCodeNotify('workbench.action.moveEditorToAboveGroup')"
+  let s:win_move_right = "call VSCodeNotify('workbench.action.moveEditorToRightGroup')"
+  let s:win_max = "call VSCodeNotify('workbench.action.toggleEditorWidths')"
+  let s:win_split_down = "call VSCodeNotify('workbench.action.splitEditorDown')"
+  let s:win_split_right = "call VSCodeNotify('workbench.action.splitEditorRight')"
+  let s:win_prev = "call VSCodeNotify('workbench.action.focusPreviousGroup')"
+  let s:win_resize_eq = "call VSCodeNotify('workbench.action.evenEditorWidths')"
+  let s:win_inc_height = "call \<SID>RepeatVSCodeNotify(v:count, 'workbench.action.increaseViewSize')"
+  let s:win_dec_height = "call \<SID>RepeatVSCodeNotify(v:count, 'workbench.action.decreaseViewSize')"
   let s:win_inc_width = s:win_inc_height
   let s:win_dec_width = s:win_dec_height
   " `Wq` and `Wqall` are defined in vscode-neovim
-  let s:win_quit = ":\<C-U>Wq\<CR>"
-  let s:win_quit_all = ":\<C-U>Wqall\<CR>"
-  let s:buf_close = ":\<C-U>call VSCodeNotify('workbench.action.closeActiveEditor')\<CR>"
-  let s:buf_next = ":\<C-U>call VSCodeNotify('workbench.action.nextEditor')\<CR>"
-  let s:buf_prev = ":\<C-U>call VSCodeNotify('workbench.action.previousEditor')\<CR>"
+  let s:win_quit = 'Wq'
+  let s:win_quit_all = 'Wqall'
+  let s:buf_close = "call VSCodeNotify('workbench.action.closeActiveEditor')"
+  let s:buf_next = "call VSCodeNotify('workbench.action.nextEditor')"
+  let s:buf_prev = "call VSCodeNotify('workbench.action.previousEditor')"
 else
-  let s:win_left = "\<C-W>h"
-  let s:win_down = "\<C-W>j"
-  let s:win_up = "\<C-W>k"
-  let s:win_right = "\<C-W>l"
-  let s:win_move_left = "\<C-W>H"
-  let s:win_move_down = "\<C-W>J"
-  let s:win_move_up = "\<C-W>K"
-  let s:win_move_right = "\<C-W>L"
-  let s:win_max = "\<C-W>_\<C-W>\<Bar>"
-  let s:win_split_down = "\<C-W>s"
-  let s:win_split_right = "\<C-W>v"
-  let s:win_prev = "\<C-W>p"
-  let s:win_resize_eq = "\<C-W>="
-  let s:win_inc_height = "\<C-W>+"
-  let s:win_dec_height = "\<C-W>-"
-  let s:win_inc_width = "\<C-W><"
-  let s:win_dec_width = "\<C-W>>"
+  let s:win_left = 'normal! <C-W>h'
+  let s:win_down = 'normal! <C-W>j'
+  let s:win_up = 'normal! <C-W>k'
+  let s:win_right = 'normal! <C-W>l'
+  let s:win_move_left = 'normal! <C-W>H'
+  let s:win_move_down = 'normal! <C-W>J'
+  let s:win_move_up = 'normal! <C-W>K'
+  let s:win_move_right = 'normal! <C-W>L'
+  let s:win_max = 'normal! <C-W>_<C-W><Bar>'
+  let s:win_split_down = 'normal! <C-W>s'
+  let s:win_split_right = 'normal! <C-W>v'
+  let s:win_prev = 'normal! <C-W>p'
+  let s:win_resize_eq = 'normal! <C-W>='
+  let s:win_inc_height = 'normal! <C-W>+'
+  let s:win_dec_height = 'normal! <C-W>-'
+  let s:win_inc_width = 'normal! <C-W>>'
+  let s:win_dec_width = 'normal! <C-W><'
   " NOTE: I previously used `:q!` instead of `:q`, but this silently quits
   " read-only modified buffers (losing their changes). `:q` alone works well
   " with my autosync settings.
-  let s:win_quit = ":\<C-U>q\<CR>"
-  let s:win_quit_all = ":\<C-U>wqall\<CR>"
+  let s:win_quit = 'q'
+  let s:win_quit_all = 'wqall'
   Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-  let s:buf_close = ":\<C-U>Sayonara!\<CR>"
-  let s:buf_next = ":\<C-U>bn\<CR>"
-  let s:buf_prev = ":\<C-U>bp\<CR>"
+  let s:buf_close = 'Sayonara!'
+  let s:buf_next = 'bn'
+  let s:buf_prev = 'bp'
 endif
 
-" Navigating windows.
-exec 'nnoremap <Leader>wj ' . s:win_left
-exec 'xnoremap <Leader>wj ' . s:win_left
-exec 'nnoremap <Leader>wk ' . s:win_down
-exec 'xnoremap <Leader>wk ' . s:win_down
-exec 'nnoremap <Leader>wi ' . s:win_up
-exec 'xnoremap <Leader>wi ' . s:win_up
-exec 'nnoremap <Leader>wl ' . s:win_right
-exec 'xnoremap <Leader>wl ' . s:win_right
-" Moving windows.
-exec 'nnoremap <Leader>wJ ' . s:win_move_left
-exec 'xnoremap <Leader>wJ ' . s:win_move_left
-exec 'nnoremap <Leader>wK ' . s:win_move_down
-exec 'xnoremap <Leader>wK ' . s:win_move_down
-exec 'nnoremap <Leader>wI ' . s:win_move_up
-exec 'xnoremap <Leader>wI ' . s:win_move_up
-exec 'nnoremap <Leader>wL ' . s:win_move_right
-exec 'xnoremap <Leader>wL ' . s:win_move_right
-" Resizing/focusing on windows.
-exec 'nnoremap <Leader>wf ' . s:win_max
-" Now that h is free use h and v for horizontal and vertical splitting. The
-" splitting is done in a way that is consistent with i3 and tmux.
-exec 'nnoremap <Leader>wv ' . s:win_split_down
-exec 'xnoremap <Leader>wv ' . s:win_split_down
-exec 'nnoremap <Leader>wh ' . s:win_split_right
-exec 'xnoremap <Leader>wh ' . s:win_split_right
-" Go to previous window
-exec 'nnoremap <Leader>w<Leader>w ' . s:win_prev
-exec 'xnoremap <Leader>w<Leader>w ' . s:win_prev
+for s:map_mode in ['nnoremap', 'xnoremap']
+  exec printf('%s <Leader>wj <Cmd>%s<CR>', s:map_mode, s:win_left)
+  " Navigating windows.
+  exec printf('%s <Leader>wj <Cmd>%s<CR>', s:map_mode, s:win_left)
+  exec printf('%s <Leader>wk <Cmd>%s<CR>', s:map_mode, s:win_down)
+  exec printf('%s <Leader>wi <Cmd>%s<CR>', s:map_mode, s:win_up)
+  exec printf('%s <Leader>wl <Cmd>%s<CR>', s:map_mode, s:win_right)
+  " Moving windows.
+  exec printf('%s <Leader>wJ <Cmd>%s<CR>', s:map_mode, s:win_move_left)
+  exec printf('%s <Leader>wK <Cmd>%s<CR>', s:map_mode, s:win_move_down)
+  exec printf('%s <Leader>wI <Cmd>%s<CR>', s:map_mode, s:win_move_up)
+  exec printf('%s <Leader>wL <Cmd>%s<CR>', s:map_mode, s:win_move_right)
+  " Resizing/focusing on windows.
+  exec printf('%s <Leader>wf <Cmd>%s<CR>', s:map_mode, s:win_max)
+  " Now that h is free use h and v for horizontal and vertical splitting. The
+  " splitting is done in a way that is consistent with i3 and tmux.
+  exec printf('%s <Leader>wv <Cmd>%s<CR>', s:map_mode, s:win_split_down)
+  exec printf('%s <Leader>wh <Cmd>%s<CR>', s:map_mode, s:win_split_right)
+  " Go to previous window
+  exec printf('%s <Leader>w<Leader>w <Cmd>%s<CR>', s:map_mode, s:win_prev)
+  " Window resizing
+  exec printf('%s <Leader>w= <Cmd>%s<CR>', s:map_mode, s:win_resize_eq)
+  exec printf('%s <Leader>w+ <Cmd>%s<CR>', s:map_mode, s:win_inc_height)
+  exec printf('%s <Leader>w- <Cmd>%s<CR>', s:map_mode, s:win_dec_height)
+  exec printf('%s <Leader>w> <Cmd>%s<CR>', s:map_mode, s:win_inc_width)
+  exec printf('%s <Leader>w< <Cmd>%s<CR>', s:map_mode, s:win_dec_width)
+  exec printf('%s <Leader>w_ <Cmd>%s<CR>', s:map_mode, s:win_resize_eq)
+endfor
 
-" Window resizing
-exec 'nnoremap <Leader>w= ' . s:win_resize_eq
-exec 'xnoremap <Leader>w= ' . s:win_resize_eq
-exec 'nnoremap <Leader>w+ ' . s:win_inc_height
-exec 'xnoremap <Leader>w+ ' . s:win_inc_height
-exec 'nnoremap <Leader>w- ' . s:win_dec_height
-exec 'xnoremap <Leader>w- ' . s:win_dec_height
-exec 'nnoremap <Leader>w> ' . s:win_inc_width
-exec 'xnoremap <Leader>w> ' . s:win_inc_width
-exec 'xnoremap <Leader>w< ' . s:win_dec_width
-exec 'nnoremap <Leader>w_ ' . s:win_resize_eq
-
-exec 'nnoremap <Leader>wq ' . s:win_quit
-exec 'nnoremap <Leader>q ' . s:win_quit
-exec 'nnoremap <Leader>wQ ' . s:win_quit_all
-exec 'nnoremap <Leader>Q ' . s:win_quit_all
+exec printf('nnoremap <Leader>wq <Cmd>%s<CR>', s:win_quit)
+exec printf('nnoremap <Leader>q <Cmd>%s<CR>', s:win_quit)
+exec printf('nnoremap <Leader>wQ <Cmd>%s<CR>', s:win_quit_all)
+exec printf('nnoremap <Leader>Q <Cmd>%s<CR>', s:win_quit_all)
 
 " Buffer stuff with b.
 nnoremap b <Nop>
 xnoremap b <Nop>
 nnoremap B <Nop>
 xnoremap B <Nop>
-exec 'nnoremap bd ' . s:buf_close
-exec 'nnoremap bp ' . s:buf_prev
-exec 'nnoremap bn ' . s:buf_next
-exec 'nnoremap [b ' . s:buf_prev
-exec 'nnoremap ]b ' . s:buf_next
-nnoremap <Leader>e :<C-U>call vimrc#actions#LastBuffer()<CR>
+exec printf('nnoremap bd <Cmd>%s<CR>', s:buf_close)
+exec printf('nnoremap bp <Cmd>%s<CR>', s:buf_prev)
+exec printf('nnoremap bn <Cmd>%s<CR>', s:buf_next)
+exec printf('nnoremap [b <Cmd>%s<CR>', s:buf_prev)
+exec printf('nnoremap ]b <Cmd>%s<CR>', s:buf_next)
+nnoremap <Leader>e <Cmd>call vimrc#actions#LastBuffer()<CR>
 
 " Example usage: `:EditExOutput autocmd`
 command! -nargs=+ -complete=command EditExOutput
@@ -147,29 +134,29 @@ command! -nargs=+ -complete=command EditExOutput
 " TODO: Improve vimrc handling for vscode mode: define actions that are only
 " mapped in the main vimrc, and will be overridden in vscode mode.
 if g:VSCODE_MODE
-  nnoremap <expr> <C-L> vimrc#GetCommandForMode('nohlsearch')
-  xnoremap <expr> <C-L> vimrc#GetCommandForMode('nohlsearch')
-  inoremap <expr> <C-L> vimrc#GetCommandForMode('nohlsearch')
-  snoremap <expr> <C-L> vimrc#GetCommandForMode('nohlsearch')
+  nnoremap <C-L> <Cmd>nohlsearch<CR>
+  xnoremap <C-L> <Cmd>nohlsearch<CR>
+  inoremap <C-L> <Cmd>nohlsearch<CR>
+  snoremap <C-L> <Cmd>nohlsearch<CR>
 
-  nnoremap <silent> <Leader>d :<C-U>call VSCodeNotify('workbench.action.showCommands')<CR>
-  " nnoremap <silent> <Leader>D :<C-U>History:<CR>
-  " nnoremap <silent> <Leader>sh :<C-U>History/<CR>
-  nnoremap <silent> <Leader>E :<C-U>call VSCodeNotify('workbench.action.quickOpen')<CR>
-  " nnoremap <silent> <Leader>sl :<C-U>BLines<CR>
-  " nnoremap <silent> <Leader>sL :<C-U>Lines<CR>
-  " nnoremap <silent> <Leader>C :<C-U>Colors<CR>
-  nnoremap <silent> <Leader>o :<C-U>call VSCodeNotify('workbench.action.gotoSymbol')<CR>
-  nnoremap <silent> <Leader>O :<C-U>call VSCodeNotify('workbench.action.showAllSymbols')<CR>
-  nnoremap <silent> <Leader>ff :<C-U>call VSCodeNotify('fzf-quick-open.runFzfFile')<CR>
-  nnoremap <silent> bl :<C-U>call VSCodeNotify('workbench.action.showAllEditorsByMostRecentlyUsed')<CR>
+  nnoremap <silent> <Leader>d <Cmd>call VSCodeNotify('workbench.action.showCommands')<CR>
+  " nnoremap <silent> <Leader>D <Cmd>History:<CR>
+  " nnoremap <silent> <Leader>sh <Cmd>History/<CR>
+  nnoremap <silent> <Leader>E <Cmd>call VSCodeNotify('workbench.action.quickOpen')<CR>
+  " nnoremap <silent> <Leader>sl <Cmd>BLines<CR>
+  " nnoremap <silent> <Leader>sL <Cmd>Lines<CR>
+  " nnoremap <silent> <Leader>C <Cmd>Colors<CR>
+  nnoremap <silent> <Leader>o <Cmd>call VSCodeNotify('workbench.action.gotoSymbol')<CR>
+  nnoremap <silent> <Leader>O <Cmd>call VSCodeNotify('workbench.action.showAllSymbols')<CR>
+  nnoremap <silent> <Leader>ff <Cmd>call VSCodeNotify('fzf-quick-open.runFzfFile')<CR>
+  nnoremap <silent> bl <Cmd>call VSCodeNotify('workbench.action.showAllEditorsByMostRecentlyUsed')<CR>
 
   " Mnemonic: Code Execute
-  nnoremap <silent> <Leader>cee :<C-U>call VSCodeNotify('python.datascience.runcurrentcell')<CR>
-  nnoremap <silent> <Leader>cen :<C-U>call VSCodeNotify('python.datascience.runcurrentcelladvance')<CR>
-  nnoremap <silent> <Leader>cei :<C-U>call VSCodeNotify('python.datascience.runallcellsabove.palette')<CR>
-  nnoremap <silent> <Leader>cek :<C-U>call VSCodeNotify('python.datascience.runcurrentcellandallbelow.palette')<CR>
-  nnoremap <silent> <Leader>cea :<C-U>call VSCodeNotify('python.datascience.runallcells')<CR>
+  nnoremap <silent> <Leader>cee <Cmd>call VSCodeNotify('python.datascience.runcurrentcell')<CR>
+  nnoremap <silent> <Leader>cen <Cmd>call VSCodeNotify('python.datascience.runcurrentcelladvance')<CR>
+  nnoremap <silent> <Leader>cei <Cmd>call VSCodeNotify('python.datascience.runallcellsabove.palette')<CR>
+  nnoremap <silent> <Leader>cek <Cmd>call VSCodeNotify('python.datascience.runcurrentcellandallbelow.palette')<CR>
+  nnoremap <silent> <Leader>cea <Cmd>call VSCodeNotify('python.datascience.runallcells')<CR>
 
   finish
 endif  " g:VSCODE_MODE
@@ -181,7 +168,7 @@ xnoremap <Leader>w_ <C-W>_
 Plug 'simeji/winresizer', { 'on':  [ 'WinResizerStartResize',
     \ 'WinResizerStartMove', 'WinResizerStartFocus'] }
 " Since the plugin is lazy loaded, we map C-r directly.
-nnoremap <Leader>wr :<C-U>WinResizerStartResize<CR>
+nnoremap <Leader>wr <Cmd>WinResizerStartResize<CR>
 let g:winresizer_start_key = '<C-R>'
 let g:winresizer_keycode_left = 106
 let g:winresizer_keycode_down = 107
@@ -193,7 +180,7 @@ Plug 'infokiller/fzf', {'dir': g:submodules_dir . '/terminal/fzf'}
 " plugins have a dot in their name.
 Plug 'infokiller/fzf.vim', {'dir': g:plugins_dir . '/fzf-vim'}
 
-nnoremap <silent> bl :<C-U>Buffers<CR>
+nnoremap <silent> bl <Cmd>Buffers<CR>
 
 function! s:FzfFilesNoIgnore(args, bang) abort
   try
@@ -231,16 +218,16 @@ command! FzfJumps call fzf#run(fzf#wrap({
     \ }))
 
 " Since autosaving is enabled by default, saving manually should be pretty rare.
-nnoremap <Leader>fs :<C-U>w<CR>
-nnoremap <silent> <Leader>ff :<C-U>Files<CR>
-nnoremap <silent> <Leader>fd :<C-U>Files <C-R>=expand('%:h')<CR><CR>
-nnoremap <silent> <Leader>fF :<C-U>FilesNoIgnore<CR>
+nnoremap <Leader>fs <Cmd>w<CR>
+nnoremap <silent> <Leader>ff <Cmd>Files<CR>
+nnoremap <silent> <Leader>fd <Cmd>Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <silent> <Leader>fF <Cmd>FilesNoIgnore<CR>
 
 Plug 'mtth/scratch.vim', { 'on': ['Scratch', 'ScratchSelection'] }
 let g:scratch_top = 1
 let g:scratch_no_mappings = 1
-nnoremap <M-s> :<C-U>Scratch<CR>
-xnoremap <M-s> :<C-U>ScratchSelection<CR>
+nnoremap <M-s> <Cmd>Scratch<CR>
+xnoremap <M-s> <Cmd>ScratchSelection<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                     Tmux                                     "
@@ -254,25 +241,20 @@ Plug 'christoomey/vim-tmux-navigator'
 let g:tmux_navigator_disable_when_zoomed = 1
 let g:tmux_navigator_no_mappings = 1
 
-" NOTE: <M-;> doesn't work here and below, not sure why. Also, adding
-" this keybinding makes vim identify key sequences like Esc-k as <Alt-k>, which
-" causes it to shift focus to another pane.
-" nnoremap <silent> <M-;> :<C-U>TmuxNavigateLast<CR>
-nnoremap <silent> <M-j> :<C-U>TmuxNavigateLeft<CR>
-nnoremap <silent> <M-k> :<C-U>TmuxNavigateDown<CR>
-nnoremap <silent> <M-i> :<C-U>TmuxNavigateUp<CR>
-nnoremap <silent> <M-l> :<C-U>TmuxNavigateRight<CR>
-nnoremap <silent> <M-w> :<C-U>TmuxNavigatePrevious<CR>
-xnoremap <silent> <M-j> <Esc>:TmuxNavigateLeft<CR>gv
-xnoremap <silent> <M-k> <Esc>:TmuxNavigateDown<CR>gv
-xnoremap <silent> <M-i> <Esc>:TmuxNavigateUp<CR>gv
-xnoremap <silent> <M-l> <Esc>:TmuxNavigateRight<CR>gv
-xnoremap <silent> <M-w> <Esc>:TmuxNavigatePrevious<CR>
-inoremap <silent> <M-j> <C-O>:TmuxNavigateLeft<CR>
-inoremap <silent> <M-k> <C-O>:TmuxNavigateDown<CR>
-inoremap <silent> <M-i> <C-O>:TmuxNavigateUp<CR>
-inoremap <silent> <M-l> <C-O>:TmuxNavigateRight<CR>
-inoremap <silent> <M-w> <C-O>:TmuxNavigatePrevious<CR>
+" NOTE: <M-;> doesn't work, not sure why. Also, adding this keybinding makes vim
+" identify key sequences like Esc-k as <Alt-k>, which causes it to shift focus
+" to another pane.
+" nnoremap <silent> <M-;> <Cmd>TmuxNavigateLast<CR>
+" NOTE: command mode is handled separately, because using <Cmd> in this case
+" will navigate tmux/vim but keep us in command mode, which will look like the
+" focus didn't change.
+for s:mode in ['n', 'x', 'i', 't']
+  exec printf('%snoremap <silent> <M-j> <Cmd>TmuxNavigateLeft<CR>', s:mode)
+  exec printf('%snoremap <silent> <M-k> <Cmd>TmuxNavigateDown<CR>', s:mode)
+  exec printf('%snoremap <silent> <M-i> <Cmd>TmuxNavigateUp<CR>', s:mode)
+  exec printf('%snoremap <silent> <M-l> <Cmd>TmuxNavigateRight<CR>', s:mode)
+  exec printf('%snoremap <silent> <M-w> <Cmd>TmuxNavigatePrevious<CR>', s:mode)
+endfor
 " The commands below exit the command line before navigating. The typed command
 " line should still be in the history, so no data should be lost.
 cnoremap <silent> <M-j> <C-C>:TmuxNavigateLeft<CR>
@@ -280,11 +262,6 @@ cnoremap <silent> <M-k> <C-C>:TmuxNavigateDown<CR>
 cnoremap <silent> <M-l> <C-C>:TmuxNavigateUp<CR>
 cnoremap <silent> <M-i> <C-C>:TmuxNavigateRight<CR>
 cnoremap <silent> <M-w> <C-C>:TmuxNavigatePrevious<CR>
-tnoremap <silent> <M-j> <C-\><C-N>:TmuxNavigateLeft<CR>
-tnoremap <silent> <M-k> <C-\><C-N>:TmuxNavigateDown<CR>
-tnoremap <silent> <M-l> <C-\><C-N>:TmuxNavigateUp<CR>
-tnoremap <silent> <M-i> <C-\><C-N>:TmuxNavigateRight<CR>
-tnoremap <silent> <M-w> <C-\><C-N>:TmuxNavigatePrevious<CR>
 
 " Focus events should work out of the box in neovim:
 " https://github.com/tmux-plugins/vim-tmux-focus-events/issues/1#issuecomment-562432723
@@ -305,19 +282,19 @@ Plug 'airblade/vim-rooter'
 let g:rooter_manual_only = 1
 
 " Copy current file base name to clipboard
-nnoremap <Leader>yn :<C-U>let @+ = expand('%:t')<CR>
+nnoremap <Leader>yn <Cmd>let @+ = expand('%:t')<CR>
 " Copy current file full path to clipboard
-nnoremap <Leader>yp :<C-U>let @+ = expand('%:p')<CR>
+nnoremap <Leader>yp <Cmd>let @+ = expand('%:p')<CR>
 " Copy current dir to clipboard
-nnoremap <Leader>yd :<C-U>let @+ = expand('%:p:h')<CR>
+nnoremap <Leader>yd <Cmd>let @+ = expand('%:p:h')<CR>
 
-nnoremap <Leader>cdh :<C-U>cd<CR>
-nnoremap <Leader>cdf :<C-U>cd %:p:h<CR>
-nnoremap <Leader>cdd :<C-U>RangerCD<CR>
-nnoremap <Leader>cdl :<C-U>RangerLCD<CR>
-" nnoremap <Leader>cde :<C-U>RangerEdit<CR>
-nnoremap <Leader>fe :<C-U>RangerEdit<CR>
-nnoremap <expr> <Leader>cdr ":\<C-U>cd " . FindRootDirectory() . '<CR>'
+nnoremap <Leader>cdh <Cmd>cd<CR>
+nnoremap <Leader>cdf <Cmd>cd %:p:h<CR>
+nnoremap <Leader>cdd <Cmd>RangerCD<CR>
+nnoremap <Leader>cdl <Cmd>RangerLCD<CR>
+" nnoremap <Leader>cde <Cmd>RangerEdit<CR>
+nnoremap <Leader>fe <Cmd>RangerEdit<CR>
+nnoremap <expr> <Leader>cdr '<Cmd>cd ' . FindRootDirectory() . '<CR>'
 
 " Breaks gnupg plugin- see https://github.com/bogado/file-line/issues/39
 " Plug 'bogado/file-line'
@@ -334,7 +311,7 @@ nnoremap <expr> <Leader>cdr ":\<C-U>cd " . FindRootDirectory() . '<CR>'
 
 " Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 " Toggle NerdTree
-" nnoremap <Leader>fe :<C-U>NERDTreeToggle<CR>
+" nnoremap <Leader>fe <Cmd>NERDTreeToggle<CR>
 
 " Plug 'justinmk/vim-gtfo'
 
@@ -364,10 +341,10 @@ nnoremap <expr> <Leader>cdr ":\<C-U>cd " . FindRootDirectory() . '<CR>'
 "     \ call <SID>RunGrepper('-noprompt', <q-args>)
 " command! -nargs=* -bar GrepBuffers
 "     \ call <SID>RunGrepper('-buffers -noprompt', <q-args>)
-" nnoremap <Leader>sa :<C-U>Grep<Space>
+" nnoremap <Leader>sa <Cmd>Grep<Space>
 " xnoremap <expr> <Leader>sa
 "     \ '""y:Grep --fixed-strings -- <C-R>=shellescape(@")<CR>'
-" nnoremap <Leader>sb :<C-U>GrepBuffers<Space>
+" nnoremap <Leader>sb <Cmd>GrepBuffers<Space>
 " xnoremap <expr> <Leader>sb
 "     \ '""y:GrepBuffers --fixed-strings -- <C-R>=shellescape(@")<CR>'
 
@@ -393,10 +370,10 @@ command! -nargs=* -complete=customlist,ferret#private#ackcomplete Ferret
     \ call <SID>RunFerret('Ack', <q-args>)
 command! -nargs=* -complete=customlist,ferret#private#backcomplete FerretBuffers
     \ call <SID>RunFerret('Back', <q-args>)
-nnoremap <Leader>sa :<C-U>Ferret<Space>
+nnoremap <Leader>sa <Cmd>Ferret<Space>
 xnoremap <Leader>sa
     \ ""y:Ack --fixed-strings -- <C-R>=substitute(@", " ", "\\\\ ", "g")<CR>
-nnoremap <Leader>sb :<C-U>FerretBuffers<Space>
+nnoremap <Leader>sb <Cmd>FerretBuffers<Space>
 xnoremap <Leader>sb
     \ ""y:Back --fixed-strings -- <C-R>=substitute(@", " ", "\\\\ ", "g")<CR>
 
@@ -426,9 +403,9 @@ function! s:MaybeSetDiffOptions() abort
     " Navigate diff changes with Ctrl+{p,n}
     nnoremap <buffer> <C-P> [c
     nnoremap <buffer> <C-N> ]c
-    nnoremap <buffer> du :<C-U>diffupdate<CR>
-    nnoremap <buffer> dp :<C-U>diffput<CR>
-    nnoremap <buffer> dg :<C-U>diffget<CR>
+    nnoremap <buffer> du <Cmd>diffupdate<CR>
+    nnoremap <buffer> dp <Cmd>diffput<CR>
+    nnoremap <buffer> dg <Cmd>diffget<CR>
   else
     if !empty(&filetype)
       setlocal syntax=on
@@ -543,7 +520,7 @@ set shortmess-=F
 " set listchars=tab:>-,trail:·,eol:$,nbsp:☣
 set listchars=tab:»\ ,trail:·,eol:↲,precedes:‹,extends:›,nbsp:☣
 " tab:\!\ ,,extends:❯,precedes:❮
-nnoremap <silent> <Leader>tw :<C-U>set list!<CR>
+nnoremap <silent> <Leader>tw <Cmd>set list!<CR>
 
 " Use `:RainbowParentheses` to enable.
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -563,9 +540,9 @@ Plug 'itchyny/vim-cursorword'
 "     \ 'BrightestEnable', 'BrightestDisable', 'BrightestToggle', ] }
 " let g:brightest_enable = 0
 " Mnemonic: toggle highlight
-" nnoremap <silent> <Leader>th :<C-U>BrightestToggle<CR>
+" nnoremap <silent> <Leader>th <Cmd>BrightestToggle<CR>
 let g:cursorword = 0
-nnoremap <silent> <Leader>th :<C-U>call vimrc#ToggleOption('g:cursorword') <Bar>
+nnoremap <silent> <Leader>th <Cmd>call vimrc#ToggleOption('g:cursorword') <Bar>
     \ if exists('*cursorword#matchadd') <Bar> 
     \ call cursorword#matchadd() <Bar> endif<CR>
 
@@ -581,8 +558,8 @@ nnoremap <silent> <Leader>th :<C-U>call vimrc#ToggleOption('g:cursorword') <Bar>
 "     \ { 'on': ['WhichKey', 'WhichKey!', 'WhichKeyVisual', 'WhichKeyVisual!'] }
 " " Don't make me wait additional time after timeoutlen has passed.
 " let g:which_key_timeout = 0
-" nnoremap <silent> <Space> :<C-U>WhichKey '<Space>'<CR>
-" xnoremap <silent> <Space> :<C-U>WhichKeyVisual '<Space>'<CR>
+" nnoremap <silent> <Space> <Cmd>WhichKey '<Space>'<CR>
+" xnoremap <silent> <Space> <Cmd>WhichKeyVisual '<Space>'<CR>
 
 " Smooth scrolling for <C-D> and <C-U>. Makes the direction of the scrolling
 " clearer but a bit (intentionally) slower. Not sure yet if I like it.
@@ -601,16 +578,16 @@ nmap <Leader><Tab> <Plug>(fzf-maps-n)
 xmap <Leader><Tab> <Plug>(fzf-maps-x)
 omap <Leader><Tab> <Plug>(fzf-maps-o)
 
-" nnoremap <silent> <Leader>d :<C-U>call
+" nnoremap <silent> <Leader>d <Cmd>call
 "     \ fzf#vim#commands({'down': '~40%', 'options': '--no-extended +x'})<CR>
-nnoremap <silent> <Leader>d :<C-U>Commands<CR>
-nnoremap <silent> <Leader>D :<C-U>History:<CR>
-nnoremap <silent> <Leader>sh :<C-U>History/<CR>
-nnoremap <silent> <Leader>E :<C-U>History<CR>
-nnoremap <silent> <Leader>C :<C-U>Colors<CR>
-nnoremap <silent> <Leader>h :<C-U>Helptags<CR>
-nnoremap <silent> <Leader>sl :<C-U>BLines<CR>
-nnoremap <silent> <Leader>sL :<C-U>Lines<CR>
+nnoremap <silent> <Leader>d <Cmd>Commands<CR>
+nnoremap <silent> <Leader>D <Cmd>History:<CR>
+nnoremap <silent> <Leader>sh <Cmd>History/<CR>
+nnoremap <silent> <Leader>E <Cmd>History<CR>
+nnoremap <silent> <Leader>C <Cmd>Colors<CR>
+nnoremap <silent> <Leader>h <Cmd>Helptags<CR>
+nnoremap <silent> <Leader>sl <Cmd>BLines<CR>
+nnoremap <silent> <Leader>sL <Cmd>Lines<CR>
 
 " Copied from:
 " https://github.com/szymonmaszke/dotfiles/blob/master/nvim/settings/vim-plug.vim
@@ -653,15 +630,15 @@ command! PlugHelp call fzf#run(fzf#wrap({
 
 Plug 'Yggdroot/indentLine'
 let g:indentLine_enabled = 0
-nnoremap <silent> <Leader>ti :<C-U>IndentLinesToggle<CR>
+nnoremap <silent> <Leader>ti <Cmd>IndentLinesToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Zen mode                                   "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'junegunn/goyo.vim'
 
-nnoremap <silent> <M-F> :<C-U>Goyo<CR>
-nnoremap <silent> <Leader>F :<C-U>Goyo<CR>
+nnoremap <silent> <M-F> <Cmd>Goyo<CR>
+nnoremap <silent> <Leader>F <Cmd>Goyo<CR>
 
 function! s:goyo_enter() abort
   if has('gui_running')
@@ -695,7 +672,7 @@ augroup END
 
 Plug 'junegunn/limelight.vim'
 " Toggle limelight
-nnoremap <silent> <Leader>tl :<C-U>Limelight!!<CR>
+nnoremap <silent> <Leader>tl <Cmd>Limelight!!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Status line                                  "
@@ -1000,17 +977,17 @@ Plug 'chrisbra/Recover.vim'
 " Plug 'sjl/gundo.vim'
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 " Toggle undo tree
-nnoremap U :<C-U>UndotreeToggle<CR>
+nnoremap U <Cmd>UndotreeToggle<CR>
 
 " NOTE: As of 2020-05-16, fuzzy tag finding is done with vista.
-nnoremap <silent> <Leader>o :<C-U>BTags<CR>
-nnoremap <silent> <Leader>O :<C-U>Tags<CR>
+nnoremap <silent> <Leader>o <Cmd>BTags<CR>
+nnoremap <silent> <Leader>O <Cmd>Tags<CR>
 
 " Plug 'liuchengxu/vista.vim'
-" nnoremap <silent> <Leader>O :<C-U>Vista finder!<CR>
+" nnoremap <silent> <Leader>O <Cmd>Vista finder!<CR>
 " xnoremap <Leader>O ""y:Vista finder! <Bar>
 "     \ call feedkeys('<C-R>=substitute(@", "'", "''", 'g')<CR>', 'n')<CR>
-" nnoremap <Leader>wt :<C-U>Vista!!<CR>
+" nnoremap <Leader>wt <Cmd>Vista!!<CR>
 
 function! s:ToggleConceal() abort
   let l:bufnr = bufnr()
@@ -1026,4 +1003,4 @@ function! s:ToggleConceal() abort
   let s:bufnr_to_conceal[l:bufnr] = l:conceallevel
 endfunction
 
-nnoremap <silent> <Leader>tc :<C-U>call <SID>ToggleConceal()<CR>
+nnoremap <silent> <Leader>tc <Cmd>call <SID>ToggleConceal()<CR>

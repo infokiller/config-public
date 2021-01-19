@@ -5,12 +5,12 @@ nnoremap <C-R> <Nop>
 " Note that <C-Q> is already used by TGS (The Great Suspender).
 " As of 2020-11-15, I no longer use TGS, and I also think that <C-Q> is not
 " necessary for TGS because I can just refresh the page with <C-R>.
-noremap <expr> <C-Q> vimrc#GetCommandForMode('call firenvim#hide_frame()')
-noremap! <expr> <C-Q> vimrc#GetCommandForMode('call firenvim#hide_frame()')
+noremap <C-Q> <Cmd>call firenvim#hide_frame()<CR>
+noremap! <C-Q> <Cmd>call firenvim#hide_frame()<CR>
 " Mapping <Esc><Esc> turns out to be very annoying because then vim waits for
 " the second escape each time I want to exit normal mode.
-" noremap <expr> <Esc><Esc> vimrc#GetCommandForMode('call firenvim#focus_page()')
-" noremap! <expr> <Esc><Esc> vimrc#GetCommandForMode('call firenvim#focus_page()')
+" noremap <Esc><Esc> <Cmd>call firenvim#focus_page()<CR>
+" noremap! <Esc><Esc> <Cmd>call firenvim#focus_page()<CR>
 
 " Since Firenvim is running in a browser, the undo/redo remappings I defined
 " for terminals don't apply so instead I need to remap the non-terminal
@@ -22,24 +22,22 @@ noremap! <expr> <C-Q> vimrc#GetCommandForMode('call firenvim#hide_frame()')
 " nmap <C-T> <Plug>(RepeatRedo)
 " inoremap <C-Z> <C-O>u
 " inoremap <C-T> <C-O><C-R>
-" xnoremap <C-Z> <Esc>ugv
-" xnoremap <C-T> <Esc><C-R>gv
+" xnoremap <C-Z> <Cmd>u<CR>
+" xnoremap <C-T> <Cmd><C-R><CR>
 " " NOTE: As of 2019-09-19, I could not find a way to use undo/redo in vim's
 " " command line, so I'm just disabling the regular keybindings to avoid the
 " " insertion of weird characters.
 " cnoremap <C-Z> <Nop>
 " cnoremap <C-T> <Nop>
 
-let s:english_layout_cmd = 'call vimrc#kb_layout#SetEnglishLayout()'
-let s:alt_layout_cmd = 'call vimrc#kb_layout#SetAltLangLayout()'
-let s:toggle_layout_cmd = 'call vimrc#kb_layout#ToggleLanguageLayout()'
-
-nnoremap <silent> <expr> <M-J> vimrc#GetCommandForMode(s:english_layout_cmd)
-nnoremap <silent> <expr> <M-L> vimrc#GetCommandForMode(s:alt_layout_cmd)
-nnoremap <silent> <expr> <M-:> vimrc#GetCommandForMode(s:toggle_layout_cmd)
-inoremap <silent> <expr> <M-J> vimrc#GetCommandForMode(s:english_layout_cmd)
-inoremap <silent> <expr> <M-L> vimrc#GetCommandForMode(s:alt_layout_cmd)
-inoremap <silent> <expr> <M-:> vimrc#GetCommandForMode(s:toggle_layout_cmd)
+for s:map_mode in ['nnoremap', 'inoremap']
+  exec printf('%s <M-J> <Cmd>call vimrc#kb_layout#SetEnglishLayout()<CR>', 
+        \ s:map_mode)
+  exec printf('%s <M-L> <Cmd>call vimrc#kb_layout#SetAltLangLayout()<CR>', 
+        \ s:map_mode)
+  exec printf('%s <M-L> <Cmd>call vimrc#kb_layout#ToggleLanguageLayout()<CR>', 
+        \ s:map_mode)
+endfor
 
 " https://github.com/glacambre/firenvim/issues/717#issuecomment-712632995
 let s:IGNORED_KEYS = ['<C-1>', '<C-2>', '<C-3>', '<C-4>', '<C-5>', '<C-6>', 

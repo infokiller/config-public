@@ -60,9 +60,9 @@ function! s:ToggleSpellCheck(do_extra_checks) abort
 endfunction
 
 " Toggle spell mode
-nnoremap <silent> <Leader>ts :<C-U>call <SID>ToggleSpellCheck(0)<CR>
+nnoremap <silent> <Leader>ts <Cmd>call <SID>ToggleSpellCheck(0)<CR>
 xnoremap <silent> <Leader>ts :call <SID>ToggleSpellCheck(0)<CR>
-nnoremap <silent> <Leader>tS :<C-U>call <SID>ToggleSpellCheck(1)<CR>
+nnoremap <silent> <Leader>tS <Cmd>call <SID>ToggleSpellCheck(1)<CR>
 xnoremap <silent> <Leader>tS :call <SID>ToggleSpellCheck(1)<CR>
 
 " Plug 'rhysd/vim-grammarous'
@@ -138,7 +138,7 @@ function! s:TogglePreview() abort
   endif
 endfunction
 
-nnoremap <Leader>tpw :<C-U>call <SID>TogglePreview()<CR>
+nnoremap <Leader>tpw <Cmd>call <SID>TogglePreview()<CR>
 
 let g:ycm_installer = Concat(g:REPO_ROOT, '/install/build-youcompleteme')
 Plug 'Valloric/YouCompleteMe', { 'do': g:ycm_installer }
@@ -169,13 +169,13 @@ let g:ycm_filetype_blacklist = {
 let g:ycm_filetype_blacklist['peekaboo'] = 1
 
 " Mnemonic: Code Open
-nnoremap <Leader>co :<C-U>YcmCompleter GoTo<CR>
+nnoremap <Leader>co <Cmd>YcmCompleter GoTo<CR>
 augroup vimrc
   autocmd FileType typescript
-      \ nnoremap <buffer> <Leader>co :<C-U>YcmCompleter GoToDefinition<CR>
+      \ nnoremap <buffer> <Leader>co <Cmd>YcmCompleter GoToDefinition<CR>
 augroup END
 " Mnemonic: Code Help
-nnoremap <Leader>ch :<C-U>YcmCompleter GetDoc<CR>
+nnoremap <Leader>ch <Cmd>YcmCompleter GetDoc<CR>
 
 " Issues with CompleteParameter.vim:
 " - <C-L> mapping (same as UltiSnips) conflicts with RefreshScreenCommand. I
@@ -302,14 +302,14 @@ endfunction
 "   endtry
 " endfunction
 
-nnoremap <Leader>te :<C-U>ALEToggleBuffer<CR>
+nnoremap <Leader>te <Cmd>ALEToggleBuffer<CR>
 xnoremap <Leader>te :ALEToggleBuffer<CR>
 " ALEFix doesn't support line ranges [1], so it's only used for whole files.
 " [1] https://github.com/dense-analysis/ale/issues/850
-nnoremap <Leader>cf :<C-U>ALEFix<CR>
+nnoremap <Leader>cf <Cmd>ALEFix<CR>
 xnoremap <Leader>cf :FormatLines<CR>
-nnoremap <expr> <Leader>fc vimrc#GetCommandForMode('echoerr "Keybinding removed"')
-xnoremap <expr> <Leader>fc vimrc#GetCommandForMode('echoerr "Keybinding removed"')
+nnoremap <Leader>fc <Cmd>echoerr 'Keybinding removed'<CR>
+xnoremap <Leader>fc <Cmd>echoerr 'Keybinding removed'<CR>
 " As of 2020-07-07, I disabled running FormatCode after ALEFixPost because it
 " can mix different fixers. For example, codefmt only supports js-beautify for
 " CSS, while ALE doesn't support it.
@@ -403,7 +403,7 @@ augroup vimrc
 augroup END
 
 " Mnemonic: Toggle Auto Errors
-nnoremap <Leader>tae :<C-U>call vimrc#ToggleOption('vimrc_enable_autolint')<CR>
+nnoremap <Leader>tae <Cmd>call vimrc#ToggleOption('vimrc_enable_autolint')<CR>
 " }}} ALE linter "
 
 " Disable YCM diagnostics since we already get them from ALE.
@@ -459,9 +459,9 @@ Plug 'kkoomen/vim-doge', { 'on': ['DogeGenerate', 'DogeCreateDocStandard'] }
 let g:doge_doc_standard_python = 'google'
 let g:doge_enable_mappings = 0
 " Mnemonic: Code Add Documentation
-nnoremap <Leader>cad :<C-U>DogeGenerate<CR>
+nnoremap <Leader>cad <Cmd>DogeGenerate<CR>
 " Mnemonic: Code Generate Documentation
-nnoremap <Leader>cgd :<C-U>DogeGenerate<CR>
+nnoremap <Leader>cgd <Cmd>DogeGenerate<CR>
 " Note that these mappings are removed after all the todos in the documentation
 " are removed, so they can still be used for other stuff.
 let g:doge_mapping_comment_jump_forward = '<M-n>'
@@ -570,7 +570,7 @@ nnoremap <expr> <Leader>gc vimrc#GetCommandForMode('terminal') . 'igc; exit $?<C
 nnoremap <expr> <Leader>gcp vimrc#GetCommandForMode('terminal') . 'igcp; exit $?<CR>'
 
 Plug 'jreybert/vimagit'
-nnoremap <Leader>gm :<C-U>Magit<CR>
+nnoremap <Leader>gm <Cmd>Magit<CR>
 augroup vimrc
   autocmd User VimagitEnterCommit nested startinsert
 augroup END
@@ -582,22 +582,22 @@ Plug 'tpope/vim-fugitive'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-rhubarb'
 " " Git add file.
-" nnoremap <Leader>gaf :<C-U>Gwrite<CR>
+" nnoremap <Leader>gaf <Cmd>Gwrite<CR>
 " " Interactive status
-" nnoremap <Leader>gs :<C-U>Gstatus<CR>
-" " nnoremap <Leader>gc :<C-U>Gcommit<CR>
-" nnoremap <Leader>gd :<C-U>Gvdiff<CR>
-" nnoremap <Leader>gl :<C-U>Gllog<CR>
-" nnoremap <Leader>gb :<C-U>Gblame<CR>
-" nnoremap <Leader>go :<C-U>Gbrowse<CR>
-" nnoremap <Leader>gpu :<C-U>Git push<CR>
-" nnoremap <Leader>gpl :<C-U>Git pull<CR>
+" nnoremap <Leader>gs <Cmd>Gstatus<CR>
+" " nnoremap <Leader>gc <Cmd>Gcommit<CR>
+" nnoremap <Leader>gd <Cmd>Gvdiff<CR>
+" nnoremap <Leader>gl <Cmd>Gllog<CR>
+" nnoremap <Leader>gb <Cmd>Gblame<CR>
+" nnoremap <Leader>go <Cmd>Gbrowse<CR>
+" nnoremap <Leader>gpu <Cmd>Git push<CR>
+" nnoremap <Leader>gpl <Cmd>Git pull<CR>
 " nnoremap <Leader>gco :<C-U>Git checkout<Space>
 " nnoremap <Leader>gmv :<C-U>Gmove<Space>
 " " Reset file using `git checkout --`. Can then use undo to get back the file
 " " with the changes.
-" nnoremap <Leader>grs :<C-U>Gread<CR>
-" nnoremap <Leader>grm :<C-U>Gremove<CR>
+" nnoremap <Leader>grs <Cmd>Gread<CR>
+" nnoremap <Leader>grm <Cmd>Gremove<CR>
 
 Plug 'lambdalisue/gina.vim'
 " editorconfig-vim recommends adding this so that it works well with fugitive
@@ -610,22 +610,22 @@ function! s:GitRestoreFile() abort
   silent edit!
 endfunction
 
-nnoremap <Leader>gaf :<C-U>update <Bar> exec 'Gina add ' . expand('%:p') <Bar> GitGutter<CR>
-nnoremap <Leader>gs :<C-U>tabnew <Bar> Gina status<CR>
-nnoremap <Leader>gd :<C-U>Gina compare<CR>
-nnoremap <Leader>gl :<C-U>Gina log<CR>
-nnoremap <Leader>gb :<C-U>Gina blame<CR>
+nnoremap <Leader>gaf <Cmd>update <Bar> exec 'Gina add ' . expand('%:p') <Bar> GitGutter<CR>
+nnoremap <Leader>gs <Cmd>tabnew <Bar> Gina status<CR>
+nnoremap <Leader>gd <Cmd>Gina compare<CR>
+nnoremap <Leader>gl <Cmd>Gina log<CR>
+nnoremap <Leader>gb <Cmd>Gina blame<CR>
 " The colons at the end of `Gina browse` make it guess the file path as well.
-nnoremap <Leader>go :<C-U>Gina browse :<CR>
+nnoremap <Leader>go <Cmd>Gina browse :<CR>
 xnoremap <Leader>go :Gina browse :<CR>
 " Mnemonic: Git Yank Remote
-nnoremap <Leader>gyr :<C-U>Gina browse --yank --exact :<CR>
+nnoremap <Leader>gyr <Cmd>Gina browse --yank --exact :<CR>
 xnoremap <Leader>gyr :Gina browse --yank --exact :<CR>
-nnoremap <Leader>gpu :<C-U>Gina push<CR>
-nnoremap <Leader>gpu :<C-U>Gina pull<CR>
+nnoremap <Leader>gpu <Cmd>Gina push<CR>
+nnoremap <Leader>gpu <Cmd>Gina pull<CR>
 nnoremap <Leader>gco :<C-U>Gina checkout<Space>
-nnoremap <Leader>grs :<C-U>call <SID>GitRestoreFile()<CR>
-nnoremap <Leader>grm :<C-U>exec 'Gina rm ' . expand('%:p') <Bar> bd<CR>
+nnoremap <Leader>grs <Cmd>call <SID>GitRestoreFile()<CR>
+nnoremap <Leader>grm <Cmd>exec 'Gina rm ' . expand('%:p') <Bar> bd<CR>
 nnoremap <expr> <Leader>gmv ":\<C-U>" . 'Gina mv ' . expand('%:p') . ' '
 
 Plug 'airblade/vim-gitgutter'
@@ -684,7 +684,7 @@ function! s:SearchConflictMarkers() abort
   silent! normal! n
 endfunction
 
-nnoremap <silent> <Leader>sx :<C-U>call <SID>SearchConflictMarkers()<CR>
+nnoremap <silent> <Leader>sx <Cmd>call <SID>SearchConflictMarkers()<CR>
 
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--color=always --pretty=myshort'
@@ -742,10 +742,9 @@ let g:jedi#show_call_signatures_delay = 0
 " let g:jedi#goto_command = '<Leader>co'
 " let g:jedi#documentation_command = '<Leader>ch'
 " let g:jedi#rename_command = '<Leader>cr'
-nnoremap <expr> <Leader>cr
-    \ vimrc#GetCommandForMode('echoerr "vimrc: no renaming support"')
+nnoremap <Leader>cr <Cmd>echoerr 'vimrc: no renaming support'<CR>
 augroup vimrc
-  autocmd FileType python nnoremap <buffer> <Leader>cr :<C-U>call jedi#rename()<CR>
+  autocmd FileType python nnoremap <buffer> <Leader>cr <Cmd>call jedi#rename()<CR>
   autocmd FileType python ++once call jedi#configure_call_signatures()
 augroup END
 
@@ -791,8 +790,8 @@ function! s:SetJupytextSettings() abort
     ALEResetBuffer
   endif
   " TODO: Support a count.
-  nnoremap <buffer> zi :<C-U>call search('# %%', 'Wseb')<CR>
-  nnoremap <buffer> zk :<C-U>call search('# %%', 'Wse')<CR>
+  nnoremap <buffer> zi <Cmd>call search('# %%', 'Wseb')<CR>
+  nnoremap <buffer> zk <Cmd>call search('# %%', 'Wse')<CR>
 endfunction
 
 function! s:MaybeSetJupytextSettings() abort
@@ -1057,9 +1056,9 @@ Plug 'jamessan/vim-gnupg'
 Plug 'dhruvasagar/vim-table-mode', { 'on': ['Tableize', 'TableModeRealign'] }
 let g:table_mode_disable_mappings = 1
 let g:table_mode_delimiter = '|'
-nnoremap <Leader>ctt :<C-U>Tableize<CR>
+nnoremap <Leader>ctt <Cmd>Tableize<CR>
 xnoremap <Leader>ctt :Tableize<CR>
-nnoremap <Leader>cta :<C-U>TableModeRealign<CR>
+nnoremap <Leader>cta <Cmd>TableModeRealign<CR>
 
 " Plug 'Matt-Deacalion/vim-systemd-syntax'
 " chrisbra/csv.vim is included in polyglot

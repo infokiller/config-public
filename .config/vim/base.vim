@@ -127,13 +127,13 @@ if g:vimrc_consistent_movement
   xnoremap <expr> i mode() is# 'v' ? 'gk' : 'k'
   xnoremap l <Right>
 else
-  xnoremap <expr> j vimrc#GetCommandForMode('echoerr "Keybinding removed"')
+  xnoremap j <Cmd>echoerr 'Keybinding removed'<CR>
   " Move by visual lines, but only in visual character mode, not visual line mode.
   " See also: https://vi.stackexchange.com/a/9279
   xnoremap <expr> <Down> mode() is# 'v' ? 'gj' : 'j'
-  xnoremap <expr> k vimrc#GetCommandForMode('echoerr "Keybinding removed"')
+  xnoremap k <Cmd>echoerr 'Keybinding removed'<CR>
   xnoremap <expr> <Up> mode() is# 'v' ? 'gk' : 'k'
-  xnoremap <expr> l vimrc#GetCommandForMode('echoerr "Keybinding removed"')
+  xnoremap l <Cmd>echoerr 'Keybinding removed'<CR>
 endif
 
 " Expose plug mappings that are used later.
@@ -186,8 +186,8 @@ xnoremap  Q <Nop>
 nnoremap gQ <Nop>
 
 " Unmap <C-Q>, which is used as my tmux prefix key. <C-V> is the same.
-noremap <expr> <C-Q> vimrc#GetCommandForMode('echoerr "Keybinding removed"')
-noremap! <expr> <C-Q> vimrc#GetCommandForMode('echoerr "Keybinding removed"')
+noremap <C-Q> <Cmd>echoerr 'Keybinding removed'<CR>
+noremap! <C-Q> <Cmd>echoerr 'Keybinding removed'<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Indentation                                  "
@@ -226,7 +226,7 @@ nnoremap Y "+y$
 
 " Options toggling with leader + t + *
 " Toggle paste
-nnoremap <Leader>tp :<C-U>set paste!<CR>
+nnoremap <Leader>tp <Cmd>set paste!<CR>
 
 Plug 'svermeulen/vim-easyclip'
 let g:EasyClipYankHistorySize = 1000
@@ -269,8 +269,8 @@ xnoremap <expr> L mode() is# 'v' ? "\<Plug>MoveBlockRight" : '>gv'
 
 " " Moving lines up and down similar to
 " " http://vim.wikia.com/wiki/Moving_lines_up_or_down
-" xnoremap I :m '<-2<CR>gv
-" xnoremap K :m '>+1<CR>gv
+" xnoremap I <Cmd>m '<-2<CR>
+" xnoremap K <Cmd>m '>+1<CR>
 " " More convenient indent/deindent in visual mode.
 " xnoremap J <gv
 " xnoremap L >gv
@@ -300,9 +300,9 @@ nmap . <Plug>(RepeatDot)
 " [1] https://github.com/machakann/vim-highlightedundo/issues/4
 " Plug 'machakann/vim-highlightedundo'
 
-nnoremap <silent> <Plug>(MyUndo)     :<C-U>call vimrc#undo#Undo(v:count)<CR>
-nnoremap <silent> <Plug>(MyUndoLine) :<C-U>call vimrc#undo#UndoLine(v:count)<CR>
-nnoremap <silent> <Plug>(MyRedo)     :<C-U>call vimrc#undo#Redo(v:count)<CR>
+nnoremap <silent> <Plug>(MyUndo)     <Cmd>call vimrc#undo#Undo(v:count)<CR>
+nnoremap <silent> <Plug>(MyUndoLine) <Cmd>call vimrc#undo#UndoLine(v:count)<CR>
+nnoremap <silent> <Plug>(MyRedo)     <Cmd>call vimrc#undo#Redo(v:count)<CR>
 
 " Undo/Redo with u/Alt+u in normal mode.
 nmap u     <Plug>(MyUndo)
@@ -418,8 +418,8 @@ Plug 'AndrewRadev/sideways.vim'
 " xmap <Leader>ia <Plug>SidewaysArgumentTextobjI
 " xmap aa <Plug>SidewaysArgumentTextobjA
 " Move args
-nnoremap [a :<C-U>SidewaysLeft<CR>
-nnoremap ]a :<C-U>SidewaysRight<CR>
+nnoremap [a <Cmd>SidewaysLeft<CR>
+nnoremap ]a <Cmd>SidewaysRight<CR>
 
 " The line text object is used in expand-region if it's available.
 " Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line'
@@ -629,7 +629,7 @@ let g:tcomment_types = {
     \ 'json'      : ['// %s'],
     \ 'markdown'  : ['<!-- %s -->'],
 \ }
-nnoremap <Leader>c<Leader> :<C-U>TComment<CR>
+nnoremap <Leader>c<Leader> <Cmd>TComment<CR>
 xnoremap <Leader>c<Leader> :TComment<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -643,8 +643,8 @@ let g:EnhancedJumps_no_mappings = 1
 " jumping.
 
 if g:VSCODE_MODE
-  nnoremap J :<C-U>call VSCodeNotify('workbench.action.navigateBack')<CR>
-  nnoremap L :<C-U>call VSCodeNotify('workbench.action.navigateForward')<CR>
+  nnoremap J <Cmd>call VSCodeNotify('workbench.action.navigateBack')<CR>
+  nnoremap L <Cmd>call VSCodeNotify('workbench.action.navigateForward')<CR>
 else
   nnoremap J <C-O>zz
   nnoremap L <C-I>zz
@@ -672,11 +672,11 @@ nnoremap ]c g,zz
 " Consider changing these to use my custom quickfix/loclist navigation
 " functions.
 " Navigate quickfix list
-nnoremap [q :<C-U>cprev<CR>zz
-nnoremap ]q :<C-U>cnext<CR>zz
+nnoremap [q <Cmd>cprev<CR>zz
+nnoremap ]q <Cmd>cnext<CR>zz
 " Navigate location list
-nnoremap [l :<C-U>lprev<CR>zz
-nnoremap ]l :<C-U>lnext<CR>zz
+nnoremap [l <Cmd>lprev<CR>zz
+nnoremap ]l <Cmd>lnext<CR>zz
 
 " Used for the following features:
 " - Hiding quickfix buffers from buffer navigation commands like `:bn`
@@ -712,16 +712,16 @@ let g:error_list_post_command = 'normal! zz'
 let g:error_list_max_items = 10000
 
 " Navigate quickfix list with Ctrl+{p,n}
-nnoremap <C-P> :<C-U>QuickFixPrev<CR>
-nnoremap <C-N> :<C-U>QuickFixNext<CR>
+nnoremap <C-P> <Cmd>QuickFixPrev<CR>
+nnoremap <C-N> <Cmd>QuickFixNext<CR>
 
 " Navigate location list with Alt+{p,n}
 if g:VSCODE_MODE
-  nnoremap <M-p> :<C-U>call VSCodeNotify('editor.action.marker.prev')<CR>
-  nnoremap <M-n> :<C-U>call VSCodeNotify('editor.action.marker.next')<CR>
+  nnoremap <M-p> <Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>
+  nnoremap <M-n> <Cmd>call VSCodeNotify('editor.action.marker.next')<CR>
 else
-  nnoremap <M-p> :<C-U>LoclistPrev<CR>
-  nnoremap <M-n> :<C-U>LoclistNext<CR>
+  nnoremap <M-p> <Cmd>LoclistPrev<CR>
+  nnoremap <M-n> <Cmd>LoclistNext<CR>
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

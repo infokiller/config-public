@@ -66,6 +66,8 @@ function! vimrc#ToggleOption(name, ...) abort
   exec printf('let %s = %s', a:name, l:new_value)
 endfunction
 
+" NOTE: vimrc#GetCommandForMode is deprecated because recent versions of both
+" vim and neovim support the <Cmd> pseudo-key.
 function! vimrc#GetCommandForMode(cmd) abort
   let l:mode = mode()
   let l:normal_cmd = ':'.a:cmd."\<cr>"

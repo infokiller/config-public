@@ -47,6 +47,13 @@ if get(environ(), 'VIMRC_DEBUG', 0)
   exec 'set verbosefile=' . expand('~/tmp/vim_messages.log')
 endif
 
+" Feature version requirements:
+" <Cmd>: neovim v0.3.0, vim v8.2.1978
+if !has('nvim-0.3') && !has('patch-8.2.1978')
+  echoerr 'Insufficient vim/neovim version detected!'
+  echoerr 'Please install the most recent stable version of vim/neovim'
+endif
+
 let g:ATHAME_MODE = get(g:, 'ATHAME_MODE', 0)
 let g:VSCODE_MODE = get(g:, 'vscode', 0)
 let g:FIRENVIM_MODE = get(g:, 'started_by_firenvim', 0)
@@ -138,9 +145,9 @@ if !has('nvim') && !has('gui_running')
 endif
 if g:VSCODE_MODE
   " Mnemonic: Code Open
-  nnoremap <Leader>co :<C-U>call VSCodeNotify('editor.action.revealDefinition')<CR>
+  nnoremap <Leader>co <Cmd>call VSCodeNotify('editor.action.revealDefinition')<CR>
   " Mnemonic: Code Rename
-  nnoremap <Leader>cr :<C-U>call VSCodeNotify('editor.action.rename')<CR>
+  nnoremap <Leader>cr <Cmd>call VSCodeNotify('editor.action.rename')<CR>
   " Mnemonic: Code Format
   nnoremap <Leader>cf :<C-U>call VSCodeNotify('editor.action.formatDocument') 
       \ <Bar> call VSCodeNotify('editor.action.organizeImports')<CR>
