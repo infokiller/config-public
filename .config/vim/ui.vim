@@ -27,17 +27,6 @@ if g:VSCODE_MODE
     endfor
   endfunction
 
-  " Copied from:
-  " https://github.com/asvetliakov/vscode-neovim/blob/bad52112c20942d033d3ba034ef65a5d72f12426/vim/vscode-window-commands.vim#L2-L9
-  function! s:VSCodeSplit(...) abort
-      let direction = a:1
-      let file = exists('a:2') ? a:2 : ''
-      call VSCodeCall(direction ==# 'h' ? 'workbench.action.splitEditorDown' : 'workbench.action.splitEditorRight')
-      if !empty(file)
-          call VSCodeExtensionNotify('open-file', expand(file), 'all')
-      endif
-  endfunction
-
   " See https://github.com/asvetliakov/vscode-neovim/blob/master/vim/vscode-window-commands.vim
   let s:win_left = 'call VSCodeNotify("workbench.action.navigateLeft")'
   let s:win_down = 'call VSCodeNotify("workbench.action.navigateDown")'
