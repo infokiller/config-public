@@ -22,30 +22,45 @@ if g:VSCODE_MODE
   " VSCode commands based on:
   " https://github.com/asvetliakov/vscode-neovim/blob/master/vim/vscode-window-commands.vim#L21
   function! s:RepeatVSCodeNotify(count, cmd) abort
-    let l:count = a:count ? a:count : 1
-    for i in range(1, l:count)
+    for i in range(1, a:count)
       call VSCodeNotify(a:cmd)
     endfor
   endfunction
 
+  " Copied from:
+  " https://github.com/asvetliakov/vscode-neovim/blob/bad52112c20942d033d3ba034ef65a5d72f12426/vim/vscode-window-commands.vim#L2-L9
+  function! s:VSCodeSplit(...) abort
+      let direction = a:1
+      let file = exists('a:2') ? a:2 : ''
+      call VSCodeCall(direction ==# 'h' ? 'workbench.action.splitEditorDown' : 'workbench.action.splitEditorRight')
+      if !empty(file)
+          call VSCodeExtensionNotify('open-file', expand(file), 'all')
+      endif
+  endfunction
+
   " See https://github.com/asvetliakov/vscode-neovim/blob/master/vim/vscode-window-commands.vim
-  let s:win_left = "call VSCodeNotify('workbench.action.navigateLeft')"
-  let s:win_down = "call VSCodeNotify('workbench.action.navigateDown')"
-  let s:win_up = "call VSCodeNotify('workbench.action.navigateUp')"
-  let s:win_right = "call VSCodeNotify('workbench.action.navigateRight')"
-  let s:win_move_left = "call VSCodeNotify('workbench.action.moveEditorToLeftGroup')"
-  let s:win_move_down = "call VSCodeNotify('workbench.action.moveEditorToBelowGroup')"
-  let s:win_move_up = "call VSCodeNotify('workbench.action.moveEditorToAboveGroup')"
-  let s:win_move_right = "call VSCodeNotify('workbench.action.moveEditorToRightGroup')"
-  let s:win_max = "call VSCodeNotify('workbench.action.toggleEditorWidths')"
-  let s:win_split_down = "call VSCodeNotify('workbench.action.splitEditorDown')"
-  let s:win_split_right = "call VSCodeNotify('workbench.action.splitEditorRight')"
-  let s:win_prev = "call VSCodeNotify('workbench.action.focusPreviousGroup')"
-  let s:win_resize_eq = "call VSCodeNotify('workbench.action.evenEditorWidths')"
-  let s:win_inc_height = "call \<SID>RepeatVSCodeNotify(v:count, 'workbench.action.increaseViewSize')"
-  let s:win_dec_height = "call \<SID>RepeatVSCodeNotify(v:count, 'workbench.action.decreaseViewSize')"
-  let s:win_inc_width = s:win_inc_height
-  let s:win_dec_width = s:win_dec_height
+  let s:win_left = 'call VSCodeNotify("workbench.action.navigateLeft")'
+  let s:win_down = 'call VSCodeNotify("workbench.action.navigateDown")'
+  let s:win_up = 'call VSCodeNotify("workbench.action.navigateUp")'
+  let s:win_right = 'call VSCodeNotify("workbench.action.navigateRight")'
+  let s:win_move_left = 'call VSCodeNotify("workbench.action.moveEditorToLeftGroup")'
+  let s:win_move_down = 'call VSCodeNotify("workbench.action.moveEditorToBelowGroup")'
+  let s:win_move_up = 'call VSCodeNotify("workbench.action.moveEditorToAboveGroup")'
+  let s:win_move_right = 'call VSCodeNotify("workbench.action.moveEditorToRightGroup")'
+  let s:win_max = 'call VSCodeNotify("workbench.action.toggleEditorWidths")'
+  " NOTE: vscode-neovim overrides the built-in split/vsplit commands with its
+  " Split/Vsplit variants, so I could in theory just use split/vsplit for both
+  " VSCode mode and non-VSCode mode, but it didn't work in VSCode when I tried
+  " it, possibly due to the fact that overriding the built-in commands doesn't
+  " work when used in <Cmd> mappings.
+  let s:win_split_down = 'Split'
+  let s:win_split_right = 'Vsplit'
+  let s:win_prev = 'call VSCodeNotify("workbench.action.focusPreviousGroup")'
+  let s:win_resize_eq = 'call VSCodeNotify("workbench.action.evenEditorWidths")'
+  let s:win_inc_height = 'call <SID>RepeatVSCodeNotify(v:count1, "workbench.action.increaseViewHeight")'
+  let s:win_dec_height = 'call <SID>RepeatVSCodeNotify(v:count1, "workbench.action.decreaseViewHeight")'
+  let s:win_inc_width = 'call <SID>RepeatVSCodeNotify(v:count1, "workbench.action.increaseViewWidth")'
+  let s:win_dec_width = 'call <SID>RepeatVSCodeNotify(v:count1, "workbench.action.decreaseViewWidth")'
   " `Wq` and `Wqall` are defined in vscode-neovim
   let s:win_quit = 'Wq'
   let s:win_quit_all = 'Wqall'
@@ -53,6 +68,15 @@ if g:VSCODE_MODE
   let s:buf_next = "call VSCodeNotify('workbench.action.nextEditor')"
   let s:buf_prev = "call VSCodeNotify('workbench.action.previousEditor')"
 else
+  " TODO: Verify if undo works correctly, i.e. the full sequence of commands is
+  " undone as a single unit. It doesn't matter right now because I don't use it
+  " for text editing actions.
+  function! s:RepeatCommand(count, cmd) abort
+    for i in range(1, a:count)
+      exec a:cmd
+    endfor
+  endfunction
+
   let s:win_left = 'normal! <C-W>h'
   let s:win_down = 'normal! <C-W>j'
   let s:win_up = 'normal! <C-W>k'
@@ -66,10 +90,10 @@ else
   let s:win_split_right = 'normal! <C-W>v'
   let s:win_prev = 'normal! <C-W>p'
   let s:win_resize_eq = 'normal! <C-W>='
-  let s:win_inc_height = 'normal! <C-W>+'
-  let s:win_dec_height = 'normal! <C-W>-'
-  let s:win_inc_width = 'normal! <C-W>>'
-  let s:win_dec_width = 'normal! <C-W><'
+  let s:win_inc_height = 'call <SID>RepeatCommand(v:count1, "normal! \<C-W>+")'
+  let s:win_dec_height = 'call <SID>RepeatCommand(v:count1, "normal! \<C-W>-")'
+  let s:win_inc_width = 'call <SID>RepeatCommand(v:count1, "normal! \<C-W>>")'
+  let s:win_dec_width = 'call <SID>RepeatCommand(v:count1, "normal! \<C-W><")'
   " NOTE: I previously used `:q!` instead of `:q`, but this silently quits
   " read-only modified buffers (losing their changes). `:q` alone works well
   " with my autosync settings.
