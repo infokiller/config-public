@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Inspired by: https://github.com/romkatv/dotfiles-public/blob/master/dotfiles/functions/sync-dotfiles
+#
+# TODO: Detect when REPO_ROOT is not HOME and make adjustments for this case.
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
@@ -262,6 +264,10 @@ _set_local_git_config() {
       .config/dunst/dunstrc
     "${_git_private_config[@]}" update-index --assume-unchanged \
       .config/rclone/rclone.conf
+    "${_git_private_config[@]}" update-index --assume-unchanged \
+      .config/rclone/rclone.conf
+    "${_git_private_config[@]}" update-index --assume-unchanged \
+      .clasprc.json
   )
   _set_local_excludes
 }
