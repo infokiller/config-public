@@ -95,6 +95,8 @@ different, probably because it was somehow done in the Windows installation.
 
 ### Install Windows packages
 
+> NOTE: I started scripting this in my fork of Win10-Initial-Setup-Script.
+
 [winget](https://github.com/microsoft/winget-cli) is an official CLI package
 manager by Microsoft. As of 2020-11-26 it is still in preview, but in the long
 term it should be the best solution. Other Alternatives are Chocolately (see
@@ -140,7 +142,7 @@ looks interesting but I haven't tested it yet.
 
 - As of 2020-01-07,
   [DisableWinTracking](https://github.com/10se1ucgo/DisableWinTracking) is
-  almost fully contained in Win10-Initial-Setup-Script, but has two potentially
+  almost fully contained in win10-initial-setup-script, but has two potentially
   useful additions that I may find useful in the future:
   - Blocking IPs in Windows Firewall that are known to be tracking.
   - Disable known tracking domains in the hosts file.
