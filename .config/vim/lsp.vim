@@ -959,6 +959,7 @@ let g:ale_fixers['javascript'] = ['prettier', 'eslint']
 let g:ale_fixers['typescript'] = ['prettier', 'eslint']
 let g:ale_fixers['css'] = ['stylelint']
 let g:ale_fixers['json'] = ['prettier']
+let g:ale_fixers['jsonc'] = ['prettier']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                   Markdown                                   "
