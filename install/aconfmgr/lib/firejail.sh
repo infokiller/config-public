@@ -61,7 +61,8 @@ _FIREJAILED_BINS=(
   shellcheck
   soffice
   sqlitebrowser
-  ssh
+  # Breaks SSH via jumphosts in VSCode remote extension.
+  # ssh
   strings
   transmission-cli
   transmission-create
