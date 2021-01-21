@@ -24,7 +24,7 @@ sizes and therefore you need to set them up beforehand. Microsoft has
 about setting up the needed partitions, which also has
 [an included script](https://goo.gl/R4fjYh) for setting up a new disk. I tweaked
 this for my needs and saved it in
-[~/install/create-windows-partitions.txt](../install/create-windows-partitions.txt).
+[~/install/create-windows-partitions.bat](../install/create-windows-partitions.bat).
 
 The partition layout created in this step is as following:
 
@@ -45,7 +45,7 @@ different, probably because it was somehow done in the Windows installation.
 3. Identify the number of the target disk by running `diskpart` and then
    `list disk`.
 4. Copy the
-   [create-windows-partitions.txt](../install/create-windows-partitions.txt)
+   [create-windows-partitions.bat](../install/create-windows-partitions.bat)
    script to a USB drive.
 5. Edit the copied file by replacing `???` with the target disk number from
    diskpart.
@@ -199,8 +199,8 @@ to be a good fit for this job. Partitions configured in this step:
 | Number | Short description                       | Size                 | Filesystem | Comments                                                                                                                                   |
 | ------ | --------------------------------------- | -------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | 5      | Linux boot partition                    | 250 MiB - 500 MiB    | ext4       | As of 2018-06-22 my desktop uses about 200MiB of space in this partition for 3 kernels                                                     |
-| 6      | Encrypted container partition for Linux | 250 GiB              | crypto_LUK | Contains an LVM volume group with 3 volumes for root, home, and swap. root only needs about 40 GiB including `/var`, or 25 GiB without it. |
-| 7      | Shared data partition                   | Remaining disk space | NTFS       |                                                                                                                                            |
+| 6      | Encrypted container partition for Linux | 250 GiB - max        | crypto_LUK | Contains an LVM volume group with 3 volumes for root, home, and swap. root only needs about 40 GiB including `/var`, or 25 GiB without it. |
+| 7      | Shared data partition                   | Remaining disk space | NTFS       | Optional, only useful if sharing lots of data between Linux and Windows                                                                    |
 
 ## Set up Linux
 
