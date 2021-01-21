@@ -18,7 +18,7 @@ _add_local_gcloud_completions() {
     # shellcheck source=../../.local/pkg/standalone/google-cloud-sdk/path.bash.inc
     source "${gcloud_sdk_dir}/completion.bash.inc"
   fi
-  return 0
+  return
 }
 
 _add_gcloud_completions() {
