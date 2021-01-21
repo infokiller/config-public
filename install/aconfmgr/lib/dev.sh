@@ -6,6 +6,7 @@
 AddPackage git             # the fast distributed version control system
 AddPackage git-filter-repo # Quickly rewrite git repository history (filter-branch replacement)
 AddPackage hub             # cli interface for Github
+AddPackage github-cli      # The GitHub CLI
 AddPackage make            # GNU make utility to maintain groups of programs
 AddPackage autoconf        # A GNU tool for automatically configuring source code
 AddPackage automake        # A GNU tool for automatically creating Makefiles
