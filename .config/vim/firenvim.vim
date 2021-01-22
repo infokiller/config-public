@@ -53,7 +53,7 @@ let g:firenvim_config = {
         \ '.*': {
             \ 'selector': 'textarea, div[role="textbox"], div[contenteditable="true"]',
             \ 'priority': 0,
-            \ 'takeover': 'once',
+            \ 'takeover': 'never',
             \ 'cmdline': 'firenvim',
         \ },
         \ 'ticktick\.com': {
