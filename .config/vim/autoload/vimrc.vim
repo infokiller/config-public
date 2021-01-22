@@ -66,40 +66,6 @@ function! vimrc#ToggleOption(name, ...) abort
   exec printf('let %s = %s', a:name, l:new_value)
 endfunction
 
-" NOTE: vimrc#GetCommandForMode is deprecated because recent versions of both
-" vim and neovim support the <Cmd> pseudo-key.
-function! vimrc#GetCommandForMode(cmd) abort
-  let l:mode = mode()
-  let l:normal_cmd = ':'.a:cmd."\<cr>"
-  if l:mode is# 'n'
-    return l:normal_cmd
-  endif
-  if l:mode is# 'v' || l:mode is# 'V' || l:mode is# "\<C-v>" || l:mode is# 's'
-    let l:cmd = "\<Esc>".l:normal_cmd.'gv'
-    if l:mode is# 's'
-      let l:cmd .= "\<C-g>"
-    endif
-    " Escape single quotes in the command so that wrapping it with single quotes
-    " yields a valid string.
-    let l:escaped_cmd = substitute(l:cmd, "'", "''", 'g')
-    " Without feedkeys with the 't' mode, the `gv` command is not executed at
-    " the end.
-    call feedkeys("\<Esc>".l:cmd, 'nt')
-    return ''
-  endif
-  if l:mode is# 'i' || l:mode is# 's'
-    return "\<C-o>".l:normal_cmd
-  endif
-  if l:mode is# 'c' && (getcmdtype() is# ':' || getcmdtype() is# '/' || getcmdtype() is# '?')
-    let l:cmd = "\<C-c>" . l:normal_cmd . getcmdtype()
-    if !empty(getcmdline())
-      let l:cmd .= "\<Up>"
-    endif
-    return l:cmd
-  endif
-  echoerr 'Mode not implemented: ' . l:mode
-endfunction
-
 " Example usage from a shell:
 " > vim -c ':call vimrc#ListBuiltinKeybindingsWithKey("i")'
 function! vimrc#ListBuiltinKeybindingsWithKey(key) abort

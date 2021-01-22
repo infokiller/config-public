@@ -354,10 +354,10 @@ nnoremap <expr> <Leader>cdr '<Cmd>cd ' . FindRootDirectory() . '<CR>'
 "     \ call <SID>RunGrepper('-noprompt', <q-args>)
 " command! -nargs=* -bar GrepBuffers
 "     \ call <SID>RunGrepper('-buffers -noprompt', <q-args>)
-" nnoremap <Leader>sa <Cmd>Grep<Space>
+" nnoremap <Leader>sa :<C-U>Grep<Space>
 " xnoremap <expr> <Leader>sa
 "     \ '""y:Grep --fixed-strings -- <C-R>=shellescape(@")<CR>'
-" nnoremap <Leader>sb <Cmd>GrepBuffers<Space>
+" nnoremap <Leader>sb :<C-U>GrepBuffers<Space>
 " xnoremap <expr> <Leader>sb
 "     \ '""y:GrepBuffers --fixed-strings -- <C-R>=shellescape(@")<CR>'
 
@@ -383,10 +383,10 @@ command! -nargs=* -complete=customlist,ferret#private#ackcomplete Ferret
     \ call <SID>RunFerret('Ack', <q-args>)
 command! -nargs=* -complete=customlist,ferret#private#backcomplete FerretBuffers
     \ call <SID>RunFerret('Back', <q-args>)
-nnoremap <Leader>sa <Cmd>Ferret<Space>
+nnoremap <Leader>sa :<C-U>Ferret<Space>
 xnoremap <Leader>sa
     \ ""y:Ack --fixed-strings -- <C-R>=substitute(@", " ", "\\\\ ", "g")<CR>
-nnoremap <Leader>sb <Cmd>FerretBuffers<Space>
+nnoremap <Leader>sb :<C-U>FerretBuffers<Space>
 xnoremap <Leader>sb
     \ ""y:Back --fixed-strings -- <C-R>=substitute(@", " ", "\\\\ ", "g")<CR>
 
@@ -852,39 +852,34 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Screen refresh                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:RefreshScreenCommand() abort
-  let l:cmds = ['nohlsearch', 'checktime']
+function! s:RefreshScreen() abort
+  nohlsearch
+  checktime
   if exists('*clever_f#reset')
-    call extend(l:cmds, ['call clever_f#reset()'])
+    call clever_f#reset()
   endif
   if exists('*brightest#hl_clear')
-    call extend(l:cmds, ['call brightest#hl_clear()'])
+    call brightest#hl_clear()
   endif
   if &diff
-    call extend(l:cmds, ['diffupdate'])
+    diffupdate
   endif
   if &filetype is# 'go' && exists(':GoCoverageClear')
-    call extend(l:cmds, ['GoCoverageClear'])
+    GoCoverageClear
   endif
   if exists(':ALELint') && get(g:, 'ale_enabled', 1) && get(b:, 'ale_enabled', 1)
-    call extend(l:cmds, ['ALELint'])
+    ALELint
   endif
   " This must be the last command, otherwise the cursor jumps to the first char
   " on the line.
-  " call extend(l:cmds, ["\<C-L>"])
-  call extend(l:cmds, ['mode'])
-  " call extend(l:cmds, ['silent call feedkeys("\<C-L>", "n")'])
-  return vimrc#GetCommandForMode(join(l:cmds, ' | '))
+  mode
 endfunction
 
 " Clear screen and current search highlight with Ctrl+L.
 " Don't get used to it too much though, L is an important navigation key.
-" See also:
-" https://github.com/mhinz/vim-galore#go-to-other-end-of-selected-text
-nnoremap <silent> <expr> <C-L> <SID>RefreshScreenCommand()
-xnoremap <silent> <expr> <C-L> <SID>RefreshScreenCommand()
-inoremap <silent> <expr> <C-L> <SID>RefreshScreenCommand()
-snoremap <silent> <expr> <C-L> <SID>RefreshScreenCommand()
+for s:mode in ['n', 'x', 'i', 's']
+  exec printf('%snoremap <silent> <C-L> <Cmd>call <SID>RefreshScreen()<CR>', s:mode)
+endfor
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Colorscheme                                  "

@@ -565,9 +565,14 @@ let g:vista_ctags_cmd = { 'json': 'true' }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                     Git                                      "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:RunTerminalTrueColor(cmd) abort
+  let l:cmd = printf('env COLORTERM=%s %s', $COLORTERM, a:cmd)
+  exec 'terminal ' . l:cmd
+endfunction
+
 " Plug 'tpope/vim-git'
-nnoremap <expr> <Leader>gc vimrc#GetCommandForMode('terminal') . 'igc; exit $?<CR>'
-nnoremap <expr> <Leader>gcp vimrc#GetCommandForMode('terminal') . 'igcp; exit $?<CR>'
+nnoremap <Leader>gc <Cmd>call <SID>RunTerminalTrueColor('git commit')<CR>
+nnoremap <Leader>gcp <Cmd>call <SID>RunTerminalTrueColor('git commit && git push')<CR>
 
 Plug 'jreybert/vimagit'
 nnoremap <Leader>gm <Cmd>Magit<CR>
