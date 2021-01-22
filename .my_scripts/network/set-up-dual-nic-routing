@@ -25,7 +25,7 @@ add_nic_routing_table() {
     ((i++))
   done
   echo "First available routing table id found: ${i}"
-  sudo bash -c "echo ${i} ${nic} >> /etc/iproute2/rt_tables"
+  echo "${i} ${nic}" | sudo tee -a /etc/iproute2/rt_tables > /dev/null
 }
 
 # TODO: Don't hardcode IP addresses, instead try to get them automatically.
