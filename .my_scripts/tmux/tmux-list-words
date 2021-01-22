@@ -8,6 +8,10 @@ require 'optparse'
 require 'set'
 require 'English'
 
+# NOTE(infokiller): splitting by \W will also split by dashes and dots which are
+# often part of valid identifiers, so we also do splits without them.
+WORD_SPLIT_REGEX = /[\/\\!@#$%^&*()\[\]|,?{}]/
+
 opts = { panes: :visible }
 op = OptionParser.new do |o|
   o.banner = "usage: #{$PROGRAM_NAME} [OPTIONS]"
@@ -64,7 +68,8 @@ def tokenize(str, prefix, min)
   set.merge(chunks = str.split(/\s+/))
   set.merge(_strip_chunks = chunks.map { |t| t.gsub(/^\W+|\W+$/, '') })
   set.merge(_lines = str.split($INPUT_RECORD_SEPARATOR).map(&:strip))
-  set.merge(_words = str.gsub(/\W/, ' ').split(/\s+/))
+  set.merge(_words = str.gsub(WORD_SPLIT_REGEX, ' ').split(/\s+/))
+  set.merge(_words_granular = str.gsub(/\W/, ' ').split(/\s+/))
 
   prefix &&= /^#{Regexp.escape prefix}/
   if prefix && min
