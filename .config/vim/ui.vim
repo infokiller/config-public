@@ -853,6 +853,8 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 "                                Screen refresh                                "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:RefreshScreen() abort
+  " nohlsearch doesn't work in user functions, so we must do it directly in the
+  " mapping.
   nohlsearch
   checktime
   if exists('*clever_f#reset')
@@ -878,7 +880,9 @@ endfunction
 " Clear screen and current search highlight with Ctrl+L.
 " Don't get used to it too much though, L is an important navigation key.
 for s:mode in ['n', 'x', 'i', 's']
-  exec printf('%snoremap <silent> <C-L> <Cmd>call <SID>RefreshScreen()<CR>', s:mode)
+  " NOTE: nohlsearch doesn't work in user functions, so we must do it directly
+  " in the mapping.
+  exec printf('%snoremap <silent> <C-L> <Cmd>nohl <Bar> call <SID>RefreshScreen()<CR>', s:mode)
 endfor
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
