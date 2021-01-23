@@ -9,9 +9,12 @@ main() {
     echo 1>&2 'sensible-browser: no support for SSH'
     exit 1
   fi
-  if command -v google-chrome-home &> /dev/null; then
-    exec google-chrome-home "$@"
-  fi
+  # I don't remember why I originally wanted to run google-chrome-home before
+  # google-chrome, but I'm disabling it because it's not always wanted (for
+  # example when I'm using an alternative --user-data-dir.
+  # if command -v google-chrome-home &> /dev/null; then
+  #   exec google-chrome-home "$@"
+  # fi
   if command -v google-chrome &> /dev/null; then
     exec google-chrome "$@"
   fi
