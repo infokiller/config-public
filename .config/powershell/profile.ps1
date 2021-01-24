@@ -2,6 +2,12 @@
 $MaximumHistoryCount = 32000
 
 Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardKillWord
+Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
+Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
+Set-PSReadLineKeyHandler -Key Ctrl+v -Function WhatIsKey
+# NOTE: Undo doesn't work, seems that pwsh can't recognize it.
+# Set-PSReadLineKeyHandler -Key Alt+_ -Function Undo
+Set-PSReadLineKeyHandler -Key Alt++ -Function Redo
 
 $PSReadLineOptions = @{
     # EditMode = "Emacs"
@@ -9,6 +15,7 @@ $PSReadLineOptions = @{
     # The docs mention that PSReadLine history is separate from PowerShell
     # history.
     MaximumHistoryCount = 100000
+    PredictionSource    = 'History'
     # From: https://github.com/neilpa/cmd-colors-solarized/blob/master/Set-SolarizedDarkColorDefaults.ps1
     # Changing the color for 'Parameter' is required so that it's not hidden
     # with a solarized color theme, see:
