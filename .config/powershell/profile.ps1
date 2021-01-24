@@ -16,7 +16,8 @@ $PSReadLineOptions = @{
         # https://github.com/microsoft/terminal/issues/6696
         'Command' = 'Yellow'
         'ContinuationPrompt' = 'DarkBlue'
-        'DefaultToken' = 'DarkBlue'
+        # NOTE: PowerShell Core (pwsh) complains about DefaultToken.
+        # 'DefaultToken' = 'DarkBlue'
         'Emphasis' = 'Cyan'
         'Error' = 'Red'
         'Keyword' = 'Green'
