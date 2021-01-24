@@ -10,14 +10,12 @@ $PSReadLineOptions = @{
     # history.
     MaximumHistoryCount = 100000
     # From: https://github.com/neilpa/cmd-colors-solarized/blob/master/Set-SolarizedDarkColorDefaults.ps1
+    # Changing the color for 'Parameter' is required so that it's not hidden
+    # with a solarized color theme, see:
+    # https://github.com/microsoft/terminal/issues/6696
     Colors = @{
-        # Changing the color for 'Parameter' is required so that it's not
-        # hidden with a solarized color theme, see:
-        # https://github.com/microsoft/terminal/issues/6696
         'Command' = 'Yellow'
         'ContinuationPrompt' = 'DarkBlue'
-        # NOTE: PowerShell Core (pwsh) complains about "DefaultToken", it seems
-        # to have been replaced with "Default".
         'Default' = 'DarkBlue'
         'Emphasis' = 'Cyan'
         'Error' = 'Red'
@@ -31,4 +29,9 @@ $PSReadLineOptions = @{
         'Variable' = 'Green'
     }
 }
+
+if ($IsLinux -And $env:HOST_HIST_DIR) {
+    $PSReadLineOptions['HistorySavePath'] = Join-Path -Path $env:HOST_HIST_DIR -ChildPath pwsh.txt
+}
+
 Set-PSReadLineOption @PSReadLineOptions
