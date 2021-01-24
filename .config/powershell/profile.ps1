@@ -13,20 +13,20 @@ $PSReadLineOptions = @{
     # Changing the color for 'Parameter' is required so that it's not hidden
     # with a solarized color theme, see:
     # https://github.com/microsoft/terminal/issues/6696
-    Colors = @{
-        'Command' = 'Yellow'
+    Colors              = @{
+        'Command'            = 'Yellow'
         'ContinuationPrompt' = 'DarkBlue'
-        'Default' = 'DarkBlue'
-        'Emphasis' = 'Cyan'
-        'Error' = 'Red'
-        'Keyword' = 'Green'
-        'Member' = 'DarkCyan'
-        'Number' = 'DarkCyan'
-        'Operator' = 'DarkGreen'
-        'Parameter' = 'DarkGreen'
-        'String' = 'Blue'
-        'Type' = 'DarkYellow'
-        'Variable' = 'Green'
+        'Default'            = 'DarkBlue'
+        'Emphasis'           = 'Cyan'
+        'Error'              = 'Red'
+        'Keyword'            = 'Green'
+        'Member'             = 'DarkCyan'
+        'Number'             = 'DarkCyan'
+        'Operator'           = 'DarkGreen'
+        'Parameter'          = 'DarkGreen'
+        'String'             = 'Blue'
+        'Type'               = 'DarkYellow'
+        'Variable'           = 'Green'
     }
 }
 
