@@ -73,6 +73,7 @@ readonly _VSCODE_EXTENSIONS=(
   'ms-python.vscode-pylance'
   ### Shell
   'mads-hartmann.bash-ide-vscode'
+  'ms-vscode.PowerShell'
   ### Markdown
   'yzhang.markdown-all-in-one'
   'goessner.mdmath'
