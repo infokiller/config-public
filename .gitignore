@@ -170,8 +170,9 @@
 /.Tribler
 /.config/Debauchee
 /.config/Dharkael/flameshot.ini
-/.config/VirtualBox
+/.config/LinuxTV
 /.config/QtProject
+/.config/VirtualBox
 /.config/gcloud
 /.config/autostart
 /.config/borg
