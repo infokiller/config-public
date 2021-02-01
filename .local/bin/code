@@ -5,6 +5,10 @@ WRAPPER_PATH="$(readlink -f "$0")"
 main() {
   local cmd
   mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  local default_ssh_auth_sock="${HOME}/.ssh/ssh_auth_sock"
+  if [[ -z "${SSH_AUTH_SOCK-}" && -r "${default_ssh_auth_sock}" ]]; then
+    export SSH_AUTH_SOCK="${default_ssh_auth_sock}"
+  fi
   # EXP: enable GPU rasterization on code. See also
   # ~/.config/chromium-flags.conf.
   exec -- "${cmd[@]}" --enable-gpu-rasterization "$@"
