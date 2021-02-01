@@ -1,0 +1,22 @@
+# Copied from the default Arch Linux visual-studio-code-bin AUR package with the
+# following changes:
+# - Use a relative path in the Exec entry so that my home dir wrapper works.
+# - Removes the --no-sandbox argument from the Exec entry
+[Desktop Entry]
+Name=Visual Studio Code
+Comment=Code Editing. Refined.
+GenericName=Text Editor
+Exec=code --unity-launch %F
+Icon=visual-studio-code
+Type=Application
+StartupNotify=false
+StartupWMClass=code
+Categories=Utility;TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=code --new-window %F
+Icon=visual-studio-code
