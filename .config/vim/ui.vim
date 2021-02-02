@@ -165,11 +165,11 @@ if g:VSCODE_MODE
   nnoremap <silent> bl <Cmd>call VSCodeNotify('workbench.action.showAllEditorsByMostRecentlyUsed')<CR>
 
   " Mnemonic: Code Execute
-  nnoremap <silent> <Leader>cee <Cmd>call VSCodeNotify('python.datascience.runcurrentcell')<CR>
-  nnoremap <silent> <Leader>cen <Cmd>call VSCodeNotify('python.datascience.runcurrentcelladvance')<CR>
-  nnoremap <silent> <Leader>cei <Cmd>call VSCodeNotify('python.datascience.runallcellsabove.palette')<CR>
-  nnoremap <silent> <Leader>cek <Cmd>call VSCodeNotify('python.datascience.runcurrentcellandallbelow.palette')<CR>
-  nnoremap <silent> <Leader>cea <Cmd>call VSCodeNotify('python.datascience.runallcells')<CR>
+  nnoremap <silent> <Leader>cee <Cmd>call VSCodeNotify('jupyter.runcurrentcell')<CR>
+  nnoremap <silent> <Leader>cen <Cmd>call VSCodeNotify('jupyter.runcurrentcelladvance')<CR>
+  nnoremap <silent> <Leader>cei <Cmd>call VSCodeNotify('jupyter.runallcellsabove.palette')<CR>
+  nnoremap <silent> <Leader>cek <Cmd>call VSCodeNotify('jupyter.runcurrentcellandallbelow.palette')<CR>
+  nnoremap <silent> <Leader>cea <Cmd>call VSCodeNotify('jupyter.runallcells')<CR>
 
   finish
 endif  " g:VSCODE_MODE
