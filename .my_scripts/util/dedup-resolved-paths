@@ -10,6 +10,7 @@ def dedup_resolved_paths():
     # Print initially only non-symlinks, and then print symlinks that do not
     # point to any of the other files.
     for line in sys.stdin:
+        # Strip newline
         path = line[:-1]
         if not path:
             continue

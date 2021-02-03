@@ -11,6 +11,8 @@
 # however this is not really needed for my current usage, since the output does
 # contain the submodules directories (just not the files themselves), so when
 # passing the output to ripgrep it will still search in submodules.
+#
+# TODO: test `rg --files` and `fd --type f` for this use case.
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail

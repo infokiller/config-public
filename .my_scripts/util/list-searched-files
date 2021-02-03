@@ -14,11 +14,8 @@
 set -o errexit -o errtrace -o nounset -o pipefail
 
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
-readonly DEDUP_CMD=("${REPO_ROOT}/.my_scripts/util/dedup-resolved-paths")
 readonly PUBLIC_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-public"
 readonly PRIVATE_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-private"
-
-readonly ORDERED_CMDS=(git-list-files rg fd find)
 
 _command_exists() {
   command -v -- "$1" &> /dev/null
@@ -27,6 +24,12 @@ _command_exists() {
 _run_git-list-files() {
   local repo_root
   repo_root="$(git rev-parse --show-toplevel 2> /dev/null)" || return
+  # If we're in an ignored directory, use "regular" search. Note that both rg
+  # and fd will list ignored files in this case.
+  if git check-ignore .; then
+    _run_alternative_tool
+    return
+  fi
   if [[ "${repo_root}" == "${HOME}" ]]; then
     GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" git-list-files
     GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" git-list-files
@@ -35,25 +38,26 @@ _run_git-list-files() {
   fi
 }
 
-_run_rg() {
-  rg --files
-}
-
-_run_fd() {
-  fd --type f
-}
-
-_run_find() {
-  find . -type f
+_run_alternative_tool() {
+  if _command_exists rg; then
+    rg --files
+  elif _command_exists fd; then
+    fd --type f
+  elif _command_exists find; then
+    find . -type f
+  else
+    return 1
+  fi
 }
 
 main() {
-  for cmd in "${ORDERED_CMDS[@]}"; do
-    if _command_exists "${cmd}"; then
-      eval "_run_${cmd} | ${DEDUP_CMD[*]}" && return
+  {
+    if _command_exists git-list-files; then
+      _run_git-list-files
+    else
+      _run_alternative_tool
     fi
-  done
-  exit 1
+  } | "${REPO_ROOT}/.my_scripts/util/dedup-resolved-paths"
 }
 
 main "$@"
