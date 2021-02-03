@@ -102,7 +102,7 @@
     "python.linting.pylintEnabled": true,
     "jupyter.askForKernelRestart": false,
     "jupyter.alwaysTrustNotebooks": true,
-    "jupyter.codeLenses": "python.datascience.runcell,  python.datascience.debugcell",
+    "jupyter.codeLenses": "jupyter.runcell, jupyter.debugcell",
     "go.useLanguageServer": true,
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim-nightly",
     "fzf-quick-open.findDirectoriesCmd": "fd --type d",

@@ -9,8 +9,8 @@
 ## Debugging keybindings conditions
 
 As mentioned [in this issue](https://github.com/microsoft/vscode/issues/78782),
-when clauses for keybindings are not fully documented. In order to get the full
-context that can be used in when clauses, I did the following:
+"when clauses" for keybindings are not fully documented. In order to get the
+full context that can be used in when clauses, I did the following:
 
 - `workbench.action.toggleKeybindingsLog`
 - `workbench.action.toggleDevTools`
@@ -32,7 +32,7 @@ context that can be used in when clauses, I did the following:
 - Print the context in the dev console. I used the following function:
 
   ```javascript
-  printContext = (ctx) => {
+  printAndSaveContext = (ctx) => {
     values = {};
     while (ctx) {
       values = { ...values, ...ctx._value };
@@ -43,8 +43,9 @@ context that can be used in when clauses, I did the following:
         .sort()
         .reduce((o, [k, v]) => ((o[k] = v), o), {})
     );
+    copy(JSON.stringify(values));
   };
-  printContext(temp1);
+  printAndSaveContext(s);
   ```
 
 ### Stored contexts
