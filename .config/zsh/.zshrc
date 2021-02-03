@@ -1105,14 +1105,14 @@ function {
   # Translate escape codes in xterm's application mode (smkx) to the escape
   # code in raw mode (rmkx). This way, if an xterm-like terminal is switched
   # to application mode, the keybindings will keep working.
-  if [[ ${TERM} == xterm* ]]; then
-    bindkey -s '^[OA' '^[[A'  # up
-    bindkey -s '^[OB' '^[[B'  # down
-    bindkey -s '^[OD' '^[[D'  # left
-    bindkey -s '^[OC' '^[[C'  # right
-    bindkey -s '^[OH' '^[[H'  # home
-    bindkey -s '^[OF' '^[[F'  # end
-  fi
+  # NOTE: I used to only define these when $TERM is xterm* but it is also needed
+  # when SSHing to DGX machines.
+  bindkey -s '^[OA' '^[[A'  # up
+  bindkey -s '^[OB' '^[[B'  # down
+  bindkey -s '^[OD' '^[[D'  # left
+  bindkey -s '^[OC' '^[[C'  # right
+  bindkey -s '^[OH' '^[[H'  # home
+  bindkey -s '^[OF' '^[[F'  # end
 
   (( ${+term_keys[backspace]} )) &&
       _bindkey_insert_keymaps "${term_keys[backspace]}" backward-delete-char-or-up-line
