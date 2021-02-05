@@ -632,6 +632,8 @@ function {
 fpath=(
   "${ZDOTDIR}/fpath"
   ${fpath}
+  # z4h functions
+  "${PLUGINS_DIR}/zsh4humans/fn"
   # Completions from external repos
   "${PLUGINS_DIR}/conda-zsh-completion"
   "${PLUGINS_DIR}/go-zsh-completion/src"
@@ -961,6 +963,7 @@ else
   >&2 print -Pr -- '%F{yellow}fzf completions not available%f'
   _default_completion=complete-word
 fi
+
 # When tab-completing, show dots. For fast tab completes, they will be
 # overwritten instantly, for long tab-completions, you have feedback.
 # Copied from:
