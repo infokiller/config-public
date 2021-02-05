@@ -986,7 +986,7 @@ _complete_with_dots() {
   autoload -Uz -- -z4h-show-dots
   -z4h-show-dots "${LBUFFER}"
   zle "${_default_completion}"
-  # zle redisplay
+  zle redisplay
 }
 zle -N _complete_with_dots
 _bindkey_insert_keymaps '\t' _complete_with_dots
