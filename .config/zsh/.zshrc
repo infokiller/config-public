@@ -979,7 +979,7 @@ _complete_with_dots() {
     echoti smam
   fi
   zle "${_default_completion}"
-  # zle redisplay
+  zle redisplay
 }
 zle -N _complete_with_dots
 _bindkey_insert_keymaps '\t' _complete_with_dots
