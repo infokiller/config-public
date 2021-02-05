@@ -348,7 +348,7 @@ _install_activitywatch_from_src() {
   # activitywatch requires cargo nightly, see:
   # https://github.com/ActivityWatch/aw-server-rust/issues/116
   if ! [[ -f "${CARGO_BIN}/rustup" ]]; then
-    curl 'https://sh.rustup.rs' -sSf |
+    curl -fsSL 'https://sh.rustup.rs' |
       sh -s -- --no-modify-path -y --profile minimal
   fi
   "${CARGO_BIN}/rustup" toolchain install nightly
