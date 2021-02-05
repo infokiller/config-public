@@ -966,20 +966,27 @@ fi
 
 # When tab-completing, show dots. For fast tab completes, they will be
 # overwritten instantly, for long tab-completions, you have feedback.
-# Copied from:
-# https://github.com/romkatv/zsh4humans/blob/ed3ac2b25829865ca702ba088df06f59062e15f9/.zshrc#L199-L207
-# Used to be copied from:
-# - https://github.com/romkatv/dotfiles-public/blob/6e57a9fe4c47061bdf51704005810e3b633f6fe9/dotfiles/bindings.zsh#L76
-# - http://code.stapelberg.de/git/configfiles/tree/zshrc
+# I originally used the smam/rmam terminfo commands from [1] (used to be copied
+# from [2] and [3]), but they're not supported in tmux [4] and it seems that
+# zsh4humans switched to a new method [5] which I'm now using.
+# [1] https://github.com/romkatv/zsh4humans/blob/ed3ac2b25829865ca702ba088df06f59062e15f9/.zshrc#L199-L207
+# [2] https://github.com/romkatv/dotfiles-public/blob/6e57a9fe4c47061bdf51704005810e3b633f6fe9/dotfiles/bindings.zsh#L76
+# [3] http://code.stapelberg.de/git/configfiles/tree/zshrc
+# [4] https://github.com/tmux/tmux/issues/969
+# [5] https://github.com/romkatv/zsh4humans/blob/v5/fn/-z4h-show-dots
 _complete_with_dots() {
-  zmodload zsh/terminfo
-  if (( $+terminfo[rmam] && $+terminfo[smam] )); then
-    echoti rmam
-    print -Pn "%B%F{white}...%f%b"
-    echoti smam
-  fi
+  emulate -L zsh
+  # zmodload zsh/terminfo
+  # if (( $+terminfo[rmam] && $+terminfo[smam] )); then
+  #   echoti rmam
+  #   print -Pn "%B%F{white}...%f%b"
+  #   echoti smam
+  # fi
+  -z4h-cursor-hide() {}
+  autoload -Uz -- -z4h-show-dots
+  -z4h-show-dots "${LBUFFER}"
   zle "${_default_completion}"
-  zle redisplay
+  # zle redisplay
 }
 zle -N _complete_with_dots
 _bindkey_insert_keymaps '\t' _complete_with_dots
