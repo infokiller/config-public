@@ -3,10 +3,14 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-_ORDERED_DIFFERS=(diff-so-fancy icdiff delta diff)
+_ORDERED_DIFFERS=(delta diff-so-fancy icdiff diff)
 
 _command_exists() {
   command -v -- "$1" &> /dev/null
+}
+
+_run_delta() {
+  git diff --no-index --color "$@" | delta
 }
 
 _run_diff-so-fancy() {
@@ -20,10 +24,6 @@ _run_diff-so-fancy() {
 
 _run_icdiff() {
   icdiff "$@"
-}
-
-_run_delta() {
-  git diff --no-index --color "$@" | delta
 }
 
 _run_diff() {
