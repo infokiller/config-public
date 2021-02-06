@@ -1018,8 +1018,13 @@ _fix_terminal_after_ssh_tmux() {
   # using nvim which also seems to fix it.
   nvim -u /dev/null -c q
 }
-ssh-et-tmxcs() {
-  local ssh_args=("${@:1:(($# - 1))}")
+_ssh-tmxcs() {
+  if (($# < 2)); then
+    print_error 'Usage: ssh-tmxcs [SSH_ARGS] REMOTE'
+    return 1
+  fi
+  local use_et="$1"
+  local ssh_args=("${@:2:(($# - 2))}")
   # In bash, we could use a string directly with `${*: -1}`, but in zsh that
   # returns the last char, not the last element of the array as a string.
   local remote=("${@: -1}")
@@ -1028,11 +1033,20 @@ ssh-et-tmxcs() {
   cmd+="$(_maybe_run_with_colorterm)"
   # shellcheck disable=SC2016
   cmd+='tmux attach -d -t "${s}"'
-  ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}"
+  if ((use_et)); then
+    ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}"
+  else
+    ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}"
+  fi
   _fix_terminal_after_ssh_tmux
 }
-ssh-et-tmxns() {
-  local ssh_args=("${@:1:(($# - 2))}")
+_ssh-tmxns() {
+  if (($# < 3)); then
+    print_error 'Usage: ssh-tmxns [SSH_ARGS] REMOTE TMUX_SESSION'
+    return 1
+  fi
+  local use_et="$1"
+  local ssh_args=("${@:2:(($# - 3))}")
   local remote=("${@: -2:1}")
   # In bash, we could use a string directly with `${*: -1}`, but in zsh that
   # returns the last char, not the last element of the array as a string.
@@ -1040,9 +1054,17 @@ ssh-et-tmxns() {
   local cmd
   cmd="$(_maybe_run_with_colorterm)"
   cmd+="$(printf "tmux new-session -A -D -s '%s'" "${session_name[*]}")"
-  ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}"
+  if ((use_et)); then
+    ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}"
+  else
+    ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}"
+  fi
   _fix_terminal_after_ssh_tmux
 }
+alias ssh-tmxcs='_ssh-tmxcs 0'
+alias ssh-tmxns='_ssh-tmxns 0'
+alias ssh-et-tmxcs='_ssh-tmxcs 1'
+alias ssh-et-tmxns='_ssh-tmxns 1'
 # }}} Tmux #
 
 # Python {{{
