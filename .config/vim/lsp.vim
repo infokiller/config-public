@@ -120,7 +120,7 @@ function! s:CompletionUpOrDown(is_down) abort
     " Double quotes are required for these keys to be recognized.
     " Go down/up by visual line using the 'g' prefix.
     let l:no_pum_key = a:is_down ?
-          \ "\<Plug>(vimrc-insert-down)" : "\<Plug>(vimrc-insert-up)"
+        \ "\<Plug>(vimrc-insert-down)" : "\<Plug>(vimrc-insert-up)"
     " Double quotes are required for the special keys to be recognized.
     call feedkeys(l:no_pum_key, 'm')
   endif
