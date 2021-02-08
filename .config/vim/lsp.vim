@@ -931,6 +931,15 @@ augroup vimrc
       \ call <SID>FixALEForBashLibraries()
 augroup END
 
+let g:ycm_language_server = get(g:, 'ycm_language_server', [])
+let g:ycm_language_server += [
+    \ {
+    \   'name': 'bash',
+    \   'cmdline': ['bash-language-server', 'start'],
+    \   'filetypes': ['sh', 'bash'],
+    \ },
+\ ]
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                 web: Javascript, Typescript, HTML, CSS, JSON                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
