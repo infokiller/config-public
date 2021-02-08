@@ -1,4 +1,5 @@
 [Default Applications]
+application/epub+zip=zathura.desktop
 application/json=vim-terminal.desktop
 application/mpeg4-iod=vlc.desktop
 application/mpeg4-muxcodetable=vlc.desktop
