@@ -15,7 +15,7 @@ $PSReadLineOptions = @{
     # The docs mention that PSReadLine history is separate from PowerShell
     # history.
     MaximumHistoryCount = 100000
-    PredictionSource    = 'History'
+    # PredictionSource    = 'History'
     # From: https://github.com/neilpa/cmd-colors-solarized/blob/master/Set-SolarizedDarkColorDefaults.ps1
     # Changing the color for 'Parameter' is required so that it's not hidden
     # with a solarized color theme, see:
@@ -37,7 +37,11 @@ $PSReadLineOptions = @{
     }
 }
 
-if ($IsLinux -And $env:HOST_HIST_DIR) {
+if ($null -ne $(Get-PSReadLineOption).PredictionSource) {
+    $PSReadLineOptions['PredictionSource'] = 'History'
+}
+
+if ($IsLinux -and $env:HOST_HIST_DIR) {
     $PSReadLineOptions['HistorySavePath'] = Join-Path -Path $env:HOST_HIST_DIR -ChildPath pwsh.txt
 }
 
