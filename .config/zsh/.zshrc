@@ -975,7 +975,8 @@ fi
 # [4] https://github.com/tmux/tmux/issues/969
 # [5] https://github.com/romkatv/zsh4humans/blob/v5/fn/-z4h-show-dots
 _complete_with_dots() {
-  emulate -L zsh
+  # NOTE: no "emulate -L zsh" because otherwise my custom completion settings
+  # won't work.
   # zmodload zsh/terminfo
   # if (( $+terminfo[rmam] && $+terminfo[smam] )); then
   #   echoti rmam
