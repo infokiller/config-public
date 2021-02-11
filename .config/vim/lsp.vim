@@ -568,11 +568,12 @@ let g:vista_ctags_cmd = { 'json': 'true' }
 function! s:RunTerminalTrueColor(cmd) abort
   let l:cmd = printf('env COLORTERM=%s %s', $COLORTERM, a:cmd)
   exec 'terminal ' . l:cmd
+  startinsert
 endfunction
 
 " Plug 'tpope/vim-git'
-nnoremap <Leader>gc <Cmd>call <SID>RunTerminalTrueColor('git commit')<CR>
-nnoremap <Leader>gcp <Cmd>call <SID>RunTerminalTrueColor('git commit && git push')<CR>
+nnoremap <Leader>gc <Cmd>call <SID>RunTerminalTrueColor('git commit; exit')<CR>
+nnoremap <Leader>gcp <Cmd>call <SID>RunTerminalTrueColor('git commit && git push; exit')<CR>
 
 Plug 'jreybert/vimagit'
 nnoremap <Leader>gm <Cmd>Magit<CR>
