@@ -572,8 +572,8 @@ function! s:RunTerminalTrueColor(cmd) abort
 endfunction
 
 " Plug 'tpope/vim-git'
-nnoremap <Leader>gc <Cmd>call <SID>RunTerminalTrueColor('git commit; exit')<CR>
-nnoremap <Leader>gcp <Cmd>call <SID>RunTerminalTrueColor('git commit && git push; exit')<CR>
+nnoremap <Leader>gc <Cmd>call <SID>RunTerminalTrueColor('git commit')<CR>
+nnoremap <Leader>gcp <Cmd>call <SID>RunTerminalTrueColor('git commit && git push')<CR>
 
 Plug 'jreybert/vimagit'
 nnoremap <Leader>gm <Cmd>Magit<CR>
