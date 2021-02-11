@@ -4,7 +4,6 @@
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
-
 # NOTE(infokiller): this script MUST NOT source or depend on any other script
 # because many scripts depend on it, which may cause an infinite recursion.
 
