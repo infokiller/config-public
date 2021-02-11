@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Whatsapp Web
+Exec=whatsapp-web %u
+Terminal=false
+# Icon=whatsapp
+# Categories=Application;Chat;
+MimeType=x-scheme-handler/whatsapp;
+Keywords=Whatsapp;Messanger;Chat;

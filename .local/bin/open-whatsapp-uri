@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-# whatsapp_web_url="${*/whatsapp/web.whatsapp.com}"
-whatsapp_web_url="$(printf '%s\n' "$@" | sed -r 's|whatsapp://|https://web.whatsapp.com/|')"
-google-chrome "${whatsapp_web_url}"

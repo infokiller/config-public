@@ -240,4 +240,4 @@ x-scheme-handler/spice=org.remmina.Remmina.desktop
 x-scheme-handler/unknown=chromium.desktop
 x-scheme-handler/vnc=org.remmina.Remmina.desktop
 x-scheme-handler/webcal=chromium.desktop
-x-scheme-handler/whatsapp=open-whatsapp-uri.desktop
+x-scheme-handler/whatsapp=whatsapp.desktop
