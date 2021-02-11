@@ -66,6 +66,7 @@ readonly _VSCODE_EXTENSIONS=(
   ### Remote dev
   'ms-vscode-remote.remote-ssh'
   'ms-vscode-remote.remote-ssh-edit'
+  'ms-vscode-remote.remote-containers'
   ### Golang
   'golang.go'
   ### Python
