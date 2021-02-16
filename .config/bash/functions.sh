@@ -1193,18 +1193,29 @@ alias nvidia-smi-ps='nvidia-smi-top-processes'
 alias nvidia-all-processes='sudo lsof -t /dev/nvidia* | _format_gpu_pids'
 
 # Returns the GPU id that is the least occupied (currently only looks at
-# memory). From:
+# memory). See also:
 # https://github.com/wookayin/dotfiles/blob/dd3d08410be1f1c92634817d022ff3ca4330a7cc/zsh/zsh.d/alias.zsh#L314
 _gpu_get_best() {
   # The python binary is hardcoded to the conda tools env one since if we're in
   # a virtual env it might not have gpustat installed, but the default python
   # binary used here should have it.
   "${HOME}/.local/pkg/conda/envs/tools/bin/python" -c '
-import gpustat, sys
-g = max(gpustat.new_query(), key=lambda g: g.memory_available)
-g.print_to(sys.stderr)
+import sys
+import gpustat
+
+if len(sys.argv) > 1:
+  limited_gpu_indices = [int(i) for i in sys.argv[1].split(",")]
+else:
+  limited_gpu_indices = None
+
+stats = gpustat.new_query()
+if limited_gpu_indices:
+  stats = [gpu for gpu in stats if gpu.index in limited_gpu_indices]
+
+best_gpu = max(stats, key=lambda g: g.memory_available)
+best_gpu.print_to(sys.stderr)
 sys.stderr.write("\n")
-print(g.index)'
+print(best_gpu.index)' "$@"
 }
 
 _gpu_select_fzf() {
@@ -1231,7 +1242,7 @@ gpu-select-fzf() {
 
 gpu-select-auto() {
   local gpu_id
-  if ! gpu_id="$(_gpu_get_best)" || [[ -z "${gpu_id-}" ]]; then
+  if ! gpu_id="$(_gpu_get_best "$@")" || [[ -z "${gpu_id-}" ]]; then
     return 1
   fi
   gpu-select-id "${gpu_id}"
