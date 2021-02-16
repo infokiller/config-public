@@ -1202,7 +1202,9 @@ _gpu_get_best() {
   "${HOME}/.local/pkg/conda/envs/tools/bin/python" -c '
 import gpustat, sys
 g = max(gpustat.new_query(), key=lambda g: g.memory_available)
-g.print_to(sys.stderr); print(g.index)'
+g.print_to(sys.stderr)
+sys.stderr.write("\n")
+print(g.index)'
 }
 
 _gpu_select_fzf() {
