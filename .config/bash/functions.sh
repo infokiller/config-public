@@ -1070,7 +1070,7 @@ alias ssh-et-tmxns='_ssh-tmxns 1'
 # Python {{{
 # __launch_ipython() {
 #   local cmd='ipython'
-#   local dev_ipython_cmd="${HOME}/.local/pkg/conda/bin/ipython"
+#   local dev_ipython_cmd="${HOME}/.local/pkg/conda/envs/tools/bin/ipython"
 #   if ! command_exists ipython && command_exists "${dev_ipython_cmd}"; then
 #     cmd="${dev_ipython_cmd}"
 #   fi
@@ -1196,10 +1196,10 @@ alias nvidia-all-processes='sudo lsof -t /dev/nvidia* | _format_gpu_pids'
 # memory). From:
 # https://github.com/wookayin/dotfiles/blob/dd3d08410be1f1c92634817d022ff3ca4330a7cc/zsh/zsh.d/alias.zsh#L314
 _gpu_get_best() {
-  # The python binary is hardcoded to the conda root env one since if we're in a
-  # virtual env it might not have gpustat installed, but the default python
+  # The python binary is hardcoded to the conda tools env one since if we're in
+  # a virtual env it might not have gpustat installed, but the default python
   # binary used here should have it.
-  "${HOME}/.local/pkg/conda/bin/python" -c '
+  "${HOME}/.local/pkg/conda/envs/tools/bin/python" -c '
 import gpustat, sys
 g = max(gpustat.new_query(), key=lambda g: g.memory_available)
 g.print_to(sys.stderr); print(g.index)'
