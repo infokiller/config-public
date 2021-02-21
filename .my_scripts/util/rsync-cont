@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# TODO: Support remote -> remote and remote -> local syncing by running the
+# commands over SSH.
+
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
