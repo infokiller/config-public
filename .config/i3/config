@@ -451,7 +451,7 @@ mode "Launcher" {
     # # Toggl / Time tracker: Shift+t
     # bindcode Shift+28 $focus_or_invoke "toggl" toggl
     # Whatsapp: w
-    bindcode 25 $focus_or_invoke "web.whatsapp.com" whatsapp
+    bindcode 25 $focus_or_invoke "web.whatsapp.com" whatsapp-web
     # Whatsapp: Shift+w
     bindcode Shift+25 $focus_or_invoke "messenger.com" facebook-messenger
     # Glances: g
