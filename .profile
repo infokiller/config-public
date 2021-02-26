@@ -161,6 +161,7 @@ _increase_xdg_conformance() {
   # [2] https://www.golinuxcloud.com/change-tmpfs-partition-size-redhat-linux
   if test -n "${XDG_RUNTIME_DIR-}"; then
     export TMPDIR="${XDG_RUNTIME_DIR}/tmp"
+    export TMUX_TMPDIR="${TMPDIR}"
     _maybe_create_dir "${TMPDIR}"
   fi
   export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
