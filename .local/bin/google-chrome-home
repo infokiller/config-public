@@ -40,4 +40,4 @@ FLAGS=(
   '--disable-features=OmniboxTabSwitchSuggestions'
 )
 
-google-chrome "${FLAGS[@]}" --profile-directory="Home" "$@"
+exec google-chrome --profile-directory='Home' "${FLAGS[@]}" "$@"

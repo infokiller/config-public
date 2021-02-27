@@ -11,4 +11,4 @@
 # - As of 2018-09-26 Chrome outputs many errors on zeus18 from
 #   gles2_cmd_decoder. As of 2020-07-26, these errors are not reproducible, so
 #   their filtering is disabled.
-chromium "$@"
+exec chromium "$@"

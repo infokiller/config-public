@@ -435,11 +435,11 @@ mode "Launcher" {
     # Gmail: m
     bindcode 58 $focus_or_invoke "gmail.com" gmail
     # Outlook mail: M
-    bindcode Shift+58 $focus_or_invoke "outlook.office.com__mail" office365-outlook-mail
+    bindcode Shift+58 $focus_or_invoke "outlook.office.com__mail" outlook-web-mail
     # Google Calendar: c
     bindcode 54 $focus_or_invoke "calendar.google" google-calendar
     # Outlook mail: C
-    bindcode Shift+54 $focus_or_invoke "outlook.office.com__calendar" office365-outlook-calendar
+    bindcode Shift+54 $focus_or_invoke "outlook.office.com__calendar" outlook-web-calendar
     # Hangouts: h
     # bindcode 43 $focus_or_invoke "hangouts.google" hangouts
     # Trello / task manager: t

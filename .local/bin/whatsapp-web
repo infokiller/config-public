@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if (($# > 0)); then
   whatsapp_web_url="$(sed -E 's|whatsapp://|https://web.whatsapp.com/|' <<< "$1")"
-  exec sensible-browser "${whatsapp_web_url}"
+  exec google-chrome-home "${whatsapp_web_url}"
 fi
-exec google-chrome --app="https://web.whatsapp.com/" --profile-directory="Home" "$@"
+exec google-chrome-home --app='https://web.whatsapp.com/'

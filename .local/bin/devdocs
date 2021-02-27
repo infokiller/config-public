@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-google-chrome --app="http://devdocs.io" --profile-directory="Home" "$@"
+exec google-chrome-home --app='http://devdocs.io' "$@"

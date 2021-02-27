@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-google-chrome --app="https://trello.com" "$@"
+exec google-chrome-home --app='https://trello.com' "$@"

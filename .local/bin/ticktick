@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-google-chrome --app="https://ticktick.com" "$@"
+exec google-chrome-home --app='https://ticktick.com' "$@"

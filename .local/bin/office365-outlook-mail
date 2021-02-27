@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-google-chrome --app="https://outlook.office.com/mail" --profile-directory="Home" "$@"

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-google-chrome --app="https://toggl.com/app/timer" --profile-directory="Home" "$@"
+exec google-chrome-home --app='https://toggl.com/app/timer' "$@"
