@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-google-chrome --profile-directory="Mom" "$@"
+google-chrome --profile-directory='Mom' "$@"
