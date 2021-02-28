@@ -1042,7 +1042,7 @@ _ssh-tmxcs() {
 }
 _ssh-tmxns() {
   if (($# < 3)); then
-    print_error 'Usage: ssh-tmxns [SSH_ARGS] REMOTE TMUX_SESSION'
+    print_error 'Usage: ssh-tmxns ET_FLAG [SSH_ARGS] REMOTE TMUX_SESSION'
     return 1
   fi
   local use_et="$1"
@@ -1059,7 +1059,8 @@ _ssh-tmxns() {
   else
     ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}"
   fi
-  _fix_terminal_after_ssh_tmux
+  local s=$?
+  _fix_terminal_after_ssh_tmux && return $s
 }
 alias ssh-tmxcs='_ssh-tmxcs 0'
 alias ssh-tmxns='_ssh-tmxns 0'
