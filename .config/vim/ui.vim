@@ -95,7 +95,6 @@ else
 endif
 
 for s:map_mode in ['nnoremap', 'xnoremap']
-  exec printf('%s <Leader>wj <Cmd>%s<CR>', s:map_mode, s:win_left)
   " Navigating windows.
   exec printf('%s <Leader>wj <Cmd>%s<CR>', s:map_mode, s:win_left)
   exec printf('%s <Leader>wk <Cmd>%s<CR>', s:map_mode, s:win_down)
