@@ -34,25 +34,29 @@ from typing import (Any, Callable, Dict, Iterable, List, Optional, Sequence,
 reload = importlib.reload
 pprint = pprint.pprint
 
-# Interactive third party imports
-try:
-    import matplotlib
-    import matplotlib.pyplot as plt
-    import numpy as np
-    import pandas as pd
-    import seaborn as sns
-    # PyTorch
-    import torch
-    import torch.nn as nn
-    import torch.nn.functional as F
-    import torch.optim as optim
-    import torch.utils.data
-    import torchvision
-    import torchvision.transforms as transforms
-    import torchviz
-    from dateutil import relativedelta
-except ImportError:
-    pass
+OPTIONAL_IMPORTS = [
+    'import matplotlib',
+    'import matplotlib.pyplot as plt',
+    'import numpy as np',
+    'import pandas as pd',
+    'import seaborn as sns',
+    'import torch',
+    'import torch.nn as nn',
+    'import torch.nn.functional as F',
+    'import torch.optim as optim',
+    'import torch.utils.data',
+    'import torchvision',
+    'import torchvision.transforms as transforms',
+    'import torchviz',
+    'from dateutil import relativedelta',
+]
+for opt_import in OPTIONAL_IMPORTS:
+    try:
+        # pylint: disable=exec-used
+        exec(opt_import)
+    except ImportError:
+        pass
+del OPTIONAL_IMPORTS
 
 # NOTE: Keep this function in sync with the one in ext/config.py.
 def _load_local_extension(name):
@@ -78,9 +82,8 @@ def _load_local_extension(name):
 
 
 myconfig = _load_local_extension('config')
-xc = myconfig.copy_to_clipboard
-
 del _load_local_extension
+xc = myconfig.copy_to_clipboard
 del myconfig
 
 # Clean up the globals namespace.
