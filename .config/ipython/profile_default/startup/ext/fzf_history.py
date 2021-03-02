@@ -135,6 +135,9 @@ def _create_preview_fifos():
 
 
 def _create_fzf_process(initial_query, fifo_input_path, fifo_output_path):
+    # TODO: fzf-tmux launch time is sometimes 5x slower than fzf and the delay
+    # is noticable.
+    # TODO: add a file for fzf search history.
     return subprocess.Popen([
         'fzf-tmux',
         '--no-sort',
