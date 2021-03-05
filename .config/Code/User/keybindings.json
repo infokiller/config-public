@@ -194,6 +194,20 @@
     "when": "editorTextFocus && neovim.ctrlKeysInsert && neovim.recording && neovim.mode == 'insert'"
   },
   {
+    "key": "ctrl+w",
+    "command": "-workbench.action.closeActiveEditor"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    // NOTE: the condition is simplified and doesn't include the full condition
+    // from vscode-neovim because as of 2021-03-03 VSCode doesn't support
+    // paranthesis in when clauses:
+    // https://github.com/microsoft/vscode/issues/91473
+    // "when": "editorFocus && !(neovim.ctrlKeysInsert && !neovim.recording && neovim.mode == 'insert')"
+    "when": "editorFocus && neovim.mode == 'normal'"
+  },
+  {
     "key": "ctrl+shift+p",
     "command": "-vscode-neovim.send",
     "when": "editorTextFocus && neovim.mode == 'visual'"
