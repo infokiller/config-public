@@ -506,7 +506,7 @@ cmd_run_all_parallel() {
 }
 
 main() {
-  do_basic_setup
+  do_basic_setup --no-sync-submodules
   if (($# == 0)); then
     cmd_run --all --parallel
     return

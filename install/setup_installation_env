@@ -98,6 +98,21 @@ _ctrl_c_handler() {
 }
 
 do_basic_setup() {
+  local sync_submodules=1
+  case "$1" in
+    --no-sync-submodules)
+      sync_submodules=0
+      shift
+      ;;
+    --sync-submodules)
+      sync_submodules=1
+      shift
+      ;;
+    *)
+      print_error 'Usage: do_basic_setup [--sync-submodules]'
+      return 1
+      ;;
+  esac
   _log_info_bold "Repo root: ${REPO_ROOT}"
   _log_info_bold "Submodules dir: ${SUBMODULES_DIR}"
 
@@ -106,7 +121,9 @@ do_basic_setup() {
   _make_installation_tmpdir
   _log_info "Installation tmp files dir: ${INSTALLATION_TMP_DIR}"
 
-  "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
+  if ((sync_submodules)); then
+    "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
+  fi
 
   trap _ctrl_c_handler INT
 
