@@ -635,17 +635,23 @@ git-reset-hard-safe() {
 
 _git_ls_staged_files=(git --no-pager diff --name-only --no-renames --staged)
 _git_ls_unstaged_files=(git ls-files --modified --full-name)
+# TODO: Unify the git pager (delta etc.) used here and in git config. I can
+# create a my-git-pager script, but then the git config will be less self
+# contained (if I copy my config without my scripts it will break).
 _git_diff_index_preview='git diff --color=always -- {} |
-  (diff-so-fancy || delta || cat) 2> /dev/null'
+  { delta || diff-so-fancy || cat; } 2> /dev/null'
 _git_diff_head_preview='git diff --color=always HEAD -- {} |
-  (diff-so-fancy || delta || cat) 2> /dev/null'
+  { delta || diff-so-fancy || cat; } 2> /dev/null'
 
 git-add-fzf() {
   local repo_root files
   repo_root="$(git rev-parse --show-toplevel)"
   (
     cd -- "${repo_root}" || exit
+    # During a merge conflict, _git_ls_unstaged_files return duplicates, so we
+    # must dedup the output.
     "${_git_ls_unstaged_files[@]}" |
+      dedup |
       fzf-shell --height=80% --multi --preview="${_git_diff_index_preview}" \
         --prompt='Add > ' |
       sensible-xargs git add --
@@ -1326,6 +1332,11 @@ retry-forever() {
     echo "Command exit status: ${s}, sleeping and retrying..."
     sleep 5
   done
+}
+
+# https://stackoverflow.com/a/11532197
+dedup() {
+  awk '!seen[$0]++'
 }
 
 line-count-by-subfolder-sorted() {
