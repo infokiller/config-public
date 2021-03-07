@@ -203,9 +203,16 @@ merge_and_maybe_push() {
   fi
 }
 
+get_num_missing_commits() {
+  local rev="$1"
+  local base="${2:-HEAD}"
+  git log --oneline "${base}" "^${rev}" | wc -l
+}
+
 checkout_if_safe() {
   local rev="$1"
-  num_lost_commits="$(git log --oneline HEAD "^${rev}" | wc -l)"
+  local num_lost_commits
+  num_lost_commits="$(get_num_missing_commits "${rev}")"
   if ((num_lost_commits > 0)); then
     print_warning "Will lose ${num_lost_commits} commits, bailing out."
     return 1
@@ -213,10 +220,34 @@ checkout_if_safe() {
   git checkout "${rev}"
 }
 
+checkout_if_newer() {
+  local rev="$1"
+  local rev_desc="${2:-$1}"
+  local num_missing_commits
+  num_missing_commits="$(get_num_missing_commits "${rev}")"
+  if ((num_missing_commits != 0)); then
+    _log_info "${rev_desc} does not have all HEAD commits, leaving HEAD as is"
+    return 1
+  fi
+  if [[ "$(git rev-parse HEAD)" == "$(git rev-parse "${rev}")" ]]; then
+    _log_info "HEAD already pointing to ${rev_desc}, leaving HEAD as is"
+    return 1
+  fi
+  _log_info_bold "${rev_desc} has more commits than HEAD, checking it out"
+  checkout_if_safe "${rev}"
+  local head_timestamp
+  head_timestamp="$(get_commit_timestamp HEAD)"
+  local rev_timestamp
+  rev_timestamp="$(get_commit_timestamp "${rev}")"
+  if ((rev_timestamp < head_timestamp)); then
+    print_warning "${rev_desc} has more commits than HEAD but an older commit timestamp"
+  fi
+}
+
 rollback_if_lost_commits() {
   local original_head="$1"
   local num_lost_commits
-  num_lost_commits="$(git log --oneline "${original_head}" '^HEAD' | wc -l)"
+  num_lost_commits="$(get_num_missing_commits 'HEAD' "${original_head}")"
   if ((num_lost_commits > 0)); then
     print_warning "Lost ${num_lost_commits} commits after update, rolling back."
     git checkout --quiet "${original_head}"
@@ -241,7 +272,7 @@ maybe_stash_changes() {
 get_head_branch_or_commit() {
   # `git symbolic-ref` prints the current branch if a branch is checked out, but
   # returns an error when there's a detached HEAD. `git rev-parse` returns the
-  # SHA-1..
+  # SHA-1.
   git symbolic-ref --short -q HEAD || git rev-parse HEAD
 }
 
@@ -259,34 +290,16 @@ sensible_update() {
     _log_info_bold "${branch} not updated in the last two years"
   fi
   local latest_tag
-  if latest_tag="$(git describe --tags --abbrev=0 origin/"${branch}" 2> /dev/null)"; then
+  if latest_tag="$(git describe --tags --abbrev=0 "origin/${branch}" 2> /dev/null)"; then
     _log_info "$(printf 'Lastest tag reachable from origin/%s: %s, datetime: %s\n' \
       "${branch}" "${latest_tag}" "$(get_commit_datetime "${latest_tag}")")"
-    local latest_tag_timestamp
-    latest_tag_timestamp="$(get_commit_timestamp "${latest_tag}")"
-    if ((latest_tag_timestamp >= head_timestamp)); then
-      if ((latest_tag_timestamp > head_timestamp)); then
-        _log_info_bold 'Latest tag newer than HEAD, checking it out'
-        checkout_if_safe "${latest_tag}"
-      else
-        _log_info 'HEAD pointing to latest tag, leaving HEAD as is'
-      fi
-      if ((branch_timestamp - latest_tag_timestamp >= 2 * 365 * 24 * 60 * 60)); then
-        print_warning "${branch} newer than latest tag by more than 2 years"
-      fi
+    if checkout_if_newer "${latest_tag}"; then
       return 0
-    else
-      _log_info 'Latest tag not newer than HEAD, leaving HEAD as is'
     fi
   else
     _log_info 'Did not find a tag reachable from origin/'"${branch}"
   fi
-  if ((branch_timestamp > head_timestamp)); then
-    _log_info_bold "$(printf '%s newer than HEAD, checking it out' "${branch}")"
-    checkout_if_safe "${branch}"
-  else
-    _log_info "${branch}"' not newer than HEAD, leaving HEAD as is'
-  fi
+  checkout_if_newer "${branch}" || true
 }
 
 fail() {
