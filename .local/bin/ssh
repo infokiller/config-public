@@ -19,4 +19,8 @@ echo "XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority" >| "${HOME}/.ssh/environment"
 gpg-connect-agent updatestartuptty /bye &> /dev/null
 
 mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+if ((${#COMMAND[@]} == 0)); then
+  echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+  exit 1
+fi
 exec -- "${COMMAND[@]}" "$@"

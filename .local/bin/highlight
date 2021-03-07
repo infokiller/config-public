@@ -13,6 +13,10 @@ readonly DEFAULT_STYLE='solarized-dark'
 readonly DEFAULT_TABWIDTH=4
 
 mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+if ((${#COMMAND[@]} == 0)); then
+  echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+  exit 1
+fi
 exec -- "${COMMAND[@]}" \
   --data-dir="${DEFAULT_DATA_DIR}" \
   --style="${DEFAULT_STYLE}" \

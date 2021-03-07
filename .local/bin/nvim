@@ -17,6 +17,10 @@ main() {
     exec -- "${LOCAL_NVIM_BIN}" "$@"
   fi
   mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  if ((${#cmd[@]} == 0)); then
+    echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+    exit 1
+  fi
   exec -- "${cmd[@]}" "$@"
 }
 

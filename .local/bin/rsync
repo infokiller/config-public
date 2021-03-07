@@ -7,4 +7,8 @@ WRAPPER_PATH="$(readlink -f "$0")"
 
 gpg-connect-agent updatestartuptty /bye &> /dev/null
 mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+if ((${#COMMAND[@]} == 0)); then
+  echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+  exit 1
+fi
 exec -- "${COMMAND[@]}" "$@"
