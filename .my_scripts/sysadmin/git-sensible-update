@@ -231,7 +231,7 @@ checkout_if_newer() {
   fi
   if [[ "$(git rev-parse HEAD)" == "$(git rev-parse "${rev}")" ]]; then
     _log_info "HEAD already pointing to ${rev_desc}, leaving HEAD as is"
-    return 1
+    return 0
   fi
   _log_info_bold "${rev_desc} has more commits than HEAD, checking it out"
   checkout_if_safe "${rev}"
@@ -278,12 +278,12 @@ get_head_branch_or_commit() {
 
 sensible_update() {
   local branch="$1"
-  _log_info 'HEAD datetime:' "$(get_commit_datetime HEAD)"
+  _log_info "HEAD datetime: $(get_commit_datetime HEAD)"
   local head_timestamp
   head_timestamp="$(get_commit_timestamp HEAD)"
   local branch_timestamp
   branch_timestamp="$(get_commit_timestamp "${branch}")"
-  _log_info "${branch}" 'datetime: ' "$(get_commit_datetime "${branch}")"
+  _log_info "${branch} datetime: $(get_commit_datetime "${branch}")"
   local current_timestamp
   current_timestamp="$(date +"%s")"
   if ((current_timestamp - branch_timestamp >= 2 * 365 * 24 * 60 * 60)); then
@@ -294,7 +294,7 @@ sensible_update() {
     _log_info "$(printf 'Lastest tag reachable from origin/%s: %s, datetime: %s\n' \
       "${branch}" "${latest_tag}" "$(get_commit_datetime "${latest_tag}")")"
     if checkout_if_newer "${latest_tag}"; then
-      return 0
+      return
     fi
   else
     _log_info 'Did not find a tag reachable from origin/'"${branch}"
