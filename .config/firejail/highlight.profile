@@ -10,6 +10,8 @@ noblacklist ${PATH}/lua*
 noblacklist /usr/include/lua*
 noblacklist /usr/lib/liblua*
 noblacklist /usr/lib/lua
+noblacklist /usr/lib64/liblua*
+noblacklist /usr/lib64/lua
 noblacklist /usr/share/lua*
 
 # include disable-common.inc
