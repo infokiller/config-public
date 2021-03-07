@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
 
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
 WRAPPER_PATH="$(readlink -f "$0")"
 
 main() {
   local cmd
   mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  if ((${#cmd[@]} == 0)); then
+    echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+    exit 1
+  fi
   local default_ssh_auth_sock="${HOME}/.ssh/ssh_auth_sock"
   if [[ -z "${SSH_AUTH_SOCK-}" && -r "${default_ssh_auth_sock}" ]]; then
     export SSH_AUTH_SOCK="${default_ssh_auth_sock}"
