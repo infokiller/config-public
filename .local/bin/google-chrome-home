@@ -1,5 +1,35 @@
 #!/usr/bin/env bash
 
+function join_by() {
+  local IFS="$1"
+  shift
+  echo "$*"
+}
+
+# As of 2020-02-10, I stopped enabling TabGroups. Features enabled/disabled:
+# - ExtensionsToolbarMenu: add a button next to the extension icons that shows
+#   all extensions.
+# - NativeNotifications: show native desktop notifications.
+# - ReaderMode: add a button to show the current page in reader mode. The button
+#   is shown on the right end of the address bar for some pages such as the Arch
+#   wiki.
+# - ProminentDarkModeActiveTabTitle: show the title of the active tab more
+#   prominently.
+# - WebUIDarkMode: use a dark theme for chrome pages such as chrome://settings.
+# - OmniboxTabSwitchSuggestions: when an Omnibox search matches an existing tab,
+#   add a suggestions to switch to it.
+ENABLED_FEATURES=(
+  'ExtensionsToolbarMenu'
+  'NativeNotifications'
+  'ReaderMode'
+  'ProminentDarkModeActiveTabTitle'
+  'WebUIDarkMode'
+  'VaapiVideoDecoder'
+)
+DISABLED_FEATURES=(
+  'OmniboxTabSwitchSuggestions'
+)
+
 FLAGS=(
   # Without this, chromium stores passwords unencrypted, even though I have the
   # Secrets Service running.
@@ -10,6 +40,8 @@ FLAGS=(
   # - https://wiki.archlinux.org/index.php/Hardware_video_acceleration
   # - https://wiki.debian.org/HardwareVideoAcceleration
   '--enable-gpu-rasterization'
+  '--enable-accelerated-video-decode'
+  '--use-gl=desktop'
   '--ignore-gpu-blocklist'
   # NOTE(2018-10-16): Disabled because things are too small on hera17. The
   # automatic scaling prior to using this flag seemed to work better.
@@ -23,21 +55,8 @@ FLAGS=(
   # Configure `chrome://flags` experiments.
   # NOTE: All the features must be enabled/disabled in the same flag delimited by
   # commas.
-  # As of 2020-02-10, I stopped enabling TabGroups.
-  # Features enabled/disabled:
-  # - ExtensionsToolbarMenu: add a button next to the extension icons that shows
-  #   all extensions.
-  # - NativeNotifications: show native desktop notifications.
-  # - ReaderMode: add a button to show the current page in reader mode. The button
-  #   is shown on the right end of the address bar for some pages such as the Arch
-  #   wiki.
-  # - ProminentDarkModeActiveTabTitle: show the title of the active tab more
-  #   prominently.
-  # - WebUIDarkMode: use a dark theme for chrome pages such as chrome://settings.
-  # - OmniboxTabSwitchSuggestions: when an Omnibox search matches an existing tab,
-  #   add a suggestions to switch to it.
-  '--enable-features=ExtensionsToolbarMenu,NativeNotifications,ReaderMode,ProminentDarkModeActiveTabTitle,WebUIDarkMode'
-  '--disable-features=OmniboxTabSwitchSuggestions'
+  "--enable-features=$(join_by ',' "${ENABLED_FEATURES[@]}")"
+  "--disable-features=$(join_by ',' "${DISABLED_FEATURES[@]}")"
 )
 
 exec google-chrome --profile-directory='Home' "${FLAGS[@]}" "$@"
