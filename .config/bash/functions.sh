@@ -1192,7 +1192,7 @@ _format_gpu_pids() {
 
 nvidia-smi-top-processes() {
   nvidia-smi |
-    \grep -E -o '\s+([0-9]|N/A)\s+[0-9]+' |
+    \grep -E -o '\s+([0-9]|N/A)\s+[0-9]+\s+[CG]' |
     awk '{print $2}' |
     _format_gpu_pids
 }
