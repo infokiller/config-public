@@ -40,6 +40,8 @@ fi
 
 # Configurable vars.
 UEFI=true
+
+# Swap sizing: https://superuser.com/q/777907/407543
 case "${machine_name}" in
   # This is what I used for my 2018 desktop with a Windows dual boot:
   zeus18)
