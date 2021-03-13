@@ -751,6 +751,19 @@ let g:jedi#show_call_signatures_delay = 0
 nnoremap <Leader>cr <Cmd>echoerr 'vimrc: no renaming support'<CR>
 augroup vimrc
   autocmd FileType python nnoremap <buffer> <Leader>cr <Cmd>call jedi#rename()<CR>
+  " jedi's goto command has better semantics than YCM when using it on an
+  " imported function. For example, in the following code:
+  "
+  " 1. from foo import bar
+  " 2. bar()
+  "
+  " When using goto on bar in line 2, YCM goes to the import statement in line 1
+  " instead of bar's implementation.
+  "
+  " Note however that the jedi#goto command is not async so a goto call can
+  " freeze the editor. It seems to be async in YCM as well, however YCM seems
+  " more responsive, possibly because it uses a timeout.
+  autocmd FileType python nnoremap <buffer> <Leader>co <Cmd>call jedi#goto()<CR>
   autocmd FileType python ++once call jedi#configure_call_signatures()
 augroup END
 
@@ -1030,7 +1043,7 @@ function! s:CheckMarkdownPreviewInstalled() abort
 endfunction
 
 augroup vimrc
-  autocmd FileType markdown call <SID>CheckMarkdownPreviewInstalled()
+  autocmd FileType ++once markdown call <SID>CheckMarkdownPreviewInstalled()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
