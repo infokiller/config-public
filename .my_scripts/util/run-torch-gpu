@@ -30,7 +30,7 @@ def _get_free_gpu_mem_mb(gpu_index):
         # pylint: disable=import-outside-toplevel
         import pynvml
         pynvml.nvmlInit()
-        handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+        handle = pynvml.nvmlDeviceGetHandleByIndex(gpu_index)
         return pynvml.nvmlDeviceGetMemoryInfo(handle).free / 1024**2
     except ImportError:
         pass
