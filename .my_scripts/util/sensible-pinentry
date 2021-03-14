@@ -20,15 +20,15 @@ _TERMINAL_ORDER=(
   pinentry-gnome3
   pinentry-gtk-2
 )
-# TODO: Add a gpg wrapper that writes PINENTRY_TTY (right now only ssh does).
 PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR}/tmp}/pinentry_tty"
 
-# An attempt to fix pinentry-curses to use the tty that the gpg/ssh command was
-# invoked from, not the currently active tty, which can mess up my terminal.
-# pinentry-curses supports a --ttyname for that, but I need to figure out how to
-# get the tty that the gpg/ssh request came from, since it's not in the
-# environment. Since I already define SSH and GPG wrappers, I can probably just
-# write the tty to a file and then read it here.
+# An attempt to fix pinentry-curses so that it uses the tty that the gpg/ssh
+# command was invoked from. The default beavior when using git with ssh is to
+# use the active tty at the moment pinentry was called, which won't be
+# the tty the original ssh command was invoked from if I quickly switch to
+# another terminal in tmux. This can mess up my terminal when I'm running
+# another program such as vim.
+# TODO: Add a gpg wrapper that writes PINENTRY_TTY (right now only ssh does).
 _run_pinentry_curses_or_tty() {
   local bin="$1"
   shift
