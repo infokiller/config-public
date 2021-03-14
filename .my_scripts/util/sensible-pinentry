@@ -12,7 +12,8 @@ _GRAPHICAL_ORDER=(pinentry-qt pinentry-gnome3 pinentry-gtk-2 pinentry-curses pin
 # from, not the currently active tty, which can mess up my terminal.
 # pinentry-curses supports a --ttyname for that, but I need to figure out how to
 # get the tty that the gpg/ssh request came from, since it's not in the
-# environment.
+# environment. Since I already define SSH and GPG wrappers, I can probably just
+# write the tty to a file and then read it here.
 _TERMINAL_ORDER=(pinentry-curses pinentry-tty pinentry-qt pinentry-gnome3 pinentry-gtk-2)
 
 _command_exists() {
