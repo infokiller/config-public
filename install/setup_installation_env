@@ -99,20 +99,20 @@ _ctrl_c_handler() {
 
 do_basic_setup() {
   local sync_submodules=1
-  case "$1" in
-    --no-sync-submodules)
-      sync_submodules=0
-      shift
-      ;;
-    --sync-submodules)
-      sync_submodules=1
-      shift
-      ;;
-    *)
-      print_error 'Usage: do_basic_setup [--sync-submodules]'
-      return 1
-      ;;
-  esac
+  for arg in "$@"; do
+    case "${arg}" in
+      --no-sync-submodules)
+        sync_submodules=0
+        ;;
+      --sync-submodules)
+        sync_submodules=1
+        ;;
+      *)
+        print_error 'Usage: do_basic_setup [--sync-submodules]'
+        return 1
+        ;;
+    esac
+  done
   _log_info_bold "Repo root: ${REPO_ROOT}"
   _log_info_bold "Submodules dir: ${SUBMODULES_DIR}"
 
