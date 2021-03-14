@@ -1403,7 +1403,7 @@ nohup() {
 # clipboard and tmux seamless navigation don't work. It may be related to the
 # fact I'm running nvim as an AppImage.
 man() {
-  nvim -c ':vert Man tmux | silent bd 1'
+  nvim -c ":vert Man $1 | silent bd 1"
 }
 
 detect-secrets-update-and-audit() {
