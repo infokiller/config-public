@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+# pylint: disable=invalid-name
+import argparse
+import os
+import random
+import subprocess
+import sys
+import time
+import typing
+import xml.etree.ElementTree as ET
+
+import torch
+
+
+def _create_args_parser() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description='Run pytorch GPU tests')
+    parser.add_argument('--log-level',
+                        choices=('debug', 'info', 'warning', 'error',
+                                 'critical'),
+                        default='warning',
+                        help='Logging level for stderr.')
+    parser.add_argument('--device-index', type=int, default=0)
+    parser.add_argument('--mem-free-mb', type=float, default=2000)
+    parser.add_argument('--tensor-size', type=int, default=10**7)
+    return parser
+
+
+def _get_free_gpu_mem_mb(gpu_index):
+    try:
+        # pylint: disable=import-outside-toplevel
+        import pynvml
+        pynvml.nvmlInit()
+        handle = pynvml.nvmlDeviceGetHandleByIndex(0)
+        return pynvml.nvmlDeviceGetMemoryInfo(handle).free / 1024**2
+    except ImportError:
+        pass
+    xml_content = subprocess.run(['nvidia-smi', '--query', '--xml-format'],
+                                 check=True).stdout
+    tree = ET.fromstring(xml_content)
+    gpu = tree.findall('gpu')[gpu_index]
+    return int(gpu.find('fb_memory_usage').find('free').text.split()[0])
+
+
+def main():
+    parser = _create_args_parser()
+    args = parser.parse_args()
+    # Make sure that device indices match nvidia-smi
+    os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+    # os.environ['CUDA_VISIBLE_DEVICES'] = str(args.device_index)
+    if not torch.cuda.is_available():
+        sys.exit('CUDA not available')
+    # Set default device
+    # pylint: disable=no-member
+    device = torch.device(f'cuda:{args.device_index}')
+    tensors = []
+    while True:
+        try:
+            # Initialize CUDA by allocating a small tensor. This will
+            # immediately cause a GPU memory consumption of 1 GiB.
+            torch.empty(1, device=device)
+            free_mb = _get_free_gpu_mem_mb(args.device_index)
+            print(f'free gpu memory: {free_mb} MiB')
+            alloc_size_mb = 4 * args.tensor_size / 1024**2
+            while free_mb > args.mem_free_mb + alloc_size_mb:
+                free_mb -= alloc_size_mb
+                tensors.append(torch.empty(args.tensor_size, device=device))
+            while len(tensors) >= 3:
+                i1, i2, i3 = random.choices(list(range(len(tensors))), k=3)
+                tensors[i3] = tensors[i1] * tensors[i2]
+        except RuntimeError as e:
+            print(e)
+            time.sleep(5)
+
+
+if __name__ == '__main__':
+    main()
