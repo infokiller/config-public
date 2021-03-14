@@ -19,7 +19,7 @@ def _create_args_parser() -> argparse.Namespace:
                                  'critical'),
                         default='warning',
                         help='Logging level for stderr.')
-    parser.add_argument('--device-index', type=int, default=0)
+    parser.add_argument('--gpu-index', type=int, default=0)
     parser.add_argument('--mem-free-mb', type=float, default=2000)
     parser.add_argument('--tensor-size', type=int, default=10**7)
     return parser
@@ -46,19 +46,19 @@ def main():
     args = parser.parse_args()
     # Make sure that device indices match nvidia-smi
     os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-    # os.environ['CUDA_VISIBLE_DEVICES'] = str(args.device_index)
+    # os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_index)
     if not torch.cuda.is_available():
         sys.exit('CUDA not available')
     # Set default device
     # pylint: disable=no-member
-    device = torch.device(f'cuda:{args.device_index}')
+    device = torch.device(f'cuda:{args.gpu_index}')
     tensors = []
     while True:
         try:
             # Initialize CUDA by allocating a small tensor. This will
             # immediately cause a GPU memory consumption of 1 GiB.
             torch.empty(1, device=device)
-            free_mb = _get_free_gpu_mem_mb(args.device_index)
+            free_mb = _get_free_gpu_mem_mb(args.gpu_index)
             print(f'free gpu memory: {free_mb} MiB')
             alloc_size_mb = 4 * args.tensor_size / 1024**2
             while free_mb > args.mem_free_mb + alloc_size_mb:
