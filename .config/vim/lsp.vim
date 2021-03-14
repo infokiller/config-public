@@ -517,7 +517,7 @@ let g:vista_ctags_cmd = { 'json': 'true' }
 " As of 2020-05-15, I'm using vista for automatic tag generation as well, so I
 " stopped lazy loading it.
 " TODO: Verify gutentags and vista don't conflict.
-" Plug 'liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!', 'Vista!!'] }
+Plug 'liuchengxu/vista.vim', { 'on': ['Vista', 'Vista!', 'Vista!!'] }
 " Plug 'liuchengxu/vista.vim'
 
 " NOTE: As of 2019-06-11, I switched to vista which has support for async tag

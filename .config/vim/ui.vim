@@ -998,7 +998,7 @@ nnoremap <silent> <Leader>O <Cmd>Tags<CR>
 " nnoremap <silent> <Leader>O <Cmd>Vista finder!<CR>
 " xnoremap <Leader>O ""y:Vista finder! <Bar>
 "     \ call feedkeys('<C-R>=substitute(@", "'", "''", 'g')<CR>', 'n')<CR>
-" nnoremap <Leader>wt <Cmd>Vista!!<CR>
+nnoremap <Leader>wt <Cmd>Vista!!<CR>
 
 function! s:ToggleConceal() abort
   let l:bufnr = bufnr()
