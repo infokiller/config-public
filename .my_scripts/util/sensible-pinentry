@@ -7,6 +7,12 @@ _GRAPHICAL_ORDER=(pinentry-qt pinentry-gnome3 pinentry-gtk-2 pinentry-curses pin
 # Opening a graphical window using X11 over a network can be slow, so we prefer
 # terminal based pinentry programs in this case. There are also cases where
 # there is no graphical environment available, like in a linux console.
+# TODO: Set a timeout for pinentry-curses (it supports a --timeout param)
+# TODO: Fix pinentry-curses to use the tty that the gpg/ssh command was invoked
+# from, not the currently active tty, which can mess up my terminal.
+# pinentry-curses supports a --ttyname for that, but I need to figure out how to
+# get the tty that the gpg/ssh request came from, since it's not in the
+# environment.
 _TERMINAL_ORDER=(pinentry-curses pinentry-tty pinentry-qt pinentry-gnome3 pinentry-gtk-2)
 
 _command_exists() {

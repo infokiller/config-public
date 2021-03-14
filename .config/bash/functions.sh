@@ -1399,6 +1399,13 @@ nohup() {
   command nohup "$@" > /dev/null &
 }
 
+# As of 2021-03-14, the man command using vim has issues on Ubuntu 20.04: X11
+# clipboard and tmux seamless navigation don't work. It may be related to the
+# fact I'm running nvim as an AppImage.
+man() {
+  nvim -c ':vert Man tmux | silent bd 1'
+}
+
 detect-secrets-update-and-audit() {
   local baseline_file="${REPO_ROOT}/.config/detect-secrets/baseline.json"
   detect-secrets scan --update "${baseline_file}" || return
