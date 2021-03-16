@@ -41,20 +41,23 @@
   },
   // The workbench.action.navigate* commands don't work in webview editors (interactive python, markdown preview, etc), this is a workaround.
   // https://github.com/microsoft/vscode/issues/100536
+  // focusedView is empty or undefined in when the focus is on regular edited files, the Jupyter
+  // Notebook editor, or web views (such as the release notes).
+  // An alternative is checking !panelFocus && !sideBarFocus.
   {
     "key": "alt+k",
     "command": "workbench.action.focusPanel",
-    "when": "!editorFocus && !panelFocus && activeEditor == 'WebviewEditor'"
+    "when": "!focusedView && activeEditor == 'WebviewEditor'"
   },
   {
     "key": "alt+j",
     "command": "workbench.action.focusLeftGroup",
-    "when": "!editorFocus && !panelFocus && activeEditor == 'WebviewEditor'"
+    "when": "!focusedView && activeEditor == 'WebviewEditor'"
   },
   {
     "key": "alt+l",
     "command": "workbench.action.focusRightGroup",
-    "when": "!editorFocus && !panelFocus && activeEditor == 'WebviewEditor'"
+    "when": "!focusedView && activeEditor == 'WebviewEditor'"
   },
   {
     "key": "alt+;",
@@ -197,15 +200,21 @@
     "key": "ctrl+w",
     "command": "-workbench.action.closeActiveEditor"
   },
+  // NOTE: the ctrl+w conditions are simplified and don't include the full condition
+  // from vscode-neovim because as of 2021-03-03 VSCode don't support
+  // paranthesis in when clauses:
+  // https://github.com/microsoft/vscode/issues/91473
+  // "when": "editorFocus && !(neovim.ctrlKeysInsert && !neovim.recording && neovim.mode == 'insert')"
   {
     "key": "ctrl+w",
     "command": "workbench.action.closeActiveEditor",
-    // NOTE: the condition is simplified and doesn't include the full condition
-    // from vscode-neovim because as of 2021-03-03 VSCode doesn't support
-    // paranthesis in when clauses:
-    // https://github.com/microsoft/vscode/issues/91473
-    // "when": "editorFocus && !(neovim.ctrlKeysInsert && !neovim.recording && neovim.mode == 'insert')"
     "when": "editorFocus && neovim.mode == 'normal'"
+  },
+  // See note about focusedView above.
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!focusedView && activeEditor == 'WebviewEditor'"
   },
   {
     "key": "ctrl+shift+p",
