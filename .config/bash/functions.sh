@@ -277,7 +277,11 @@ _editor-fzf() {
   local editor="${EDITOR:-vim}"
   local source_cmd="$1"
   shift
-  if [[ ($# -eq 1 && -f $1) || $# -gt 1 ]]; then
+  if [[ ($# -eq 1 && -e $1) || $# -gt 1 ]]; then
+    if [[ -d "$1" ]]; then
+      file-manager "$1"
+      return
+    fi
     local resolved=()
     # Zsh doesn't support mapfile.
     local IFS=$'\n'
