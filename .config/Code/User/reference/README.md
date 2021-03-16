@@ -8,6 +8,26 @@
 
 ## Debugging keybindings conditions
 
+Update 2021-03-16: VSCode now supports has a
+[Inspect Context Keys utility](https://code.visualstudio.com/api/references/when-clause-contexts#inspect-context-keys-utility)
+which should is easier and less likely to break in future versions than the
+steps below.
+
+### Stored contexts
+
+This directory contains files with the context variables for different contexts,
+all collected from VSCode 1.49.1:
+
+- [remote_python_file_context.txt](./remote_python_file_context.txt): remote SSH
+  dev when the focus is on a Python file with code cells (using the `# %%`
+  marker)
+- [remote_python_interactive_context.txt](./remote_python_interactive_context.txt):
+  remote SSH dev when the focus is on a Python interactive window
+- [remote_terminal_context.txt](./remote_terminal_context.txt): remote SSH dev
+  when the focus is on the terminal (connected to a remote shell)
+
+### Legacy steps
+
 As mentioned [in this issue](https://github.com/microsoft/vscode/issues/78782),
 "when clauses" for keybindings are not fully documented. In order to get the
 full context that can be used in when clauses, I did the following:
@@ -47,16 +67,3 @@ full context that can be used in when clauses, I did the following:
   };
   printAndSaveContext(s);
   ```
-
-### Stored contexts
-
-This directory contains files with the context variables for different contexts,
-all collected from VSCode 1.49.1:
-
-- [remote_python_file_context.txt](./remote_python_file_context.txt): remote SSH
-  dev when the focus is on a Python file with code cells (using the `# %%`
-  marker)
-- [remote_python_interactive_context.txt](./remote_python_interactive_context.txt):
-  remote SSH dev when the focus is on a Python interactive window
-- [remote_terminal_context.txt](./remote_terminal_context.txt): remote SSH dev
-  when the focus is on the terminal (connected to a remote shell)
