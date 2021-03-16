@@ -39,26 +39,27 @@
     "key": "alt+l",
     "command": "workbench.action.navigateRight"
   },
+  // As of 2021-03-16, I stopped using this workaround because navigation inside
+  // web view editors is still unreliable (works most of the time, but sometimes
+    // it gets stuck in the web view which requires pressing tab before the
+    // navigation command).
   // The workbench.action.navigate* commands don't work in webview editors (interactive python, markdown preview, etc), this is a workaround.
-  // https://github.com/microsoft/vscode/issues/100536
-  // focusedView is empty or undefined in when the focus is on regular edited files, the Jupyter
-  // Notebook editor, or web views (such as the release notes).
-  // An alternative is checking !panelFocus && !sideBarFocus.
-  {
-    "key": "alt+k",
-    "command": "workbench.action.focusPanel",
-    "when": "!focusedView && activeEditor == 'WebviewEditor'"
-  },
-  {
-    "key": "alt+j",
-    "command": "workbench.action.focusLeftGroup",
-    "when": "!focusedView && activeEditor == 'WebviewEditor'"
-  },
-  {
-    "key": "alt+l",
-    "command": "workbench.action.focusRightGroup",
-    "when": "!focusedView && activeEditor == 'WebviewEditor'"
-  },
+  // https://github.com/microsoft/vscode/issues/119076
+  // {
+  //   "key": "alt+k",
+  //   "command": "workbench.action.focusPanel",
+  //   "when": "!focusedView && activeEditor == 'WebviewEditor'"
+  // },
+  // {
+  //   "key": "alt+j",
+  //   "command": "workbench.action.focusLeftGroup",
+  //   "when": "!focusedView && activeEditor == 'WebviewEditor'"
+  // },
+  // {
+  //   "key": "alt+l",
+  //   "command": "workbench.action.focusRightGroup",
+  //   "when": "!focusedView && activeEditor == 'WebviewEditor'"
+  // },
   {
     "key": "alt+;",
     "command": "workbench.action.focusLastEditorGroup"
@@ -210,7 +211,9 @@
     "command": "workbench.action.closeActiveEditor",
     "when": "editorFocus && neovim.mode == 'normal'"
   },
-  // See note about focusedView above.
+  // focusedView is empty or undefined in when the focus is on regular edited files, the Jupyter
+  // Notebook editor, or web views (such as the release notes).
+  // An alternative is checking !panelFocus && !sideBarFocus.
   {
     "key": "ctrl+w",
     "command": "workbench.action.closeActiveEditor",
