@@ -973,6 +973,7 @@ let g:ycm_language_server += [
 " Plug 'pangloss/vim-javascript'
 
 " Adds a jsonc filetype that supports comments.
+" Another alternative: https://github.com/neoclide/jsonc.vim
 Plug 'kevinoid/vim-jsonc'
 " Plug 'elzr/vim-json'
 
@@ -1077,8 +1078,8 @@ Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 let g:jsx_ext_required = 1
 let g:no_csv_maps = 1
 " Syntax, indentation, and other basic language support for many languages.
-Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['go']
+" Plug 'sheerun/vim-polyglot'
+let g:polyglot_disabled = ['go', 'jsonc']
 
 Plug 'jamessan/vim-gnupg'
 
