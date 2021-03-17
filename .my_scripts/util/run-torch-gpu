@@ -43,7 +43,7 @@ def _get_free_gpu_mem_mb(gpu_index):
 
 def main():
     parser = _create_args_parser()
-    args = parser.parse_args()
+    args, _ = parser.parse_known_args()
     # Make sure that device indices match nvidia-smi
     os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
     # os.environ['CUDA_VISIBLE_DEVICES'] = str(args.gpu_index)
