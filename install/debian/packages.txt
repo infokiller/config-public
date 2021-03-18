@@ -70,8 +70,7 @@ pinta
 zathura
 zathura-djvu
 zathura-ps
-# ranger is build from source
-# ranger
+ranger
 pcmanfm
 udisks2
 udiskie
