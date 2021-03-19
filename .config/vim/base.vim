@@ -103,19 +103,30 @@ xnoremap <Leader>I I
 " When navigating up/down a line and not given an explicit count, move by
 " **display** line (after wrapping). If given a count larger than 5, insert the
 " current location to the jump list.
-function! s:SmartDownLineCmd() abort
-  return v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
-endfunction
-function! s:SmartUpLineCmd() abort
-  return v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
+function! s:SmartCursorLineMovementCmd(direction) abort
+  if index(['up', 'down'], a:direction) == -1
+    call vimrc#Error('Invalid direction: %s', a:direction)
+    return
+  endif
+  let l:key = a:direction is# 'down' ? 'j' : 'k'
+  if v:count
+    return (v:count > 5 ? "m'" . v:count : '') . l:key
+  endif
+  if !g:VSCODE_MODE
+    return 'g' . l:key
+  endif
+  let l:params = printf(
+      \ "{ 'to': '%s', 'by': 'wrappedLine', 'value': v:count ? v:count : 1 }", 
+      \ a:direction)
+  return printf("\<Cmd>call VSCodeNotify('cursorMove', %s)\<CR>", l:params)
 endfunction
 
 " Normal mode.
 nnoremap j <Left>
-nnoremap <expr> k <SID>SmartDownLineCmd()
-nnoremap <expr> i <SID>SmartUpLineCmd()
-nnoremap <expr> <Down> <SID>SmartDownLineCmd()
-nnoremap <expr> <Up> <SID>SmartUpLineCmd()
+nnoremap <expr> k <SID>SmartCursorLineMovementCmd('down')
+nnoremap <expr> i <SID>SmartCursorLineMovementCmd('up')
+nnoremap <expr> <Down> <SID>SmartCursorLineMovementCmd('down')
+nnoremap <expr> <Up> <SID>SmartCursorLineMovementCmd('up')
 nnoremap l <Right>
 
 " Visual mode.
