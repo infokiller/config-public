@@ -133,7 +133,7 @@ if g:vimrc_consistent_movement
   xnoremap j <Left>
   " Move by visual lines, but only in visual character mode, not visual line mode.
   " See also: https://vi.stackexchange.com/a/9279
-  xnoremap <expr> k  mode() is# 'v' ? 'gj' : 'j'
+  xnoremap <expr> k mode() is# 'v' ? 'gj' : 'j'
   xnoremap <expr> i mode() is# 'v' ? 'gk' : 'k'
   xnoremap l <Right>
 else
