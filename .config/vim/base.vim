@@ -115,9 +115,8 @@ function! s:SmartCursorLineMovementCmd(direction) abort
   if !g:VSCODE_MODE
     return 'g' . l:key
   endif
-  let l:params = printf(
-      \ "{ 'to': '%s', 'by': 'wrappedLine', 'value': v:count ? v:count : 1 }", 
-      \ a:direction)
+  let l:params = printf("{ 'to': '%s', 'by': 'wrappedLine', 'value': %d }", 
+      \ a:direction, v:count ? v:count : 1)
   return printf("\<Cmd>call VSCodeNotify('cursorMove', %s)\<CR>", l:params)
 endfunction
 
