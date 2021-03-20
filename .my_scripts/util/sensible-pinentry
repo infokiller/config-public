@@ -34,6 +34,7 @@ _run_pinentry_curses_or_tty() {
   shift
   local args=(--timeout 30)
   local tty
+  # TODO: setting ttyname doesn't always work in SSH.
   if tty="$(< "${PINENTRY_TTY}")"; then
     args+=(--ttyname "${tty}")
   fi

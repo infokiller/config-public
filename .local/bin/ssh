@@ -19,8 +19,10 @@ echo "XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority" >| "${HOME}/.ssh/environment"
 
 gpg-connect-agent updatestartuptty /bye &> /dev/null
 # Set the TTY for pinentry, see sensible-pinentry for motivation.
-if tty="$(tty)"; then
-  printf '%s\n' "${tty}" >| "${PINENTRY_TTY}"
+# NOTE: the tty command sometimes fails with "not a tty" even though the tty can
+# be found using ps.
+if tty="$(tty)" || tty="$(ps --no-headers -o 'tty' $$)"; then
+  printf '%s\n' "/dev/${tty}" >| "${PINENTRY_TTY}"
 fi
 
 mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
