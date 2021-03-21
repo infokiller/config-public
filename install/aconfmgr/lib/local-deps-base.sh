@@ -5,6 +5,7 @@
 # script install-crossdistro-local-packages.
 AddPackage git      # the fast distributed version control system
 AddPackage make     # GNU make utility to maintain groups of programs
+AddPackage python   # Next generation of the python high-level scripting language
 AddPackage go       # Core compiler tools for the Go programming language
 AddPackage rust     # Systems programming language focused on safety, speed and concurrency
 AddPackage nodejs   # Evented I/O for V8 javascript

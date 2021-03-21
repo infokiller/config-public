@@ -17,6 +17,7 @@ AddPackage gcc-libs        # Runtime libraries shipped by GCC
 AddPackage patch           # A utility to apply patch files to original sources
 AddPackage pkgconf         # Package compiler and linker metadata toolkit
 AddPackage dash            # POSIX compliant shell that aims to be as small as possible
+AddPackage python          # Next generation of the python high-level scripting language
 AddPackage go              # Core compiler tools for the Go programming language
 AddPackage go-tools        # Developer tools for the Go programming language
 AddPackage rust            # Systems programming language focused on safety, speed and concurrency
