@@ -333,6 +333,7 @@
 /.ssh/id_ed25519
 /.ssh/sockets
 /.ssh/ssh_auth_sock
+/.streamlit
 /.thumbnails
 /.tig_history
 /.tldr/cache
