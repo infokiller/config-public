@@ -193,10 +193,11 @@ alias mv='mv -i'
 # -zz: use new rsync compression
 # --info=*: specify what to log
 # --partial-dir=*: keep partial transfers to enable resuming
-# NOTE: -u can cause issues when an incomplete transfer occurs. For example,
-# when using rsync to transfer file_a to file_b, and then interrupting the
-# transfer, file_b will have a newer modification time, so a subsequent transfer
-# will not do anything, even though file_b is not identical to file_a.
+# NOTE: -u can cause issues when an incomplete transfer occurs because sync
+# wasn't called. For example, when using rsync to transfer file_a to file_b in a
+# USB drive, and then removing the drive without sync, file_b will have a newer
+# modification time, so a subsequent transfer will not do anything, even though
+# file_b is not identical to file_a.
 alias rsync='rsync -aAX -u -zz --info=flist2,name,progress --partial-dir=.rsync-partial'
 alias rcp='rsync'
 alias rcpc='rsync-cont'
