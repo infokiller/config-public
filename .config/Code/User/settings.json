@@ -114,6 +114,9 @@
     "[markdown]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[svelte]": {
+      "editor.defaultFormatter": "svelte.svelte-vscode"
+    },
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     // "todohighlight.keywords": ["TODO", "NOTE", "EXP", "FIXME", "XXX"],
     "todohighlight.keywordsPattern": "(TODO|NOTE|EXP|FIXME|XXX|TBD)(\\(\\w+\\))?:(\\s|$)",
