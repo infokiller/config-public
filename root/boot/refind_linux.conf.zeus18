@@ -21,7 +21,7 @@
 #   kauditd hold queue overflow". See also:
 #   https://www.redhat.com/archives/linux-audit/2017-September/msg00081.html
 
-"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300 apparmor=1 security=apparmor audit_backlog_limit=8192"
+"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192"
 "Regular kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
 
 # vim: set ft=conf :
