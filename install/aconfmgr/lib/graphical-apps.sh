@@ -71,6 +71,7 @@ if is_primary_dev_machine; then
   AddPackage remmina         # remote desktop client written in GTK+
 
   AddPackage virt-manager    # Desktop user interface for managing virtual machines
+  AddPackage virt-viewer     # A lightweight interface for interacting with the graphical display of virtualized guest OS.
   AddPackage qemu            # A generic and open source machine emulator and virtualizer
   # AddPackage virtualbox           # Powerful x86 virtualization for enterprise as well as home use
   # AddPackage virtualbox-host-dkms # VirtualBox Host kernel modules sources
