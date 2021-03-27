@@ -4,7 +4,7 @@
 set -o errexit -o errtrace -o nounset -o pipefail
 
 WRAPPER_PATH="$(readlink -f "$0")"
-PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR}/tmp}/pinentry_tty"
+PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR-}/tmp}/pinentry_tty"
 
 # This directory is used for ssh multiplexing files and if it doesn't exist, ssh
 # will fail.
@@ -15,7 +15,9 @@ find "${HOME}/.ssh" -type d -print0 |
   xargs --null --no-run-if-empty chmod 700 --
 # TODO: Figure out if this is really needed. It seems that SSH will set this
 # correctly anyway.
-echo "XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority" >| "${HOME}/.ssh/environment"
+if [[ -n "${XDG_RUNTIME_DIR-}" ]]; then
+  echo "XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority" >| "${HOME}/.ssh/environment"
+fi
 
 gpg-connect-agent updatestartuptty /bye &> /dev/null
 # Set the TTY for pinentry, see sensible-pinentry for motivation.

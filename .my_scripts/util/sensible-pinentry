@@ -20,7 +20,7 @@ _TERMINAL_ORDER=(
   pinentry-gnome3
   pinentry-gtk-2
 )
-PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR}/tmp}/pinentry_tty"
+PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR-}/tmp}/pinentry_tty"
 
 # An attempt to fix pinentry-curses so that it uses the tty that the gpg/ssh
 # command was invoked from. The default beavior when using git with ssh is to
