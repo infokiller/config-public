@@ -33,9 +33,17 @@ AddPackage yarn           # Fast, reliable, and secure dependency management
 
 AddPackage docker         # Pack, ship and run any application as a lightweight container
 AddPackage docker-compose # Fast, isolated development environments using Docker
-CreateLink /etc/systemd/system/multi-user.target.wants/docker.service /usr/lib/systemd/system/docker.service
+CreateLink '/etc/systemd/system/multi-user.target.wants/docker.service' '/usr/lib/systemd/system/docker.service'
 IgnorePath '/etc/docker/key.json'
 IgnorePath '/opt/containerd/*'
+if [[ "${HOST_ALIAS}" == zeus18 ]]; then
+  cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" << EOF
+{
+  "data-root": "/mnt/evo970/docker"
+}
+EOF
+fi
+
 AddPackage gitlab-runner # The official GitLab CI runner written in Go
 
 AddPackage libvirt # API for controlling virtualization engines (openvz,kvm,qemu,virtualbox,xen,etc)
@@ -63,7 +71,8 @@ CreateLink '/etc/systemd/system/sockets.target.wants/virtlogd.socket' '/usr/lib/
 # This file is created by the brltty package, which is not used, but is required
 # by qemu.
 IgnorePath '/etc/brlapi.key'
-CopyFile /etc/modprobe.d/kvm.conf
+CopyFile '/etc/modprobe.d/kvm.conf'
+AddPackage libguestfs           # Access and modify virtual machine disk images
 
 AddPackage emacs                # The extensible, customizable, self-documenting real-time display editor
 AddPackage bat                  # cat clone with Git integration and syntax highlighting support

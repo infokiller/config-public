@@ -121,9 +121,9 @@ if ((${ACONF_UPDATE_USERS:-1})); then
   CopyFile '/etc/gshadow' 000
 else
   IgnorePath '/etc/passwd'
-  IgnorePath '/etc/shadow' 000
+  IgnorePath '/etc/shadow'
   IgnorePath '/etc/group'
-  IgnorePath '/etc/gshadow' 000
+  IgnorePath '/etc/gshadow'
 fi
 
 # Backups for group, passwd, shadow, and gshadow. See also:
@@ -153,7 +153,7 @@ cat >> "$(GetPackageOriginalFile pacman '/etc/makepkg.conf')" << EOF
 #########################################################################
 # Changes by infokiller
 #########################################################################
-#
+
 CFLAGS+=" -fstack-protector-strong"
 CXXFLAGS+=" -fstack-protector-strong"
 
