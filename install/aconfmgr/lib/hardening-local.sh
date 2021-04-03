@@ -43,6 +43,20 @@ SHA_CRYPT_MIN_ROUNDS 100000
 SHA_CRYPT_MAX_ROUNDS 1000000
 EOF
 
+# Relax login denial after failed attempts. The default is to deny login for 10
+# minutes of 3 failed attempts, we change it to 30 seconds after 5 failed
+# attempts.
+cat >> "$(GetPackageOriginalFile pam '/etc/security/faillock.conf')" << EOF
+
+#########################################################################
+# Changes by infokiller
+#########################################################################
+
+deny = 5
+fail_interval = 60
+unlock_time = 30
+EOF
+
 # We don't want to enable usbguard automatically because it can make the OS
 # unusable by blocking the keyboard. In this situation, the user is expected to
 # manually whitelist the right devices before enabling usbguard.

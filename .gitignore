@@ -243,7 +243,7 @@
 /.config/Code - OSS
 /.config/Insync
 /.config/Keybase
-/.config/Microsoft/Microsoft\ Teams
+/.config/Microsoft/Microsoft Teams
 /.config/Outline Manager
 /.config/Pinta/layouts.xml
 /.config/Pinta/settings.xml
@@ -338,6 +338,7 @@
 /.thumbnails
 /.tig_history
 /.tldr/cache
+/.tor
 /.tor-browser
 /.tox
 /.v8flags.*

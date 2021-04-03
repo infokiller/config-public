@@ -72,13 +72,16 @@ CreateLink '/etc/systemd/system/sockets.target.wants/virtlogd.socket' '/usr/lib/
 # by qemu.
 IgnorePath '/etc/brlapi.key'
 CopyFile '/etc/modprobe.d/kvm.conf'
-AddPackage libguestfs           # Access and modify virtual machine disk images
+AddPackage libguestfs # Access and modify virtual machine disk images
+# multipath is a dependency of libguestfs
+IgnorePath '/etc/multipath'
 
 AddPackage emacs                # The extensible, customizable, self-documenting real-time display editor
 AddPackage bat                  # cat clone with Git integration and syntax highlighting support
 AddPackage jq                   # Command-line JSON processor
 AddPackage fd                   # Simple, fast and user-friendly alternative to find
 AddPackage shellcheck           # Shell script analysis tool
+AddPackage expect               # A tool for automating interactive applications
 # Disabled because I don't really use it and AUR packages can be a security
 # issue.
 # AddPackage --foreign howdoi # A code search tool.
@@ -90,6 +93,7 @@ AddPackage xonsh                # Python-powered, cross-platform, Unix-gazing sh
 AddPackage yapf                 # Python style guide checker
 AddPackage pandoc               # Conversion between markup formats
 AddPackage termtosvg            # Record terminal sessions as SVG animations
+AddPackage hexyl                # Colored command-line hex viewer
 
 # Latex
 AddPackage texlive-bibtexextra  # TeX Live - Additional BibTeX styles and bibliography databases
