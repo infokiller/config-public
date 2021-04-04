@@ -442,12 +442,14 @@ _install_vim_plugins() {
   # window and then from the new buffer.
   # vim -u "${REPO_ROOT}/.config/vim/vimrc" -c ":PlugInstall | q | q"
   print_bold 'Installing vim helptags'
-  vim -u "${REPO_ROOT}/.config/vim/vimrc" -c "call plug#helptags() | q"
+  vim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'call plug#helptags()' -c 'q'
   print_bold 'Installing YouCompleteMe'
   "${REPO_ROOT}/install/build-youcompleteme" \
     --build-dir "${XDG_CACHE_HOME}/ycm_build"
+  print_bold 'Installing vim-go binaries'
+  vim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'GoInstallBinaries' -c 'q'
   print_bold 'Installing NeoVim remote plugins'
-  nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins | q'
+  nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins' -c 'q'
 }
 
 _install_fzf() {
