@@ -34,7 +34,7 @@ readonly -A _GOLANG_PACKAGES=(
   ['github.com/aykamko/tag']='tag'
   ['github.com/edi9999/path-extractor/path-extractor']='path-extractor'
   ['github.com/direnv/direnv']='direnv'
-  ['github.com/zricethezav/gitleaks/v4']='gitleaks'
+  ['github.com/zricethezav/gitleaks']='gitleaks'
   ['mvdan.cc/sh/cmd/shfmt']='shfmt'
   ['golang.org/x/lint/golint']='golint'
   # ['github.com/errata-ai/vale']='vale'
@@ -184,19 +184,40 @@ _print_usage_and_die() {
   exit 1
 }
 
+_go_use_version_suffix() {
+  # Starting from go 1.16, using a version suffix such as "@latest" makes the
+  # install command ignore any go.mod files in the current directory or any
+  # parent directory from being updated [1], which is useful for installing
+  # executables without affecting the dependencies of the main module.
+  # In older versions, GO111MODULE=off needs to be used.
+  #
+  # [1] useful for installing executables without affecting the dependencies of the main module
+  local version minor
+  version="$(go version | grep -E -o 'go[0-9]+\.[0-9]+\.[0-9]+')"
+  minor="$(echo "${version}" | cut -d . -f 2)"
+  if ((minor >= 16)); then
+    return 0
+  fi
+  return 1
+}
+
 _install_golang_packages() {
   # Switch to a directory without a go.mod file. Otherwise, `go install` will
   # install the packages to that module.
   cd "${REPO_ROOT}" || exit 1
+  local use_version_suffix=0
+  if _go_use_version_suffix; then
+    echo 'go: using version suffix'
+    use_version_suffix=1
+  fi
   for package in "${!_GOLANG_PACKAGES[@]}"; do
     local binary_name="${_GOLANG_PACKAGES["${package}"]}"
     print_bold "$(printf 'Installing %s (%s)' "${binary_name}" "${package}")"
-    # NOTE: As of 2020-04-10 and go 1.14, `go install` doesn't work: it
-    # complains about the working directory not being part of a module. The
-    # documentation of `go install` and `go get` make it seem like `go install`
-    # is more appropriate for my use case, so I need to figure this out.
-    # go install -v "${package}"
-    go get -v "${package}"
+    if ((use_version_suffix)); then
+      go install -v "${package}@latest"
+    else
+      GO111MODULE=off go install -v "${package}"
+    fi
     symlink_binary "${_GOLANG_BIN_DIR}/${binary_name}"
   done
 }
