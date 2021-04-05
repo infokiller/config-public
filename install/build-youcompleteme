@@ -46,7 +46,7 @@ main() {
   # since one of the YCM developers said it's now stable (although the docs say
   # it's experimental). See:
   # https://github.com/ycm-core/YouCompleteMe/issues/3584#issuecomment-584142715
-  install_with_clangd --go-completer --ts-completer "$@"
+  install_with_clangd --go-completer --ts-completer --rust-completer "$@"
 }
 
 main "$@"

@@ -1083,6 +1083,9 @@ let g:polyglot_disabled = ['go', 'jsonc']
 
 Plug 'jamessan/vim-gnupg'
 
+" Use https://github.com/hadolint/hadolint either locally or via docker.
+let g:ale_dockerfile_hadolint_use_docker = 'yes'
+
 Plug 'dhruvasagar/vim-table-mode', { 'on': ['Tableize', 'TableModeRealign'] }
 let g:table_mode_disable_mappings = 1
 let g:table_mode_delimiter = '|'
