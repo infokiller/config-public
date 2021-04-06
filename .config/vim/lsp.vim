@@ -652,6 +652,13 @@ nmap <Leader>ghu <Plug>(GitGutterUndoHunk)
 nnoremap <silent> <Leader>ghl :<C-U>GitGutterQuickFix <Bar> caddexpr [] <Bar>
     \ execute 'autocmd BufWinEnter * ++once nested call feedkeys("\<lt>C-w>p", "n")' <Bar> copen <CR>
 
+" Workaround for an issue where the hunks are updated very slowly in neovim in
+" certain files (like ~/.bashrc). Seems to go away when disabling YCM, but I
+" didn't have enough time to dig into it.
+augroup vimrc
+  autocmd TextChanged,InsertLeave * call gitgutter#process_buffer(bufnr(''), 0)
+augroup END
+
 Plug 'rhysd/committia.vim'
 let g:committia_hooks = {}
 function! g:committia_hooks.edit_open(info) abort
