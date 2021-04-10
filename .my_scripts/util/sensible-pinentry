@@ -24,10 +24,10 @@ PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR-}/tmp}/pinentry_tty"
 
 # An attempt to fix pinentry-curses so that it uses the tty that the gpg/ssh
 # command was invoked from. The default beavior when using git with ssh is to
-# use the active tty at the moment pinentry was called, which won't be
-# the tty the original ssh command was invoked from if I quickly switch to
-# another terminal in tmux. This can mess up my terminal when I'm running
-# another program such as vim.
+# use the active tty at the moment pinentry was called, which won't be the tty
+# the original ssh command was invoked from if I quickly switch to another
+# terminal. This can mess up my terminal when I'm running another program such
+# as vim.
 # TODO: Add a gpg wrapper that writes PINENTRY_TTY (right now only ssh does).
 _run_pinentry_curses_or_tty() {
   local bin="$1"

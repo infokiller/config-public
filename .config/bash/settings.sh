@@ -206,19 +206,9 @@ _setup_gpg_agent() {
   # Note that we use the `$TTY` variable instead of calling the `tty` command
   # since the former is much faster in zsh, and works with instant prompt. See:
   # https://github.com/romkatv/zsh4humans/issues/8#issuecomment-595730984
-  GPG_TTY="${TTY}"
-  export GPG_TTY
-  # NOTE: As of 2020-04-12, this is disabled because it causes the last opened
-  # interactive terminal to be used for pinentry-tty and pinentry-curses, which
-  # is confusing and makes them unusable even in the terminal the were opened
-  # at. Ideally, we would want every pinentry invocation to use the tty from
-  # which the request came from.
-  # The current workaround is to invoke the `updatestartuptty` command before
-  # every invocation of a command that may talk to the ssh agent (ssh, git,
-  # rsync, etc). This is implemented by creating wrapper bash scripts to these
-  # programs. See:
-  # https://unix.stackexchange.com/q/280879/126543
-  # gpg-connect-agent updatestartuptty /bye &> /dev/null
+  export GPG_TTY="${TTY}"
+  # See comments in ~/.local/bin/ssh and ~/.local/bin/sensible-pinentry.
+  gpg-connect-agent updatestartuptty /bye &> /dev/null
 }
 
 # For WSL1 see: https://github.com/romkatv/dotfiles-public/blob/eb1b3813baf5288c22aacf33d39e40330a18b1a2/.zshrc#L54
