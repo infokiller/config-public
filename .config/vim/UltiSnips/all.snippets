@@ -74,8 +74,10 @@ snip.rv = comment_if_needed('As of {}, '.format(now.strftime('%Y-%m-%d')))
 `
 endsnippet
 
-# Copied from vim-snippets/UltiSnips/all.snippets to use "fp" instead of
-# "foldp".
+# Copied from vim-snippets/UltiSnips/all.snippets with the following changes:
+# - Use "fp" instead of "foldp"
+# TODO: Remove the trailing comment marker in files that only use a comment
+# leader, such as bash and python.
 snippet fp "Insert a vim fold marker pair" b
 `!p snip.rv = get_comment_format()[0]` ${1:Fold description} `!p snip.rv = foldmarker()[0]` `!p snip.rv = get_comment_format()[2]`
 ${2:${VISUAL:Content}}
