@@ -271,6 +271,7 @@
 /.config/git/gitk
 /.config/google-chrome
 /.config/google-chrome-remote
+/.config/google-chrome-unstable/
 /.config/grip/cache
 /.config/gtk-3.0/bookmarks
 /.config/helm
@@ -286,6 +287,7 @@
 /.config/libreoffice
 /.config/litecli/history
 /.config/litecli/log
+/.config/microsoft-edge
 /.config/mono.addins
 /.config/nautilus
 /.config/nvim-qt
