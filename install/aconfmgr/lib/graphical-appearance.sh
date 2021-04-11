@@ -38,6 +38,9 @@ AddPackage awesome-terminal-fonts # fonts/icons for powerlines
 IgnorePath '/usr/share/fonts/**/fonts.dir'
 IgnorePath '/usr/share/fonts/**/fonts.scale'
 IgnorePath '/usr/share/fonts/mathjax/*'
+# As of 2021-04-11, it seems that files in /etc/fonts/conf.d are symlinks to
+# /usr/share/fontconfig/ and they are not owned by the package.
+IgnorePath '/etc/fonts/conf.d/*'
 
 # Icons and themes.
 AddPackage qt5ct                   # Qt5 Configuration Utility
