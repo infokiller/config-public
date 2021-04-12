@@ -1181,6 +1181,11 @@ conda-reset-env() {
 }
 # }}} Python 
 
+# Docker {{{ #
+alias db='docker build'
+alias dr='docker run --rm -it'
+# }}} Docker #
+
 # GPUs {{{
 # TODO: Add to each process the used GPU and memory usage. The gpustat library
 # actually has all the information needed. I should probably write a python
