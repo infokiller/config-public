@@ -6,27 +6,28 @@ function join_by() {
   echo "$*"
 }
 
-# As of 2020-02-10, I stopped enabling TabGroups. Features enabled/disabled:
-# - ExtensionsToolbarMenu: add a button next to the extension icons that shows
-#   all extensions.
-# - NativeNotifications: show native desktop notifications.
-# - ReaderMode: add a button to show the current page in reader mode. The button
-#   is shown on the right end of the address bar for some pages such as the Arch
-#   wiki.
-# - ProminentDarkModeActiveTabTitle: show the title of the active tab more
-#   prominently.
-# - WebUIDarkMode: use a dark theme for chrome pages such as chrome://settings.
-# - OmniboxTabSwitchSuggestions: when an Omnibox search matches an existing tab,
-#   add a suggestions to switch to it.
 ENABLED_FEATURES=(
+  # Add a button next to the extension icons that shows all extensions.
   'ExtensionsToolbarMenu'
+  # Show native desktop notifications (chromium 89 and earlier).
   'NativeNotifications'
+  # Show native desktop notifications (chromium 90 and later).
+  # https://chromium.googlesource.com/chromium/src/+/c30c9ddff5c96efd8e2455d7435e49806526c155
+  'SystemNotifications'
+  # Add a button to show the current page in reader mode. The button is shown on
+  # the right end of the address bar for some pages such as the Arch wiki.
   'ReaderMode'
+  # Show the title of the active tab more prominently.
   'ProminentDarkModeActiveTabTitle'
+  # Use a dark theme for chrome pages such as chrome://settings.
   'WebUIDarkMode'
   'VaapiVideoDecoder'
+  # As of 2020-02-10, I stopped enabling TabGroups
+  # 'TabGroups'
 )
 DISABLED_FEATURES=(
+  # When an Omnibox search matches an existing tab, add a suggestions to switch
+  # to it.
   'OmniboxTabSwitchSuggestions'
 )
 
