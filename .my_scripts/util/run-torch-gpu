@@ -35,7 +35,8 @@ def _get_free_gpu_mem_mb(gpu_index):
     except ImportError:
         pass
     xml_content = subprocess.run(['nvidia-smi', '--query', '--xml-format'],
-                                 check=True).stdout
+                                 check=True,
+                                 stdout=subprocess.PIPE).stdout
     tree = ET.fromstring(xml_content)
     gpu = tree.findall('gpu')[gpu_index]
     return int(gpu.find('fb_memory_usage').find('free').text.split()[0])
