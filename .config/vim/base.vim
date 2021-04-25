@@ -719,7 +719,7 @@ Plug 'stefandtw/quickfix-reflector.vim'
 
 Plug 'infokiller/vim-errorlist'
 let g:error_list_post_command = 'normal! zz'
-let g:error_list_max_items = 10000
+let g:error_list_max_items = 2000
 
 " Navigate quickfix list with Ctrl+{p,n}
 nnoremap <C-P> <Cmd>QuickFixPrev<CR>
