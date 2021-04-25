@@ -173,6 +173,8 @@ nnoremap <Leader>co <Cmd>YcmCompleter GoTo<CR>
 augroup vimrc
   autocmd FileType typescript
       \ nnoremap <buffer> <Leader>co <Cmd>YcmCompleter GoToDefinition<CR>
+  autocmd FileType help
+      \ nnoremap <buffer> <Leader>co <Cmd>call feedkeys("<C-]>", 'n')<CR>
 augroup END
 " Mnemonic: Code Help
 nnoremap <Leader>ch <Cmd>YcmCompleter GetDoc<CR>
