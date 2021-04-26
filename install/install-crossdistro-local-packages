@@ -72,6 +72,7 @@ readonly _VSCODE_EXTENSIONS=(
   ### Python
   'ms-python.python'
   'ms-python.vscode-pylance'
+  'ms-pyright.pyright'
   ### Shell
   'mads-hartmann.bash-ide-vscode'
   'ms-vscode.PowerShell'
