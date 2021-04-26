@@ -16,6 +16,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 
 # shellcheck source=../.my_scripts/lib/base.sh
@@ -304,14 +305,14 @@ _install_polybar() {
   git submodule update --init --recursive
   local cmake_cmd=(
     cmake
-    -DENABLE_I3=ON
-    -DENABLE_ALSA=ON
-    -DENABLE_PULSEAUDIO=ON
-    -DENABLE_NETWORK=ON
-    -DENABLE_CURL=ON
-    -DBUILD_POLYBAR_MSG=ON
-    -DBUILD_DOC=OFF
-    -DCMAKE_BUILD_TYPE=Release
+    '-DENABLE_I3=ON'
+    '-DENABLE_ALSA=ON'
+    '-DENABLE_PULSEAUDIO=ON'
+    '-DENABLE_NETWORK=ON'
+    '-DENABLE_CURL=ON'
+    '-DBUILD_POLYBAR_MSG=ON'
+    '-DBUILD_DOC=OFF'
+    '-DCMAKE_BUILD_TYPE=Release'
     "${SUBMODULES_DIR}/desktop/polybar"
   )
   # Try to do an incremental build, and only if it fails do a full build.
