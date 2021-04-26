@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 
 TERMINAL_WIN_ID="${WINDOWID}"
@@ -21,7 +22,7 @@ focus_on_window() {
 }
 
 send_keys() {
-  "${REPO_ROOT}/install/virtualbox/string_to_xdotool_key_args.py" "$@" |
+  "${REPO_ROOT}/.my_scripts/keyboard/string_to_xdotool_key_args.py" "$@" |
     xargs -d '\n' xdotool key
 }
 
