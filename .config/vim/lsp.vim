@@ -175,6 +175,9 @@ augroup vimrc
       \ nnoremap <buffer> <Leader>co <Cmd>YcmCompleter GoToDefinition<CR>
   autocmd FileType help
       \ nnoremap <buffer> <Leader>co <Cmd>call feedkeys("<C-]>", 'n')<CR>
+  autocmd FileType man
+      \ nnoremap <buffer> <Leader>co <Cmd>Man<CR>
+  " TODO: Fix this for regular vim
 augroup END
 " Mnemonic: Code Help
 nnoremap <Leader>ch <Cmd>YcmCompleter GetDoc<CR>
@@ -780,7 +783,7 @@ augroup END
 " don't think I need this plugin.
 " Plug 'mindriot101/vim-yapf'
 let g:ale_linters = get(g:, 'ale_linters', {})
-let g:ale_linters['python'] = ['pylint', 'pyre']
+let g:ale_linters['python'] = ['pylint']
 let g:ale_fixers = get(g:, 'ale_fixers', {})
 let g:ale_fixers['python'] = ['isort', 'yapf']
 
