@@ -333,7 +333,7 @@ let g:ale_virtualtext_prefix = '  '
 Plug 'prabirshrestha/async.vim'
 let g:vimrc_enable_autolint = 1
 let s:AUTOLINT_CHECKER = Concat(g:VIM_CONFIG_DIR, '/should-enable-lint')
-let g:autolint_git_remotes_whitelist = '/infokiller/'
+let g:autolint_git_remotes_whitelist = get(g:, 'autolint_git_remotes_whitelist', '/infokiller/')
 " I used to disable ALE in $HOME/.local except $HOME/.local/bin, but not that's
 " handled by should-enable-lint. For future reference:
 " ALE has the g:ale_pattern_options that can be used to disable it for certain
