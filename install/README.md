@@ -302,6 +302,10 @@ automated in the Arch installation, but not in Debian (yet) include:
 
 #### Clone and install config repo
 
+1. [Create a Gitlab access token](https://gitlab.com/-/profile/personal_access_tokens)
+   with only the `read_repository` permission. This will be used to authenticate
+   to Gitlab for cloning the repo.
+
 > NOTES:
 >
 > - `https://www.gitlab.com` is used instead of `https://gitlab.com` below so
@@ -312,18 +316,23 @@ automated in the Arch installation, but not in Debian (yet) include:
 > - `bash -c` is used so that all the commands can be copy pasted at once.
 >   Without it, git would prompt for credentials and receive the text after it.
 
-1. Clone the main config repo by copy pasting the following to a shell:
+> TODO: Move the commands below to a publicly accessible script (in my public
+> config repo) and then just curl and execute it
+
+1. Clone the private config repo by copy pasting the following to a shell:
 
    ```sh
    bash -c '
     set -o errexit -o errtrace -o nounset -o pipefail
     git config --global --add credential.helper "cache --timeout=86400"
-    mkdir ~/tmp && cd ~/tmp
-    git clone https://www.gitlab.com/infokiller/config-git.git
-    cp -R ~/tmp/config-git/.git ~
+    mkdir -p ~/tmp && cd ~/tmp
+    git clone https://infokiller@gitlab.com/infokiller/config-private.git
+    git clone https://infokiller@gitlab.com/infokiller/config-public.git
+    cp -R ~/tmp/config-private/.git ~
     cd ~
     git reset --hard
     eval "$(ssh-agent -s)"
+    find "${HOME}/.ssh" -type f -print0 | xargs --null chmod 600 --
     ssh-add ~/.ssh/id_ed25519_hostname
    '
    ```
