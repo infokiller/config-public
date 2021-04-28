@@ -306,35 +306,10 @@ automated in the Arch installation, but not in Debian (yet) include:
    with only the `read_repository` permission. This will be used to authenticate
    to Gitlab for cloning the repo.
 
-> NOTES:
->
-> - `https://www.gitlab.com` is used instead of `https://gitlab.com` below so
->   that the automatic SSH conversion in my git config won't be applied, because
->   SSH keys are not available at this point.
-> - The SSH key used below should be replaced with a key suitable for this
->   machine.
-> - `bash -c` is used so that all the commands can be copy pasted at once.
->   Without it, git would prompt for credentials and receive the text after it.
-
-> TODO: Move the commands below to a publicly accessible script (in my public
-> config repo) and then just curl and execute it
-
-1. Clone the private config repo by copy pasting the following to a shell:
+1. Clone the config repos (replace `hostname` below for the ssh key):
 
    ```sh
-   bash -c '
-    set -o errexit -o errtrace -o nounset -o pipefail
-    git config --global --add credential.helper "cache --timeout=86400"
-    mkdir -p ~/tmp && cd ~/tmp
-    git clone https://infokiller@gitlab.com/infokiller/config-private.git
-    git clone https://infokiller@gitlab.com/infokiller/config-public.git
-    cp -R ~/tmp/config-private/.git ~
-    cd ~
-    git reset --hard
-    eval "$(ssh-agent -s)"
-    find "${HOME}/.ssh" -type f -print0 | xargs --null chmod 600 --
-    ssh-add ~/.ssh/id_ed25519_hostname
-   '
+   curl -fsSL 'https://raw.githubusercontent.com/infokiller/config-public/master/install/bootstrap-config-repos' | bash -s -- ~/.ssh/id_ed25519_hostname
    ```
 
 1. Run the installation script: `~/install/install-new-workstation` The

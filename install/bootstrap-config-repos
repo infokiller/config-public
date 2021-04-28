@@ -78,10 +78,6 @@ _init_config_repos() {
   _init_repo_in_existing_dir "${PUBLIC_CONFIG_GIT_DIR}" "${HOME}" \
     "${CONFIG_PUBLIC_REMOTE_URL}"
   _log_info 'Setting public repo to primary'
-  # Add public repo as default repo in ${HOME}.
-  # NOTE: As of 2020-02-14, I'm using a symlink because of:
-  # https://github.com/romkatv/powerlevel10k/issues/491
-  [[ -L "${HOME}/.git" ]] && rm -- "${HOME}/.git"
   printf 'gitdir: %s\n' "${PUBLIC_CONFIG_GIT_DIR}" >| "${HOME}/.git"
 }
 
