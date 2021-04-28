@@ -7,7 +7,6 @@
 # YouCompleteMe
 build-essential
 cmake
-python-dev
 python3-dev
 
 # Terminal notifications
@@ -37,6 +36,7 @@ libxcb-util0-dev
 libxcb-randr0-dev
 libxcb-composite0-dev
 python-xcbgen
+python3-xcbgen
 xcb-proto
 libxcb-image0-dev
 libxcb-ewmh-dev
