@@ -5,14 +5,14 @@
 # ~/install/debian/configure-system and maybe
 # ~/install/debian/install-external-packages.
 
-import os
+import subprocess
 
 import installation_util as util
 
 
 def _install_debian_packages(packages):
     for apt_action in ['update', 'upgrade', 'autoclean']:
-        os.system(f'sudo apt-get {apt_action} -y')
+        subprocess.run(['sudo', 'apt-get', apt_action, '-y'], check=True)
     installed = []
     not_found = []
     chose_not_to_install = []
@@ -22,24 +22,28 @@ def _install_debian_packages(packages):
         # being installed with version <none>.
         # Therefore, I switched to `dpkg-query -s`, which worked on that case as
         # well.
-        is_installed = os.system(
-            'dpkg-query -s {} &> /dev/null'.format(pkg)) == 0
-        if is_installed:
+        # Note that I'm using capture_output but not actually doing anything
+        # with the output. This is done to avoid cluttering the terminal with
+        # the output of dpkg-query and apt-cache.
+        is_installed = subprocess.run(['dpkg-query', '-s', pkg],
+                                      check=False,
+                                      capture_output=True)
+        if is_installed.returncode == 0:
             print('Package {} is already installed'.format(pkg))
             continue
-        package_found = os.system(
-            f'apt-cache show {pkg} &> /dev/null') == 0
-        if package_found:
-            installed_package = os.system(
-                'sudo apt-get install -y {}'.format(pkg)) == 0
-            if installed_package:
+        package_found = subprocess.run(['apt-cache', 'show', pkg],
+                                       check=False,
+                                       capture_output=True)
+        if package_found.returncode == 0:
+            installed_package = subprocess.run(
+                ['sudo', 'apt-get', 'install', '-y', pkg], check=False)
+            if installed_package.returncode == 0:
                 installed.append(pkg)
             else:
                 chose_not_to_install.append(pkg)
         else:
             not_found.append(pkg)
             print(util.yellow('Package {} not found'.format(pkg)))
-        os.system('')
     print('\n============ SUMMARY =============\n')
     print('Packages installed:\n' + '\n'.join(installed))
     print('\nPackages not found:\n' + '\n'.join(not_found))
