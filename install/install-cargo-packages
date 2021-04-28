@@ -100,9 +100,11 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
         _log_info(f'Symlinking binary {binary_name}')
         util.symlink_relative(os.path.join(CARGO_BIN_DIR, binary_name),
                               os.path.join(util.USER_BIN_DIR, installed_name))
-    _log_bold('Packages installed:\n{}'.format('\n'.join(installed)))
+    _log_bold('Packages installed:\n{}'.format('\n'.join(
+        p.name for p in installed)))
     if errors:
-        _log_warning('Packages with errors:\n{}\n'.format('\n'.join(errors)))
+        _log_warning('Packages with errors:\n{}\n'.format('\n'.join(
+            p.name for p in errors)))
 
 
 def main():
