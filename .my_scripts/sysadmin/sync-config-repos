@@ -140,24 +140,24 @@ _init_repo_in_existing_dir() {
     # which is needed when the history changed, so we restore them.
     "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
       xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
-    return
+  else
+    _log_info 'Repo not found, initializing it'
+    mkdir -p -- "$(dirname "${work_tree}")"
+    "${git[@]}" clone --bare "${remote_url}" "${git_dir}"
+    "${git[@]}" init
+    # Unstage all files. I'm not sure why, but after initializing the bare repo
+    # git may have some files staged.
+    "${git[@]}" reset --quiet
+    # Restore files that are marked as deleted because they are in master but
+    # were not in the directory before cloning the repo.
+    "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
+      xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
   fi
-  _log_info 'Repo not found, initializing it'
-  mkdir -p -- "$(dirname "${work_tree}")"
-  "${git[@]}" clone --bare "${remote_url}" "${git_dir}"
-  "${git[@]}" init
   # Workaround to the remote not being set correctly.
   "${git[@]}" remote remove origin
   "${git[@]}" remote add origin "${remote_url}"
   "${git[@]}" fetch origin
   "${git[@]}" branch --set-upstream-to=origin/master master
-  # Unstage all files. I'm not sure why, but after initializing the bare repo
-  # git may have some files staged.
-  "${git[@]}" reset --quiet
-  # Restore files that are marked as deleted because they are in master but
-  # were not in the directory before cloning the repo.
-  "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
-    xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
 }
 
 _file_has_line() {
