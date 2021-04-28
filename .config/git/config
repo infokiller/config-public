@@ -115,12 +115,22 @@
 	# If rerere resolved a conflict, stage it.
   autoupdate = true
 
+# As of 2021-04-28, this is disabled because some repos such as oh-my-zsh cause
+# errors, see also: https://stackoverflow.com/a/51918148/1014208
+# If I run into issues again, I should probably just disable fsckObjects (which
+# is the default), since it doesn't seem to provide much benefit.
 [transfer]
 	fsckObjects = true
+[transfer.fsck]
+	zeroPaddedFilemode = ignore
 [fetch]
 	fsckObjects = true
+[fetch.fsck]
+	zeroPaddedFilemode = ignore
 [receive]
 	fsckObjects = true
+[receive.fsck]
+	zeroPaddedFilemode = ignore
 
 # https://github.com/dandavison/delta
 # Disable syntax highlighting in delta as I find it distracting.
