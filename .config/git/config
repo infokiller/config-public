@@ -116,9 +116,9 @@
   autoupdate = true
 
 [transfer]
-	fsckobjects = true
+	fsckObjects = true
 [fetch]
-	fsckobjects = true
+	fsckObjects = true
 [receive]
 	fsckObjects = true
 
