@@ -3,6 +3,8 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# TODO: Verify dependencies like ssh are installed and install them otherwise.
+
 # NOTE: Consider using git dirs that are relative to this file so that this
 # script can be run for working directories outside HOME.
 readonly PUBLIC_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-public"

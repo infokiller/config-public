@@ -309,7 +309,7 @@ automated in the Arch installation, but not in Debian (yet) include:
 1. Clone the config repos (replace `hostname` below for the ssh key):
 
    ```sh
-   curl -fsSL 'https://raw.githubusercontent.com/infokiller/config-public/master/install/bootstrap-config-repos' | bash -s -- ~/.ssh/id_ed25519_hostname
+   bash <(curl -fsSL 'https://raw.githubusercontent.com/infokiller/config-public/master/install/bootstrap-config-repos') ~/.ssh/id_ed25519_hostname
    ```
 
 1. Run the installation script: `~/install/install-new-workstation` The
