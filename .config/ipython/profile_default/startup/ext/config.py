@@ -91,6 +91,8 @@ def _get_history_files():
     return files
 
 
+# TODO: Implement auto-closing of brackets, quotes, etc. See:
+# https://stackoverflow.com/q/57011659/1014208
 def _define_prompt_toolkit_keybindings():
     if IPython.version_info[0] < 5:
         warnings.warn(
