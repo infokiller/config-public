@@ -40,6 +40,7 @@ AddPackage udisks2       # Disk Management Service, version 2
 AddPackage lsof          # Lists open files for running Unix processes
 AddPackage rsync         # A file transfer program to keep remote files in sync
 AddPackage ncdu          # Disk usage analyzer with an ncurses interface
+AddPackage wipe          # Secure file wiping utility
 AddPackage ntfs-3g       # NTFS filesystem driver and utilities
 AddPackage smartmontools # Control and monitor S.M.A.R.T. enabled ATA and SCSI Hard Drives
 CreateLink /etc/systemd/system/multi-user.target.wants/smartd.service /usr/lib/systemd/system/smartd.service

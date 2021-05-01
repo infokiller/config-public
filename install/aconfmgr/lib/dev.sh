@@ -59,7 +59,7 @@ IgnorePath '/run/libvirt/*'
 # ebtables and dnsmasq are required for NAT/DHCP networking
 # openbsd-netcat is required for remote SSH management.
 AddPackage dnsmasq        # Lightweight, easy to configure DNS forwarder and DHCP server
-AddPackage ebtables       # Ethernet bridge filtering utilities
+AddPackage iptables-nft   # Ethernet bridge filtering utilities
 AddPackage openbsd-netcat # TCP/IP swiss army knife. OpenBSD variant.
 AddPackage edk2-ovmf      # Tianocore UEFI firmware for qemu.
 AddPackage swtpm          # Libtpms-based TPM emulator with socket, character device, and Linux CUSE interface

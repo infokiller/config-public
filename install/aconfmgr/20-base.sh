@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# System core- mostly packages from the Arch base package group, plus a few
+# System core- mostly packages from the Arch base meta package, plus a few
 # other packages that I consider essential.
 
 IgnorePath '/boot/initramfs-*.img'

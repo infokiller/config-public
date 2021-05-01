@@ -10,7 +10,7 @@
 # https://www.rodsbooks.com/refind/linux.html#efistub
 # Parameters usage explanation:
 #
-# - apparmor and security: enable AppArmor support.
+# - apparmor and lsm: enable AppArmor support.
 #
 # - consoleblank and powersave: needed so that the monitor will enter power
 #   saving when using physlock. See also:
