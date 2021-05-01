@@ -39,7 +39,7 @@ IgnorePath '/opt/containerd/*'
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" << EOF
 {
-  "data-root": "/mnt/evo970/docker"
+    "data-root": "/mnt/evo970/docker"
 }
 EOF
 fi
