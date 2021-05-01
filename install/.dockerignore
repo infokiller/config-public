@@ -1,0 +1,4 @@
+# Exclude docker related files so that the docker layer cache won't be
+# invalidated when editing them because the build context changes.
+Dockerfile
+.dockerignore
