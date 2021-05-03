@@ -707,7 +707,7 @@ let g:lightline = {
     \               'linter_warnings', 'linter_ok'] ],
     \ },
     \ 'component': {
-    \   'column_info': '𛱴%-2v',
+    \   'column_info': '𛱴%-2c',
     \   'line_number': ' %{printf("%2d/%2d", line("."),  line("$"))}',
     \ },
     \ 'component_function': {
