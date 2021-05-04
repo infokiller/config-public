@@ -343,9 +343,8 @@ editor-fzf() {
 }
 
 less-fasd-fzf() {
-  if (($# == 1)) && [[ -f $1 ]]; then
+  if [[ ($# -eq 1 && -f $1) || $# -gt 1 ]]; then
     less -- "$@"
-    return 0
   fi
   local file
   # Zsh doesn't support mapfile.
@@ -998,7 +997,7 @@ alias xclip='xclip -selection c'
 # inside text. Use `xcl` for keeping the newline.
 alias xc='strip-trailing-newline | xclip'
 alias xcl=xclip
-alias cpwd='pwd | xclip'
+alias cpwd='pwd | xclip' # pragma: allowlist secret
 
 alias yank='yank -- xsel -b'
 alias y='yank'
