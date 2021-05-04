@@ -4,21 +4,28 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-readonly WRAPPER_PATH="$(readlink -f "$0")"
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly LOCAL_HIGHLIGHT_BIN="${REPO_ROOT}/.local/bin/highlight-local-build"
 
 # Default `highlight` arguments. Can be overridden by passing this script
 # different values.
-readonly DEFAULT_DATA_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}/highlight"
-readonly DEFAULT_STYLE='solarized-dark'
-readonly DEFAULT_TABWIDTH=4
+readonly DEFAULT_ARGS=(
+  "--data-dir=${XDG_DATA_HOME:-${HOME}/.local/share}/highlight"
+  '--style=solarized-dark'
+  '--replace-tabs=4'
+)
 
-mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
-if ((${#COMMAND[@]} == 0)); then
-  echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
-  exit 1
-fi
-exec -- "${COMMAND[@]}" \
-  --data-dir="${DEFAULT_DATA_DIR}" \
-  --style="${DEFAULT_STYLE}" \
-  --replace-tabs="${DEFAULT_TABWIDTH}" \
-  "$@"
+main() {
+  if [[ -x "${LOCAL_HIGHLIGHT_BIN}" ]]; then
+    exec -- "${LOCAL_HIGHLIGHT_BIN}" "${DEFAULT_ARGS[@]}" "$@"
+  fi
+  readonly WRAPPER_PATH="$(readlink -f "$0")"
+  mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  if ((${#cmd[@]} == 0)); then
+    echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+    exit 1
+  fi
+  exec -- "${cmd[@]}" "${DEFAULT_ARGS[@]}" "$@"
+}
+
+main "$@"
