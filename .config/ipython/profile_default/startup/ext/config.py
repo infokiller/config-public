@@ -248,6 +248,7 @@ _load_local_extension('autotime')
 # %reload_ext autoreload
 # pylint: disable=undefined-variable
 get_ipython().run_line_magic('reload_ext', 'autoreload')
+get_ipython().run_line_magic('autoreload', '2')
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
 # which I don't like, so I'm setting it directly on the IPython object.
 # %pdb on
