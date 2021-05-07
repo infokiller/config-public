@@ -18,7 +18,7 @@ function! s:SyncBuffer(buf_dict, force) abort
   if !vimrc#IsBufferWithFile(a:buf_dict)
     return
   endif
-  if !a:force && !vimrc#IsRemoteFile(a:buf_dict['name'])
+  if !a:force && vimrc#IsRemoteFile(a:buf_dict['name'])
     return
   endif
   " Create the directories leading to the file path if they don't exist yet.
