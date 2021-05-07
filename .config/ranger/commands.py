@@ -206,6 +206,30 @@ class fzf_select(Command):
                 self.fm.select_file(fzf_file)
 
 
+class fzf_select_git(Command):
+    """
+    :fzf_select_git
+
+    Find a file in a git repo using fzf.
+    """
+
+    def execute(self):
+        selector_executable = os.path.join(os.path.dirname(__file__),
+                                           'fzf-select-file')
+        command = r"git-list-files | {} +m".format(selector_executable)
+
+        fzf = self.fm.execute_command(command,
+                                      universal_newlines=True,
+                                      stdout=subprocess.PIPE)
+        stdout, _ = fzf.communicate()
+        if fzf.returncode == 0:
+            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            if os.path.isdir(fzf_file):
+                self.fm.cd(fzf_file)
+            else:
+                self.fm.select_file(fzf_file)
+
+
 class fzf_select_by_line_count(Command):
 
     def execute(self):
