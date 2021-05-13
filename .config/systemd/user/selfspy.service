@@ -10,3 +10,6 @@ Type=simple
 ExecStart=%h/.local/bin/selfspy
 Restart=always
 RestartSec=10
+# The script already logs directly to syslog, so no need to log the standard
+# error as well.
+StandardError=null
