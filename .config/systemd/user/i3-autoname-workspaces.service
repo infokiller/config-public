@@ -12,7 +12,7 @@ Restart=on-failure
 RestartSec=10
 # The script already logs directly to syslog, so no need to log the standard
 # output as well.
-StandardOutput=null
+StandardError=null
 # Wait for i3 socket to be available.
 ExecStartPre=bash -c 'while true; do i3-msg nop &>/dev/null && break; sleep 1; done'
 ExecStart=%h/.my_scripts/i3/launch-i3-autoname-workspaces --log-level info
