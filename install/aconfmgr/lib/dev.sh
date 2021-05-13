@@ -92,7 +92,7 @@ AddPackage qrencode             # C library for encoding data in a QR Code symbo
 AddPackage xonsh                # Python-powered, cross-platform, Unix-gazing shell
 AddPackage yapf                 # Python style guide checker
 AddPackage pandoc               # Conversion between markup formats
-AddPackage termtosvg            # Record terminal sessions as SVG animations
+# AddPackage termtosvg            # Record terminal sessions as SVG animations
 AddPackage hexyl                # Colored command-line hex viewer
 
 # Latex
