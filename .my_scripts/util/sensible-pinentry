@@ -32,7 +32,7 @@ PINENTRY_TTY="${TMPDIR:-${XDG_RUNTIME_DIR-}/tmp}/pinentry_tty"
 _run_pinentry_curses_or_tty() {
   local bin="$1"
   shift
-  local args=(--timeout 30)
+  local args=(--timeout 60)
   local tty
   # TODO: setting ttyname doesn't always work in SSH.
   if tty="$(< "${PINENTRY_TTY}")"; then
