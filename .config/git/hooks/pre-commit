@@ -3,6 +3,10 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly PRIVATE_FILES_PATTERNS="${REPO_ROOT}/.my_scripts/sysadmin/private_files_patterns.txt"
+# shellcheck disable=SC2155
 readonly DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 readonly BLACKLIST_DIR="${DIR}/blacklist.d"
 readonly SECRET_DETECTION_IGNORED_FILES=(
@@ -12,7 +16,8 @@ readonly SECRET_DETECTION_IGNORED_FILES=(
   '\.config/detect-secret'
 )
 readonly ALL_CHECKS=(
-  blacklist
+  content_blacklist
+  paths_blacklist
   shfmt
   shellcheck
   detect_secrets
@@ -61,14 +66,14 @@ _git_changed_files() {
   git diff-index --cached --name-only --ignore-submodules=all "$@"
 }
 
-_check_blacklist() {
+_check_content_blacklist() {
   local mode
   mode="$(git config --get blacklist-hook.mode)" || mode='error'
   if [[ "${mode}" == 'skip' ]]; then
-    echo 'Skipping blacklisted patterns'
+    echo 'Skipping blacklisted content patterns'
     return
   fi
-  echo 'Checking blacklisted patterns...'
+  echo 'Checking blacklisted content patterns...'
   local patterns=()
   local git_exclude_pattern=()
   while IFS= read -r -d '' patterns_file; do
@@ -77,22 +82,20 @@ _check_blacklist() {
     fi
     mapfile -t -O "${#patterns[@]}" patterns < "${patterns_file}"
   done < <(\find -L "${BLACKLIST_DIR}" -type f -print0)
-  local added_files
-  mapfile -t added_files < <(_git_changed_files --diff-filter=A HEAD)
   # look for blacklisted strings in the commit
   local found=0
-  local string
-  for string in "${patterns[@]}"; do
-    # Search files content
-    # NOTE: I used to use the argument -G"${string}" to make the git-diff-index
+  local pattern
+  # Search files content
+  for pattern in "${patterns[@]}"; do
+    # NOTE: I used to use the argument -G"${pattern}" to make the git-diff-index
     # call faster, but then the regex is case sensitive which is problematic to
     # configure (i.e. "SECRET" won't be detected if the blacklist regex is
     # "secret").
     if git diff-index --cached --patch --find-renames --text \
       HEAD "${git_exclude_pattern[@]}" |
       grep --text -Ei '^\+' |
-      grep --text -Ei --color=auto -- "${string}"; then
-      local msg="Commit contains blacklisted pattern '${string}'"
+      grep --text -Ei --color=auto -- "${pattern}"; then
+      local msg="Commit contains blacklisted pattern '${pattern}'"
       if [[ "${mode}" == 'error' ]]; then
         _print_error "${msg}"
       else
@@ -100,10 +103,37 @@ _check_blacklist() {
       fi
       found=1
     fi
-    # Search file names/paths
+  done
+  if ((found)) && [[ "${mode}" == 'error' ]]; then
+    return 1
+  fi
+}
+
+_check_paths_blacklist() {
+  local mode
+  mode="$(git config --get blacklist-hook.mode)" || mode='error'
+  if [[ "${mode}" == 'skip' ]]; then
+    echo 'Skipping blacklisted paths patterns'
+    return
+  fi
+  echo 'Checking blacklisted paths patterns...'
+  local patterns=()
+  mapfile -t patterns < <(
+    grep -Ev -e '^\s*#' -e '^$' "${PRIVATE_FILES_PATTERNS}" |
+      sed -E 's/(.*)\s+#.*/\1/'
+  )
+  while IFS= read -r -d '' patterns_file; do
+    mapfile -t -O "${#patterns[@]}" patterns < "${patterns_file}"
+  done < <(\find -L "${BLACKLIST_DIR}" -type f -print0)
+  local found=0
+  local pattern
+  # Search file names/paths
+  local added_files
+  mapfile -t added_files < <(_git_changed_files --diff-filter=A HEAD)
+  for pattern in "${patterns[@]}"; do
     if printf '%s\n' "${added_files[@]}" |
-      grep --text -Ei --color=auto -- "${string}"; then
-      local msg="Commit added path with blacklisted pattern '${string}'"
+      grep --text -Ei --color=auto -- "${pattern}"; then
+      local msg="Commit added path with blacklisted pattern '${pattern}'"
       if [[ "${mode}" == 'error' ]]; then
         _print_error "${msg}"
       else
