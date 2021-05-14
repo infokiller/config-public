@@ -15,16 +15,20 @@ Wants=nm-applet.service
 Wants=udiskie.service
 Wants=flameshot.service
 Wants=keydope.service
-# NOTE: As of 2019-12-14, usbguard-applet was removed from the arch repos, so
+# As of 2019-12-14, usbguard-applet was removed from the arch repos, so
 # it's disabled for now.
 # Wants=usbguard-applet.service
-# NOTE: As of 2019-12-14, kalu doesn't work with the most recent version of
+# As of 2019-12-14, kalu doesn't work with the most recent version of
 # pacman.
 # Wants=kalu.service
-# NOTE: As of 2019-10-19, mullvad is no longer used. I plan to use PIA if I'll
+# As of 2019-10-19, mullvad is no longer used. I plan to use PIA if I'll
 # need a VPN, which had significantly better ping performance when I tested them
 # (along with ProtonVPN).
-# Wants=mullvad-vpn-app.service
+# As of 2021-05-14, I'm using mullvad again. Very early tests show that the ping
+# performance is similar for Mullvad, PIA, and ProtonVPN, and they all have
+# servers nearby. Mullvad is almost twice cheaper than PIA, but it doesn't
+# support WireGuard in all servers.
+Wants=mullvad-vpn-app.service
 
 # X11 specific things (that probably won't work with XWayland).
 Wants=screenlock-daemon.service
