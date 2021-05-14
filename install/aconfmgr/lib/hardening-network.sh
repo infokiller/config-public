@@ -25,12 +25,14 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/ufw.service' '/usr/lib/s
 configure_mullvad_vpn() {
   AddPackage --foreign mullvad-vpn # VPN Client for Mullvad.net
   CopyFile '/etc/mullvad-vpn/settings.json'
-  for server in at1 au1 be1 bg1 br1 ca1 ca2 ca3 ch1 ch2 cz1 de1 de2 de4 de5 dk1 \
-    es1 fi1 fr1 gb2 gb3 gb4 gb5 hk1 in1 it1 jp1 md1 nl1 nl2 nl3 no1 pl1 ro1 rs1 \
-    se2 se3 se4 se5 se6 se7 se8 sg1 ua1 us11 us12 us13 us14 us15 us1 us2 us3 us4 \
-    us5 us6 us7 us9; do
-    CopyFile "/etc/wireguard/mullvad-${server}.conf" 600
-  done
+  IgnorePath '/etc/mullvad-vpn/account-history.json' 
+  IgnorePath '/opt/Mullvad VPN/resources/mullvad-problem-report'
+  # for server in at1 au1 be1 bg1 br1 ca1 ca2 ca3 ch1 ch2 cz1 de1 de2 de4 de5 dk1 \
+  #   es1 fi1 fr1 gb2 gb3 gb4 gb5 hk1 in1 it1 jp1 md1 nl1 nl2 nl3 no1 pl1 ro1 rs1 \
+  #   se2 se3 se4 se5 se6 se7 se8 sg1 ua1 us11 us12 us13 us14 us15 us1 us2 us3 us4 \
+  #   us5 us6 us7 us9; do
+  #   CopyFile "/etc/wireguard/mullvad-${server}.conf" 600
+  # done
   CreateLink '/etc/systemd/system/multi-user.target.wants/mullvad-daemon.service' '/usr/lib/systemd/system/mullvad-daemon.service'
 }
 
