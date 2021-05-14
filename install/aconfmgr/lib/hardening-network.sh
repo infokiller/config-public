@@ -34,7 +34,7 @@ configure_mullvad_vpn() {
   CreateLink '/etc/systemd/system/multi-user.target.wants/mullvad-daemon.service' '/usr/lib/systemd/system/mullvad-daemon.service'
 }
 
-# configure_mullvad_vpn
+configure_mullvad_vpn
 
 # AddPackage wireguard-dkms  # next generation secure network tunnel
 # AddPackage wireguard-tools # next generation secure network tunnel
