@@ -9,7 +9,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
-gpg-connect-agent updatestartuptty /bye &> /dev/null
+gpg-connect-agent updatestartuptty /bye &> /dev/null || true
 mapfile -t COMMAND < <(get-wrapped-binary-command "${DIR}/git")
 if ((${#COMMAND[@]} == 0)); then
   echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
