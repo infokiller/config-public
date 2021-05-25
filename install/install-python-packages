@@ -3,6 +3,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
@@ -158,20 +159,28 @@ _install_conda() {
 _install_conda_envs_from_dir() {
   local dir="$1"
   while IFS= read -r -d '' conda_env_file; do
+    # Some conda environment files (such as selfspy's) install pip dependencies
+    # from a requirements.txt file. It seems that in this case we must resolve
+    # symlinks for this to work so that the requirements.txt file can be found
+    # by conda.
+    conda_env_file="$(readlink -f "${conda_env_file}")"
     _log_info_bold "Installing conda environment from file: ${conda_env_file}"
     # --prune should remove packages not specified in environment file, though
     #  it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
     local cmd=(_fastest_conda env update --prune -f "${conda_env_file}")
-    if ! "${cmd[@]}"; then
-      _log_info_bold 'Removing compiler_compat/ld and retrying'
-      rm -- "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
-        "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
-      "${cmd[@]}"
-    fi
+    (
+      if ! "${cmd[@]}"; then
+        _log_info_bold 'Removing compiler_compat/ld and retrying'
+        rm -- "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
+          "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
+        "${cmd[@]}"
+      fi
+    )
   done < <(\find -L "${dir}" -maxdepth 1 -type f -print0 | sort --zero-terminated)
 }
 
 _setup_conda() {
+  # shellcheck disable=SC2119
   do_basic_setup
   _install_conda
   # Source profile again to get the conda bin path.
