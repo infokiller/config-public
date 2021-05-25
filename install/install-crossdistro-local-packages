@@ -291,20 +291,7 @@ _install_firefox_settings() {
   done < <(\find "${FIREFOX_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
 }
 
-_cmake_polybar() {
-  cmake \
-    -DENABLE_I3=ON \
-    -DENABLE_ALSA=ON \
-    -DENABLE_PULSEAUDIO=ON \
-    -DENABLE_NETWORK=ON \
-    -DENABLE_CURL=ON \
-    -DBUILD_POLYBAR_MSG=ON \
-    "${SUBMODULES_DIR}/desktop/polybar"
-}
-
-_install_polybar() {
-  cd "${SUBMODULES_DIR}/desktop/polybar"
-  git submodule update --init --recursive
+_build_polybar_direct() {
   local cmake_cmd=(
     cmake
     '-DENABLE_I3=ON'
@@ -322,6 +309,7 @@ _install_polybar() {
   if [[ ! -d "${build_dir}" ]]; then
     mkdir -p -- "${build_dir}"
     (cd -- "${build_dir}" && "${cmake_cmd[@]}" && make)
+    symlink_binary "${build_dir}/bin/polybar"
     return
   fi
   if ! (cd -- "${build_dir}" && make); then
@@ -329,6 +317,19 @@ _install_polybar() {
     (cd -- "${build_dir}" && "${cmake_cmd[@]}" && make)
   fi
   symlink_binary "${build_dir}/bin/polybar"
+}
+
+_install_polybar() {
+  cd "${SUBMODULES_DIR}/desktop/polybar"
+  git submodule update --init --recursive
+  # NOTE: if the build gives me trouble in the future, I can try to switch to
+  # the docker build below. The distadvantage of using the docker build is that
+  # I'm copying the build executable to my Arch machine, and this may cause
+  # library version mismatch at runtime. The better alternative is to use docker
+  # to run Polybar too, but that requires installing fonts and mounting shell
+  # scripts used in my polybar config for this to work properly.
+  _build_polybar_direct
+  # DOCKER_BUILDKIT=1 docker build . -t polybar --output "${USER_BIN_DIR}"
 }
 
 _install_universal_ctags() {
