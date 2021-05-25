@@ -28,6 +28,7 @@ AddPackage xcb-util-cursor # XCB cursor library
 AddPackage xcb-util-image  # Utility libraries for XC Binding - Port of Xlib's XImage and XShmImage functions
 AddPackage xcb-util-wm     # Utility libraries for XC Binding - client and window-manager helpers for ICCCM
 AddPackage xcb-util-xrm    # XCB utility functions for the X resource manager
+AddPackage libmpdclient    # C library to implement a MPD client
 
 # Terminal notifications dependencies.
 # https://github.com/marzocchi/zsh-notify
