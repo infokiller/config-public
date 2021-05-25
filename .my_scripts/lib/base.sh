@@ -19,28 +19,29 @@ is_zsh() {
 # Used instead of the dirname binary for performance.
 # Changes:
 # - Support a double dash argument
+# - Indent with two spaces instead of four
 dirname() {
-    if [[ $1 == -- ]]; then
-      shift
-    fi
-    local tmp=${1:-.}
+  if [[ $1 == -- ]]; then
+    shift
+  fi
+  local tmp=${1:-.}
 
-    [[ $tmp != *[!/]* ]] && {
-        printf '/\n'
-        return
-    }
+  [[ $tmp != *[!/]* ]] && {
+      printf '/\n'
+      return
+  }
 
-    tmp=${tmp%%"${tmp##*[!/]}"}
+  tmp=${tmp%%"${tmp##*[!/]}"}
 
-    [[ $tmp != */* ]] && {
-        printf '.\n'
-        return
-    }
+  [[ $tmp != */* ]] && {
+      printf '.\n'
+      return
+  }
 
-    tmp=${tmp%/*}
-    tmp=${tmp%%"${tmp##*[!/]}"}
+  tmp=${tmp%/*}
+  tmp=${tmp%%"${tmp##*[!/]}"}
 
-    printf '%s\n' "${tmp:-/}"
+  printf '%s\n' "${tmp:-/}"
 }
 
 print_bold() {
