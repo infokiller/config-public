@@ -147,7 +147,7 @@ interval = 0.2
 # Prints the minimum remaining space out of "/", "/home", and "/var".
 [module/filesystem]
 type = custom/script
-exec = df --output=avail --block-size=1K / /home /var | \grep -E '[0-9]+' | sort -n | head -1 | numfmt --from-unit=1024 --to iec | awk '{print $1}'
+exec = df --output=avail --block-size=1K / /home /var | grep -E '[0-9]+' | sort -n | head -1 | numfmt --from-unit=1024 --to iec | awk '{print $1}'
 label = "%{T3}%{F#666666}%{F-}%{T-}  %output%"
 interval = 30
 
