@@ -14,11 +14,15 @@ is_zsh() {
   [[ -n "${ZSH_VERSION-}" ]]
 }
 
-# Copied from:
+# Based on:
 # https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
 # Used instead of the dirname binary for performance.
+# Changes:
+# - Support a double dash argument
 dirname() {
-    # Usage: dirname "path"
+    if [[ $1 == -- ]]; then
+      shift
+    fi
     local tmp=${1:-.}
 
     [[ $tmp != *[!/]* ]] && {
