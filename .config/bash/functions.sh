@@ -149,9 +149,8 @@ cd-up-fzf() {
   if [[ "${dir}" == '/' ]]; then
     return
   fi
-  # TODO: fix the dirname function to maintain the absolute path.
   local dirs_up=()
-  while dir="$(command dirname -- "${dir}")"; do
+  while dir="$(dirname -- "${dir}")"; do
     dirs_up+=("${dir}")
     if [[ "${dir}" == '/' ]]; then
       break
@@ -945,6 +944,7 @@ fi
 # I used to check for the existence of the pacman command, but it can yield a
 # false positive because of the pacman game.
 if [[ "${DISTRO-}" == arch ]]; then
+  # shellcheck disable=SC2262
   alias pacman='sensible-pacman'
   alias pi='pacman -S'
   alias aur-update='yay -Syu --aur --answerclean=None --answeredit=All --answerdiff=All --noupgrademenu'
@@ -962,11 +962,12 @@ if [[ "${DISTRO-}" == arch ]]; then
   unset _KERNEL_PACKAGES
   pacman-pkg-files-fzf() {
     local pkg
-    # shellcheck disable=SC2016
+    # shellcheck disable=SC2016,SC2263
     pkg="$(pacman -Qq |
       fzf --preview='pkg={}; pacman -Qi "${pkg}"; pacman -Qlq "${pkg}"')" ||
       return
     printf 'Package: %s\n\n' "${pkg}"
+    # shellcheck disable=SC2263
     pacman -Qql "${pkg}" | tovim
   }
 fi
