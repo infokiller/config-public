@@ -3,3 +3,5 @@
 *.pyo
 *.zwc
 .tags
+# clangd creates .cache
+.cache
