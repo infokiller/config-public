@@ -592,8 +592,10 @@ for_window [instance="crx_ahjnfakocpfoocnncbgmondnnnlfjide"] floating enable, bo
 # for_window [instance="crx_chlffgpmiacpedhhbkiomidkjlcfhogd"] floating enable, move position center
 # Translation chrome app
 for_window [instance="crx_ihmgiclibbndffejedjimfjmfoabpcke"] floating enable, move position center
-# Tabs outliner
+# Tabs Outliner
 for_window [instance="crx_eggkanocgddhmamlbiijnphhppkpkmkl"] floating enable, move position center
+# Tabs Tamer
+for_window [instance="crx_pbgfhojacpjjjpdnimblbbcjccoefbim"] floating enable, move position center
 # QuicKey popup window
 for_window [instance="crx_mdcofofdjbcoebhcmkmlheldobindagi"] floating enable, move position center
 for_window [instance="guake"] border pixel 5
