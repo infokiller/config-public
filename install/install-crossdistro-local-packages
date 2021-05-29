@@ -452,12 +452,17 @@ _install_doom_emacs() {
   #   should always start with the proper shell config.
   # * --no-config: don't create config files, they should already exist from my
   #   config repo.
-  doom --yes install --no-config --no-env
+  local install_cmd=(doom --yes install --no-config --no-env)
   # NOTE: `doom upgrade` calls `doom sync` so we don't need to call the latter.
   # * --packages: only upgrade packages, not doom itself. I update doom by using
   #   git-sensible-update, so I don't need to do it here.
   # * --force: discard local changes.
-  doom --yes upgrade --packages --force
+  local upgrade_cmd=(doom --yes upgrade --packages --force)
+  # If install fails, remove .local dir and try again
+  "${install_cmd[@]}" || {
+    rm -rf "${SUBMODULES_DIR}/emacs/doom-emacs/.local" && "${install_cmd[@]}"
+  }
+  "${upgrade_cmd[@]}"
 }
 
 _install_vim_plugins() {
