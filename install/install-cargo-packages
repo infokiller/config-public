@@ -37,7 +37,8 @@ PACKAGES = [
     # GNU parallel.
     # PackageInstallSpec('parallel'),
     PackageInstallSpec('tokei'),
-    PackageInstallSpec('watchexec'),
+    PackageInstallSpec('watchexec-cli',
+                       installed_binaries={'watchexec': 'watchexec'}),
     PackageInstallSpec('hyperfine'),
     PackageInstallSpec('functiontrace-server'),
     PackageInstallSpec('git-delta', installed_binaries={'delta': 'delta'}),
