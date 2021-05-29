@@ -413,22 +413,20 @@ _install_activitywatch_from_src() {
 }
 
 _install_firenvim() {
-  (
-    cd "${SUBMODULES_DIR}/vim/firenvim"
-    # As of 2021-04-11 and firenvim v0.2.5, the build fails in Archlinux, but
-    # it's not needed anyway, since I'm using the extension from the store. As
-    # a more robust alternative, I implemented a Docker build:
-    # https://github.com/glacambre/firenvim/pull/1014
-    # npm install
-    # npm run build
-    # npm run install_manifests
-    DOCKER_BUILDKIT=1 docker build . -t firenvim --output target
-    nvim --headless -u NORC -i NONE -n \
-      -c "set rtp+=${SUBMODULES_DIR}/vim/firenvim" \
-      -c 'call firenvim#install(0) | q'
-    cd "${REPO_ROOT}"
-    git checkout -- "${XDG_DATA_HOME:-${HOME}/.local/share}/firenvim/"
-  )
+  cd "${SUBMODULES_DIR}/vim/firenvim"
+  # As of 2021-04-11 and firenvim v0.2.5, the build fails in Archlinux, but
+  # it's not needed anyway, since I'm using the extension from the store. As
+  # a more robust alternative, I implemented a Docker build:
+  # https://github.com/glacambre/firenvim/pull/1014
+  # npm install
+  # npm run build
+  # npm run install_manifests
+  DOCKER_BUILDKIT=1 docker build . -t firenvim --output target
+  nvim --headless -u NORC -i NONE -n \
+    -c "set rtp+=${SUBMODULES_DIR}/vim/firenvim" \
+    -c 'call firenvim#install(0) | q'
+  cd "${REPO_ROOT}"
+  git checkout -- "${XDG_DATA_HOME:-${HOME}/.local/share}/firenvim/"
 }
 
 _install_vscode_extensions() {
@@ -493,11 +491,9 @@ _install_fzf() {
 }
 
 _install_histcat() {
-  (
-    cd "${SUBMODULES_DIR}/terminal/histcat"
-    go build -v cmd/histcat/histcat.go
-    symlink_binary histcat
-  )
+  cd "${SUBMODULES_DIR}/terminal/histcat"
+  go build -v cmd/histcat/histcat.go
+  symlink_binary histcat
 }
 
 _configure_personal_device_services() {
