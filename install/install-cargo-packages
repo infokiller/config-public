@@ -28,6 +28,19 @@ class PackageInstallSpec:
         self.install_flags = install_flags
         self.distro_regex = re.compile(distro_regex)
 
+    def __str__(self):
+        result = self.name
+        opt_parts = []
+        if self.installed_binaries:
+            opt_parts.append(self.installed_binaries)
+        if self.install_flags:
+            opt_parts.append(self.install_flags)
+        if self.distro_regex:
+            opt_parts.append(self.distro_regex)
+        if opt_parts:
+            result += f' ({", ".join(str(p) for p in opt_parts)})'
+        return result
+
 
 PACKAGES = [
     # As of 2021-05-29, cargo-update is no longer needed, see comments at the

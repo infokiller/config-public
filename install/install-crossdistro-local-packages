@@ -131,7 +131,8 @@ readonly -A _TASK_TO_CMD=(
     "${REPO_ROOT}/install/install-python-packages" --non-graphical
   '
   ['npm-packages']="${REPO_ROOT}/install/install-npm-packages"
-  ['cargo-packages']="${REPO_ROOT}/install/install-cargo-packages"
+  ['cargo-packages']="_install_cargo_from_rustup && 
+    ${REPO_ROOT}/install/install-cargo-packages"
   # Graphical tasks
   ['yank']='(
     cd "${SUBMODULES_DIR}/terminal/yank" && make && symlink_binary yank
@@ -224,6 +225,20 @@ _install_golang_packages() {
     fi
     symlink_binary "${_GOLANG_BIN_DIR}/${binary_name}"
   done
+}
+
+# https://doc.rust-lang.org/cargo/getting-started/installation.html
+_install_cargo_from_rustup() {
+  curl -fsSL 'https://sh.rustup.rs' |
+    sh -s -- --no-modify-path -y --profile minimal
+  "${CARGO_BIN}/rustup" default stable
+  symlink_binary "${CARGO_BIN}/rustup"
+  symlink_binary "${CARGO_BIN}/cargo"
+  local manpage
+  while IFS= read -r -d '' manpage; do
+    symlink_man_page "${manpage}"
+  done < <(find "${RUSTUP_HOME}"/toolchains/stable-*/share/man/man1 \
+    -mindepth 1 -maxdepth 1 -type f -print0)
 }
 
 _install_nerd_fonts() {
