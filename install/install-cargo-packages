@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import argparse
 import os
 import re
 import subprocess
@@ -31,7 +30,9 @@ class PackageInstallSpec:
 
 
 PACKAGES = [
-    PackageInstallSpec('cargo-update', installed_binaries={}),
+    # As of 2021-05-29, cargo-update is no longer needed, see comments at the
+    # bottom of this file.
+    # PackageInstallSpec('cargo-update', installed_binaries={}),
     # As of 2020-08-30, this is disabled because it had some issues compared to
     # GNU parallel.
     # PackageInstallSpec('parallel'),
@@ -83,8 +84,9 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
             f'{CARGO} install --list | grep -q {pkg.name}') == 0
         # It seems that cargo sometimes rebuild packages even if they're already
         # installed, presumably because the build configuration changed
-        # (toolchain, features, etc.). This is probably what I want, so I'm
-        # running `cargo install` even if it's already installed.
+        # (toolchain, features, etc.). `cargo install` will also update packages
+        # if they're out of date. This is probably what I want, so I'm running
+        # `cargo install` even if it's already installed.
         # if is_installed:
         #     _log_info(f'Package {pkg.name} is already installed, skipping')
         #     continue
@@ -108,23 +110,18 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description='Install and/or upgrade config repo cargo packages.')
-    parser.add_argument('--upgrade',
-                        action='store_true',
-                        help='Upgrade cargo packages to their latest version.')
-    args = parser.parse_args()
-
     util.create_user_dirs()
     _install_cargo_packages(PACKAGES)
-    # Update all cargo packages if requested.
-    # Cargo doesn't support directly updating a package - it requires
-    # uninstalling and reinstalling a package. The `install-update` command is
-    # an extension subcommand provided by
-    # https://github.com/nabijaczleweli/cargo-update. See also:
-    # https://github.com/rust-lang/cargo/issues/2082
-    if args.upgrade:
-        subprocess.run(f'{CARGO} install-update -a'.split(), check=True)
+    # Before PR [1] (merged in Nov 2019), Cargo didn't support directly updating
+    # a package [2] - it required uninstalling and reinstalling a package. Since
+    # then, it will automatically upgrade the package if a new version is
+    # available.  The `install-update` command is an extension subcommand
+    # provided by [3].
+    # [1] https://github.com/rust-lang/cargo/pull/7560
+    # [2] https://github.com/rust-lang/cargo/issues/2082
+    # [3] https://github.com/nabijaczleweli/cargo-update
+    # if args.upgrade:
+    #     subprocess.run(f'{CARGO} install-update -a'.split(), check=True)
     subprocess.run('bat cache --build'.split(), check=True)
 
 
