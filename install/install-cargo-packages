@@ -40,7 +40,9 @@ PACKAGES = [
     PackageInstallSpec('watchexec-cli',
                        installed_binaries={'watchexec': 'watchexec'}),
     PackageInstallSpec('hyperfine'),
-    PackageInstallSpec('functiontrace-server'),
+    # As of 2021-05-29, functiontrace-server has a build issue and is not really
+    # used.
+    # PackageInstallSpec('functiontrace-server'),
     PackageInstallSpec('git-delta', installed_binaries={'delta': 'delta'}),
     # NOTE(2018-07-21): exa is now installed from the arch repos for Arch.
     # --git https://github.com/ogham/exa
