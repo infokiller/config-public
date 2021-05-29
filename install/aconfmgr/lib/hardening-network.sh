@@ -22,6 +22,11 @@ CopyFile '/etc/ufw/user.rules'
 CopyFile '/etc/ufw/user6.rules'
 CreateLink '/etc/systemd/system/multi-user.target.wants/ufw.service' '/usr/lib/systemd/system/ufw.service'
 
+AddPackage tor                 # Anonymizing overlay network.
+AddPackage nyx                 # Command-line status monitor for tor
+# AddPackage --foreign tor-browser # Tor Browser Bundle
+AddPackage torbrowser-launcher # Securely and easily download, verify, install, and launch Tor Browser in Linux
+
 configure_mullvad_vpn() {
   AddPackage --foreign mullvad-vpn # VPN Client for Mullvad.net
   CopyFile '/etc/mullvad-vpn/settings.json'
@@ -37,6 +42,8 @@ configure_mullvad_vpn() {
 }
 
 configure_mullvad_vpn
+
+AddPackage proxychains-ng # A hook preloader that allows to redirect TCP traffic of existing dynamically linked programs through one or more SOCKS or HTTP proxies
 
 # AddPackage wireguard-dkms  # next generation secure network tunnel
 # AddPackage wireguard-tools # next generation secure network tunnel

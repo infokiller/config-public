@@ -14,6 +14,7 @@ AddPackage binutils        # A set of programs to assemble and manipulate binary
 AddPackage cmake           # A cross-platform open-source make system
 AddPackage gcc             # The GNU Compiler Collection - C and C++ frontends
 AddPackage gcc-libs        # Runtime libraries shipped by GCC
+AddPackage gdb             # The GNU Debugger
 AddPackage patch           # A utility to apply patch files to original sources
 AddPackage pkgconf         # Package compiler and linker metadata toolkit
 AddPackage dash            # POSIX compliant shell that aims to be as small as possible

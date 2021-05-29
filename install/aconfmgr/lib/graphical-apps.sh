@@ -35,6 +35,7 @@ IgnorePath '/usr/lib/vlc/plugins/plugins.dat'
 AddPackage gparted            # A Partition Magic clone, frontend to GNU Parted
 AddPackage gnome-disk-utility # Disk Management Utility for GNOME
 AddPackage seahorse           # GNOME application for managing PGP keys
+# deepin-clone seems to pull in a lot of dependencies so it's disabled for now.
 # AddPackage deepin-clone       # Disk and partition backup/restore tool
 
 if is_nvidia_gpu; then
