@@ -41,7 +41,9 @@ configure_mullvad_vpn() {
   CreateLink '/etc/systemd/system/multi-user.target.wants/mullvad-daemon.service' '/usr/lib/systemd/system/mullvad-daemon.service'
 }
 
-configure_mullvad_vpn
+if [[ "${HOST_ALIAS}" != zeus20-juno ]]; then
+  configure_mullvad_vpn
+fi
 
 AddPackage proxychains-ng # A hook preloader that allows to redirect TCP traffic of existing dynamically linked programs through one or more SOCKS or HTTP proxies
 
