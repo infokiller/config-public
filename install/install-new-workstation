@@ -3,6 +3,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly SYSTEM_FILES_DIR="${REPO_ROOT}/root"
@@ -48,7 +49,7 @@ _prepare_arch_package_repos() {
   git clone 'https://aur.archlinux.org/yay.git'
   cd yay
   makepkg -fcs
-  sudo pacman -U --noconfirm --needed yay*.pkg.tar.xz
+  sudo pacman -U --noconfirm --needed yay*.pkg.tar.zst
 }
 
 _symlink_local_arch_files() {
@@ -62,6 +63,7 @@ _symlink_local_arch_files() {
 main() {
   # shellcheck source=./setup_installation_env
   source "${REPO_ROOT}/install/setup_installation_env"
+  # shellcheck disable=SC2119
   do_basic_setup
 
   print_bold 'Creating XDG directories'
