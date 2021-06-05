@@ -904,6 +904,7 @@ let g:go_def_mapping_enabled = 0
 " Don't run anything on save by default, since combined with autosync, this can
 " cause the buffer to change while I'm in the middle of editing.
 let g:go_fmt_autosave = 0
+let g:go_imports_autosave = 0
 let g:go_mod_fmt_autosave = 0
 let g:go_asmfmt_autosave = 0
 let g:go_metalinter_autosave = 0
