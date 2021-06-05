@@ -159,8 +159,6 @@ CXXFLAGS+=" -fstack-protector-strong"
 
 MAKEFLAGS+=" -j$(nproc)"
 
-INTEGRITY_CHECK=(sha256)
-
 # Use as many threads as CPU cores
 COMPRESSXZ+=(--threads=0)
 COMPRESSZST+=(--threads=0)
