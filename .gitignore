@@ -271,7 +271,7 @@
 /.config/git/gitk
 /.config/google-chrome
 /.config/google-chrome-remote
-/.config/google-chrome-unstable/
+/.config/google-chrome-unstable
 /.config/grip/cache
 /.config/gtk-3.0/bookmarks
 /.config/helm
