@@ -171,6 +171,7 @@ inoremap jk <Esc>
 " Delete backwards with Ctrl+Backspace and forward with Ctrl+Delete.
 inoremap <C-BS> <C-W>
 cnoremap <C-BS> <C-W>
+tnoremap <C-BS> <C-W>
 inoremap <C-DEL> <C-O>de
 
 " Navigate folds
