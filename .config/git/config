@@ -50,7 +50,7 @@
 	prompt = false
 # https://nbdime.readthedocs.io/en/latest/vcs.html#git-integration
 [diff "jupyternotebook"]
-	command = git-nbdiffdriver diff
+	command = git-nbdiffdriver diff --ignore-outputs --ignore-metadata --ignore-id --ignore-details
 [merge "jupyternotebook"]
 	driver = git-nbmergedriver merge %O %A %B %L %P
 	name = jupyter notebook merge driver

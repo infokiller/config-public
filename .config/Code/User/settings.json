@@ -123,6 +123,9 @@
     "todohighlight.defaultStyle": {
         "color": "#d33682",
         "backgroundColor": ""
+    },
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
     }
 }
 
