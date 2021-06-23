@@ -73,7 +73,8 @@ readonly _VSCODE_EXTENSIONS=(
   ### Python
   'ms-python.python'
   'ms-python.vscode-pylance'
-  'ms-pyright.pyright'
+  # As of 2021-06-22, VSCode complains that pylance includes pyright.
+  # 'ms-pyright.pyright'
   ### Shell
   'mads-hartmann.bash-ide-vscode'
   'ms-vscode.PowerShell'
