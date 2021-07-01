@@ -39,6 +39,7 @@ configure_mullvad_vpn() {
   #   us5 us6 us7 us9; do
   #   CopyFile "/etc/wireguard/mullvad-${server}.conf" 600
   # done
+  # CreateLink '/etc/systemd/system/multi-user.target.wants/mullvad-daemon.service' '/opt/Mullvad VPN/resources/mullvad-daemon.service'
   CreateLink '/etc/systemd/system/multi-user.target.wants/mullvad-daemon.service' '/usr/lib/systemd/system/mullvad-daemon.service'
 }
 
