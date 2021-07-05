@@ -173,6 +173,7 @@
 /.config/LinuxTV
 /.config/QtProject
 /.config/VirtualBox
+/.config/activitywatch
 /.config/gcloud
 /.config/autostart
 /.config/borg
