@@ -53,6 +53,6 @@ URxvt.url-select.underline: true
 URxvt.matcher.button:       1
 
 ! Fading
-! Disabled because compton already provides dimming/fading.
+! Disabled because picom already provides dimming/fading.
 ! URxvt.fading    : 50
 ! URxvt.fadeColor : #29303a

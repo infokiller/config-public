@@ -52,7 +52,7 @@ xclip
 xsel
 xcape
 conky
-compton
+picom
 # Provides syndaemon
 xserver-xorg-input-synaptics
 # Required by my udev rules that reset the keyboard layout.

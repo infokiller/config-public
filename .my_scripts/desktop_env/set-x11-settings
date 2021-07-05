@@ -9,7 +9,11 @@ readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BA
 # shellcheck source=../../.profile
 source "${REPO_ROOT}/.profile"
 
-print_error() {
+_command_exists() {
+  command -v -- "$1" > /dev/null 2>&1
+}
+
+_print_error() {
   local error normal
   # Red color
   error="$(tput setaf 1 2> /dev/null)" || true
@@ -169,10 +173,13 @@ set_x11_permissions() {
 
 set_background() {
   # Set background color
-  # NOTE: xsetroot doesn't work with compton, so this is not really working. See
-  # also:
-  # https://wiki.archlinux.org/index.php/compton#Unable_to_change_the_background_color_with_xsetroot
-  xsetroot -solid "#555555"
+  # NOTE: xsetroot doesn't work with picom, only hsetroot. See:
+  # https://wiki.archlinux.org/index.php/picom#Unable_to_change_the_background_color_with_xsetroot
+  local cmd='xsetroot'
+  if _command_exists hsetroot; then
+    cmd='hsetroot'
+  fi
+  "${cmd}" -solid '#555555'
 }
 
 # Sets the X11 font paths. According to the Archlinux wiki this is only relevant
@@ -214,7 +221,7 @@ main() {
     export DISPLAY=':0'
   fi
   if ! xset q &> /dev/null; then
-    print_error "No X server at \${DISPLAY} [${DISPLAY-}]"
+    _print_error "No X server at \${DISPLAY} [${DISPLAY-}]"
     exit 1
   fi
   set_keyboard_settings

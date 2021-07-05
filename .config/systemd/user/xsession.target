@@ -33,7 +33,7 @@ Wants=mullvad-vpn-app.service
 # X11 specific things (that probably won't work with XWayland).
 Wants=screenlock-daemon.service
 # Wants=keyboard-connections-handler.service
-Wants=compton.service
+Wants=picom.service
 Wants=unclutter.service
 # NOTE: xcape is only started if keydope is disabled.
 Wants=xcape.service

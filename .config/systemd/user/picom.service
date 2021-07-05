@@ -1,11 +1,11 @@
 [Unit]
-Description=Compton/Picom compositor
+Description=Picom compositor
 # Makes sure that this unit is stopped when the graphical session is terminated.
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
 PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=bash -c 'if command -v picom > /dev/null; then exec picom; else exec compton; fi'
+ExecStart=picom
 Restart=on-failure
 RestartSec=30
