@@ -338,6 +338,7 @@
 /.ssh/sockets
 /.ssh/ssh_auth_sock
 /.streamlit
+/.theano
 /.thumbnails
 /.tig_history
 /.tldr/cache
