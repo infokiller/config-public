@@ -229,7 +229,9 @@ checkout_if_newer() {
     _log_info "${rev_desc} does not have all HEAD commits, leaving HEAD as is"
     return 1
   fi
-  if [[ "$(git rev-parse HEAD)" == "$(git rev-parse "${rev}")" ]]; then
+  # NOTE: The ^{} part is used to dereference annotated tags, see:
+  # https://stackoverflow.com/q/66913267/1014208
+  if [[ "$(git rev-parse HEAD)" == "$(git rev-parse "${rev}^{}")" ]]; then
     _log_info "HEAD already pointing to ${rev_desc}, leaving HEAD as is"
     return 0
   fi
