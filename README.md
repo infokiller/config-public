@@ -126,6 +126,7 @@ with the following additions:
    # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
    set -o errexit -o errtrace -o nounset -o pipefail
 
+   # shellcheck disable=SC2155
    readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
    readonly OTHER_CONST=3
 

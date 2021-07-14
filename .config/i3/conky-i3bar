@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Script to initiate JSON formatted status on i3bar using conky.
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 # NOTE: the full path to conkyrc must be resolved, otherwise the conky command
 # complains when running in firejail.

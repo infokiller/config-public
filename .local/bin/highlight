@@ -4,6 +4,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly LOCAL_HIGHLIGHT_BIN="${REPO_ROOT}/.local/bin/highlight-local-build"
 
@@ -19,6 +20,7 @@ main() {
   if [[ -x "${LOCAL_HIGHLIGHT_BIN}" ]]; then
     exec -- "${LOCAL_HIGHLIGHT_BIN}" "${DEFAULT_ARGS[@]}" "$@"
   fi
+  # shellcheck disable=SC2155
   readonly WRAPPER_PATH="$(readlink -f "$0")"
   mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
   if ((${#cmd[@]} == 0)); then

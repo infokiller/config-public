@@ -4,6 +4,7 @@
 set -o errexit -o errtrace -o nounset -o pipefail
 
 # This script can be called using sudo, so we can't fall back to $HOME.
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
 # shellcheck source=../lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"

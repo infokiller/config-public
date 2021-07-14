@@ -6,6 +6,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 shopt -s lastpipe
 
 # This script can be called using sudo, so we can't fall back to $HOME.
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
 readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly ACONFMGR_SRC="${SUBMODULES_DIR}/optional/aconfmgr/src"

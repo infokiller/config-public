@@ -10,6 +10,7 @@
 #####                          General settings                           #####
 ###############################################################################
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 # shellcheck source=./.profile
@@ -184,6 +185,6 @@ fi
 ###############################################################################
 
 if [[ -f "${SHELL_CONFIG_DIR}/bashrc_local.sh" ]]; then
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1091
   source "${SHELL_CONFIG_DIR}/bashrc_local.sh"
 fi

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 # shellcheck source=virtualbox_installation_util.sh
 source "${REPO_ROOT}/install/virtualbox/virtualbox_installation_util.sh"

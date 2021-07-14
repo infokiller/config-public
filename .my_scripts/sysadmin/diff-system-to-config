@@ -4,6 +4,7 @@
 set -o errexit -o errtrace -o nounset -o pipefail
 
 # This script can be called using sudo, so we can't fall back to $HOME.
+# shellcheck disable=SC2155
 readonly REPO_ROOT="$(config-repo-root "${BASH_SOURCE[0]}")"
 
 # Tries to determine if a file exists without using sudo.
