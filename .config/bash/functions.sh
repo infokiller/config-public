@@ -530,7 +530,7 @@ rgcl-todos() {
   rgc-todos --color=always "$@" | less
 }
 rgc-exp() {
-  rgc '\bEXP:'
+  rgc "$@" '\bEXP:'
 }
 rgcl-exp() {
   rgc-exp --color=always "$@" | less
