@@ -33,9 +33,12 @@
   indentHeuristic = true
 	# Enable special coloring of moved lines.
 	colorMoved = default
-	# EXP: Remove a/ and b/ on filenames in diffs. There is already a +++
-	# and --- in front, so it adds nothing.
-  noprefix = true
+	# NOTE: I disabled this because it creates patches that can't be used with
+	# `git apply`, see:
+	# https://public-inbox.org/git/xmqqefi53gva.fsf@gitster-ct.c.googlers.com/T/
+	# Remove a/ and b/ on filenames in diffs. There is already a +++ and --- in
+	# front, so it adds nothing.
+	# noprefix = true
 [difftool]
 	prompt = false
 [interactive]
