@@ -982,7 +982,7 @@ alias scus='systemctl --user status'
 # I used to enable --pager-end but that implies -n1000 to guarantee that the
 # pager will not buffer logs of unbounded size, which is confusing (since it
 # makes it look like there's not many logs).
-alias jc='journalctl -o short-iso-precise'
+alias jc='journalctl -o short-iso-precise --since=-7d'
 alias jcs='jc --boot=0 --lines=5000'
 alias jcsys='jc --system'
 alias jcu='jc --user'
