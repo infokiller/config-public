@@ -979,9 +979,9 @@ alias scs='systemctl status'
 alias scsys='systemctl --system'
 alias scu='systemctl --user'
 alias scus='systemctl --user status'
-# I disabled --pager-end but that implies -n1000 to guarantee that the pager
-# will not buffer logs of unbounded size, which is confusing (since it makes it
-# look like there's not many logs).
+# I used to enable --pager-end but that implies -n1000 to guarantee that the
+# pager will not buffer logs of unbounded size, which is confusing (since it
+# makes it look like there's not many logs).
 alias jc='journalctl -o short-iso-precise'
 alias jcs='jc --boot=0 --lines=5000'
 alias jcsys='jc --system'
