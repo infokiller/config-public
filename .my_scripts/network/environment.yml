@@ -1,4 +1,4 @@
-name: analyze_ping_log
+name: net-benchmark
 channels:
   - conda-forge
   - defaults
