@@ -4,10 +4,10 @@
 AddPackage chromium          # A web browser built for speed, simplicity, and security
 AddPackage firefox           # Standalone web browser from mozilla.org
 AddPackage rofi              # A window switcher, application launcher and dmenu replacement
-AddPackage termite           # A simple VTE-based terminal
 AddPackage kitty             # A modern, hackable, featureful, OpenGL based terminal emulator
 AddPackage gnome-terminal    # The GNOME Terminal Emulator
 AddPackage rxvt-unicode      # Unicode enabled rxvt-clone terminal emulator (urxvt)
+# AddPackage --foreign termite # A simple VTE-based terminal
 AddPackage pavucontrol       # PulseAudio Volume Control
 AddPackage pqiv              # Powerful image viewer with minimal UI
 AddPackage geeqie            # A lightweight image browser and viewer
