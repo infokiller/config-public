@@ -37,6 +37,7 @@ AddPackage xorg-xwininfo    # Command-line utility to print information about wi
 AddPackage xsel             # XSel is a command-line program for getting and setting the contents of the X selection
 AddPackage xclip            # Command line interface to the X11 clipboard
 AddPackage xdotool          # Command-line X11 automation tool
+AddPackage hsetroot         # Tool which allows you to compose wallpapers ("root pixmaps") for X. Fork by Hyriand
 AddPackage wmctrl           # Control your EWMH compliant window manager from command line
 
 # X11: XKB

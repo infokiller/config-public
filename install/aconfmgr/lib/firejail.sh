@@ -5,8 +5,18 @@ CreateFile '/etc/ld.so.preload' > /dev/null
 id -un >| "$(CreateFile '/etc/firejail/firejail.users')"
 CopyFile '/etc/firejail/disable-common.local'
 
-# AddPackage --foreign firejail-apparmor # Apparmor support for Firejail
-CopyFile '/etc/apparmor.d/local/firejail-default'
+# NOTE: I think apparmor isn't used right now anyway.
+cat >> "$(GetPackageOriginalFile firejail '/etc/apparmor.d/local/firejail-default')" << EOF
+
+#########################################################################
+# Changes by infokiller
+#########################################################################
+# Enable running binaries from home directory
+owner @HOME/** ix,
+# Don't remember why I set this originally in mid 2018, I think it was related
+# to error messages in Chrome that may have been fixed by now.
+# ptrace,
+EOF
 
 _FIREJAILED_BINS=(
   arch-audit
