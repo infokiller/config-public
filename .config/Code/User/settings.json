@@ -42,6 +42,9 @@
     "workbench.statusBar.visible": true,
     "workbench.editor.showTabs": true,
     "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
     // By default, VSCode first opens files in "preview mode", which means that
     // if they're note edited and then another file is opened, it replaces the
     // previous file. I often open multiple files without editing them, so this
@@ -103,6 +106,7 @@
     "jupyter.askForKernelRestart": false,
     "jupyter.alwaysTrustNotebooks": true,
     "jupyter.codeLenses": "jupyter.runcell, jupyter.debugcell",
+    "jupyter.enableNativeInteractiveWindow": true,
     "go.useLanguageServer": true,
     "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim-nightly",
     "fzf-quick-open.findDirectoriesCmd": "fd --type d",
@@ -123,9 +127,6 @@
     "todohighlight.defaultStyle": {
         "color": "#d33682",
         "backgroundColor": ""
-    },
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
     }
 }
 
