@@ -1583,7 +1583,9 @@ maybe-run-tracked +w +a -- \
   source_compiled "${PLUGINS_DIR}/fast-syntax-highlighting/"*.plugin.zsh
 # fast-syntax-higlighting is very slow for hub which causes typing delays, but
 # the git one is fine.
-FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]-}"
+if [[ -n "${FAST_HIGHLIGHT-}" ]]; then
+  FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]-}"
+fi
 # FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]}"
 # Without this comments are not visible with my terminal colors.
 if [[ ! -f "${PLUGINS_DIR}/fast-syntax-highlighting/theme_overlay.zsh" ]]; then
