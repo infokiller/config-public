@@ -398,19 +398,20 @@ alias grep="${_grep_alias}"
 unset _grep_alias
 
 if command_exists rg; then
-  # shellcheck disable=SC2034
-  _BEST_GREP=('rg')
+  _BEST_GREP_CMD=('rg')
 else
-  # shellcheck disable=SC2034
-  _BEST_GREP=(grep -E)
+  _BEST_GREP_CMD=(grep -E)
 fi
+_best_grep() {
+  "${_BEST_GREP_CMD[@]}" "$@"
+}
 
 # Grep for a running process
-# The spaces around ${_BEST_GREP[*]} are intentional: this way Xorg won't match
-# "rg".
-alias pg='ps aux | \grep -v --fixed-strings " ${_BEST_GREP[*]} " | ${_BEST_GREP[*]}'
+# The spaces around ${_BEST_GREP_CMD[*]} are intentional: this way Xorg won't
+# match "rg".
+alias pg='ps aux | \grep -v --fixed-strings " ${_BEST_GREP_CMD[*]} " | _best_grep'
 # Grep for an env variable
-alias eg='env | ${_BEST_GREP[*]}'
+alias eg='env | _best_grep'
 # Grep for a history entry
 # shellcheck disable=SC2139
 alias hg="conda-run shell_history ${REPO_ROOT}/.config/bash/history/shell_history_choose_line.py --max-entries 100000 --initial-query"
@@ -460,7 +461,7 @@ _cd_config_repo() {
 # [1] https://github.com/BurntSushi/ripgrep/discussions/1639
 
 _list_rgc_files() {
-  list-searched-files | "${_BEST_GREP[@]}" -v \
+  list-searched-files | _best_grep -v \
     -e '^submodules' \
     -e '^\.local/bin/(archive|doom|git-icdiff|git-open|hostsctl|icdiff|fasd)' \
     -e '^\.local/bin/(lsarchive|org-capture|org-tangle|revolver|tmux-xpanes)' \
@@ -507,7 +508,7 @@ _list_rgc_files() {
 rgc() {
   (
     _cd_config_repo || return
-    _list_rgc_files | "${_BEST_GREP[@]}" -v \
+    _list_rgc_files | _best_grep -v \
       -e 'root/usr/share/X11/xkb/symbols/extend' \
       -e 'xsendkeys' \
       -e '/.corp/' |
@@ -1411,11 +1412,14 @@ monitor-slow-pings() {
 alias sd=sensible-diff
 
 config-repo-grep-command() {
-  local query
-  query="$(printf '^\s*(\s*|[^#].*[^a-zA-Z0-9_-])%s([^a-zA-Z0-9_-]|$)' \
-    "${1:-git}")"
-  "${REPO_ROOT}/.my_scripts/sysadmin/list-config-repo-shell-scripts" |
-    sensible-xargs "${_BEST_GREP[@]}" "${query}"
+  (
+    _cd_config_repo || return
+    local query
+    query="$(printf '^\s*(\s*|[^#].*[^a-zA-Z0-9_-])%s([^a-zA-Z0-9_-]|$)' \
+      "${1:-git}")"
+    "${REPO_ROOT}/.my_scripts/sysadmin/list-config-repo-shell-scripts" |
+      sensible-xargs "${_BEST_GREP_CMD[@]}" "${query}"
+  ) || return
 }
 
 alias EX='exit'
