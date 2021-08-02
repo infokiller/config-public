@@ -164,7 +164,7 @@ _increase_xdg_conformance() {
     export TMUX_TMPDIR="${TMPDIR}"
     _maybe_create_dir "${TMPDIR}"
   fi
-  export ZDOTDIR="${XDG_CONFIG_HOME}/zsh"
+  export ZDOTDIR="${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}"
   export VIMINIT="source ${XDG_CONFIG_HOME}/vim/vimrc"
   export LESSKEY="${XDG_CACHE_HOME}/lesskey_generated"
   test -f "${LESSKEY}" || lesskey "${XDG_CONFIG_HOME}/lesskey"
