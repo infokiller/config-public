@@ -83,6 +83,7 @@
 /.local/bin/jupytext
 /.local/bin/litecli
 /.local/bin/mamba
+/.local/bin/mansnip
 /.local/bin/nbdiff
 /.local/bin/nbdiff-web
 /.local/bin/nbdime

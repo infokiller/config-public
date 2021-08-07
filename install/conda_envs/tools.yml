@@ -79,3 +79,5 @@ dependencies:
     # Experimental JupyterLab extensions
     - jupyterlab_github
     - jupyterlab-git
+    # https://github.com/kristopolous/mansnip
+    - mansnip-kristopolous

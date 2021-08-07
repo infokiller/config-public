@@ -1435,6 +1435,8 @@ nohup() {
 man() {
   nvim -c ":vert Man $* | silent bd 1"
 }
+# https://github.com/kristopolous/mansnip
+alias ms='mansnip'
 
 detect-secrets-update-and-audit() {
   local baseline_file="${REPO_ROOT}/.config/detect-secrets/baseline.json"
