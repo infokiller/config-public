@@ -156,6 +156,17 @@
     "command": "jumpToNextSnippetPlaceholder",
     "when": "editorTextFocus && hasNextTabstop && inSnippetMode"
   },
+  // Jupyter interactive window
+  {
+    "key": "ctrl+j",
+    "command": "interactive.execute",
+    "when": "resourceScheme == 'vscode-interactive'"
+  },
+  {
+    "key": "meta+enter",
+    "command": "-interactive.execute",
+    "when": "resourceScheme == 'vscode-interactive'"
+  }
   // Disable unused vscode-neovim keys.
   {
     "key": "ctrl+[",
