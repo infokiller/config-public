@@ -1712,6 +1712,7 @@ maybe-run-tracked-emulate +b -- source_compiled \
 # sourcing.
 maybe-run-tracked-emulate -- source \
   "${PLUGINS_DIR}/alias-tips/"*.plugin.zsh
+# maybe-run-tracked-emulate -- source_compiled "${PLUGINS_DIR}/zpy/"*.plugin.zsh
 # +a means not to print warnings when defining aliases.
 maybe-run-tracked-emulate +a -- source_compiled \
   "${SHELL_CONFIG_DIR}/functions.sh"
