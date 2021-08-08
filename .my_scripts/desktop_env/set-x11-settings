@@ -38,7 +38,6 @@ set_keyboard_settings() {
   # # * Both shifts enable old caps lock, once shift cancels it.
   # setxkbmap -option \
   #   'shift:both_capslock_cancel,misc:extend,lv5:caps_switch_lock,grp:shifts_toggle,terminate:ctrl_alt_bksp'
-
 }
 
 set_mouse_settings() {

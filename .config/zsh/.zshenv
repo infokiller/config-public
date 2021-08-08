@@ -3,7 +3,7 @@
 # Set ZSHENV_DIR to the directory of this file after resolving symlinks, which
 # should normally point at "${XDG_CONFIG_HOME}/zsh"
 ZSHENV_DIR="${${${(%):-%x}:P}:h}"
-export ZDOTDIR="${ZDOTDIR:-ZSHENV_DIR}"
+export ZDOTDIR="${ZDOTDIR:-${ZSHENV_DIR}}"
 
 # In zeus18 this increases the shell startup time by about 3-4 ms.
 emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'

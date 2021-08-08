@@ -1577,13 +1577,21 @@ ZSH_HIGHLIGHT_MAXLENGTH=1024
 # As of 2020-05-19, I switched back to fast-syntax-highlighting because
 # zsh-syntax-highlighting doesn't recognize the "pg" alias correctly, and I
 # found a workaround for the hub issue.
-# maybe-run-tracked +w +a -- \
-#   source_compiled "${PLUGINS_DIR}/zsh-syntax-highlighting/"*.plugin.zsh
+# As of 2021-08-02, I switch back to zsh-syntax-highlighting because: 
+# - I found a workaround to the "pg" alias issue 
+# - zsh4humans uses it
+# - It seems better maintained when looking at recent history
+# - fast-syntax-highlighting messes up the input typing is messed up after the
+#   following command: "git --format='%(a=)'"
 maybe-run-tracked +w +a -- \
-  source_compiled "${PLUGINS_DIR}/fast-syntax-highlighting/"*.plugin.zsh
+  source_compiled "${PLUGINS_DIR}/zsh-syntax-highlighting/"*.plugin.zsh
+# maybe-run-tracked +w +a -- \
+#   source_compiled "${PLUGINS_DIR}/fast-syntax-highlighting/"*.plugin.zsh
 # fast-syntax-higlighting is very slow for hub which causes typing delays, but
 # the git one is fine.
-FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]-}"
+if [[ -n "${FAST_HIGHLIGHT-}" ]]; then
+  FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]-}"
+fi
 # FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]}"
 # Without this comments are not visible with my terminal colors.
 if [[ ! -f "${PLUGINS_DIR}/fast-syntax-highlighting/theme_overlay.zsh" ]]; then
@@ -1704,6 +1712,7 @@ maybe-run-tracked-emulate +b -- source_compiled \
 # sourcing.
 maybe-run-tracked-emulate -- source \
   "${PLUGINS_DIR}/alias-tips/"*.plugin.zsh
+# maybe-run-tracked-emulate -- source_compiled "${PLUGINS_DIR}/zpy/"*.plugin.zsh
 # +a means not to print warnings when defining aliases.
 maybe-run-tracked-emulate +a -- source_compiled \
   "${SHELL_CONFIG_DIR}/functions.sh"

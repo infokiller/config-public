@@ -41,6 +41,7 @@ declare -A INSTALLED_BINARIES=(
   ['jupytext']=''
   ['litecli']=''
   ['mamba']=''
+  ['mansnip']=''
   ['nbdiff']=''
   ['nbdiff-web']=''
   ['nbdime']=''

@@ -1091,7 +1091,7 @@ Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 let g:jsx_ext_required = 1
 let g:no_csv_maps = 1
 " Syntax, indentation, and other basic language support for many languages.
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['go', 'jsonc']
 
 Plug 'jamessan/vim-gnupg'
