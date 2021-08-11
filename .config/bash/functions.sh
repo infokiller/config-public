@@ -243,7 +243,7 @@ alias fe='ranger'
 open-fasd-fzf() {
   if (($# == 1)) && [[ -f $1 ]]; then
     sensible-open "$@"
-    return 0
+    return
   fi
   local file
   if file="$(fasd -fl | fzf_select_file "${FZF_SHELL_OPTS[@]}" \
@@ -344,6 +344,7 @@ editor-fzf() {
 less-fasd-fzf() {
   if [[ ($# -eq 1 && -f $1) || $# -gt 1 ]]; then
     less -- "$@"
+    return
   fi
   local file
   # Zsh doesn't support mapfile.

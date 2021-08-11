@@ -7,3 +7,5 @@
 # NOTE: As of 2020-02-13, I collected some of the required vim settings in
 # firenvim.inc.
 quiet
+# This seems required to be able to read /var/log/pacman.log
+writable-var-log
