@@ -40,9 +40,10 @@ if ! is_wsl; then
   fi
 fi
 
-AddPackage base           # Minimal package set to define a basic Arch Linux installation
-AddPackage linux          # The Linux kernel and modules
-AddPackage linux-firmware # Firmware files for Linux
+AddPackage base                # Minimal package set to define a basic Arch Linux installation
+AddPackage linux               # The Linux kernel and modules
+AddPackage linux-firmware      # Firmware files for Linux
+AddPackage kernel-modules-hook # Keeps your system fully functional after a kernel upgrade
 IgnorePath '/usr/lib/modules/*'
 
 AddPackage coreutils  # The basic file, shell and text manipulation utilities of the GNU operating system
