@@ -157,16 +157,14 @@ source_compiled() {
   ZERO="${filepath}" builtin source -- "${symlink}" "${(q)args[@]}"
 }
 
+# See note in .zshenv about sourcing .profile.
+emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
 source "${REPO_ROOT}/.my_scripts/lib/base.sh"
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
 
 ################################################################################
 #                               General settings                               #
 ################################################################################
-# NOTE: I already set the umask in .profile which is read by .zshenv, but it
-# seems to be reset once zshrc is parsed.
-umask 077
-
 # Print hex/oct numbers as 0xFF/077 instead of 16#FF/8#77.
 setopt C_BASES
 

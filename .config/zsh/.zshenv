@@ -5,8 +5,12 @@
 ZSHENV_DIR="${${${(%):-%x}:P}:h}"
 export ZDOTDIR="${ZDOTDIR:-${ZSHENV_DIR}}"
 
-# In zeus18 this increases the shell startup time by about 3-4 ms.
-emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
+# As of 2021-08-28, this increases the shell startup time in zeus18 by 20 ms.
+# NOTE: Since some environment variables that are set in .profile are being
+# overridden in /etc/profile (which is sourced after it but before .zshrc), I'm
+# now sourcing .profile in .zshrc. This also has the added benefit of reducing
+# time before first prompt because it's only done after p10k instant prompt.
+# emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
 
 # Skip global config files in /etc since they're probably not useful for me, and
 # will increase the startup latency of interactive shells.
