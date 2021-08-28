@@ -142,6 +142,6 @@ get_optional_submodules_pathspec() {
 }
 
 if [ -r "${REPO_ROOT}/.my_scripts/lib/platform_detection_private.sh" ]; then
-  # shellcheck disable=SC1090
+  # shellcheck disable=SC1091
   source "${REPO_ROOT}/.my_scripts/lib/platform_detection_private.sh"
 fi
