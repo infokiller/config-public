@@ -14,6 +14,8 @@ emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
 # difference in shell startup latency, and looking at /etc/profile and
 # /etc/profile.d it seems they may be useful: on my arch system it has VTE
 # terminal fixes and PATH settings for flatpak and perl.
+# As of 2021-08-11, I ran into an issue where settings from ~/.profile are
+# being reset by files in /etc/profile.d because they run after ~/.zshenv.
 # setopt NO_GLOBAL_RCS
 
 # Disable Ubuntu's global compinit call in /etc/zsh/zshrc, which slows down

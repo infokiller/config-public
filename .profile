@@ -295,7 +295,7 @@ _export_profile_env() {
   export NNN_TRASH=1
   # See https://phoenhex.re/2018-03-25/not-a-vagrant-bug
   export VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
-  if nproc="$(nproc)" > /dev/null 2>&1; then
+  if test -z "${MAKEFLAGS-}" && nproc="$(nproc)" > /dev/null 2>&1; then
     # Use all available cores by default when running make.
     export MAKEFLAGS="-j${nproc}"
   fi
