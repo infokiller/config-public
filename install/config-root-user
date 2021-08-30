@@ -55,6 +55,11 @@ main() {
     _maybe_link_file ".config/${file}"
   done < <(find "${HOME}/.config" -mindepth 1 -maxdepth 1 -not -name systemd \
     -exec basename '{}' \;)
+  # When executing `sudo vim` the WAKATIME_HOME variable is not available,
+  # so we symlink the default path.
+  if [[ -n "${WAKATIME_HOME-}" ]]; then
+    sudo ln -sf -- "${WAKATIME_HOME}/.wakatime.cfg" /root/.wakatime.cfg
+  fi
 }
 
 main "$@"
