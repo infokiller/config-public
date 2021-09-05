@@ -84,7 +84,9 @@
     //     "dgx3": "linux"
     // },
     // "remote.SSH.useLocalServer": false,
-
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim-nightly",
+    "fzf-quick-open.findDirectoriesCmd": "fd --type d",
+    "fzf-quick-open.ripgrepSearchStyle": "Smart case",
     // As of 2020-10-14, git.autofetch is disabled because it can randomly
     // trigger pinentry.
     // "git.autofetch": true,
@@ -108,9 +110,10 @@
     "jupyter.codeLenses": "jupyter.runcell, jupyter.debugcell",
     "jupyter.enableNativeInteractiveWindow": true,
     "go.useLanguageServer": true,
-    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim-nightly",
-    "fzf-quick-open.findDirectoriesCmd": "fd --type d",
-    "fzf-quick-open.ripgrepSearchStyle": "Smart case",
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "eslint.format.enable": true,
     // https://github.com/yzhang-gh/vscode-markdown#math
     "markdown.extension.math.enabled": false,
     "markdown-preview-enhanced.previewTheme": "github-dark.css",
