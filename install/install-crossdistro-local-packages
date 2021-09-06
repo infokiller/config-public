@@ -102,6 +102,7 @@ readonly _VSCODE_EXTENSIONS=(
   ### Web
   'dbaeumer.vscode-eslint'
   'esbenp.prettier-vscode'
+  'stylelint.vscode-stylelint'
   # No support for extensions.
   # 'msjsdiag.debugger-for-chrome'
   ### Themes
