@@ -1,149 +1,45 @@
 /* Generated on 2021-09-06 using `rofi -dump-config` and manual editing */
 configuration {
 	modi: "window,run,drun";
+	/* font: "MyMono 30"; */
 	/* font: env(ROFI_FONT, MyMono); */
 	/* location: env(ROFI_FONT, 0); */
 	/* location: 0; */
-/*	yoffset: 0;*/
-/*	xoffset: 0;*/
 	fixed-num-lines: true;
 	show-icons: true;
-/*	terminal: "rofi-sensible-terminal";*/
-/*	ssh-client: "ssh";*/
-	ssh-command: "sensible-terminal -- {ssh-client} {host}";
-/*	run-command: "{cmd}";*/
-/*	run-list-command: "";*/
 	run-shell-command: "sensible-terminal -- bash -c '{cmd}'";
-/*	window-command: "wmctrl -i -R {window}";*/
-/*	window-match-fields: "all";*/
-/*	icon-theme: ;*/
-/*	drun-match-fields: "name,generic,exec,categories,keywords";*/
-/*	drun-categories: ;*/
-/*	drun-show-actions: false;*/
-/*	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";*/
-/*	drun-url-launcher: "xdg-open";*/
-/*	disable-history: false;*/
-/*	ignored-prefixes: "";*/
-/*	sort: false;*/
-/* levenshtein (default) or fzf. */
-	sorting-method: "fzf";
-/*	case-sensitive: false;*/
-/*	cycle: true;*/
-/*	sidebar-mode: false;*/
-/*	hover-select: false;*/
-/*	eh: 1;*/
-/*	auto-select: false;*/
-/*	parse-hosts: false;*/
-/*	parse-known-hosts: true;*/
-/*	combi-modi: "window,run";*/
-/* normal, regex, glob, or fuzzy. */
-	matching: "fuzzy";
-/*	tokenize: true;*/
-/* Monitor to show rofi on. -1 means the currently focused monitor. */
-	m: "-1";
-/*	filter: ;*/
-/*	dpi: -1;*/
-/*	threads: 0;*/
-/*	scroll-method: 0;*/
+	ssh-command: "sensible-terminal -- {ssh-client} {host}";
+	/* NOTE: Setting window-format is done to fix an alignment issue with
+	 * scratchpad windows. "\011" is the ascii octal code for tab and "\040"
+	 * is the ascii octal code for space [1] which are recognized by
+	 * XrmGetFileDatabase [2], which is used for parsing this file. 
+	 * [1] https://www.sciencebuddies.org/science-fair-projects/references/ascii-table
+	 * [2] https://jlk.fjfi.cvut.cz/arch/manpages/man/XrmGetDatabase.3#FILE_SYNTAX
+	 * */
 	window-format: "{w}\011{c}\040\040\040{t}";
-/*	click-to-exit: true;*/
-/*	theme: ;*/
-/*	max-history-size: 25;*/
-/*	combi-hide-mode-prefix: false;*/
-/*	matching-negate-char: '-' /* unsupported */;*/
-/*	cache-dir: ;*/
-/*	window-thumbnail: false;*/
-/*	drun-use-desktop-cache: false;*/
-/*	drun-reload-desktop-cache: false;*/
-/*	normalize-match: false;*/
-/*	steal-focus: false;*/
-/*	application-fallback-icon: ;*/
-/*	pid: "/run/user/1000/rofi.pid";*/
-/*	display-window: ;*/
-/*	display-windowcd: ;*/
-/*	display-run: ;*/
-/*	display-ssh: ;*/
-/*	display-drun: ;*/
-/*	display-combi: ;*/
-/*	display-keys: ;*/
-/*	display-filebrowser: ;*/
-/*	kb-primary-paste: "Control+V,Shift+Insert";*/
-/*	kb-secondary-paste: "Control+v,Insert";*/
-/*	kb-clear-line: "Control+w";*/
-/*	kb-move-front: "Control+a";*/
-/*	kb-move-end: "Control+e";*/
-/*	kb-move-word-back: "Alt+b,Control+Left";*/
-/*	kb-move-word-forward: "Alt+f,Control+Right";*/
-/*	kb-move-char-back: "Left,Control+b";*/
-/*	kb-move-char-forward: "Right,Control+f";*/
-/*	kb-remove-word-back: "Control+Alt+h,Control+BackSpace";*/
+	case-sensitive: false;
+	/* Do not sort matches by default, because it has surprising behavior.
+	 * For example, when using `printf 'a 1 3\na 2' | rofi -dmenu -sort` and
+	 * then typing "a", the second line is ordered first, presumably because
+	 * it is shorter, even though both contain only a single instance of "a".
+	 * This is especially annoying when the output is sorted in a certain
+	 * way. For example, when using i3-focus-on-workspace (from
+	 * i3-workspace-groups) and typing the group name, the workspaces in that
+	 * group are re-ordered. */
+	sort: false;
+	/* levenshtein (default) or fzf. */
+	sorting-method: "fzf";
+	/* normal, regex, glob, or fuzzy. */
+	matching: "fuzzy";
+	/* Monitor to show rofi on. -1 means the currently focused monitor. */
+	m: "-1";
+	theme: "~/.config/rofi/theme.rasi";
 	kb-remove-word-forward: "Control+Delete";
-/*	kb-remove-char-forward: "Delete,Control+d";*/
-/*	kb-remove-char-back: "BackSpace,Shift+BackSpace,Control+h";*/
-/*	kb-remove-to-eol: "Control+k";*/
-/*	kb-remove-to-sol: "Control+u";*/
-/*	kb-accept-entry: "Control+j,Control+m,Return,KP_Enter";*/
-/*	kb-accept-custom: "Control+Return";*/
-/*	kb-accept-custom-alt: "Control+Shift+Return";*/
-/*	kb-accept-alt: "Shift+Return";*/
-/*	kb-delete-entry: "Shift+Delete";*/
-/*	kb-mode-next: "Shift+Right,Control+Tab";*/
-/*	kb-mode-previous: "Shift+Left,Control+ISO_Left_Tab";*/
-/*	kb-mode-complete: "Control+l";*/
-/*	kb-row-left: "Control+Page_Up";*/
-/*	kb-row-right: "Control+Page_Down";*/
-/*	kb-row-up: "Up,Control+p,ISO_Left_Tab";*/
-/*	kb-row-down: "Down,Control+n";*/
-/* Disable the default keybinding for Tab (Go to next row, if one left,
- * accept it, if no left next mode), so that it is available for multiple
- * selections. */
+	/* Disable the default keybinding for Tab (Go to next row, if one left,
+	 * accept it, if no left next mode), so that it is available for multiple
+	 * selections. */
 	kb-row-tab: "";
-/*	kb-page-prev: "Page_Up";*/
-/*	kb-page-next: "Page_Down";*/
-/*	kb-row-first: "Home,KP_Home";*/
-/*	kb-row-last: "End,KP_End";*/
-/*	kb-row-select: "Control+space";*/
-/*	kb-screenshot: "Alt+S";*/
-/*	kb-ellipsize: "Alt+period";*/
-/*	kb-toggle-case-sensitivity: "grave,dead_grave";*/
 	kb-toggle-sort: "Super+d";
-/*	kb-cancel: "Escape,Control+g,Control+bracketleft";*/
-/*	kb-custom-1: "Alt+1";*/
-/*	kb-custom-2: "Alt+2";*/
-/*	kb-custom-3: "Alt+3";*/
-/*	kb-custom-4: "Alt+4";*/
-/*	kb-custom-5: "Alt+5";*/
-/*	kb-custom-6: "Alt+6";*/
-/*	kb-custom-7: "Alt+7";*/
-/*	kb-custom-8: "Alt+8";*/
-/*	kb-custom-9: "Alt+9";*/
-/*	kb-custom-10: "Alt+0";*/
-/*	kb-custom-11: "Alt+exclam";*/
-/*	kb-custom-12: "Alt+at";*/
-/*	kb-custom-13: "Alt+numbersign";*/
-/*	kb-custom-14: "Alt+dollar";*/
-/*	kb-custom-15: "Alt+percent";*/
-/*	kb-custom-16: "Alt+dead_circumflex";*/
-/*	kb-custom-17: "Alt+ampersand";*/
-/*	kb-custom-18: "Alt+asterisk";*/
-/*	kb-custom-19: "Alt+parenleft";*/
-/*	kb-select-1: "Super+1";*/
-/*	kb-select-2: "Super+2";*/
-/*	kb-select-3: "Super+3";*/
-/*	kb-select-4: "Super+4";*/
-/*	kb-select-5: "Super+5";*/
-/*	kb-select-6: "Super+6";*/
-/*	kb-select-7: "Super+7";*/
-/*	kb-select-8: "Super+8";*/
-/*	kb-select-9: "Super+9";*/
-/*	kb-select-10: "Super+0";*/
-/*	ml-row-left: "ScrollLeft";*/
-/*	ml-row-right: "ScrollRight";*/
-/*	ml-row-up: "ScrollUp";*/
-/*	ml-row-down: "ScrollDown";*/
-/*	me-select-entry: "MousePrimary";*/
-/*	me-accept-entry: "MouseDPrimary";*/
-/*	me-accept-custom: "Control+MouseDPrimary";*/
   timeout {
       action: "kb-cancel";
       delay:  0;

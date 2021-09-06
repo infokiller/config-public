@@ -127,7 +127,8 @@ set_screenlock_settings() {
   fi
 }
 
-# NOTE: This must stay in sync with the `set_gdk_settings` function in xsession.
+# NOTE: This must stay in sync with the `set_gdk_settings` function in
+# xsession and ~/.local/bin/rofi.
 set_dpi_and_xresources() {
   local dpi=96
   local rofi_font_size=16

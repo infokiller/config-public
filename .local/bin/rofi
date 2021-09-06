@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
-# Workaround for https://github.com/davatorium/rofi/issues/784
+# Workaround for:
+# - https://github.com/davatorium/rofi/issues/784
+# - Setting different font size based on host. Rofi config is supposed to
+#   support environment variables but it causes a syntax error for me in 1.7
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
@@ -13,7 +16,13 @@ main() {
     echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
     exit 1
   fi
-  exec -- "${cmd[@]}" -i "$@"
+  local rofi_font_size=16
+  case "${HOST_ALIAS-}" in
+    hera17)
+      rofi_font_size=30
+      ;;
+  esac
+  exec -- "${cmd[@]}" -i -theme-str '* { font: "MyMono '${rofi_font_size}'";  }' "$@"
 }
 
 main "$@"
