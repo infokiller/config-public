@@ -38,6 +38,7 @@ readonly -A _GOLANG_PACKAGES=(
   ['github.com/zricethezav/gitleaks']='gitleaks'
   ['mvdan.cc/sh/cmd/shfmt']='shfmt'
   ['golang.org/x/lint/golint']='golint'
+  ['github.com/nektos/act']='act'
   # ['github.com/errata-ai/vale']='vale'
 )
 # shellcheck disable=SC2034
@@ -199,7 +200,7 @@ _go_use_version_suffix() {
   #
   # [1] useful for installing executables without affecting the dependencies of the main module
   local version minor
-  version="$(go version | grep -E -o 'go[0-9]+\.[0-9]+\.[0-9]+')"
+  version="$(go version | grep -E -o 'go[0-9]+\.[0-9]+(\.[0-9]+)?')"
   minor="$(echo "${version}" | cut -d . -f 2)"
   if ((minor >= 16)); then
     return 0
