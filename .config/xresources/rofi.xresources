@@ -1,5 +1,5 @@
 ! Enabled modi
-rofi.modi:                        window,run
+rofi.modi:                        window,run,drun
 rofi.width:                       50
 rofi.lines:                       15
 rofi.columns:                     1
