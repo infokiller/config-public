@@ -315,8 +315,11 @@ _profile_main() {
   # recommendations: https://cisofy.com/lynis/controls/AUTH-9328/
   umask 077
 
-  # NOTE: We intentionally only set these variables if they're not already set so
-  # that if they are readonly there won't be an error.
+  # NOTE: We intentionally only set these variables if they're not already set
+  # so that if they are readonly there won't be an error.
+  # NOTE: When using `su` without --login, most of the environment is preserved,
+  # which means the root user will inherit the XDG variables from the user
+  # environment.
   : "${XDG_CONFIG_HOME:=${HOME}/.config}"
   : "${XDG_DATA_HOME:=${HOME}/.local/share}"
   : "${XDG_CACHE_HOME:=${HOME}/.cache}"
