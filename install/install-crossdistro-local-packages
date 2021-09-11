@@ -437,13 +437,14 @@ _install_vscode_extensions() {
     # The `--force` argument updates the extension if there is a newer version.
     code --install-extension "${extension}" --force
   done
-  print_bold 'Installating neovim nightly for vscode-neovim'
-  # vscode-neovim requires neovim nightly
-  # https://github.com/asvetliakov/vscode-neovim#installation
-  cd "${INSTALLATION_TMP_DIR}"
-  download_file 'https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage'
-  mv -f 'nvim.appimage' "${USER_BIN_DIR}/nvim-nightly"
-  chmod +x "${USER_BIN_DIR}/nvim-nightly"
+  # Update 2021-09-11: neovim v0.5.0 was released so this is not needed.
+  # print_bold 'Installating neovim nightly for vscode-neovim'
+  # # vscode-neovim requires neovim nightly
+  # # https://github.com/asvetliakov/vscode-neovim#installation
+  # cd "${INSTALLATION_TMP_DIR}"
+  # download_file 'https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage'
+  # mv -f 'nvim.appimage' "${USER_BIN_DIR}/nvim-nightly"
+  # chmod +x "${USER_BIN_DIR}/nvim-nightly"
 }
 
 _install_doom_emacs() {

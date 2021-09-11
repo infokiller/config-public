@@ -48,11 +48,12 @@ if is_primary_dev_machine; then
   # proprietary version is used.
   # AddPackage code                        # The Open Source build of Visual Studio Code (vscode) editor
   AddPackage --foreign visual-studio-code-bin # Visual Studio Code (vscode)
-  # vscode-neovim requires neovim nightly, which is downloaded to my home
+  # vscode-neovim requires neovim v0.5.0, which is downloaded to my home
   # directory. However, since VSCode doesn't support using environment variables
   # in ~/.config/Code/User/settings.json, I'm setting the neovim path to
-  # /usr/local/bin/nvim-nightly and creating a symlink here.
-  CreateLink '/usr/local/bin/nvim-nightly' "${USER_BIN_DIR}/nvim-nightly"
+  # /usr/local/bin/nvim-vscode and creating a symlink here.
+  # Update 2021-09-11: neovim v0.5.0 was released so this is not needed.
+  # CreateLink '/usr/local/bin/nvim-vscode' "${USER_BIN_DIR}/nvim-vscode"
   # This is required for the desktop entry of vscode to work inconsistently
   # (must have suid set for the chrome sandbox).
   SetFileProperty '/opt/visual-studio-code/chrome-sandbox' mode 4755
