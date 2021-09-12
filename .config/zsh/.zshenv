@@ -5,12 +5,24 @@
 ZSHENV_DIR="${${${(%):-%x}:P}:h}"
 export ZDOTDIR="${ZDOTDIR:-${ZSHENV_DIR}}"
 
+_is_ssh() {
+  [[ -n ${SSH_CLIENT-} || -n ${SSH_TTY-} || -n ${SSH_CONNECTION-} ]]
+}
+
 # As of 2021-08-28, this increases the shell startup time in zeus18 by 20 ms.
-# NOTE: Since some environment variables that are set in .profile are being
-# overridden in /etc/profile (which is sourced after it but before .zshrc), I'm
-# now sourcing .profile in .zshrc. This also has the added benefit of reducing
-# time before first prompt because it's only done after p10k instant prompt.
-# emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
+# NOTE: As of 2021-09-12, on Archlinux (but not Ubuntu), /etc/zsh/zprofile
+# sources /etc/profile. Since /etc/zsh/zprofile is sourced after .zshenv (but
+# before .zshrc), it can override environment variables sourced from this file.
+# To fix this, I'm now sourcing .profile in .zshrc. This also has the added
+# benefit of reducing time before first prompt because it's only done after p10k
+# instant prompt.
+# NOTE: When using `ssh <host> <command>` it seems that .zshenv is read when zsh
+# is configured as the shell for the user. In this case, .profile won't be
+# sourced from .zlogin, so we source it here.
+if _is_ssh && [[ ! -o INTERACTIVE ]]; then
+  _IKL_PROFILE_LOADED=1
+  emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
+fi
 
 # Skip global config files in /etc since they're probably not useful for me, and
 # will increase the startup latency of interactive shells.
