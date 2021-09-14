@@ -31,11 +31,11 @@ _log_error() {
 }
 
 get_commit_timestamp() {
-  git log -1 --pretty="format:%ct" "$@"
+  git log -1 --pretty='format:%ct' "$@"
 }
 
 get_commit_datetime() {
-  git log -1 --pretty="format:%ci" "$@"
+  git log -1 --pretty='format:%ci' "$@"
 }
 
 get_github_repo_name() {
