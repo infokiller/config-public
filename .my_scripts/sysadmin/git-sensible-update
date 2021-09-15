@@ -304,6 +304,8 @@ sensible_update() {
   _log_info "${branch} datetime: $(get_commit_datetime "${branch}")"
   local current_timestamp
   current_timestamp="$(date +"%s")"
+  # TODO: Configurable time per repo before printing a warning that the branch
+  # has not been updated.
   if ((current_timestamp - branch_timestamp >= 2 * 365 * 24 * 60 * 60)); then
     _log_info_bold "${branch} not updated in the last two years"
   fi
