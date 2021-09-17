@@ -145,6 +145,7 @@ readonly -A _TASK_TO_CMD=(
   ['firenvim']='_install_firenvim'
   ['firefox-settings']='_install_firefox_settings'
   ['activitywatch']='_install_activitywatch_from_release'
+  ['activitywatch-src']='_install_activitywatch_from_src'
   ['xkblayout-state']='(
     cd "${SUBMODULES_DIR}/desktop/xkblayout-state"
     make
