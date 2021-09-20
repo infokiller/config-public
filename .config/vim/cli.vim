@@ -63,14 +63,28 @@ nnoremap g* <Cmd>let @/ = printf('\V%s', escape(expand('<cword>'), '/\'))
 nnoremap g# <Cmd>let @/ = printf('\V%s', escape(expand('<cword>'), '/\')) 
     \ \| call histadd('/', @/) \| let v:searchforward = 0 \| set hls<CR>
 
-Plug 'thinca/vim-visualstar'
-" Make visual star plugin behave the same as my normal search settings: don't
-" jump to the next match.
-let g:visualstar_no_default_key_mappings = 1
-xmap * <Plug>(visualstar-*)N
-xmap g* <Plug>(visualstar-g*)N
-xmap # <Plug>(visualstar-#)N
-xmap g# <Plug>(visualstar-g#)N
+" - Save the selection to the unnamed register ""
+" - Set the last search pattern register to the unnamed register which requires
+"   escaping forward and back slashes and single quotes
+" TODO: this moves the cursor and cancels the selection, fix this.
+xnoremap <silent> <expr> * Concat(
+    \ '""y:let @/ = ''\V',
+    \ "\<C-R>", '=substitute(escape(@", "/\\"), "''", "''''", "g")', "\<CR>' 
+    \ \| set hls\<CR>")
+xnoremap <silent> <expr> # Concat(
+    \ '""y:let @/ = ''\V',
+    \ "\<C-R>", '=substitute(escape(@", "/\\"), "''", "''''", "g")', "\<CR>' 
+    \ \| let v:searchforward = 0 \| set hls\<CR>")
+
+" As of 2021-09-20, vim-visualstar is not used because it scrolls the buffer.
+" Plug 'thinca/vim-visualstar'
+" " Make visual star plugin behave the same as my normal search settings: don't
+" " jump to the next match.
+" let g:visualstar_no_default_key_mappings = 1
+" xmap * <Plug>(visualstar-*)N
+" xmap g* <Plug>(visualstar-g*)N
+" xmap # <Plug>(visualstar-#)N
+" xmap g# <Plug>(visualstar-g#)N
 
 Plug 'rhysd/devdocs.vim'
 nnoremap <Leader>sd :<C-U>DevDocs<Space>
