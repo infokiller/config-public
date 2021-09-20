@@ -66,7 +66,6 @@ nnoremap g# <Cmd>let @/ = printf('\V%s', escape(expand('<cword>'), '/\'))
 " - Save the selection to the unnamed register ""
 " - Set the last search pattern register to the unnamed register which requires
 "   escaping forward and back slashes and single quotes
-" TODO: this moves the cursor and cancels the selection, fix this.
 xnoremap <silent> <expr> * Concat(
     \ '""y:let @/ = ''\V',
     \ "\<C-R>", '=substitute(escape(@", "/\\"), "''", "''''", "g")', "\<CR>' 
