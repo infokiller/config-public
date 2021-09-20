@@ -98,8 +98,10 @@ endif
 " native commands.
 
 " Search and replace current word in current buffer.
-nnoremap <expr> <Leader>rr printf(":\<C-U>" . '%%s/\V\<%s\>/%s/%s', 
-    \ escape(expand('<cword>'), '/\'), expand('<cword>'), 
+nnoremap <expr> <Leader>rr printf(
+    \ ":\<C-U>normal *<CR>:\<C-U>" . '%%s/\V\<%s\>/%s/%s', 
+    \ escape(expand('<cword>'), '/\'), 
+    \ expand('<cword>'), 
     \ g:VSCODE_MODE ? '' : "\<Left>")
 " Search and replace current selection in current buffer.
 " Use "very nomagic" search mode because it's easiest to escape - only requires
