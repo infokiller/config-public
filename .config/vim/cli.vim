@@ -99,7 +99,7 @@ endif
 
 " Search and replace current word in current buffer.
 nnoremap <expr> <Leader>rr printf(
-    \ ":\<C-U>normal *<CR>:\<C-U>" . '%%s/\V\<%s\>/%s/%s', 
+    \ ":\<C-U>normal *<CR>:\<C-U>redraw<CR>:\<C-U>" . '%%s/\V\<%s\>/%s/%s', 
     \ escape(expand('<cword>'), '/\'), 
     \ expand('<cword>'), 
     \ g:VSCODE_MODE ? '' : "\<Left>")
