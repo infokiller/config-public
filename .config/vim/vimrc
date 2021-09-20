@@ -87,7 +87,13 @@ endfunction
 let $XDG_DATA_HOME = get(environ(), 'XDG_DATA_HOME', 
       \ Concat($HOME, '/.local/share'))
 let g:VIM_DATA_DIR = Concat($XDG_DATA_HOME,  '/vim')
-for s:subdir in ['swap', 'backup', 'undo', 'session']
+" https://github.com/neovim/neovim/pull/13973#issuecomment-818513560
+if has('nvim-0.5')
+  let s:undodir_name = 'undo2'
+else
+  let s:undodir_name = 'undo'
+endif
+for s:subdir in ['swap', 'backup', s:undodir_name, 'session']
   let s:dir = Concat(g:VIM_DATA_DIR, '/', s:subdir)
   call mkdir(s:dir, 'p', 0700)
 endfor
@@ -100,8 +106,8 @@ call mkdir(Concat(g:VIM_CACHE_DIR, '/tags'), 'p', 0700)
 " The double slash at the end is intentional and makes vim use the full path of
 " the file in the swap file name.
 let &directory = Concat(g:VIM_DATA_DIR, '/swap//, /var/tmp//, /tmp//')
-let &backupdir = Concat(g:VIM_DATA_DIR, '/backup/, /var/tmp/, /tmp/')
-let &undodir   = Concat(g:VIM_DATA_DIR, '/undo/, /var/tmp/, /tmp/')
+let &backupdir = Concat(g:VIM_DATA_DIR, '/backup//, /var/tmp//, /tmp//')
+let &undodir   = Concat(g:VIM_DATA_DIR, printf('/%s//', s:undodir_name), ', /var/tmp//, /tmp//')
 
 set runtimepath-=~/.vim
 let &runtimepath = Concat(g:VIM_CONFIG_DIR, ',', &runtimepath)
