@@ -149,6 +149,7 @@
 # Platform specific files generated/installed by install scripts.
 /.local/bin/tmux
 # /.local/bin/nvim-vscode
+/.local/bin/nvim-nightly
 /.local/bin/aconfmgr
 /.local/bin/sensible-pacman
 /.local/bin/pacman-original-file

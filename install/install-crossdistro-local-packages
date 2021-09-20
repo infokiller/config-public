@@ -121,6 +121,7 @@ readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
 # shellcheck disable=SC2016
 readonly -A _TASK_TO_CMD=(
   ['vim-plugins']='_install_vim_plugins'
+  ['neovim-nightly']='_install_neovim_nightly'
   ['doom-emacs']='_install_doom_emacs'
   ['fzf']='_install_fzf'
   ['histcat']='_install_histcat'
@@ -162,6 +163,7 @@ declare -g _ORDERED_TASKS=(
   'fzf'
   'histcat'
   'vim-plugins'
+  'neovim-nightly'
   'universal-ctags'
   'npm-packages'
   'golang-packages'
@@ -486,6 +488,15 @@ _install_vim_plugins() {
   vim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'GoInstallBinaries' -c 'q'
   print_bold 'Installing NeoVim remote plugins'
   nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins' -c 'q'
+}
+
+# Use neovim nightly to avoid https://github.com/neovim/neovim/issues/8796
+_install_neovim_nightly() {
+  print_bold 'Installating neovim nightly'
+  cd "${INSTALLATION_TMP_DIR}"
+  download_file 'https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage'
+  mv -f 'nvim.appimage' "${USER_BIN_DIR}/nvim-nightly"
+  chmod +x "${USER_BIN_DIR}/nvim-nightly"
 }
 
 _install_fzf() {

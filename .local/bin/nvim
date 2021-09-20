@@ -9,12 +9,19 @@ readonly LOCAL_NVIM_DIR="${REPO_ROOT}/submodules/optional/neovim"
 readonly LOCAL_NVIM_BUILD_DIR="${LOCAL_NVIM_DIR}/build"
 readonly LOCAL_NVIM_BIN="${LOCAL_NVIM_BUILD_DIR}/bin/nvim"
 
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
 main() {
   if [[ -x "${LOCAL_NVIM_BIN}" ]]; then
     # The locally built neovim doesn't use the standard neovim runtime directory,
     # which will cause errors about missing files.
     export VIMRUNTIME="${LOCAL_NVIM_DIR}/runtime"
     exec -- "${LOCAL_NVIM_BIN}" "$@"
+  fi
+  if _command_exists nvim-nightly; then
+    exec -- nvim-nightly "$@"
   fi
   # shellcheck disable=SC2155
   readonly WRAPPER_PATH="$(readlink -f "$0")"
