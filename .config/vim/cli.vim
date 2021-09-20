@@ -51,11 +51,17 @@ nnoremap / /\v
 xnoremap / /\v
 
 " Only highlight the current word when using * but don't jump to the next one.
-" nnoremap * :let @/ = expand('<cword>') \| call histadd('/', @/) \| set hls<CR>
-nnoremap  *  *N
-nnoremap  #  #N
-nnoremap  g* g*N
-nnoremap  g# g#N
+" NOTE: Using * causes scrolling to the next match so we avoid it.
+" Use "very nomagic" search mode because it's easiest to escape - only requires
+" escaping forward and back slashes.
+nnoremap * <Cmd>let @/ = printf('\V\<%s\>', escape(expand('<cword>'), '/\'))
+    \ \| call histadd('/', @/) \| set hls<CR>
+nnoremap # <Cmd>let @/ = printf('\V\<%s\>', escape(expand('<cword>'), '/\')) 
+    \ \| call histadd('/', @/) \| let v:searchforward = 0 \| set hls<CR>
+nnoremap g* <Cmd>let @/ = printf('\V%s', escape(expand('<cword>'), '/\')) 
+    \ \| call histadd('/', @/) \| set hls<CR>
+nnoremap g# <Cmd>let @/ = printf('\V%s', escape(expand('<cword>'), '/\')) 
+    \ \| call histadd('/', @/) \| let v:searchforward = 0 \| set hls<CR>
 
 Plug 'thinca/vim-visualstar'
 " Make visual star plugin behave the same as my normal search settings: don't
@@ -92,9 +98,9 @@ endif
 " native commands.
 
 " Search and replace current word in current buffer.
-nnoremap <expr> <Leader>rr Concat('*:', "\<C-U>",
-    \ '%s//', expand('<cword>'), '/', 
-    \ g:VSCODE_MODE ? '' : "\<Left>") 
+nnoremap <expr> <Leader>rr printf(":\<C-U>" . '%%s/\V\<%s\>/%s/%s', 
+    \ escape(expand('<cword>'), '/\'), expand('<cword>'), 
+    \ g:VSCODE_MODE ? '' : "\<Left>")
 " Search and replace current selection in current buffer.
 " Use "very nomagic" search mode because it's easiest to escape - only requires
 " escaping forward and back slashes.
