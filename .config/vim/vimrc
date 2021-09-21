@@ -88,11 +88,7 @@ let $XDG_DATA_HOME = get(environ(), 'XDG_DATA_HOME',
       \ Concat($HOME, '/.local/share'))
 let g:VIM_DATA_DIR = Concat($XDG_DATA_HOME,  '/vim')
 " https://github.com/neovim/neovim/pull/13973#issuecomment-818513560
-if has('nvim-0.5')
-  let s:undodir_name = 'undo2'
-else
-  let s:undodir_name = 'undo'
-endif
+let s:undodir_name = has('nvim-0.5') ? 'undo2' : 'undo'
 for s:subdir in ['swap', 'backup', s:undodir_name, 'session']
   let s:dir = Concat(g:VIM_DATA_DIR, '/', s:subdir)
   call mkdir(s:dir, 'p', 0700)
