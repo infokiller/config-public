@@ -20,9 +20,10 @@ main() {
     export VIMRUNTIME="${LOCAL_NVIM_DIR}/runtime"
     exec -- "${LOCAL_NVIM_BIN}" "$@"
   fi
-  if _command_exists nvim-nightly; then
-    exec -- nvim-nightly "$@"
-  fi
+  # As of 2021-09-21, firenvim loaded with vim plug is broken in nvim-nightly.
+  # if _command_exists nvim-nightly; then
+  #   exec -- nvim-nightly "$@"
+  # fi
   # shellcheck disable=SC2155
   readonly WRAPPER_PATH="$(readlink -f "$0")"
   mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
