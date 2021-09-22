@@ -66,7 +66,12 @@ _parse_args() {
   done
 }
 
-_run_kitty() {
+_exec_kitty() {
+  # A quick way to check if nvidia drivers have a driver/library mismatch which
+  # will cause Kitty to fail.
+  if _command_exists nvidia-smi && ! nvidia-smi --list-gpus &> /dev/null; then
+    return 1
+  fi
   local -a terminal_cmd=(kitty)
   if [[ -n ${window_name-} ]]; then
     terminal_cmd+=('--name' "${window_name}")
@@ -80,7 +85,7 @@ _run_kitty() {
   exec "${terminal_cmd[@]}"
 }
 
-_run_gnome-terminal() {
+_exec_gnome-terminal() {
   local -a terminal_cmd=(gnome-terminal --wait)
   if [[ -n ${window_name-} ]]; then
     terminal_cmd+=('--name' "${window_name}")
@@ -94,7 +99,7 @@ _run_gnome-terminal() {
   exec "${terminal_cmd[@]}"
 }
 
-_run_termite() {
+_exec_termite() {
   local -a terminal_cmd=(termite)
   terminal_cmd=(termite)
   if [[ -n ${cmd-} ]]; then
@@ -109,7 +114,7 @@ _run_termite() {
   exec "${terminal_cmd[@]}"
 }
 
-_run_xterm() {
+_exec_xterm() {
   local -a terminal_cmd=(xterm)
   if [[ -n ${window_class-} ]]; then
     terminal_cmd+=(-class "${window_class}")
@@ -124,7 +129,7 @@ _run_xterm() {
   exec "${terminal_cmd[@]}"
 }
 
-_run_terminator() {
+_exec_terminator() {
   local -a terminal_cmd=(terminator)
   # NOTE: Because of bug in terminator, setting the window class doesn't work.
   # See also: https://bugs.launchpad.net/terminator/+bug/1695793
@@ -141,12 +146,15 @@ _run_terminator() {
 main() {
   _parse_args "$@"
 
+  local s=0
   for terminal in "${_ORDERED_TERMINALS[@]}"; do
     if _command_exists "${terminal}"; then
-      eval "_run_${terminal}"
-      exit $?
+      # We use exec to replace the bash process with the terminal process, so
+      # the function can only return if there was an error before.
+      eval "_exec_${terminal}" || s=$?
     fi
   done
+  return "${s}"
 }
 
 main "$@"
