@@ -282,7 +282,7 @@ _install_firefox_settings() {
     local profile_name
     profile_name="$(basename "${profile_dir}")"
     print_bold "Firefox profile: ${profile_name}"
-    if [[ "${profile_name}" == *test* ]]; then
+    if [[ "${profile_name}" != *default* ]]; then
       echo 'Skipping profile'
       continue
     fi
