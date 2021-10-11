@@ -85,6 +85,7 @@
     // },
     // "remote.SSH.useLocalServer": false,
     // "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim-nightly",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
     "fzf-quick-open.findDirectoriesCmd": "fd --type d",
     "fzf-quick-open.ripgrepSearchStyle": "Smart case",
     // As of 2020-10-14, git.autofetch is disabled because it can randomly
