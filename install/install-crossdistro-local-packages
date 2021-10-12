@@ -121,7 +121,6 @@ readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
 # shellcheck disable=SC2016
 readonly -A _TASK_TO_CMD=(
   ['vim-plugins']='_install_vim_plugins'
-  ['neovim-nightly']='_install_neovim_nightly'
   ['doom-emacs']='_install_doom_emacs'
   ['fzf']='_install_fzf'
   ['histcat']='_install_histcat'
@@ -491,6 +490,8 @@ _install_vim_plugins() {
 }
 
 # Use neovim nightly to avoid https://github.com/neovim/neovim/issues/8796
+# As of 2021-10-12, this is no longer needed because nvim 0.5.1 was released on
+# Archlinux.
 _install_neovim_nightly() {
   print_bold 'Installating neovim nightly'
   cd "${INSTALLATION_TMP_DIR}"
