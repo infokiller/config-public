@@ -11,7 +11,7 @@ _command_exists() {
 # VIM_VARIANT=nvim
 # mapfile -t COMMAND < <(get-wrapped-binary-command "${DIR}/${VIM_VARIANT}")
 # exec -- "${COMMAND[@]}" "$@"
-if _command_exists nvim-nightly; then
-  exec -- nvim-nightly "$@"
-fi
+# if _command_exists nvim-nightly; then
+#   exec -- nvim-nightly "$@"
+# fi
 exec -- nvim "$@"

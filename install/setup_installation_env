@@ -2,6 +2,7 @@
 
 # We can't just set these unconditionally, since this script is sourced by
 # others, which may have already set it using readonly.
+# TODO: move these to .profile?
 : "${REPO_ROOT:=$(config-repo-root "${BASH_SOURCE[0]}" 2> /dev/null || echo "${HOME}")}"
 : "${SUBMODULES_DIR:="${REPO_ROOT}/submodules"}"
 : "${USER_BIN_DIR:="${HOME}/.local/bin"}"
