@@ -576,14 +576,15 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
 
 # Don't complete uninteresting users.
 zstyle ':completion:*:users' ignored-patterns \
-  adm amanda apache avahi beaglidx bin cacti canna clamav colord cups daemon \
-  dbus dhcpcd distcache dnsmasq dnscrypt-proxy  dovecot earlyoom fax flatpak \
-  ftp games geoclue gdm gitlab-runner gkrellmd gopher hacluster haldaemon halt \
-  hsqldb ident junkbust keydope ldap lightdm lp mail mailman mailnull miniflux \
-  mldonkey mysql nagios named netdump news nfsnobody nm-openconnect nobody \
-  nscd nvidia-persistenced ntp nut nx openvpn operator pcap polkitd postfix \
-  postgres privoxy pulse pvm quagga radvd rpc rpcuser rpm rtkit shutdown squid \
-  sshd sync 'systemd-*' tor tss usbmux uucp uuidd vcsa xfs '_*'
+  adm amanda apache avahi beaglidx bin brltty cacti canna clamav colord cups \
+  daemon dbus dhcpcd distcache dnsmasq dnscrypt-proxy dovecot earlyoom fax \
+  flatpak ftp games geoclue gdm git gitlab-runner gkrellmd gluster gopher \
+  hacluster haldaemon halt hsqldb http ident junkbust keydope ldap lightdm lp \
+  mail mailman mailnull miniflux mldonkey mysql nagios named netdump news \
+  nfsnobody nm-openconnect nobody nscd nvidia-persistenced ntp nut nx openvpn \
+  operator pcap polkitd postfix postgres privoxy pulse pvm quagga radvd rpc \
+  rpcuser rpm rtkit shutdown squid sshd sync 'systemd-*' tor transmission tss \
+  usbmux uucp uuidd vcsa xfs '_*'
 
 # Don't complete words that are already on the line for these commands.
 zstyle ':completion:*:(rm|trash-put|kill|diff):*' ignore-line other
