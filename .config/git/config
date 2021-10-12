@@ -88,10 +88,10 @@
 	pretty = myshort
 
 [push]
-	# Before pushing the superproject, check that the commits of submodules are
-	# pushed to their remotes (otherwise, cloning this repo will probably fail).
+	# Before pushing the superproject, push the commits of modified submodules to
+	# their remotes (otherwise, cloning this repo recursively will fail).
 	# See also: https://git-scm.com/book/en/v2/Git-Tools-Submodules
-	recurseSubmodules = check
+	recurseSubmodules = on-demand
 	# Automatically set upstream branch. See also:
 	# https://stackoverflow.com/a/22933955/1014208
 	default = current
