@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# TODO: Use lockfiles for more reprodocible environments. See:
+# - https://github.com/conda-incubator/conda-lock
+# - https://github.com/jazzband/pip-tools
+
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
@@ -20,6 +24,7 @@ declare -A INSTALLED_BINARIES=(
   ['black']=''
   ['buku']=''
   ['codespell']=''
+  ['conda-lock']=''
   ['detect-secrets']=''
   ['detect-secrets-hook']=''
   # gh

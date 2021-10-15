@@ -25,6 +25,7 @@ dependencies:
   - poetry
   - mamba
   - conda-tree
+  - conda-lock
   ###
   # Jupyter
   ###

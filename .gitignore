@@ -62,6 +62,7 @@
 /.local/bin/buku
 /.local/bin/codespell
 /.local/bin/conda
+/.local/bin/conda-lock
 /.local/bin/dephell
 /.local/bin/deactivate
 /.local/bin/detect-secrets
