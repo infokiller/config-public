@@ -93,8 +93,6 @@
 /.local/bin/nbmerge-web
 /.local/bin/nbshow
 /.local/bin/pip
-/.local/bin/pip-compile
-/.local/bin/pip-sync
 /.local/bin/pipenv
 /.local/bin/pipenv-resolver
 /.local/bin/poetry

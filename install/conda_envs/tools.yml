@@ -21,7 +21,9 @@ dependencies:
   - pytype
   - twine
   - python-semantic-release
-  - pip-tools
+  # pip-tools only seems to work well when installed in the environment it is
+  # being used for.
+  # - pip-tools
   - pipenv
   - poetry
   - mamba
