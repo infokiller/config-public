@@ -21,11 +21,13 @@ dependencies:
   - pytype
   - twine
   - python-semantic-release
+  - pip-tools
   - pipenv
   - poetry
   - mamba
   - conda-tree
   - conda-lock
+  - conda-docker
   ###
   # Jupyter
   ###
