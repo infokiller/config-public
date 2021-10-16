@@ -892,6 +892,8 @@ augroup vimrc
   autocmd BufReadPost,BufNewFile ipython_edit*.py let b:ale_enabled = 0
 augroup END
 
+Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Golang                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
