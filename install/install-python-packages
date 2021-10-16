@@ -113,9 +113,12 @@ _fastest_conda() {
   # As of 2020-10-14, mamba wasn't faster than conda in this script, though I
   # think it's faster when installing envrionments from scratch. I'll consider
   # enabling it in the future.
-  # if [[ -x "${CONDA_TOOLS_BIN_DIR}/mamba" ]]; then
-  #   bin="${CONDA_TOOLS_BIN_DIR}/mamba"
-  # fi
+  # As of 2021-10-16, mamba was faster: 1 minute vs 3.5 minutes. However,
+  # it doesn't seem idempotent with conda, so the first time switching between
+  # them will take longer.
+  if [[ -x "${CONDA_TOOLS_BIN_DIR}/mamba" ]]; then
+    bin="${CONDA_TOOLS_BIN_DIR}/mamba"
+  fi
   "${bin}" "$@"
 }
 
