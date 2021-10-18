@@ -266,8 +266,6 @@ _set_local_git_config() {
     "${_git_private_config[@]}" update-index --assume-unchanged \
       .config/rclone/rclone.conf
     "${_git_private_config[@]}" update-index --assume-unchanged \
-      .config/rclone/rclone.conf
-    "${_git_private_config[@]}" update-index --assume-unchanged \
       .clasprc.json
   )
   _set_local_excludes
@@ -317,7 +315,7 @@ main() {
     export GIT_WORK_TREE="${HISTORY_REPO_DIR}" GIT_DIR="${HISTORY_REPO_DIR}/.git"
     git pull --rebase
     if [[ -n "$(git status --porcelain -- "${GIT_WORK_TREE}/${HOSTNAME}")" ]]; then
-      git add "${GIT_WORK_TREE}/${HOSTNAME}"
+      git add -- "${GIT_WORK_TREE}/${HOSTNAME}"
       git commit --no-verify -m "Update ${HOSTNAME} history"
       git push
     fi
