@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
 list_changed_shell_scripts() {
   local -a changed_files
   mapfile -t changed_files < <(git diff --staged --ignore-submodules=all --name-only)
