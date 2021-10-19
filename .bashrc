@@ -104,11 +104,14 @@ PROMPT_COMMAND="histcat_append_hook; ${PROMPT_COMMAND}"
 ###############################################################################
 #####                              Plugins                                #####
 ###############################################################################
-
 # Set up solarized dircolors from https://github.com/seebi/dircolors-solarized
-if [[ -r "${SUBMODULES_DIR}/terminal/dircolors-solarized/dircolors.256dark" ]]; then
-  eval -- "$(dircolors "${SUBMODULES_DIR}/terminal/dircolors-solarized/dircolors.256dark")"
-fi
+_set_dircolors() {
+  local file="${SUBMODULES_DIR}/terminal/dircolors-solarized/dircolors.256dark"
+  if [[ -r "${file}" ]]; then
+    eval -- "$(dircolors --sh -- "${file}")"
+  fi
+}
+_set_dircolors && unset -f _set_dircolors
 
 # Initialize https://github.com/clvv/fasd
 _bashrc_init_fasd() {
@@ -124,8 +127,7 @@ _bashrc_init_fasd() {
   # shellcheck source=.cache/fasd/fasd-init-bash
   source "${fasd_cache}"
 }
-
-_bashrc_init_fasd
+_bashrc_init_fasd && unset -f _bashrc_init_fasd
 
 # shellcheck source=./.config/bash/functions.sh
 source "${SHELL_CONFIG_DIR}/functions.sh"

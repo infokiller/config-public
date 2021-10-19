@@ -1519,9 +1519,12 @@ done
 #                                  Appearance                                  #
 ################################################################################
 # Set up solarized dircolors from https://github.com/seebi/dircolors-solarized
-if [[ -r "${SUBMODULES_DIR}/terminal/dircolors-solarized/dircolors.256dark" ]]; then
-  eval -- "$(dircolors "${SUBMODULES_DIR}/terminal/dircolors-solarized/dircolors.256dark")"
-fi
+function {
+  local file="${SUBMODULES_DIR}/terminal/dircolors-solarized/dircolors.256dark"
+  if [[ -r "${file}" ]]; then
+    eval -- "$(dircolors --sh -- "${file}")"
+  fi
+}
 # Must be executed after the dircolors call.
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
