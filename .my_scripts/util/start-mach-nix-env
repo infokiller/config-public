@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+NIX_PKGS=(
+  'nixpkgs#bash'
+  'nixpkgs#bash-completion'
+  'nixpkgs#zsh'
+  'nixpkgs#git'
+  'nixpkgs#neovim'
+  'nixpkgs#vim'
+  'nixpkgs#tmux'
+  'nixpkgs#kitty'
+  'nixpkgs#python'
+  'nixpkgs#python3'
+  'nixpkgs#glibc'
+  'nixpkgs#coreutils'
+  'nixpkgs#findutils'
+  'nixpkgs#less'
+  'nixpkgs#gnugrep'
+  'nixpkgs#gnused'
+  'nixpkgs#gawk'
+  'nixpkgs#locale'
+  'nixpkgs#shadow'
+  'nixpkgs#which'
+  'nixpkgs#gnupg'
+  # 'nixpkgs#man'
+  'nixpkgs#xsel'
+  'nixpkgs#xclip'
+  # 'nixpkgs#systemd'
+  'github:DavHau/mach-nix'
+  'nixpkgs#curl'
+  'nixpkgs#exa'
+  'nixpkgs#ripgrep'
+  'nixpkgs#fzf'
+)
+
+MOUNTS=(
+  -v "${HOME}/submodules:/root/submodules"
+  -v "${HOME}/.config:/root/.config"
+  -v "${HOME}/.profile:/root/.profile"
+  -v "${HOME}/.profile_private:/root/.profile_private"
+  # -v "${HOME}/.zshenv:/root/.zshenv"
+  -v "${HOME}/.bashrc:/root/.bashrc"
+  -v "${HOME}/.my_scripts:/root/.my_scripts"
+  -v "${HOME}/.local:/root/.local"
+)
+
+# TODO: Add a buildkit cache mount for the nix store. It didn't work when I
+# tried it.
+# https://vsupalov.com/buildkit-cache-mount-dockerfile/
+DOCKERFILE="
+FROM nixpkgs/nix-flakes
+RUN nix shell ${NIX_PKGS[*]}
+ENV TERM ${TERM-}
+ENV COLORTERM ${COLORTERM-}
+ENV ZDOTDIR /root/.config/zsh
+"
+
+build_oci_img() {
+  docker build -q - <<< "${DOCKERFILE}"
+}
+
+docker run -it --hostname mach-nix-test "${MOUNTS[@]}" "$(build_oci_img)" \
+  sh -c "nix shell ${NIX_PKGS[*]} -c zsh $*"
