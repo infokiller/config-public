@@ -12,7 +12,8 @@ __sh_platform_detection_loaded=1
 : "${REPO_ROOT:=$(config-repo-root "${BASH_SOURCE[0]:-${(%):-%x}}" 2> /dev/null || echo "${HOME}")}"
 : "${SUBMODULES_DIR:=${REPO_ROOT}/submodules}"
 # Detect distro- see https://unix.stackexchange.com/a/6348
-: "${DISTRO:=$(. /etc/os-release && printf '%s\n' ${ID})}"
+# NOTE: The nixpkgs/nix-flakes docker image doesn't have /etc/os-release.
+: "${DISTRO:=$(. /etc/os-release 2> /dev/null && printf '%s\n' ${ID})}"
 
 # https://kerneltalks.com/linux/all-you-need-to-know-about-hostname-in-linux/
 # Another alternative is to use ${HOST} in zsh or ${HOSTNAME} in bash.
