@@ -637,11 +637,24 @@ fpath=(
   "${PLUGINS_DIR}/conda-zsh-completion"
   "${PLUGINS_DIR}/go-zsh-completion/src"
   "${PLUGINS_DIR}/zsh-completions/src"
-  "${PLUGINS_DIR}/nix-zsh-completions"
   # Update 2018-12-07: looks like it's already included in zsh 5.6.2, keeping
   # it in case old systems need it.
   "${PLUGINS_DIR}/oh-my-zsh/plugins/cargo"
 )
+
+function {
+  emulate -L zsh
+  if [[ "${HOST_ALIAS}" != *-nix-test* ]] || ! command_exists nix; then
+    return
+  fi
+  local rg_path
+  rg_path="$(nix path-info 'nixpkgs#ripgrep' 2> /dev/null)" || return
+  fpath=(
+    ${fpath}
+    "${rg_path}/share/zsh/site-functions"
+    "${PLUGINS_DIR}/nix-zsh-completions"
+  )
+}
 
 # Run `compinit`. It should be run:
 # - After all dirs with completion files were added to `fpath`
