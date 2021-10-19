@@ -29,6 +29,8 @@ source "${REPO_ROOT}/install/setup_installation_env"
 readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 readonly XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+# Compile go binaries statically
+export CGO_ENABLED=0
 readonly _GOLANG_BIN_DIR="${HOME}/.local/pkg/go/bin"
 # TODO: Lock the versions of golang packages (and their transitive deps).
 readonly -A _GOLANG_PACKAGES=(
