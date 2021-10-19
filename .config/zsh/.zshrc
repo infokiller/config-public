@@ -637,6 +637,7 @@ fpath=(
   "${PLUGINS_DIR}/conda-zsh-completion"
   "${PLUGINS_DIR}/go-zsh-completion/src"
   "${PLUGINS_DIR}/zsh-completions/src"
+  "${PLUGINS_DIR}/nix-zsh-completions"
   # Update 2018-12-07: looks like it's already included in zsh 5.6.2, keeping
   # it in case old systems need it.
   "${PLUGINS_DIR}/oh-my-zsh/plugins/cargo"
