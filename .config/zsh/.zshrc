@@ -643,16 +643,17 @@ fpath=(
 )
 
 function {
+  command_exists nix || return
   emulate -L zsh
-  if [[ "${HOST_ALIAS}" != *-nix-test* ]] || ! command_exists nix; then
-    return
-  fi
+  fpath=(
+    ${fpath}
+    "${PLUGINS_DIR}/nix-zsh-completions"
+  )
   local rg_path
   rg_path="$(nix path-info 'nixpkgs#ripgrep' 2> /dev/null)" || return
   fpath=(
     ${fpath}
     "${rg_path}/share/zsh/site-functions"
-    "${PLUGINS_DIR}/nix-zsh-completions"
   )
 }
 

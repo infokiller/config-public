@@ -156,10 +156,24 @@ __fzf_history__() {
 # Enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-  # shellcheck disable=SC1091
-  source /etc/bash_completion
-fi
+_add_bash_completion() {
+  if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    # shellcheck disable=SC1091
+    source /etc/bash_completion
+    return
+  fi
+  local store_path
+  if command_exists nix &&
+    store_path="$(nix path-info 'nixpkgs#bash-completion' 2> /dev/null)"; then
+    # shellcheck disable=SC1091
+    source "${store_path}/etc/profile.d/bash_completion.sh"
+  fi
+}
+_add_bash_completion && unset -f _add_bash_completion
+
+# Bash completion shared with zsh.
+# shellcheck source=./.config/bash/completion.sh
+source "${SHELL_CONFIG_DIR}/completion.sh"
 
 # Tmux bash completion.
 _tmux_completion_path=/usr/share/doc/tmux/examples/bash_completion_tmux.sh
@@ -168,9 +182,26 @@ if [[ -f ${_tmux_completion_path} ]]; then
   source "${_tmux_completion_path}"
 fi
 
-# Bash completion for updating apt repos.
-# shellcheck source=./.config/bash/completion.sh
-source "${SHELL_CONFIG_DIR}/completion.sh"
+# https://github.com/NixOS/nix/blob/master/misc/bash/completion.sh
+_complete_nix() {
+  local -a words
+  local cword cur
+  _get_comp_words_by_ref -n ':=&' words cword cur
+  local have_type
+  while IFS= read -r line; do
+    local completion=${line%%	*}
+    if [[ -z $have_type ]]; then
+      have_type=1
+      if [[ $completion == filenames ]]; then
+        compopt -o filenames
+      fi
+    else
+      COMPREPLY+=("$completion")
+    fi
+  done < <(NIX_GET_COMPLETIONS=$cword "${words[@]}")
+  __ltrim_colon_completions "$cur"
+}
+complete -F _complete_nix nix
 
 ###############################################################################
 #####                               Prompt                               #####
