@@ -811,6 +811,32 @@ maybe-run-tracked-emulate -- source_compiled \
 #   eval "$(pipenv --completion)"
 # fi
 
+# Completions for the new nix shell based on bash and slightly modified from:
+# https://github.com/spwhitt/nix-zsh-completions/issues/32#issuecomment-705315356
+# https://github.com/NixOS/nix/blob/master/misc/zsh/completion.zsh
+# TODO: Make this work in a separate file in fpath.
+_nix() {
+  emulate -L zsh
+  local ifs_bk="$IFS"
+  local input=("${(Q)words[@]}")
+  local IFS=$'\n\t'
+  local res=($(NIX_GET_COMPLETIONS=$((CURRENT - 1)) "$input[@]"))
+  IFS="$ifs_bk"
+  local tpe="${${res[1]}%%>	*}"
+  local -a suggestions
+  declare -a suggestions
+  for suggestion in ${res:1}; do
+    # FIXME: This doesn't work properly if the suggestion word contains a `:`
+    # itself
+    suggestions+="${suggestion/	/:}"
+  done
+  if [[ "$tpe" == filenames ]]; then
+    compadd -f
+  fi
+  _describe 'nix' suggestions
+}
+compdef _nix nix
+
 # Set completion for commands and functions
 function {
   # On hera17 it seems that these definitions must be after the compinit call,
