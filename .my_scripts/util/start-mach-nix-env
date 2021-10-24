@@ -53,8 +53,9 @@ MOUNTS=(
 DOCKERFILE="
 FROM nixpkgs/nix-flakes
 RUN nix shell ${NIX_PKGS[*]}
-ENV TERM ${TERM-}
-ENV COLORTERM ${COLORTERM-}
+RUN mkdir -p '${HOME}'
+ENV TERM '${TERM-}'
+ENV COLORTERM '${COLORTERM-}'
 ENV ZDOTDIR /root/.config/zsh
 "
 
