@@ -35,6 +35,7 @@ AddPackage highlight           # Fast and flexible source code highlighter (CLI 
 AddPackage mediainfo           # Supplies technical and tag information about a video or audio file (CLI interface)
 AddPackage odt2txt             # extracts the text out of OpenDocument Texts
 AddPackage perl-image-exiftool # Reader and rewriter of EXIF informations that supports raw files
+AddPackage mat2                # Metadata removal tool, supporting a wide range of commonly used file formats
 AddPackage python-pygments     # Python syntax highlighter
 AddPackage transmission-cli    # Fast, easy, and free BitTorrent client (CLI tools, daemon and web client)
 # For image previews.

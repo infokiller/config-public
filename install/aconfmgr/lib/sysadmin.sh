@@ -54,10 +54,10 @@ IgnorePath '/etc/lvm/backup/arch'
 
 CopyFile /etc/fuse.conf
 
-# Package management
+# Package management: pacman
 AddPackage pkgfile        # a pacman .files metadata explorer
 AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
-AddPackage flatpak        # Linux application sandboxing and distribution framework (formerly xdg-app)
+AddPackage --foreign yay  # Yet another yogurt. Pacman wrapper and AUR helper written in go.
 # Periodically clean Pacman's cache to save disk space
 CopyFile '/etc/systemd/system/paccache.service.d/override.conf'
 CreateLink '/etc/systemd/system/timers.target.wants/paccache.timer' '/usr/lib/systemd/system/paccache.timer'
@@ -68,6 +68,18 @@ CreateLink '/etc/systemd/system/timers.target.wants/download-new-packages.timer'
 # Updates cache of available binaries in pacman which is needed for using
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/command-not-found
 CreateLink '/etc/systemd/system/multi-user.target.wants/pkgfile-update.timer' '/usr/lib/systemd/system/pkgfile-update.timer'
+
+# Package management: nix
+AddPackage nix # A purely functional package manager
+CreateLink /etc/systemd/system/multi-user.target.wants/nix-daemon.service /usr/lib/systemd/system/nix-daemon.service
+CopyFile /etc/nix/nix.conf
+cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << EOF
+
+experimental-features = nix-command flakes
+EOF
+
+# Package management: others
+AddPackage flatpak # Linux application sandboxing and distribution framework (formerly xdg-app)
 
 # GPG
 AddPackage gnupg # Complete and free implementation of the OpenPGP standard
@@ -113,7 +125,6 @@ AddPackage git                # the fast distributed version control system
 AddPackage usbutils           # USB Device Utilities
 AddPackage logrotate          # Rotates system logs automatically
 AddPackage lshw               # A small tool to provide detailed information on the hardware configuration of the machine.
-AddPackage --foreign yay      # Yet another yogurt. Pacman wrapper and AUR helper written in go.
 AddPackage strace             # A diagnostic, debugging and instructional userspace tracer
 AddPackage dmidecode          # Desktop Management Interface table related utilities
 AddPackage exfat-utils        # Utilities for exFAT file system
