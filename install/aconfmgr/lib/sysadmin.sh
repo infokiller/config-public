@@ -72,7 +72,6 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/pkgfile-update.timer' '/
 # Package management: nix
 AddPackage nix # A purely functional package manager
 CreateLink /etc/systemd/system/multi-user.target.wants/nix-daemon.service /usr/lib/systemd/system/nix-daemon.service
-CopyFile /etc/nix/nix.conf
 cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << EOF
 
 experimental-features = nix-command flakes
