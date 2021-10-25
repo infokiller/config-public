@@ -650,11 +650,10 @@ function {
     "${PLUGINS_DIR}/nix-zsh-completions"
   )
   local rg_path
-  rg_path="$(nix path-info 'nixpkgs#ripgrep' 2> /dev/null)" || return
-  fpath=(
-    ${fpath}
-    "${rg_path}/share/zsh/site-functions"
-  )
+  if ! command_exists _rg && 
+    rg_path="$(nix path-info 'nixpkgs#ripgrep' 2> /dev/null)"; then
+    fpath+=("${rg_path}/share/zsh/site-functions")
+  fi
 }
 
 # Run `compinit`. It should be run:
