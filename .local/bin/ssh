@@ -13,11 +13,6 @@ find "${HOME}/.ssh" -type f -print0 |
   xargs --null --no-run-if-empty chmod 600 --
 find "${HOME}/.ssh" -type d -print0 |
   xargs --null --no-run-if-empty chmod 700 --
-# TODO: Figure out if this is really needed. It seems that SSH will set this
-# correctly anyway.
-if [[ -n "${XDG_RUNTIME_DIR-}" ]]; then
-  echo "XAUTHORITY=${XDG_RUNTIME_DIR}/Xauthority" >| "${HOME}/.ssh/environment"
-fi
 
 # Set the TTY for pinentry, see sensible-pinentry for motivation.
 # NOTE: the tty command sometimes fails with "not a tty" even though the tty can
