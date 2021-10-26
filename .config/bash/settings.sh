@@ -179,6 +179,8 @@ _set_terminal_settings() {
 }
 
 _setup_ssh_agent() {
+  # TODO: Use an alternative SSH agent since gpg agent doesn't respect the
+  # identity files order.
   # Set SSH_AUTH_SOCK so that gpg-agent can be used as an SSH agent. See also:
   # https://wiki.archlinux.org/index.php/GnuPG#Set_SSH_AUTH_SOCK
   unset SSH_AGENT_PID
@@ -186,6 +188,7 @@ _setup_ssh_agent() {
     SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
     export SSH_AUTH_SOCK
   fi
+  # eval "$(ssh-agent -s)" > /dev/null
 
   # Set SSH_AUTH_SOCK if connecting via SSH. This is done to make SSH forwarding
   # work in tmux. See also: https://gist.github.com/martijnvermaat/8070533
