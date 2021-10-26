@@ -887,12 +887,19 @@ endfor
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Colorscheme                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plug 'lifepillar/vim-solarized8'
-" Plug 'flazz/vim-colorschemes'
+if has('nvim-0.5')
+  Plug 'ishan9299/nvim-solarized-lua'
+  let s:solarized_variant = 'solarized'
+else
+  Plug 'lifepillar/vim-solarized8'
+  let s:solarized_variant = 'solarized8'
+  " Plug 'flazz/vim-colorschemes'
+endif
+
 
 function! VimrcSetColorScheme() abort
   set background=dark
-  colorscheme solarized8
+  exec 'colorscheme ' . s:solarized_variant
   " These highlight groups must be set after the colorscheme, since the
   " colorscheme resets all preexisting groups.
   highlight ActiveWindow guibg=#002b36
