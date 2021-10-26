@@ -642,19 +642,12 @@ fpath=(
   "${PLUGINS_DIR}/oh-my-zsh/plugins/cargo"
 )
 
-function {
-  command_exists nix || return
-  emulate -L zsh
+if command_exists nix; then
   fpath=(
     ${fpath}
     "${PLUGINS_DIR}/nix-zsh-completions"
   )
-  local rg_path
-  if ! command_exists _rg && 
-    rg_path="$(nix path-info 'nixpkgs#ripgrep' 2> /dev/null)"; then
-    fpath+=("${rg_path}/share/zsh/site-functions")
-  fi
-}
+fi
 
 # Run `compinit`. It should be run:
 # - After all dirs with completion files were added to `fpath`
