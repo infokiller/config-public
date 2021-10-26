@@ -1,0 +1,5 @@
+#%PAM-1.0
+auth    sufficient   pam_u2f.so cue origin=pam://hostname appid=pam://hostname
+auth		include		system-auth
+account		include		system-auth
+session		include		system-auth

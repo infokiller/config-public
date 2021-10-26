@@ -26,6 +26,7 @@ IgnorePath '/etc/audit/audit.rules'
 CopyFile '/etc/modprobe.d/blacklist.conf'
 # TODO: Check if I can put my pam changes in separate files to avoid getting
 # conflicts when the distro files are updated.
+CopyFile '/etc/pam.d/sudo'
 CopyFile '/etc/pam.d/su'
 CopyFile '/etc/pam.d/su-l'
 cat >> "$(GetPackageOriginalFile pambase /etc/pam.d/system-login)" << EOF
