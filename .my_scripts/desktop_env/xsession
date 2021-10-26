@@ -9,7 +9,7 @@ _command_exists() {
 }
 
 _log_executed_lines() {
-  # Log every line executed to the journal. See also:
+  # Use logger to log every line executed to the journal. See also:
   # https://unix.stackexchange.com/q/393097/126543
   exec {BASH_XTRACEFD}> >(command logger --tag xsession)
   PS4='${LINENO}: '

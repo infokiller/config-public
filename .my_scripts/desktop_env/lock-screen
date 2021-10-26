@@ -102,16 +102,16 @@ main() {
     # actually harmful to not pass the file descriptor.
     # "${LOCKER[@]}" {XSS_SLEEP_LOCK_FD}<&-
     xsecurelock
-    # now close our fd (only remaining copy) to indicate we're ready to sleep
-    # In general this may have a race condition: the locker may fork and there
-    # haven't finished locking the screen before we close the fd, so the system
-    # may suspend before locking is done. To fix this we need to properly wait
-    # for the locker to give a signal that it finished locking.
+    # Now close our fd (only remaining copy) to indicate we're ready to sleep.
+    # In general this may have a race condition: the locker may fork and didn't
+    # finish locking the screen before we close the fd, so the system may
+    # suspend before locking is done. To fix this we need to properly wait for
+    # the locker to give a signal that it has finished locking.
     # xsecurelock specifically handles XSS_SLEEP_LOCK_FD itself:
     # https://github.com/google/xsecurelock/blob/0857969bf327227b4dc3eb5fa914e58df40ebd27/main.c#L670
     # TODO: As of 2020-05-13, my tests show that the fd is still open after
     # resuming from suspend, and the suspension takes a bit of time, so I think
-    # xsecurelock may not have close it.
+    # xsecurelock may not close it.
     exec {XSS_SLEEP_LOCK_FD}<&-
   else
     _log 'Activating locker in normal mode (no pending suspend)'
