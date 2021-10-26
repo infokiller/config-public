@@ -24,8 +24,10 @@ readonly SHELL_CONFIG_DIR
 # - https://esham.io/2018/02/zsh-profiling
 if ((${ZSHRC_ENABLE_PROFILING_BY_LINE:-0})); then
   if ((ZSHRC_ENABLE_PROFILING_BY_LINE == 2)); then
-    # Duplicate stderr to file descriptor stderr_fd_dup and redirect stderr
-    # (including trace output) to stdout.
+    # Duplicate stderr to a new file descriptor stderr_fd_dup and duplicate
+    # stdout to stderr (including trace output). 
+    # The end result is that the trace output will be written to stdout, and we
+    # can later restore stderr to its original file using stderr_fd_dup.
     exec {stderr_fd_dup}>&2 2>&1
     setopt XTRACE
   else
@@ -39,8 +41,10 @@ if ((${ZSHRC_ENABLE_PROFILING_BY_LINE:-0})); then
     PS4='$((EPOCHREALTIME-ZSHRC_START_TIME)) %x:%I [%N] > '
     logfile="zsh_startup_by_line.$$.log"
     echo "zshrc: Writing per line timing data to file: ${logfile}"
-    # Duplicate stderr to file descriptor stderr_fd_dup and redirect stderr
-    # (including trace output) to stdout.
+    # Duplicate stderr to a new file descriptor stderr_fd_dup and redirect
+    # stderr (including trace output) to the log file.
+    # The end result is that the trace output will be written to the log file,
+    # and we can later restore stderr to its original file using stderr_fd_dup.
     exec {stderr_fd_dup}>&2 2>"${logfile}"
     # Set options to turn on tracing and expansion of variables, commands, and
     # prompt sequences contained in the prompt.
