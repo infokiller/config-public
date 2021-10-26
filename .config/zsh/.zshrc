@@ -24,7 +24,9 @@ readonly SHELL_CONFIG_DIR
 # - https://esham.io/2018/02/zsh-profiling
 if ((${ZSHRC_ENABLE_PROFILING_BY_LINE:-0})); then
   if ((ZSHRC_ENABLE_PROFILING_BY_LINE == 2)); then
-    exec {stderr_fd_copy}>&2 2>&1
+    # Duplicate stderr to file descriptor stderr_fd_dup and redirect stderr
+    # (including trace output) to stdout.
+    exec {stderr_fd_dup}>&2 2>&1
     setopt XTRACE
   else
     zmodload -F zsh/datetime +p:EPOCHREALTIME
@@ -37,9 +39,9 @@ if ((${ZSHRC_ENABLE_PROFILING_BY_LINE:-0})); then
     PS4='$((EPOCHREALTIME-ZSHRC_START_TIME)) %x:%I [%N] > '
     logfile="zsh_startup_by_line.$$.log"
     echo "zshrc: Writing per line timing data to file: ${logfile}"
-    # Save file stderr to file descriptor 3 and redirect stderr (including trace
-    # output) to the log file.
-    exec {stderr_fd_copy}>&2 2>"${logfile}"
+    # Duplicate stderr to file descriptor stderr_fd_dup and redirect stderr
+    # (including trace output) to stdout.
+    exec {stderr_fd_dup}>&2 2>"${logfile}"
     # Set options to turn on tracing and expansion of variables, commands, and
     # prompt sequences contained in the prompt.
     setopt XTRACE PROMPT_SUBST PROMPT_PERCENT
@@ -1765,8 +1767,9 @@ fi
 ################################################################################
 if [[ -n ${ZSHRC_ENABLE_PROFILING_BY_LINE} ]]; then
   unsetopt XTRACE
-  # Restore stderr to the value saved in stderr_fd_copy.
-  { exec 2>&{stderr_fd_copy} {stderr_fd_copy}>&- } 2> /dev/null || true
+  # Restore stderr to the file description saved in stderr_fd_dup.
+  exec 2>&"${stderr_fd_dup}" {stderr_fd_dup}>&-
+  unset stderr_fd_dup
 elif [[ -n ${ZSHRC_ENABLE_PROFILING} ]]; then
   profiling_log_file="${HOME}/zsh_startup.$$.log"
   printf 'Writing profiling data to file: %s\n' "${profiling_log_file}"
