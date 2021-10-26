@@ -156,20 +156,10 @@ __fzf_history__() {
 # Enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-_add_bash_completion() {
-  if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    # shellcheck disable=SC1091
-    source /etc/bash_completion
-    return
-  fi
-  local store_path
-  if command_exists nix &&
-    store_path="$(nix path-info 'nixpkgs#bash-completion' 2> /dev/null)"; then
-    # shellcheck disable=SC1091
-    source "${store_path}/etc/profile.d/bash_completion.sh"
-  fi
-}
-_add_bash_completion && unset -f _add_bash_completion
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+  # shellcheck disable=SC1091
+  source /etc/bash_completion
+fi
 
 # Bash completion shared with zsh.
 # shellcheck source=./.config/bash/completion.sh
