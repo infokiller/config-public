@@ -87,7 +87,9 @@ _configure_keydope() {
 # Used by the handle-monitor-hotplug.service user service.
 CopyFile '/opt/ikl/is-x11-ready' 755
 # CopyFile '/opt/ikl/launch-logged-script' 755
-CopySymlinkAsFile '/etc/udev/rules.d/80-tag-u2f.rules'
+# NOTE: When using systemd v245 or later, this file isn't needed anymore:
+# https://github.com/Yubico/libfido2/issues/131#issuecomment-592931639
+# CopySymlinkAsFile '/etc/udev/rules.d/80-tag-fido.rules'
 CopySymlinkAsFile '/etc/udev/rules.d/99-keyboard.rules'
 # Keydope causes issues with the trackpad in hera11's wireless keyboard, so it's
 # disabled there.

@@ -8,7 +8,11 @@ SUBSYSTEM!="input", GOTO="keyboard_end"
 KERNEL!="event*", GOTO="keyboard_end"
 ENV{ID_INPUT_KEYBOARD}!="?*", GOTO="keyboard_end"
 ENV{ID_SECURITY_TOKEN}=="?*", GOTO="keyboard_end"
-TAG=="u2f", GOTO="keyboard_end"
+# The "standard" tag set in:
+# https://github.com/systemd/systemd/blob/2307bc31804a93920713731f9b7e78616617067d/rules.d/60-fido-id.rules
+TAG=="security-device", GOTO="keyboard_end"
+# My custom tag set in 80-tag-fido.rules
+TAG=="fido", GOTO="keyboard_end"
 
 # NOTE: this only triggers for the first time a device is added, so I can't use
 # `udevadm trigger --action=add` for testing, I have to really unplug and replug
