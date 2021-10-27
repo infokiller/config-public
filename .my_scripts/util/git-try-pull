@@ -112,16 +112,23 @@ main() {
     _log_info "${default_branch} datetime: ${branch_datetime}"
   fi
   _log_info "origin/${default_branch} datetime: $(get_commit_datetime "origin/${default_branch}")"
+  git -c checkout.defaultRemote=origin checkout --guess -q "${default_branch}"
   if git merge "origin/${default_branch}"; then
     return
   fi
-  git merge --abort 2> /dev/null
+  local dirty=0
+  maybe_stash_changes && dirty=1
+  git merge --abort 2> /dev/null || true
   local branch_backup_name
   branch_backup_name="old-${default_branch}-$(uuidgen)"
-  git branch -m master "${branch_backup_name}"
+  git branch -m "${default_branch}" "${branch_backup_name}"
   git checkout --orphan --force "${default_branch}"
   git branch --set-upstream-to="origin/${default_branch}" "${default_branch}"
   git reset --hard "origin/${default_branch}"
+  if ((dirty)) && ! git stash pop; then
+    print_error 'Could not apply stashed changes'
+    exit 2
+  fi
 }
 
 main "$@"
