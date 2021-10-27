@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+_log_info() {
+  printf 'git-try-pull: %s\n' "$*"
+}
+
+_log_info_bold() {
+  print_bold "$(_log_info "$@")"
+}
+
+_log_error() {
+  print_error "$(printf 'git-try-pull: %s' "$*")"
+}
+
+get_commit_datetime() {
+  git log -1 --pretty='format:%ci' "$@"
+}
+
+get_gitmodules_branch() {
+  local branch superproject_working_tree
+  superproject_working_tree="$(git rev-parse --show-superproject-working-tree)"
+  if [[ -z "${superproject_working_tree}" ]]; then
+    return 1
+  fi
+  local submodule_name
+  submodule_name="$(basename "$(git rev-parse --show-toplevel)")"
+  branch="$(git config \
+    --file="${superproject_working_tree}/.gitmodules" --get-regexp \
+    '.*'"/${submodule_name}.branch" |
+    head -1 |
+    sed -r 's/^\s*submodule.*\.branch\s+(.*)$/\1/')"
+  if [[ -z "${branch}" ]]; then
+    return 1
+  fi
+  printf '%s' "${branch}"
+}
+
+get_default_branch() {
+  local remote="$1"
+  local gitmodules_branch
+  if [[ "${remote}" == 'origin' ]] &&
+    gitmodules_branch="$(get_gitmodules_branch)"; then
+    printf '%s' "${gitmodules_branch}"
+    return 0
+  fi
+  local default_branch
+  if ! default_branch="$(git remote show "${remote}" |
+    grep --text -E '^\s*HEAD branch:' |
+    sed -r 's/^\s*HEAD branch:\s*(.*)$/\1/')"; then
+    return 1
+  fi
+  printf '%s' "${default_branch}"
+}
+
+fetch_remotes() {
+  local branch="$1"
+  # Shallow repos can't be merged.
+  if [[ "$(git rev-parse --is-shallow-repository)" == true ]]; then
+    _log_info 'Unshallowing repo...'
+    git fetch --unshallow
+  fi
+  _log_info 'Fetching all remotes...'
+  # Fetch the default branch explicitly from origin in case it's not available
+  # locally, and then fetch all branches from all remotes.
+  git fetch --quiet origin "${branch}"
+  git fetch --all --tags --quiet
+}
+
+# See: https://stackoverflow.com/a/3899339
+is_repo_dirty() {
+  # This command will always succeed, but should print the modified files if
+  # there are any. Therefore, we check if the output is empty.
+  [[ -n "$(git status --porcelain --untracked-files=no --ignore-submodules)" ]]
+  # I suspect this command has random issues with ignoring submodules.
+  # ! git diff-index --ignore-submodules --quiet HEAD
+}
+
+maybe_stash_changes() {
+  is_repo_dirty || return 1
+  _log_info_bold 'Repo has uncommitted changes, stashing them.'
+  git stash push
+}
+
+main() {
+  local repo="$1"
+  local pretty_path
+  pretty_path="$(printf '%s' "${repo}" | sed -r 's%/home/(\w|-)+%~%g')"
+  print_bold "Repo: ${pretty_path}"
+  cd -- "${repo}"
+  if ! git remote get-url origin > /dev/null; then
+    print_error 'No remote named origin found'
+    exit 1
+  fi
+  local default_branch
+  if ! default_branch="$(get_default_branch origin)"; then
+    print_error 'Could not detect default branch'
+    exit 2
+  fi
+  fetch_remotes "${default_branch}"
+  # The default branch may not exist locally (but is assumed to exist in
+  # the origin remote).
+  local branch_datetime
+  if branch_datetime="$(get_commit_datetime "${default_branch}" 2> /dev/null)"; then
+    _log_info "${default_branch} datetime: ${branch_datetime}"
+  fi
+  _log_info "origin/${default_branch} datetime: $(get_commit_datetime "origin/${default_branch}")"
+  if git merge "origin/${default_branch}"; then
+    return
+  fi
+  git merge --abort 2> /dev/null
+  local branch_backup_name
+  branch_backup_name="old-${default_branch}-$(uuidgen)"
+  git branch -m master "${branch_backup_name}"
+  git checkout --orphan --force "${default_branch}"
+  git branch --set-upstream-to="origin/${default_branch}" "${default_branch}"
+  git reset --hard "origin/${default_branch}"
+}
+
+main "$@"
