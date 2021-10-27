@@ -456,26 +456,33 @@ _install_vscode_extensions() {
   # chmod +x "${USER_BIN_DIR}/nvim-nightly"
 }
 
+_install_doom_emacs_once() {
+  # * --no-env: don't generate an envvars file. I don't need it because doom
+  #   should always start with the proper shell config.
+  # * --no-config: don't create config files, they should already exist from my
+  #   config repo.
+  doom --yes install --no-config --no-env
+  # TODO: Verify if `doom upgrade` is needed when independently updating the
+  # doom repo commit and if package versions are locked
+  # NOTE: I used to execute `doom upgrade` (which calls `doom sync`) but I don't
+  # think packages should be updated independently from the main repo.
+  # * --packages: only upgrade packages, not doom itself. I update doom by using
+  #   git-sensible-update, so I don't need to do it here.
+  # * --force: discard local changes.
+  # doom --yes upgrade --packages --force
+  doom --yes sync -e
+}
+
 _install_doom_emacs() {
   if ! command_exists emacs; then
     print_warning 'Emacs not found, skipping doom-emacs installation'
     return
   fi
-  # * --no-env: don't generate an envvars file. I don't need it because doom
-  #   should always start with the proper shell config.
-  # * --no-config: don't create config files, they should already exist from my
-  #   config repo.
-  local install_cmd=(doom --yes install --no-config --no-env)
-  # NOTE: `doom upgrade` calls `doom sync` so we don't need to call the latter.
-  # * --packages: only upgrade packages, not doom itself. I update doom by using
-  #   git-sensible-update, so I don't need to do it here.
-  # * --force: discard local changes.
-  local upgrade_cmd=(doom --yes upgrade --packages --force)
-  # If install fails, remove .local dir and try again
-  "${install_cmd[@]}" || {
-    rm -rf "${SUBMODULES_DIR}/emacs/doom-emacs/.local" && "${install_cmd[@]}"
+  # If install or upgrade fails, remove .local dir and try again
+  _install_doom_emacs_once || {
+    rm -rf -- "${SUBMODULES_DIR}/emacs/doom-emacs/.local"
+    _install_doom_emacs_once
   }
-  "${upgrade_cmd[@]}"
 }
 
 _install_vim_plugins() {
