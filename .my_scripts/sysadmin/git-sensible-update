@@ -168,6 +168,9 @@ fetch_remotes() {
   fi
   config_repo_upstream
   _log_info 'Fetching all remotes...'
+  # Fetch the default branch explicitly from origin in case it's not available
+  # locally, and then fetch all branches from all remotes.
+  git fetch --quiet origin "${branch}"
   git fetch --all --tags --quiet
 }
 
@@ -177,7 +180,7 @@ should_sync_fork() {
   is_owned_repo "${origin_url}" && git remote get-url upstream &> /dev/null
 }
 
-maybe_merge_from_fork() {
+maybe_merge_from_upstream() {
   local branch="$1"
   if ! should_sync_fork; then
     _log_info "Repo doesn't look like a fork"
@@ -204,7 +207,7 @@ merge_and_maybe_push() {
   _log_info 'Merging changes from origin...'
   git merge --no-edit --quiet "origin/${branch}"
   if is_owned_repo "${origin_url}"; then
-    maybe_merge_from_fork "${branch}"
+    maybe_merge_from_upstream "${branch}"
     _log_info 'Pushing changes to origin remote...'
     git push origin --all
   fi
