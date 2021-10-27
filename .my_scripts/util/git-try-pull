@@ -113,7 +113,7 @@ main() {
   fi
   _log_info "origin/${default_branch} datetime: $(get_commit_datetime "origin/${default_branch}")"
   git -c checkout.defaultRemote=origin checkout --guess -q "${default_branch}"
-  if git merge "origin/${default_branch}"; then
+  if git merge --quiet "origin/${default_branch}"; then
     return
   fi
   local dirty=0
