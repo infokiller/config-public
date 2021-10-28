@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly GIT_TRY_PULL="${REPO_ROOT}/.my_scripts/util/git-try-pull"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+process_repo() {
+  local repo="$1"
+  timeout 5 "${GIT_TRY_PULL}" "${repo}" || true
+  (
+    cd "${repo}"
+    base_commit="$(git log -1 --until="1 year ago" --pretty='format:%h')"
+    if [[ -z "${base_commit}" ]]; then
+      base_commit="$(git log --since="1 year ago" --pretty='format:%h' | tail -1)"
+    fi
+    local diffstat
+    diffstat="$(git --no-pager diff --stat-count=-1 "${base_commit}" | tail -1)"
+    printf 'Last year:'
+    if [[ -n "${diffstat}" ]]; then
+      echo "${diffstat}"
+    else
+      echo ' no changes'
+    fi
+  )
+}
+
+main() {
+  for repo in "$@"; do
+    process_repo "${repo}"
+  done
+}
+
+main "$@"

@@ -112,6 +112,9 @@ main() {
     _log_info "${default_branch} datetime: ${branch_datetime}"
   fi
   _log_info "origin/${default_branch} datetime: $(get_commit_datetime "origin/${default_branch}")"
+  # Check out the default branch. checkout.defaultRemote and --guess cause git
+  # to create a new local branch that tracks origin if it does not exist
+  # locally.
   git -c checkout.defaultRemote=origin checkout --guess -q "${default_branch}"
   if git merge --quiet "origin/${default_branch}"; then
     return
