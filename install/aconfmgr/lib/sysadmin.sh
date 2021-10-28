@@ -92,8 +92,6 @@ CreateLink '/etc/systemd/user/sockets.target.wants/gpg-agent.socket' '/usr/lib/s
 AddPackage libfido2                    # Library functionality for FIDO 2.0, including communication with a device over USB
 AddPackage keybase                     # CLI tool for GPG with keybase.io
 AddPackage lastpass-cli                # LastPass command line interface tool
-AddPackage libpam-google-authenticator # PAM module for google authenticator app
-AddPackage yubico-pam                  # Yubico YubiKey PAM module
 AddPackage yubikey-manager             # Python library and command line tool for configuring a YubiKey
 AddPackage yubikey-personalization     # Yubico YubiKey Personalization library and tool
 AddPackage yubikey-touch-detector      # A tool that can detect when your YubiKey is waiting for a touch

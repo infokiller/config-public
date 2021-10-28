@@ -26,6 +26,9 @@ IgnorePath '/etc/audit/audit.rules'
 CopyFile '/etc/modprobe.d/blacklist.conf'
 # TODO: Check if I can put my pam changes in separate files to avoid getting
 # conflicts when the distro files are updated.
+AddPackage pam-u2f                     # Universal 2nd Factor (U2F) PAM authentication module from Yubico
+AddPackage yubico-pam                  # Yubico YubiKey PAM module
+AddPackage libpam-google-authenticator # PAM module for google authenticator app
 CopyFile '/etc/pam.d/sudo'
 CopyFile '/etc/pam.d/su'
 CopyFile '/etc/pam.d/su-l'
