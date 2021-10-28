@@ -125,7 +125,7 @@ main() {
   local branch_backup_name
   branch_backup_name="old-${default_branch}-$(uuidgen)"
   git branch -m "${default_branch}" "${branch_backup_name}"
-  git checkout --orphan --force "${default_branch}"
+  git checkout --orphan "${default_branch}"
   git branch --set-upstream-to="origin/${default_branch}" "${default_branch}"
   git reset --hard "origin/${default_branch}"
   if ((dirty)) && ! git stash pop; then

@@ -629,17 +629,27 @@ git-is-dirty() {
 }
 
 git-reset-hard-safe() {
+  local branch="${1:-master}"
   local is_dirty=0
   git-is-dirty && is_dirty=1
   if ((is_dirty)); then
     echo 'git-reset-hard-safe: repo is dirty, stashing changes'
-    git stash push
+    git stash push || return
   fi
-  git checkout master || return
-  git reset --hard origin/master || return
+  local branch_backup_name
+  branch_backup_name="old-${branch}-$(uuidgen)"
+  # Rename the existing branch
+  git branch -m "${branch}" "${branch_backup_name}" || return
+  git checkout -b "${branch}" "${branch_backup_name}" || return
+  git branch --set-upstream-to="origin/${branch}" "${branch}" || return
+  git reset --hard "origin/${branch}" || return
   # Not sure why, but git can delete a lot of repo files after a hard reset
   # which is needed when the history changed, so we restore them.
   git ls-files --deleted | sensible-xargs git checkout HEAD --
+  if ((is_dirty)) && ! git stash pop; then
+    print_error 'Could not apply stashed changes'
+    return 1
+  fi
 }
 
 _git_ls_staged_files=(git --no-pager diff --name-only --no-renames --staged)
