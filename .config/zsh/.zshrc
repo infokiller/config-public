@@ -1624,6 +1624,9 @@ ZSH_HIGHLIGHT_MAXLENGTH=1024
 # - It seems better maintained when looking at recent history
 # - fast-syntax-highlighting messes up the input typing is messed up after the
 #   following command: "git --format='%(a=)'"
+# As of 2021-10-30, the fast-syntax-highlighting upstream repo disappeared from
+# github: 
+# https://www.reddit.com/r/zsh/comments/qinb6j/httpsgithubcomzdharma_has_suddenly_disappeared_i/
 maybe-run-tracked +w +a -- \
   source_compiled "${PLUGINS_DIR}/zsh-syntax-highlighting/"*.plugin.zsh
 # maybe-run-tracked +w +a -- \
