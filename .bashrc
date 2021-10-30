@@ -149,6 +149,11 @@ __fzf_history__() {
   fi
 }
 
+# https://github.com/direnv/direnv
+if command_exists direnv; then
+  eval "$(direnv hook bash)"
+fi
+
 ###############################################################################
 #####                            Completions                              #####
 ###############################################################################

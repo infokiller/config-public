@@ -241,21 +241,8 @@ _setup_conda() {
   fi
 }
 
-# https://github.com/direnv/direnv
-_setup_direnv() {
-  command_exists direnv || return
-  if is_bash; then
-    eval "$(direnv hook bash)"
-  elif is_zsh; then
-    # See also:
-    # https://github.com/romkatv/zsh4humans/issues/8#issuecomment-596187925
-    eval "$(direnv hook zsh)"
-  fi
-}
-
 _do_common_shell_setup() {
   _setup_conda
-  _setup_direnv
 
   if _maybe_set_tty; then
     _set_terminal_settings

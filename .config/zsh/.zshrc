@@ -208,6 +208,26 @@ source_compiled "${SHELL_CONFIG_DIR}/settings.sh"
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec update_environment_from_tmux
 
+# Add z4h and personal functions
+fpath=(
+  "${ZDOTDIR}/fpath"
+  ${fpath}
+  "${PLUGINS_DIR}/zsh4humans/fn"
+)
+# https://github.com/direnv/direnv
+# See also:
+# https://github.com/romkatv/zsh4humans/issues/8#issuecomment-596187925
+if command_exists direnv; then
+  # Native z4h direnv support, disabled for now because I don't have a
+  # performance issue with current direnv.
+  # https://github.com/romkatv/zsh4humans/issues/8#issuecomment-952667140
+  # autoload -Uz -- -z4h-direnv-init
+  # -z4h-direnv-init 0
+  # add-zsh-hook chpwd -z4h-direnv-hook
+  # add-zsh-hook precmd -z4h-direnv-hook
+  eval "$(direnv hook zsh)"
+fi
+
 maybe-run-tracked-emulate -- source_compiled \
   "${PLUGINS_DIR}/oh-my-zsh/plugins/command-not-found/"*.plugin.zsh
 
@@ -628,10 +648,7 @@ function {
 # Add completions from plugins. Completions from dotfiles repo are already added
 # by now.
 fpath=(
-  "${ZDOTDIR}/fpath"
   ${fpath}
-  # z4h functions
-  "${PLUGINS_DIR}/zsh4humans/fn"
   # Completions from external repos
   "${PLUGINS_DIR}/conda-zsh-completion"
   "${PLUGINS_DIR}/go-zsh-completion/src"
