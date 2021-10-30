@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Git pre-commit hooks.
+# TODO: parallelize to make it faster and maybe rewrite in golang.
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
@@ -64,6 +66,24 @@ _command_exists() {
 # status to path to improve speed.
 _git_changed_files() {
   git diff-index --cached --name-only --ignore-submodules=all "$@"
+}
+
+_git_cat_staged_file() {
+  # git show :<path> is used to get the staged content of the file [1], which
+  # may be different than the working tree at the time of commit.
+  # [1] https://stackoverflow.com/a/5180310
+  # NOTE: This does not work with full paths, but one can use `git ls-files` to
+  # get the path relative to the repo root:
+  # https://stackoverflow.com/a/16951268
+  (($# > 0)) || {
+    _print_error 'Usage: _git_cat_staged_file <relative_path>'
+    return 1
+  }
+  [[ $1 != /* ]] || {
+    _print_error '_git_cat_staged_file does not work with full paths'
+    return 1
+  }
+  git show ":$1"
 }
 
 _check_content_blacklist() {
@@ -148,7 +168,7 @@ _check_paths_blacklist() {
 }
 
 _list_changed_shell_scripts() {
-  _git_changed_files HEAD | filter-shell-scripts
+  _git_changed_files --diff-filter=d HEAD | filter-shell-scripts
 }
 
 _check_shfmt() {
@@ -163,8 +183,15 @@ _check_shfmt() {
     echo 'No changed shell scripts, skipping test'
     return
   fi
-  if ! shfmt -i 2 -sr -ci -d -- "${changed_shell_scripts[@]}"; then
-    _print_error 'shfmt diff found.'
+  local has_errors=0
+  while IFS='' read -r repo_path; do
+    dir="$(dirname "${repo_path}")"
+    pushd -- "${dir}" > /dev/null
+    { _git_cat_staged_file "${repo_path}" | shfmt -i 2 -sr -ci -d; } || has_errors=1
+    popd > /dev/null
+  done < <(printf '%s\n' "${changed_shell_scripts[@]}")
+  if ((has_errors == 1)); then
+    _print_error 'shfmt diff found'
     _print_bold 'To fix the formatting, run "git-fix-shfmt"'
     return 1
   fi
@@ -187,10 +214,7 @@ _check_shellcheck() {
     dir="$(dirname "${repo_path}")"
     printf 'Running shellcheck on %s\n' "${repo_path}"
     pushd -- "${dir}" > /dev/null
-    # git show :<path> is used to get the staged content of the file [1], which
-    # may be different than the working tree at the time of commit.
-    # [1] https://stackoverflow.com/a/5180310
-    shellcheck --external-sources --color <(git show ":${repo_path}") || has_errors=1
+    shellcheck --external-sources --color <(_git_cat_staged_file "${repo_path}") || has_errors=1
     popd > /dev/null
   done < <(printf '%s\n' "${changed_shell_scripts[@]}")
   if ((has_errors == 1)); then
