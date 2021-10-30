@@ -205,10 +205,12 @@ _go_use_version_suffix() {
   # install command ignore any go.mod files in the current directory or any
   # parent directory from being updated [1], which is useful for installing
   # executables without affecting the dependencies of the main module.
+  # As of go 1.17 (released August 2021), installing executables with `go get`
+  # is deprecated [2].
   # In older versions, GO111MODULE=off needs to be used.
   #
-  # [1] useful for installing executables without affecting the dependencies of
-  # the main module
+  # [1] https://golang.org/ref/mod#go-install
+  # [2] https://golang.org/doc/go-get-install-deprecation
   local version minor
   version="$(go version | grep -E -o 'go[0-9]+\.[0-9]+(\.[0-9]+)?')"
   minor="$(echo "${version}" | cut -d . -f 2)"
