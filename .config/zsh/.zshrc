@@ -1638,9 +1638,7 @@ if [[ -n "${FAST_HIGHLIGHT-}" ]]; then
 fi
 # FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]}"
 # Without this, comments are not visible with my terminal colors.
-if [[ -r "${PLUGINS_DIR}/fast-syntax-highlighting/theme_overlay.zsh" ]]; then
-  fast-theme XDG:overlay.ini
-fi
+command_exists fast-theme && fast-theme XDG:overlay.ini
 # NOTE: This plugin must be loaded after zsh-syntax-highlighting.
 # +w means not to print warnings when redefining widgets.
 # We added initial definitions for the widgets this plugin uses because they
