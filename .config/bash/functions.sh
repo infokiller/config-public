@@ -462,6 +462,9 @@ _cd_config_repo() {
 # [1] https://github.com/BurntSushi/ripgrep/discussions/1639
 
 _list_rgc_files() {
+  if is_zsh; then
+    emulate -L zsh -o no_prompt_subst
+  fi
   list-searched-files | _best_grep -v \
     -e '^submodules' \
     -e '^\.local/bin/(archive|doom|git-icdiff|git-open|hostsctl|icdiff|fasd)' \
@@ -495,13 +498,18 @@ _list_rgc_files() {
   # scoped to the function, and re-declaring a local variable without assigning
   # to it prints it. Test case:
   #   zsh -c '() { local a; local a }'
-  local escaped_prefix
+  local escaped_prefix cd_flags=()
+  # The -q flag prevents zsh from running chpwd hooks like direnv which add
+  # annoying output and slow things down.
+  if is_zsh; then
+    cd_flags=(-q)
+  fi
   for submodule in "${relevant_submodules[@]}"; do
     local dir="submodules/${submodule}/"
     # https://unix.stackexchange.com/a/129063/126543
     escaped_prefix="$(printf '%s' "${dir}" | sed 's%[\\/&]%\\&%g')"
     (
-      cd -- "${dir}" || return
+      builtin cd "${cd_flags[@]}" -- "${dir}" || return
       list-searched-files | sed "s/^./${escaped_prefix}&/" &
     )
   done
