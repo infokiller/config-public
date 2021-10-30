@@ -197,7 +197,7 @@ complete -F _complete_nix nix
 #####                               Prompt                               #####
 ###############################################################################
 
-_gitstatus_bash_prompt="${SUBMODULES_DIR}/zsh/powerlevel10k/gitstatus/gitstatus.prompt.sh"
+_gitstatus_bash_prompt="${SUBMODULES_DIR}/terminal/gitstatus/gitstatus.prompt.sh"
 if [[ -f "${_gitstatus_bash_prompt}" ]]; then
   # shellcheck source=./submodules/zsh/powerlevel10k/gitstatus/gitstatus.prompt.sh
   source "${_gitstatus_bash_prompt}"
