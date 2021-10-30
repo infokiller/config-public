@@ -37,12 +37,14 @@ readonly _GOLANG_BIN_DIR="${GOPATH:-${HOME}/go}/bin"
 readonly -A _GOLANG_PACKAGES=(
   ['github.com/aykamko/tag']='tag'
   ['github.com/edi9999/path-extractor/path-extractor']='path-extractor'
-  ['github.com/direnv/direnv']='direnv'
+  ['github.com/direnv/direnv/v2']='direnv'
   ['github.com/zricethezav/gitleaks/v7']='gitleaks'
   ['mvdan.cc/sh/v3/cmd/shfmt']='shfmt'
   ['golang.org/x/lint/golint']='golint'
   ['github.com/nektos/act']='act'
-  ['github.com/errata-ai/vale']='vale'
+  # As of 2021-10-30, installing vale fails with "module ... found ... but does
+  # not contain package".
+  # ['github.com/errata-ai/vale/v2']='vale'
 )
 # shellcheck disable=SC2034
 readonly _VSCODE_EXTENSIONS=(
@@ -228,6 +230,7 @@ _install_golang_packages() {
   for package in "${!_GOLANG_PACKAGES[@]}"; do
     local binary_name="${_GOLANG_PACKAGES["${package}"]}"
     print_bold "$(printf 'Installing %s (%s)' "${binary_name}" "${package}")"
+    GO111MODULE=on go get -d "${package}"
     GO111MODULE=on go install -v "${package}"
     symlink_binary "${_GOLANG_BIN_DIR}/${binary_name}"
   done
