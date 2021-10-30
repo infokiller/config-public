@@ -99,7 +99,7 @@ histcat_append_hook() {
   histcat add --typed-command "${command}"
 }
 
-PROMPT_COMMAND="histcat_append_hook; ${PROMPT_COMMAND}"
+PROMPT_COMMAND="histcat_append_hook; ${PROMPT_COMMAND-}"
 
 ###############################################################################
 #####                              Plugins                                #####
@@ -197,11 +197,20 @@ complete -F _complete_nix nix
 #####                               Prompt                               #####
 ###############################################################################
 
-_gitstatus_bash_prompt="${SUBMODULES_DIR}/terminal/gitstatus/gitstatus.prompt.sh"
-if [[ -f "${_gitstatus_bash_prompt}" ]]; then
-  # shellcheck source=./submodules/zsh/powerlevel10k/gitstatus/gitstatus.prompt.sh
-  source "${_gitstatus_bash_prompt}"
-fi
+_load_gitstatus() {
+  local _gitstatus_path="${SUBMODULES_DIR}/terminal/gitstatus/gitstatus.prompt.sh"
+  if [[ ! -r "${_gitstatus_path}" ]]; then
+    return
+  fi
+  # gitstatus overrides PROMPT_COMMAND and the upstream won't change it [1] so
+  # we work around it here.
+  # [1] https://github.com/romkatv/gitstatus/issues/263
+  local tmp="${PROMPT_COMMAND-}"
+  # shellcheck source=./submodules/terminal/gitstatus/gitstatus.prompt.sh
+  source -- "${_gitstatus_path}"
+  PROMPT_COMMAND="${tmp}; gitstatus_prompt_update"
+}
+_load_gitstatus && unset -f _load_gitstatus
 
 ###############################################################################
 #####                               Local                                #####
