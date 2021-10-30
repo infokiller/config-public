@@ -233,7 +233,7 @@ _check_gitleaks() {
   local config_path="${XDG_CONFIG_HOME}/gitleaks.toml"
   local cmd=(gitleaks --verbose)
   if [[ -r "${config_path}" ]]; then
-    cmd+=("--config-path=${config_path}")
+    cmd+=("--additional-config=${config_path}")
   fi
   "${cmd[@]}"
 }
