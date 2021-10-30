@@ -1622,8 +1622,8 @@ ZSH_HIGHLIGHT_MAXLENGTH=1024
 # - I found a workaround to the "pg" alias issue 
 # - zsh4humans uses it
 # - It seems better maintained when looking at recent history
-# - fast-syntax-highlighting messes up the input typing is messed up after the
-#   following command: "git --format='%(a=)'"
+# - fast-syntax-highlighting messes up the input typing after the following 
+#   command: "git --format='%(a=)'"
 # As of 2021-10-30, the fast-syntax-highlighting upstream repo disappeared from
 # github: 
 # https://www.reddit.com/r/zsh/comments/qinb6j/httpsgithubcomzdharma_has_suddenly_disappeared_i/
@@ -1637,8 +1637,8 @@ if [[ -n "${FAST_HIGHLIGHT-}" ]]; then
   FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]-}"
 fi
 # FAST_HIGHLIGHT[chroma-hub]="${FAST_HIGHLIGHT[chroma-git]}"
-# Without this comments are not visible with my terminal colors.
-if [[ ! -f "${PLUGINS_DIR}/fast-syntax-highlighting/theme_overlay.zsh" ]]; then
+# Without this, comments are not visible with my terminal colors.
+if [[ -r "${PLUGINS_DIR}/fast-syntax-highlighting/theme_overlay.zsh" ]]; then
   fast-theme XDG:overlay.ini
 fi
 # NOTE: This plugin must be loaded after zsh-syntax-highlighting.
