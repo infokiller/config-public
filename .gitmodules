@@ -1,0 +1,694 @@
+# vim: set noexpandtab :
+[submodule "submodules/terminal/URLExtract"]
+	path = submodules/terminal/URLExtract
+	url = https://github.com/lipoja/URLExtract
+[submodule "submodules/keydope"]
+	path = submodules/keydope
+	url = https://gitlab.com/infokiller/keydope
+[submodule "submodules/terminal/fzf"]
+	path = submodules/terminal/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "submodules/terminal/histcat"]
+	path = submodules/terminal/histcat
+	url = https://gitlab.com/infokiller/histcat
+[submodule "submodules/terminal/fasd"]
+	path = submodules/terminal/fasd
+	url = https://github.com/infokiller/fasd
+[submodule "submodules/desktop/selfspy"]
+	path = submodules/desktop/selfspy
+	url = https://github.com/infokiller/selfspy
+[submodule "submodules/terminal/yank"]
+	path = submodules/terminal/yank
+	url = https://github.com/mptre/yank
+[submodule "submodules/BigBagKbdTricks_XKB"]
+	path = submodules/BigBagKbdTricks_XKB
+	url = https://github.com/infokiller/BigBagKbdTricks_XKB
+[submodule "submodules/desktop/i3-workspace-groups"]
+	path = submodules/desktop/i3-workspace-groups
+	url = https://github.com/infokiller/i3-workspace-groups
+[submodule "submodules/desktop/i3-scratchpad"]
+	path = submodules/desktop/i3-scratchpad
+	url = https://github.com/infokiller/i3-scratchpad
+[submodule "submodules/desktop/polybar"]
+	path = submodules/desktop/polybar
+	url = https://github.com/infokiller/polybar
+[submodule "submodules/gopass"]
+	path = submodules/gopass
+	url = https://github.com/gopasspw/gopass
+[submodule "submodules/lastpass-cli"]
+	path = submodules/lastpass-cli
+	url = https://github.com/lastpass/lastpass-cli
+[submodule "submodules/desktop/rofi-lpass"]
+	path = submodules/desktop/rofi-lpass
+	url = https://gitlab.com/infokiller/rofi-lpass
+[submodule "submodules/terminal/icdiff"]
+	path = submodules/terminal/icdiff
+	url = https://github.com/jeffkaufman/icdiff
+[submodule "submodules/terminal/git-open"]
+	path = submodules/terminal/git-open
+	url = https://github.com/paulirish/git-open
+[submodule "submodules/terminal/gitstatus"]
+	path = submodules/terminal/gitstatus
+	url = https://github.com/romkatv/gitstatus
+[submodule "submodules/terminal/stderred"]
+	path = submodules/terminal/stderred
+	url = https://github.com/sickill/stderred
+[submodule "submodules/exec-wrappers"]
+	path = submodules/exec-wrappers
+	url = https://github.com/gqmelo/exec-wrappers
+[submodule "submodules/desktop/xkblayout-state"]
+	path = submodules/desktop/xkblayout-state
+	url = https://github.com/nonpop/xkblayout-state
+[submodule "submodules/terminal/cheat.sh"]
+	path = submodules/terminal/cheat.sh
+	url = https://github.com/chubin/cheat.sh
+[submodule "submodules/terminal/ctags"]
+	path = submodules/terminal/ctags
+	url = https://github.com/universal-ctags/ctags
+[submodule "submodules/terminal/athame"]
+	path = submodules/terminal/athame
+	url = https://github.com/ardagnir/athame
+[submodule "submodules/desktop/activitywatch"]
+	path = submodules/desktop/activitywatch
+	url = https://github.com/ActivityWatch/activitywatch
+[submodule "submodules/terminal/archive"]
+	path = submodules/terminal/archive
+	url = https://github.com/romkatv/archive
+[submodule "submodules/terminal/dircolors-solarized"]
+	path = submodules/terminal/dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized
+[submodule "submodules/hostsctl"]
+	path = submodules/hostsctl
+	url = https://github.com/pigmonkey/hostsctl
+[submodule "submodules/optional/aconfmgr"]
+	path = submodules/optional/aconfmgr
+	url = https://github.com/CyberShadow/aconfmgr
+[submodule "submodules/optional/pacnanny"]
+	path = submodules/optional/pacnanny
+	url = https://github.com/brandoninvergo/pacnanny
+[submodule "submodules/optional/tmux"]
+	path = submodules/optional/tmux
+	url = https://github.com/tmux/tmux
+
+################################################################################
+#                                     Zsh                                      #
+################################################################################
+[submodule "submodules/zsh/alias-tips"]
+	path = submodules/zsh/alias-tips
+	url = https://github.com/djui/alias-tips
+[submodule "submodules/zsh/conda-zsh-completion"]
+	path = submodules/zsh/conda-zsh-completion
+	url = https://github.com/esc/conda-zsh-completion
+[submodule "submodules/zsh/deer"]
+	path = submodules/zsh/deer
+	url = https://github.com/vifon/deer
+[submodule "submodules/zsh/fast-syntax-highlighting"]
+	path = submodules/zsh/fast-syntax-highlighting
+	url = https://gitlab.com/infokiller/fast-syntax-highlighting
+[submodule "submodules/zsh/go-zsh-completions"]
+	path = submodules/zsh/go-zsh-completions
+	url = https://github.com/zchee/go-zsh-completions
+[submodule "submodules/zsh/nix-zsh-completions"]
+	path = submodules/zsh/nix-zsh-completions
+	url = https://github.com/spwhitt/nix-zsh-completions
+[submodule "submodules/zsh/oh-my-zsh"]
+	path = submodules/zsh/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh
+[submodule "submodules/zsh/powerlevel10k"]
+	path = submodules/zsh/powerlevel10k
+	url = https://github.com/romkatv/powerlevel10k
+[submodule "submodules/zsh/pure"]
+	path = submodules/zsh/pure
+	url = https://github.com/infokiller/pure
+[submodule "submodules/zsh/revolver"]
+	path = submodules/zsh/revolver
+	url = https://github.com/molovo/revolver
+[submodule "submodules/zsh/zsh-abbrev-alias"]
+	path = submodules/zsh/zsh-abbrev-alias
+	url = https://github.com/momo-lab/zsh-abbrev-alias
+[submodule "submodules/zsh/zsh-autopair"]
+	path = submodules/zsh/zsh-autopair
+	url = https://github.com/hlissner/zsh-autopair
+[submodule "submodules/zsh/zsh-autosuggestions"]
+	path = submodules/zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "submodules/zsh/zsh-completions"]
+	path = submodules/zsh/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
+[submodule "submodules/zsh/zsh-defer"]
+	path = submodules/zsh/zsh-defer
+	url = https://github.com/romkatv/zsh-defer
+[submodule "submodules/zsh/zsh-history-substring-search"]
+	path = submodules/zsh/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search
+[submodule "submodules/zsh/zsh-notify"]
+	path = submodules/zsh/zsh-notify
+	url = https://github.com/marzocchi/zsh-notify
+[submodule "submodules/zsh/zsh-syntax-highlighting"]
+	path = submodules/zsh/zsh-syntax-highlighting
+	url = git://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "submodules/zsh/zsh-system-clipboard"]
+	path = submodules/zsh/zsh-system-clipboard
+	url = https://github.com/kutsan/zsh-system-clipboard
+[submodule "submodules/zsh/zsh4humans"]
+	path = submodules/zsh/zsh4humans
+	url = https://github.com/romkatv/zsh4humans
+	branch = v5
+[submodule "submodules/zsh/zpy"]
+	path = submodules/zsh/zpy
+	url = https://github.com/AndydeCleyre/zpy
+[submodule "submodules/zsh/zunit"]
+	path = submodules/zsh/zunit
+	url = https://github.com/zunit-zsh/zunit
+
+################################################################################
+#                                     Tmux                                     #
+################################################################################
+[submodule "submodules/tmux/tmux-colors-solarized"]
+	path = submodules/tmux/tmux-colors-solarized
+	url = https://github.com/seebi/tmux-colors-solarized
+[submodule "submodules/tmux/tmux-continuum"]
+	path = submodules/tmux/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "submodules/tmux/tmux-prefix-highlight"]
+	path = submodules/tmux/tmux-prefix-highlight
+	url = https://github.com/tmux-plugins/tmux-prefix-highlight
+[submodule "submodules/tmux/tmux-resurrect"]
+	path = submodules/tmux/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "submodules/tmux/tmux-xpanes"]
+	path = submodules/tmux/tmux-xpanes
+	url = https://github.com/greymd/tmux-xpanes
+# As of 2020-08-12, I no longer use tmux-open: I have my own implementation.
+# [submodule "submodules/tmux/tmux-open"]
+# 	path = submodules/tmux/tmux-open
+# 	url = https://github.com/infokiller/tmux-open
+# As of 2018-12-07 I don't see any benefit in using tmux-sensible
+# [submodule "submodules/tmux/tmux-sensible"]
+# 	path = submodules/tmux/tmux-sensible
+# 	url = https://github.com/tmux-plugins/tmux-sensible
+
+################################################################################
+#                                     Vim                                      #
+################################################################################
+[submodule "submodules/vim/vim-plug"]
+	path = submodules/vim/vim-plug
+	url = https://github.com/junegunn/vim-plug
+[submodule "submodules/vim/CompleteParameter.vim"]
+	path = submodules/vim/CompleteParameter.vim
+	url = https://github.com/tenfyzhong/CompleteParameter.vim
+[submodule "submodules/vim/ListToggle"]
+	path = submodules/vim/ListToggle
+	url = https://github.com/Valloric/ListToggle
+[submodule "submodules/vim/MatchTagAlways"]
+	path = submodules/vim/MatchTagAlways
+	url = https://github.com/Valloric/MatchTagAlways
+	ignore = untracked
+[submodule "submodules/vim/NrrwRgn"]
+	path = submodules/vim/NrrwRgn
+	url = https://github.com/chrisbra/NrrwRgn
+[submodule "submodules/vim/Recover.vim"]
+	path = submodules/vim/Recover.vim
+	url = https://github.com/chrisbra/Recover.vim
+[submodule "submodules/vim/YouCompleteMe"]
+	path = submodules/vim/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe
+	ignore = untracked
+[submodule "submodules/vim/ack.vim"]
+	path = submodules/vim/ack.vim
+	url = https://github.com/mileszs/ack.vim
+[submodule "submodules/vim/ale"]
+	path = submodules/vim/ale
+	url = https://github.com/dense-analysis/ale
+[submodule "submodules/vim/async.vim"]
+	path = submodules/vim/async.vim
+	url = https://github.com/prabirshrestha/async.vim
+[submodule "submodules/vim/auto-pairs"]
+	path = submodules/vim/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs
+[submodule "submodules/vim/aw-watcher-vim"]
+	path = submodules/vim/aw-watcher-vim
+	url = https://github.com/ActivityWatch/aw-watcher-vim
+[submodule "submodules/vim/braceless.vim"]
+	path = submodules/vim/braceless.vim
+	url = https://github.com/tweekmonster/braceless.vim
+[submodule "submodules/vim/caw.vim"]
+	path = submodules/vim/caw.vim
+	url = https://github.com/tyru/caw.vim
+[submodule "submodules/vim/clever-f.vim"]
+	path = submodules/vim/clever-f.vim
+	url = https://github.com/rhysd/clever-f.vim
+[submodule "submodules/vim/coc.nvim"]
+	path = submodules/vim/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+	branch = release
+[submodule "submodules/vim/committia.vim"]
+	path = submodules/vim/committia.vim
+	url = https://github.com/rhysd/committia.vim
+[submodule "submodules/vim/conflict-marker.vim"]
+	path = submodules/vim/conflict-marker.vim
+	url = https://github.com/rhysd/conflict-marker.vim
+	ignore = untracked
+[submodule "submodules/vim/ctrlsf.vim"]
+	path = submodules/vim/ctrlsf.vim
+	url = https://github.com/dyng/ctrlsf.vim
+[submodule "submodules/vim/delimitMate"]
+	path = submodules/vim/delimitMate
+	url = https://github.com/Raimondi/delimitMate
+[submodule "submodules/vim/devdocs.vim"]
+	path = submodules/vim/devdocs.vim
+	url = https://github.com/rhysd/devdocs.vim
+	ignore = untracked
+[submodule "submodules/vim/diffchar.vim"]
+	path = submodules/vim/diffchar.vim
+	url = https://github.com/rickhowe/diffchar.vim
+[submodule "submodules/vim/editorconfig-vim"]
+	path = submodules/vim/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "submodules/vim/ferret"]
+	path = submodules/vim/ferret
+	url = https://github.com/wincent/ferret
+[submodule "submodules/vim/firenvim"]
+	path = submodules/vim/firenvim
+	url = https://github.com/glacambre/firenvim
+[submodule "submodules/vim/float-preview.nvim"]
+	path = submodules/vim/float-preview.nvim
+	url = https://github.com/ncm2/float-preview.nvim
+[submodule "submodules/vim/fugitive-gitlab.vim"]
+	path = submodules/vim/fugitive-gitlab.vim
+	url = https://github.com/shumphrey/fugitive-gitlab.vim
+[submodule "submodules/vim/fzf-gitignore"]
+	path = submodules/vim/fzf-gitignore
+	url = https://gitlab.com/infokiller/fzf-gitignore
+[submodule "submodules/vim/fzf-vim"]
+	path = submodules/vim/fzf-vim
+	url = https://github.com/infokiller/fzf.vim
+	branch = highlight-marklines-preview
+[submodule "submodules/vim/gina.vim"]
+	path = submodules/vim/gina.vim
+	url = https://github.com/lambdalisue/gina.vim
+[submodule "submodules/vim/gist-vim"]
+	path = submodules/vim/gist-vim
+	url = https://github.com/mattn/gist-vim
+[submodule "submodules/vim/git-messenger.vim"]
+	path = submodules/vim/git-messenger.vim
+	url = https://github.com/rhysd/git-messenger.vim
+[submodule "submodules/vim/github-complete.vim"]
+	path = submodules/vim/github-complete.vim
+	url = https://github.com/rhysd/github-complete.vim
+	ignore = untracked
+[submodule "submodules/vim/goyo.vim"]
+	path = submodules/vim/goyo.vim
+	url = https://github.com/junegunn/goyo.vim
+[submodule "submodules/vim/helpful.vim"]
+	path = submodules/vim/helpful.vim
+	url = https://github.com/tweekmonster/helpful.vim
+	ignore = untracked
+[submodule "submodules/vim/incsearch.vim"]
+	path = submodules/vim/incsearch.vim
+	url = https://github.com/haya14busa/incsearch.vim
+[submodule "submodules/vim/indentLine"]
+	path = submodules/vim/indentLine
+	url = https://github.com/Yggdroot/indentLine
+[submodule "submodules/vim/jedi-vim"]
+	path = submodules/vim/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
+	ignore = untracked
+[submodule "submodules/vim/jupyter-vim"]
+	path = submodules/vim/jupyter-vim
+	url = https://github.com/jupyter-vim/jupyter-vim
+	ignore = untracked
+[submodule "submodules/vim/jupytext.vim"]
+	path = submodules/vim/jupytext.vim
+	url = https://github.com/goerz/jupytext.vim
+[submodule "submodules/vim/latex-snippets"]
+	path = submodules/vim/latex-snippets
+	url = https://github.com/gillescastel/latex-snippets
+[submodule "submodules/vim/lightline-ale"]
+	path = submodules/vim/lightline-ale
+	url = https://github.com/maximbaz/lightline-ale
+[submodule "submodules/vim/lightline-bufferline"]
+	path = submodules/vim/lightline-bufferline
+	url = https://github.com/mengelbrecht/lightline-bufferline
+[submodule "submodules/vim/lightline.vim"]
+	path = submodules/vim/lightline.vim
+	url = https://github.com/itchyny/lightline.vim
+[submodule "submodules/vim/limelight.vim"]
+	path = submodules/vim/limelight.vim
+	url = https://github.com/junegunn/limelight.vim
+[submodule "submodules/vim/linediff.vim"]
+	path = submodules/vim/linediff.vim
+	url = https://github.com/AndrewRadev/linediff.vim
+[submodule "submodules/vim/markdown-preview.nvim"]
+	path = submodules/vim/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim
+[submodule "submodules/vim/nerdtree"]
+	path = submodules/vim/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "submodules/vim/nvim-solarized-lua"]
+	path = submodules/vim/nvim-solarized-lua
+	url = https://github.com/ishan9299/nvim-solarized-lua
+[submodule "submodules/vim/quickfix-reflector.vim"]
+	path = submodules/vim/quickfix-reflector.vim
+	url = https://github.com/stefandtw/quickfix-reflector.vim
+[submodule "submodules/vim/rainbow"]
+	path = submodules/vim/rainbow
+	url = https://github.com/luochen1990/rainbow
+[submodule "submodules/vim/rainbow_parentheses.vim"]
+	path = submodules/vim/rainbow_parentheses.vim
+	url = https://github.com/junegunn/rainbow_parentheses.vim
+[submodule "submodules/vim/ranger.vim"]
+	path = submodules/vim/ranger.vim
+	url = https://github.com/rafaqz/ranger.vim
+[submodule "submodules/vim/scratch.vim"]
+	path = submodules/vim/scratch.vim
+	url = https://github.com/mtth/scratch.vim
+	ignore = untracked
+[submodule "submodules/vim/requirements.txt.vim"]
+	path = submodules/vim/requirements.txt.vim
+	url = https://github.com/raimon49/requirements.txt.vim
+[submodule "submodules/vim/securemodelines"]
+	path = submodules/vim/securemodelines
+	url = https://github.com/infokiller/securemodelines
+[submodule "submodules/vim/sideways.vim"]
+	path = submodules/vim/sideways.vim
+	url = https://github.com/AndrewRadev/sideways.vim
+[submodule "submodules/vim/startuptime.vim"]
+	path = submodules/vim/startuptime.vim
+	url = https://github.com/tweekmonster/startuptime.vim
+[submodule "submodules/vim/suckless.vim"]
+	path = submodules/vim/suckless.vim
+	url = https://github.com/fabi1cazenave/suckless.vim
+[submodule "submodules/vim/suda.vim"]
+	path = submodules/vim/suda.vim
+	url = https://github.com/lambdalisue/suda.vim
+	ignore = untracked
+[submodule "submodules/vim/tagbar"]
+	path = submodules/vim/tagbar
+	url = https://github.com/majutsushi/tagbar
+[submodule "submodules/vim/targets.vim"]
+	path = submodules/vim/targets.vim
+	url = https://github.com/wellle/targets.vim
+[submodule "submodules/vim/tcomment_vim"]
+	path = submodules/vim/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim
+[submodule "submodules/vim/tex-conceal.vim"]
+	path = submodules/vim/tex-conceal.vim
+	url = https://github.com/KeitaNakamura/tex-conceal.vim
+[submodule "submodules/vim/tmux-complete.vim"]
+	path = submodules/vim/tmux-complete.vim
+	url = https://github.com/wellle/tmux-complete.vim
+[submodule "submodules/vim/traces.vim"]
+	path = submodules/vim/traces.vim
+	url = https://github.com/markonm/traces.vim
+[submodule "submodules/vim/ultisnips"]
+	path = submodules/vim/ultisnips
+	url = https://github.com/SirVer/ultisnips
+[submodule "submodules/vim/undotree"]
+	path = submodules/vim/undotree
+	url = https://github.com/mbbill/undotree
+[submodule "submodules/vim/vim-EnhancedJumps"]
+	path = submodules/vim/vim-EnhancedJumps
+	url = https://github.com/inkarkat/vim-EnhancedJumps
+[submodule "submodules/vim/vim-abolish"]
+	path = submodules/vim/vim-abolish
+	url = https://github.com/tpope/vim-abolish
+[submodule "submodules/vim/vim-airline"]
+	path = submodules/vim/vim-airline
+	url = https://github.com/bling/vim-airline
+[submodule "submodules/vim/vim-arpeggio"]
+	path = submodules/vim/vim-arpeggio
+	url = https://github.com/kana/vim-arpeggio
+[submodule "submodules/vim/vim-bookmarks"]
+	path = submodules/vim/vim-bookmarks
+	url = https://github.com/MattesGroeger/vim-bookmarks
+[submodule "submodules/vim/vim-bracketed-paste"]
+	path = submodules/vim/vim-bracketed-paste
+	url = https://github.com/ConradIrwin/vim-bracketed-paste
+[submodule "submodules/vim/vim-brightest"]
+	path = submodules/vim/vim-brightest
+	url = https://github.com/osyo-manga/vim-brightest
+	ignore = untracked
+[submodule "submodules/vim/vim-characterize"]
+	path = submodules/vim/vim-characterize
+	url = https://github.com/tpope/vim-characterize
+[submodule "submodules/vim/vim-codefmt"]
+	path = submodules/vim/vim-codefmt
+	url = https://github.com/google/vim-codefmt
+[submodule "submodules/vim/vim-colorschemes"]
+	path = submodules/vim/vim-colorschemes
+	url = https://github.com/flazz/vim-colorschemes
+[submodule "submodules/vim/vim-commentary"]
+	path = submodules/vim/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "submodules/vim/vim-cursorword"]
+	path = submodules/vim/vim-cursorword
+	url = https://github.com/itchyny/vim-cursorword
+[submodule "submodules/vim/vim-dirvish"]
+	path = submodules/vim/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish
+[submodule "submodules/vim/vim-doge"]
+	path = submodules/vim/vim-doge
+	url = https://github.com/kkoomen/vim-doge
+[submodule "submodules/vim/vim-easy-align"]
+	path = submodules/vim/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align
+[submodule "submodules/vim/vim-easyclip"]
+	path = submodules/vim/vim-easyclip
+	url = https://github.com/svermeulen/vim-easyclip
+[submodule "submodules/vim/vim-easymotion"]
+	path = submodules/vim/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion
+[submodule "submodules/vim/vim-eighties"]
+	path = submodules/vim/vim-eighties
+	url = https://github.com/justincampbell/vim-eighties
+[submodule "submodules/vim/vim-errorlist"]
+	path = submodules/vim/vim-errorlist
+	url = https://github.com/infokiller/vim-errorlist
+[submodule "submodules/vim/vim-eunuch"]
+	path = submodules/vim/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch
+[submodule "submodules/vim/vim-exchange"]
+	path = submodules/vim/vim-exchange
+	url = https://github.com/tommcdo/vim-exchange
+[submodule "submodules/vim/vim-expand-region"]
+	path = submodules/vim/vim-expand-region
+	url = https://github.com/infokiller/vim-expand-region
+	ignore = untracked
+[submodule "submodules/vim/vim-fugitive"]
+	path = submodules/vim/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "submodules/vim/vim-gista"]
+	path = submodules/vim/vim-gista
+	url = https://github.com/lambdalisue/vim-gista
+[submodule "submodules/vim/vim-gitgutter"]
+	path = submodules/vim/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "submodules/vim/vim-glaive"]
+	path = submodules/vim/vim-glaive
+	url = https://github.com/google/vim-glaive
+[submodule "submodules/vim/vim-gnupg"]
+	path = submodules/vim/vim-gnupg
+	url = https://github.com/jamessan/vim-gnupg
+	ignore = untracked
+[submodule "submodules/vim/vim-go"]
+	path = submodules/vim/vim-go
+	url = https://github.com/fatih/vim-go
+[submodule "submodules/vim/vim-grepper"]
+	path = submodules/vim/vim-grepper
+	url = https://github.com/mhinz/vim-grepper
+[submodule "submodules/vim/vim-gtfo"]
+	path = submodules/vim/vim-gtfo
+	url = https://github.com/justinmk/vim-gtfo
+[submodule "submodules/vim/vim-gutentags"]
+	path = submodules/vim/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "submodules/vim/vim-highlightedundo"]
+	path = submodules/vim/vim-highlightedundo
+	url = https://github.com/machakann/vim-highlightedundo
+[submodule "submodules/vim/vim-highlightedyank"]
+	path = submodules/vim/vim-highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank
+[submodule "submodules/vim/vim-indent-guides"]
+	path = submodules/vim/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides
+[submodule "submodules/vim/vim-ingo-library"]
+	path = submodules/vim/vim-ingo-library
+	url = https://github.com/inkarkat/vim-ingo-library
+	ignore = untracked
+[submodule "submodules/vim/vim-instant-markdown"]
+	path = submodules/vim/vim-instant-markdown
+	url = https://github.com/suan/vim-instant-markdown
+[submodule "submodules/vim/vim-jsonc"]
+	path = submodules/vim/vim-jsonc
+	url = https://github.com/kevinoid/vim-jsonc
+[submodule "submodules/vim/vim-lion"]
+	path = submodules/vim/vim-lion
+	url = https://github.com/tommcdo/vim-lion
+[submodule "submodules/vim/vim-livedown"]
+	path = submodules/vim/vim-livedown
+	url = https://github.com/shime/vim-livedown
+[submodule "submodules/vim/vim-maktaba"]
+	path = submodules/vim/vim-maktaba
+	url = https://github.com/google/vim-maktaba
+[submodule "submodules/vim/vim-misc"]
+	path = submodules/vim/vim-misc
+	url = https://github.com/xolox/vim-misc
+[submodule "submodules/vim/vim-move"]
+	path = submodules/vim/vim-move
+	url = https://github.com/matze/vim-move
+[submodule "submodules/vim/vim-operator-surround"]
+	path = submodules/vim/vim-operator-surround
+	url = https://github.com/rhysd/vim-operator-surround
+	ignore = untracked
+[submodule "submodules/vim/vim-operator-user"]
+	path = submodules/vim/vim-operator-user
+	url = https://github.com/kana/vim-operator-user
+	ignore = untracked
+[submodule "submodules/vim/vim-peekaboo"]
+	path = submodules/vim/vim-peekaboo
+	url = https://github.com/junegunn/vim-peekaboo
+[submodule "submodules/vim/vim-polyglot"]
+	path = submodules/vim/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule "submodules/vim/vim-precious"]
+	path = submodules/vim/vim-precious
+	url = https://github.com/osyo-manga/vim-precious
+[submodule "submodules/vim/vim-qf"]
+	path = submodules/vim/vim-qf
+	url = https://github.com/romainl/vim-qf
+[submodule "submodules/vim/vim-repeat"]
+	path = submodules/vim/vim-repeat
+	url = https://github.com/infokiller/vim-repeat
+[submodule "submodules/vim/vim-rhubarb"]
+	path = submodules/vim/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
+[submodule "submodules/vim/vim-rooter"]
+	path = submodules/vim/vim-rooter
+	url = https://github.com/airblade/vim-rooter
+[submodule "submodules/vim/vim-sandwich"]
+	path = submodules/vim/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich
+[submodule "submodules/vim/vim-sayonara"]
+	path = submodules/vim/vim-sayonara
+	url = https://github.com/mhinz/vim-sayonara
+	ignore = untracked
+[submodule "submodules/vim/vim-searchindex"]
+	path = submodules/vim/vim-searchindex
+	url = https://github.com/google/vim-searchindex
+[submodule "submodules/vim/vim-session"]
+	path = submodules/vim/vim-session
+	url = https://github.com/xolox/vim-session
+[submodule "submodules/vim/vim-shortcut"]
+	path = submodules/vim/vim-shortcut
+	url = https://github.com/sunaku/vim-shortcut
+[submodule "submodules/vim/vim-signature"]
+	path = submodules/vim/vim-signature
+	url = https://github.com/kshenoy/vim-signature
+[submodule "submodules/vim/vim-slash"]
+	path = submodules/vim/vim-slash
+	url = https://github.com/junegunn/vim-slash
+[submodule "submodules/vim/vim-slime"]
+	path = submodules/vim/vim-slime
+	url = https://github.com/jpalardy/vim-slime
+[submodule "submodules/vim/vim-smoothie"]
+	path = submodules/vim/vim-smoothie
+	url = https://github.com/psliwka/vim-smoothie
+[submodule "submodules/vim/vim-sneak"]
+	path = submodules/vim/vim-sneak
+	url = https://github.com/justinmk/vim-sneak
+[submodule "submodules/vim/vim-snippets"]
+	path = submodules/vim/vim-snippets
+	url = https://github.com/honza/vim-snippets
+[submodule "submodules/vim/vim-solarized8"]
+	path = submodules/vim/vim-solarized8
+	url = https://github.com/lifepillar/vim-solarized8
+[submodule "submodules/vim/vim-spellcheck"]
+	path = submodules/vim/vim-spellcheck
+	url = https://github.com/infokiller/vim-spellcheck
+	ignore = untracked
+[submodule "submodules/vim/vim-surround"]
+	path = submodules/vim/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "submodules/vim/vim-swoop"]
+	path = submodules/vim/vim-swoop
+	url = https://github.com/pelodelfuego/vim-swoop
+[submodule "submodules/vim/vim-table-mode"]
+	path = submodules/vim/vim-table-mode
+	url = https://github.com/dhruvasagar/vim-table-mode
+[submodule "submodules/vim/vim-test"]
+	path = submodules/vim/vim-test
+	url = https://github.com/janko/vim-test
+[submodule "submodules/vim/vim-textobj-anyblock"]
+	path = submodules/vim/vim-textobj-anyblock
+	url = https://github.com/rhysd/vim-textobj-anyblock
+[submodule "submodules/vim/vim-textobj-comment"]
+	path = submodules/vim/vim-textobj-comment
+	url = https://github.com/glts/vim-textobj-comment
+[submodule "submodules/vim/vim-textobj-line"]
+	path = submodules/vim/vim-textobj-line
+	url = https://github.com/kana/vim-textobj-line
+	ignore = untracked
+[submodule "submodules/vim/vim-textobj-user"]
+	path = submodules/vim/vim-textobj-user
+	url = https://github.com/kana/vim-textobj-user
+	ignore = untracked
+[submodule "submodules/vim/vim-tmux-focus-events"]
+	path = submodules/vim/vim-tmux-focus-events
+	url = https://github.com/tmux-plugins/vim-tmux-focus-events
+[submodule "submodules/vim/vim-tmux-navigator"]
+	path = submodules/vim/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "submodules/vim/vim-toml"]
+	path = submodules/vim/vim-toml
+	url = https://github.com/cespare/vim-toml
+[submodule "submodules/vim/vim-visualstar"]
+	path = submodules/vim/vim-visualstar
+	url = https://github.com/thinca/vim-visualstar
+	ignore = untracked
+[submodule "submodules/vim/vim-wakatime"]
+	path = submodules/vim/vim-wakatime
+	url = https://github.com/wakatime/vim-wakatime
+[submodule "submodules/vim/vim-which-key"]
+	path = submodules/vim/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key
+[submodule "submodules/vim/vim-yapf"]
+	path = submodules/vim/vim-yapf
+	url = https://github.com/mindriot101/vim-yapf
+	ignore = untracked
+[submodule "submodules/vim/vim-zsh-completion"]
+	path = submodules/vim/vim-zsh-completion
+	url = https://github.com/infokiller/vim-zsh-completion
+[submodule "submodules/vim/vimade"]
+	path = submodules/vim/vimade
+	url = https://github.com/TaDaa/vimade
+[submodule "submodules/vim/vimagit"]
+	path = submodules/vim/vimagit
+	url = https://github.com/jreybert/vimagit
+[submodule "submodules/vim/vimproc.vim"]
+	path = submodules/vim/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim
+[submodule "submodules/vim/vimtex"]
+	path = submodules/vim/vimtex
+	url = https://github.com/lervag/vimtex
+[submodule "submodules/vim/vista.vim"]
+	path = submodules/vim/vista.vim
+	url = https://github.com/liuchengxu/vista.vim
+[submodule "submodules/vim/winresizer"]
+	path = submodules/vim/winresizer
+	url = https://github.com/simeji/winresizer
+
+################################################################################
+#                                    Emacs                                     #
+################################################################################
+[submodule "submodules/emacs/doom-emacs"]
+	path = submodules/emacs/doom-emacs
+	url = https://github.com/infokiller/doom-emacs
+	branch = disable-git-hooks
+
+################################################################################
+#                                     xplr                                     #
+################################################################################
+[submodule "submodules/xplr/preview-tabbed.xplr"]
+	path = submodules/xplr/preview-tabbed.xplr
+	url = https://github.com/sayanarijit/preview-tabbed.xplr
