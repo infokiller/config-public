@@ -208,13 +208,6 @@ source_compiled "${SHELL_CONFIG_DIR}/settings.sh"
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec update_environment_from_tmux
 
-# https://github.com/direnv/direnv
-# See also:
-# https://github.com/romkatv/zsh4humans/issues/8#issuecomment-596187925
-if command_exists direnv; then
-  eval "$(direnv hook zsh)"
-fi
-
 maybe-run-tracked-emulate -- source_compiled \
   "${PLUGINS_DIR}/oh-my-zsh/plugins/command-not-found/"*.plugin.zsh
 
