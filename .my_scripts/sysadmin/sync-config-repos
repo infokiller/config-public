@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 # Inspired by: https://github.com/romkatv/dotfiles-public/blob/master/dotfiles/functions/sync-dotfiles
 #
-# TODO: Detect when REPO_ROOT is not HOME and make adjustments for this case.
+# TODO: Test this script when REPO_ROOT is not HOME.
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
 # shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 
-# NOTE: Consider using git dirs that are relative to this file so that this
-# script can be run for working directories outside HOME.
-readonly PUBLIC_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-public"
-readonly PRIVATE_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-private"
+readonly PUBLIC_CONFIG_GIT_DIR="${REPO_ROOT}/.local/var/git_dirs/config-public"
+readonly PRIVATE_CONFIG_GIT_DIR="${REPO_ROOT}/.local/var/git_dirs/config-private"
 
-readonly HISTORY_REPO_DIR="${HOME}/.local/var/hist"
+readonly HISTORY_REPO_DIR="${REPO_ROOT}/.local/var/hist"
 
 readonly CONFIG_PUBLIC_REMOTE_URL='https://gitlab.com/infokiller/config-public'
 readonly CONFIG_PRIVATE_REMOTE_URL='https://gitlab.com/infokiller/config-private'
@@ -43,35 +42,60 @@ _log_warning() {
 }
 
 _git_public_config=(git --git-dir="${PUBLIC_CONFIG_GIT_DIR}"
-  --work-tree="${HOME}")
+  --work-tree="${REPO_ROOT}")
 _git_private_config=(git --git-dir="${PRIVATE_CONFIG_GIT_DIR}"
-  --work-tree="${HOME}")
+  --work-tree="${REPO_ROOT}")
 
 _migrate_private_repo() {
   if [[ -d "${PRIVATE_CONFIG_GIT_DIR}" ]]; then
     _log_info 'Private config repo already migrated'
     return
   fi
-  if [[ ! -d "${HOME}/.git" ]]; then
-    _log_error "No git repo dir found in ${HOME}"
+  if [[ ! -d "${REPO_ROOT}/.git" ]]; then
+    _log_error "No git repo dir found in ${REPO_ROOT}"
     return 1
   fi
   _log_info 'Found old git dir, migrating it to private config repo'
   mkdir -p -- "$(dirname "${PRIVATE_CONFIG_GIT_DIR}")"
-  mv -- "${HOME}/.git" "${PRIVATE_CONFIG_GIT_DIR}"
+  mv -- "${REPO_ROOT}/.git" "${PRIVATE_CONFIG_GIT_DIR}"
   # Fix submodule path corruption from move.
   if [[ -d "${PRIVATE_CONFIG_GIT_DIR}/modules" ]]; then
     find "${PRIVATE_CONFIG_GIT_DIR}/modules" -name config -print0 |
-      xargs --null --no-run-if-empty sed -i -r \
+      xargs --null --no-run-if-empty sed -i -E \
         's%../submodules%../../../../submodules%'
   fi
-  find "${HOME}/submodules" -name .git -type f -print0 |
-    xargs --null --no-run-if-empty sed -i -r \
-      's%(gitdir:.*\.\./)\.git%\1.local/var/git_dirs/config-private%'
+  find "${SUBMODULES_DIR}" -name .git -type f -print0 |
+    xargs --null --no-run-if-empty sed -i -E \
+      's%(gitdir:.*\.\./)\.git%\1.local/var/git_dirs/config-public%'
+}
+
+_migrate_submodules_git_dirs() {
+  mapfile -t -d '' gitlinks < <(find "${SUBMODULES_DIR}" -name .git -type f -print0)
+  local has_public=0 has_private=0
+  grep -q config-public "${gitlinks[@]}" && has_public=1
+  grep -q config-private "${gitlinks[@]}" && has_private=1
+  if ((has_public && has_private)); then
+    _log_error 'Submodules gitlinks point both to public and private repo'
+    return 1
+  fi
+  if ((!has_public && !has_private)); then
+    _log_error 'Submodules gitlinks have unexpected paths'
+    return 1
+  fi
+  if ((has_public)); then
+    _log_info 'Submodules already in public repo'
+    return
+  fi
+  sed -i -E 's%git_dirs/config-private%git_dirs/config-public%' "${gitlinks[@]}"
+  if [[ -e "${PUBLIC_CONFIG_GIT_DIR}/modules" ]]; then
+    mv -- "${PUBLIC_CONFIG_GIT_DIR}/modules" \
+      "${PUBLIC_CONFIG_GIT_DIR}/modules.backup"
+  fi
+  mv -- "${PRIVATE_CONFIG_GIT_DIR}/modules" "${PUBLIC_CONFIG_GIT_DIR}/modules"
 }
 
 _move_packages_if_needed() {
-  local prefix="${HOME}/.local"
+  local prefix="${REPO_ROOT}/.local"
   local rebuild_required=0
   if [[ ! -d "${prefix}/pkg" ]]; then
     rebuild_required=1
@@ -121,7 +145,7 @@ _migrate_dir_if_needed() {
 }
 
 _update_private_repo_url() {
-  local git=(git "--git-dir=${PRIVATE_CONFIG_GIT_DIR}" "--work-tree=${HOME}")
+  local git=(git "--git-dir=${PRIVATE_CONFIG_GIT_DIR}" "--work-tree=${REPO_ROOT}")
   if [[ "$("${git[@]}" remote get-url origin)" == *'/infokiller/config-git'* ]]; then
     _log_info 'Updating origin to point to the new private config URL'
     # Workaround to the error 'warning: remote.origin.url has multiple values'.
@@ -211,7 +235,7 @@ _verify_dconf() {
 
 _get_common_excludes() {
   # Private excludes shared by both public and private repos.
-  cat -- "${HOME}/.gitignore_private"
+  cat -- "${REPO_ROOT}/.gitignore_private"
   # DGX machines create some files in the home directory that should be ignored.
   # In addition, as of 2020-04-12 they don't have recent versions of exa.
   # TODO: Is this general to Ubuntu 18.04?
@@ -230,12 +254,12 @@ _set_local_excludes() {
   mapfile -t common_excludes < <(_get_common_excludes)
   local public_repo_excludes=("${common_excludes[@]}")
   mapfile -t -O "${#public_repo_excludes[@]}" public_repo_excludes < <(
-    cd -- "${HOME}" || return
+    cd -- "${REPO_ROOT}" || return
     "${_git_private_config[@]}" ls-files | awk '{print "/"$0}'
   )
   local private_repo_excludes=("${common_excludes[@]}")
   mapfile -t -O "${#private_repo_excludes[@]}" private_repo_excludes < <(
-    cd -- "${HOME}" || return
+    cd -- "${REPO_ROOT}" || return
     "${_git_public_config[@]}" ls-files | awk '{print "/"$0}'
   )
   _log_info 'Adding public repo excludes'
@@ -251,8 +275,8 @@ _set_local_excludes() {
 _set_local_git_config() {
   # Setting ${GIT_WORK_TREE} is needed for powerlevel10k. See:
   # https://github.com/romkatv/powerlevel10k/issues/491#issuecomment-586580015
-  "${_git_public_config[@]}" config core.worktree "${HOME}"
-  "${_git_private_config[@]}" config core.worktree "${HOME}"
+  "${_git_public_config[@]}" config core.worktree "${REPO_ROOT}"
+  "${_git_private_config[@]}" config core.worktree "${REPO_ROOT}"
   _log_info 'Setting precommit config'
   "${_git_public_config[@]}" config blacklist-hook.mode error
   "${_git_public_config[@]}" config secret-detection-hook.mode error
@@ -260,7 +284,7 @@ _set_local_git_config() {
   "${_git_private_config[@]}" config secret-detection-hook.mode warning
   # Ignore files with machine specific modifications.
   (
-    cd -- "${HOME}" || return
+    cd -- "${REPO_ROOT}" || return
     "${_git_public_config[@]}" update-index --assume-unchanged \
       .config/dunst/dunstrc
     "${_git_private_config[@]}" update-index --assume-unchanged \
@@ -273,39 +297,40 @@ _set_local_git_config() {
 
 _init_repos() {
   _migrate_private_repo
+  _migrate_submodules_git_dirs
   _update_private_repo_url
   _log_info 'Checking if public config repo needs initialization'
-  _init_repo_in_existing_dir "${PUBLIC_CONFIG_GIT_DIR}" "${HOME}" \
+  _init_repo_in_existing_dir "${PUBLIC_CONFIG_GIT_DIR}" "${REPO_ROOT}" \
     "${CONFIG_PUBLIC_REMOTE_URL}"
   _log_info 'Checking if private config repo needs initialization'
-  _init_repo_in_existing_dir "${PRIVATE_CONFIG_GIT_DIR}" "${HOME}" \
+  _init_repo_in_existing_dir "${PRIVATE_CONFIG_GIT_DIR}" "${REPO_ROOT}" \
     "${CONFIG_PRIVATE_REMOTE_URL}"
   _log_info 'Checking if history repo needs initialization'
   _init_repo_in_existing_dir "${HISTORY_REPO_DIR}/.git" "${HISTORY_REPO_DIR}" \
     "${HISTORY_REMOTE_URL}"
   _log_info 'Setting public repo to primary'
-  # Add public repo as default repo in ${HOME}.
+  # Add public repo as default repo in ${REPO_ROOT}.
   # NOTE: As of 2020-02-14, I'm using a symlink because of:
   # https://github.com/romkatv/powerlevel10k/issues/491
-  [[ -L "${HOME}/.git" ]] && rm -- "${HOME}/.git"
-  printf 'gitdir: %s\n' "${PUBLIC_CONFIG_GIT_DIR}" >| "${HOME}/.git"
+  [[ -L "${REPO_ROOT}/.git" ]] && rm -- "${REPO_ROOT}/.git"
+  printf 'gitdir: %s\n' "${PUBLIC_CONFIG_GIT_DIR}" >| "${REPO_ROOT}/.git"
 }
 
 main() {
   # Run the script from the repo root to have a consistent environment between
   # runs. I tried to make the code robust to running from other working
   # directories, but let's do this just in case I missed something.
-  cd -- "${HOME}"
+  cd -- "${REPO_ROOT}"
   _init_repos
   # shellcheck disable=SC2030,SC2031
   (
-    export GIT_WORK_TREE="${HOME}" GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}"
+    export GIT_WORK_TREE="${REPO_ROOT}" GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}"
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
     "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
   )
   # shellcheck disable=SC2030,SC2031
   (
-    export GIT_WORK_TREE="${HOME}" GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}"
+    export GIT_WORK_TREE="${REPO_ROOT}" GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}"
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
     "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
   )
@@ -326,7 +351,7 @@ main() {
   _log_info 'Verifying dconf data is synced with config'
   _verify_dconf
   _move_packages_if_needed
-  _migrate_dir_if_needed "${HOME}/downloads" "${HOME}/dl"
+  _migrate_dir_if_needed "${REPO_ROOT}/downloads" "${REPO_ROOT}/dl"
 }
 
 main "$@"
