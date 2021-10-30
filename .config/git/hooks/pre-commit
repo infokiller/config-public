@@ -3,6 +3,7 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+readonly XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-${HOME}/.config}"
 # shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly PRIVATE_FILES_PATTERNS="${REPO_ROOT}/.my_scripts/sysadmin/private_files_patterns.txt"
@@ -21,8 +22,7 @@ readonly ALL_CHECKS=(
   shfmt
   shellcheck
   detect_secrets
-  # As of 2020-06-01, `gitleaks --uncommitted` hangs.
-  # gitleaks
+  gitleaks
   deleted_file_refs
   broken_symlinks
 )
@@ -183,11 +183,15 @@ _check_shellcheck() {
     return
   fi
   local has_errors=0
-  while IFS='' read -r fullpath; do
-    dir="$(dirname "${fullpath}")"
-    filename="$(basename "${fullpath}")"
-    printf 'Running shellcheck on %s\n' "${filename}"
-    (cd "${dir}" && shellcheck --external-sources --color "${filename}") || has_errors=1
+  while IFS='' read -r repo_path; do
+    dir="$(dirname "${repo_path}")"
+    printf 'Running shellcheck on %s\n' "${repo_path}"
+    pushd -- "${dir}" > /dev/null
+    # git show :<path> is used to get the staged content of the file [1], which
+    # may be different than the working tree at the time of commit.
+    # [1] https://stackoverflow.com/a/5180310
+    shellcheck --external-sources --color <(git show ":${repo_path}") || has_errors=1
+    popd > /dev/null
   done < <(printf '%s\n' "${changed_shell_scripts[@]}")
   if ((has_errors == 1)); then
     _print_error 'shellcheck failed'
@@ -202,9 +206,10 @@ _check_gitleaks() {
     _print_warning 'Warning: gitleaks not found, skipping test.'
     return
   fi
-  local cmd=(gitleaks --uncommitted --verbose --pretty)
-  if [[ -r "${HOME}/.config/gitleaks.toml" ]]; then
-    cmd+=("--config=${HOME}/.config/gitleaks.toml")
+  local config_path="${XDG_CONFIG_HOME}/gitleaks.toml"
+  local cmd=(gitleaks --verbose)
+  if [[ -r "${config_path}" ]]; then
+    cmd+=("--config-path=${config_path}")
   fi
   "${cmd[@]}"
 }
