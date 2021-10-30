@@ -112,7 +112,7 @@ class LastWindowTracker:
         _logger.info('on_window_focus')
         self.mark_last(i3_connection)
         is_floating_scratchpad = (is_scratchpad_container(event.container) and
-                                  not is_floating(event.container))
+                                  is_floating(event.container))
         if self.include_scratchpad or not is_floating_scratchpad:
             self.last_focused.append(event.container.id)
             if len(self.last_focused) > _MAX_LAST_FOCUSED:
