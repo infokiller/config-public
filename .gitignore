@@ -153,6 +153,7 @@
 /.local/bin/tmux
 # /.local/bin/nvim-vscode
 /.local/bin/nvim-nightly
+/.local/bin/nvim.appimage
 /.local/bin/aconfmgr
 /.local/bin/sensible-pacman
 /.local/bin/pacman-original-file
