@@ -125,7 +125,7 @@ def ${1:fname}($2):
 endsnippet
 
 snippet "pylint-disable|dl" "Disable pylint errors in next line" rb
-# pylint: disable=${1:`!p snip.rv = ','.join(get_ale_lint_codes('pylint'))`}
+# pylint: disable-next=${1:`!p snip.rv = ','.join(get_ale_lint_codes('pylint'))`}
 endsnippet
 
 snippet "jupytext-cell|jc" "Jupyter cell marker" rb
