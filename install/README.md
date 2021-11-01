@@ -71,10 +71,11 @@ different, probably because it was somehow done in the Windows installation.
   drivers. This may take multiple iterations of checking for updates, installing
   them, and rebooting.
 
-- Install any remaining drivers. To verify that all the hardware is detected
-  correctly, go to Device Manager and verify that there are no warnings.
+  - Install any remaining drivers if needed. To verify that all the hardware is
+    detected correctly, go to Device Manager and verify that there are no
+    warnings.
 
-- If this is a VM, see the
+- If this is a VM, see also the
   [Trello card](https://trello.com/c/msnAYmXM/276-windows-10-vm).
 
 - Tweak Windows settings
@@ -91,7 +92,7 @@ different, probably because it was somehow done in the Windows installation.
 
   - [Bitlocker with Linux dual boot guide](https://www.ctrl.blog/entry/dual-boot-bitlocker-device.html)
 
-  - [Veracrypt Windows 10 guide](https://www.howtogeek.com/234826/how-to-enable-full-disk-encryption-on-windows-10/))
+  - [Veracrypt Windows 10 guide](https://www.howtogeek.com/234826/how-to-enable-full-disk-encryption-on-windows-10/)
 
 ### Install Windows packages
 
