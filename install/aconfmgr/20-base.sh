@@ -44,6 +44,7 @@ AddPackage base                # Minimal package set to define a basic Arch Linu
 AddPackage linux               # The Linux kernel and modules
 AddPackage linux-firmware      # Firmware files for Linux
 AddPackage kernel-modules-hook # Keeps your system fully functional after a kernel upgrade
+CreateLink /etc/systemd/system/basic.target.wants/linux-modules-cleanup.service /usr/lib/systemd/system/linux-modules-cleanup.service
 IgnorePath '/usr/lib/modules/*'
 
 AddPackage coreutils  # The basic file, shell and text manipulation utilities of the GNU operating system
