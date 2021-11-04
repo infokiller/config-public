@@ -1,4 +1,6 @@
 [Unit]
+# TODO: Verify this target follows best practices for graphical session targets:
+# https://github.com/swaywm/sway/pull/5622
 Description=xsession user services
 BindsTo=graphical-session.target
 

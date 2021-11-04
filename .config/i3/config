@@ -635,6 +635,10 @@ mode "Resize" {
     # Key: C
     bindcode 54 move position center
 
+    # Enter Gaps mode (only works when using gaps)
+    # Key: G
+    bindcode 42 mode "Gaps (outer)"
+
     # Back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -807,5 +811,11 @@ $exec_always_cli "systemctl --user start i3-track-last"
 # $exec_always_cli systemctl --user restart i3-autoname-workspaces
 
 $exec_cli bash -c 'sleep 10 && ~/.my_scripts/i3/i3-resurrect-wrapper restore'
+
+################################################################################
+#                                   Includes                                   #
+################################################################################
+
+include ${HOST_ALIAS}.conf
 
 # vim: set ft=conf :

@@ -7,7 +7,9 @@ Wants=i3-autoname-workspaces.service
 Wants=i3-resurrect-save-all.timer
 
 [Service]
-Type=simple
+# i3 4.20 added support for systemd notify:
+# https://github.com/i3/i3/blob/4.20/RELEASE-NOTES-4.20
+Type=notify
 ExecStart=i3
 # TODO: This isn't getting triggered when I do `systemctl restart lightdm`, and
 # may not work for reboot too. Need to figure this out.
