@@ -1,8 +1,11 @@
 [Unit]
 # TODO: Verify this target follows best practices for graphical session targets:
 # https://github.com/swaywm/sway/pull/5622
+# https://github.com/maximbaz/dotfiles/blob/master/.config/systemd/user/sway-session.target
 Description=xsession user services
 BindsTo=graphical-session.target
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
 
 Requires=i3wm.service
 
