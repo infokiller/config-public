@@ -117,6 +117,11 @@ _fastest_conda() {
   # As of 2021-10-16, mamba was faster: 1 minute vs 3.5 minutes. However,
   # it doesn't seem idempotent with conda, so the first time switching between
   # them will take longer.
+  # As of 2021-11-05, I ran into the following issues with mamba:
+  # - It doesn't register an environment when conda when installing it with
+  #   `mamba update` since it sometimes installs it to the tools environment
+  #   (which is where mamba is installed).
+  # - It doesn't install new conda dependencies in existing environments
   if [[ -x "${CONDA_TOOLS_BIN_DIR}/mamba" ]]; then
     bin="${CONDA_TOOLS_BIN_DIR}/mamba"
   fi
@@ -173,12 +178,25 @@ _install_conda_env() {
   # from a requirements.txt file. It seems that in this case we must resolve
   # symlinks for this to work so that the requirements.txt file can be found
   # by conda.
-  file="$(readlink -f "${file}")"
-  _log_info_bold "Installing conda environment from file: ${file}"
-  # --prune should remove packages not specified in environment file, though
-  # it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
-  local cmd=(_fastest_conda env update --prune -f "${file}")
+  file="$(readlink -f -- "${file}")"
+  local dir
+  dir="$(dirname -- "${file}")"
+  # Workaround for mamba sometimes installing stuff with the wrong prefix
+  local env_name
+  env_name="$(grep -E '^\s*name: [a-zA-Z_][a-zA-Z0-9_-]*' -- "${file}" |
+    sed -E 's/^\s*name:\s*//')"
+  local env_prefix="${CONDA_LOCAL_DIR}/envs/${env_name}"
+  if [[ -e "${env_prefix}" ]]; then
+    _log_info_bold "Updating conda environment ${env_name} from ${file}"
+    # --prune should remove packages not specified in environment file, though
+    # it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
+    local cmd=(_fastest_conda env update --prune -p "${env_prefix}" -f "${file}")
+  else
+    _log_info_bold "Installing conda environment ${env_name} from ${file}"
+    local cmd=(_fastest_conda env create -p "${env_prefix}" -f "${file}")
+  fi
   (
+    cd -- "${dir}"
     if ! "${cmd[@]}"; then
       _log_info_bold 'Removing compiler_compat/ld and retrying'
       rm -- "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
