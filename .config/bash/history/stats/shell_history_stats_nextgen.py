@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """Shell history stats for new history format."""
 import datetime
+import pathlib
 import sys
 
-# Needed for history module.
-sys.path = sys.path + ['..']
-
-import history
-import shell_history_stats_util
-
 import click
+import history
+
+from stats import shell_history_stats_util
 
 
 @click.command()
@@ -21,11 +19,11 @@ import click
     '--max-date',
     default='2020-03-11',
     help='Only commands before this date are considered. Example: 2017-01-30')
-@click.option(
-    '--expand-commands',
-    default=False,
-    is_flag=True,
-    help='Show stats about the executed commands, not the typed ones.')
+@click.option('--expand-commands',
+              default=False,
+              is_flag=True,
+              help='Show stats about the executed commands, not the typed ones.'
+             )
 def main(min_date, max_date, expand_commands):
     min_date = datetime.datetime.strptime(min_date, '%Y-%m-%d')
     max_date = datetime.datetime.strptime(max_date, '%Y-%m-%d')

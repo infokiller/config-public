@@ -107,16 +107,19 @@ def parse_history_v3(max_entries=None):
         with open(path, encoding='utf-8', errors='ignore') as f:
             # Python chokes on null bytes although it's valid UTF-8, so we must
             # convert it.
-            content = f.read().replace('\0', '\\0')
+            content = f.read().replace('\0', '')
         reader = csv.reader(io.StringIO(content))
-        shard_rows = list(reader)
+        shard_rows = [l for l in reader if l]
         if max_entries and len(rows) + len(shard_rows) > max_entries:
             num_remaining = max_entries - len(rows)
             shard_rows = shard_rows[-num_remaining:]
         rows.extend(reversed(shard_rows))
     entries = []
     for row in reversed(rows):
-        timestamp = int(row[0])
-        invocation_time = datetime.datetime.fromtimestamp(timestamp)
-        entries.append(HistoryEntry(invocation_time, row[1], row[2]))
+        try:
+            timestamp = int(row[0])
+            invocation_time = datetime.datetime.fromtimestamp(timestamp)
+            entries.append(HistoryEntry(invocation_time, row[1], row[2]))
+        except ValueError as e:
+            raise ValueError(f'Failed parsing row: "{row}"') from e
     return entries

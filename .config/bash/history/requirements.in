@@ -1,0 +1,6 @@
+bashlex~=0.16
+pygments~=2.10
+tabulate~=0.8
+click~=8.0
+colored~=1.4
+pip-tools~=6.4
