@@ -6,4 +6,4 @@ dependencies:
   - python=3.7
   - pip
   - pip:
-    - pytimeparse
+    - -r requirements.txt
