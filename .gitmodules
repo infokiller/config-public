@@ -1,7 +1,4 @@
 # vim: set noexpandtab :
-[submodule "submodules/terminal/URLExtract"]
-	path = submodules/terminal/URLExtract
-	url = https://github.com/lipoja/URLExtract
 [submodule "submodules/keydope"]
 	path = submodules/keydope
 	url = https://gitlab.com/infokiller/keydope

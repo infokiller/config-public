@@ -9,6 +9,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 # shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
 readonly CONDA_TOOLS_BIN_DIR="${CONDA_LOCAL_DIR}/envs/tools/bin"
@@ -166,27 +167,51 @@ _install_conda() {
   bash "${MINICONDA_INSTALLER}" -b -p "${CONDA_LOCAL_DIR}"
 }
 
+_install_conda_env() {
+  local file="${1:-environment.yml}"
+  # Some conda environment files (such as selfspy's) install pip dependencies
+  # from a requirements.txt file. It seems that in this case we must resolve
+  # symlinks for this to work so that the requirements.txt file can be found
+  # by conda.
+  file="$(readlink -f "${file}")"
+  _log_info_bold "Installing conda environment from file: ${file}"
+  # --prune should remove packages not specified in environment file, though
+  # it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
+  local cmd=(_fastest_conda env update --prune -f "${file}")
+  (
+    if ! "${cmd[@]}"; then
+      _log_info_bold 'Removing compiler_compat/ld and retrying'
+      rm -- "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
+        "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
+      "${cmd[@]}"
+    fi
+  )
+}
+
 _install_conda_envs_from_dir() {
   local dir="$1"
-  while IFS= read -r -d '' conda_env_file; do
-    # Some conda environment files (such as selfspy's) install pip dependencies
-    # from a requirements.txt file. It seems that in this case we must resolve
-    # symlinks for this to work so that the requirements.txt file can be found
-    # by conda.
-    conda_env_file="$(readlink -f "${conda_env_file}")"
-    _log_info_bold "Installing conda environment from file: ${conda_env_file}"
-    # --prune should remove packages not specified in environment file, though
-    #  it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
-    local cmd=(_fastest_conda env update --prune -f "${conda_env_file}")
-    (
-      if ! "${cmd[@]}"; then
-        _log_info_bold 'Removing compiler_compat/ld and retrying'
-        rm -- "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
-          "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
-        "${cmd[@]}"
-      fi
-    )
+  while IFS= read -r -d '' file; do
+    _install_conda_env "${file}"
   done < <(\find -L "${dir}" -maxdepth 1 -type f -print0 | sort --zero-terminated)
+}
+
+_install_non_graphical_conda_envs() {
+  _log_info_bold 'Installing non-graphical conda environments'
+  _install_conda_env "${REPO_ROOT}/.config/bash/history/environment.yml"
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/urlextract/urlextract.yml"
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/tools.yml"
+  _symlink_tools_binaries
+}
+
+_install_graphical_conda_envs() {
+  _log_info_bold 'Installing graphical conda environments'
+  _install_conda_env "${SUBMODULES_DIR}/keydope/environment.yml"
+  _install_conda_env "${SUBMODULES_DIR}/desktop/i3-workspace-groups/environment.yml"
+  _install_conda_env "${SUBMODULES_DIR}/desktop/i3-scratchpad/environment.yml"
+  _install_conda_env "${REPO_ROOT}/.my_scripts/i3/environment.yml"
+  _install_conda_env "${SUBMODULES_DIR}/desktop/selfspy/environment.yml"
+  _install_conda_env "${REPO_ROOT}/.my_scripts/desktop_env/suspend-screenlock/environment.yml"
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/i3_resurrect/i3_resurrect.yml"
 }
 
 _setup_conda() {
@@ -246,19 +271,11 @@ main() {
   done
 
   _setup_conda
-
-  if ((install_non_graphical)); then
-    _log_info_bold 'Installing non-graphical conda environments'
-    _install_conda_envs_from_dir "${REPO_ROOT}/install/conda_envs"
-    for base_tool in conda activate deactivate; do
-      symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
-    done
-    _symlink_tools_binaries
-  fi
-  if ((install_graphical)); then
-    _log_info_bold 'Installing graphical conda environments'
-    _install_conda_envs_from_dir "${REPO_ROOT}/install/conda_envs/graphical"
-  fi
+  for base_tool in conda activate deactivate; do
+    symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
+  done
+  ((install_non_graphical)) && _install_non_graphical_conda_envs
+  ((install_graphical)) && _install_graphical_conda_envs
 }
 
 main "$@"
