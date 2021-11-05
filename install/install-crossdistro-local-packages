@@ -142,6 +142,7 @@ readonly -A _TASK_TO_CMD=(
   ['npm-packages']="${REPO_ROOT}/install/install-npm-packages"
   ['cargo-packages']="_install_cargo_from_rustup && 
     ${REPO_ROOT}/install/install-cargo-packages"
+  ['upgrade-packages']='_upgrade_packages'
   # Graphical tasks
   ['yank']='(
     cd "${SUBMODULES_DIR}/terminal/yank" && make && symlink_binary yank
@@ -248,6 +249,20 @@ _install_cargo_from_rustup() {
     symlink_man_page "${manpage}"
   done < <(find "${RUSTUP_HOME}"/toolchains/stable-*/share/man/man1 \
     -mindepth 1 -maxdepth 1 -type f -print0)
+}
+
+# TODO: Upgrade python packages
+# TODO: Upgrade rust packages
+# TODO: Upgrade VSCode plugins
+_upgrade_packages() {
+  "${REPO_ROOT}/install/install-npm-packages" --upgrade
+  (
+    cd "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
+    rm go.{sum,mod} || true
+    go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
+    GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
+  )
+  "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
 }
 
 _install_nerd_fonts() {
@@ -438,6 +453,8 @@ _install_firenvim() {
   git checkout -- "${XDG_DATA_HOME:-${HOME}/.local/share}/firenvim/"
 }
 
+# TODO: Pin VSCode extension dependencies. Listing the current versions:
+# code --list-extensions --show-versions
 _install_vscode_extensions() {
   for extension in "${_VSCODE_EXTENSIONS[@]}"; do
     # The `--force` argument updates the extension if there is a newer version.
@@ -592,6 +609,8 @@ main() {
     cmd_run --all --parallel
     return
   fi
+  # TODO: Add an upgrade command that can upgrade a subset of packages
+  # (npm/golang/etc.) or all of them (_upgrade_packages).
   case "$1" in
     list)
       printf '%s\n' "${_ORDERED_TASKS[@]}"
