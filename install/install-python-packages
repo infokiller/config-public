@@ -292,8 +292,12 @@ main() {
   for base_tool in conda activate deactivate; do
     symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
   done
-  ((install_non_graphical)) && _install_non_graphical_conda_envs
-  ((install_graphical)) && _install_graphical_conda_envs
+  if ((install_non_graphical)); then
+    _install_non_graphical_conda_envs
+  fi
+  if ((install_graphical)); then
+    _install_graphical_conda_envs
+  fi
 }
 
 main "$@"
