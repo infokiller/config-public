@@ -5,6 +5,7 @@ Description=i3 window manager
 PartOf=graphical-session.target
 Wants=i3-autoname-workspaces.service
 Wants=i3-resurrect-save-all.timer
+Before=x11-desktop.target
 
 [Service]
 # i3 4.20 added support for systemd notify:

@@ -5,7 +5,7 @@ Description=Save i3 workspace layouts periodically
 OnStartupSec=10min
 OnUnitActiveSec=30min
 
-[Install]
 # NOTE: I originally used WantedBy=timers.target but this is incorrect because
 # it pulls this unit even in non-graphical user sessions.
-WantedBy=i3wm.target
+[Install]
+WantedBy=i3wm.service

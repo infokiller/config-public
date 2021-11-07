@@ -1,60 +1,29 @@
 [Unit]
-# TODO: Verify this target follows best practices for graphical session targets:
-# https://systemd.io/DESKTOP_ENVIRONMENTS/
-# https://github.com/swaywm/sway/pull/5622
-# https://github.com/maximbaz/dotfiles/blob/master/.config/systemd/user/sway-session.target
 Description=xsession window manager and user services
 Documentation=man:systemd.special(7)
+# As of 2021-11-06 and systemd 249.5, it seems I'm following the guidelines
+# documented in systemd.special(7): 
+# - "BindsTo=graphical-session.target" in the graphical session target
+# - "PartOf=graphical-session.target" in individual graphical services
+#
+# However, it seems better to use BindsTo and After in the individual graphical
+# services, since they shouldn't be running if graphical-session.target is not
+# active for any reason.
+#
+# See:
+# https://systemd.io/DESKTOP_ENVIRONMENTS/
+# https://github.com/swaywm/sway/pull/5622
+# https://github.com/alebastr/sway-systemd
 BindsTo=graphical-session.target
+# NOTE: graphical-session-pre.target already specifies 
+# "Before=graphical-session.target" but is not pulled by default.
 Wants=graphical-session-pre.target
 After=graphical-session-pre.target
 
-Requires=i3wm.service
+# Require i3 to finish start up before starting the graphical services pulled
+# below.
+BindsTo=i3wm.service
+After=i3wm.service
 
-Wants=battery-monitor.service
-Wants=polkit-agent.service
-# Wayland support: https://github.com/dunst-project/dunst/issues/264
-Wants=dunst.service
-# Wayland support: https://github.com/hluk/CopyQ/issues/27
-Wants=copyq.service
-Wants=kdeconnect-indicator.service
-Wants=nm-applet.service
-Wants=udiskie.service
-Wants=flameshot.service
-Wants=keydope.service
-# As of 2019-12-14, usbguard-applet was removed from the arch repos, so
-# it's disabled for now.
-# Wants=usbguard-applet.service
-# As of 2019-12-14, kalu doesn't work with the most recent version of
-# pacman.
-# Wants=kalu.service
-# As of 2019-10-19, mullvad is no longer used. I plan to use PIA if I'll
-# need a VPN, which had significantly better ping performance when I tested them
-# (along with ProtonVPN).
-# As of 2021-05-14, I'm using mullvad again. Very early tests show that the ping
-# performance is similar for Mullvad, PIA, and ProtonVPN, and they all have
-# servers nearby. Mullvad is almost twice cheaper than PIA, but it doesn't
-# support WireGuard in all servers.
-Wants=mullvad-vpn-app.service
-
-# X11 specific things (that probably won't work with XWayland).
-Wants=screenlock-daemon.service
-# Wants=keyboard-connections-handler.service
-Wants=picom.service
-Wants=unclutter.service
-# NOTE: xcape is only started if keydope is disabled.
-Wants=xcape.service
-# ActivityWatch will probably keep working with the browser extension, but as of
-# 2020-08-10 it doesn't support capturing Wayland windows metadata from
-# non-browser desktop windows.
-# As of 2021-10-06, aw-qt 0.11 crashes repeatedly and spams journald, although
-# aw-server works, so only the tray icon is missing.
-# Wants=activitywatch.service
-Wants=selfspy.service
-# Wayland support: https://github.com/jonls/redshift/issues/55
-Wants=redshift-gtk.service
-# NOTE: Is syndaemon still needed? As mentioned in the [libinput
-# docs][1] it seems that libinput replaces its functionality, but I'm not sure
-# if I can rely on libinput always being used as the input driver.
-# [1]: https://wayland.freedesktop.org/libinput/doc/latest/palm_detection.html#disable-while-typing
-# Wants=syndaemon.service
+Wants=x11-desktop.target
+Before=x11-desktop.target

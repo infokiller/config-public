@@ -14,5 +14,6 @@ RestartSec=10
 # output as well.
 StandardError=null
 # Wait for i3 socket to be available.
-ExecStartPre=bash -c 'while true; do i3-msg nop &>/dev/null && break; sleep 1; done'
+# NOTE: this may no longer be needed since i3 4.20 supports systemd notify.
+ExecStartPre=bash -c 'while true; do i3-msg nop &> /dev/null && break; sleep 1; done'
 ExecStart=%h/.my_scripts/i3/launch-i3-autoname-workspaces --log-level info

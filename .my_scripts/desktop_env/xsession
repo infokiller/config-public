@@ -110,12 +110,11 @@ main() {
   # NOTE: I originally waited on xsession.target, but that "hanged", even when
   # i3 exited, presumably because it requires all xsession services to
   # terminate.
-  systemctl --user start xsession.target
   # As of 2021-10-06, aw-qt crashes repeatedly and spams journald, although
   # aw-server works.
   (sleep 10 && "${REPO_ROOT}/submodules/desktop/activitywatch/dist/aw-qt") &
-  systemctl --user start --wait i3wm.service
-  systemctl --user stop graphical-session.target
+  systemctl --user start --wait xsession.target
+  # systemctl --user stop graphical-session.target
 }
 
 main "$@"
