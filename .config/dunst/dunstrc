@@ -33,7 +33,6 @@
     origin = top-right
 
     # Offset from the origin
-    # zeus18 offset: 0x30
     offset = 0x30
 
     # Show how many messages are currently hidden (because of

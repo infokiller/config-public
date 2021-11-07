@@ -285,8 +285,6 @@ _set_local_git_config() {
   # Ignore files with machine specific modifications.
   (
     cd -- "${REPO_ROOT}" || return
-    "${_git_public_config[@]}" update-index --assume-unchanged \
-      .config/dunst/dunstrc
     "${_git_private_config[@]}" update-index --assume-unchanged \
       .config/rclone/rclone.conf
     "${_git_private_config[@]}" update-index --assume-unchanged \
