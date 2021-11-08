@@ -75,15 +75,14 @@ _migrate_submodules_git_dirs() {
   grep -q config-public "${gitlinks[@]}" && has_public=1
   grep -q config-private "${gitlinks[@]}" && has_private=1
   if ((has_public && has_private)); then
-    _log_error 'Submodules gitlinks point both to public and private repo'
-    return 1
+    _log_warning 'Submodules gitlinks point both to public and private repo'
   fi
   if ((!has_public && !has_private)); then
     _log_error 'Submodules gitlinks have unexpected paths'
     return 1
   fi
-  if ((has_public)); then
-    _log_info 'Submodules already in public repo'
+  if ((!has_private)); then
+    _log_info 'All submodules already in public repo'
     return
   fi
   sed -i -E 's%git_dirs/config-private%git_dirs/config-public%' "${gitlinks[@]}"
