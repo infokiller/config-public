@@ -93,6 +93,16 @@ download_file() {
   wget -q -O "${filename}" "${url}"
 }
 
+# https://stackoverflow.com/a/12704727/1014208
+get_remote_git_tags() {
+  local remote="$1"
+  git ls-remote --refs --tags "${remote}" |
+    cut --delimiter='/' --fields=3 |
+    grep -v -- '-rc' |
+    tr '-' '~' |
+    sort --version-sort
+}
+
 _ctrl_c_handler() {
   _log_info_bold 'Got kill signal, exiting.'
   exit 1
