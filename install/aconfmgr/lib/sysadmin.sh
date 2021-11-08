@@ -76,6 +76,7 @@ cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << EOF
 
 experimental-features = nix-command flakes
 EOF
+IgnorePath '/nix/*'
 
 # Package management: others
 AddPackage flatpak # Linux application sandboxing and distribution framework (formerly xdg-app)

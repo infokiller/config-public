@@ -149,7 +149,6 @@ IgnorePath '/etc/mkinitcpio.d/*.preset'
 #   "${config_dir}/files/etc/gshadow"
 
 CreateLink '/etc/os-release' '../usr/lib/os-release'
-CopyFile '/etc/shells'
 
 cat >> "$(GetPackageOriginalFile pacman '/etc/makepkg.conf')" << EOF
 #########################################################################
@@ -195,5 +194,4 @@ IgnorePath '/lost+found'
 IgnorePath '/etc/.updated'
 IgnorePath '/etc/.pwd.lock'
 IgnorePath '/etc/ld.so.cache'
-IgnorePath '/nix/*'
 IgnorePath '/usr/share/info/dir'

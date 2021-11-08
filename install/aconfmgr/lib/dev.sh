@@ -4,6 +4,10 @@
 
 # Basic development packages, no X11 dependencies.
 AddPackage git             # the fast distributed version control system
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << EOF
+/bin/git-shell
+/usr/bin/git-shell
+EOF
 AddPackage git-filter-repo # Quickly rewrite git repository history (filter-branch replacement)
 AddPackage hub             # cli interface for Github
 AddPackage github-cli      # The GitHub CLI
@@ -17,7 +21,6 @@ AddPackage gcc-libs        # Runtime libraries shipped by GCC
 AddPackage gdb             # The GNU Debugger
 AddPackage patch           # A utility to apply patch files to original sources
 AddPackage pkgconf         # Package compiler and linker metadata toolkit
-AddPackage dash            # POSIX compliant shell that aims to be as small as possible
 AddPackage python          # Next generation of the python high-level scripting language
 AddPackage go              # Core compiler tools for the Go programming language
 AddPackage go-tools        # Developer tools for the Go programming language
@@ -26,6 +29,12 @@ AddPackage parallel        # A shell tool for executing jobs in parallel
 # Android
 AddPackage android-tools # Android platform tools
 AddPackage android-udev  # Udev rules to connect Android devices to your linux box
+
+AddPackage dash            # POSIX compliant shell that aims to be as small as possible
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << EOF
+/bin/dash
+/usr/bin/dash
+EOF
 
 AddPackage nodejs # Evented I/O for V8 javascript
 IgnorePath '/usr/lib/node_modules/*'
@@ -91,6 +100,10 @@ AddPackage cloc                 # Count lines of code
 AddPackage httpie               # cURL for humans
 AddPackage qrencode             # C library for encoding data in a QR Code symbol.
 AddPackage xonsh                # Python-powered, cross-platform, Unix-gazing shell
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << EOF
+/bin/xonsh
+/usr/bin/xonsh
+EOF
 AddPackage yapf                 # Python style guide checker
 AddPackage pandoc               # Conversion between markup formats
 # AddPackage termtosvg            # Record terminal sessions as SVG animations
