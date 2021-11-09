@@ -32,7 +32,7 @@ AddPackage libpam-google-authenticator # PAM module for google authenticator app
 CopyFile '/etc/pam.d/sudo'
 CopyFile '/etc/pam.d/su'
 CopyFile '/etc/pam.d/su-l'
-cat >> "$(GetPackageOriginalFile pambase /etc/pam.d/system-login)" << EOF
+cat >> "$(GetPackageOriginalFile pambase /etc/pam.d/system-login)" <<'EOF'
 # NOTE(infokiller): this adds a delay of 5 seconds to auth failures.
 auth       optional   pam_faildelay.so     delay=5000000
 EOF
@@ -40,7 +40,7 @@ CopyFile '/etc/pam.d/sshd'
 CopyFile '/etc/pam.d/passwd'
 CopyFile '/etc/sysctl.d/99-hardening.conf' 600
 
-cat >> "$(GetPackageOriginalFile shadow /etc/login.defs)" << EOF
+cat >> "$(GetPackageOriginalFile shadow /etc/login.defs)" <<'EOF'
 
 # NOTE(infokiller): Setting these variables was suggested by Lynis.
 SHA_CRYPT_MIN_ROUNDS 100000
@@ -50,7 +50,7 @@ EOF
 # Relax login denial after failed attempts. The default is to deny login for 10
 # minutes of 3 failed attempts, we change it to 30 seconds after 5 failed
 # attempts.
-cat >> "$(GetPackageOriginalFile pam '/etc/security/faillock.conf')" << EOF
+cat >> "$(GetPackageOriginalFile pam '/etc/security/faillock.conf')" <<'EOF'
 
 #########################################################################
 # Changes by infokiller

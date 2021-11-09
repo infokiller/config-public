@@ -55,7 +55,7 @@ fi
 AddPackage redshift # Adjusts the color temperature of your screen according to your surroundings.
 # Append some options to geoclue config file to allow redshift to access the
 # network.
-cat >> "$(GetPackageOriginalFile geoclue /etc/geoclue/geoclue.conf)" << EOF
+cat >> "$(GetPackageOriginalFile geoclue /etc/geoclue/geoclue.conf)" <<'EOF'
 
 [redshift]
 allowed=true

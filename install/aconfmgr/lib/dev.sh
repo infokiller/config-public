@@ -4,7 +4,7 @@
 
 # Basic development packages, no X11 dependencies.
 AddPackage git             # the fast distributed version control system
-cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << EOF
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
 /bin/git-shell
 /usr/bin/git-shell
 EOF
@@ -31,7 +31,7 @@ AddPackage android-tools # Android platform tools
 AddPackage android-udev  # Udev rules to connect Android devices to your linux box
 
 AddPackage dash            # POSIX compliant shell that aims to be as small as possible
-cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << EOF
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
 /bin/dash
 /usr/bin/dash
 EOF
@@ -47,7 +47,7 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/docker.service' '/usr/li
 IgnorePath '/etc/docker/key.json'
 IgnorePath '/opt/containerd/*'
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
-  cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" << EOF
+  cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" <<'EOF'
 {
     "data-root": "/mnt/evo970/docker"
 }
@@ -100,7 +100,7 @@ AddPackage cloc                 # Count lines of code
 AddPackage httpie               # cURL for humans
 AddPackage qrencode             # C library for encoding data in a QR Code symbol.
 AddPackage xonsh                # Python-powered, cross-platform, Unix-gazing shell
-cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << EOF
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
 /bin/xonsh
 /usr/bin/xonsh
 EOF

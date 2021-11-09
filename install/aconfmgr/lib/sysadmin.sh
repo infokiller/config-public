@@ -21,7 +21,7 @@ if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   # SetFileProperty /etc/nut/upsd.conf group nut
   # SetFileProperty /etc/nut/upsd.users group nut
   # SetFileProperty /etc/nut/upsmon.conf group nut
-  cat >> "$(GetPackageOriginalFile nut '/etc/nut/ups.conf')" << EOF
+  cat >> "$(GetPackageOriginalFile nut '/etc/nut/ups.conf')" <<'EOF'
 
 [eaton_zeus18]
   driver = "usbhid-ups"
@@ -72,7 +72,7 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/pkgfile-update.timer' '/
 # Package management: nix
 AddPackage nix # A purely functional package manager
 CreateLink /etc/systemd/system/multi-user.target.wants/nix-daemon.service /usr/lib/systemd/system/nix-daemon.service
-cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << EOF
+cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" <<'EOF'
 
 experimental-features = nix-command flakes
 EOF

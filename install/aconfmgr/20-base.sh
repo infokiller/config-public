@@ -150,7 +150,7 @@ IgnorePath '/etc/mkinitcpio.d/*.preset'
 
 CreateLink '/etc/os-release' '../usr/lib/os-release'
 
-cat >> "$(GetPackageOriginalFile pacman '/etc/makepkg.conf')" << EOF
+cat >> "$(GetPackageOriginalFile pacman '/etc/makepkg.conf')" <<'EOF'
 #########################################################################
 # Changes by infokiller
 #########################################################################

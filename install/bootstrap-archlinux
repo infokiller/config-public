@@ -180,10 +180,10 @@ if [[ ${machine_name} == vbox_uefi ]]; then
   cp /mnt/boot/efi/EFI/refind/refind_x64.efi /mnt/boot/efi/EFI/boot/bootx64.efi
 fi
 
-cat > /mnt/etc/sudoers << EOL
+cat > /mnt/etc/sudoers <<'EOF'
 root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
-EOL
+EOF
 
 # Cleanup and reboot:
 # umount -R /mnt
