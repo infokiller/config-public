@@ -103,8 +103,8 @@ _migrate_submodules_git_dirs() {
 # git help says to do a `restore --staged` but it fails with "path is unmerged"
 # https://stackoverflow.com/a/28066445/1014208
 _fix_unmerged_submodules() {
-  "${_git_private_config[@]}" --no-pager diff --diff-filter=U --name-only --no-renames "${REPO_ROOT}/.gitmodules" "${SUBMODULES_DIR}" |
-    xargs --no-run-if-empty -d '\n' "${_git_private_config[@]}" reset --
+  git --no-pager diff --diff-filter=U --name-only --no-renames "${REPO_ROOT}/.gitmodules" "${SUBMODULES_DIR}" |
+    xargs --no-run-if-empty -d '\n' git reset --
 }
 
 _move_packages_if_needed() {
@@ -336,16 +336,17 @@ main() {
   # shellcheck disable=SC2030,SC2031
   (
     export GIT_WORK_TREE="${REPO_ROOT}" GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}"
+    _fix_unmerged_submodules
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
     "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
   )
   # shellcheck disable=SC2030,SC2031
   (
     export GIT_WORK_TREE="${REPO_ROOT}" GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}"
+    _fix_unmerged_submodules
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
     "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
   )
-  _fix_unmerged_submodules
   # shellcheck disable=SC2030,SC2031
   (
     _log_info 'Syncing history repo'
