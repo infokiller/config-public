@@ -89,11 +89,14 @@ _migrate_submodules_git_dirs() {
     return
   fi
   sed -i -E 's%git_dirs/config-private%git_dirs/config-public%' "${gitlinks[@]}"
-  # Move submodules from private repo to public one.
-  # NOTE: the trailing slash in the rsync source path is required:
-  # https://stackoverflow.com/a/31278462/1014208
-  rsync -aAXv --ignore-existing --info=flist2,name,progress -- \
-    "${PRIVATE_CONFIG_GIT_DIR}/modules/" "${PUBLIC_CONFIG_GIT_DIR}/modules"
+  if [[ -e "${PRIVATE_CONFIG_GIT_DIR}/modules" ]]; then
+    # Move submodules from private repo to public one.
+    # NOTE: the trailing slash in the rsync source path is required:
+    # https://stackoverflow.com/a/31278462/1014208
+    rsync -aAXv --ignore-existing --info=flist2,name,progress -- \
+      "${PRIVATE_CONFIG_GIT_DIR}/modules/" "${PUBLIC_CONFIG_GIT_DIR}/modules"
+    rm -rf -- "${PRIVATE_CONFIG_GIT_DIR}/modules"
+  fi
 }
 
 _move_packages_if_needed() {
