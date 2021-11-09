@@ -97,9 +97,12 @@ _migrate_submodules_git_dirs() {
       "${PRIVATE_CONFIG_GIT_DIR}/modules/" "${PUBLIC_CONFIG_GIT_DIR}/modules"
     rm -rf -- "${PRIVATE_CONFIG_GIT_DIR}/modules"
   fi
-  # This may create unmerged paths which we need to reset. Note that git help
-  # says to do a `restore --staged` but it fails with "error: path is unmerged"
-  # https://stackoverflow.com/a/28066445/1014208
+}
+
+# Moving submodules may create unmerged paths which we need to reset. Note that
+# git help says to do a `restore --staged` but it fails with "path is unmerged"
+# https://stackoverflow.com/a/28066445/1014208
+_fix_unmerged_submodules() {
   "${_git_private_config[@]}" --no-pager diff --diff-filter=U --name-only --no-renames "${REPO_ROOT}/.gitmodules" "${SUBMODULES_DIR}" |
     xargs --no-run-if-empty -d '\n' "${_git_private_config[@]}" reset --
 }
@@ -342,6 +345,7 @@ main() {
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
     "${REPO_ROOT}/.my_scripts/sysadmin/update-submodules"
   )
+  _fix_unmerged_submodules
   # shellcheck disable=SC2030,SC2031
   (
     _log_info 'Syncing history repo'
