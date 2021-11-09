@@ -74,9 +74,12 @@ _migrate_submodules_git_dirs() {
   local has_public=0 has_private=0
   grep -q config-public "${gitlinks[@]}" && has_public=1
   grep -q config-private "${gitlinks[@]}" && has_private=1
-  if ((has_public && has_private)); then
-    _log_warning 'Submodules gitlinks point both to public and private repo'
-  fi
+  # This was originally an error and then demoted to a warning, but this
+  # situation is actually expected because new submodules were added to the
+  # public repo.
+  # if ((has_public && has_private)); then
+  #   _log_warning 'Submodules gitlinks point both to public and private repo'
+  # fi
   if ((!has_public && !has_private)); then
     _log_error 'Submodules gitlinks have unexpected paths'
     return 1
