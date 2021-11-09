@@ -53,9 +53,7 @@ Wants=xcape.service
 # ActivityWatch will probably keep working with the browser extension, but as of
 # 2020-08-10 it doesn't support capturing Wayland windows metadata from
 # non-browser desktop windows.
-# As of 2021-10-06, aw-qt 0.11 crashes repeatedly and spams journald, although
-# aw-server works, so only the tray icon is missing.
-# Wants=activitywatch.service
+Wants=activitywatch.service
 Wants=selfspy.service
 # Wayland support: https://github.com/jonls/redshift/issues/55
 Wants=redshift-gtk.service

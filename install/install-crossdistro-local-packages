@@ -404,6 +404,11 @@ _install_activitywatch_from_release() {
     \rm -rf -- "${dest_dir}"
   fi
   mv -- "${INSTALLATION_TMP_DIR}/activitywatch" "${dest_dir}"
+  # Fix issue with version 0.11 on archlinux:
+  # https://github.com/ActivityWatch/activitywatch/issues/660#issuecomment-959889230
+  if [[ "${DISTRO}" == arch && "${tag}" == v0.11.0 && -w "${dest_dir}/libharfbuzz.so.0" ]]; then
+    rm -- "${dest_dir}/libharfbuzz.so.0"
+  fi
 }
 
 # Building activitywatch from source was flaky a few times and I track the
