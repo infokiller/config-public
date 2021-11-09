@@ -97,6 +97,9 @@ _migrate_submodules_git_dirs() {
       "${PRIVATE_CONFIG_GIT_DIR}/modules/" "${PUBLIC_CONFIG_GIT_DIR}/modules"
     rm -rf -- "${PRIVATE_CONFIG_GIT_DIR}/modules"
   fi
+  # This may create unmerged paths which we need to restore
+  "${_git_private_config[@]}" --no-pager diff --diff-filter=U --name-only --no-renames |
+    xargs --no-run-if-empty -d '\n' "${_git_private_config[@]}" restore --staged --
 }
 
 _move_packages_if_needed() {
