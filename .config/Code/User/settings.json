@@ -43,7 +43,7 @@
     "workbench.editor.showTabs": true,
     "workbench.editor.highlightModifiedTabs": true,
     "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
+        "*.ipynb": "jupyter-notebook"
     },
     // By default, VSCode first opens files in "preview mode", which means that
     // if they're note edited and then another file is opened, it replaces the
@@ -131,6 +131,10 @@
     "todohighlight.defaultStyle": {
         "color": "#d33682",
         "backgroundColor": ""
+    },
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
     }
 }
 

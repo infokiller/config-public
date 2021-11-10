@@ -166,7 +166,7 @@
     "key": "meta+enter",
     "command": "-interactive.execute",
     "when": "resourceScheme == 'vscode-interactive'"
-  }
+  },
   // Disable unused vscode-neovim keys.
   {
     "key": "ctrl+[",
@@ -653,6 +653,81 @@
     "key": "meta+enter",
     "command": "-notebook.cell.execute",
     "when": "notebookCellListFocused"
+  },
+  {
+    "key": "i",
+    "command": "list.focusUp",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "k",
+    "command": "-list.focusUp",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "i",
+    "command": "list.focusUp",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "-list.focusUp",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "-list.focusUp",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "list.focusDown",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "j",
+    "command": "-list.focusDown",
+    "when": "listFocus && !inputFocus"
+  },
+  {
+    "key": "k",
+    "command": "list.focusDown",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "j",
+    "command": "-list.focusDown",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "shift+o",
+    "command": "notebook.cell.insertCodeCellAbove",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "a",
+    "command": "-notebook.cell.insertCodeCellAbove",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "o",
+    "command": "notebook.cell.insertCodeCellBelow",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "b",
+    "command": "-notebook.cell.insertCodeCellBelow",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "t o",
+    "command": "jupyter.notebookeditor.keybind.toggleOutput",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "o",
+    "command": "-jupyter.notebookeditor.keybind.toggleOutput",
+    "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
   }
 ]
 
