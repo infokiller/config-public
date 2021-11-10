@@ -4,6 +4,7 @@ Description=USBGuard applet
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
 PartOf=graphical-session.target
 ConditionFileIsExecutable=/usr/bin/usbguard
+After=x11-tray.service
 
 [Service]
 Type=simple

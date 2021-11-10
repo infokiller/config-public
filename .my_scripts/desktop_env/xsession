@@ -83,10 +83,11 @@ _setup_environment() {
   # GNUPG_HOME and GDK_SCALE.
   dbus-update-activation-environment --systemd --all
   # NOTE: As of 2019-05-24, there seems to be a race condition between the
-  # updating of the environment and the start of services from xsession.target.
-  # This is evident when hovering with the mouse over the applets, where some
-  # of them don't have the correct mouse size (at least in zeus18).
-  # Since I only start xsession.target after this function, I suspect that
+  # updating of the environment and the start of services from
+  # i3-session.target.  This is evident when hovering with the mouse over the
+  # applets, where some of them don't have the correct mouse size (at least in
+  # zeus18).
+  # Since I only start i3-session.target after this function, I suspect that
   # dbus-update-activation-environment returns without blocking till the update
   # is complete, so I'm experimenting with calling import-environment directly
   # as well.
@@ -105,15 +106,13 @@ main() {
   # shellcheck source=./set-x11-settings
   "${DESKTOP_ENV_UTILS_DIR}/set-x11-settings"
   # Start xsession services and i3 and block till i3 exits, as expected by the
-  # display manager. Note that xsession.target pulls i3, but it doesn't affect
+  # display manager. Note that i3-session.target pulls i3, but it doesn't affect
   # the later command that waits for i3 to terminate.
-  # NOTE: I originally waited on xsession.target, but that "hanged", even when
+  # NOTE: I originally waited on i3-session.target, but that "hanged", even when
   # i3 exited, presumably because it requires all xsession services to
   # terminate.
-  # As of 2021-10-06, aw-qt crashes repeatedly and spams journald, although
-  # aw-server works.
-  (sleep 10 && "${REPO_ROOT}/submodules/desktop/activitywatch/dist/aw-qt") &
-  systemctl --user start --wait xsession.target
+  # (sleep 10 && "${REPO_ROOT}/submodules/desktop/activitywatch/dist/aw-qt") &
+  systemctl --user start --wait i3-session.target
   # systemctl --user stop graphical-session.target
 }
 

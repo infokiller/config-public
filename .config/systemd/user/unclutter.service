@@ -1,8 +1,9 @@
 [Unit]
-Description=Hide the mouse cursor if isn't being used.
+Description=unclutter: hide the mouse cursor when unused.
 # Makes sure that this unit is stopped when the graphical session is terminated.
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
 PartOf=graphical-session.target
+After=x11-wm.service
 
 [Service]
 Type=simple

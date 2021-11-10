@@ -1,8 +1,5 @@
 [Unit]
-Description=Auto names i3 workspaces according to the open windows
-# Makes sure that this unit is stopped when the graphical session is terminated.
-# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
-PartOf=graphical-session.target
+Description=Auto name i3 workspaces according to the open windows
 BindsTo=i3wm.service
 After=i3wm.service
 

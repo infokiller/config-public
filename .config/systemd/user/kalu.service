@@ -3,6 +3,7 @@ Description=Kalu update checker
 # Makes sure that this unit is stopped when the graphical session is terminated.
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
 PartOf=graphical-session.target
+After=x11-tray.service
 
 [Service]
 Type=simple

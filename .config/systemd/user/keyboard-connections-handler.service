@@ -6,6 +6,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/file-inotify /tmp/keyboard.lock %h/.my_scripts/desktop_env/set-x11-settings
+# Launch it using env so that $PATH will be used.
+ExecStart=env file-inotify /tmp/keyboard.lock %h/.my_scripts/desktop_env/set-x11-settings
 Restart=on-failure
 RestartSec=5

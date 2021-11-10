@@ -26,6 +26,8 @@ margin-top = 2%
 margin-bottom = 0
 
 [bar-template]
+# Enable IPC to be able to reload polybar settings in runtime
+enable-ipc = true
 # monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 height = 2%

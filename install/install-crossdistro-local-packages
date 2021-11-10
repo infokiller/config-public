@@ -356,6 +356,7 @@ _build_polybar_direct() {
     (cd -- "${build_dir}" && "${cmake_cmd[@]}" && make)
   fi
   symlink_binary "${build_dir}/bin/polybar"
+  symlink_binary "${build_dir}/bin/polybar-msg"
 }
 
 _install_polybar() {

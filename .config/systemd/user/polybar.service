@@ -1,0 +1,24 @@
+[Unit]
+Description=Polybar
+# Polybar requires the window manager:
+# https://github.com/polybar/polybar/ihttps://github.com/polybar/polybar/issues/2203#issuecomment-706702761ssues/2203#issuecomment-706702761
+BindsTo=x11-wm.service
+After=x11-wm.service
+# If i3 is reloaded, we must also reload polybar so that it uses the new socket.
+ReloadPropagatedFrom=x11-wm.service
+
+[Service]
+Type=simple
+# Run via /bin/env so that $PATH will be used.
+ExecStart=env polybar i3-${HOST_ALIAS}
+# Dirty hack to consider this unit started up only after polybar is ready. The
+# correct solution is to use a "notify" service type, but polybar doesn't
+# support it.
+ExecStartPost=sleep 1
+# Run via /bin/env so that $PATH will be used.
+ExecReload=env polybar-msg cmd restart
+Restart=on-failure
+RestartSec=1
+
+[Install]
+Alias=x11-tray.service

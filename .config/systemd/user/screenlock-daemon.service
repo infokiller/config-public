@@ -3,6 +3,7 @@ Description=Resets keyboard settings when a keyboard is connected
 # Makes sure that this unit is stopped when the graphical session is terminated.
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
 PartOf=graphical-session.target
+After=x11-wm.service
 
 # TODO: Running it as a systemd service causes the `GetSessionByPID` to logind
 # to fail, which causes xss-lock not to respond to `loginctl lock-sessions`. See
@@ -11,7 +12,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-# Launch it using env so that $PATH will be used.
-ExecStart=%h/.local/bin/screenlock-daemon
+# Run via /bin/env so that $PATH will be used.
+ExecStart=env screenlock-daemon
 Restart=on-failure
 RestartSec=5

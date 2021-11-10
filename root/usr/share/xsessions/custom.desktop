@@ -1,3 +1,7 @@
 [Desktop Entry]
 Name=Xsession
+Comment=Load desktop env from ~/.xsession
 Exec=/etc/X11/Xsession
+Type=Application
+X-LightDM-DesktopName=Xsession
+DesktopNames=Xsession

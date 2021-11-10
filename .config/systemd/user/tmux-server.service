@@ -11,9 +11,9 @@ ExecCondition=bash -c '(command -v tmux &> /dev/null) && (! tmux ls 2>/dev/null)
 ExecStartPre=bash -c 'cd ~/.local/var/tmux/resurrect && ln -srf "$(ls -1 . | grep tmux_resurrect | tail -1)" last'
 ExecStart=bash -c 'tmux start-server \\; run-shell ~/submodules/tmux/tmux-resurrect/scripts/restore.sh'
 ExecStop=%h/submodules/tmux/tmux-resurrect/scripts/save.sh
-# The binary may be locally built from source, in which case we want the locally
-# built version to be used, so we must launch it indirectly using bash so that
-# $PATH will be used.
+# The binary may be locally built from source, in which case we want to use the
+# locally built version which is assumed to be in $PATH.
+# Run via /bin/env so that $PATH will be used.
 ExecStop=env tmux kill-server
 RestartSec=1
 # Consider this unit to be active if the start action exited successfully.

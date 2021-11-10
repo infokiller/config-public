@@ -1,13 +1,14 @@
 [Unit]
-Description=Collects statistics about usage
+Description=selfspy: collects statistics about usage
 # Makes sure that this unit is stopped when the graphical session is terminated.
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
 PartOf=graphical-session.target
+After=x11-wm.service
 
 [Service]
 Type=simple
-# Launch it using env so that $PATH will be used.
-ExecStart=%h/.local/bin/selfspy
+# Run via /bin/env so that $PATH will be used.
+ExecStart=env selfspy
 Restart=always
 RestartSec=10
 # The script already logs directly to syslog, so no need to log the standard

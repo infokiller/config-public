@@ -802,15 +802,20 @@ client.urgent           $bg     $alert  $fg     $alert    $bg
 default_border pixel 1
 default_floating_border pixel 3
 
+# As of 2021-11-10, these services are pulled by the i3wm.service unit.
 # NOTE: Double quotes are important so that the environment variable expands.
-$exec_always_cli "systemctl --user restart polybar@i3-${HOST_ALIAS:-generic}"
-
-$exec_always_cli "systemctl --user start i3-track-last"
-
-# As of 2020-08-10, this is pulled by the i3wm.service unit.
+# $exec_always_cli "systemctl --user restart polybar@i3-${HOST_ALIAS:-generic}"
+# $exec_always_cli systemctl --user reload polybar
+# $exec_always_cli systemctl --user start i3-track-last
 # $exec_always_cli systemctl --user restart i3-autoname-workspaces
 
-$exec_cli bash -c 'sleep 10 && ~/.my_scripts/i3/i3-resurrect-wrapper restore'
+# i3 4.20 added support for systemd notify:
+# https://github.com/i3/i3/blob/4.20/RELEASE-NOTES-4.20
+# As a fallback for older versions, we call systemd-notify.
+# $exec_cli sh -c '[ -n \\"${NOTIFY_SOCKET-}\\" ] && systemd-notify --ready'
+
+# Show the restore menu a few seconds after startup.
+$exec_cli sh -c 'sleep 3 && ~/.my_scripts/i3/i3-resurrect-wrapper restore'
 
 ################################################################################
 #                                   Includes                                   #

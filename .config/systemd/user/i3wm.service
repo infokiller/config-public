@@ -2,22 +2,32 @@
 Description=i3 window manager
 # Makes sure that this unit is stopped when the graphical session is terminated.
 # https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
-PartOf=graphical-session.target
+BindsTo=graphical-session.target
+After=graphical-session.target
 Wants=i3-autoname-workspaces.service
+Wants=i3-track-last.service
 Wants=i3-resurrect-save-all.timer
-Before=x11-desktop.target
 
 [Service]
 # i3 4.20 added support for systemd notify:
 # https://github.com/i3/i3/blob/4.20/RELEASE-NOTES-4.20
+# For older versions, I'm calling systemd-notify from my i3 config.
+# We must also set NotifyAccess to all because the fallback notification is not
+# sent from the process directly executed by the service, but a new process
+# created from i3's exec command.
 Type=notify
+NotifyAccess=all
 ExecStart=i3
 # TODO: This isn't getting triggered when I do `systemctl restart lightdm`, and
 # may not work for reboot too. Need to figure this out.
 ExecStop=%h/.my_scripts/i3/i3-resurrect-wrapper save --all
+ExecReload=i3-msg reload
 # Using `i3-msg exit` seems to cause i3 to exit with 143, which usually means
 # it was killed with SIGTERM [1]. This makes systemd think that the unit failed
 # although it didn't, so we use SuccessExitStatus to suppress it.
 # [1] https://stackoverflow.com/a/25304814/1014208
 SuccessExitStatus=143
 Restart=no
+
+[Install]
+Alias=x11-wm.service
