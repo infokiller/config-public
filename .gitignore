@@ -344,6 +344,7 @@
 /.python_history
 /.slime_paste
 /.ssh/id_ed25519
+/.ssh/known_hosts.old
 /.ssh/sockets
 /.ssh/ssh_auth_sock
 /.streamlit
