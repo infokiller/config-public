@@ -65,7 +65,7 @@ font-2 = MyMonoLargeIcons:pixelsize=12
 # font-2 = NotoSansDisplay Nerd Font:pixelsize=16
 
 modules-left = i3
-modules-center = window
+modules-center = window systemd-notify
 
 tray-position = right
 tray-padding = 0
@@ -119,8 +119,8 @@ label-foreground = ${colors.foreground-alt}
 type = custom/script
 # NOTE: this is disabled because it wastes too much CPU, see script.
 # exec = ~/.my_scripts/desktop_env/get-window-title
-exec = echo
-interval = 9999999
+exec = true
+interval = 99999999
 label = %output:10:50:...%
 label-foreground = ${colors.foreground-alt}
 
@@ -415,6 +415,15 @@ label-volume-foreground = ${alsa.label-volume-foreground}
 format-muted = ${alsa.format-muted}
 format-muted-foreground = ${alsa.format-muted-foreground}
 label-muted = ${alsa.label-muted}
+
+# Hacky way to notify systemd when the service is ready. When not started from
+# systemd, there's no impact.
+[module/systemd-notify]
+type = custom/script
+exec = systemd-notify --ready
+exec-if = sh -c '[ -n "${NOTIFY_SOCKET-}" ] && command -v systemd-notify'
+interval = 99999999
+format = ""
 
 [module/battery]
 type = internal/battery
