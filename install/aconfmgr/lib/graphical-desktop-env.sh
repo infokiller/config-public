@@ -22,7 +22,6 @@ AddPackage xcape            # Configure modifier keys to act as other keys when 
 AddPackage xss-lock         # Use external locker as X screen saver
 AddPackage xsecurelock      # X11 screen lock utility with security in mind
 AddPackage i3lock           # An improved screenlocker based upon XCB and PAM
-AddPackage gnome-keyring    # Stores passwords and encryption keys
 AddPackage picom            # X compositor that may fix tearing issues
 AddPackage conky            # Lightweight system monitor for X
 AddPackage dunst            # Customizable and lightweight notification-daemon

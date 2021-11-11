@@ -81,6 +81,12 @@ IgnorePath '/nix/*'
 # Package management: others
 AddPackage flatpak # Linux application sandboxing and distribution framework (formerly xdg-app)
 
+# GNOME keyring
+AddPackage gnome-keyring # Stores passwords and encryption keys
+# gcr-ssh-agent is enabled by the arch package:
+# https://github.com/archlinux/svntogit-packages/blob/d85baf34d16e7eabffd385a4a688b3efc3670bbc/trunk/gcr.install
+CreateLink '/etc/systemd/user/sockets.target.wants/gcr-ssh-agent.socket' '/usr/lib/systemd/user/gcr-ssh-agent.socket'
+
 # GPG
 AddPackage gnupg # Complete and free implementation of the OpenPGP standard
 CreateLink '/etc/systemd/user/sockets.target.wants/dirmngr.socket' '/usr/lib/systemd/user/dirmngr.socket'
