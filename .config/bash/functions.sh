@@ -1249,9 +1249,10 @@ _build_bazel_oci_image() {
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
       -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold" \
-      curl ca-certificates build-essential && \
+      curl ca-certificates build-essential python3-pip golang && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    ln -s /usr/bin/python3 /usr/bin/python
   ARG BAZEL_DIR=/bazel
   RUN useradd --create-home --home-dir="${BAZEL_DIR}" --user-group bazel
   USER bazel
