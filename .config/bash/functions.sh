@@ -660,6 +660,16 @@ git-reset-hard-safe() {
   fi
 }
 
+# https://stackoverflow.com/a/12704727/1014208
+get-remote-git-tags() {
+  local remote="$1"
+  git ls-remote --refs --tags "${remote}" |
+    cut --delimiter='/' --fields=3 |
+    grep -v -- '-rc' |
+    tr '-' '~' |
+    sort --version-sort
+}
+
 _git_ls_staged_files=(git --no-pager diff --name-only --no-renames --staged)
 _git_ls_unstaged_files=(git ls-files --modified --full-name)
 # TODO: Unify the git pager (delta etc.) used here and in git config. I can
@@ -1211,6 +1221,47 @@ alias db='docker build'
 # complete external commands instead of docker images.
 alias dr='docker run --rm --interactive --tty'
 # }}} Docker #
+
+# Bazel {{{ #
+# Run Bazel in a container. There is an official container [1] but as of
+# 2021-11-12 it doesn't support Bazel 4.0+.
+# [1] https://docs.bazel.build/versions/main/bazel-container.html
+_build_bazel_oci_image() {
+  if [[ -z "${BAZELISK_VERSION-}" ]]; then
+    local BAZELISK_VERSION
+    BAZELISK_VERSION="$(get-remote-git-tags 'https://github.com/bazelbuild/bazelisk' | 
+      tail -1)"
+  fi
+  local build_args=(
+    --build-arg="BAZELISK_VERSION=${BAZELISK_VERSION}"
+    --build-arg="USE_BAZEL_VERSION=${USE_BAZEL_VERSION:-4.2.1}"
+  )
+  docker build "${build_args[@]}" "$@" - <<'EOF'
+  FROM debian:11
+  RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NOWARNINGS=yes && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+      -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold" \
+      curl ca-certificates && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+  ARG USE_BAZEL_VERSION
+  ARG BAZELISK_VERSION
+  RUN curl -fsSL "https://github.com/bazelbuild/bazelisk/releases/download/$BAZELISK_VERSION/bazelisk-linux-amd64" \
+    -o /bin/bazel && chmod a+x /bin/bazel
+  # Run bazelisk once to download and cache bazel
+  ENV USE_BAZEL_VERSION=${USE_BAZEL_VERSION}
+  RUN bazel version
+  ENTRYPOINT ["/bin/bazel"]
+EOF
+}
+bazel-container() {
+  docker run --rm --interactive --tty "$@" "$(_build_bazel_oci_image -q)"
+}
+# Using "-it" instead of "--interactive --tty" causes the zsh completions to
+# complete external commands instead of docker images.
+alias dr='docker run --rm --interactive --tty'
+# }}} Bazel #
 
 # GPUs {{{
 # TODO: Add to each process the used GPU and memory usage. The gpustat library
