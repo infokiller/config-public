@@ -1227,14 +1227,18 @@ alias dr='docker run --rm --interactive --tty'
 # 2021-11-12 it doesn't support Bazel 4.0+.
 # [1] https://docs.bazel.build/versions/main/bazel-container.html
 _build_bazel_oci_image() {
+  if [[ -z "${USE_BAZEL_VERSION-}" ]]; then
+    USE_BAZEL_VERSION="$(get-remote-git-tags https://github.com/bazelbuild/bazel | 
+      grep -v '~' | tail -1)"
+  fi
   if [[ -z "${BAZELISK_VERSION-}" ]]; then
-    local BAZELISK_VERSION
     BAZELISK_VERSION="$(get-remote-git-tags 'https://github.com/bazelbuild/bazelisk' | 
       tail -1)"
   fi
   local build_args=(
+    --build-arg="BAZEL_DIR=${BAZEL_DIR:-/bazel}"
+    --build-arg="USE_BAZEL_VERSION=${USE_BAZEL_VERSION}"
     --build-arg="BAZELISK_VERSION=${BAZELISK_VERSION}"
-    --build-arg="USE_BAZEL_VERSION=${USE_BAZEL_VERSION:-4.2.1}"
   )
   docker build "${build_args[@]}" "$@" - <<'EOF'
   FROM debian:11
@@ -1242,21 +1246,34 @@ _build_bazel_oci_image() {
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
       -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold" \
-      curl ca-certificates && \
+      curl ca-certificates build-essential && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-  ARG USE_BAZEL_VERSION
+  ARG BAZEL_DIR=/bazel
+  RUN useradd --create-home --home-dir="${BAZEL_DIR}" --user-group bazel
+  USER bazel
+  # Bazel uses TEST_TMPDIR for the output directory:
+  # https://docs.bazel.build/versions/main/output_directories.html
+  # ENV TEST_TMPDIR=${BAZEL_DIR}/output
   ARG BAZELISK_VERSION
   RUN curl -fsSL "https://github.com/bazelbuild/bazelisk/releases/download/$BAZELISK_VERSION/bazelisk-linux-amd64" \
-    -o /bin/bazel && chmod a+x /bin/bazel
-  # Run bazelisk once to download and cache bazel
+    -o "${BAZEL_DIR}/bazel" && chmod a+x "${BAZEL_DIR}/bazel"
+  # Run bazelisk once to download and cache bazel in the image
+  ARG USE_BAZEL_VERSION
   ENV USE_BAZEL_VERSION=${USE_BAZEL_VERSION}
-  RUN bazel version
-  ENTRYPOINT ["/bin/bazel"]
+  RUN "${BAZEL_DIR}/bazel" version
+  ENTRYPOINT ["/bazel/bazel"]
 EOF
 }
-bazel-container() {
-  docker run --rm --interactive --tty "$@" "$(_build_bazel_oci_image -q)"
+bazel-in-docker() {
+  : "${BAZEL_DIR:=/bazel}"
+  local nproc
+  nproc="$(nproc)" || return
+  docker run --rm -it --cpus="$((nproc - 4))" --memory=8g \
+    -v "${XDG_CACHE_HOME}/bazel:${BAZEL_DIR}/.cache/bazel" \
+    -v "${PWD}:${BAZEL_DIR}/src" \
+    -w "${BAZEL_DIR}/src" \
+    "$(_build_bazel_oci_image -q)" "$@"
 }
 # Using "-it" instead of "--interactive --tty" causes the zsh completions to
 # complete external commands instead of docker images.
