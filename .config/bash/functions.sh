@@ -1231,11 +1231,11 @@ alias dr='docker run --rm --interactive --tty'
 # https://github.com/bazelbuild/bazelisk#how-does-bazelisk-know-which-bazel-version-to-run
 _build_bazel_oci_image() {
   if [[ -z "${USE_BAZEL_VERSION-}" ]]; then
-    USE_BAZEL_VERSION="$(get-remote-git-tags https://github.com/bazelbuild/bazel | 
+    USE_BAZEL_VERSION="$(get-remote-git-tags https://github.com/bazelbuild/bazel |
       grep -v '~' | tail -1)"
   fi
   if [[ -z "${BAZELISK_VERSION-}" ]]; then
-    BAZELISK_VERSION="$(get-remote-git-tags 'https://github.com/bazelbuild/bazelisk' | 
+    BAZELISK_VERSION="$(get-remote-git-tags 'https://github.com/bazelbuild/bazelisk' |
       tail -1)"
   fi
   local build_args=(
@@ -1243,7 +1243,7 @@ _build_bazel_oci_image() {
     --build-arg="USE_BAZEL_VERSION=${USE_BAZEL_VERSION}"
     --build-arg="BAZELISK_VERSION=${BAZELISK_VERSION}"
   )
-  docker build "${build_args[@]}" "$@" - <<'EOF'
+  docker build "${build_args[@]}" "$@" - << 'EOF'
   FROM debian:11
   RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NOWARNINGS=yes && \
     apt-get update -y && \
@@ -1273,13 +1273,28 @@ bazel-in-docker() {
   : "${BAZEL_DIR:=/bazel}"
   local nproc
   nproc="$(nproc)" || return
+  local image_id
+  image_id="$(_build_bazel_oci_image -q -t bazel)"
   # https://docs.bazel.build/versions/main/output_directories.html#current-layout
-  docker run --rm -it --cpus="$((nproc - 4))" --memory=8g \
-    -u="$(id -u)" \
-    -v "${XDG_CACHE_HOME}/bazel/_bazel_${USER}:${BAZEL_DIR}/.cache/bazel/_bazel_bazel" \
-    -v "${PWD}:${BAZEL_DIR}/src" \
-    -w "${BAZEL_DIR}/src" \
-    "$(_build_bazel_oci_image -q -t bazel)" "$@"
+  local host_cache_dir="${XDG_CACHE_HOME}/bazel/_bazel_${USER}"
+  local container_cache_dir="${BAZEL_DIR}/.cache/bazel/_bazel_bazel"
+  local docker_run_opts=(
+    --rm -it
+    --cpus="$((nproc - 4))" --memory=8g
+    -u="$(id -u)"
+    --volume="${host_cache_dir}:${container_cache_dir}"
+    --volume="${PWD}:${BAZEL_DIR}/src"
+    --workdir="${BAZEL_DIR}/src"
+  )
+  docker run "${docker_run_opts[@]}" "${image_id}" "$@" && {
+    local dir con_dir
+    for dir in bazel-bin bazel-out bazel-src bazel-testlogs; do
+      if [[ -L "${dir}" ]]; then
+        con_dir="$(readlink -- "${dir}")"
+        ln -sf -- "${host_cache_dir}${con_dir##${container_cache_dir}}" "${dir}"
+      fi
+    done
+  }
 }
 alias bid=bazel-in-docker
 # }}} Bazel #
