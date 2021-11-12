@@ -1226,6 +1226,9 @@ alias dr='docker run --rm --interactive --tty'
 # Run Bazel in a container. There is an official container [1] but as of
 # 2021-11-12 it doesn't support Bazel 4.0+.
 # [1] https://docs.bazel.build/versions/main/bazel-container.html
+# TODO: support specifying the bazel version using .bazeliskrc or .bazelversion
+# which are used by bazelisk:
+# https://github.com/bazelbuild/bazelisk#how-does-bazelisk-know-which-bazel-version-to-run
 _build_bazel_oci_image() {
   if [[ -z "${USE_BAZEL_VERSION-}" ]]; then
     USE_BAZEL_VERSION="$(get-remote-git-tags https://github.com/bazelbuild/bazel | 
