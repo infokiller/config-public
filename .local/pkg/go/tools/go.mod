@@ -11,6 +11,7 @@ require (
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/bazelbuild/bazelisk v1.10.1 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20211026140319-41c688d91c01 // indirect
 	github.com/containerd/cgroups v0.0.0-20200710171044-318312a37340 // indirect
 	github.com/containerd/containerd v1.4.1 // indirect
 	github.com/containerd/continuity v0.0.0-20200928162600-f2cc35102c2a // indirect

@@ -43,6 +43,7 @@ readonly -A _GOLANG_PACKAGES=(
   ['golang.org/x/lint/golint']='golint'
   ['github.com/nektos/act']='act'
   ['github.com/bazelbuild/bazelisk']='bazelisk'
+  ['github.com/bazelbuild/buildtools/buildifier']='buildifier'
   # As of 2021-10-30, installing vale fails with "module ... found ... but does
   # not contain package".
   # ['github.com/errata-ai/vale/v2']='vale'
