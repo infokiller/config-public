@@ -1275,11 +1275,9 @@ bazel-in-docker() {
     -v "${XDG_CACHE_HOME}/bazel/_bazel_${USER}:${BAZEL_DIR}/.cache/bazel/_bazel_bazel" \
     -v "${PWD}:${BAZEL_DIR}/src" \
     -w "${BAZEL_DIR}/src" \
-    "$(_build_bazel_oci_image -q)" "$@"
+    "$(_build_bazel_oci_image -q -t bazel)" "$@"
 }
-# Using "-it" instead of "--interactive --tty" causes the zsh completions to
-# complete external commands instead of docker images.
-alias dr='docker run --rm --interactive --tty'
+alias bid=bazel-in-docker
 # }}} Bazel #
 
 # GPUs {{{

@@ -870,6 +870,7 @@ function {
   _set_same_completion du duh
   _set_same_completion conda mamba
   _set_same_completion conda conda-or-mamba
+  _set_same_completion bazel bazel-in-docker
 }
 
 # NOTE(2018-11-09): Disabled because it's unused.
