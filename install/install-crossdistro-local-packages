@@ -42,6 +42,7 @@ readonly -A _GOLANG_PACKAGES=(
   ['mvdan.cc/sh/v3/cmd/shfmt']='shfmt'
   ['golang.org/x/lint/golint']='golint'
   ['github.com/nektos/act']='act'
+  ['github.com/bazelbuild/bazelisk']='bazelisk'
   # As of 2021-10-30, installing vale fails with "module ... found ... but does
   # not contain package".
   # ['github.com/errata-ai/vale/v2']='vale'
@@ -225,9 +226,8 @@ _go_use_version_suffix() {
 }
 
 _install_golang_packages() {
-  # Switch to a directory without a go.mod file. Otherwise, `go install` will
-  # install the packages to that module.
-  cd "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
+  # Switch to the module directory for the tools installed here.
+  cd -- "${_GOLANG_TOOLS_MODULE_DIR}"
   for package in "${!_GOLANG_PACKAGES[@]}"; do
     local binary_name="${_GOLANG_PACKAGES["${package}"]}"
     print_bold "$(printf 'Installing %s (%s)' "${binary_name}" "${package}")"
@@ -257,7 +257,7 @@ _install_cargo_from_rustup() {
 _upgrade_packages() {
   "${REPO_ROOT}/install/install-npm-packages" --upgrade
   (
-    cd "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
+    cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
     rm go.{sum,mod} || true
     go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
     GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"

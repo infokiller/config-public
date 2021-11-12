@@ -10,6 +10,7 @@ require (
 	github.com/Microsoft/hcsshim v0.8.10 // indirect
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
+	github.com/bazelbuild/bazelisk v1.10.1 // indirect
 	github.com/containerd/cgroups v0.0.0-20200710171044-318312a37340 // indirect
 	github.com/containerd/containerd v1.4.1 // indirect
 	github.com/containerd/continuity v0.0.0-20200928162600-f2cc35102c2a // indirect
@@ -32,6 +33,7 @@ require (
 	github.com/golang/protobuf v1.4.3 // indirect
 	github.com/google/renameio v1.0.1 // indirect
 	github.com/hako/durafmt v0.0.0-20191009132224-3f39dc1ed9f4 // indirect
+	github.com/hashicorp/go-version v1.3.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
