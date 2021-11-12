@@ -1269,8 +1269,10 @@ bazel-in-docker() {
   : "${BAZEL_DIR:=/bazel}"
   local nproc
   nproc="$(nproc)" || return
+  # https://docs.bazel.build/versions/main/output_directories.html#current-layout
   docker run --rm -it --cpus="$((nproc - 4))" --memory=8g \
-    -v "${XDG_CACHE_HOME}/bazel:${BAZEL_DIR}/.cache/bazel" \
+    -u="$(id -u)" \
+    -v "${XDG_CACHE_HOME}/bazel/_bazel_${USER}:${BAZEL_DIR}/.cache/bazel/_bazel_bazel" \
     -v "${PWD}:${BAZEL_DIR}/src" \
     -w "${BAZEL_DIR}/src" \
     "$(_build_bazel_oci_image -q)" "$@"
