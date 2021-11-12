@@ -1286,15 +1286,32 @@ bazel-in-docker() {
     --volume="${PWD}:${BAZEL_DIR}/src"
     --workdir="${BAZEL_DIR}/src"
   )
-  docker run "${docker_run_opts[@]}" "${image_id}" "$@" && {
-    local dir con_dir
-    for dir in bazel-bin bazel-out bazel-src bazel-testlogs; do
-      if [[ -L "${dir}" ]]; then
-        con_dir="$(readlink -- "${dir}")"
-        ln -sf -- "${host_cache_dir}${con_dir##${container_cache_dir}}" "${dir}"
-      fi
-    done
-  }
+  docker run "${docker_run_opts[@]}" "${image_id}" "$@"
+  # {
+  #   local dir con_dir host_dir
+  #   for dir in bazel-bin bazel-out bazel-src bazel-testlogs; do
+  #     if [[ -L "${dir}" ]]; then
+  #       con_dir="$(readlink -- "${dir}")"
+  #       host_dir="${host_cache_dir}${con_dir##${container_cache_dir}}"
+  #       ln -sf -- "${host_dir}" "${dir}"
+  #     fi
+  #   done
+  #   # TODO: this is slow and still doesn't work because the python from the
+  #   # virtualenv is different from the python used in the build. I probably need
+  #   # to mount python from the venv to the bazel container.
+  #   if host_dir="$(readlink -e bazel-src)"; then
+  #     local con_file host_file
+  #     while IFS= read -r -d '' file; do
+  #       con_file="$(readlink -- "${file}")"
+  #       if [[ ${con_file} == ${BAZEL_DIR}/src/* ]]; then
+  #         host_file="${PWD}${con_file##${BAZEL_DIR}/src}"
+  #       else
+  #         host_file="${host_cache_dir}${con_file##${container_cache_dir}}"
+  #       fi
+  #       ln -sf -- "${host_file}" "${file}"
+  #     done < <(find "${host_dir}" -type l -print0)
+  #   fi
+  # }
 }
 alias bid=bazel-in-docker
 # }}} Bazel #
