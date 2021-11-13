@@ -1245,11 +1245,19 @@ _build_bazel_oci_image() {
   )
   docker build "${build_args[@]}" "$@" - << 'EOF'
   FROM debian:11
+  # To build the python interpreter from source:
+  # https://devguide.python.org/setup/#linux
+  # https://superuser.com/a/1412976/407543
+  # https://realpython.com/installing-python/#step-2-prepare-your-system
   RUN export DEBIAN_FRONTEND=noninteractive DEBCONF_NOWARNINGS=yes && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
       -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold" \
-      curl ca-certificates build-essential python3-pip golang && \
+      curl ca-certificates build-essential golang \
+      build-essential gdb lcov pkg-config \
+      libbz2-dev libffi-dev libgdbm-dev libgdbm-compat-dev liblzma-dev \
+      libncurses5-dev libreadline6-dev libsqlite3-dev libssl-dev \
+      lzma lzma-dev tk-dev uuid-dev zlib1g-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     ln -s /usr/bin/python3 /usr/bin/python
@@ -1277,41 +1285,21 @@ bazel-in-docker() {
   image_id="$(_build_bazel_oci_image -q -t bazel)"
   # https://docs.bazel.build/versions/main/output_directories.html#current-layout
   local host_cache_dir="${XDG_CACHE_HOME}/bazel/_bazel_${USER}"
-  local container_cache_dir="${BAZEL_DIR}/.cache/bazel/_bazel_bazel"
+  # local container_cache_dir="${BAZEL_DIR}/.cache/bazel/_bazel_bazel"
   local docker_run_opts=(
     --rm -it
     --cpus="$((nproc - 4))" --memory=8g
     -u="$(id -u)"
-    --volume="${host_cache_dir}:${container_cache_dir}"
-    --volume="${PWD}:${BAZEL_DIR}/src"
-    --workdir="${BAZEL_DIR}/src"
+    --volume="${host_cache_dir}:${host_cache_dir}"
+    --volume="${PWD}:${PWD}"
+    --workdir="${PWD}"
   )
-  docker run "${docker_run_opts[@]}" "${image_id}" "$@"
-  # {
-  #   local dir con_dir host_dir
-  #   for dir in bazel-bin bazel-out bazel-src bazel-testlogs; do
-  #     if [[ -L "${dir}" ]]; then
-  #       con_dir="$(readlink -- "${dir}")"
-  #       host_dir="${host_cache_dir}${con_dir##${container_cache_dir}}"
-  #       ln -sf -- "${host_dir}" "${dir}"
-  #     fi
-  #   done
-  #   # TODO: this is slow and still doesn't work because the python from the
-  #   # virtualenv is different from the python used in the build. I probably need
-  #   # to mount python from the venv to the bazel container.
-  #   if host_dir="$(readlink -e bazel-src)"; then
-  #     local con_file host_file
-  #     while IFS= read -r -d '' file; do
-  #       con_file="$(readlink -- "${file}")"
-  #       if [[ ${con_file} == ${BAZEL_DIR}/src/* ]]; then
-  #         host_file="${PWD}${con_file##${BAZEL_DIR}/src}"
-  #       else
-  #         host_file="${host_cache_dir}${con_file##${container_cache_dir}}"
-  #       fi
-  #       ln -sf -- "${host_file}" "${file}"
-  #     done < <(find "${host_dir}" -type l -print0)
-  #   fi
-  # }
+  # NOTE: running the a python binary may fail because the python from the host
+  # (usually from a virtualenv) is different from the python used in the build,
+  # which can cause issues with libraries like numpy.
+  # The best solution is to build the python interpreter from source in bazel,
+  # and then both the build and run will use the same interpreter..
+  docker run "${docker_run_opts[@]}" "${image_id}" --output_user_root="${host_cache_dir}" "$@"
 }
 alias bid=bazel-in-docker
 # }}} Bazel #
