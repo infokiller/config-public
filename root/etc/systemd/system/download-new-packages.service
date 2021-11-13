@@ -15,5 +15,7 @@ CPUSchedulingPolicy=idle
 # database, which will lead to `pkg` being installed with a version that is
 # incompatible with the rest of the system. See:
 # https://www.reddit.com/r/archlinux/comments/9gy7gk/when_you_use_cron_jobs_to_update_arch/e683akq/
-ExecStart=/usr/bin/env checkupdates --download
+ExecStart=checkupdates --download
+# checkupdates returns 2 when there are no updates.
+SuccessExitStatus=2
 # ExecStart=/usr/bin/pacman -Syu --noconfirm --downloadonly
