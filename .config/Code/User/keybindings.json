@@ -39,6 +39,22 @@
     "key": "alt+l",
     "command": "workbench.action.navigateRight"
   },
+  {
+    "key": "alt+;",
+    "command": "workbench.action.navigateLast"
+  },
+  // Navigate to the left/right terminal. It seems that terminals can't be
+  // tiled vertically so up/down keybindings are not relevant.
+  {
+    "key": "alt+j",
+    "command": "workbench.action.terminal.focusPreviousPane",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "alt+l",
+    "command": "workbench.action.terminal.focusNextPane",
+    "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
   // As of 2021-03-16, I stopped using this workaround because navigation inside
   // web view editors is still unreliable (works most of the time, but sometimes
   // it gets stuck in the web view which requires pressing tab before the
@@ -61,10 +77,6 @@
   //   "command": "workbench.action.focusRightGroup",
   //   "when": "!focusedView && activeEditor == 'WebviewEditor'"
   // },
-  {
-    "key": "alt+;",
-    "command": "workbench.action.navigateLast"
-  },
   {
     "key": "space e",
     "command": "workbench.action.openPreviousRecentlyUsedEditorInGroup",
