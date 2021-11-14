@@ -2,16 +2,18 @@
 #
 # Installs packages common to all Linux distros I use.
 #
-# TODO: Switch to Bazel and/or Nix/GUIX, or if I decide against it, use a task
-# runner. Features missing from this script:
+# TODO: Switch to Nix/GUIX, or if I decide against it, use a task runner or
+# build system.
+# Features missing from this script:
 # - Reproducible builds
 # - Dependencies between tasks
 #
-# - Task runners (should have minimal deps):
+# - Task runners and build systems (should have minimal deps):
+#   - Makefile
+#   - Bazel
 #   - https://github.com/pydoit/doit
 #   - http://www.pyinvoke.org
 #   - https://github.com/stylemistake/runner
-#   - Makefile
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
@@ -256,6 +258,7 @@ _install_cargo_from_rustup() {
 # TODO: Upgrade python packages
 # TODO: Upgrade rust packages
 # TODO: Upgrade VSCode plugins
+# TODO: Upgrade golang packages that specify a specific branch/tag/commit
 _upgrade_packages() {
   "${REPO_ROOT}/install/install-npm-packages" --upgrade
   (

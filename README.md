@@ -131,7 +131,7 @@ with the following additions:
    readonly OTHER_CONST=3
 
    # shellcheck source=../../.my_scripts/lib/base.sh
-   source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+   source -- "${REPO_ROOT}/.my_scripts/lib/base.sh"
 
    _private_func() {
      echo 'This is a private function'

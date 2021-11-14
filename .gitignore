@@ -117,6 +117,7 @@
 /.local/bin/direnv
 /.local/bin/gitleaks
 /.local/bin/golint
+/.local/bin/gopass
 /.local/bin/path-extractor
 /.local/bin/shfmt
 /.local/bin/tag

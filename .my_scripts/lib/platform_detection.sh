@@ -41,22 +41,26 @@ is_intel_cpu() {
   grep 'vendor' /proc/cpuinfo | grep -q Intel
 }
 
-get_gpu_vendor() {
-  (lshw -C display 2> /dev/null) | grep --text vendor
+get_gpu_vendors() {
+  lshw -C display 2> /dev/null | 
+    grep --text vendor | 
+    sed -E 's/^\s+vendor:\s*//'
+  # Alternative:
+  # lshw -json -C display | jq -r '.[0] | .configuration.driver'
   # Alternative:
   # lspci | grep -e VGA -e 3D
 }
 
 is_intel_gpu() {
-  get_gpu_vendor | grep -iq intel
+  get_gpu_vendors | grep -iq intel
 }
 
 is_amd_gpu() {
-  get_gpu_vendor | grep -iq -e 'AMD' -e 'Advanced Micro Devices'
+  get_gpu_vendors | grep -iq -e 'AMD' -e 'Advanced Micro Devices'
 }
 
 is_nvidia_gpu() {
-  get_gpu_vendor | grep -iq nvidia
+  get_gpu_vendors | grep -iq nvidia
 }
 
 # Enables private/local overrides.
