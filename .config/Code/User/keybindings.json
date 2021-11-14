@@ -41,9 +41,10 @@
   },
   // As of 2021-03-16, I stopped using this workaround because navigation inside
   // web view editors is still unreliable (works most of the time, but sometimes
-    // it gets stuck in the web view which requires pressing tab before the
-    // navigation command).
+  // it gets stuck in the web view which requires pressing tab before the
+  // navigation command).
   // The workbench.action.navigate* commands don't work in webview editors (interactive python, markdown preview, etc), this is a workaround.
+  // As of VSCode 1.62.0 (released Nov 2021), the issue with web view navigation is mostly fixed.
   // https://github.com/microsoft/vscode/issues/119076
   // {
   //   "key": "alt+k",
@@ -62,7 +63,7 @@
   // },
   {
     "key": "alt+;",
-    "command": "workbench.action.focusLastEditorGroup"
+    "command": "workbench.action.navigateLast"
   },
   {
     "key": "space e",
@@ -730,5 +731,4 @@
     "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
   }
 ]
-
 // vim: set ft=jsonc :
