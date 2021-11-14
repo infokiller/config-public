@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-function join_by() {
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../../.my_scripts/lib/platform_detection.sh
+source -- "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
+
+_join_by() {
   local IFS="$1"
   shift
   echo "$*"
@@ -31,19 +39,11 @@ DISABLED_FEATURES=(
   'OmniboxTabSwitchSuggestions'
 )
 
-FLAGS=(
+GENERIC_FLAGS=(
   # Without this, chromium stores passwords unencrypted, even though I have the
   # Secrets Service running.
   # https://rtfm.co.ua/en/chromium-linux-keyrings-secret-service-passwords-encryption-and-store/
   '--password-store=gnome'
-  # EXP: use GPU acceleration for rasterization and/or video encode/decode. See:
-  # - https://github.com/qutebrowser/qutebrowser/issues/5378#issuecomment-617931657
-  # - https://wiki.archlinux.org/index.php/Hardware_video_acceleration
-  # - https://wiki.debian.org/HardwareVideoAcceleration
-  '--enable-gpu-rasterization'
-  '--enable-accelerated-video-decode'
-  '--use-gl=desktop'
-  '--ignore-gpu-blocklist'
   # NOTE(2018-10-16): Disabled because things are too small on hera17. The
   # automatic scaling prior to using this flag seemed to work better.
   # --force-device-scale-factor=1.2
@@ -56,8 +56,41 @@ FLAGS=(
   # Configure `chrome://flags` experiments.
   # NOTE: All the features must be enabled/disabled in the same flag delimited by
   # commas.
-  "--enable-features=$(join_by ',' "${ENABLED_FEATURES[@]}")"
-  "--disable-features=$(join_by ',' "${DISABLED_FEATURES[@]}")"
+  "--enable-features=$(_join_by ',' "${ENABLED_FEATURES[@]}")"
+  "--disable-features=$(_join_by ',' "${DISABLED_FEATURES[@]}")"
+)
+GPU_FLAGS=(
+  # EXP: use GPU acceleration for rasterization and/or video encode/decode. See:
+  # - https://github.com/qutebrowser/qutebrowser/issues/5378#issuecomment-617931657
+  # - https://wiki.archlinux.org/index.php/Hardware_video_acceleration
+  # - https://wiki.debian.org/HardwareVideoAcceleration
+  '--enable-gpu-rasterization'
+  '--enable-accelerated-video-decode'
+  '--use-gl=desktop'
+  '--ignore-gpu-blocklist'
 )
 
-exec google-chrome --profile-directory='Home' "${FLAGS[@]}" "$@"
+_should_enable_gpu_flags() {
+  # Using is_nvidia_gpu is slow, apparently because it uses lshw, so we cache
+  # the result.
+  local cache_file="${XDG_RUNTIME_DIR}/chrome_use_gpu"
+  if [[ -r "${cache_file}" ]]; then
+    return "$(< "${cache_file}")"
+  fi
+  # Enable GPU flags unless there's an nvidia GPU
+  local s=0
+  if is_nvidia_gpu; then
+    s=1
+  fi
+  echo $s >| "${cache_file}"
+}
+
+main() {
+  local flags=("${GENERIC_FLAGS[@]}")
+  if _should_enable_gpu_flags; then
+    flags+=("${GPU_FLAGS[@]}")
+  fi
+  exec google-chrome --profile-directory='Home' "${flags[@]}" "$@"
+}
+
+main "$@"
