@@ -26,6 +26,7 @@
     // https://github.com/microsoft/vscode/issues/23991
     // "keyboard.dispatch": "keyCode",
     "search.smartCase": true,
+    "telemetry.telemetryLevel": "off",
     "terminal.integrated.cursorBlinking": true,
     "terminal.integrated.fontFamily": "MyMono",
     "terminal.integrated.inheritEnv": false,
@@ -38,6 +39,7 @@
     // - "Github Dark"
     // - "Community Material Theme Darker High Contrast"
     "workbench.colorTheme": "Solarized Dark",
+    "workbench.enableExperiments": false,
     "workbench.iconTheme": "vs-minimal",
     "workbench.statusBar.visible": true,
     "workbench.editor.showTabs": true,

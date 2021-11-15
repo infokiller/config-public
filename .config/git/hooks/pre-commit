@@ -24,7 +24,9 @@ readonly ALL_CHECKS=(
   shfmt
   shellcheck
   detect_secrets
-  gitleaks
+  # As of gitleaks 7.6.1 (2021-11-15) there are issues with submodules:
+  # https://github.com/zricethezav/gitleaks/issues/682
+  # gitleaks
   deleted_file_refs
   broken_symlinks
 )
