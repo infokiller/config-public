@@ -1770,6 +1770,10 @@ maybe-run-tracked-emulate -- source \
 maybe-run-tracked-emulate +a -- source_compiled \
   "${SHELL_CONFIG_DIR}/functions.sh"
 
+if command_exists broot; then
+  autoload -Uz br
+fi
+
 ################################################################################
 #                                Local settings                                #
 ################################################################################
