@@ -387,6 +387,8 @@ _install_universal_ctags() {
   if ! make; then
     ./autogen.sh && ./configure && make && cd man && make man
   fi
+  # As of 2021-11-16, the ctags build leaves these untracked files.
+  git clean -f peg/thrift.{h,c}
   symlink_binary ctags
 }
 
