@@ -62,6 +62,15 @@ shopt -s dirspell
 # interactive shells.
 shopt -s autocd
 
+_append_prompt_command_hook() {
+  local cmd="$*"
+  if [[ -z "${PROMPT_COMMAND-}" ]]; then
+    PROMPT_COMMAND="${cmd}"
+    return
+  fi
+  PROMPT_COMMAND="${cmd}; ${PROMPT_COMMAND}"
+}
+
 ###############################################################################
 #####                         History management                          #####
 ###############################################################################
@@ -99,7 +108,7 @@ histcat_append_hook() {
   histcat add --typed-command "${command}"
 }
 
-PROMPT_COMMAND="histcat_append_hook; ${PROMPT_COMMAND-}"
+_append_prompt_command_hook histcat_append_hook
 
 ###############################################################################
 #####                              Plugins                                #####
@@ -213,7 +222,8 @@ _load_gitstatus() {
   local tmp="${PROMPT_COMMAND-}"
   # shellcheck source=./submodules/terminal/gitstatus/gitstatus.prompt.sh
   source -- "${_gitstatus_path}"
-  PROMPT_COMMAND="${tmp}; gitstatus_prompt_update"
+  PROMPT_COMMAND="${tmp}"
+  _append_prompt_command_hook histcat_append_hook
 }
 _load_gitstatus && unset -f _load_gitstatus
 
