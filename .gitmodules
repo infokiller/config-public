@@ -689,3 +689,6 @@
 [submodule "submodules/xplr/preview-tabbed.xplr"]
 	path = submodules/xplr/preview-tabbed.xplr
 	url = https://github.com/sayanarijit/preview-tabbed.xplr
+[submodule "submodules/terminal/bfs"]
+	path = submodules/terminal/bfs
+	url = https://github.com/tavianator/bfs

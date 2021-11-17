@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Installs packages common to all Linux distros I use.
+# Installs user packages that common to all Linux distros I use.
 #
 # TODO: Switch to Nix/GUIX, or if I decide against it, use a task runner or
 # build system.
@@ -8,7 +8,7 @@
 # - Reproducible builds
 # - Dependencies between tasks
 #
-# - Task runners and build systems (should have minimal deps):
+# Also consider task runners and build systems (should have minimal deps):
 #   - Makefile
 #   - Bazel
 #   - https://github.com/pydoit/doit
@@ -136,6 +136,9 @@ readonly -A _TASK_TO_CMD=(
   ['fzf']='_install_fzf'
   ['histcat']='_install_histcat'
   ['universal-ctags']='_install_universal_ctags'
+  ['bfs']='(
+    cd "${SUBMODULES_DIR}/terminal/bfs" && make release && symlink_binary bfs
+  )'
   ['stderred']='(
     cd "${SUBMODULES_DIR}/terminal/stderred" && make
   )'
@@ -179,6 +182,7 @@ declare -g _ORDERED_TASKS=(
   # on Archlinux.
   # 'neovim-nightly'
   'universal-ctags'
+  'bfs'
   'npm-packages'
   'golang-packages'
   'python-packages-non-graphical'
