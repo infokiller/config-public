@@ -455,69 +455,10 @@ _cd_config_repo() {
   fi
 }
 
-# TODO: reduce config search latency that stems from the long time it takes to
-# list the files. I could use `xargs -n <n>` to batch the files fed into
-# ripgrep [1], however that causes an issues when using tag because the results
-# are no longer numbered consistently (each batch has its own numbering).
-# [1] https://github.com/BurntSushi/ripgrep/discussions/1639
-
-_list_rgc_files() {
-  if is_zsh; then
-    emulate -L zsh -o no_prompt_subst
-  fi
-  list-searched-files | _best_grep -v \
-    -e '^submodules' \
-    -e '^\.local/bin/(archive|doom|git-icdiff|git-open|hostsctl|icdiff|fasd)' \
-    -e '^\.local/bin/(lsarchive|org-capture|org-tangle|revolver|tmux-xpanes)' \
-    -e '^\.local/bin/(unarchive)' \
-    -e '^\.local/share/man' \
-    -e '^\.emacs\.d' \
-    -e '^install/keyboard/klfc/xkb_output' \
-    -e '^\.config/Code - OSS' \
-    -e '^\.config/old-preferences' \
-    -e '^\.config/sway' \
-    -e 'fpath/(async|deer|_lsarchive|prompt_pure_setup|_unarchive)' \
-    -e 'vim/spell/en\.utf-8\.add' \
-    -e 'plug\.vim' \
-    -e 'tex_castel\.snippets' \
-    -e 'p10k\.zsh' \
-    -e 'generated_completion' \
-    -e '\.tmTheme$' \
-    -e 'eclipse.*/\.metadata' \
-    -e 'external_packages_deps_archive\.txt' \
-    -e '^root/usr/share/X11/xkb/(geometry|keycodes|rules)'
-  local relevant_submodules=(
-    'keydope'
-    'desktop/i3-workspace-groups'
-    'desktop/i3-scratchpad'
-    'vim/vim-errorlist'
-    'terminal/histcat'
-  )
-  # NOTE: The local variable declarations must be outside the loop, or otherwise
-  # zsh prints their values. The issue seems to be that local variables are
-  # scoped to the function, and re-declaring a local variable without assigning
-  # to it prints it. Test case:
-  #   zsh -c '() { local a; local a }'
-  local escaped_prefix cd_flags=()
-  # The -q flag prevents zsh from running chpwd hooks like direnv which add
-  # annoying output and slow things down.
-  if is_zsh; then
-    cd_flags=(-q)
-  fi
-  for submodule in "${relevant_submodules[@]}"; do
-    local dir="submodules/${submodule}/"
-    # https://unix.stackexchange.com/a/129063/126543
-    escaped_prefix="$(printf '%s' "${dir}" | sed 's%[\\/&]%\\&%g')"
-    (
-      builtin cd "${cd_flags[@]}" -- "${dir}" || return
-      list-searched-files | sed "s/^./${escaped_prefix}&/" &
-    )
-  done
-}
 rgc() {
   (
     _cd_config_repo || return
-    _list_rgc_files | _best_grep -v \
+    list-config-files | _best_grep -v \
       -e 'root/usr/share/X11/xkb/symbols/extend' \
       -e 'xsendkeys' \
       -e '/.corp/' |

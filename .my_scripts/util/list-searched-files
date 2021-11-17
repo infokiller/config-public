@@ -3,7 +3,7 @@
 # NOTE: There are discrepancies between `rg --files` and `git ls-files`:
 #
 # 1. `rg --files` doesn't list files in ignore files that are in the repo
-# 2. `rg --files` doesn't list symbolic links files
+# 2. `rg --files` doesn't list symbolic links
 # 3. `git ls-files` doesn't list untracked files
 #
 # I'd like to search files in (1) and (3) by default. (2) is not

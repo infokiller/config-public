@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+readonly EXCLUDES=(
+  '^submodules'
+  '^\.local/bin/(archive|doom|git-icdiff|git-open|hostsctl|icdiff|fasd)'
+  '^\.local/bin/(lsarchive|org-capture|org-tangle|revolver|tmux-xpanes)'
+  '^\.local/bin/(unarchive)'
+  '^\.local/share/man'
+  '^\.emacs\.d'
+  '^install/keyboard/klfc/xkb_output'
+  '^\.config/Code - OSS'
+  '^\.config/old-preferences'
+  '^\.config/sway'
+  'fpath/(async|deer|_lsarchive|prompt_pure_setup|_unarchive)'
+  'vim/spell/en\.utf-8\.add'
+  'plug\.vim'
+  'tex_castel\.snippets'
+  'p10k\.zsh'
+  'generated_completion'
+  '\.tmTheme$'
+  'eclipse.*/\.metadata'
+  'external_packages_deps_archive\.txt'
+  '^root/usr/share/X11/xkb/(geometry|keycodes|rules)'
+)
+
+readonly INCLUDED_SUBMODULES=(
+  'keydope'
+  'desktop/i3-workspace-groups'
+  'desktop/i3-scratchpad'
+  'vim/vim-errorlist'
+  'terminal/histcat'
+)
+
+_cd_config_repo() {
+  if [[ "$(git remote get-url origin &> /dev/null)" == *gitlab.com/infokiller/config* ]]; then
+    cd -- "$(git rev-parse --show-toplevel)" || return
+  else
+    cd -- "${HOME}" || return
+  fi
+}
+
+# TODO: reduce config search latency that stems from the long time it takes to
+# list the files. I could use `xargs -n <n>` to batch the files fed into
+# ripgrep [1], however that causes an issues when using tag because the results
+# are no longer numbered consistently (each batch has its own numbering).
+# [1] https://github.com/BurntSushi/ripgrep/discussions/1639
+
+main() {
+  # if is_zsh; then
+  #   emulate -L zsh -o no_prompt_subst
+  # fi
+  _cd_config_repo
+  local exclude_args=()
+  local pattern
+  for pattern in "${EXCLUDES[@]}"; do
+    exclude_args+=(-e "${pattern[@]}")
+  done
+  list-searched-files | grep -Ev "${exclude_args[@]}"
+  # NOTE: The local variable declarations must be outside the loop, or otherwise
+  # zsh prints their values. The issue seems to be that local variables are
+  # scoped to the function, and re-declaring a local variable without assigning
+  # to it prints it. Test case:
+  #   zsh -c '() { local a; local a }'
+  local escaped_prefix cd_flags=()
+  # The -q flag prevents zsh from running chpwd hooks like direnv which add
+  # annoying output and slow things down.
+  # if is_zsh; then
+  #   cd_flags=(-q)
+  # fi
+  for submodule in "${INCLUDED_SUBMODULES[@]}"; do
+    local dir="submodules/${submodule}/"
+    # https://unix.stackexchange.com/a/129063/126543
+    escaped_prefix="$(printf '%s' "${dir}" | sed 's%[\\/&]%\\&%g')"
+    (
+      builtin cd "${cd_flags[@]}" -- "${dir}" || return
+      list-searched-files | sed "s/^./${escaped_prefix}&/"
+    ) &
+  done
+  wait
+}
+
+main "$@"
