@@ -1098,6 +1098,8 @@ let g:polyglot_disabled = ['go', 'jsonc']
 
 Plug 'jamessan/vim-gnupg'
 
+Plug 'hjson/vim-hjson'
+
 " Use https://github.com/hadolint/hadolint either locally or via docker.
 let g:ale_dockerfile_hadolint_use_docker = 'yes'
 

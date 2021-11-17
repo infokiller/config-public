@@ -692,3 +692,6 @@
 [submodule "submodules/terminal/bfs"]
 	path = submodules/terminal/bfs
 	url = https://github.com/tavianator/bfs
+[submodule "submodules/vim/vim-hjson"]
+	path = submodules/vim/vim-hjson
+	url = https://github.com/hjson/vim-hjson
