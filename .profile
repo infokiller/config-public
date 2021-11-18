@@ -269,7 +269,11 @@ _export_fzf_vars() {
   export FZF_DEFAULT_OPTS='--ansi --toggle-sort=ctrl-r'
   # export FZF_ALT_C_COMMAND='list-searched-files --list-dirs'
   if _command_exists bfs; then
-    export FZF_ALT_C_COMMAND="command bfs -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
+    # Changes from upstream [1]:
+    # - Use bfs instead of find
+    # - Show hidden directories
+    # [1] https://github.com/junegunn/fzf/blob/e4c3ecc5/shell/key-bindings.zsh#L73
+    export FZF_ALT_C_COMMAND="command bfs -L . -mindepth 1 \\( -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
     -o -type d -print 2> /dev/null | cut -b3-"
   fi
 }
