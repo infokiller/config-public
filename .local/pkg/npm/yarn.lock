@@ -1116,6 +1116,11 @@ ansi-escapes@^4.3.1:
   dependencies:
     type-fest "^0.21.3"
 
+ansi-parser@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ansi-parser/-/ansi-parser-2.0.0.tgz#433498af32fee8c2a1df2c4e47941bc029bcf407"
+  integrity sha1-QzSYrzL+6MKh3yxOR5QbwCm89Ac=
+
 ansi-parser@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ansi-parser/-/ansi-parser-3.0.0.tgz#945c0e7232caf5675217375b3eb8892008c14629"
@@ -2504,6 +2509,15 @@ clone@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
+
+clp@^3.0.0:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/clp/-/clp-3.2.1.tgz#af1ed66db895a5c9ce9b6d32e9c33dee02b3edf2"
+  integrity sha1-rx7WbbiVpcnOm20y6cM97gKz7fI=
+  dependencies:
+    ansi-parser "2.0.0"
+    le-table "4.0.0"
+    ul "5.0.0"
 
 clp@^4.0.0:
   version "4.0.11"
@@ -5057,6 +5071,11 @@ find-versions@^4.0.0:
   dependencies:
     semver-regex "^3.1.2"
 
+findit@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/findit/-/findit-2.0.0.tgz#6509f0126af4c178551cfa99394e032e13a4d56e"
+  integrity sha1-ZQnwEmr0wXhVHPqZOU4DLhOk1W4=
+
 firefox-profile@4.2.1:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/firefox-profile/-/firefox-profile-4.2.1.tgz#ebef60bac8c550732dc79c754199ab4279b8aff4"
@@ -5427,6 +5446,14 @@ git-log-parser@^1.2.0:
     through2 "~2.0.0"
     traverse "~0.6.6"
 
+git-repos@^1.0.0:
+  version "1.2.10"
+  resolved "https://registry.yarnpkg.com/git-repos/-/git-repos-1.2.10.tgz#75e1cb7a2c9d82cfc97b2e2cb310ce74e005d1fd"
+  integrity sha512-SguVXEVXVkzfdRm4X431FRs7yyatpxCUNgaoqcmZmQyUqjqbNDjDkXp+r1bxw+WDoPvUoGHjhfAbZLkuiI18QQ==
+  dependencies:
+    abs "^1.0.0"
+    findit "^2.0.0"
+
 git-spawned-stream@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/git-spawned-stream/-/git-spawned-stream-1.0.1.tgz#841cda93d106eeb2c71a3c1af44ec484b440248b"
@@ -5442,7 +5469,25 @@ git-stats-colors@^2.3.8:
   dependencies:
     couleurs "^6.0.5"
 
-git-stats@2.11.0:
+git-stats-importer@2.4.11:
+  version "2.4.11"
+  resolved "https://registry.yarnpkg.com/git-stats-importer/-/git-stats-importer-2.4.11.tgz#e4b2127791aa7691396ceaa7e7ebe30da0fab360"
+  integrity sha512-tbQDVo/GkRjqj6FHsBCuwj96wjFcXAv8nQIqW4Kp+xD3pdhcUeX3tITZ6IBh8ObDMWfCC289yKmvH/OqMvD/Uw==
+  dependencies:
+    bug-killer "^4.0.0"
+    clp "^3.0.0"
+    git-repos "^1.0.0"
+    git-stats "^2.0.0"
+    gitlog-parser "^0.0.4"
+    gry "^4.0.0"
+    is-there "^4.0.0"
+    oargv "^3.2.0"
+    one-by-one "^2.0.0"
+    parent-search "^1.1.0"
+    typpy "^2.1.0"
+    ul "^5.0.0"
+
+git-stats@2.11.0, git-stats@^2.0.0:
   version "2.11.0"
   resolved "https://registry.yarnpkg.com/git-stats/-/git-stats-2.11.0.tgz#c8b60e135ecdc0dc2f829142075a989802a55e5d"
   integrity sha512-NnKiSDo3DTDOPmwobEinNXLnGQvWF3KM/EiQFTb33IgT6uLsOiIs2c4P/y1/k4k2PNAHYAVk9OZIHuO43gY95g==
@@ -5485,7 +5530,7 @@ github-slugger@^1.1.1:
   dependencies:
     emoji-regex ">=6.0.0 <=6.1.1"
 
-gitlog-parser@0.0.4:
+gitlog-parser@0.0.4, gitlog-parser@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/gitlog-parser/-/gitlog-parser-0.0.4.tgz#62db98476519bfadfb4c0d3931b1bf301e08f1f6"
   integrity sha1-YtuYR2UZv637TA05MbG/MB4I8fY=
@@ -5774,6 +5819,15 @@ growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
+
+gry@^4.0.0:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/gry/-/gry-4.3.1.tgz#278f6fdf89d5e8972e4b7c78ac2d1a0ccd632941"
+  integrity sha1-J49v34nV6JcuS3x4rC0aDM1jKUE=
+  dependencies:
+    exec-limiter "^3.0.0"
+    one-by-one "^2.0.0"
+    ul "^5.0.0"
 
 gry@^6.1.0:
   version "6.1.0"
@@ -7433,6 +7487,15 @@ lcid@^3.0.0:
   integrity sha512-M6T051+5QCGLBQb8id3hdvIW8+zeFV2FyBGFS9IEK5H9Wt4MueD4bW1eWikpHgZp+5xR3l5c8pZUkQsIA0BFZg==
   dependencies:
     invert-kv "^3.0.0"
+
+le-table@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/le-table/-/le-table-4.0.0.tgz#3bfeb72d24cbfc37752f01539f9006d711d9be93"
+  integrity sha1-O/63LSTL/Dd1LwFTn5AG1xHZvpM=
+  dependencies:
+    cli-box "5.0.0"
+    overlap "2.0.0"
+    ul "5.0.0"
 
 le-table@^6.1.0:
   version "6.1.9"
@@ -9777,6 +9840,14 @@ nwsapi@^2.0.7:
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
   integrity sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==
 
+oargv@^3.2.0:
+  version "3.4.10"
+  resolved "https://registry.yarnpkg.com/oargv/-/oargv-3.4.10.tgz#facf418534c1d5238a6998246419faa4c930cfe5"
+  integrity sha512-SXaMANv9sr7S/dP0vj0+Ybipa47UE1ntTWQ2rpPRhC6Bsvfl+Jg03Xif7jfL0sWKOYWK8oPjcZ5eJ82t8AP/8g==
+  dependencies:
+    iterate-object "^1.1.0"
+    ul "^5.0.0"
+
 oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
@@ -9876,6 +9947,13 @@ once@^1.3.0, once@^1.3.1, once@^1.3.3, once@^1.4.0:
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   dependencies:
     wrappy "1"
+
+one-by-one@^2.0.0:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/one-by-one/-/one-by-one-2.2.1.tgz#61c812e013475f4bdb2af5d38e056963bf6355c4"
+  integrity sha1-YcgS4BNHX0vbKvXTjgVpY79jVcQ=
+  dependencies:
+    deffy "^2.0.0"
 
 one-by-one@^3.0.0:
   version "3.2.7"
@@ -10049,6 +10127,15 @@ os-tmpdir@~1.0.2:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/over/-/over-0.0.5.tgz#f29852e70fd7e25f360e013a8ec44c82aedb5708"
   integrity sha1-8phS5w/X4l82DgE6jsRMgq7bVwg=
+
+overlap@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/overlap/-/overlap-2.0.0.tgz#b29b6bb2ad7569c4e66faef28cb5d74361179cb4"
+  integrity sha1-sptrsq11acTmb67yjLXXQ2EXnLQ=
+  dependencies:
+    ansi-parser "3.0.0"
+    cli-box "5.0.0"
+    couleurs "5.0.0"
 
 overlap@^2.2.1:
   version "2.2.9"
@@ -10268,6 +10355,14 @@ parent-module@^1.0.0:
   integrity sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==
   dependencies:
     callsites "^3.0.0"
+
+parent-search@^1.1.0:
+  version "1.3.10"
+  resolved "https://registry.yarnpkg.com/parent-search/-/parent-search-1.3.10.tgz#d04c3055afdf15555f7169cba011755c8f7dd32d"
+  integrity sha512-aWp/g268jXcrbWp/akp9CagHMb5IjDOp5xZgDFae6jmdS3J2XZc55V2cD/+P9PTCZ4IJeEXs4eYalKuZjYTLhQ==
+  dependencies:
+    is-there "^4.0.0"
+    ul "^5.0.0"
 
 parse-conflict-json@^1.1.1:
   version "1.1.1"

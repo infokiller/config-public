@@ -34,6 +34,7 @@
 /.local/bin/diff-so-fancy
 /.local/bin/eslint
 /.local/bin/git-stats
+/.local/bin/git-stats-importer
 /.local/bin/gtop
 /.local/bin/histcat
 /.local/bin/html-beautify
@@ -324,6 +325,7 @@
 /.esd_auth
 /.gconf/system
 /.git-backup*
+/.git-stats
 /.gtk-bookmarks
 /.i-nex
 /.joe-data

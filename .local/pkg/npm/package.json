@@ -7,6 +7,7 @@
     "diff-so-fancy": "1.4.3",
     "eslint": "8.2.0",
     "git-stats": "2.11.0",
+    "git-stats-importer": "2.4.11",
     "gtop": "1.1.2",
     "html-beautify": "1.0.4",
     "instant-markdown-d": "0.2.0",
