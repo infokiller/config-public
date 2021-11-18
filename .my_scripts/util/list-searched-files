@@ -51,14 +51,27 @@ _run_alternative_tool() {
   fi
 }
 
+_maybe_dirname() {
+  if (($1)); then
+    xargs -d '\n' --no-run-if-empty dirname | grep -v '^\.$'
+  else
+    cat -
+  fi
+}
+
 main() {
+  local dirs_only=0
+  if [[ ${1-} == --list-dirs ]]; then
+    dirs_only=1
+  fi
   {
     if _command_exists git-list-files; then
       _run_git-list-files
     else
       _run_alternative_tool
     fi
-  } | "${REPO_ROOT}/.my_scripts/util/dedup-resolved-paths"
+  } | _maybe_dirname "${dirs_only}" |
+    "${REPO_ROOT}/.my_scripts/util/dedup-resolved-paths"
 }
 
 main "$@"

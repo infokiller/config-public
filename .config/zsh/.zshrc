@@ -730,8 +730,7 @@ _fzf_complete_v() { _fzf_complete_vim "$@" }
 _fzf_complete_e() { _fzf_complete_vim "$@" }
 
 _fzf_complete_cd() {
-  find -L '!' -readable -prune -o -type d -print 2> /dev/null |
-    _fzf_complete --multi "$@"
+  list-searched-files --list-dirs | _fzf_complete --multi "$@"
 }
 _fzf_complete_cd-fasd-fzf() { _fzf_complete_cd "$@" }
 _fzf_complete_c()           { _fzf_complete_cd "$@" }

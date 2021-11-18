@@ -261,10 +261,24 @@ _increase_xdg_conformance() {
   # export TASKRC="${XDG_CONFIG_HOME}/task/taskrc"
 }
 
+_export_fzf_vars() {
+  # I'm not sure what is the default FZF_DEFAULT_COMMAND, but it does not show
+  # hidden files. See:
+  # https://github.com/junegunn/fzf/issues/337#issuecomment-136383876
+  export FZF_DEFAULT_COMMAND='list-searched-files'
+  export FZF_DEFAULT_OPTS='--ansi --toggle-sort=ctrl-r'
+  # export FZF_ALT_C_COMMAND='list-searched-files --list-dirs'
+  if _command_exists bfs; then
+    export FZF_ALT_C_COMMAND="command bfs -L . -mindepth 1 \\( -path '*/\\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' \\) -prune \
+    -o -type d -print 2> /dev/null | cut -b3-"
+  fi
+}
+
 _export_profile_env() {
   _export_path_vars
   _export_xdg_user_dirs
   _export_history_vars
+  _export_fzf_vars
   _maybe_set_auto_logout
   _increase_xdg_conformance
   # Using Vim as the default editor and man pager.
@@ -279,11 +293,6 @@ _export_profile_env() {
   # reasonable previews for zip, pdf, etc.
   export LESSOPEN="| SCOPE_TRUECOLOR=1 HIGHLIGHT_OPTIONS='--line-numbers --line-number-length=0 --no-trailing-nl' ${HOME}/.config/ranger/scope.sh %s '80' '' '' False"
   # export LESSOPEN="| lesspipe-highlight %s"
-  # I'm not sure what is the default FZF_DEFAULT_COMMAND, but it does not show
-  # hidden files. See:
-  # https://github.com/junegunn/fzf/issues/337#issuecomment-136383876
-  export FZF_DEFAULT_COMMAND='list-searched-files'
-  export FZF_DEFAULT_OPTS='--ansi --toggle-sort=ctrl-r'
   # Enable modules for packages inside GOPATH starting from go 1.11.
   export GO111MODULE=on
   export TAG_SEARCH_PROG='rg'
