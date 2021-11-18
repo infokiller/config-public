@@ -139,6 +139,11 @@ readonly -A _TASK_TO_CMD=(
   ['bfs']='(
     cd "${SUBMODULES_DIR}/terminal/bfs" && make release && symlink_binary bfs
   )'
+  ['git-quick-stats']='(
+    cd "${SUBMODULES_DIR}/terminal/git-quick-stats"
+    symlink_binary git-quick-stats
+    symlink_man_page git-quick-stats.1
+  )'
   ['stderred']='(
     cd "${SUBMODULES_DIR}/terminal/stderred" && make
   )'

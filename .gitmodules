@@ -74,6 +74,12 @@
 [submodule "submodules/terminal/dircolors-solarized"]
 	path = submodules/terminal/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized
+[submodule "submodules/terminal/bfs"]
+	path = submodules/terminal/bfs
+	url = https://github.com/tavianator/bfs
+[submodule "submodules/terminal/git-quick-stats"]
+	path = submodules/terminal/git-quick-stats
+	url = https://github.com/arzzen/git-quick-stats
 [submodule "submodules/hostsctl"]
 	path = submodules/hostsctl
 	url = https://github.com/pigmonkey/hostsctl
@@ -506,6 +512,9 @@
 [submodule "submodules/vim/vim-highlightedyank"]
 	path = submodules/vim/vim-highlightedyank
 	url = https://github.com/machakann/vim-highlightedyank
+[submodule "submodules/vim/vim-hjson"]
+	path = submodules/vim/vim-hjson
+	url = https://github.com/hjson/vim-hjson
 [submodule "submodules/vim/vim-indent-guides"]
 	path = submodules/vim/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides
@@ -689,9 +698,3 @@
 [submodule "submodules/xplr/preview-tabbed.xplr"]
 	path = submodules/xplr/preview-tabbed.xplr
 	url = https://github.com/sayanarijit/preview-tabbed.xplr
-[submodule "submodules/terminal/bfs"]
-	path = submodules/terminal/bfs
-	url = https://github.com/tavianator/bfs
-[submodule "submodules/vim/vim-hjson"]
-	path = submodules/vim/vim-hjson
-	url = https://github.com/hjson/vim-hjson
