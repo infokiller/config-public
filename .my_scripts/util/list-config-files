@@ -28,10 +28,10 @@ readonly EXCLUDES=(
 
 readonly INCLUDED_SUBMODULES=(
   'keydope'
+  'terminal/histcat'
   'desktop/i3-workspace-groups'
   'desktop/i3-scratchpad'
   'vim/vim-errorlist'
-  'terminal/histcat'
 )
 
 _cd_config_repo() {
@@ -64,19 +64,23 @@ main() {
   # scoped to the function, and re-declaring a local variable without assigning
   # to it prints it. Test case:
   #   zsh -c '() { local a; local a }'
-  local escaped_prefix cd_flags=()
+  local cd_flags
+  # local escaped_prefix cd_flags=()
   # The -q flag prevents zsh from running chpwd hooks like direnv which add
   # annoying output and slow things down.
   # if is_zsh; then
   #   cd_flags=(-q)
   # fi
   for submodule in "${INCLUDED_SUBMODULES[@]}"; do
-    local dir="submodules/${submodule}/"
+    local dir="submodules/${submodule}"
     # https://unix.stackexchange.com/a/129063/126543
-    escaped_prefix="$(printf '%s' "${dir}" | sed 's%[\\/&]%\\&%g')"
+    # escaped_prefix="$(printf '%s' "${dir}" | sed 's%[\\/&]%\\&%g')"
     (
       builtin cd "${cd_flags[@]}" -- "${dir}" || return
-      list-searched-files | sed "s/^./${escaped_prefix}&/"
+      mapfile -t files < <(list-searched-files)
+      # Change paths to be relative to repo root.
+      printf "${dir}/%s\n" "${files[@]}"
+      # list-searched-files | sed "s/^./${escaped_prefix}&/"
     ) &
   done
   wait
