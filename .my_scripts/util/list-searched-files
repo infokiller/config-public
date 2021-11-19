@@ -2,13 +2,15 @@
 
 # NOTE: There are discrepancies between `rg --files` and `git ls-files`:
 #
-# 1. `rg --files` doesn't list files in ignore files that are in the repo
+# 1. `rg --files` doesn't list files in ignore files that are in the repo [1]
 # 2. `rg --files` doesn't list symbolic links
 # 3. `git ls-files` doesn't list untracked files
 #
 # I'd like to search files in (1) and (3) by default. (2) is not
 # important since the original files will be searched anyway (and possibly it
 # will also cause duplicate results?).
+#
+# [1] https://github.com/BurntSushi/ripgrep/issues/2075
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail

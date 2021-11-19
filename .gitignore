@@ -7,7 +7,6 @@
 # common configuration.
 /.cache
 /.local/lib
-/.local/pkg
 /.local/var
 /.local/kde
 # Used by flatpak.
@@ -386,12 +385,22 @@
 # https://stackoverflow.com/a/5534865/1014208
 # As of 2020-06-01, this is partially disabled because some files show up as
 # untracked in the config repos after making the public repo primary.
+
+# User pacakages installed in ~/.local/pkg
+/.local/pkg/*
+!/.local/pkg/go
+/.local/pkg/go/*
+!/.local/pkg/go/tools
+!/.local/pkg/npm
+/.local/pkg/npm/node_modules
+
+/.local/share
+
 /.config/chromium
 /.config/Code
 /.config/Mullvad VPN
 /.config/copyq
 /.config/recoll
-/.local/share
 
 # # VSCode
 # !/.config/Code
