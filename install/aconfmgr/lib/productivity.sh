@@ -45,4 +45,6 @@ AddPackage transmission-cli    # Fast, easy, and free BitTorrent client (CLI too
 # For image previews.
 AddPackage w3m        # Text-based Web browser as well as pager
 
+AddPackage broot # Fuzzy Search + tree + cd
+
 AddPackage youtube-dl # A small command-line program to download videos from YouTube.com and a few more sites

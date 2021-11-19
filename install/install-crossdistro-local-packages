@@ -188,6 +188,7 @@ declare -g _ORDERED_TASKS=(
   # 'neovim-nightly'
   'universal-ctags'
   'bfs'
+  'git-quick-stats'
   'npm-packages'
   'golang-packages'
   'python-packages-non-graphical'
