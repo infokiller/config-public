@@ -385,6 +385,11 @@
 # https://stackoverflow.com/a/5534865/1014208
 # As of 2020-06-01, this is partially disabled because some files show up as
 # untracked in the config repos after making the public repo primary.
+/.config/chromium
+/.config/Code
+/.config/Mullvad VPN
+/.config/copyq
+/.config/recoll
 
 # User pacakages installed in ~/.local/pkg
 /.local/pkg/*
@@ -394,26 +399,25 @@
 !/.local/pkg/npm
 /.local/pkg/npm/node_modules
 
-# VSCode
-/.config/Code/*
-!/.config/Code
-/.config/Code/*
-!/.config/Code/User
-/.config/Code/User/*
-!/.config/Code/User/settings.json
-!/.config/Code/User/keybindings.json
-# Mullvad
-!/.config/Mullvad VPN
-/.config/Mullvad VPN/*
-!/.config/Mullvad VPN/gui_settings.json
-# CopyQ
-!/.config/copyq
-/.config/copyq/*
-!/.config/copyq/copyq.conf
-# Recoll
-!/.config/recoll
-/.config/recoll/*
-!/.config/recoll/recoll.conf
+# # VSCode
+# !/.config/Code
+# /.config/Code/*
+# !/.config/Code/User
+# /.config/Code/User/*
+# !/.config/Code/User/settings.json
+# !/.config/Code/User/keybindings.json
+# # Mullvad
+# !/.config/Mullvad VPN
+# /.config/Mullvad VPN/*
+# !/.config/Mullvad VPN/gui_settings.json
+# # CopyQ
+# !/.config/copyq
+# /.config/copyq/*
+# !/.config/copyq/copyq.conf
+# # Recoll
+# !/.config/recoll
+# /.config/recoll/*
+# !/.config/recoll/recoll.conf
 # ~/.local/share partial ignore
 /.local/share
 # !/.local/share
@@ -442,16 +446,16 @@
 !/.local/share/wakatime
 /.local/share/wakatime/*
 !/.local/share/wakatime/.wakatime.cfg
-# Chromium
-!/.config/chromium
-/.config/chromium/*
-!/.config/chromium/Home
-/.config/chromium/Home/*
-!/.config/chromium/Home/exported_extensions.txt
+# # Chromium
+# !/.config/chromium
+# /.config/chromium/*
+# !/.config/chromium/Home
+# /.config/chromium/Home/*
+# !/.config/chromium/Home/exported_extensions.txt
 
 # qBittorrent
 /.config/qBittorrent
 /.config/qBittorrentrc
-!/.config/qBittorrent
-/.config/qBittorrent/*
-!/.config/qBittorrent/rss
+# !/.config/qBittorrent
+# /.config/qBittorrent/*
+# !/.config/qBittorrent/rss
