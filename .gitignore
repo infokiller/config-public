@@ -394,13 +394,8 @@
 !/.local/pkg/npm
 /.local/pkg/npm/node_modules
 
-/.config/chromium
-/.config/Code
-/.config/Mullvad VPN
-/.config/copyq
-/.config/recoll
-
 # VSCode
+/.config/Code/*
 !/.config/Code
 /.config/Code/*
 !/.config/Code/User
@@ -447,16 +442,16 @@
 !/.local/share/wakatime
 /.local/share/wakatime/*
 !/.local/share/wakatime/.wakatime.cfg
-# # Chromium
-# !/.config/chromium
-# /.config/chromium/*
-# !/.config/chromium/Home
-# /.config/chromium/Home/*
-# !/.config/chromium/Home/exported_extensions.txt
+# Chromium
+!/.config/chromium
+/.config/chromium/*
+!/.config/chromium/Home
+/.config/chromium/Home/*
+!/.config/chromium/Home/exported_extensions.txt
 
 # qBittorrent
 /.config/qBittorrent
 /.config/qBittorrentrc
-# !/.config/qBittorrent
-# /.config/qBittorrent/*
-# !/.config/qBittorrent/rss
+!/.config/qBittorrent
+/.config/qBittorrent/*
+!/.config/qBittorrent/rss
