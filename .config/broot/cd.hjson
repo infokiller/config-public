@@ -1,0 +1,9 @@
+{
+    verbs: [
+        {
+            key: "enter"
+            leave_broot: true
+            execution: ":cd"
+        }
+    ]
+}

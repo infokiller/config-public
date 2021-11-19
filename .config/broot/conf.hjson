@@ -24,7 +24,7 @@
 	# if you don't want the hidden files you can launch `br -H`)
 	# A popular flag is the `g` one which displays git related info.
 	#
-	# default_flags:
+	default_flags: hi
 
 	###############################################################
 	# Date/Time format
@@ -32,7 +32,7 @@
 	# following line and change it according to
 	# https://docs.rs/chrono/0.4.11/chrono/format/strftime/index.html
 	#
-	# date_time_format: %Y/%m/%d %R
+	date_time_format: %Y-%m-%d %R
 
         ###############################################################
         # uncomment to activate modal mode
@@ -87,11 +87,14 @@
 	# If some paths must be handled specially, uncomment (and change
 	# this section as per the examples)
 	#
-	# special_paths: {
-	# 	"/media/slow-backup-disk"		: no-enter
-	# 	"/home/dys/useless"			: hide
-	# 	"/home/dys/my-link-I-want-to-explore"	: enter
-	# }
+	special_paths: {
+		# "*ib-tws": hide,
+		"install4j": hide,
+		".git": hide,
+		# "/media/slow-backup-disk"		: no-enter
+		# "/home/dys/useless"			: hide
+		# "/home/dys/my-link-I-want-to-explore"	: enter
+	}
 
 	###############################################################
 	# Quit on last cancel
@@ -100,7 +103,7 @@
 	# to cancel (for example when you just opened broot), uncomment
 	# this parameter
 	# 
-	# quit_on_last_cancel: true
+	quit_on_last_cancel: true
 
 	###############################################################
 	# Search modes
@@ -208,50 +211,33 @@
 			leave_broot: false
 		}
 
-		# Here's an example of a shortcut bringing you to your home directory
-		# {
-		# 	invocation: home
-		# 	key: ctrl-home
-		# 	execution: ":focus ~"
-		# }
-
-		# A popular set of shortcuts for going up and down:
-		#
-		# {
-		# 	key: ctrl-k
-		# 	execution: ":line_up"
-		# }
-		# {
-		# 	key: ctrl-j
-		# 	execution: ":line_down"
-		# }
-		# {
-		# 	key: ctrl-u
-		# 	execution: ":page_up"
-		# }
-		# {
-		# 	key: ctrl-d
-		# 	execution: ":page_down"
-		# }
+		{
+			key: ctrl-left
+			execution: ":input_go_word_left"
+		}
+		{
+			key: ctrl-right
+			execution: ":input_go_word_right"
+		}
+		{
+			key: ctrl-w
+			execution: ":input_del_word_left"
+		}
+		{
+			key: ctrl-del
+			execution: ":input_del_word_right"
+		}
+		{
+			invocation: home
+			key: ctrl-h
+			execution: ":focus ~"
+		}
 
 		# If you develop using git, you might like to often switch
 		# to the git status filter:
 		# {
 		# 	key: ctrl-g
 		# 	execution: ":toggle_git_status"
-		# }
-
-		# You can reproduce the bindings of Norton Commander
-		# on copying or moving to the other panel:
-		# {
-		# 	key: F5
-		# 	external: "cp -r {file} {other-panel-directory}"
-		# 	leave_broot: false
-		# }
-		# {
-		# 	key: F6
-		# 	external: "mv {file} {other-panel-directory}"
-		# 	leave_broot: false
 		# }
 	]
 

@@ -1433,17 +1433,23 @@ redraw-prompt() {
 zle -N redraw-prompt
 
 _cd_ranger_widget() {
-  local saved_buffer="${BUFFER}"
-  local saved_cursor="${CURSOR}"
-  BUFFER=''
+  # local saved_buffer="${BUFFER}"
+  # local saved_cursor="${CURSOR}"
+  # BUFFER=''
   # Defined in functions.sh
   cd-ranger < "${TTY}" > "${TTY}"
-  BUFFER="${saved_buffer}"
-  CURSOR="${saved_cursor}"
+  # BUFFER="${saved_buffer}"
+  # CURSOR="${saved_cursor}"
   zle redraw-prompt 1
 }
 zle -N _cd_ranger_widget
-_bindkey_all_keymaps '^[d' _cd_ranger_widget
+
+_cd_broot() {
+  br --only-folders --conf \
+    "${REPO_ROOT}/.config/broot/conf.hjson;${REPO_ROOT}/.config/broot/cd.hjson"
+  zle redraw-prompt 1
+}
+zle -N _cd_broot
 
 # https://github.com/Vifon/deer
 autoload -Uz deer
@@ -1468,7 +1474,11 @@ my-deer-widget() {
 }
 zle -N deer
 zle -N my-deer-widget
-bindkey '^[e' my-deer-widget
+
+# NOTE: fzf binds alt+c already
+# _bindkey_all_keymaps '^[d' _cd_ranger_widget
+_bindkey_all_keymaps '^[d' _cd_broot
+_bindkey_all_keymaps '^[e' my-deer-widget
 
 # NOTE 2018-12-08: the fasd plugin seems to have a significant load time (0.2s
 # on zeus18) and it's not really used, so disabling for now.
