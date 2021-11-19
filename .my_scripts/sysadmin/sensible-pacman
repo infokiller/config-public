@@ -64,13 +64,9 @@ main() {
   if _does_pacman_need_sudo "$@"; then
     cmd+=(sudo)
   fi
-  # Use pacnanny by default. See also:
-  # https://github.com/brandoninvergo/pacnanny
-  if command -v pacnanny &> /dev/null; then
-    cmd+=(pacnanny)
-  else
-    cmd+=(pacman)
-  fi
+  cmd+=(pacman)
+  # TODO: summarize warnings, see:
+  # https://github.com/infokiller/pacnanny
   exec -- "${cmd[@]}" "$@"
 }
 
