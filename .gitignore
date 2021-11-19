@@ -394,34 +394,33 @@
 !/.local/pkg/npm
 /.local/pkg/npm/node_modules
 
-/.local/share
-
 /.config/chromium
 /.config/Code
 /.config/Mullvad VPN
 /.config/copyq
 /.config/recoll
 
-# # VSCode
-# !/.config/Code
-# /.config/Code/*
-# !/.config/Code/User
-# /.config/Code/User/*
-# !/.config/Code/User/settings.json
-# !/.config/Code/User/keybindings.json
-# # Mullvad
-# !/.config/Mullvad VPN
-# /.config/Mullvad VPN/*
-# !/.config/Mullvad VPN/gui_settings.json
-# # CopyQ
-# !/.config/copyq
-# /.config/copyq/*
-# !/.config/copyq/copyq.conf
-# # Recoll
-# !/.config/recoll
-# /.config/recoll/*
-# !/.config/recoll/recoll.conf
-# # ~/.local/share partial ignore
+# VSCode
+!/.config/Code
+/.config/Code/*
+!/.config/Code/User
+/.config/Code/User/*
+!/.config/Code/User/settings.json
+!/.config/Code/User/keybindings.json
+# Mullvad
+!/.config/Mullvad VPN
+/.config/Mullvad VPN/*
+!/.config/Mullvad VPN/gui_settings.json
+# CopyQ
+!/.config/copyq
+/.config/copyq/*
+!/.config/copyq/copyq.conf
+# Recoll
+!/.config/recoll
+/.config/recoll/*
+!/.config/recoll/recoll.conf
+# ~/.local/share partial ignore
+/.local/share
 # !/.local/share
 # /.local/share/*
 # Desktop files
