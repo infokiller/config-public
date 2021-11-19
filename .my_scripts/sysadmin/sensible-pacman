@@ -3,6 +3,63 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+readonly PACMAN_LOG_FILE='/var/log/pacman.log'
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+# https://github.com/dylanaraps/pure-bash-bible#strip-pattern-from-end-of-string
+_rstrip() {
+  # Usage: rstrip "string" "pattern"
+  printf '%s\n' "${1%%$2}"
+}
+
+_num_lines() {
+  if _command_exists wc; then
+    _rstrip "$(wc -l "$1")" ' *'
+    return
+  fi
+  # TODO: fall back to counting lines based on grep
+  # if _command_exists grep; then
+  #   return
+  # fi
+}
+
+_warning() {
+  local warning normal
+  # Yellow color
+  warning="$(tput setaf 3 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 'sensible-pacman: warning: %s\n' "${warning}${*}${normal}"
+}
+
+# Print a message in a format similar to pacman and yay
+_message() {
+  local bold='' color='' normal=''
+  if [[ -t 1 ]]; then
+    color="\033[1;36m"
+    bold="$(tput bold 2> /dev/null)" || true
+    normal="$(tput sgr0 2> /dev/null)" || true
+  fi
+  echo -en "${color}"
+  printf ':: %s\n' "${normal}${bold}${*}${normal}"
+}
+
+_print_from_line() {
+  local file="$1"
+  local n="$2"
+  if _command_exists tail; then
+    tail "-n+${n}" -- "${file}"
+    return
+  fi
+  if _command_exists sed; then
+    sed -n "${n},999999999p" -- "${file}"
+    return
+  fi
+  return 1
+}
+
 # Heuristic for figuring out if pacman needs to run with sudo.
 _does_pacman_need_sudo() {
   if ((EUID == 0)); then
@@ -70,10 +127,32 @@ main() {
   if _does_pacman_need_sudo "$@"; then
     cmd+=(sudo)
   fi
-  cmd+=(pacman)
-  # TODO: summarize warnings, see:
+  cmd+=(pacman "$@")
+  # TODO: check news, see:
   # https://github.com/infokiller/pacnanny
-  exec -- "${cmd[@]}" "$@"
+  local n
+  n="$(_num_lines "${PACMAN_LOG_FILE}")"
+  local s=0
+  "${cmd[@]}" || s=$?
+  local log
+  if log="$(_print_from_line "${PACMAN_LOG_FILE}" "$((n + 1))")" && [[ -n "${log}" ]]; then
+    # grep -E 'warning|pacsave|pacnew' <<< "${log}" || true
+    local warnings=()
+    while IFS='' read -r line; do
+      if [[ "${line}" =~ .*(warning|pacsave|pacnew).* ]]; then
+        warnings+=("${line}")
+      fi
+    done <<< "${log}"
+    if ((${#warnings[@]})); then
+      _message 'Last warnings:'
+    fi
+    for line in "${warnings[@]}"; do
+      printf '%s\n' "${line}"
+    done
+  else
+    _warning 'failed printing logs'
+  fi
+  return $s
 }
 
 main "$@"
