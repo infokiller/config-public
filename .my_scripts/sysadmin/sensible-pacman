@@ -5,6 +5,9 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 # Heuristic for figuring out if pacman needs to run with sudo.
 _does_pacman_need_sudo() {
+  if ((EUID == 0)); then
+    return 1
+  fi
   # Bash's getopts doesn't support long options, so we start by parsing them
   # manually.
   local -A long_options
