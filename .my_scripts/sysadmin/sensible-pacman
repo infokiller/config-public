@@ -20,10 +20,14 @@ _num_lines() {
     _rstrip "$(wc -l "$1")" ' *'
     return
   fi
-  # TODO: fall back to counting lines based on grep
-  # if _command_exists grep; then
-  #   return
-  # fi
+  if _command_exists grep; then
+    grep -a -c '' -- "$1"
+    return
+  fi
+  if _command_exists python; then
+    python -c "print(len(open('$1').readlines()))"
+    return
+  fi
 }
 
 _warning() {
@@ -55,6 +59,12 @@ _print_from_line() {
   fi
   if _command_exists sed; then
     sed -n "${n},999999999p" -- "${file}"
+    return
+  fi
+  if _command_exists awk; then
+    # NOTE: awk doesn't recognize -- but still works on files that start with
+    # a dash.
+    awk "FNR >= ${n}" "${file}"
     return
   fi
   return 1
@@ -122,6 +132,31 @@ _does_pacman_need_sudo() {
   return 1
 }
 
+# NOTE: the function uses parentheses and not braces so that options will be set
+# locally.
+_print_warnings() (
+  local log
+  log="$(_print_from_line "${PACMAN_LOG_FILE}" "$(($1 + 1))")"
+  if [[ -z "${log}" ]]; then
+    return
+  fi
+  # grep -E 'warning|pacsave|pacnew' <<< "${log}" || true
+  # Search case-sensitively.
+  shopt -u nocasematch
+  local warnings=()
+  while IFS='' read -r line; do
+    if [[ "${line}" =~ .*(warning|pacsave|pacnew).* ]]; then
+      warnings+=("${line}")
+    fi
+  done <<< "${log}"
+  if ((${#warnings[@]})); then
+    _message 'Last warnings:'
+  fi
+  for line in "${warnings[@]}"; do
+    printf '%s\n' "${line}"
+  done
+)
+
 main() {
   local cmd=()
   if _does_pacman_need_sudo "$@"; then
@@ -134,24 +169,7 @@ main() {
   n="$(_num_lines "${PACMAN_LOG_FILE}")"
   local s=0
   "${cmd[@]}" || s=$?
-  local log
-  if log="$(_print_from_line "${PACMAN_LOG_FILE}" "$((n + 1))")" && [[ -n "${log}" ]]; then
-    # grep -E 'warning|pacsave|pacnew' <<< "${log}" || true
-    local warnings=()
-    while IFS='' read -r line; do
-      if [[ "${line}" =~ .*(warning|pacsave|pacnew).* ]]; then
-        warnings+=("${line}")
-      fi
-    done <<< "${log}"
-    if ((${#warnings[@]})); then
-      _message 'Last warnings:'
-    fi
-    for line in "${warnings[@]}"; do
-      printf '%s\n' "${line}"
-    done
-  else
-    _warning 'failed printing logs'
-  fi
+  _print_warnings "${n}" || _warning 'failed printing logs'
   return $s
 }
 
