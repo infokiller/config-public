@@ -53,9 +53,8 @@ _prepare_arch_package_repos() {
 }
 
 _symlink_local_arch_files() {
-  symlink_binary "${SUBMODULES_DIR}/optional/pacnanny/pacnanny"
+  symlink_binary "${SUBMODULES_DIR}/optional/pacmate/pacmate"
   symlink_binary "${REPO_ROOT}/.my_scripts/sysadmin/aconfmgr"
-  symlink_binary "${REPO_ROOT}/.my_scripts/sysadmin/pacmate"
   symlink_binary "${REPO_ROOT}/.my_scripts/sysadmin/pacman-original-file"
   symlink_man_page "${SUBMODULES_DIR}/optional/aconfmgr/aconfmgr.1"
 }

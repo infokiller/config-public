@@ -86,9 +86,9 @@
 [submodule "submodules/optional/aconfmgr"]
 	path = submodules/optional/aconfmgr
 	url = https://github.com/CyberShadow/aconfmgr
-[submodule "submodules/optional/pacnanny"]
-	path = submodules/optional/pacnanny
-	url = https://github.com/infokiller/pacnanny
+[submodule "submodules/optional/pacmate"]
+	path = submodules/optional/pacmate
+	url = https://github.com/infokiller/pacmate
 [submodule "submodules/optional/tmux"]
 	path = submodules/optional/tmux
 	url = https://github.com/tmux/tmux

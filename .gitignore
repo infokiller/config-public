@@ -166,7 +166,6 @@
 /.local/bin/aconfmgr
 /.local/bin/pacmate
 /.local/bin/pacman-original-file
-/.local/bin/pacnanny
 /.local/share/man/man1/aconfmgr.1
 
 # Symlinks to optionally enabled services

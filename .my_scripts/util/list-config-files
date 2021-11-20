@@ -32,6 +32,7 @@ readonly INCLUDED_SUBMODULES=(
   'desktop/i3-workspace-groups'
   'desktop/i3-scratchpad'
   'vim/vim-errorlist'
+  'optional/pacmate'
 )
 
 _cd_config_repo() {

@@ -860,7 +860,6 @@ function {
   _set_same_completion git git-https
   _set_same_completion xargs sensible-xargs
   if [[ "${DISTRO}" == arch ]]; then
-    _set_same_completion pacman pacnanny
     _set_same_completion pacman pacmate
   fi
   _set_same_completion ssh ssh-et

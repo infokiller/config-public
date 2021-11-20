@@ -127,7 +127,7 @@ get_optional_submodules_pathspec() {
       platform_submodules+=(tmux)
       ;;
     arch)
-      platform_submodules+=(aconfmgr pacnanny)
+      platform_submodules+=(aconfmgr pacmate)
       ;;
     *)
       _log_error "Unsupported distro: ${DISTRO}"
