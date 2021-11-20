@@ -132,6 +132,18 @@ _does_pacman_need_sudo() {
   return 1
 }
 
+_print_news() {
+  if _command_exists yay; then
+    yay -Pw
+    return
+  fi
+  if _command_exists informant; then
+    informant list
+    return
+  fi
+  return 1
+}
+
 # NOTE: the function uses parentheses and not braces so that options will be set
 # locally.
 _print_warnings() (
@@ -158,13 +170,12 @@ _print_warnings() (
 )
 
 main() {
+  _print_news || _warning 'failed fetching archlinux news'
   local cmd=()
   if _does_pacman_need_sudo "$@"; then
     cmd+=(sudo)
   fi
   cmd+=(pacman "$@")
-  # TODO: check news, see:
-  # https://github.com/infokiller/pacnanny
   local n
   n="$(_num_lines "${PACMAN_LOG_FILE}")"
   local s=0
