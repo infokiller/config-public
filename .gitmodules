@@ -461,7 +461,7 @@
 	url = https://github.com/svermeulen/vim-easyclip
 [submodule "submodules/vim/vim-easymotion"]
 	path = submodules/vim/vim-easymotion
-	url = https://github.com/Lokaltog/vim-easymotion
+	url = https://github.com/easymotion/vim-easymotion
 [submodule "submodules/vim/vim-eighties"]
 	path = submodules/vim/vim-eighties
 	url = https://github.com/justincampbell/vim-eighties
