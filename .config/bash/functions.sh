@@ -916,10 +916,10 @@ fi
 # false positive because of the pacman game.
 if [[ "${DISTRO-}" == arch ]]; then
   # shellcheck disable=SC2262
-  alias pacman='sensible-pacman'
+  alias pacman='pacmate'
   alias pi='pacman -S'
   alias aur-update='yay -Syu --aur --answerclean=None --answeredit=All --answerdiff=All --noupgrademenu'
-  alias arch-update-all='sensible-pacman -Syu; aur-update'
+  alias arch-update-all='pacmate -Syu; aur-update'
   # This list used to have kmod and *-dkms packages, but based on the discussion
   # below they seem unnecessary:
   # https://bbs.archlinux.org/viewtopic.php?pid=1912472#p1912472
@@ -929,7 +929,7 @@ if [[ "${DISTRO-}" == arch ]]; then
     nvidia nvidia-dkms nvidia-lts nvidia-utils nvidia-settings
   )
   # shellcheck disable=SC2139
-  alias arch-update-no-kernel='sensible-pacman -Syu --ignore '"$(join_by ',' "${_KERNEL_PACKAGES[@]}")"'; aur-update'
+  alias arch-update-no-kernel='pacmate -Syu --ignore '"$(join_by ',' "${_KERNEL_PACKAGES[@]}")"'; aur-update'
   unset _KERNEL_PACKAGES
   pacman-pkg-files-fzf() {
     local pkg

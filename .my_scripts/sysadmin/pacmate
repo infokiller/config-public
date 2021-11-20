@@ -5,6 +5,9 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 readonly PACMAN_LOG_FILE='/var/log/pacman.log'
 
+# Configuration variables
+: "${PACMATE_SHOW_NEWS:=1}"
+
 _command_exists() {
   command -v -- "$1" &> /dev/null
 }
@@ -35,7 +38,7 @@ _warning() {
   # Yellow color
   warning="$(tput setaf 3 2> /dev/null)" || true
   normal="$(tput sgr0 2> /dev/null)" || true
-  printf >&2 'sensible-pacman: warning: %s\n' "${warning}${*}${normal}"
+  printf >&2 'pacmate: warning: %s\n' "${warning}${*}${normal}"
 }
 
 # Print a message in a format similar to pacman and yay
@@ -133,10 +136,17 @@ _does_pacman_need_sudo() {
 }
 
 _print_news() {
+  if ((!${PACMATE_SHOW_NEWS-})); then
+    return
+  fi
   if _command_exists yay; then
     yay -Pw
     return
   fi
+  # I wanted to detect if informant already has its hook installed and skip the
+  # news, but it's not trivial because the hook may be installed but disabled by
+  # using a higher priority directory, so this is not done for now.
+  # https://github.com/bradford-smith94/informant
   if _command_exists informant; then
     informant list
     return
