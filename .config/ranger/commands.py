@@ -206,17 +206,17 @@ class fzf_select(Command):
                 self.fm.select_file(fzf_file)
 
 
-class fzf_select_git(Command):
+class fzf_my_select(Command):
     """
-    :fzf_select_git
+    :fzf_my_select
 
-    Find a file in a git repo using fzf.
+    Find a file using list-searched-files.
     """
 
     def execute(self):
         selector_executable = os.path.join(os.path.dirname(__file__),
                                            'fzf-select-file')
-        command = r"git-list-files | {} +m".format(selector_executable)
+        command = r"list-searched-files | {} +m".format(selector_executable)
 
         fzf = self.fm.execute_command(command,
                                       universal_newlines=True,

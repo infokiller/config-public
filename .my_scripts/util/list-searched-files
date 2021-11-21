@@ -25,11 +25,12 @@ _command_exists() {
 }
 
 _run_git-list-files() {
+  local is_repo=1
   local repo_root
-  repo_root="$(git rev-parse --show-toplevel 2> /dev/null)" || return
-  # If we're in an ignored directory, use "regular" search. Note that both rg
-  # and fd will list ignored files in this case.
-  if git check-ignore -q .; then
+  repo_root="$(git rev-parse --show-toplevel 2> /dev/null)" || is_repo=0
+  # If we're not in a git repo, or we're an ignored directory, use "regular"
+  # search. Note that both rg and fd will list ignored files in this case.
+  if ((!is_repo)) || git check-ignore -q .; then
     _run_alternative_tool
     return
   fi
