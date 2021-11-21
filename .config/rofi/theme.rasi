@@ -90,7 +90,7 @@ element-icon {
     text-color:       inherit;
 }
 window {
-    width:            50%;
+    width:            80ch;
     padding:          5;
     background-color: var(background);
     border:           1;

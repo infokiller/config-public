@@ -14,17 +14,17 @@ get_google_suggestions() {
 }
 
 rofi_read_query() {
-  rofi -dmenu -p 'Google' -kb-custom-1 'Control+space' -kb-row-select '' -width 20 "$@"
+  rofi -dmenu -p 'Google' -kb-custom-1 'Control+space' -kb-row-select '' -theme-str 'window {width: 60ch;}' "$@"
 }
 
 main() {
-  query="$(rofi_read_query -lines 0)"
+  query="$(rofi_read_query -theme-str 'listview {lines: 0;}')"
   status="$?"
   while ((status == 10)); do
     query="$({
       echo "${query}"
       get_google_suggestions "$query"
-    } | uniq | rofi_read_query -lines 10)"
+    } | uniq | rofi_read_query -theme-str 'listview {lines: 10;}')"
     status="$?"
   done
   if ((status == 0)); then

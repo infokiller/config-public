@@ -3,12 +3,12 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-result=$(rofi -dmenu -p "Calculate" -lines 1 < /dev/null | bc)
+result=$(rofi -dmenu -p 'Calculate' -theme-str 'listview {lines: 0;}' | bc)
 err=$?
 if ((err != 0)); then
   exit ${err}
 fi
 printf '%s\n' "${result}" |
-  rofi -dmenu -p "Result" -lines 1 |
+  rofi -dmenu -p 'Result' -theme-str 'listview {lines: 1;}' |
   tr -d '\n' |
   xsel --input --clipboard

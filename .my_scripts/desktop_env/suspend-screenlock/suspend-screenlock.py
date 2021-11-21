@@ -40,14 +40,16 @@ def _exit_with_error(error):
 
 
 def _prompt_suspend_duration() -> int:
-    completed_process = subprocess.run(
-        ['rofi', '-dmenu', '-lines',
-         str(len(PRESET_DURATIONS))],
-        check=False,
-        encoding='utf-8',
-        input='\n'.join(PRESET_DURATIONS),
-        text=True,
-        stdout=subprocess.PIPE)
+    cmd = [
+        'rofi', '-dmenu', '-theme-str',
+        f'window {{width: 30ch;}} listview {{lines: {len(PRESET_DURATIONS)};}}'
+    ]
+    completed_process = subprocess.run(cmd,
+                                       check=False,
+                                       encoding='utf-8',
+                                       input='\n'.join(PRESET_DURATIONS),
+                                       text=True,
+                                       stdout=subprocess.PIPE)
     # User cancelled the selection.
     if completed_process.returncode == 1:
         sys.exit(1)

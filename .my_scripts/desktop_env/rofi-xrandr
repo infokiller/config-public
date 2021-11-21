@@ -73,6 +73,6 @@ done
 printf '\n'
 # NOTE: The rofi command uses the `-i` flag to make the matching case
 # insensitive.
-selected_index="$(print_entries | rofi -dmenu -p "Display config:" -a 0 -no-custom -i | awk '{print $1}')"
+selected_index="$(print_entries | rofi -dmenu -p "Display config" -a 0 -no-custom -i | awk '{print $1}')"
 xrandr_cmd="${COMMANDS[${selected_index}]}"
 ${xrandr_cmd}

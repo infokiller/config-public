@@ -61,9 +61,12 @@ _print_selected_clipboard_items() {
 }
 
 main() {
-  mapfile -t selected < <(_print_escaped_clipboard |
-    rofi -dmenu -format 'i' -i -p 'Clipboard' \
-      -multi-select -kb-row-tab '' -kb-accept-alt 'Tab')
+  mapfile -t selected < <(
+    _print_escaped_clipboard |
+      rofi -dmenu -format 'i' -i -p 'Clipboard' \
+        -multi-select -kb-row-tab '' -kb-accept-alt 'Tab' \
+        -theme-str 'window {width: 100ch;}'
+  )
   if ((${#selected[@]} == 0)); then
     exit 1
   elif ((${#selected[@]} == 1)); then
