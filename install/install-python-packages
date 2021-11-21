@@ -174,10 +174,9 @@ _install_conda() {
 
 _install_conda_env() {
   local file="${1:-environment.yml}"
-  # Some conda environment files (such as selfspy's) install pip dependencies
-  # from a requirements.txt file. It seems that in this case we must resolve
-  # symlinks for this to work so that the requirements.txt file can be found
-  # by conda.
+  # Some conda environment files install pip dependencies from a
+  # requirements.txt file. It seems that in this case we must resolve symlinks
+  # for this to work so that the requirements.txt file can be found by conda.
   file="$(readlink -f -- "${file}")"
   local dir
   dir="$(dirname -- "${file}")"
