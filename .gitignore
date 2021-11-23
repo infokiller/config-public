@@ -192,6 +192,7 @@
 /.config/gcloud
 /.config/autostart
 /.config/borg
+/.config/libvirt/storage
 /.config/libfm/libfm.conf
 /.config/menus
 /.config/pavucontrol.ini
