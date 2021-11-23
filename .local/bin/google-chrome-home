@@ -77,9 +77,9 @@ _should_enable_gpu_flags() {
   if [[ -r "${cache_file}" ]]; then
     return "$(< "${cache_file}")"
   fi
-  # Enable GPU flags unless there's an nvidia GPU
+  # Enable GPU flags for intel and amd GPUs (but not nvidia)
   local s=0
-  if is_nvidia_gpu; then
+  if is_intel_gpu || is_amd_gpu; then
     s=1
   fi
   echo $s >| "${cache_file}"
