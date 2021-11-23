@@ -458,11 +458,7 @@ _cd_config_repo() {
 rgc() {
   (
     _cd_config_repo || return
-    list-config-files | _best_grep -v \
-      -e 'root/usr/share/X11/xkb/symbols/extend' \
-      -e 'xsendkeys' \
-      -e '/.corp/' |
-      sensible-xargs -- "${_RG_OR_TAG}" --smart-case "$@"
+    list-config-files | sensible-xargs -- "${_RG_OR_TAG}" --smart-case "$@"
   ) || return
   # shellcheck disable=SC1090
   source -- "${TAG_ALIAS_FILE:-/tmp/tag_aliases}" 2> /dev/null
