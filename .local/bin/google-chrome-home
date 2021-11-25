@@ -75,7 +75,9 @@ _should_enable_gpu_flags() {
   # the result.
   local cache_file="${XDG_RUNTIME_DIR}/chrome_use_gpu"
   if [[ -r "${cache_file}" ]]; then
-    return "$(< "${cache_file}")"
+    # NOTE: the return status uses shell conventions (0/success for using the GPU
+    # and 1/failure otherwise).
+    return $((!$(< "${cache_file}")))
   fi
   # Enable GPU flags for intel and amd GPUs (but not nvidia)
   local s=0
@@ -83,6 +85,9 @@ _should_enable_gpu_flags() {
     s=1
   fi
   echo $s >| "${cache_file}"
+  # NOTE: the return status uses shell conventions (0/success for using the GPU
+  # and 1/failure otherwise).
+  return $((!s))
 }
 
 main() {
