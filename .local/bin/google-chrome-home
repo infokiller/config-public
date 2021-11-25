@@ -29,7 +29,6 @@ ENABLED_FEATURES=(
   'ProminentDarkModeActiveTabTitle'
   # Use a dark theme for chrome pages such as chrome://settings.
   'WebUIDarkMode'
-  'VaapiVideoDecoder'
   # As of 2020-02-10, I stopped enabling TabGroups
   # 'TabGroups'
 )
@@ -38,7 +37,6 @@ DISABLED_FEATURES=(
   # to it.
   'OmniboxTabSwitchSuggestions'
 )
-
 GENERIC_FLAGS=(
   # Without this, chromium stores passwords unencrypted, even though I have the
   # Secrets Service running.
@@ -53,21 +51,6 @@ GENERIC_FLAGS=(
   # this also changes the color of the menus (and maybe other UI elements).
   # [1] https://chrome.google.com/webstore/detail/material-dark/npadhaijchjemiifipabpmeebeelbmpd?hl=en
   '--force-dark-mode'
-  # Configure `chrome://flags` experiments.
-  # NOTE: All the features must be enabled/disabled in the same flag delimited by
-  # commas.
-  "--enable-features=$(_join_by ',' "${ENABLED_FEATURES[@]}")"
-  "--disable-features=$(_join_by ',' "${DISABLED_FEATURES[@]}")"
-)
-GPU_FLAGS=(
-  # EXP: use GPU acceleration for rasterization and/or video encode/decode. See:
-  # - https://github.com/qutebrowser/qutebrowser/issues/5378#issuecomment-617931657
-  # - https://wiki.archlinux.org/index.php/Hardware_video_acceleration
-  # - https://wiki.debian.org/HardwareVideoAcceleration
-  '--enable-gpu-rasterization'
-  '--enable-accelerated-video-decode'
-  '--use-gl=desktop'
-  '--ignore-gpu-blocklist'
 )
 
 _should_enable_gpu_flags() {
@@ -92,9 +75,36 @@ _should_enable_gpu_flags() {
 
 main() {
   local flags=("${GENERIC_FLAGS[@]}")
-  if _should_enable_gpu_flags; then
-    flags+=("${GPU_FLAGS[@]}")
+  local enabled_features=("${ENABLED_FEATURES[@]}")
+  local disabled_features=("${DISABLED_FEATURES[@]}")
+  # NOTE: I originally suspected that enabling GPU flags with nvidia causes me
+  # issues in chrome (notably with firenvim), but disabling it had no effect.
+  # if _should_enable_gpu_flags; then
+  if true; then
+    flags+=(
+      # EXP: use GPU acceleration for rasterization and/or video encode/decode. See:
+      # - https://github.com/qutebrowser/qutebrowser/issues/5378#issuecomment-617931657
+      # - https://wiki.archlinux.org/index.php/Hardware_video_acceleration
+      # - https://wiki.debian.org/HardwareVideoAcceleration
+      '--enable-gpu-rasterization'
+      '--enable-accelerated-video-decode'
+      '--use-gl=desktop'
+      '--ignore-gpu-blocklist'
+    )
+    # https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/gpu/vaapi.md#vaapi-on-linux
+    enabled_features+=('VaapiVideoDecoder')
+  else
+    # NOTE: I originally suspected that webgl doesn't work well with nvidia and
+    # firenvim, but disabling it had no effect (see note above).
+    flags+=('--disable-webgl')
   fi
+  # Configure `chrome://flags` experiments.
+  # NOTE: All the features must be enabled/disabled in the same flag delimited by
+  # commas.
+  flags+=(
+    "--enable-features=$(_join_by ',' "${enabled_features[@]}")"
+    "--disable-features=$(_join_by ',' "${disabled_features[@]}")"
+  )
   exec google-chrome --profile-directory='Home' "${flags[@]}" "$@"
 }
 
