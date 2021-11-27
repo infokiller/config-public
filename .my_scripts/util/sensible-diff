@@ -9,8 +9,32 @@ _command_exists() {
   command -v -- "$1" &> /dev/null
 }
 
+# git-diff doesn't work with process substitution [1] so we're copying the
+# pipe to a temporary file.
+# [1] https://github.com/dandavison/delta/issues/666
+_run_git_diff() {
+  local tmpdir
+  tmpdir="$(mktemp -d -t 'sensible_diff.XXXXXX')"
+  # NOTE: The path variable in trap must be expanded here because it may not
+  # be defined when the trap is ran.
+  # shellcheck disable=SC2064
+  trap "rm -rf -- '${tmpdir}' &> /dev/null || true" EXIT ERR INT HUP TERM
+  local f files=()
+  for ((i = 1; i <= $#; i++)); do
+    f="${!i}"
+    if [[ -p "${f}" ]]; then
+      local tmpfile="${tmpdir}/arg_${i}"
+      cat -- "${f}" >| "${tmpfile}"
+      files+=("${tmpfile}")
+    else
+      files+=("${f}")
+    fi
+  done
+  git diff --no-index --color "${files[@]}"
+}
+
 _run_delta() {
-  git diff --no-index --color "$@" | delta
+  _run_git_diff "$@" | delta
 }
 
 _run_diff-so-fancy() {
