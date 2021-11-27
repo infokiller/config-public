@@ -342,7 +342,7 @@ editor-fzf() {
 }
 
 less-fasd-fzf() {
-  if [[ ($# -eq 1 && -f $1) || $# -gt 1 ]]; then
+  if [[ ($# -eq 1 && (-f $1 || -L $1 || -p $1)) || $# -gt 1 ]]; then
     less -- "$@"
     return
   fi
