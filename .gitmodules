@@ -531,9 +531,6 @@
 [submodule "submodules/vim/vim-lion"]
 	path = submodules/vim/vim-lion
 	url = https://github.com/tommcdo/vim-lion
-[submodule "submodules/vim/vim-livedown"]
-	path = submodules/vim/vim-livedown
-	url = https://github.com/shime/vim-livedown
 [submodule "submodules/vim/vim-maktaba"]
 	path = submodules/vim/vim-maktaba
 	url = https://github.com/google/vim-maktaba

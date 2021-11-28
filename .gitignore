@@ -40,7 +40,6 @@
 /.local/bin/instant-markdown-d
 /.local/bin/js-beautify
 /.local/bin/lebab
-/.local/bin/livedown
 /.local/bin/markdown-toc
 /.local/bin/markdownlint
 /.local/bin/markdownlint-cli2
