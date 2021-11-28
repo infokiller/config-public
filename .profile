@@ -200,6 +200,7 @@ _increase_xdg_conformance() {
   export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
   export NPM_CONFIG_TMP="${XDG_RUNTIME_DIR}/npm"
   export YARN_CACHE_FOLDER="${XDG_CACHE_HOME}/yarn"
+  export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
   export GEMRC="${XDG_CONFIG_HOME}/gemrc"
   export GEM_HOME="${HOME}/.local/pkg/gem"
   export GEM_SPEC_CACHE="${XDG_CACHE_HOME}/gem"

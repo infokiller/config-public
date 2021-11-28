@@ -22,6 +22,7 @@ readonly EXCLUDES=(
   'plug\.vim'
   'package-lock\.json'
   'yarn\.lock'
+  'pnpm-lock\.yaml'
   'tex_castel\.snippets'
   'p10k\.zsh'
   'generated_completion'

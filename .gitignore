@@ -43,6 +43,7 @@
 /.local/bin/markdown-toc
 /.local/bin/markdownlint
 /.local/bin/markdownlint-cli2
+/.local/bin/pnpm
 /.local/bin/prettier
 /.local/bin/pyright
 /.local/bin/pyright-langserver
@@ -334,6 +335,7 @@
 /.kodi/addons
 /.kube
 /.lesshst
+/.local/state/pnpm
 /.mono
 /.mozilla
 /.mujoco

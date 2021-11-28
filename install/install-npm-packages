@@ -10,6 +10,8 @@ import installation_util as util
 # this directory.
 # NOTE: `yarn global add` installs packages to ~/.config/yarn/global by default.
 LOCAL_MODULES_PARENT_DIR = os.path.expanduser('~/.local/pkg/npm')
+XDG_DATA_HOME = os.environ.get('XDG_DATA_HOME',
+                               os.path.expandvars('$HOME/.local/share'))
 
 
 def _log_info(msg: str) -> None:
@@ -76,6 +78,23 @@ def _link_package_files(package_path, get_binary_install_name=lambda x: x):
                               os.path.join(util.USER_MAN_DIR, name))
 
 
+# https://pnpm.io/installation
+def _install_pnpm():
+    zshrc_path = os.path.expanduser('~/.zshrc')
+    # THe pnpm install script modifies .zshrc (and ignores ZDOTDIR).
+    zshrc_exists_before = os.path.isfile(zshrc_path)
+    subprocess.run('curl -fsSL https://get.pnpm.io/install.sh | sponge | sh',
+                   check=True,
+                   shell=True)
+    zshrc_exists_after = os.path.isfile(zshrc_path)
+    if zshrc_exists_after and not zshrc_exists_before:
+        os.remove(zshrc_path)
+    pnpm_path = os.path.join(XDG_DATA_HOME, 'pnpm/pnpm')
+    print(pnpm_path)
+    assert os.path.isfile(pnpm_path)
+    util.symlink_relative(pnpm_path, os.path.join(util.USER_BIN_DIR, 'pnpm'))
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Install and/or upgrade config repo npm packages.')
@@ -86,6 +105,7 @@ def main():
 
     util.create_user_dirs()
 
+    _install_pnpm()
     _install_packages()
     with open(os.path.join(LOCAL_MODULES_PARENT_DIR, 'package.json')) as f:
         packages_json = json.loads(f.read())
