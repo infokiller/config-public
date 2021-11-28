@@ -44,6 +44,7 @@
 /.local/bin/markdownlint
 /.local/bin/markdownlint-cli2
 /.local/bin/pnpm
+/.local/bin/pnpx
 /.local/bin/prettier
 /.local/bin/pyright
 /.local/bin/pyright-langserver
@@ -399,6 +400,7 @@
 !/.local/pkg/go/tools
 !/.local/pkg/npm
 /.local/pkg/npm/node_modules
+/.local/pkg/npm/pnpm-store
 
 # # VSCode
 # !/.config/Code

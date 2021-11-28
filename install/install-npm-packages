@@ -28,6 +28,14 @@ def _install_packages():
                    check=True)
 
 
+def _get_npm_config_var(name: str):
+    p = subprocess.run(['npm', 'config', 'get', name],
+                       check=True,
+                       stdout=subprocess.PIPE,
+                       universal_newlines=True)
+    return p.stdout.strip()
+
+
 def _upgrade_packages(packages):
     # NOTE(infokiller): This doesn't upgrade package.json with the new versions,
     # see: https://github.com/yarnpkg/yarn/issues/3266
@@ -78,8 +86,9 @@ def _link_package_files(package_path, get_binary_install_name=lambda x: x):
                               os.path.join(util.USER_MAN_DIR, name))
 
 
+# Install pnpm without assuming node is installed. Not really used for now.
 # https://pnpm.io/installation
-def _install_pnpm():
+def _install_pnpm_via_script():
     zshrc_path = os.path.expanduser('~/.zshrc')
     # THe pnpm install script modifies .zshrc (and ignores ZDOTDIR).
     zshrc_exists_before = os.path.isfile(zshrc_path)
@@ -90,9 +99,18 @@ def _install_pnpm():
     if zshrc_exists_after and not zshrc_exists_before:
         os.remove(zshrc_path)
     pnpm_path = os.path.join(XDG_DATA_HOME, 'pnpm/pnpm')
-    print(pnpm_path)
+    # print(pnpm_path)
     assert os.path.isfile(pnpm_path)
     util.symlink_relative(pnpm_path, os.path.join(util.USER_BIN_DIR, 'pnpm'))
+
+
+# https://pnpm.io/installation
+def _install_pnpm_via_npm():
+    subprocess.run('npm install -g pnpm', check=True, shell=True)
+    npm_prefix = _get_npm_config_var('prefix')
+    for file in ['pnpm', 'pnpx']:
+        path = os.path.join(npm_prefix, 'bin', file)
+        util.symlink_relative(path, os.path.join(util.USER_BIN_DIR, file))
 
 
 def main():
@@ -105,7 +123,7 @@ def main():
 
     util.create_user_dirs()
 
-    _install_pnpm()
+    _install_pnpm_via_npm()
     _install_packages()
     with open(os.path.join(LOCAL_MODULES_PARENT_DIR, 'package.json')) as f:
         packages_json = json.loads(f.read())
