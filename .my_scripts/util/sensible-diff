@@ -34,7 +34,7 @@ _run_git_diff() {
 }
 
 _run_delta() {
-  _run_git_diff "$@" | delta
+  _run_git_diff "$@" | delta --paging=never
 }
 
 _run_diff-so-fancy() {
