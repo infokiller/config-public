@@ -37,6 +37,7 @@
 /.local/bin/gtop
 /.local/bin/histcat
 /.local/bin/html-beautify
+/.local/bin/improved-yarn-audit
 /.local/bin/instant-markdown-d
 /.local/bin/js-beautify
 /.local/bin/lebab
