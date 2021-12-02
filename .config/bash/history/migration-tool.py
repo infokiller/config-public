@@ -13,7 +13,7 @@ MAX_ENTRIES_PER_SHARD = 10000
 
 def write_csv_shard(entries, path):
     stream = io.StringIO()
-    csv_writer = csv.writer(stream,
+    csv_writer = csv.writer(stream,  # nosemgrep: python.lang.security.unquoted-csv-writer.unquoted-csv-writer
                             lineterminator='\n',
                             quoting=csv.QUOTE_MINIMAL)
     for entry in entries:

@@ -358,7 +358,7 @@ expected-line-ending-format=
 # ignore-long-lines=^\s*(# )?<?https?://\S+>?$
 # NOTE: I redefined ignore-long-lines because the default doesn't capture
 # the form '[1] https://' which I often use for references.
-ignore-long-lines=https?://\S{10,}
+ignore-long-lines=(https?://\S{10,}|nosemgrep)
 # NOTE(infokiller): I used to have the following setting that allows URLs that
 # start before 72 chars. As of 2020-05-15, this is disabled because I'm
 # usually putting long URLs on their own lines in comments, so the default

@@ -60,7 +60,7 @@ def compute_cmds_stats(cmds):
 
 def generate_csv_output(name_counts):
     stream = io.StringIO()
-    csv_writer = csv.writer(stream)
+    csv_writer = csv.writer(stream, quoting=csv.QUOTE_ALL)
     for name, count in name_counts:
         csv_writer.writerow([name, count])
     stream.seek(0)
