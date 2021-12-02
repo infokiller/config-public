@@ -3,6 +3,7 @@
     "@google/clasp": "2.4.1",
     "alex": "10.0.0",
     "bash-language-server": "2.0.0",
+    "corepack": "0.10.0",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.3.0",
     "git-stats": "2.11.0",
@@ -27,13 +28,14 @@
     "uglify-js": "3.14.4",
     "web-ext": "6.6.0",
     "write-good": "1.0.8",
+    "yarn": "1.22.17",
     "yarn-audit-fix": "8.0.1"
   },
-  "//": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
+  "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
   "resolutions": {
     "**/compare-func/dot-prop": "^4.2.1"
   },
-  "//": "Any package not listed here will install all its binaries.",
+  "//2": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
     "write-good": {
       "write-good": "write-good",

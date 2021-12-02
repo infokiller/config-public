@@ -2485,6 +2485,11 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
+corepack@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/corepack/-/corepack-0.10.0.tgz#ef4621ddf4fdc418df7514fa228abea2c6a17303"
+  integrity sha512-aYNDvUd909DbxnC6XQtcvwEANhfis724VSifk/ADAAgJTc9cabKHR3tREJge0nIBr67vVEo1YPuLKgrnu7r99g==
+
 cors@~2.8.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
@@ -12785,6 +12790,11 @@ yarn-audit-fix@8.0.1:
     semver "^7.3.5"
     synp "^1.9.8"
     tslib "^2.3.1"
+
+yarn@1.22.17:
+  version "1.22.17"
+  resolved "https://registry.yarnpkg.com/yarn/-/yarn-1.22.17.tgz#bf910747d22497b573131f7341c0e1d15c74036c"
+  integrity sha512-H0p241BXaH0UN9IeH//RT82tl5PfNraVpSpEoW+ET7lmopNC61eZ+A+IDvU8FM6Go5vx162SncDL8J1ZjRBriQ==
 
 yauzl@2.10.0, yauzl@^2.10.0:
   version "2.10.0"
