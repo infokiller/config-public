@@ -5578,9 +5578,9 @@ hosted-git-info@^2.1.4:
   integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
 hosted-git-info@^3.0.6:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-3.0.7.tgz#a30727385ea85acfcee94e0aad9e368c792e036c"
-  integrity sha512-fWqc0IcuXs+BmE9orLDyVykAG9GJtGLGuZAAqgcckPgv5xad4AcXGIv8galtQvlwutxSlaMcdw7BUtq2EIvqCQ==
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-3.0.8.tgz#6e35d4cc87af2c5f816e4cb9ce350ba87a3f370d"
+  integrity "sha1-bjXUzIevLF+Bbky5zjULqHo/Nw0= sha512-aXpmwoOhRBrw6X3j0h5RloK4x1OzsxMPyxqIHyNfSe2pypkVTZFpEiRoSipPEPlMrh0HW/XsjkJ5WgnCirpNUw=="
   dependencies:
     lru-cache "^6.0.0"
 
@@ -5811,7 +5811,7 @@ import-meta-resolve@^1.0.0:
   dependencies:
     builtins "^4.0.0"
 
-improved-yarn-audit@^3.0.0:
+improved-yarn-audit@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/improved-yarn-audit/-/improved-yarn-audit-3.0.0.tgz#dfb09cea1a3a92c790ea2b4056431f6fb1b99bfa"
   integrity sha512-b7CrBYYwMidtPciCBkW62C7vqGjAV10bxcAWHeJvGrltrcMSEnG5I9CQgi14nmAlUKUQiSvpz47Lo3d7Z3Vjcg==
@@ -13092,10 +13092,10 @@ yargs@^11.0.0:
     y18n "^3.2.1"
     yargs-parser "^9.0.2"
 
-yarn-audit-fix@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/yarn-audit-fix/-/yarn-audit-fix-8.0.0.tgz#48ffc7f7bb3c189b51deb13fff9e99ce60df6c71"
-  integrity sha512-ldr5S/PGeV/7V2lYpGSLIH9V5KaNAq8OqCE59IENQH+ZFIT4gcGSshZolk0JV8pEOZpglB4AHR7M4W/mOGDnZA==
+yarn-audit-fix@8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/yarn-audit-fix/-/yarn-audit-fix-8.0.1.tgz#5bf4420a1fdd1d1160fb1b6f263d3cece7d6fe3d"
+  integrity sha512-r4f904/sbH4qbpdz1tiImmN16hVUrIc3Bvr4xYxulVF4Jc78wxSp0TuzLhXPkJC+iVLP+axXQaC3gSk3HaUArA==
   dependencies:
     "@types/find-cache-dir" "^3.2.1"
     "@types/fs-extra" "^9.0.13"

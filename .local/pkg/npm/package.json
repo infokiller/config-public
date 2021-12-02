@@ -10,7 +10,7 @@
     "git-stats-importer": "2.4.11",
     "gtop": "1.1.2",
     "html-beautify": "1.0.4",
-    "improved-yarn-audit": "^3.0.0",
+    "improved-yarn-audit": "3.0.0",
     "instant-markdown-d": "0.2.0",
     "js-beautify": "1.14.0",
     "lebab": "3.1.1",
@@ -28,7 +28,7 @@
     "uglify-js": "3.14.4",
     "web-ext": "6.6.0",
     "write-good": "1.0.8",
-    "yarn-audit-fix": "8.0.0"
+    "yarn-audit-fix": "8.0.1"
   },
   "//": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
