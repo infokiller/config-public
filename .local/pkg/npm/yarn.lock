@@ -9821,10 +9821,10 @@ pupa@^2.1.1:
   dependencies:
     escape-goat "^2.0.0"
 
-puppeteer@12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-12.0.0.tgz#38544c9a608c79ded84bb4225af26d2d42c988cf"
-  integrity sha512-a+vLxtwuDLUIq8Vz8X5bX+YMhcQrgyfq0Jo5Wcm49EfUawgCxeCN9/rUAS3VdAAiQZ1PKiv9pGyQN8jj1ypecQ==
+puppeteer@12.0.1:
+  version "12.0.1"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-12.0.1.tgz#ae79d0e174a07563e0bf2e05c94ccafce3e70033"
+  integrity sha512-YQ3GRiyZW0ddxTW+iiQcv2/8TT5c3+FcRUCg7F8q2gHqxd5akZN400VRXr9cHQKLWGukmJLDiE72MrcLK9tFHQ==
   dependencies:
     debug "4.3.2"
     devtools-protocol "0.0.937139"
@@ -9839,10 +9839,10 @@ puppeteer@12.0.0:
     unbzip2-stream "1.4.3"
     ws "8.2.3"
 
-pyright@1.1.190:
-  version "1.1.190"
-  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.190.tgz#8eb579018f3efc123771781111d7d57154a741b4"
-  integrity sha512-rZXmg/xapDxuiqyzs15nj3cxj6IGroX2UNXdEKwTT7RNdwohahfdolqoLIBCtIrbLLmgNUXWtL0cCEqljBKNRg==
+pyright@1.1.191:
+  version "1.1.191"
+  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.191.tgz#77c4fbcf77a9ac4840b7821279e22b0d18d0ff69"
+  integrity sha512-1WyWpfLudnT+wBNYoaqQV2yOmpzI8otmDIGrEdLG0pikHWktuVSq8rvcqLF2QzzZVgb67TWCXp9u+wBt214lzA==
 
 q@^1.5.1:
   version "1.5.1"
@@ -10844,10 +10844,10 @@ smart-buffer@^4.1.0:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.1.0.tgz#91605c25d91652f4661ea69ccf45f1b331ca21ba"
   integrity sha512-iVICrxOzCynf/SNaBQCw34eM9jROU/s5rzIhpOvzhzuYHfJR/DhZfDkXiZSgKXfgv26HT3Yni3AV/DGw0cGnnw==
 
-snyk@^1.780.0:
-  version "1.780.0"
-  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.780.0.tgz#687c093f75ba6bfce2595506855b11fac0fff167"
-  integrity sha512-HadbD3tPdIgjDBvesh6JYbJcNgE/AkuCqhvF/kiUQUM/7QOcWgTxTx8hoXkondRR7MDZ3dH+H+ccFdIiM4wcBQ==
+snyk@1.782.0:
+  version "1.782.0"
+  resolved "https://registry.yarnpkg.com/snyk/-/snyk-1.782.0.tgz#77f2b939d8e9b7939e69b95e4f993c5110671c39"
+  integrity sha512-hCAau7JeeKBLaXrVCdcy0X0Yqp2a4qcaSqXzds5O7gBT4522Uzg2RD/+nhJYJ6VAt20blWI+ozasx8GKVzgSFg==
 
 socket.io-adapter@~2.1.0:
   version "2.1.0"
@@ -11970,7 +11970,12 @@ ucfirst@^1.0.0:
   resolved "https://registry.yarnpkg.com/ucfirst/-/ucfirst-1.0.0.tgz#4e105b6448d05e264ecec435e0b919363c5f2f2f"
   integrity sha1-ThBbZEjQXiZOzsQ14LkZNjxfLy8=
 
-uglify-js@3.14.3, uglify-js@^3.1.4:
+uglify-js@3.14.4:
+  version "3.14.4"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.14.4.tgz#68756f17d1b90b9d289341736cb9a567d6882f90"
+  integrity sha512-AbiSR44J0GoCeV81+oxcy/jDOElO2Bx3d0MfQCUShq7JRXaM4KtQopZsq2vFv8bCq2yMaGrw1FgygUd03RyRDA==
+
+uglify-js@^3.1.4:
   version "3.14.3"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.14.3.tgz#c0f25dfea1e8e5323eccf59610be08b6043c15cf"
   integrity sha512-mic3aOdiq01DuSVx0TseaEzMIVqebMZ0Z3vaeDhFEh9bsc24hV1TFvN74reA2vs08D0ZWfNjAcJ3UbVLaBss+g==
