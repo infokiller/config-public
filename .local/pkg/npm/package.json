@@ -31,11 +31,7 @@
     "yarn": "1.22.17",
     "yarn-audit-fix": "8.0.1"
   },
-  "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
-  "resolutions": {
-    "**/compare-func/dot-prop": "^4.2.1"
-  },
-  "//2": "Any package not listed here will install all its binaries.",
+  "//": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
     "write-good": {
       "write-good": "write-good",
@@ -50,5 +46,6 @@
       "markdownlint-cli2-fix": ""
     }
   },
-  "private": true
+  "private": true,
+  "packageManager": "yarn@3.1.1"
 }
