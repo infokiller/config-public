@@ -21,6 +21,7 @@
     "pyright": "1.1.190",
     "release-it": "14.11.8",
     "semantic-release": "18.0.1",
+    "snyk": "1.780.0",
     "stylelint": "14.1.0",
     "tldr": "3.3.7",
     "uglify-js": "3.14.3",

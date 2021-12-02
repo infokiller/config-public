@@ -51,6 +51,7 @@
 /.local/bin/release-it
 /.local/bin/semantic-release
 /.local/bin/semgrep
+/.local/bin/snyk
 /.local/bin/stylelint
 /.local/bin/tldr
 /.local/bin/uglifyjs
