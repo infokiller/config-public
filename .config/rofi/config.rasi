@@ -33,7 +33,6 @@ configuration {
 	matching: "fuzzy";
 	/* Monitor to show rofi on. -1 means the currently focused monitor. */
 	m: "-1";
-	theme: "~/.config/rofi/theme.rasi";
 	kb-remove-word-forward: "Control+Delete";
 	/* Disable the default keybinding for Tab (Go to next row, if one left,
 	 * accept it, if no left next mode), so that it is available for multiple
@@ -49,4 +48,5 @@ configuration {
       sorting-method:    "name";
   }
 }
+@theme "~/.config/rofi/theme.rasi"
 /* vim: set ft=css : */
