@@ -1333,6 +1333,8 @@ github.com/zricethezav/gitleaks/v8 v8.0.2 h1:wkAfbs8gpKKSH8VOAOJrKO+Ijn6LJEvSbeK
 github.com/zricethezav/gitleaks/v8 v8.0.2/go.mod h1:UMvmVl3BKU+NZNphUZ15pUvHDuNO3NFasEmpQJ4sQb0=
 github.com/zricethezav/gitleaks/v8 v8.0.4 h1:hkTKqlQUv9bH04mjYQ1OUPno9yPzy/U5MgQ//Y6VsrM=
 github.com/zricethezav/gitleaks/v8 v8.0.4/go.mod h1:UMvmVl3BKU+NZNphUZ15pUvHDuNO3NFasEmpQJ4sQb0=
+github.com/zricethezav/gitleaks/v8 v8.0.6 h1:CXlzCaptMiVFwUP3hAW5JNn1uZoRCz07V6bIsJGR78g=
+github.com/zricethezav/gitleaks/v8 v8.0.6/go.mod h1:UMvmVl3BKU+NZNphUZ15pUvHDuNO3NFasEmpQJ4sQb0=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.5/go.mod h1:G5EMThwa9y8QZGBClrRx5EY+Yw9kAhnjy3bSjsnlVTQ=
