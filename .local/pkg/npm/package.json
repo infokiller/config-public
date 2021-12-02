@@ -3,7 +3,6 @@
     "@google/clasp": "2.4.1",
     "alex": "10.0.0",
     "bash-language-server": "2.0.0",
-    "corona-cli": "5.3.3",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.3.0",
     "git-stats": "2.11.0",
