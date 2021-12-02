@@ -23,7 +23,6 @@ require (
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
 	github.com/containerd/cgroups v1.0.1 // indirect
 	github.com/containerd/containerd v1.5.5 // indirect
-	github.com/containerd/continuity v0.2.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/direnv/direnv/v2 v2.29.0 // indirect
 	github.com/direnv/go-dotenv v0.0.0-20181227095604-4cce6d1a66f7 // indirect
@@ -37,7 +36,7 @@ require (
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
-	github.com/gitleaks/go-gitdiff v0.7.2 // indirect
+	github.com/gitleaks/go-gitdiff v0.7.3 // indirect
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.3.1 // indirect
 	github.com/go-git/go-git/v5 v5.4.2 // indirect
@@ -54,7 +53,6 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gopasspw/gopass v1.13.0 // indirect
 	github.com/gopasspw/pinentry v0.0.2 // indirect
-	github.com/hako/durafmt v0.0.0-20191009132224-3f39dc1ed9f4 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-version v1.3.0 // indirect
@@ -63,7 +61,6 @@ require (
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/inconshreveable/mousetrap v1.0.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
-	github.com/jessevdk/go-flags v1.5.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/jsimonetti/pwscheme v0.0.0-20160922125227-76804708ecad // indirect
 	github.com/julienschmidt/httprouter v1.3.0 // indirect
@@ -107,8 +104,7 @@ require (
 	github.com/urfave/cli/v2 v2.3.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/zricethezav/gitleaks/v7 v7.6.1 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.0.6 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.0.7 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
