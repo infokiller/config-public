@@ -156,6 +156,7 @@ readonly -A _TASK_TO_CMD=(
   ['cargo-packages']="_install_cargo_from_rustup && 
     ${REPO_ROOT}/install/install-cargo-packages"
   ['upgrade-packages']='_upgrade_packages'
+  ['audit']='(_audit_packages)'
   # Graphical tasks
   ['yank']='(
     cd "${SUBMODULES_DIR}/terminal/yank" && make && symlink_binary yank
@@ -278,6 +279,28 @@ _upgrade_packages() {
     GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
   )
   "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
+}
+
+_audit_packages() {
+  # shellcheck disable=SC1091
+  source activate i3_scratchpad
+  snyk test "${SUBMODULES_DIR}/desktop/i3-scratchpad"
+  snyk code test "${SUBMODULES_DIR}/desktop/i3-scratchpad"
+  # shellcheck disable=SC1091
+  source activate i3_workspace_groups
+  snyk test "${SUBMODULES_DIR}/desktop/i3-workspace-groups"
+  snyk code test "${SUBMODULES_DIR}/desktop/i3-workspace-groups"
+  # shellcheck disable=SC1091
+  source activate selfspy
+  snyk test "${SUBMODULES_DIR}/desktop/selfspy"
+  snyk code test "${SUBMODULES_DIR}/desktop/selfspy"
+  # shellcheck disable=SC1091
+  source activate keydope
+  snyk test "${SUBMODULES_DIR}/keydope"
+  snyk code test "${SUBMODULES_DIR}/keydope"
+  snyk test "${SUBMODULES_DIR}/terminal/histcat"
+  snyk code test "${SUBMODULES_DIR}/terminal/histcat"
+  snyk test "${REPO_ROOT}/.local/pkg/npm"
 }
 
 _install_nerd_fonts() {
@@ -636,7 +659,7 @@ main() {
   # (npm/golang/etc.) or all of them (_upgrade_packages).
   case "$1" in
     list)
-      printf '%s\n' "${_ORDERED_TASKS[@]}"
+      printf '%s\n' "${!_TASK_TO_CMD[@]}"
       ;;
     run)
       shift
