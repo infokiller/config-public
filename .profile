@@ -316,6 +316,7 @@ _export_profile_env() {
   # https://github.com/greymd/tmux-xpanes
   export TMUX_XPANES_PANE_BORDER_STATUS='top'
   export TMUX_XPANES_PANE_BORDER_FORMAT='#[fg=yellow] #T#{?pane_pipe,[Log],} #[default]'
+  export SEMGREP_SEND_METRICS='no'
 }
 
 _profile_main() {
