@@ -29,6 +29,10 @@
     "write-good": "1.0.8",
     "yarn-audit-fix": "8.0.1"
   },
+  "//": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
+  "resolutions": {
+    "**/compare-func/dot-prop": "^4.2.1"
+  },
   "//": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
     "write-good": {
