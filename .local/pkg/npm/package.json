@@ -26,7 +26,8 @@
     "tldr": "3.3.7",
     "uglify-js": "3.14.4",
     "web-ext": "6.6.0",
-    "write-good": "1.0.8"
+    "write-good": "1.0.8",
+    "yarn-audit-fix": "8.0.0"
   },
   "//": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
