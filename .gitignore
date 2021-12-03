@@ -195,6 +195,7 @@
 # (like window sizes) and credentials.
 /.PyCharm*
 /.Tribler
+/.semgrep
 /.config/Debauchee
 /.config/Dharkael/flameshot.ini
 /.config/LinuxTV
