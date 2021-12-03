@@ -17,16 +17,14 @@ readonly SECRET_DETECTION_IGNORED_FILES=(
   'yarn\.lock'
   'poetry\.lock'
   '\.config/detect-secret'
+  '.?gitleaks\.toml'
 )
 readonly ALL_CHECKS=(
   content_blacklist
   paths_blacklist
   shfmt
   shellcheck
-  detect_secrets
-  # As of gitleaks 7.6.1 (2021-11-15) there are issues with submodules:
-  # https://github.com/zricethezav/gitleaks/issues/682
-  # gitleaks
+  secret_detection
   deleted_file_refs
   broken_symlinks
 )
@@ -226,35 +224,28 @@ _check_shellcheck() {
 }
 
 # https://github.com/zricethezav/gitleaks/wiki/Scanning
-_check_gitleaks() {
+_run_gitleaks() {
   echo 'Checking gitleaks...'
   if ! _command_exists gitleaks; then
     _print_warning 'Warning: gitleaks not found, skipping test.'
     return
   fi
-  local config_path="${XDG_CONFIG_HOME}/gitleaks.toml"
-  local cmd=(gitleaks --verbose)
-  if [[ -r "${config_path}" ]]; then
-    cmd+=("--additional-config=${config_path}")
-  fi
-  "${cmd[@]}"
+  # Seems that the "protect" command should be used in pre-commit and not
+  # "detect":
+  # https://github.com/zricethezav/gitleaks/blob/106897fdf0967968a0df2e00565bcf4fa8b4a96b/scripts/pre-commit.py
+  # gitleaks detect --verbose --config "${XDG_CONFIG_HOME}/gitleaks.toml"
+  gitleaks protect --staged --verbose --config "${XDG_CONFIG_HOME}/gitleaks.toml"
 }
 
-# https://github.com/zricethezav/gitleaks/wiki/Scanning
-_check_detect_secrets() {
-  local mode
-  mode="$(git config --get secret-detection-hook.mode)" || mode='error'
-  if [[ "${mode}" == 'skip' ]]; then
-    echo 'Skipping secrets detection'
-    return
-  fi
+# https://github.com/Yelp/detect-secrets
+_run_detect_secrets() {
   echo 'Checking detect-secrets...'
   if ! _command_exists detect-secrets-hook; then
     _print_warning 'Warning: detect-secrets-hook not found, skipping test.'
     return
   fi
   mapfile -t scanned_files < <(_git_changed_files HEAD |
-    grep --text -v -f <(printf '%s\n' "${SECRET_DETECTION_IGNORED_FILES[@]}"))
+    grep --text -Ev -f <(printf '%s\n' "${SECRET_DETECTION_IGNORED_FILES[@]}"))
   if ((${#scanned_files[@]} == 0)) ||
     detect-secrets-hook -- "${scanned_files[@]}"; then
     return
@@ -265,6 +256,17 @@ _check_detect_secrets() {
   fi
   _print_warning 'Secret detection failed, continuing because mode is set' \
     'to warning'
+}
+
+_check_secret_detection() {
+  local mode
+  mode="$(git config --get secret-detection-hook.mode)" || mode='error'
+  if [[ "${mode}" == 'skip' ]]; then
+    echo 'Skipping secrets detection'
+    return
+  fi
+  _run_detect_secrets
+  _run_gitleaks
 }
 
 _check_deleted_file_refs() {
