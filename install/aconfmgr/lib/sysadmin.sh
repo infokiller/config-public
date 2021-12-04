@@ -18,6 +18,9 @@ IgnorePath '/usr/lib/udev/hwdb.bin'
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   AddPackage nut # NUT is a collection of programs for monitoring and administering UPS hardware
   CopyFile /etc/udev/rules.d/50-nut.rules
+  # Setting the /etc/nut file properties is a workaround to an issue where
+  # aconfmgr doesn't detect the package permissions correctly:
+  # https://github.com/CyberShadow/aconfmgr/issues/115#issuecomment-986014006
   SetFileProperty /etc/nut/upsd.conf group nut
   SetFileProperty /etc/nut/upsd.conf mode 640
   SetFileProperty /etc/nut/upsd.users group nut
