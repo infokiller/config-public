@@ -136,7 +136,6 @@
 	zeroPaddedFilemode = ignore
 
 # https://github.com/dandavison/delta
-# Disable syntax highlighting in delta as I find it distracting.
 [delta]
 	# https://github.com/dandavison/delta#navigation-keybindings-for-large-diffs
 	navigate = true
