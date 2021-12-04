@@ -65,7 +65,7 @@ _configure_keydope() {
   # - It outputs warnings about the X11 display before the graphical login.
   # CopyFile '/etc/systemd/system/keydope.service'
   cat "${keydope_dir}/etc/udev/rules.d/90-keydope.rules" \
-    >| "$(CreateFile '/etc/udev/rules.d/90-keydope.rules' 644)"
+    >| "$(CreateFile '/etc/udev/rules.d/90-keydope.rules')"
   # Verify that uinput is loaded if this is the first time that keydope is
   # configured. We first check if the module is already loaded, because if it's
   # loaded but the kernel was upgraded, modprobe may return an error because of
@@ -76,7 +76,7 @@ _configure_keydope() {
     print_warning 'Cannot load uinput module, keydope will not work'
   fi
   cat "${keydope_dir}/etc/modules-load.d/keydope.conf" \
-    >| "$(CreateFile '/etc/modules-load.d/keydope.conf' 644)"
+    >| "$(CreateFile '/etc/modules-load.d/keydope.conf')"
   # shellcheck disable=SC2154
   sed -r "s#@USER@#$(id -un)#g; $(printf 's#@KEYDOPE_DIR@#%s#g' "${keydope_dir}")" \
     "${SUBMODULES_DIR}/keydope/etc/sudoers.d/keydope.tmpl" \

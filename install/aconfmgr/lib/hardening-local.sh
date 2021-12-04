@@ -66,8 +66,8 @@ EOF
 # manually whitelist the right devices before enabling usbguard.
 if function_exists 'is_usbguard_enabled' && is_usbguard_enabled; then
   AddPackage usbguard # Software framework for implementing USB device authorization policies
-  CopyFile '/etc/usbguard/rules.conf' 600
-  CopyFile '/etc/usbguard/usbguard-daemon.conf' 600
+  CopyFile '/etc/usbguard/rules.conf'
+  CopyFile '/etc/usbguard/usbguard-daemon.conf'
   CopyFile '/etc/systemd/system/usbguard.service.d/override.conf'
   CreateLink '/etc/systemd/system/dbus-org.usbguard.service' '/usr/lib/systemd/system/usbguard-dbus.service'
   CreateLink '/etc/systemd/system/multi-user.target.wants/usbguard-dbus.service' '/usr/lib/systemd/system/usbguard-dbus.service'

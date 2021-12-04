@@ -4,7 +4,7 @@
 AddPackage dnscrypt-proxy # DNS proxy, supporting encrypted DNS protocols such as DNSCrypt v2 and DNS-over-HTTP.
 CopyFile '/etc/dnscrypt-proxy/custom/dnscrypt-proxy.toml'
 CopyFile '/etc/dnscrypt-proxy/custom/forwarding-rules.txt'
-CopyFile '/etc/systemd/system/dnscrypt-proxy.service.d/override.conf' 644
+CopyFile '/etc/systemd/system/dnscrypt-proxy.service.d/override.conf'
 CreateLink '/etc/systemd/system/multi-user.target.wants/dnscrypt-proxy.service' '/usr/lib/systemd/system/dnscrypt-proxy.service'
 CopyFile '/etc/systemd/system/dnscrypt-proxy.socket'
 
