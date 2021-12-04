@@ -118,9 +118,9 @@ if ((${ACONF_UPDATE_USERS:-1})); then
   # - https://git.archlinux.org/svntogit/packages.git/tree/trunk/sysusers?h=packages/filesystem
   # See also the output from `systemd-sysusers --cat-config`
   CopyFile '/etc/passwd'
-  CopyFile '/etc/shadow' 000
+  CopyFile '/etc/shadow' 0
   CopyFile '/etc/group'
-  CopyFile '/etc/gshadow' 000
+  CopyFile '/etc/gshadow' 0
 else
   IgnorePath '/etc/passwd'
   IgnorePath '/etc/shadow'
