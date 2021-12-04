@@ -139,18 +139,16 @@
 # Disable syntax highlighting in delta as I find it distracting.
 [delta]
 	# https://github.com/dandavison/delta#navigation-keybindings-for-large-diffs
-	# As of 2020-09-02, this is disabled because it has some issues, see:
-	# https://github.com/dandavison/delta/issues/310
-	# navigate = true
-	# As of 2020-09-02, hyperlinks cause a display issue and seem to require
+	navigate = true
+	# As of 2021-12-04, hyperlinks cause a display issue and seem to require
 	# patched versions of tmux and less.
 	# hyperlinks = true
 	# Disable syntax highlighting in delta as I find it distracting.
 	syntax-theme = none
 	# syntax-theme = MySolarizedDark
 	diff-so-fancy = true
-	# As of 2020-09-02, side-by-side output doesn't look right:
-	# https://github.com/dandavison/delta/issues/308
+	# https://github.com/dandavison/delta/issues/309#issuecomment-752805220
+	hunk-header-style = file line-number syntax
 	# features = side-by-side
 
 [delta "side-by-side"]
