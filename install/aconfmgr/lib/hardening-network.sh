@@ -9,6 +9,10 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/dnscrypt-proxy.service' 
 CopyFile '/etc/systemd/system/dnscrypt-proxy.socket'
 
 AddPackage openvpn # An easy-to-use, robust and highly configurable VPN (Virtual Private Network)
+IgnorePath '/etc/openvpn/server'
+SetFileProperty '/etc/openvpn/client' group network
+SetFileProperty '/etc/openvpn/client' mode 750
+SetFileProperty '/etc/openvpn/client' owner openvpn
 CopyFile '/etc/openvpn/client/client.conf'
 CopyFile '/etc/openvpn/update-resolv-conf' 755
 

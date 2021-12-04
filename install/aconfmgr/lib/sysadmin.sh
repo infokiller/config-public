@@ -18,9 +18,12 @@ IgnorePath '/usr/lib/udev/hwdb.bin'
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   AddPackage nut # NUT is a collection of programs for monitoring and administering UPS hardware
   CopyFile /etc/udev/rules.d/50-nut.rules
-  # SetFileProperty /etc/nut/upsd.conf group nut
-  # SetFileProperty /etc/nut/upsd.users group nut
-  # SetFileProperty /etc/nut/upsmon.conf group nut
+  SetFileProperty /etc/nut/upsd.conf group nut
+  SetFileProperty /etc/nut/upsd.conf mode 640
+  SetFileProperty /etc/nut/upsd.users group nut
+  SetFileProperty /etc/nut/upsd.users mode 640
+  SetFileProperty /etc/nut/upsmon.conf group nut
+  SetFileProperty /etc/nut/upsmon.conf mode 640
   cat >> "$(GetPackageOriginalFile nut '/etc/nut/ups.conf')" <<'EOF'
 
 [eaton_zeus18]
@@ -57,6 +60,7 @@ CopyFile /etc/fuse.conf
 # Package management: pacman
 AddPackage pkgfile        # a pacman .files metadata explorer
 AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
+AddPackage asp            # Arch Linux build source file management tool
 AddPackage --foreign yay  # Yet another yogurt. Pacman wrapper and AUR helper written in go.
 # Periodically clean Pacman's cache to save disk space
 CopyFile '/etc/systemd/system/paccache.service.d/override.conf'
