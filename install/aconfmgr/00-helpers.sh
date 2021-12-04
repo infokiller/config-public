@@ -6,6 +6,7 @@ AconfNeedProgram git git n
 AconfNeedProgram grep grep n
 AconfNeedProgram awk gawk n
 AconfNeedProgram id coreutils n
+AconfNeedProgram jq jq n
 
 # shellcheck disable=SC2155
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
