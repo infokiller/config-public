@@ -166,8 +166,6 @@ _increase_xdg_conformance() {
   fi
   export ZDOTDIR="${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}"
   export VIMINIT="source ${XDG_CONFIG_HOME}/vim/vimrc"
-  export LESSKEY="${XDG_CACHE_HOME}/lesskey_generated"
-  test -f "${LESSKEY}" || lesskey "${XDG_CONFIG_HOME}/lesskey"
   export INPUTRC="${XDG_CONFIG_HOME}/inputrc"
   export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
   # https://github.com/rust-lang/cargo/blob/master/src/doc/environment-variables.md
@@ -279,6 +277,10 @@ _export_fzf_vars() {
   fi
 }
 
+_get_less_version() {
+  less --version | head -1 | grep -Eo '[0-9]{3,}'
+}
+
 _export_profile_env() {
   _export_path_vars
   _export_xdg_user_dirs
@@ -293,7 +295,21 @@ _export_profile_env() {
   export BROWSER='sensible-browser'
   # Default options for less. For documentation on the used flags see:
   # http://explainshell.com/explain?cmd=less+-RMiJSux4
-  export LESS='--RAW-CONTROL-CHARS --LONG-PROMPT --status-column --ignore-case --chop-long-lines --underline-special --tabs=4 '
+  export LESS='--RAW-CONTROL-CHARS --LONG-PROMPT --status-column --ignore-case --chop-long-lines --underline-special --tabs=4'
+  less_version="$(_get_less_version)"
+  # Add options available in less 580 and later
+  # http://greenwoodsoftware.com/less/news.580.html
+  # https://unix.stackexchange.com/a/624305/126543
+  if test "${less_version}" -ge 580; then
+    LESS="${LESS} --line-num-width=4 --status-col-width=1 --incsearch"
+  fi
+  # Less version 590 added support for reading the source lesskey file, making
+  # it unnecessary to generate the binary file.
+  # http://greenwoodsoftware.com/less/news.590.html
+  if test "${less_version}" -lt 590; then
+    export LESSKEY="${XDG_CACHE_HOME}/lesskey_generated"
+    test -f "${LESSKEY}" || lesskey "${XDG_CONFIG_HOME}/lesskey"
+  fi
   # Use scope.sh as a less preprocessor to get syntax highlighting and
   # reasonable previews for zip, pdf, etc.
   export LESSOPEN="| SCOPE_TRUECOLOR=1 HIGHLIGHT_OPTIONS='--line-numbers --line-number-length=0 --no-trailing-nl' ${HOME}/.config/ranger/scope.sh %s '80' '' '' False"

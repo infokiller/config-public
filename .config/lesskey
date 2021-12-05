@@ -10,7 +10,6 @@ i back-line
 j left-scroll
 k forw-line
 l right-scroll
-e visual
 ^F forw-search
 t toggle-option
 T invalid
@@ -18,6 +17,7 @@ T invalid
 e visual
 ^P prev-file
 ^N next-file
+^L clear-search
 
 #line-edit
 ^A home
