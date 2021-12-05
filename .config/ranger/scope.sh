@@ -83,7 +83,8 @@ _trim_output() {
 
 _handle_text() {
   if [[ "$(stat --printf='%s' -- "${FILE_PATH}")" -gt "${HIGHLIGHT_SIZE_MAX}" ]]; then
-    exit 2
+    # The sed command reduces the excessive leading spaces from cat
+    { cat -n -- "${FILE_PATH}" | sed -E 's/^ *//'; } && exit 5
   fi
   local highlight_format pygmentize_format
   if _has_truecolor; then

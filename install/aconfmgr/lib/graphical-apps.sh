@@ -13,7 +13,7 @@ AddPackage pqiv              # Powerful image viewer with minimal UI
 AddPackage geeqie            # A lightweight image browser and viewer
 AddPackage arandr            # Provide a simple visual front end for XRandR 1.2.
 AddPackage mpv               # a free, open source, and cross-platform media player
-AddPackage espeak            # Text to Speech engine for English, with support for other languages
+AddPackage espeak-ng         # Multi-lingual software speech synthesizer
 AddPackage qbittorrent       # An advanced BitTorrent client programmed in C++, based on Qt toolkit and libtorrent-rasterbar.
 AddPackage zathura           # Minimalistic document viewer
 AddPackage zathura-djvu      # DjVu support for Zathura

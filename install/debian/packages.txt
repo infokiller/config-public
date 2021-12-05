@@ -78,7 +78,7 @@ qbittorrent
 wget
 curl
 # text to speech.
-espeak
+espeak-ng
 gawk
 sed
 htop
