@@ -18,19 +18,26 @@ CARGO = os.path.join(CARGO_BIN_DIR, 'cargo')
 
 class PackageInstallSpec:
 
+    # pylint: disable-next=too-many-arguments
     def __init__(self,
                  name,
+                 version=None,
                  installed_binaries=None,
-                 install_flags='--locked --all-features',
+                 install_flags=None,
                  distro_regex=''):
         self.name = name
+        self.version = version
         self.installed_binaries = installed_binaries
+        if not install_flags:
+            install_flags = ['--locked', '--all-features']
         self.install_flags = install_flags
         self.distro_regex = re.compile(distro_regex)
 
     def __str__(self):
         result = self.name
         opt_parts = []
+        if self.version:
+            opt_parts.append(self.version)
         if self.installed_binaries:
             opt_parts.append(self.installed_binaries)
         if self.install_flags:
@@ -40,6 +47,13 @@ class PackageInstallSpec:
         if opt_parts:
             result += f' ({", ".join(str(p) for p in opt_parts)})'
         return result
+
+    @property
+    def install_cmd(self):
+        cmd = [CARGO, 'install'] + self.install_flags
+        if self.version:
+            cmd += ['--version', self.version]
+        return cmd + [self.name]
 
 
 PACKAGES = [
@@ -56,7 +70,9 @@ PACKAGES = [
     # As of 2021-05-29, functiontrace-server has a build issue and is not really
     # used.
     # PackageInstallSpec('functiontrace-server'),
-    PackageInstallSpec('git-delta', installed_binaries={'delta': 'delta'}),
+    PackageInstallSpec('git-delta',
+                       version='0.10.2',
+                       installed_binaries={'delta': 'delta'}),
     # NOTE(2018-07-21): exa is now installed from the arch repos for Arch.
     # --git https://github.com/ogham/exa
     # NOTE(2018-07-21): ripgrep is now installed from the arch repos for Arch.
@@ -64,7 +80,7 @@ PACKAGES = [
     PackageInstallSpec('ripgrep',
                        installed_binaries={'rg': 'rg'},
                        distro_regex='debian|ubuntu',
-                       install_flags='--locked'),
+                       install_flags=['--locked']),
     PackageInstallSpec('bat', distro_regex='debian|ubuntu'),
 ]
 
@@ -106,9 +122,9 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
         # if is_installed:
         #     _log_info(f'Package {pkg.name} is already installed, skipping')
         #     continue
-        success = os.system(
-            f'{CARGO} install {pkg.install_flags} {pkg.name}') == 0
-        if not success:
+        try:
+            subprocess.run(pkg.install_cmd, check=True)
+        except subprocess.CalledProcessError:
             errors.append(pkg)
             _log_warning(f'Failed installing package {pkg}')
             continue
