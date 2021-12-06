@@ -401,7 +401,7 @@ _histcat_preexec_hook() {
   fi
   histcat-verify
   histcat add --typed-command "${typed_cmd}" \
-    --expanded-command "${expanded_cmd}"
+    --expanded-command "${expanded_cmd}" &> /dev/null
 }
 
 autoload -Uz add-zsh-hook
