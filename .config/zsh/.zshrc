@@ -400,8 +400,11 @@ _histcat_preexec_hook() {
     return
   fi
   histcat-verify
-  histcat add --typed-command "${typed_cmd}" \
-    --expanded-command "${expanded_cmd}" &> /dev/null
+  # NOTE: histcat takes 4-5ms to run in zeus18 so I'm running it in the
+  # background. The subshell is required to avoid output about the job being
+  # started.
+  (histcat add --typed-command "${typed_cmd}" \
+    --expanded-command "${expanded_cmd}" &) &> /dev/null
 }
 
 autoload -Uz add-zsh-hook
