@@ -61,6 +61,8 @@ declare -g _update_env_from_tmux_on="${_update_env_from_tmux_on:-1}"
 # Updates environment variables from tmux when SSH is detected.
 # This propagates the correct value of environment variables to shells in
 # tmux that are connected to via SSH.
+# TODO: This is slow because of the call to `tmux show-environment`. I measured
+# about 10ms in zeus18.
 update_environment_from_tmux() {
   if ((!_update_env_from_tmux_on)) || ! _is_tmux; then
     return 0
