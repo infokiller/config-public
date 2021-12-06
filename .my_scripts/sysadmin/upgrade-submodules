@@ -22,12 +22,12 @@ _upgrade_submodules() {
     return
   fi
   local s=0
-  # TODO: fix parallel updates. Currently, updating in parallel causes strange
-  # flaky git errors about "No remote named origin found", and some gpg files
-  # are created, such as "~/.config/gnupg/.#lk0x0000557228818cd0.host.402666".
-  # git submodule foreach -q bash -c \
-  #   '{ git remote -v | grep -Eqi infokiller; } || pwd' |
-  #   parallel 'cd -- "{}"; git-sensible-update' || s=1
+  # NOTE: parallel updates used to cause strange flaky git errors about "No
+  # remote named origin found", and some gpg files are created, such as
+  # "~/.config/gnupg/.#lk0x0000557228818cd0.host.402666".
+  if git submodule foreach -q pwd | parallel 'cd -- "{}"; git-sensible-update'; then
+    return
+  fi
   # git submodule foreach -q bash -c \
   #   'if git remote -v | grep -Eqi infokiller; then git-sensible-update; fi' ||
   #   s=1
