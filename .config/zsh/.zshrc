@@ -812,8 +812,8 @@ complete -o default -F _pip_completion pip
 # pip bash completion end
 
 # Depends on compdef, so must be sourced after compinit was called.
-maybe-run-tracked-emulate -- source_compiled \
-  "${SUBMODULES_DIR}/lastpass-cli/contrib/lpass_bash_completion"
+# maybe-run-tracked-emulate -- source_compiled \
+#   "${SUBMODULES_DIR}/lastpass-cli/contrib/lpass_bash_completion"
 # Depends on compdef, so must be sourced after compinit was called.
 # NOTE: This slows down shell initialization considerably and I'm not really
 # using it anyway, so disabling it.

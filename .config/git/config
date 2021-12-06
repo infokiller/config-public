@@ -46,7 +46,8 @@
 	# https://github.com/so-fancy/diff-so-fancy/issues/35#issuecomment-555778997
   diffFilter = "{ delta --color-only 2> /dev/null || { { command -v diff-so-fancy > /dev/null ; } && echo && diff-so-fancy; } || cat ; }"
 [merge]
-	# Show the original hunk when there are merge conflicts.
+	# Show the original hunk when there are merge conflicts. Also used by delta:
+	# https://github.com/dandavison/delta#merge-conflicts
 	conflictstyle = diff3
 	autoStash = true
 [mergetool]
