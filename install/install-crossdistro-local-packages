@@ -266,19 +266,16 @@ _install_cargo_from_rustup() {
     -mindepth 1 -maxdepth 1 -type f -print0)
 }
 
-# TODO: Upgrade python packages
-# TODO: Upgrade rust packages
-# TODO: Upgrade VSCode plugins
-# TODO: Upgrade golang packages that specify a specific branch/tag/commit
-_upgrade_packages() {
-  "${REPO_ROOT}/install/install-npm-packages" --upgrade
+# TODO: Upgrade all python environments
+_upgrade_python_packages() {
   (
-    cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
-    rm go.{sum,mod} || true
-    go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
-    GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
+    cd -- "${SUBMODULES_DIR}/keydope"
+    # shellcheck disable=SC1091
+    source activate keydope
+    pip-compile --generate-hashes --allow-unsafe --upgrade
+    pip-compile --extra dev --generate-hashes --allow-unsafe --output-file requirements-dev.txt --upgrade
+    pip-compile --extra systemd --generate-hashes --allow-unsafe --output-file requirements-systemd.txt --upgrade
   )
-  "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
   (
     cd -- "${SUBMODULES_DIR}/desktop/i3-scratchpad"
     # shellcheck disable=SC1091
@@ -293,13 +290,26 @@ _upgrade_packages() {
     pip-compile --extra dev --generate-hashes --allow-unsafe --output-file requirements-dev.txt --upgrade
   )
   (
-    cd -- "${SUBMODULES_DIR}/keydope"
+    cd -- "${REPO_ROOT}/.my_scripts/i3"
     # shellcheck disable=SC1091
-    source activate keydope
+    source activate i3_scripts
     pip-compile --generate-hashes --allow-unsafe --upgrade
-    pip-compile --extra dev --generate-hashes --allow-unsafe --output-file requirements-dev.txt --upgrade
-    pip-compile --extra systemd --generate-hashes --allow-unsafe --output-file requirements-systemd.txt --upgrade
   )
+}
+
+# TODO: Upgrade rust packages
+# TODO: Upgrade VSCode plugins
+# TODO: Upgrade golang packages that specify a specific branch/tag/commit
+_upgrade_packages() {
+  "${REPO_ROOT}/install/install-npm-packages" --upgrade
+  (
+    cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
+    rm go.{sum,mod} || true
+    go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
+    GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
+  )
+  _upgrade_python_packages
+  "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
 }
 
 _audit_packages() {
