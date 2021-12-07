@@ -226,9 +226,9 @@ _install_graphical_conda_envs() {
   _install_conda_env "${SUBMODULES_DIR}/desktop/i3-workspace-groups/environment.yml"
   _install_conda_env "${SUBMODULES_DIR}/desktop/i3-scratchpad/environment.yml"
   _install_conda_env "${REPO_ROOT}/.my_scripts/i3/environment.yml"
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/i3_resurrect/i3_resurrect.yml"
   _install_conda_env "${SUBMODULES_DIR}/desktop/selfspy/environment.yml"
   _install_conda_env "${REPO_ROOT}/.my_scripts/desktop_env/suspend-screenlock/environment.yml"
-  _install_conda_env "${REPO_ROOT}/install/conda_envs/i3_resurrect/i3_resurrect.yml"
 }
 
 _setup_conda() {
