@@ -20,7 +20,7 @@ diff_documented() {
     /bin/vim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${vim_opts}" || true
     /bin/nvim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${nvim_opts}" || true
   done
-  vimdiff "${vim_opts}" "${nvim_opts}"
+  diff -- "${vim_opts}" "${nvim_opts}"
 }
 
 # TODO: check all options, not just ones mentioned in vim_diff.txt
@@ -30,7 +30,7 @@ diff_all() {
   # https://vi.stackexchange.com/a/16699
   /bin/vim -es -u "${DIR}/vimrc" <<< "set all | q" | tr ' ' '\n' >| "${vim_opts}"
   /bin/nvim -es -u "${DIR}/vimrc" <<< "set all | q" | tr ' ' '\n' >| "${nvim_opts}"
-  vimdiff "${vim_opts}" "${nvim_opts}"
+  diff -- "${vim_opts}" "${nvim_opts}"
 }
 
 main() {

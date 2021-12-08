@@ -10,8 +10,8 @@
 " See also: 
 " ~/.config/vim/diff-vim-nvim-defaults
 " /usr/share/vim/vim82/defaults.vim
-set sessionoptions+=unix,slash | set sessionoptions-=options
-set viewoptions=folds,cursor,curdir
+set sessionoptions=blank,buffers,curdir,folds,help,options,tabpages,winsize,terminal,unix,slash
+set viewoptions=folds,cursor,curdir,slash,unix
 if !has('nvim-0.6')
   set autoindent
   set autoread
