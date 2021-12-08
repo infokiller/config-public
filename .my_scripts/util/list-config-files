@@ -5,6 +5,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 readonly EXCLUDES=(
   '^submodules'
+  '^.local/pkg/npm/\.yarn'
   '^\.local/bin/(archive|doom|git-icdiff|git-open|hostsctl|icdiff|fasd)'
   '^\.local/bin/(lsarchive|org-capture|org-tangle|revolver|tmux-xpanes)'
   '^\.local/bin/(unarchive)'
