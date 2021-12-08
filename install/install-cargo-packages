@@ -71,7 +71,6 @@ PACKAGES = [
     # used.
     # PackageInstallSpec('functiontrace-server'),
     PackageInstallSpec('git-delta',
-                       version='0.10.2',
                        installed_binaries={'delta': 'delta'}),
     # NOTE(2018-07-21): exa is now installed from the arch repos for Arch.
     # --git https://github.com/ogham/exa
