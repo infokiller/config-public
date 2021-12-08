@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+
+diff_documented() {
+  local opts
+  mapfile -t opts < <(
+    sed -n -E "s/^- '(\w+)' .*$/\1/p" /usr/share/nvim/runtime/doc/vim_diff.txt |
+      grep -Ev '^(fsync|display|undodir|viminfo|shada)$'
+  )
+  local vim_opts nvim_opts
+  vim_opts="$(mktemp -t "vim_opts.XXXXXX")"
+  nvim_opts="$(mktemp -t "nvim_opts.XXXXXX")"
+  for opt in "${opts[@]}"; do
+    echo "Checking: $opt"
+    # https://vi.stackexchange.com/a/16699
+    /bin/vim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${vim_opts}"
+    /bin/nvim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${nvim_opts}"
+  done
+  vimdiff "${vim_opts}" "${nvim_opts}"
+}
+
+# TODO: check all options, not just ones mentioned in vim_diff.txt
+diff_all() {
+  vim_opts="$(mktemp -t "vim_opts.XXXXXX")"
+  nvim_opts="$(mktemp -t "nvim_opts.XXXXXX")"
+  # https://vi.stackexchange.com/a/16699
+  /bin/vim -es -u "${DIR}/vimrc" <<< "set all | q" | tr ' ' '\n' >| "${vim_opts}"
+  /bin/nvim -es -u "${DIR}/vimrc" <<< "set all | q" | tr ' ' '\n' >| "${nvim_opts}"
+  vimdiff "${vim_opts}" "${nvim_opts}"
+}
+
+main() {
+  if [[ "${1-}" == --all ]]; then
+    diff_all
+  else
+    diff_documented
+  fi
+}
+
+main "$@"
