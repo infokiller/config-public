@@ -18,7 +18,7 @@ index+=1
 gen_xrandr_only() {
   local selected="$1"
   local cmd="xrandr --output ${MONITORS[${selected}]} --auto "
-  for entry in $(seq 0 $((NUM_MONITORS - 1))); do
+  for ((entry = 0; entry < NUM_MONITORS; entry++)); do
     if [[ ${selected} != "${entry}" ]]; then
       cmd="${cmd} --output ${MONITORS[${entry}]} --off"
     fi
@@ -27,15 +27,15 @@ gen_xrandr_only() {
 }
 
 generate_entries() {
-  for entry in $(seq 0 $((NUM_MONITORS - 1))); do
+  for ((entry = 0; entry < NUM_MONITORS; entry++)); do
     TITLES[${index}]="Only  ${MONITORS[${entry}]}"
     COMMANDS[${index}]="$(gen_xrandr_only "${entry}")"
     index+=1
   done
 
   # Dual screen options
-  for entry_a in $(seq 0 $((NUM_MONITORS - 1))); do
-    for entry_b in $(seq 0 $((NUM_MONITORS - 1))); do
+  for ((entry_a = 0; entry_a < NUM_MONITORS; entry_a++)); do
+    for ((entry_b = 0; entry_b < NUM_MONITORS; entry_b++)); do
       if [[ ${entry_a} != "${entry_b}" ]]; then
         TITLES[${index}]="Dual  ${MONITORS[${entry_a}]} -> ${MONITORS[${entry_b}]}"
         COMMANDS[${index}]="xrandr --output ${MONITORS[${entry_a}]} --auto \
@@ -47,8 +47,8 @@ generate_entries() {
   done
 
   # Clone monitors
-  for entry_a in $(seq 0 $((NUM_MONITORS - 1))); do
-    for entry_b in $(seq 0 $((NUM_MONITORS - 1))); do
+  for ((entry_a = 0; entry_a < NUM_MONITORS; entry_a++)); do
+    for ((entry_b = 0; entry_b < NUM_MONITORS; entry_b++)); do
       if [[ ${entry_a} != "${entry_b}" ]]; then
         TITLES[${index}]="Clone ${MONITORS[${entry_a}]} -> ${MONITORS[${entry_b}]}"
         COMMANDS[${index}]="xrandr --output ${MONITORS[${entry_a}]} --auto \
@@ -61,13 +61,13 @@ generate_entries() {
 }
 
 print_entries() {
-  for i in $(seq 0 $((${#TITLES[@]} - 1))); do
+  for ((i = 0; i < ${#TITLES[@]}; i++)); do
     printf '%s\n' "${i} ${TITLES[i]}"
   done
 }
 
 generate_entries
-for i in $(seq 0 $((${#TITLES[@]} - 1))); do
+for ((i = 0; i < ${#TITLES[@]}; i++)); do
   printf '%s\n' "${i} ${TITLES[i]} : ${COMMANDS[i]}"
 done
 printf '\n'

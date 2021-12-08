@@ -1377,7 +1377,7 @@ benchmark-command() {
   local before
   before=$(($(date +%s%N) / 1000000))
   printf 'Running command "%s" %d times\n' "$*" "${num_runs}"
-  for _ in $(seq 1 "${num_runs}"); do
+  for ((i = 0; i < num_runs; i++)); do
     eval -- "$@" > /dev/null
   done
   local after

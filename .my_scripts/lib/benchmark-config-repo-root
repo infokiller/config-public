@@ -48,7 +48,7 @@ _benchmark() {
   fi
   local before
   before=$(($(date +%s%N) / 1000000))
-  for _ in $(seq 1 "${2:-100}"); do
+  for ((i = 0; i < ${2:-100}; i++)); do
     "${cmd[@]}" > /dev/null
   done
   local after

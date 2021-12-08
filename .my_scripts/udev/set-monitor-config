@@ -21,7 +21,7 @@ main() {
   last_monitor="${monitors[${last_monitor_index}]}"
 
   local cmd=(xrandr '--output' "${last_monitor}" '--auto')
-  for i in $(seq 0 $((last_monitor_index - 1))); do
+  for ((i = 0; i < last_monitor_index - 1; i++)); do
     cmd+=('--output' "${monitors[${i}]}" '--off')
   done
   printf 'Running command: %s\n' "${cmd[*]}"

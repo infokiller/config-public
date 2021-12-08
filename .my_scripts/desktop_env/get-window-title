@@ -75,9 +75,10 @@ get_punctuation_re() {
     ':'
     ';'
   )
-  # NOTE: seq understands hex codes, but still outputs in decimal, so we convert
-  # to hex inside the loop.
-  for i in $(seq 0x2000 0x20ff); do
+  # NOTE: Bash's arithmetic expansion and seq understand hex codes, but still
+  # output in decimal, so we convert to hex inside the loop.
+  # for i in $(seq 0x2000 0x20ff); do
+  for ((i = 0x2000; i <= 0x20ff; i++)); do
     local hexcode
     hexcode="$(printf '%x' "${i}")"
     # shellcheck disable=SC2059
