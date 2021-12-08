@@ -527,6 +527,7 @@ augroup END
 " these).
 set fillchars=vert:\|,fold:·
 set shortmess-=F
+set switchbuf=uselast
 
 " Make tabs and trailing spaces visible when requested.
 " set listchars=tab:>-,trail:·,eol:$,nbsp:☣

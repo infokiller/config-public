@@ -9,7 +9,7 @@ diff_documented() {
   local opts
   mapfile -t opts < <(
     sed -n -E "s/^- '(\w+)' .*$/\1/p" /usr/share/nvim/runtime/doc/vim_diff.txt |
-      grep -Ev '^(fsync|display|undodir|viminfo|shada)$'
+      grep -Ev '^(fsync|display|undodir|viminfo|shada|wildoptions)$'
   )
   local vim_opts nvim_opts
   vim_opts="$(mktemp -t "vim_opts.XXXXXX")"
@@ -17,8 +17,8 @@ diff_documented() {
   for opt in "${opts[@]}"; do
     echo "Checking: $opt"
     # https://vi.stackexchange.com/a/16699
-    /bin/vim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${vim_opts}"
-    /bin/nvim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${nvim_opts}"
+    /bin/vim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${vim_opts}" || true
+    /bin/nvim -es -u "${DIR}/vimrc" <<< "set ${opt}? | q" >> "${nvim_opts}" || true
   done
   vimdiff "${vim_opts}" "${nvim_opts}"
 }

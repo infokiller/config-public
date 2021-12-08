@@ -188,4 +188,3 @@ if !g:ATHAME_MODE && !g:VSCODE_MODE
   " NOTE: As of 2018-12-09 seems that vim-plug already enables it.
   filetype plugin indent on
 endif
-

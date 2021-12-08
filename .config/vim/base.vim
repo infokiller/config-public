@@ -3,6 +3,65 @@
 " editing backend for a single text buffer.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                         Consistent vim/nvim defaults                         "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set consistent defaults between vim and neovim. Some options that appear in 
+" `:help vim_diff.txt` are not set the same, see below.
+" See also: 
+" ~/.config/vim/diff-vim-nvim-defaults
+" /usr/share/vim/vim82/defaults.vim
+set sessionoptions+=unix,slash | set sessionoptions-=options
+set viewoptions=folds,cursor,curdir
+if !has('nvim-0.6')
+  set autoindent
+  set autoread
+  set background=dark
+  set backspace=indent,eol,start
+  " vint: -ProhibitSetNoCompatible
+  set nocompatible
+  set complete-=i
+  set cscopeverbose
+  set display=lastline
+  if has('nvim-0.4.4')
+    set display+=msgsep
+  endif
+  " encoding is set in vimrc
+  set encoding=utf-8
+  set fillchars=vert:\|,fold:·
+  set formatoptions=tcqj
+  " NOTE: fsync is disabled by default in nvim for performance reasons, but nvim
+  " also flushes the files to disk on CursorHold and other events, hence it's
+  " relatively safe. For vim we keep the default of fsync being enabled.
+  set hidden
+  set nojoinspaces
+  if has('langmap') && exists('+langremap')
+    " No need to set the deprecated langnoremap because it is set automatically to
+    " the inverse of langremap.
+    " set langnoremap
+    set nolangremap
+  endif
+  set nrformats-=octal
+  set ruler
+  " sessionoptions is set above
+  set shortmess+=F | set shortmess-=S
+  set showcmd
+  set sidescroll=1
+  set smarttab
+  set nostartofline
+  set switchbuf=uselast
+  set tabpagemax=50
+  set ttimeoutlen=50
+  set ttyfast  " Indicates a fast terminal connection.
+  " viewoptions is set above
+  set wildmenu
+  set wildoptions=tagfile
+  " https://github.com/neovim/neovim/pull/9607
+  if has('nvim-0.4.4')
+    set wildoptions+=pum
+  endif
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               General settings                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax on
@@ -51,8 +110,6 @@ else
   " file. See also: https://github.com/neovim/neovim/issues/3469
   let &viminfo = Concat(&viminfo, ',n', g:VIM_DATA_DIR, '/viminfo')
 endif
-
-set ttyfast  " Indicates a fast terminal connection.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               General mappings                               "
