@@ -250,12 +250,6 @@ _run_detect_secrets() {
     detect-secrets-hook -- "${scanned_files[@]}"; then
     return
   fi
-  if [[ "${mode}" == 'error' ]]; then
-    _print_error 'Secret detection failed'
-    return 1
-  fi
-  _print_warning 'Secret detection failed, continuing because mode is set' \
-    'to warning'
 }
 
 _check_secret_detection() {
@@ -265,8 +259,18 @@ _check_secret_detection() {
     echo 'Skipping secrets detection'
     return
   fi
-  _run_detect_secrets
-  _run_gitleaks
+  local s=0
+  _run_detect_secrets || s=$?
+  _run_gitleaks || s=$?
+  if ((s == 0)); then
+    return
+  fi
+  if [[ "${mode}" == 'error' ]]; then
+    _print_error 'Secret detection failed'
+    return 1
+  fi
+  _print_warning 'Secret detection failed, continuing because mode is set' \
+    'to warning'
 }
 
 _check_deleted_file_refs() {
