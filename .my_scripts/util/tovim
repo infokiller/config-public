@@ -9,24 +9,15 @@
 set -o errexit -o errtrace -o nounset -o pipefail
 
 main() {
-  if [ ! -p /dev/stdin ]; then
-    vim -- "$@"
-    return
-  fi
-  in="$(cat <&0)"
-  if [ -z "${in}" ]; then
-    return
-  fi
-  if [ -e "${in}" ]; then
-    vim -- "${in}" < /dev/tty > /dev/tty
-    return
-  fi
+  local tmpfile
   tmpfile="$(mktemp -t 'tovim.XXXXX')"
   # NOTE: The path variable in trap must be expanded here because it may not be
   # defined when the trap is ran.
   # shellcheck disable=SC2064
   trap "rm -- '${tmpfile}' &> /dev/null || true" EXIT ERR INT HUP TERM
-  printf '%s\n' "${in}" > "${tmpfile}"
+  if [[ -p /dev/stdin ]]; then
+    cat - >| "${tmpfile}"
+  fi
   vim -- "${tmpfile}" < /dev/tty > /dev/tty
   cat -- "${tmpfile}"
   rm -- "${tmpfile}"
