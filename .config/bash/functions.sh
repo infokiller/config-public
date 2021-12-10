@@ -738,6 +738,21 @@ config-push-blind() {
 }
 alias cpb='config-push-blind'
 
+# Github/Gitlab {{{
+gh-gist-select() {
+  gh gist list --limit 100 | 
+    column -t -s $'\t' | 
+    fzf --preview='gh gist view {1}' | 
+    awk '{print $1}'
+}
+gh-gist-edit() {
+  local gist_id
+  gist_id="$(gh-gist-select)" || return
+  [[ -n "${gist_id}" ]] || return 1
+  gh gist edit "${gist_id}"
+}
+# }}} Github/Gitlab
+
 # NOTE(infokiller): I used to define the git aliases programmatically in this
 # script, but it used eval which was bad for performance. Therefore, I'm now
 # generating the aliases "offline" with the script generate_git_aliases.py and
