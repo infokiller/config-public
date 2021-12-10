@@ -16,6 +16,7 @@ BROWSERS = [
     'vivaldi-stable',
     'tor browser',
 ]
+# pylint: disable-next=consider-using-f-string
 BROWSERS_RE = re.compile('^({})$'.format('|'.join(BROWSERS)), flags=re.I)
 
 TERMINALS = [
@@ -29,6 +30,7 @@ TERMINALS = [
     'guake',
     'st',
 ]
+# pylint: disable-next=consider-using-f-string
 TERMINALS_RE = re.compile('^({})$'.format('|'.join(TERMINALS)), flags=re.I)
 
 # List of used programs that don't correctly interpret XKB CapsLock/ISO_LEVEL5
@@ -41,6 +43,7 @@ CAPSLOCK_COMBOS_BUGGY_PROGRAMS = BROWSERS + [
     'kitty', 'copyq', 'pinentry-qt', 'virt-manager', r'org\.remmina\.Remmina',
     'spicy'
 ]
+# pylint: disable-next=consider-using-f-string
 CAPSLOCK_COMBOS_BUGGY_PROGRAMS_RE = re.compile('^({})$'.format(
     '|'.join(CAPSLOCK_COMBOS_BUGGY_PROGRAMS)),
                                                flags=re.I)
@@ -130,3 +133,9 @@ key_processor.define_keymap(TERMINALS_RE, TERMINALS_CAPSLOCK_MAPPINGS,
 key_processor.define_keymap(CAPSLOCK_COMBOS_BUGGY_PROGRAMS_RE,
                             DEFAULT_CAPSLOCK_MAPPINGS,
                             'Buggy CapsLock combos programs')
+
+key_processor.define_keymap(
+    key_parsing.Condition(device_name_re=re.compile(r'Razer Huntsman Mini')), {
+        In('Esc'): Out('Grave'),
+        In('Shift-Esc'): Out('Shift-Grave'),
+    }, 'Razer Huntsman Mini')
