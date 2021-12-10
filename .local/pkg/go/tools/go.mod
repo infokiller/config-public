@@ -15,7 +15,7 @@ require (
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
-	github.com/bazelbuild/bazelisk v1.10.1 // indirect
+	github.com/bazelbuild/bazelisk v1.11.0 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20211129135157-cdedcc0318b9 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/caspr-io/yamlpath v0.0.0-20200722075116-502e8d113a9b // indirect
@@ -104,7 +104,7 @@ require (
 	github.com/urfave/cli/v2 v2.3.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.1.2 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.2.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
