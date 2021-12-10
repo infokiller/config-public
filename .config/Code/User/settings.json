@@ -23,6 +23,7 @@
         "~/.java": true,
         "~/.local": true
     },
+    "problems.sortOrder": "position",
     // https://github.com/microsoft/vscode/issues/23991
     // "keyboard.dispatch": "keyCode",
     "search.smartCase": true,
