@@ -1,4 +1,6 @@
 # pylint: disable=import-error,undefined-variable,invalid-name
+#
+# For key names see: /usr/include/linux/input-event-codes.h
 
 import re
 
@@ -138,4 +140,10 @@ key_processor.define_keymap(
     key_parsing.Condition(device_name_re=re.compile(r'Razer Huntsman Mini')), {
         In('Esc'): Out('Grave'),
         In('Shift-Esc'): Out('Shift-Grave'),
+        In('Ctrl-Esc'): Out('Ctrl-Grave'),
+        In('Ctrl-Shift-Esc'): Out('Ctrl-Shift-Grave'),
+        In('Alt-Esc'): Out('Alt-Grave'),
+        In('Alt-Shift-Esc'): Out('Alt-Shift-Grave'),
+        In('Super-Esc'): Out('Super-Grave'),
+        In('Super-Shift-Esc'): Out('Super-Shift-Grave'),
     }, 'Razer Huntsman Mini')
