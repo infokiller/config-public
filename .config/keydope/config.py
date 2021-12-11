@@ -88,6 +88,8 @@ TERMINALS_CAPSLOCK_MAPPINGS = {
 
 key_processor.define_multipurpose_modmap({
     Key.CAPSLOCK: (Key.ESC, Key.CAPSLOCK, 0.1),
+    Key.LEFT_SHIFT: (Key.KPLEFTPAREN, Key.LEFT_SHIFT, 0.1),
+    Key.RIGHT_SHIFT: (Key.KPRIGHTPAREN, Key.RIGHT_SHIFT, 0.1),
 })
 
 # Keybindings for Chromium/Chrome and Firefox, which don't support mapping
