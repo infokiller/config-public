@@ -469,6 +469,40 @@ alias rgcc="rgc --color=always"
 rgcl() {
   rgc --color=always "$@" | less
 }
+rgci() {
+  local preview
+  export SUBMODULES_DIR
+  preview="$(cat - <<'EOF'
+  bash <<'EOF2'
+  IFS=: read -r -a f <<<{}
+  "${SUBMODULES_DIR}/vim/fzf-vim/bin/preview.sh" "${f[0]}:${f[1]}"
+EOF2
+EOF
+  )"
+  (
+    _cd_config_repo || return
+    local selected=()
+    # Zsh doesn't support mapfile.
+    local IFS=$'\n'
+    # TODO: support changing the original search query?
+    # TODO: use a unicode zero-width separator ('\xe2\x80\x8b' for utf8) in
+    # addition to colons so that it works with files containing colons.
+    # shellcheck disable=SC2207
+    if ! selected=($(list-config-files | 
+      sensible-xargs -- "${_RG_OR_TAG}" --smart-case -n --field-match-separator ':' "$@" | 
+      fzf -m --toggle-sort=ctrl-r --preview-window=right:60% --exit-0 --preview="${preview}")) || 
+      ((!${#selected[@]})); then
+      return 1
+    fi
+    # TODO: open the files in the correct line number
+    local files
+    # Zsh doesn't support mapfile.
+    # shellcheck disable=SC2207
+    files=($(printf '%s\n' "${selected[@]}" | cut -d ':' -f 1 | sort -u))
+    local editor="${EDITOR:-vim}"
+    "${editor}" "${files[@]}"
+  ) || return
+}
 
 rgc-todos() {
   rgc '\bTODO(:|\([a-zA-Z0-9_-]*\))' "$@"
