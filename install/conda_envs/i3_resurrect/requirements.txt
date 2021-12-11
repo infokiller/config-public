@@ -24,9 +24,9 @@ importlib-metadata==4.8.2 \
     # via
     #   click
     #   pep517
-natsort==8.0.0 \
-    --hash=sha256:5f5f4ea471d655b1b1611eef1cf0c6d3397095d2d3a1aab7098d6a50e4c3901a \
-    --hash=sha256:a0a4fd71aee20a6d648da61e01180a63f7268e69983d0440bd3ad80ef1ba6981
+natsort==8.0.1 \
+    --hash=sha256:2e8fbc2b9e44ed7cbdf55d782375d706ba8742591c1c5910992542f3899abbed \
+    --hash=sha256:c504a229c38926e047e9c3952a08920bc585efb62d7d160514ace9898b00ac0b
     # via i3-resurrect
 pep517==0.12.0 \
     --hash=sha256:931378d93d11b298cf511dd634cf5ea4cb249a28ef84160b3247ee9afb4e8ab0 \

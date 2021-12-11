@@ -202,13 +202,10 @@ github.com/aws/aws-sdk-go v1.31.6/go.mod h1:5zCpMtNQVjRREroY7sYe8lOMRSxkhG6MZveU
 github.com/aybabtme/rgbterm v0.0.0-20170906152045-cc83f3b3ce59/go.mod h1:q/89r3U2H7sSsE2t6Kca0lfwTK8JdoNGS/yzM/4iH5I=
 github.com/aykamko/tag v1.4.0 h1:Y3+XNph+E1uy8+96ib+guUHpmOW8/6tqoRVZpyUmbRg=
 github.com/aykamko/tag v1.4.0/go.mod h1:APxqnhx9iW97BhBlOSJaosVPuhYlfFw3UwWOYzi4/fo=
-github.com/bazelbuild/bazelisk v1.10.1 h1:2EWA2lRrt/k8B5ASt0mlTDQ+7mnzvKdF6ShNWLbk0o0=
-github.com/bazelbuild/bazelisk v1.10.1/go.mod h1:s3ZIQZj3l9iCk/03rBgjhYvqz0c5SPRvoQCZuz8Lw/4=
 github.com/bazelbuild/bazelisk v1.11.0 h1:dmESc1UeF8iqJTOPxlPw2DH9ykZEMwdlL/jQ+UrW7fY=
 github.com/bazelbuild/bazelisk v1.11.0/go.mod h1:3zOen/lU/rEGgghOIkqfpO2+PhRXvZyMCA9iqFJ2c9Q=
 github.com/bazelbuild/buildtools v0.0.0-20211129135157-cdedcc0318b9 h1:/PcWeJ3LIWhblotKr02J7SNHIyWDZ7jagXh4TtwaHvY=
 github.com/bazelbuild/buildtools v0.0.0-20211129135157-cdedcc0318b9/go.mod h1:689QdV3hBP7Vo9dJMmzhoYIyo/9iMhEmHkJcnaPRCbo=
-github.com/bazelbuild/rules_go v0.28.0/go.mod h1:MC23Dc/wkXEyk3Wpq6lCqz0ZAYOZDw2DR5y3N1q2i7M=
 github.com/bazelbuild/rules_go v0.29.0/go.mod h1:MC23Dc/wkXEyk3Wpq6lCqz0ZAYOZDw2DR5y3N1q2i7M=
 github.com/beorn7/perks v0.0.0-20160804104726-4c0e84591b9a/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
@@ -1278,8 +1275,6 @@ github.com/yuin/goldmark v1.3.5/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1
 github.com/yvasiyarov/go-metrics v0.0.0-20140926110328-57bccd1ccd43/go.mod h1:aX5oPXxHm3bOH+xeAttToC8pqch2ScQN/JoXYupl6xs=
 github.com/yvasiyarov/gorelic v0.0.0-20141212073537-a9bba5b9ab50/go.mod h1:NUSPSUX/bi6SeDMUh6brw0nXpxHnc96TguQh0+r/ssA=
 github.com/yvasiyarov/newrelic_platform_go v0.0.0-20140908184405-b21fdbd4370f/go.mod h1:GlGEuHIJweS1mbCqG+7vt2nvWLzLLnRHbXz5JKd/Qbg=
-github.com/zricethezav/gitleaks/v8 v8.1.2 h1:APEl/T1jq8bOkwOp+Gt9Ijc1kV8NuM54A+0T5dT4KY4=
-github.com/zricethezav/gitleaks/v8 v8.1.2/go.mod h1:bzYGT73X8Eq7ih3jaK0eBHFNBm82Vjd6n/kCTkY30nM=
 github.com/zricethezav/gitleaks/v8 v8.2.0 h1:aNCMJ/Q804L80NIwVjbLNpDSvIOjD1hL8OOeJun3g2c=
 github.com/zricethezav/gitleaks/v8 v8.2.0/go.mod h1:bzYGT73X8Eq7ih3jaK0eBHFNBm82Vjd6n/kCTkY30nM=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
