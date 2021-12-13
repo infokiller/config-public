@@ -340,6 +340,9 @@ _upgrade_graphical_python_envs() {
 # TODO: Upgrade VSCode plugins
 # TODO: Upgrade golang packages that specify a specific branch/tag/commit
 _upgrade_packages() {
+  # Upgrade submodules first because other updates may depend on it, for example
+  # python environments upgrades are sometimes tied to a submodule.
+  "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
   "${REPO_ROOT}/install/install-npm-packages" --upgrade
   (
     cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
@@ -351,7 +354,6 @@ _upgrade_packages() {
   if uses_local_graphics; then
     _upgrade_graphical_python_envs
   fi
-  "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
 }
 
 # TODO: Audit all python environments
