@@ -26,6 +26,7 @@ AddPackage go              # Core compiler tools for the Go programming language
 AddPackage go-tools        # Developer tools for the Go programming language
 AddPackage rust            # Systems programming language focused on safety, speed and concurrency
 AddPackage parallel        # A shell tool for executing jobs in parallel
+AddPackage socat           # Multipurpose relay
 # Android
 AddPackage android-tools # Android platform tools
 AddPackage android-udev  # Udev rules to connect Android devices to your linux box

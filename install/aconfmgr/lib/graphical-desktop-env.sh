@@ -21,6 +21,8 @@ fi
 AddPackage i3status         # Generates status bar to use with i3bar, dzen2 or xmobar
 # Required by i3-save-tree.
 AddPackage perl-anyevent-i3 # Communicate with the i3 window manager
+# Required by i3-workspace-groups client/server mode
+AddPackage socat            # Multipurpose relay
 AddPackage unclutter        # A small program for hiding the mouse cursor
 AddPackage xcape            # Configure modifier keys to act as other keys when pressed and released on their own
 AddPackage xss-lock         # Use external locker as X screen saver
