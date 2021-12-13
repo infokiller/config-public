@@ -8,4 +8,5 @@ readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BA
 
 I3_GROUPS_REPO_PATH="${REPO_ROOT}/submodules/desktop/i3-workspace-groups"
 export PYTHONPATH="${I3_GROUPS_REPO_PATH}"
-"${REPO_ROOT}/.my_scripts/util/conda-run" i3_workspace_groups "${I3_GROUPS_REPO_PATH}/scripts/i3-autoname-workspaces" "$@"
+"${REPO_ROOT}/.my_scripts/util/conda-run" i3_workspace_groups \
+  "${I3_GROUPS_REPO_PATH}/scripts/$1" "${@:2}"

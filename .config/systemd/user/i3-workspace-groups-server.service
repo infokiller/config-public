@@ -1,16 +1,13 @@
 [Unit]
-Description=Auto name i3 workspaces according to the open windows
+Description=i3 workspace groups server
 BindsTo=i3wm.service
 After=i3wm.service
 
 [Service]
 Type=simple
 Restart=on-failure
-RestartSec=10
-# The script already logs directly to syslog, so no need to log the standard
-# output as well.
-StandardError=null
+RestartSec=5
 # Wait for i3 socket to be available.
 # NOTE: this may no longer be needed since i3 4.20 supports systemd notify.
 ExecStartPre=bash -c 'while true; do i3-msg nop &> /dev/null && break; sleep 1; done'
-ExecStart=%h/.my_scripts/i3/run-i3wsg-script i3-autoname-workspaces --log-level info
+ExecStart=%h/.my_scripts/i3/run-i3wsg-script i3-workspace-groups --log-level info server

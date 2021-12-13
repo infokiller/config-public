@@ -168,8 +168,12 @@ bindcode $mod+Shift+57 move container to workspace next
 #                         Grouped workspaces navigation                        #
 ################################################################################
 
-set $exec_i3_groups exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-workspace-groups conda-run i3_workspace_groups ~/submodules/desktop/i3-workspace-groups/scripts/i3-workspace-groups --window-icons
-set $exec_i3_groups_script exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-workspace-groups conda-run i3_workspace_groups ~/submodules/desktop/i3-workspace-groups/scripts/
+# TODO: Consider using ~/.my_scripts/i3/run-i3wsg-script. The downside is that
+# it adds latency (6 ms on zeus18).
+set $exec_i3_groups exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-workspace-groups conda-run i3_workspace_groups ~/submodules/desktop/i3-workspace-groups/scripts/i3-workspace-groups-client --window-icons
+# I3_WORKSPACE_GROUPS_CLI is seto to use i3-workspace-groups's thin client
+# (requires a running server).
+set $exec_i3_groups_script exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-workspace-groups I3_WORKSPACE_GROUPS_CLI=i3-workspace-groups-client conda-run i3_workspace_groups ~/submodules/desktop/i3-workspace-groups/scripts/
 
 # Switch active workspace group
 # Key: G
