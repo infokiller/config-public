@@ -13779,14 +13779,14 @@ __metadata:
     pyright: 1.1.195
     release-it: 14.11.8
     semantic-release: 18.0.1
-    snyk: 1.789.0
+    snyk: 1.790.0
     stylelint: 14.1.0
     tldr: 3.3.7
-    uglify-js: 3.14.4
+    uglify-js: 3.14.5
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 8.0.1
+    yarn-audit-fix: 9.0.1
   languageName: unknown
   linkType: soft
 
@@ -14240,12 +14240,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.789.0":
-  version: 1.789.0
-  resolution: "snyk@npm:1.789.0"
+"snyk@npm:1.790.0":
+  version: 1.790.0
+  resolution: "snyk@npm:1.790.0"
   bin:
     snyk: bin/snyk
-  checksum: e8049e0175b6308fc03183c6aecfd8f410768ff92d2a5dae4fb274882d4f044b0d04eecccf47de8fb8e2cb49f3464cc01034155ddd607e2d634c4dd15b8254ca
+  checksum: 943266aab8bd261473b49a85c89b05e33e79144b9c17f42328dbbb229f5f75558fa2268c06bfc32d8210a322b8dc683820c71fb66908a4f650c3052db94c8b1e
   languageName: node
   linkType: hard
 
@@ -15731,12 +15731,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:3.14.4":
-  version: 3.14.4
-  resolution: "uglify-js@npm:3.14.4"
+"uglify-js@npm:3.14.5":
+  version: 3.14.5
+  resolution: "uglify-js@npm:3.14.5"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 13217db5212a201de2ad89873a4e31b26a140c21c0239cefea4ee1c2861c71a5c133538312ce08c92bf97e5b00c8e170d0ef90213026c17ffa689d2e2cdbce73
+  checksum: 0330eb11a36f4181b6d9a00336355989bfad9dd2203049fc63a59454b0d12337612272ad011bc571b9a382bf74d829ca20409ebfe089e38edb26cfc06bfa2cc9
   languageName: node
   linkType: hard
 
@@ -16902,9 +16902,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:8.0.1":
-  version: 8.0.1
-  resolution: "yarn-audit-fix@npm:8.0.1"
+"yarn-audit-fix@npm:9.0.1":
+  version: 9.0.1
+  resolution: "yarn-audit-fix@npm:9.0.1"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -16918,6 +16918,7 @@ __metadata:
     find-up: ^6.2.0
     fs-extra: ^10.0.0
     globby: ^12.0.2
+    js-yaml: ^4.1.0
     lodash-es: ^4.17.21
     pkg-dir: ^6.0.1
     semver: ^7.3.5
@@ -16925,7 +16926,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: 0b1529ca3a1fc93b9ad05dbb17e176a3b715f70257ed995332b1f9018fa7ba26d6646883d570f93cde5c8861b6cfb2450df15933eb78f24518e7dd5f87ef77df
+  checksum: bbf87c6c44c9ae61c125d378ed435b2a02e95901a94c96bb4784c5aef4fd1b4e2b4d954ebf1d8a1ac9ae466c577a008571a9c06ef6e5bd50b4875104f6aa0469
   languageName: node
   linkType: hard
 
