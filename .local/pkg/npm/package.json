@@ -29,7 +29,7 @@
     "web-ext": "6.6.0",
     "write-good": "1.0.8",
     "yarn": "1.22.17",
-    "yarn-audit-fix": "9.0.1"
+    "yarn-audit-fix": "9.0.3"
   },
   "//": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {

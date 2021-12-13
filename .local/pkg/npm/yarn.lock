@@ -13786,7 +13786,7 @@ __metadata:
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 9.0.1
+    yarn-audit-fix: 9.0.3
   languageName: unknown
   linkType: soft
 
@@ -16902,9 +16902,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.0.1":
-  version: 9.0.1
-  resolution: "yarn-audit-fix@npm:9.0.1"
+"yarn-audit-fix@npm:9.0.3":
+  version: 9.0.3
+  resolution: "yarn-audit-fix@npm:9.0.3"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -16926,7 +16926,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: bbf87c6c44c9ae61c125d378ed435b2a02e95901a94c96bb4784c5aef4fd1b4e2b4d954ebf1d8a1ac9ae466c577a008571a9c06ef6e5bd50b4875104f6aa0469
+  checksum: f609bc689b6815a1377ddb29360d291ae10cc0108cfd6fb59cb6fb2b5f5bd65c346f66d484618574ff75e75e9324b94ada2b277058d0316476960e8cda5e8dd4
   languageName: node
   linkType: hard
 
