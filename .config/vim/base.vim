@@ -27,6 +27,7 @@ if !has('nvim-0.6')
   endif
   " encoding is set in vimrc
   set encoding=utf-8
+  scriptencoding utf-8
   set fillchars=vert:\|,fold:·
   set formatoptions=tcqj
   " NOTE: fsync is disabled by default in nvim for performance reasons, but nvim
