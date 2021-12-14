@@ -96,16 +96,25 @@ HISTFILESIZE=200000
 HISTTIMEFORMAT='%s '
 
 histcat_append_hook() {
+  # This function requires the extglob option set. It is set by in this file,
+  # but to be more robust we set it locally and restore it to the previous value
+  # after the function returns with a RETURN trap.
+  # https://stackoverflow.com/a/50808490/1014208
+  # shellcheck disable=SC2064
+  trap "$(shopt -p extglob)" RETURN
   [[ $(history 1) =~ ^\ *[0-9]+\ *[0-9]+\ (.*)$ ]]
-  local command="${BASH_REMATCH[1]}"
-  if [[ -z "${command-}" ]]; then
+  # shellcheck disable=SC2178
+  local cmd="${BASH_REMATCH[1]}"
+  if [[ -z "${cmd-}" ]]; then
     print_error 'History hook could not extract command'
     return 1
   fi
   # TODO: The last argument should be the expanded command (expanding
   # aliases etc.), but I don't know how to do this in bash.
   histcat-verify
-  histcat add --typed-command "${command}"
+  # Remove trailing whitespace in the command
+  # Adapted from: https://github.com/dylanaraps/pure-bash-bible#trim-leading-and-trailing-white-space-from-string
+  histcat add --typed-command "${cmd%"${cmd##*[![:space:]]}"}"
 }
 
 _append_prompt_command_hook histcat_append_hook

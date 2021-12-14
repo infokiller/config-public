@@ -387,11 +387,15 @@ setopt INC_APPEND_HISTORY_TIME
 
 _histcat_preexec_hook() {
   emulate -L zsh
+  autoload -Uz regexp-replace
   # The first argument in the preexec hook is the command as typed by the user,
   # while the third one has aliases expanded. See also:
   # http://zsh.sourceforge.net/Doc/Release/Functions.html
   local typed_cmd="$1"
   local expanded_cmd="$3"
+  # Remove trailing whitespace
+  regexp-replace typed_cmd '\s+*$' ''
+  regexp-replace expanded_cmd '\s+*$' ''
   # Respect HIST_IGNORE_SPACE: if the expanded command starts with a space,
   # don't add it to the persistent history. Useful for commands that have
   # sensitive information.
