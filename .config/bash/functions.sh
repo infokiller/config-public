@@ -942,21 +942,7 @@ alias k4='kill %4'
 alias k5='kill %5'
 # }}} Job management 
 
-# Package management {{{
-if command_exists apt; then
-  # Apt aliases
-  alias ai='sudo apt install'
-  alias as='apt search'
-  # Copied from http://askubuntu.com/a/197532/368043
-  # NOTE: This must be kept in sync with ~/.config/bash/completion.sh
-  apt-update-repo() {
-    for source in "$@"; do
-      sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/${source}" \
-        -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-    done
-  }
-fi
-
+# Archlinux {{{
 # I used to check for the existence of the pacman command, but it can yield a
 # false positive because of the pacman game.
 if [[ "${DISTRO-}" == arch ]]; then
@@ -986,8 +972,32 @@ if [[ "${DISTRO-}" == arch ]]; then
     # shellcheck disable=SC2263
     pacman -Qql "${pkg}" | tovim
   }
+  pacman-pkg-description-fzf() {
+    # shellcheck disable=SC2033,SC2016
+    pacman -Qq | 
+      fzf --preview='pkg={}; pacman -Qi "${pkg}"' | 
+      xargs pacman -Qi | 
+      grep -E '^Description' | 
+      sed -E 's/^Description\s*:\s*(.*)/\1/'
+  }
 fi
-# }}} Package management 
+# }}} Archlinux
+
+# Debian {{{
+if command_exists apt; then
+  # Apt aliases
+  alias ai='sudo apt install'
+  alias as='apt search'
+  # Copied from http://askubuntu.com/a/197532/368043
+  # NOTE: This must be kept in sync with ~/.config/bash/completion.sh
+  apt-update-repo() {
+    for source in "$@"; do
+      sudo apt-get update -o Dir::Etc::sourcelist="sources.list.d/${source}" \
+        -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+    done
+  }
+fi
+# }}} Debian
 
 # Systemd {{{
 alias sc='systemctl'
