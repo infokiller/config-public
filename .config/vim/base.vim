@@ -1,6 +1,12 @@
 " This file contains settings that are shared between all modes of vim: regular
 " vim, VSCode, Athame, Firenvim, and any other contexts where vim is used as the
 " editing backend for a single text buffer.
+" vint complains about needing to set scriptencoding because of multibyte chars,
+" but still gives a warning with these lines.
+" vint: -ProhibitEncodingOptionAfterScriptEncoding
+set encoding=utf-8
+scriptencoding utf-8
+" vint: +ProhibitEncodingOptionAfterScriptEncoding
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                         Consistent vim/nvim defaults                         "
@@ -25,9 +31,8 @@ if !has('nvim-0.6')
   if has('nvim-0.4.4')
     set display+=msgsep
   endif
-  " encoding is set in vimrc
-  set encoding=utf-8
-  scriptencoding utf-8
+  " encoding is set above and in vimrc
+  " set encoding=utf-8
   set fillchars=vert:\|,fold:·
   set formatoptions=tcqj
   " NOTE: fsync is disabled by default in nvim for performance reasons, but nvim
