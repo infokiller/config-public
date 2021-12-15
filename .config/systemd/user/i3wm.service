@@ -6,6 +6,7 @@ BindsTo=graphical-session.target
 After=graphical-session.target
 Wants=i3-autoname-workspaces.service
 Wants=i3-track-last.service
+Wants=i3-workspace-groups-server.service
 Wants=i3-resurrect-save-all.timer
 
 [Service]
