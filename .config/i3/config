@@ -84,7 +84,7 @@ bindcode $mod+43 split horizontal
 bindcode $mod+55 split vertical
 
 # Focus on last container
-# Key: semicolon
+# Key: Semicolon
 bindcode $mod+47 [con_mark=_last] focus
 # Change focus between tiling / floating windows in current workspace
 # Key: E
@@ -133,10 +133,10 @@ bindsym $mod+Control+9 workspace number 9
 bindsym $mod+Control+0 workspace number 10
 
 # Switch to last workspace
-# Key: Alt+semicolon
+# Key: Alt+Semicolon
 bindcode $mod+Mod1+47 workspace back_and_forth
 # Move container to last workspace
-# Key: Shift+semicolon
+# Key: Shift+Semicolon
 bindcode $mod+Shift+47 move container to workspace back_and_forth
 
 # Move focused container to workspace
@@ -229,7 +229,7 @@ bindcode $mod+Shift+32 $exec_i3_groups move-to-new
 # keybindings.
 # Key: F2
 # bindcode $mod+68 $exec_i3_groups_script/i3-rename-workspace
-# Key: Alt+n
+# Key: Alt+N
 bindcode $mod+Mod1+57 $exec_i3_groups_script/i3-rename-workspace
 
 # Select workspace to focus on
@@ -261,13 +261,13 @@ bindcode $mod+Shift+39 $exec_i3_scratchpad move
 #                                Notifications                                 #
 ################################################################################
 
-# Key: x
+# Key: X
 bindcode $mod+53 $exec_cli dunstctl close
-# Key: Shift+x
+# Key: Shift+X
 bindcode $mod+Shift+53 $exec_cli dunstctl history-pop
-# Key: Ctrl+x
+# Key: Ctrl+X
 bindcode $mod+Control+53 $exec_cli dunstctl close-all
-# Key: grave
+# Key: Grave
 bindcode $mod+49 $exec_cli dunstctl context
 
 ################################################################################
