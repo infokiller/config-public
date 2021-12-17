@@ -12879,13 +12879,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.195":
-  version: 1.1.195
-  resolution: "pyright@npm:1.1.195"
+"pyright@npm:1.1.197":
+  version: 1.1.197
+  resolution: "pyright@npm:1.1.197"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: d9417c4487ddcf17cef5dc14ef5b0b348a08cf23889d5f68c48b51ca1ae17ef18f9cd821b7df36c4f5ba179780af137ff93cbb6ee28d891b498da4266e65f491
+  checksum: 80a197046c5cae0f8b1ae28568c7a79b9f17d3e800a02f57c0bec59620587f80c30d52eed15a5796e7ed909d667228ff662e4bd8d258c1240eb8280c3ee57341
   languageName: node
   linkType: hard
 
@@ -13776,17 +13776,17 @@ __metadata:
     markdownlint-cli2: 0.3.2
     prettier: 2.5.1
     puppeteer: 13.0.0
-    pyright: 1.1.195
+    pyright: 1.1.197
     release-it: 14.11.8
     semantic-release: 18.0.1
-    snyk: 1.790.0
+    snyk: 1.794.0
     stylelint: 14.1.0
     tldr: 3.3.7
     uglify-js: 3.14.5
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 9.0.3
+    yarn-audit-fix: 9.0.4
   languageName: unknown
   linkType: soft
 
@@ -14240,12 +14240,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.790.0":
-  version: 1.790.0
-  resolution: "snyk@npm:1.790.0"
+"snyk@npm:1.794.0":
+  version: 1.794.0
+  resolution: "snyk@npm:1.794.0"
   bin:
     snyk: bin/snyk
-  checksum: 943266aab8bd261473b49a85c89b05e33e79144b9c17f42328dbbb229f5f75558fa2268c06bfc32d8210a322b8dc683820c71fb66908a4f650c3052db94c8b1e
+  checksum: 46c280a3e97931542782ea6ee5a31a92b5b9091e670a947948be66440d21198da8e2fe5907c5ebd32e70290d0cf9971964a70512c1e1eaede1b60f0174503fd1
   languageName: node
   linkType: hard
 
@@ -16902,9 +16902,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.0.3":
-  version: 9.0.3
-  resolution: "yarn-audit-fix@npm:9.0.3"
+"yarn-audit-fix@npm:9.0.4":
+  version: 9.0.4
+  resolution: "yarn-audit-fix@npm:9.0.4"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -16926,7 +16926,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: f609bc689b6815a1377ddb29360d291ae10cc0108cfd6fb59cb6fb2b5f5bd65c346f66d484618574ff75e75e9324b94ada2b277058d0316476960e8cda5e8dd4
+  checksum: 5fa7a0a18a7804d3c4aacdffb5d710ad55fcee4d0a6670b691297382d34cff5e219e347b29d4033ec0daef6ef9e9910b9d202a8acdeff38748800147b49ba0e0
   languageName: node
   linkType: hard
 
