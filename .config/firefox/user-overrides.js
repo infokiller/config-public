@@ -34,7 +34,7 @@ user_pref('browser.urlbar.suggest.searches', true);
 user_pref("browser.urlbar.suggest.quicksuggest.nonsponsored", true); // [FF95+]
 
 // 1021: enable storing extra session data [SETUP-CHROME]
-user_pref('browser.sessionstore.privacy_level', 1);
+user_pref('browser.sessionstore.privacy_level', 0);
 
 // 1401: enable websites choosing fonts (0=block, 1=allow)
 // Increases exposure to fingerprinting, but disabling it may make websites ugly
@@ -79,7 +79,8 @@ user_pref('privacy.resistFingerprinting', false);
 user_pref('privacy.resistFingerprinting.letterboxing', false); // [HIDDEN PREF]
 // 4520: enable WebGL (Web Graphics Library)
 // [SETUP-WEB] If you need it then enable it. RFP still randomizes canvas for naive scripts
-// NOTE: webgl can be used to fingerprint.
+// NOTE: webgl can be used to fingerprint, but it is pointless to disable it if
+// RFP is disabled.
 user_pref('webgl.disabled', false);
 
 // 5003: disable saving passwords
@@ -99,6 +100,7 @@ user_pref('browser.fullscreen.autohide', false);
 // Below is stuff that may break websites but I can currently afford to disable.
 // If I run into issues, I should try to uncomment these lines, generate the
 // user.js again, and see if it's resolved.
+// See also: https://github.com/arkenfox/user.js/issues/1080
 
 // 1001: disable disk cache
 // [SETUP-CHROME] If you think disk cache helps perf, then feel free to override this
@@ -109,10 +111,6 @@ user_pref('browser.fullscreen.autohide', false);
 // 0=everywhere, 1=unencrypted sites, 2=nowhere
 // user_pref('browser.sessionstore.privacy_level', 0);
 
-// 1820: enable GMP (Gecko Media Plugins)
-// user_pref('media.gmp-widevinecdm.visible', true);
-// user_pref('media.gmp-widevinecdm.enabled', true);
-
 // 2022: enable all DRM content (EME: Encryption Media Extension)
 // user_pref('media.eme.enabled', true);
 
@@ -120,11 +118,6 @@ user_pref('browser.fullscreen.autohide', false);
 // Probably needed for some websites, but I don't use them yet, so keeping it
 // here just for reference.
 // user_pref('media.peerconnection.enabled', true);
-
-// 2022: enable screensharing ***/
-// user_pref('media.getusermedia.screensharing.enabled', true);
-// user_pref('media.getusermedia.browser.enabled', true);
-// user_pref('media.getusermedia.audiocapture.enabled', true);
 
 // 2619: use Punycode in Internationalized Domain Names to eliminate possible spoofing
  // [SETUP-WEB] Might be undesirable for non-latin alphabet users since legitimate IDN's are also punycoded
