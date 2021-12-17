@@ -114,6 +114,17 @@ key_processor.define_keymap(
         # Changing the keyboard layout with CapsLock+m causes it to output "m",
         # possibly because it leaks from i3.
         In('LV5-m'): Out('Super-Shift-Insert'),
+        # Firefox uses Alt+digit to go to a tab by number, I'm already used to
+        # Chrome's Ctrl+digit.
+        In('Ctrl-1'): Out('Alt-1'),
+        In('Ctrl-2'): Out('Alt-2'),
+        In('Ctrl-3'): Out('Alt-3'),
+        In('Ctrl-4'): Out('Alt-4'),
+        In('Ctrl-5'): Out('Alt-5'),
+        In('Ctrl-6'): Out('Alt-6'),
+        In('Ctrl-7'): Out('Alt-7'),
+        In('Ctrl-8'): Out('Alt-8'),
+        In('Ctrl-9'): Out('Alt-9'),
     }, 'Firefox navigation')
 
 # This is a workaround to be able to use Ctrl-w for closing tabs even when using
@@ -129,7 +140,7 @@ key_processor.define_keymap(
 # Termite doesn't support remapping keys.
 key_processor.define_keymap(re.compile('^termite$', flags=re.I), {
     In('C-Shift-Minus'): Out('C-Minus'),
-    In('C-Shift-Key_0'): Out('C-Equal'),
+    In('C-Shift-0'): Out('C-Equal'),
 }, 'Termite zooming')
 
 key_processor.define_keymap(TERMINALS_RE, TERMINALS_CAPSLOCK_MAPPINGS,
