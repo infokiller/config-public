@@ -111,6 +111,9 @@ key_processor.define_keymap(
         In('M-Shift-i'): Out('C-Shift-page_up'),
         In('M-j'): Out('Back'),
         In('M-l'): Out('Forward'),
+        # Changing the keyboard layout with CapsLock+m causes it to output "m",
+        # possibly because it leaks from i3.
+        In('LV5-m'): Out('Super-Shift-Insert'),
     }, 'Firefox navigation')
 
 # This is a workaround to be able to use Ctrl-w for closing tabs even when using
