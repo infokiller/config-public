@@ -2,6 +2,7 @@
 grab-keyboard=true
 grab-mouse=true
 scaling=true
+resize-guest=true
 auto-clipboard=true
 sync-modifiers=true
 
