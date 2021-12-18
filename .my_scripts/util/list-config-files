@@ -15,6 +15,7 @@ readonly EXCLUDES=(
   '^\.config/Code - OSS'
   '^\.config/old-preferences'
   '^\.config/sway'
+  '^\.config/gitleaks\.toml'
   '^root/usr/share/X11/xkb'
   '/.corp/'
   # 'xsendkeys'
