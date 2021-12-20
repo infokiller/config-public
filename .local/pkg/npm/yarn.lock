@@ -5263,9 +5263,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.4.1":
-  version: 8.4.1
-  resolution: "eslint@npm:8.4.1"
+"eslint@npm:8.5.0":
+  version: 8.5.0
+  resolution: "eslint@npm:8.5.0"
   dependencies:
     "@eslint/eslintrc": ^1.0.5
     "@humanwhocodes/config-array": ^0.9.2
@@ -5307,7 +5307,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: d962cd7cd0f68ddc2412f47154b8992ad3af987cf47fa6e60e51a2b7d32a91f934388f7d29e2c45b16b7ac69f0d220d0a483189ec6ba43a8a480110c34f158f9
+  checksum: c1a9e26070520a308cc30b62ba0d37d5b115ed23987a93219819537bdea9398e6ebe57c27d97be36ecc83b5162c72e82ecb0a9e5b44b7992980f9be90eb5c4b3
   languageName: node
   linkType: hard
 
@@ -13762,7 +13762,7 @@ __metadata:
     bash-language-server: 2.0.0
     corepack: 0.10.0
     diff-so-fancy: 1.4.3
-    eslint: 8.4.1
+    eslint: 8.5.0
     git-stats: 2.11.0
     git-stats-importer: 2.4.11
     gtop: 1.1.2
@@ -13779,7 +13779,7 @@ __metadata:
     pyright: 1.1.197
     release-it: 14.11.8
     semantic-release: 18.0.1
-    snyk: 1.794.0
+    snyk: 1.800.0
     stylelint: 14.1.0
     tldr: 3.3.7
     uglify-js: 3.14.5
@@ -14240,12 +14240,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.794.0":
-  version: 1.794.0
-  resolution: "snyk@npm:1.794.0"
+"snyk@npm:1.800.0":
+  version: 1.800.0
+  resolution: "snyk@npm:1.800.0"
   bin:
     snyk: bin/snyk
-  checksum: 46c280a3e97931542782ea6ee5a31a92b5b9091e670a947948be66440d21198da8e2fe5907c5ebd32e70290d0cf9971964a70512c1e1eaede1b60f0174503fd1
+  checksum: b148ff02d1eb148211f7acf487f3d5908f8f80da0d95e16946453d4aa4a6fe45a65bfde3a77a1bd4492c1c732a44f533a0b7dbe248123525a74a403f3e031673
   languageName: node
   linkType: hard
 
