@@ -317,12 +317,6 @@ _upgrade_graphical_python_envs() {
     pip-compile --generate-hashes --allow-unsafe --upgrade
   )
   (
-    cd -- "${REPO_ROOT}/install/conda_envs/i3_resurrect"
-    # shellcheck disable=SC1091
-    source activate i3_resurrect
-    pip-compile --generate-hashes --allow-unsafe --upgrade
-  )
-  (
     cd -- "${SUBMODULES_DIR}/desktop/selfspy"
     # shellcheck disable=SC1091
     source activate selfspy

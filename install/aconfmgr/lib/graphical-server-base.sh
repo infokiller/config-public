@@ -109,5 +109,7 @@ CreateLink '/etc/systemd/user/sockets.target.wants/pulseaudio.socket' '/usr/lib/
 AddPackage pulseaudio-alsa      # ALSA Configuration for PulseAudio
 AddPackage pulseaudio-bluetooth # Bluetooth support for PulseAudio
 AddPackage alsa-utils           # An alternative implementation of Linux sound support
+# This file causes superfluous "Restoring the following files" prompts
+IgnorePath '/usr/share/alsa/ucm2/conf.d/simple-card/Librem 5 Devkit.conf'
 
 CreateLink '/etc/systemd/user/sockets.target.wants/pipewire.socket' '/usr/lib/systemd/user/pipewire.socket'
