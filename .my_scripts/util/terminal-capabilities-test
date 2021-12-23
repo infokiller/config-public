@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 # Tests terminal capabilities such as truecolor, styled underlines, bold/italic,
 # strikethrough, etc.
@@ -21,42 +21,42 @@ _test_truecolor() {
 }
 
 _test_basic_styles() {
-  echo -e '\e[1mbold\e[0m'
-  echo -e '\e[3mitalic\e[0m'
-  echo -e '\e[4munderline\e[0m'
-  echo -e '\e[9mstrikethrough\e[0m'
-  echo -e '\e[31mred\e[39m'
-  echo -e '\e[91mbright red\e[39m'
-  echo -e '\e[33myellow\e[39m'
-  echo -e '\e[46mcyan background\e[49m'
-  echo -e '\e[7mreverse\e[27m'
+  printf '\e[1mbold\e[0m\n'
+  printf '\e[3mitalic\e[0m\n'
+  printf '\e[4munderline\e[0m\n'
+  printf '\e[9mstrikethrough\e[0m\n'
+  printf '\e[31mred\e[39m\n'
+  printf '\e[91mbright red\e[39m\n'
+  printf '\e[33myellow\e[39m\n'
+  printf '\e[46mcyan background\e[49m\n'
+  printf '\e[7mreverse\e[27m\n'
 }
 
 # https://askubuntu.com/a/985386/368043
 _test_extended_styles() {
-  echo -e '\e[2mdim\e[22m'
-  echo -e '\e[21mdouble underline\e[24m'
-  echo -e '\e[4:3mcurly underline\e[4:0m'
-  echo -e '\e[5mblink\e[25m'
-  echo -e '\e[8minvisible\e[28m <- invisible (but copy-pasteable)'
-  echo -e '\e[53moverline\e[55m'
+  printf '\e[2mdim\e[22m\n'
+  printf '\e[21mdouble underline\e[24m\n'
+  printf '\e[4:3mcurly underline\e[4:0m\n'
+  printf '\e[5mblink\e[25m\n'
+  printf '\e[8minvisible\e[28m <- invisible (but copy-pasteable)\n'
+  printf '\e[53moverline\e[55m\n'
 
-  echo -e '\e[38:5:42m256-color, de jure standard (ITU-T T.416)\e[39m'
-  echo -e '\e[38;5;42m256-color, de facto standard (commonly used)\e[39m'
-  echo -e '\e[38:2::240:143:104mtruecolor, de jure standard (ITU-T T.416)\e[39m'
-  echo -e '\e[38;2;240;143;104mtruecolor, de facto standard (commonly used)\e[39m'
+  printf '\e[38:5:42m256-color, de jure standard (ITU-T T.416)\e[39m\n'
+  printf '\e[38;5;42m256-color, de facto standard (commonly used)\e[39m\n'
+  printf '\e[38:2::240:143:104mtruecolor, de jure standard (ITU-T T.416)\e[39m\n'
+  printf '\e[38;2;240;143;104mtruecolor, de facto standard (commonly used)\e[39m\n'
 
-  echo -e '\e[48:5:42m256-color background, de jure standard (ITU-T T.416)\e[49m'
-  echo -e '\e[48;5;42m256-color background, de facto standard (commonly used)\e[49m'
-  echo -e '\e[48:2::240:143:104mtruecolor background, de jure standard (ITU-T T.416)\e[49m'
-  echo -e '\e[48;2;240;143;104mtruecolor background, de facto standard (commonly used)\e[49m'
+  printf '\e[48:5:42m256-color background, de jure standard (ITU-T T.416)\e[49m\n'
+  printf '\e[48;5;42m256-color background, de facto standard (commonly used)\e[49m\n'
+  printf '\e[48:2::240:143:104mtruecolor background, de jure standard (ITU-T T.416)\e[49m\n'
+  printf '\e[48;2;240;143;104mtruecolor background, de facto standard (commonly used)\e[49m\n'
 
-  echo -e '\e[21m\e[58;5;42m256-color double underline\e[59m\e[24m'
-  echo -e '\e[4:2m\e[58:2::240:143:104mtruecolor double underline\e[59m\e[4:0m'
+  printf '\e[21m\e[58;5;42m256-color double underline\e[59m\e[24m\n'
+  printf '\e[4:2m\e[58:2::240:143:104mtruecolor double underline\e[59m\e[4:0m\n'
 }
 
 main() {
-  local sep='---------------------------'
+  sep='---------------------------'
   printf '%s\n' "${sep}"
   echo 'Testing basic styles'
   printf '%s\n' "${sep}"
