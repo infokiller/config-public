@@ -162,4 +162,6 @@ key_processor.define_keymap(
         In('Alt-Shift-Esc'): Out('Alt-Shift-Grave'),
         In('Super-Esc'): Out('Super-Grave'),
         In('Super-Shift-Esc'): Out('Super-Shift-Grave'),
+        # fn+Ctrl+L is translated by the firmware to Ctrl+Right
+        In('Ctrl-Right'): Out('Super-Ctrl-L'),
     }, 'Razer Huntsman Mini')
