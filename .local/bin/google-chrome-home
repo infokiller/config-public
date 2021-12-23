@@ -77,10 +77,7 @@ main() {
   local flags=("${GENERIC_FLAGS[@]}")
   local enabled_features=("${ENABLED_FEATURES[@]}")
   local disabled_features=("${DISABLED_FEATURES[@]}")
-  # NOTE: I originally suspected that enabling GPU flags with nvidia causes me
-  # issues in chrome (notably with firenvim), but disabling it had no effect.
-  # if _should_enable_gpu_flags; then
-  if true; then
+  if _should_enable_gpu_flags; then
     flags+=(
       # EXP: use GPU acceleration for rasterization and/or video encode/decode. See:
       # - https://github.com/qutebrowser/qutebrowser/issues/5378#issuecomment-617931657
@@ -94,9 +91,13 @@ main() {
     # https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/gpu/vaapi.md#vaapi-on-linux
     enabled_features+=('VaapiVideoDecoder')
   else
-    # NOTE: I originally suspected that webgl doesn't work well with nvidia and
-    # firenvim, but disabling it had no effect (see note above).
-    flags+=('--disable-webgl')
+    # I'm having issues with GPU and Nvidia (notably with firenvim).
+    flags+=(
+      '--disable-gpu'
+      # '--disable-webgl'
+      # '--disable-3d-apis'
+      # '--disable-accelerated-2d-canvas'
+    )
   fi
   # Configure `chrome://flags` experiments.
   # NOTE: All the features must be enabled/disabled in the same flag delimited by
