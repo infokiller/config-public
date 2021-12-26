@@ -6,7 +6,7 @@ require (
 	filippo.io/age v1.0.0 // indirect
 	filippo.io/edwards25519 v1.0.0-rc.1 // indirect
 	github.com/AlecAivazis/survey/v2 v2.3.2 // indirect
-	github.com/BurntSushi/toml v0.3.1 // indirect
+	github.com/BurntSushi/toml v0.4.1 // indirect
 	github.com/Masterminds/semver v1.5.0 // indirect
 	github.com/Microsoft/go-winio v0.5.0 // indirect
 	github.com/Microsoft/hcsshim v0.8.22 // indirect
@@ -24,8 +24,8 @@ require (
 	github.com/containerd/cgroups v1.0.1 // indirect
 	github.com/containerd/containerd v1.5.5 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/direnv/direnv/v2 v2.29.0 // indirect
-	github.com/direnv/go-dotenv v0.0.0-20181227095604-4cce6d1a66f7 // indirect
+	github.com/direnv/direnv/v2 v2.30.1 // indirect
+	github.com/direnv/go-dotenv v0.0.0-20210516213449-d90326084211 // indirect
 	github.com/docker/cli v20.10.10+incompatible // indirect
 	github.com/docker/distribution v2.7.1+incompatible // indirect
 	github.com/docker/docker v20.10.10+incompatible // indirect
@@ -108,10 +108,10 @@ require (
 	go.opencensus.io v0.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
-	golang.org/x/mod v0.4.2 // indirect
+	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20211113001501-0c823b97ae02 // indirect
+	golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/tools v0.1.5 // indirect
@@ -124,6 +124,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	mvdan.cc/editorconfig v0.2.0 // indirect
-	mvdan.cc/sh/v3 v3.4.1 // indirect
+	mvdan.cc/sh/v3 v3.4.2 // indirect
 	rsc.io/qr v0.2.0 // indirect
 )
