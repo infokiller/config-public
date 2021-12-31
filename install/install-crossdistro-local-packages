@@ -733,7 +733,11 @@ cmd_install() {
     # python environments upgrades are sometimes tied to a submodule.
     if [[ "${action}" == upgrade && " ${tasks[*]} " =~ " submodules " ]]; then
       "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
-      tasks=("${tasks[@]/submodules/}")
+      for ((i = 0; i < ${#tasks[@]}; i++)); do
+        if [[ "${tasks[${i}]}" == submodules ]]; then
+          unset -v "tasks[${i}]"
+        fi
+      done
     fi
     printf '%s\n' "${tasks[@]}" | /usr/bin/parallel -j '50%' "$0" "${action}" {}
     return
