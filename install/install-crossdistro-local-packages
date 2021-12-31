@@ -689,19 +689,18 @@ _configure_personal_device_services() {
 
 cmd_install() {
   (($# > 1)) || _print_usage_and_die
-  local upgrade=0
+  local action="$1"
+  shift
   local -n task_to_cmd ordered_tasks
-  if [[ $1 == install ]]; then
+  if [[ "${action}" == install ]]; then
     task_to_cmd=_INSTALL_TASK_TO_CMD
     ordered_tasks=_ORDERED_INSTALL_TASKS
-  elif [[ $1 == upgrade ]]; then
-    upgrade=1
+  elif [[ "${action}" == upgrade ]]; then
     task_to_cmd=_UPGRADE_TASK_TO_CMD
     ordered_tasks=_ORDERED_UPGRADE_TASKS
   else
     _print_usage_and_die
   fi
-  shift
   local tasks=()
   local all=0
   local parallel=0
@@ -732,11 +731,11 @@ cmd_install() {
   if ((parallel)); then
     # Upgrade submodules first because other updates may depend on it, for example
     # python environments upgrades are sometimes tied to a submodule.
-    if ((upgrade)) && [[ " ${tasks[*]} " =~ " submodules " ]]; then
+    if [[ "${action}" == upgrade && " ${tasks[*]} " =~ " submodules " ]]; then
       "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
       tasks=("${tasks[@]/submodules/}")
     fi
-    printf '%s\n' "${tasks[@]}" | /usr/bin/parallel -j '50%' "$0" install {}
+    printf '%s\n' "${tasks[@]}" | /usr/bin/parallel -j '50%' "$0" "${action}" {}
     return
   fi
   local durations=()
