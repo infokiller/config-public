@@ -129,7 +129,7 @@ readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
   'kbfs.service'
 )
 # shellcheck disable=SC2016
-readonly -A _TASK_TO_CMD=(
+readonly -A _INSTALL_TASK_TO_CMD=(
   ['vim-plugins']='_install_vim_plugins'
   ['neovim-nightly']='_install_neovim_nightly'
   ['doom-emacs']='_install_doom_emacs'
@@ -152,11 +152,12 @@ readonly -A _TASK_TO_CMD=(
   ['python-packages-non-graphical']='
     "${REPO_ROOT}/install/install-python-packages" --non-graphical
   '
+  ['python-packages-graphical']='
+    "${REPO_ROOT}/install/install-python-packages" --graphical
+  '
   ['npm-packages']="${REPO_ROOT}/install/install-npm-packages"
   ['cargo-packages']="_install_cargo_from_rustup && 
     ${REPO_ROOT}/install/install-cargo-packages"
-  ['upgrade-packages']='_upgrade_packages'
-  ['audit']='(_audit_packages)'
   # Graphical tasks
   ['yank']='(
     cd "${SUBMODULES_DIR}/terminal/yank" && make && symlink_binary yank
@@ -172,14 +173,19 @@ readonly -A _TASK_TO_CMD=(
     make
     symlink_binary xkblayout-state
   )'
-  ['vscode-extensions']='_install_vscode_extensions'
-  ['python-packages-graphical']='
-    "${REPO_ROOT}/install/install-python-packages" --graphical
-  '
+  ['vscode-extensions']='_install_vscode_extensions 0'
+)
+readonly -A _UPGRADE_TASK_TO_CMD=(
+  ['submodules']="${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
+  ['npm-packages']="${REPO_ROOT}/install/install-npm-packages --upgrade"
+  ['golang-packages']='_upgrade_golang_packages'
+  ['python-packages-non-graphical']='_upgrade_non_graphical_python_envs'
+  ['python-packages-graphical']='_upgrade_graphical_python_envs'
+  ['vscode-extensions']='_install_vscode_extensions 1'
 )
 # Assoicative arrays don't maintain the order of the keys as specified, so we
 # must use a separate array to control the order.
-declare -g _ORDERED_TASKS=(
+declare -g _ORDERED_INSTALL_TASKS=(
   'fzf'
   'histcat'
   'vim-plugins'
@@ -197,26 +203,42 @@ declare -g _ORDERED_TASKS=(
   'device-services'
   'stderred'
 )
-# shellcheck disable=SC2016
-readonly -a _ORDERED_GRAPHICAL_TASKS=(
-  'fonts'
-  'xkblayout-state'
-  'polybar'
-  'doom-emacs'
-  'vscode-extensions'
-  'firenvim'
-  'firefox-settings'
-  'yank'
-  'activitywatch'
-  'python-packages-graphical'
+# TODO: Upgrade rust packages
+# TODO: Upgrade golang packages that specify a specific branch/tag/commit
+declare -g _ORDERED_UPGRADE_TASKS=(
+  'submodules'
+  'npm-packages'
+  'golang-packages'
+  'python-packages-non-graphical'
 )
 if uses_local_graphics; then
-  _ORDERED_TASKS+=("${_ORDERED_GRAPHICAL_TASKS[@]}")
+  _ORDERED_INSTALL_TASKS+=(
+    'fonts'
+    'xkblayout-state'
+    'polybar'
+    'doom-emacs'
+    'vscode-extensions'
+    'firenvim'
+    'firefox-settings'
+    'yank'
+    'activitywatch'
+    'python-packages-graphical'
+  )
+  _ORDERED_UPGRADE_TASKS+=(
+    'python-packages-graphical'
+    'vscode-extensions'
+  )
 fi
 
 _print_usage_and_die() {
-  print_error "$(printf 'Usage: %s [list | run [--all] [--parallel] task*]' \
-    "$(basename "$0")")"
+  local cmd_name
+  cmd_name="$(basename "$0")"
+  print_error "$(
+    cat - << EOF
+Usage: ${cmd_name} list (install | upgrade)
+Usage: ${cmd_name} (install | upgrade) [--all] [--parallel] task+
+EOF
+  )"
   exit 1
 }
 
@@ -250,6 +272,13 @@ _install_golang_packages() {
     GO111MODULE=on go install -v "${package}"
     symlink_binary "${_GOLANG_BIN_DIR}/${binary_name}"
   done
+}
+
+_upgrade_golang_packages() {
+  cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
+  rm go.{sum,mod} || true
+  go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
+  GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
 }
 
 # https://doc.rust-lang.org/cargo/getting-started/installation.html
@@ -330,28 +359,14 @@ _upgrade_graphical_python_envs() {
   )
 }
 
-# TODO: Upgrade rust packages
-# TODO: Upgrade VSCode plugins
-# TODO: Upgrade golang packages that specify a specific branch/tag/commit
-_upgrade_packages() {
-  # Upgrade submodules first because other updates may depend on it, for example
-  # python environments upgrades are sometimes tied to a submodule.
-  "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
-  "${REPO_ROOT}/install/install-npm-packages" --upgrade
-  (
-    cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
-    rm go.{sum,mod} || true
-    go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
-    GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
-  )
-  _upgrade_non_graphical_python_envs
-  if uses_local_graphics; then
-    _upgrade_graphical_python_envs
-  fi
-}
-
 # TODO: Audit all python environments
-_audit_packages() {
+cmd_audit() {
+  snyk test "${SUBMODULES_DIR}/terminal/histcat"
+  snyk code test "${SUBMODULES_DIR}/terminal/histcat"
+  snyk test "${REPO_ROOT}/.local/pkg/npm"
+  if ! uses_local_graphics; then
+    return
+  fi
   # shellcheck disable=SC1091
   source activate i3_scratchpad
   snyk test "${SUBMODULES_DIR}/desktop/i3-scratchpad"
@@ -368,9 +383,6 @@ _audit_packages() {
   source activate keydope
   snyk test "${SUBMODULES_DIR}/keydope"
   snyk code test "${SUBMODULES_DIR}/keydope"
-  snyk test "${SUBMODULES_DIR}/terminal/histcat"
-  snyk code test "${SUBMODULES_DIR}/terminal/histcat"
-  snyk test "${REPO_ROOT}/.local/pkg/npm"
 }
 
 _install_nerd_fonts() {
@@ -572,9 +584,15 @@ _install_firenvim() {
 # TODO: Pin VSCode extension dependencies. Listing the current versions:
 # code --list-extensions --show-versions
 _install_vscode_extensions() {
+  local upgrade="${1:-0}"
+  local cmd
   for extension in "${_VSCODE_EXTENSIONS[@]}"; do
-    # The `--force` argument updates the extension if there is a newer version.
-    code --install-extension "${extension}" --force
+    cmd=(code --install-extension "${extension}")
+    if ((upgrade)); then
+      # The `--force` argument updates the extension if there is a newer version.
+      cmd+=(--force)
+    fi
+    "${cmd[@]}"
   done
   # Update 2021-09-11: neovim v0.5.0 was released so this is not needed.
   # print_bold 'Installating neovim nightly for vscode-neovim'
@@ -669,15 +687,28 @@ _configure_personal_device_services() {
   fi
 }
 
-cmd_run() {
-  (($# > 0)) || _print_usage_and_die
+cmd_install() {
+  (($# > 1)) || _print_usage_and_die
+  local upgrade=0
+  local -n task_to_cmd ordered_tasks
+  if [[ $1 == install ]]; then
+    task_to_cmd=_INSTALL_TASK_TO_CMD
+    ordered_tasks=_ORDERED_INSTALL_TASKS
+  elif [[ $1 == upgrade ]]; then
+    upgrade=1
+    task_to_cmd=_UPGRADE_TASK_TO_CMD
+    ordered_tasks=_ORDERED_UPGRADE_TASKS
+  else
+    _print_usage_and_die
+  fi
+  shift
   local tasks=()
   local all=0
   local parallel=0
   while (($# > 0)); do
     case "$1" in
       --all)
-        tasks=("${_ORDERED_TASKS[@]}")
+        tasks=("${ordered_tasks[@]}")
         all=1
         shift
         ;;
@@ -686,9 +717,9 @@ cmd_run() {
         shift
         ;;
       *)
-        if [[ -z "${_TASK_TO_CMD[$1]-}" ]]; then
+        if [[ -z "${task_to_cmd[$1]-}" ]]; then
           print_error "Unknown task: '$1', available tasks:"
-          printf '%s\n' "${_ORDERED_TASKS[@]}"
+          printf '%s\n' "${ordered_tasks[@]}"
           exit 1
         fi
         if ((!all)); then
@@ -699,14 +730,20 @@ cmd_run() {
     esac
   done
   if ((parallel)); then
-    printf '%s\n' "${tasks[@]}" | /usr/bin/parallel -j '50%' "$0" run {}
+    # Upgrade submodules first because other updates may depend on it, for example
+    # python environments upgrades are sometimes tied to a submodule.
+    if ((upgrade)) && [[ " ${tasks[*]} " =~ " submodules " ]]; then
+      "${REPO_ROOT}/.my_scripts/sysadmin/upgrade-submodules"
+      tasks=("${tasks[@]/submodules/}")
+    fi
+    printf '%s\n' "${tasks[@]}" | /usr/bin/parallel -j '50%' "$0" install {}
     return
   fi
   local durations=()
   for task in "${tasks[@]}"; do
     before=$(($(date +%s%N) / 1000000))
     print_bold "Running task: ${task}"
-    eval "${_TASK_TO_CMD[${task}]}"
+    eval "${task_to_cmd[${task}]}"
     after=$(($(date +%s%N) / 1000000))
     durations+=("$(echo "scale=2; (${after} - ${before})/1000" | bc)")
   done
@@ -715,25 +752,32 @@ cmd_run() {
   done
 }
 
-cmd_run_all_parallel() {
-  "$0" list | parallel -j '50%' "$@" "$0" run {}
+cmd_list() {
+  if [[ ${1-install} == install ]]; then
+    printf '%s\n' "${!_INSTALL_TASK_TO_CMD[@]}"
+  elif [[ ${1-} == upgrade ]]; then
+    printf '%s\n' "${!_UPGRADE_TASK_TO_CMD[@]}"
+  else
+    _print_usage_and_die
+  fi
 }
 
 main() {
   do_basic_setup --no-sync-submodules
   if (($# == 0)); then
-    cmd_run --all --parallel
+    cmd_install install --all --parallel
     return
   fi
-  # TODO: Add an upgrade command that can upgrade a subset of packages
-  # (npm/golang/etc.) or all of them (_upgrade_packages).
   case "$1" in
     list)
-      printf '%s\n' "${!_TASK_TO_CMD[@]}"
-      ;;
-    run)
       shift
-      cmd_run "$@"
+      cmd_list "$@"
+      ;;
+    install | upgrade)
+      cmd_install "$@"
+      ;;
+    audit)
+      cmd_audit
       ;;
     *)
       _print_usage_and_die
