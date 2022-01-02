@@ -12925,13 +12925,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.202":
-  version: 1.1.202
-  resolution: "pyright@npm:1.1.202"
+"pyright@npm:1.1.203":
+  version: 1.1.203
+  resolution: "pyright@npm:1.1.203"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: a4fe6f5f75f7b62c77bf326bad88db881d03756302ecf3c9b3d7bd5639723fb2f357e54f310c8c626420df6b11285540100d67f1cf0e9c866bb54ae23def5497
+  checksum: b1b7057acdabee813c69c8f18acd212564794bc289f0a64838fa361438ddd9656ea5f5f23df25e0fb75d9fb7b5590bed2dabbb556c105df9367e2c74a1c8c791
   languageName: node
   linkType: hard
 
@@ -13822,7 +13822,7 @@ __metadata:
     markdownlint-cli2: 0.3.2
     prettier: 2.5.1
     puppeteer: 13.0.1
-    pyright: 1.1.202
+    pyright: 1.1.203
     release-it: 14.11.8
     semantic-release: 18.0.1
     snyk: 1.813.0
