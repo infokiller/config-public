@@ -583,6 +583,7 @@ for_window [title="USB Device Inserted"] floating enable
 for_window [class="Writefull"] floating enable
 for_window [class="Cerebro"] floating enable
 for_window [title="Remmina Remote Desktop Client"] floating enable
+for_window [class="Matplotlib"] floating enable
 # JabRef popup windows start tiled, so this makes them floating. Unfortunately,
 # this also makes the main window floating (which I then need to manually tile).
 # I can't use the instance name to differentiate these windows because
