@@ -42,9 +42,9 @@ typing-extensions==4.0.1 \
     --hash=sha256:4ca091dea149f945ec56afb48dae714f21e8692ef22a395223bcd328961b6a0e \
     --hash=sha256:7f001e5ac290a0c0401508864c7ec868be4e701886d5b573a9528ed3973d9d3b
     # via importlib-metadata
-uritools==3.0.2 \
-    --hash=sha256:28ffef82ce3b2793237d36e45aa7cde28dae6502f6a93fdbd05ede401520e279 \
-    --hash=sha256:576737664f51f82d5c2a98e25f6c5da73a57cc88326dbb686fd6c5d06ebd6c29
+uritools==4.0.0 \
+    --hash=sha256:420d94c1ff4bf90c678fca9c17b8314243bbcaa992c400a95e327f7f622e1edf \
+    --hash=sha256:9a5a1495c55072093216f79931ca45fd81b59208aa64caae50ab68333514f97e
     # via urlextract
 urlextract==1.5.0 \
     --hash=sha256:40a5c843d1d7253758f56f0d6748c5ea27a4a14565e3a92f25a916ddc4c1e41f \
