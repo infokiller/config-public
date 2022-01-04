@@ -55,5 +55,10 @@ libnl-genl-3-dev
 # cargo-update
 libssl-dev
 
+# bfs
+# https://github.com/tavianator/bfs/blob/main/Makefile
+libcap-dev
+libacl1-dev
+
 # yank
 # NODEPS
