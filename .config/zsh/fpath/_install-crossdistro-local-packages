@@ -3,14 +3,10 @@
 
 : "${REPO_ROOT:="${$(print -r -- "${ZSHENV_DIR}/../.."):P}"}"
 
-_icdlp_describe_commands() {
-  local cmds=(list run)
-  _describe -t commands 'Commands' cmds
-}
-
 _icdlp_list_tasks() {
+  local action="${1:-install}"
   local _tasks
-  _tasks=("${(f)$("${REPO_ROOT}/install/install-crossdistro-local-packages" list)}")
+  _tasks=("${(f)$("${REPO_ROOT}/install/install-crossdistro-local-packages" list "${action}")}")
   _describe tasks _tasks
 }
 
@@ -21,7 +17,7 @@ _icdlp_comp() {
   # echo "${words[@]}"
   # echo
   if ((CURRENT == 1)); then
-    local cmds=(list run)
+    local cmds=(list install upgrade audit)
     _describe -t commands 'Commands' cmds
     return
   fi
@@ -29,11 +25,14 @@ _icdlp_comp() {
     list)
       _message 'no options'
       ;;
-    run)
+    install|upgrade)
       _arguments \
         '--all[Run all tasks]' \
         '--parallel[Run tasks in parallel]' \
-        '*::Tasks:_icdlp_list_tasks'
+        "*::Tasks: _icdlp_list_tasks ${words[1]}"
+      ;;
+    audit)
+      _message 'no options'
       ;;
   esac
 }
