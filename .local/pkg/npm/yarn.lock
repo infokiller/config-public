@@ -3024,7 +3024,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colors@npm:^1.1.2, colors@npm:^1.4.0":
+"colors@npm:1.4.0, colors@npm:^1.1.2":
   version: 1.4.0
   resolution: "colors@npm:1.4.0"
   checksum: 98aa2c2418ad87dedf25d781be69dc5fc5908e279d9d30c34d8b702e586a0474605b3a189511482b9d5ed0d20c867515d22749537f7bc546256c6014f3ebdcec
@@ -13825,14 +13825,14 @@ __metadata:
     pyright: 1.1.206
     release-it: 14.12.1
     semantic-release: 18.0.1
-    snyk: 1.820.0
+    snyk: 1.821.0
     stylelint: 14.2.0
     tldr: 3.3.7
     uglify-js: 3.14.5
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 9.0.4
+    yarn-audit-fix: 9.0.5
   languageName: unknown
   linkType: soft
 
@@ -14286,12 +14286,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.820.0":
-  version: 1.820.0
-  resolution: "snyk@npm:1.820.0"
+"snyk@npm:1.821.0":
+  version: 1.821.0
+  resolution: "snyk@npm:1.821.0"
   bin:
     snyk: bin/snyk
-  checksum: 684d8fe38ef3e6badd64af2cd765d3905f827389eca88973d0e0f2a411116ae840672abacecd064905c6ee374149c372d744a056b8f1f176fa9e54afdfc7a22f
+  checksum: 31c0636e7d61cc78bd668523bc503baab6a64744a8495d575ae0866a3137b87571ed8788b77dc02fea80a3d535f8fe72ad3b3b66b49de8ed7485c7b135bf0396
   languageName: node
   linkType: hard
 
@@ -15107,13 +15107,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synp@npm:^1.9.8":
-  version: 1.9.8
-  resolution: "synp@npm:1.9.8"
+"synp@npm:^1.9.9":
+  version: 1.9.9
+  resolution: "synp@npm:1.9.9"
   dependencies:
     "@yarnpkg/lockfile": ^1.1.0
     bash-glob: ^2.0.0
-    colors: ^1.4.0
+    colors: 1.4.0
     commander: ^7.2.0
     eol: ^0.9.1
     lodash: 4.17.21
@@ -15122,7 +15122,7 @@ __metadata:
     sort-object-keys: ^1.1.3
   bin:
     synp: cli/synp.js
-  checksum: 198c841d6eff417c0df2f6ce7565e42778e0211bea7ea9c1858039c9b5cf5b9f0342bc3aa8c500b349531e2b5b65c463214d41e03789249073e5ee48adefca68
+  checksum: 71b99722815f826db7cb2cf93a8503e8bc8e01437526a07b6690d7365bed7d5b052b9b8aa795949fd716920454d77d14f1dc9fe5c13c18b6e4328613a6f721f7
   languageName: node
   linkType: hard
 
@@ -16949,9 +16949,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.0.4":
-  version: 9.0.4
-  resolution: "yarn-audit-fix@npm:9.0.4"
+"yarn-audit-fix@npm:9.0.5":
+  version: 9.0.5
+  resolution: "yarn-audit-fix@npm:9.0.5"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -16969,11 +16969,11 @@ __metadata:
     lodash-es: ^4.17.21
     pkg-dir: ^6.0.1
     semver: ^7.3.5
-    synp: ^1.9.8
+    synp: ^1.9.9
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: 5fa7a0a18a7804d3c4aacdffb5d710ad55fcee4d0a6670b691297382d34cff5e219e347b29d4033ec0daef6ef9e9910b9d202a8acdeff38748800147b49ba0e0
+  checksum: 5719fb0f256176ab0c4060e44cad3bde81bfc8a94055fdc2fd34e56a0ecfc8c06d83e957ac633a52dccb4c54ec399819a8b3e71efd3ff48a54b32b4d1362b996
   languageName: node
   linkType: hard
 
