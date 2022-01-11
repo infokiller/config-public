@@ -946,7 +946,7 @@ alias k5='kill %5'
 # I used to check for the existence of the pacman command, but it can yield a
 # false positive because of the pacman game.
 if [[ "${DISTRO-}" == arch ]]; then
-  # shellcheck disable=SC2262
+  # shellcheck disable=SC2262,SC2032
   alias pacman='pacmate'
   alias pi='pacman -S'
   alias aur-update='yay -Syu --aur --answerclean=None --answeredit=All --answerdiff=All --noupgrademenu'
