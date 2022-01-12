@@ -1500,19 +1500,23 @@ fi
 # For a persistent log:
 #   monitor-slow-pings 1.1 | tee -a ~/tmp/slow_pings_log.txt
 monitor-slow-pings() {
-  local get_con="nmcli con show --active | \grep --text -Ev '(vpn|bridge)' | tail -1 | awk '{print \$1}'"
+  local get_con="nmcli con show --active | \grep --text -Ev '(vpn|bridge|tun)' | tail -1 | awk '{print \$1}'"
   local py_precmd
   py_precmd="$(printf 'get_con = lambda: subprocess.check_output("%s", shell=True).decode("utf-8").strip()' "${get_con}")"
   py_cmd='print(f"{datetime.datetime.now()}: {get_con()}: {x}", flush=True)'
   # Without using stdbuf the output buffering causes lines to be output after a
   # large delay.
+  local s=0
   {
     while true; do
-      timeout 3 ping "${1:-1.1}" 2>&1
-      (($? == 124)) && echo 'ping command timed out'
+      timeout 3 ping -c 1 "${1:-1.1}" 2>&1 || s=$?
+      ((s == 124)) && echo 'ping command timed out'
+      sleep 1
     done
   } |
-    stdbuf -oL -eL grep --text -E -v 'time=[0-2]?[0-9]{1,2}(\.[0-9]+)? ms' |
+    stdbuf -oL -eL grep --text -E -v \
+      -e 'time=[0-2]?[0-9]{1,2}(\.[0-9]+)? ms' \
+      -e 'PING|ping statistics|packets transmitted|rtt min/avg|^\s*$' |
     stdbuf -oL -eL py -c "${py_precmd}" -x "${py_cmd}"
 }
 
