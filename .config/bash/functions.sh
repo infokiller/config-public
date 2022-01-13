@@ -1509,6 +1509,7 @@ monitor-slow-pings() {
   local s=0
   {
     while true; do
+      s=0
       timeout 3 ping -c 1 "${1:-1.1}" 2>&1 || s=$?
       ((s == 124)) && echo 'ping command timed out'
       sleep 1
