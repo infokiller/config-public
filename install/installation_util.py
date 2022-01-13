@@ -6,17 +6,16 @@ import sys
 from typing import Dict, List, Optional
 
 USER_BIN_DIR = os.path.expanduser('~/.local/bin')
-USER_MAN_DIR = os.path.expanduser('~/.local/share/man/man1')
+_USER_MAN_DIR = os.path.expanduser('~/.local/share/man')
 
 _VALID_ANSWERS = {'yes': True, 'y': True, 'no': False, 'n': False}
 _LINUX_DISTRO_SCRIPT = '/etc/os-release'
 
+log_name = None
 
 def create_user_dirs() -> None:
-    if not os.path.exists(USER_BIN_DIR):
-        os.makedirs(USER_BIN_DIR)
-    if not os.path.exists(USER_MAN_DIR):
-        os.makedirs(USER_MAN_DIR)
+    os.makedirs(USER_BIN_DIR, exist_ok=True)
+    os.makedirs(_USER_MAN_DIR, exist_ok=True)
 
 
 def symlink_relative(source_path: str, target_path: str) -> str:
@@ -25,6 +24,21 @@ def symlink_relative(source_path: str, target_path: str) -> str:
     target = os.path.dirname(target_path)
     rel_path = os.path.relpath(source_path, target)
     os.symlink(rel_path, target_path)
+
+
+def get_man_section(path: str) -> int:
+    parts = path.split('.')
+    section = parts[-1]
+    if section == 'gz':
+        section = parts[-2]
+    return section
+
+
+def install_man_file(path: str, install_name: str):
+    log_info(f'Installing man page {os.path.basename(path)} as {install_name}')
+    section_dir = os.path.join(_USER_MAN_DIR, f'man{get_man_section(path)}')
+    os.makedirs(section_dir, exist_ok=True)
+    symlink_relative(path, os.path.join(section_dir, install_name))
 
 
 def get_linux_distro() -> str:
@@ -50,6 +64,18 @@ def bold(msg: str) -> str:
     if sys.stdout.isatty() and sys.stderr.isatty():
         return f'\033[1m{msg}\033[0m'
     return msg
+
+
+def log_info(msg: str) -> None:
+    print(f'{log_name}: {msg}')
+
+
+def log_bold(msg: str) -> None:
+    log_info(bold(msg))
+
+
+def log_warning(msg: str) -> None:
+    log_info(yellow(msg))
 
 
 def read_packages_file(filename: str) -> List[str]:

@@ -14,14 +14,6 @@ XDG_DATA_HOME = os.environ.get('XDG_DATA_HOME',
                                os.path.expandvars('$HOME/.local/share'))
 
 
-def _log_info(msg: str) -> None:
-    print(f'install_npm_packages: {msg}')
-
-
-def _log_warning(msg: str) -> None:
-    print(util.yellow(f'install_npm_packages: {msg}'))
-
-
 def _install_packages():
     subprocess.run(['yarn', 'install'],
                    cwd=LOCAL_MODULES_PARENT_DIR,
@@ -58,6 +50,29 @@ def _upgrade_packages(packages):
                    check=True)
 
 
+# https://docs.npmjs.com/cli/v8/configuring-npm/package-json#man
+def _get_man_files(package_path, package_metadata):
+    man_files = package_metadata.get('man', [])
+    if isinstance(man_files, str):
+        man_files = [man_files]
+    man_files = [os.path.join(package_path, p) for p in man_files]
+    man_dir = package_metadata.get('directories', {}).get('man')
+    if man_dir:
+        man_dir = os.path.join(package_path, man_dir)
+    # Not sure what to do in this case, so log a warning for now.
+    if man_files and man_dir:
+        util.log_warning('"man" and "directories.man" are both specified')
+    if man_files:
+        return man_files
+    # NOTE: I'm not sure if the man directory must have all man files directly
+    # under it or can have it under subdirectories, but it seems like the former
+    # based on actual usage:
+    # https://github.com/search?q=filename%3A%22package.json%22+language%3Ajson+directories+man&type=Code
+    if man_dir:
+        return [os.path.join(man_dir, p) for p in os.listdir(man_dir)]
+    return []
+
+
 def _link_package_files(package_path, get_binary_install_name=lambda x: x):
     package_spec = os.path.basename(package_path)
     package_metadata_path = os.path.join(package_path, 'package.json')
@@ -70,20 +85,32 @@ def _link_package_files(package_path, get_binary_install_name=lambda x: x):
     for name, path in package_bins.items():
         install_name = get_binary_install_name(name)
         if install_name is None:
-            _log_warning(f'Skipping binary not explicitly listed: {name}')
+            util.log_warning(f'Skipping binary not explicitly listed: {name}')
             continue
         if not install_name:
-            _log_info(f'Skipping explicitly disabled binary: {name}')
+            util.log_info(f'Skipping explicitly disabled binary: {name}')
             continue
-        _log_info(f'Installing binary {name} from package {package_spec} '
-                  f'as {install_name}')
+        util.log_info(f'Installing binary {name} from package {package_spec} '
+                      f'as {install_name}')
         util.symlink_relative(os.path.join(package_path, path),
                               os.path.join(util.USER_BIN_DIR, install_name))
-    for path in package_metadata.get('man', {}).items():
+    man_files = _get_man_files(package_path, package_metadata)
+    # The package.json docs say: "If only a single file is provided, then it's
+    # installed such that it is the result from man <pkgname>, regardless of its
+    # actual filename".
+    if len(man_files) == 1:
+        parts = man_files[0].split('.')
+        ext_parts = parts[-2:] if parts[-1] == 'gz' else parts[-1:]
+        install_name = '.'.join([package_spec] + ext_parts)
+        util.install_man_file(man_files[0], install_name)
+        return
+    for path in _get_man_files(package_path, package_metadata):
+        # The package.json docs say: "If the filename doesn't start with the
+        # package name, then it's prefixed.".
         name = os.path.basename(path)
-        _log_info(f'Installing man page {name} from package {package_path}')
-        util.symlink_relative(os.path.join(package_path, path),
-                              os.path.join(util.USER_MAN_DIR, name))
+        if not name.startswith(package_spec):
+            name = f'{package_spec}-{name}'
+        util.install_man_file(path, name)
 
 
 # Install pnpm without assuming node is installed. Not really used for now.

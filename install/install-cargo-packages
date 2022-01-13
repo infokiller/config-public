@@ -18,7 +18,7 @@ CARGO = os.path.join(CARGO_BIN_DIR, 'cargo')
 
 class PackageInstallSpec:
 
-    # pylint: disable-next=too-many-arguments
+    # pylint: disable=too-many-arguments
     def __init__(self,
                  name,
                  version=None,
@@ -84,18 +84,6 @@ PACKAGES = [
 ]
 
 
-def _log_info(msg: str) -> None:
-    print(f'install-cargo-packages: {msg}')
-
-
-def _log_bold(msg: str) -> None:
-    _log_info(util.bold(msg))
-
-
-def _log_warning(msg: str) -> None:
-    _log_info(util.yellow(msg))
-
-
 def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
     installed = []
     errors = []
@@ -103,7 +91,7 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
     binary_to_install_name = {}
     for pkg in packages:
         if not re.match(pkg.distro_regex, distro):
-            _log_info(
+            util.log_info(
                 f'Package {pkg.name} not needed in current distro, skipping')
             continue
         if pkg.installed_binaries is None:
@@ -119,28 +107,29 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
         # if they're out of date. This is probably what I want, so I'm running
         # `cargo install` even if it's already installed.
         # if is_installed:
-        #     _log_info(f'Package {pkg.name} is already installed, skipping')
+        #     util.log_info(f'Package {pkg.name} already installed, skipping')
         #     continue
         try:
             subprocess.run(pkg.install_cmd, check=True)
         except subprocess.CalledProcessError:
             errors.append(pkg)
-            _log_warning(f'Failed installing package {pkg}')
+            util.log_warning(f'Failed installing package {pkg}')
             continue
         if not is_installed:
             installed.append(pkg)
     for binary_name, installed_name in binary_to_install_name.items():
-        _log_info(f'Symlinking binary {binary_name}')
+        util.log_info(f'Symlinking binary {binary_name}')
         util.symlink_relative(os.path.join(CARGO_BIN_DIR, binary_name),
                               os.path.join(util.USER_BIN_DIR, installed_name))
-    _log_bold('Packages installed:\n{}'.format('\n'.join(
+    util.log_bold('Packages installed:\n{}'.format('\n'.join(
         p.name for p in installed)))
     if errors:
-        _log_warning('Packages with errors:\n{}\n'.format('\n'.join(
+        util.log_warning('Packages with errors:\n{}\n'.format('\n'.join(
             p.name for p in errors)))
 
 
 def main():
+    util.log_name = 'install-cargo-packages'
     util.create_user_dirs()
     _install_cargo_packages(PACKAGES)
     # Before PR [1] (merged in Nov 2019), Cargo didn't support directly updating
