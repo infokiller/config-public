@@ -1540,12 +1540,16 @@ nohup() {
   command nohup "$@" > /dev/null &
 }
 
+# NOTE: This function is disabled because it breaks calling the man command with
+# options, such as "man -k '^printf'". I'm not sure why I needed this function
+# in the first place, since vim/nvim will be used as the pager anyway when
+# setting MAN_PAGER. 
 # As of 2021-03-14, the man command using vim has issues on Ubuntu 20.04: X11
 # clipboard and tmux seamless navigation don't work. It may be related to the
 # fact I'm running nvim as an AppImage.
-man() {
-  nvim -c ":vert Man $* | silent bd 1"
-}
+# man() {
+#   nvim -c ":vert Man $* | silent bd 1"
+# }
 # https://github.com/kristopolous/mansnip
 alias ms='mansnip'
 
