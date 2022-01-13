@@ -6894,16 +6894,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gtop@npm:1.1.2":
-  version: 1.1.2
-  resolution: "gtop@npm:1.1.2"
+"gtop@npm:1.1.3":
+  version: 1.1.3
+  resolution: "gtop@npm:1.1.3"
   dependencies:
     blessed: ^0.1.81
     blessed-contrib: ^4.10.1
-    systeminformation: ^5.9.11
+    systeminformation: ^5.10.0
   bin:
     gtop: bin/gtop
-  checksum: 83ea547906e5c3b97ad9ff76b78fbf044253b760358ec0fb497c5d897a8aaee05579b6f27d45b35103001b2a4e3d0487763eb75e81ab31b305c29dca2c19438f
+  checksum: 2ab5cf51ebf06dc012e48c809b3a0c485f9b3e7a1d0343a7f09e7b4a970e6ed3f697d2253b17738f20893dc14c3285cd675655b49ac04c8dfadeb63b3f4dc5e8
   languageName: node
   linkType: hard
 
@@ -12925,13 +12925,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.206":
-  version: 1.1.206
-  resolution: "pyright@npm:1.1.206"
+"pyright@npm:1.1.208":
+  version: 1.1.208
+  resolution: "pyright@npm:1.1.208"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 52648c93ef82da0bb2db598aa1967313dc89aad906961cf2b3b61240bdc0da235a111c61d6d8bf3ff44f44d70a4882ea8891ab85573c95c05787549b81b61515
+  checksum: 968bc72c09c87407983ccb56ad0c2709f395b3009d30e56f498a3e10fcd4a14783de8dc7a314d8297f5bc15eb4c0a256665af39f91e5e0c3fea83fea30ea7d15
   languageName: node
   linkType: hard
 
@@ -13811,7 +13811,7 @@ __metadata:
     eslint: 8.6.0
     git-stats: 2.11.0
     git-stats-importer: 2.4.11
-    gtop: 1.1.2
+    gtop: 1.1.3
     html-beautify: 1.0.4
     improved-yarn-audit: 3.0.0
     instant-markdown-d: 0.2.0
@@ -13822,17 +13822,17 @@ __metadata:
     markdownlint-cli2: 0.3.2
     prettier: 2.5.1
     puppeteer: 13.0.1
-    pyright: 1.1.206
+    pyright: 1.1.208
     release-it: 14.12.1
     semantic-release: 18.0.1
-    snyk: 1.821.0
+    snyk: 1.826.0
     stylelint: 14.2.0
     tldr: 3.3.7
     uglify-js: 3.14.5
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 9.0.5
+    yarn-audit-fix: 9.0.6
   languageName: unknown
   linkType: soft
 
@@ -14286,12 +14286,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.821.0":
-  version: 1.821.0
-  resolution: "snyk@npm:1.821.0"
+"snyk@npm:1.826.0":
+  version: 1.826.0
+  resolution: "snyk@npm:1.826.0"
   bin:
     snyk: bin/snyk
-  checksum: 31c0636e7d61cc78bd668523bc503baab6a64744a8495d575ae0866a3137b87571ed8788b77dc02fea80a3d535f8fe72ad3b3b66b49de8ed7485c7b135bf0396
+  checksum: 7ea98b0a736c5f405cc479d54f5565f2880398da180528ff3447ac080eeeca40ef7c17e8da41cc0995a33bfc639ca19ef7b796cd27b4e5e5ec86e520f53a8379
   languageName: node
   linkType: hard
 
@@ -15126,13 +15126,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"systeminformation@npm:^5.9.11":
-  version: 5.9.13
-  resolution: "systeminformation@npm:5.9.13"
+"systeminformation@npm:^5.10.0":
+  version: 5.10.0
+  resolution: "systeminformation@npm:5.10.0"
   bin:
     systeminformation: lib/cli.js
-  checksum: 53960bf156582df46645267592d2565b0438da8f25376b56ef3dab0c002866b0f2365c623a766ea3a5e1be026d73e4c830d01d9862860f9c5aab5a1e36051b34
-  conditions: (os=darwin | os=linux | os=win32 | os=freebsd | os=openbsd | os=netbsd | os=sunos)
+  checksum: 62982474bbbef80b300a72ed51be9822b55cc21aceb236dbf6e704f4c64aca1b40a94125df6143c054c98d9f4e97e1b2253de003530a83fa4f488023065d8624
+  conditions: (os=darwin | os=linux | os=win32 | os=freebsd | os=openbsd | os=netbsd | os=sunos | os=android)
   languageName: node
   linkType: hard
 
@@ -16949,9 +16949,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.0.5":
-  version: 9.0.5
-  resolution: "yarn-audit-fix@npm:9.0.5"
+"yarn-audit-fix@npm:9.0.6":
+  version: 9.0.6
+  resolution: "yarn-audit-fix@npm:9.0.6"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -16973,7 +16973,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: 5719fb0f256176ab0c4060e44cad3bde81bfc8a94055fdc2fd34e56a0ecfc8c06d83e957ac633a52dccb4c54ec399819a8b3e71efd3ff48a54b32b4d1362b996
+  checksum: 2c74992b5b200f338dc8b43d9573c4e71f08f1d84f740e813c29f5cb5f14bf3c435584a240c2b52756c57820e6efc2074413f75d698c6a3a925ea5f15bbf22d5
   languageName: node
   linkType: hard
 
