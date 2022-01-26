@@ -27,7 +27,7 @@ if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   SetFileProperty /etc/nut/upsd.users mode 640
   SetFileProperty /etc/nut/upsmon.conf group nut
   SetFileProperty /etc/nut/upsmon.conf mode 640
-  cat >> "$(GetPackageOriginalFile nut '/etc/nut/ups.conf')" <<'EOF'
+  cat >> "$(GetPackageOriginalFile nut '/etc/nut/ups.conf')" << 'EOF'
 
 [eaton_zeus18]
   driver = "usbhid-ups"
@@ -36,7 +36,7 @@ if [[ "${HOST_ALIAS}" == zeus18 ]]; then
 EOF
 fi
 
-AddPackage borg          # Deduplicating backup program with compression and authenticated encryption
+AddPackage borg # Deduplicating backup program with compression and authenticated encryption
 # Required for mounting borg backups.
 AddPackage python-llfuse # A set of Python bindings for the low level FUSE API.
 
@@ -79,7 +79,7 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/pkgfile-update.timer' '/
 # Package management: nix
 AddPackage nix # A purely functional package manager
 CreateLink /etc/systemd/system/multi-user.target.wants/nix-daemon.service /usr/lib/systemd/system/nix-daemon.service
-cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" <<'EOF'
+cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << 'EOF'
 
 experimental-features = nix-command flakes
 EOF
@@ -103,12 +103,12 @@ CreateLink '/etc/systemd/user/sockets.target.wants/gpg-agent-ssh.socket' '/usr/l
 CreateLink '/etc/systemd/user/sockets.target.wants/gpg-agent.socket' '/usr/lib/systemd/user/gpg-agent.socket'
 
 # Auth
-AddPackage libfido2                    # Library functionality for FIDO 2.0, including communication with a device over USB
-AddPackage keybase                     # CLI tool for GPG with keybase.io
-AddPackage lastpass-cli                # LastPass command line interface tool
-AddPackage yubikey-manager             # Python library and command line tool for configuring a YubiKey
-AddPackage yubikey-personalization     # Yubico YubiKey Personalization library and tool
-AddPackage yubikey-touch-detector      # A tool that can detect when your YubiKey is waiting for a touch
+AddPackage libfido2                # Library functionality for FIDO 2.0, including communication with a device over USB
+AddPackage keybase                 # CLI tool for GPG with keybase.io
+AddPackage lastpass-cli            # LastPass command line interface tool
+AddPackage yubikey-manager         # Python library and command line tool for configuring a YubiKey
+AddPackage yubikey-personalization # Yubico YubiKey Personalization library and tool
+AddPackage yubikey-touch-detector  # A tool that can detect when your YubiKey is waiting for a touch
 
 # Smartcard daemon
 AddPackage pcsclite # PC/SC Architecture smartcard middleware library
@@ -138,7 +138,7 @@ AddPackage logrotate          # Rotates system logs automatically
 AddPackage lshw               # A small tool to provide detailed information on the hardware configuration of the machine.
 AddPackage strace             # A diagnostic, debugging and instructional userspace tracer
 AddPackage dmidecode          # Desktop Management Interface table related utilities
-AddPackage exfat-utils        # Utilities for exFAT file system
+AddPackage exfatprogs         # exFAT filesystem userspace utilities for the Linux Kernel exfat driver
 AddPackage pciutils           # PCI bus configuration space access library and tools
 AddPackage inotify-tools      # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
 AddPackage neofetch           # A CLI system information tool written in BASH that supports displaying images.
