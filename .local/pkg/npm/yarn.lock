@@ -3110,7 +3110,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^8.3.0, commander@npm:~8.3.0":
+"commander@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "commander@npm:9.0.0"
+  checksum: 15066e433d528315ded8261d16bc600d1f3c5671c75021e685ae67e4d62f7551243ff28411b28dc0a6f8b23c2a0f033550ec6f3e66bdf9d11a4fdc2d33dd9802
+  languageName: node
+  linkType: hard
+
+"commander@npm:~8.3.0":
   version: 8.3.0
   resolution: "commander@npm:8.3.0"
   checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
@@ -5297,9 +5304,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.7.0":
-  version: 8.7.0
-  resolution: "eslint@npm:8.7.0"
+"eslint@npm:8.8.0":
+  version: 8.8.0
+  resolution: "eslint@npm:8.8.0"
   dependencies:
     "@eslint/eslintrc": ^1.0.5
     "@humanwhocodes/config-array": ^0.9.2
@@ -5338,7 +5345,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 1c80375a48b0fe3ccae3c6354323e4f0e92e970f23abc5b9705b90b7aef514b69ebd0a63e74962d30789986c91fa41c0e25cd2f98f19e9e2a2d36aafdfc9ccc9
+  checksum: 41a7e85bf84cf9f2d758ef3e8d08020a39a2836703728b59535684681349bd021c2c6e24174462b844a914870d707d2151e0371198899d957b444de91adaa435
   languageName: node
   linkType: hard
 
@@ -6701,16 +6708,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "globby@npm:13.0.0"
+"globby@npm:^13.1.0":
+  version: 13.1.0
+  resolution: "globby@npm:13.1.0"
   dependencies:
     dir-glob: ^3.0.1
     fast-glob: ^3.2.11
     ignore: ^5.2.0
     merge2: ^1.4.1
     slash: ^4.0.0
-  checksum: 9119e156a18c93ebdf1e4de63957dad2020df5607bc2951c9cb04d0b032ee1c7d61facc78e99339819140d75351220dd4f276b1d1e7aa872a720389277f51ff4
+  checksum: 2f84121c08f0858cb38b38b9d4beb4655a53cd13259e14c1c8f7c63322914ce4e5fc684d31ab34056f37d68017dbdace39343ea53acfc863c46b730bcc805905
   languageName: node
   linkType: hard
 
@@ -13042,13 +13049,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.215":
-  version: 1.1.215
-  resolution: "pyright@npm:1.1.215"
+"pyright@npm:1.1.216":
+  version: 1.1.216
+  resolution: "pyright@npm:1.1.216"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 459e0d3ae6b8fad8a0983149501bc110252bd15ff88f996d0e2f14ebd536844db2f543736f716635ff720f9e1375bb15db1c62a8bbc19c934cd43c2bc6c69260
+  checksum: 4ec13360b5205a464d179edc5840c4fd1419be91ffd22517e01c8075110d55a480ac433d6c18acd02b7cf51b61228550776e5f3192d041a1ff7cace1d54feb0a
   languageName: node
   linkType: hard
 
@@ -13924,7 +13931,7 @@ __metadata:
     bash-language-server: 2.0.0
     corepack: 0.10.0
     diff-so-fancy: 1.4.3
-    eslint: 8.7.0
+    eslint: 8.8.0
     git-stats: 2.11.0
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -13938,17 +13945,17 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
     puppeteer: 13.1.2
-    pyright: 1.1.215
+    pyright: 1.1.216
     release-it: 14.12.4
     semantic-release: 19.0.2
-    snyk: 1.836.0
+    snyk: 1.840.0
     stylelint: 14.3.0
     tldr: 3.3.7
     uglify-js: 3.15.0
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 9.0.9
+    yarn-audit-fix: 9.0.10
   languageName: unknown
   linkType: soft
 
@@ -14402,12 +14409,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.836.0":
-  version: 1.836.0
-  resolution: "snyk@npm:1.836.0"
+"snyk@npm:1.840.0":
+  version: 1.840.0
+  resolution: "snyk@npm:1.840.0"
   bin:
     snyk: bin/snyk
-  checksum: 1108aedcebccfd9b9ccfd98961e5b87e1da5d42182439f33c8d74819fb879f4c0fe977249a287b9cd633b4d84b140e2236f321ee2683522325cb8f2cf084c24f
+  checksum: 17fa6db901ef36ff79cb2307ea13980981a962d6f0154e348bb8b880fa7b1c8c7cf32ddd7a0bdbddd0c5dc7077a9304657ea2aa6dd48407f140bf9d24b585854
   languageName: node
   linkType: hard
 
@@ -17099,9 +17106,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.0.9":
-  version: 9.0.9
-  resolution: "yarn-audit-fix@npm:9.0.9"
+"yarn-audit-fix@npm:9.0.10":
+  version: 9.0.10
+  resolution: "yarn-audit-fix@npm:9.0.10"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17110,11 +17117,11 @@ __metadata:
     "@types/yarnpkg__lockfile": ^1.1.5
     "@yarnpkg/lockfile": ^1.1.0
     chalk: ^5.0.0
-    commander: ^8.3.0
+    commander: ^9.0.0
     find-cache-dir: ^3.3.2
     find-up: ^6.2.0
     fs-extra: ^10.0.0
-    globby: ^13.0.0
+    globby: ^13.1.0
     js-yaml: ^4.1.0
     lodash-es: ^4.17.21
     pkg-dir: ^6.0.1
@@ -17123,7 +17130,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: ./target/es6/cli.js
-  checksum: 763f38573a569c36bd1b60fbb93f4f59cdda16b29b28238330c52d24d5f32e026f674fb61c7a2fd853905b19288ccab566617235f2fba3c10f6ebf9dc58ece29
+  checksum: b2accd3675aeb4e700db3ab54b6e30b2e2c1225b9cc893acec2ac3845feef9f936ba7e5a39f61a936627480a6db78f9f783fd8d691d915cad5b2c27e00f9034c
   languageName: node
   linkType: hard
 
