@@ -13029,9 +13029,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:13.1.2":
-  version: 13.1.2
-  resolution: "puppeteer@npm:13.1.2"
+"puppeteer@npm:13.1.3":
+  version: 13.1.3
+  resolution: "puppeteer@npm:13.1.3"
   dependencies:
     debug: 4.3.2
     devtools-protocol: 0.0.948846
@@ -13045,17 +13045,17 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.2.3
-  checksum: 754624a2ef604c15992799045513715e37b267e362487927397eb869931bccc3e1d7953986ffa7e140a83184110dd3e16670f058c05d558b8c3a413208f312e6
+  checksum: 2875a47cf7ff11f78b7bfdbc594dbf42bb09da4c6fba2548cf9c08a95c701b6d08ae38bedfe5cf38cecf9f368a94633f3f3633cbe41c2481d76086ab1abf6650
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.216":
-  version: 1.1.216
-  resolution: "pyright@npm:1.1.216"
+"pyright@npm:1.1.217":
+  version: 1.1.217
+  resolution: "pyright@npm:1.1.217"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 4ec13360b5205a464d179edc5840c4fd1419be91ffd22517e01c8075110d55a480ac433d6c18acd02b7cf51b61228550776e5f3192d041a1ff7cace1d54feb0a
+  checksum: 0e28a3acc15f46b21e91736b4eb9db97a2d7c6126a25c04f173762fe4711252c41a094169118b0251f1d353c3c9157b2f0c37da4ba17f4217115e8f1cf3e19ef
   languageName: node
   linkType: hard
 
@@ -13944,11 +13944,11 @@ __metadata:
     markdownlint-cli: 0.30.0
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
-    puppeteer: 13.1.2
-    pyright: 1.1.216
+    puppeteer: 13.1.3
+    pyright: 1.1.217
     release-it: 14.12.4
     semantic-release: 19.0.2
-    snyk: 1.840.0
+    snyk: 1.842.0
     stylelint: 14.3.0
     tldr: 3.3.7
     uglify-js: 3.15.0
@@ -14409,12 +14409,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.840.0":
-  version: 1.840.0
-  resolution: "snyk@npm:1.840.0"
+"snyk@npm:1.842.0":
+  version: 1.842.0
+  resolution: "snyk@npm:1.842.0"
   bin:
     snyk: bin/snyk
-  checksum: 17fa6db901ef36ff79cb2307ea13980981a962d6f0154e348bb8b880fa7b1c8c7cf32ddd7a0bdbddd0c5dc7077a9304657ea2aa6dd48407f140bf9d24b585854
+  checksum: 145769481b8b0411882948bb347a9862206b770a8f21cdf231dd29e48a435d2a2c86094cd2f504acccf336e3e025e1453f2d97fc0cee54beaec7bc77726c6c74
   languageName: node
   linkType: hard
 
