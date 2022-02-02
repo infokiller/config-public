@@ -13,8 +13,11 @@ readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
 readonly CONDA_TOOLS_BIN_DIR="${CONDA_LOCAL_DIR}/envs/tools/bin"
+readonly MAMBA="${CONDA_LOCAL_DIR}/envs/mamba/bin/mamba"
 readonly MINICONDA_INSTALLER='Miniconda3-py39_4.10.3-Linux-x86_64.sh'
 readonly MINICONDA_SHA256='1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f' # pragma: allowlist secret
+
+: "${USE_MAMBA:=1}"
 
 # shellcheck source=../.my_scripts/lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
@@ -47,7 +50,6 @@ declare -A INSTALLED_BINARIES=(
   ['jupyter-qtconsole']=''
   ['jupytext']=''
   ['litecli']=''
-  ['mamba']=''
   ['mansnip']=''
   ['nbdiff']=''
   ['nbdiff-web']=''
@@ -122,8 +124,8 @@ _fastest_conda() {
   #   `mamba update` since it sometimes installs it to the tools environment
   #   (which is where mamba is installed).
   # - It doesn't install new conda dependencies in existing environments
-  if [[ -x "${CONDA_TOOLS_BIN_DIR}/mamba" ]]; then
-    bin="${CONDA_TOOLS_BIN_DIR}/mamba"
+  if ((USE_MAMBA)) && [[ -x "${MAMBA}" ]]; then
+    bin="${MAMBA}"
   fi
   "${bin}" "$@"
 }
@@ -154,7 +156,7 @@ _create_python_env_wrappers() {
   done
 }
 
-_install_conda() {
+_install_miniconda() {
   # TODO: Install man pages. I need to clone:
   # https://github.com/conda/conda-docs
   # And then build the man files and link them to my path.
@@ -234,7 +236,7 @@ _install_graphical_conda_envs() {
 _setup_conda() {
   # shellcheck disable=SC2119
   do_basic_setup
-  _install_conda
+  _install_miniconda
   # Source profile again to get the conda bin path.
   # shellcheck source=../.profile
   source "${REPO_ROOT}/.profile"
@@ -242,8 +244,16 @@ _setup_conda() {
   # NOTE: we must specify the environment in case another environment is active
   # when this script is called.
   # NOTE: if conda-build is not installed, updating conda will fail.
-  "${CONDA}" install --name base --channel defaults --yes conda-build
-  "${CONDA}" update --name base --channel defaults --yes conda
+  # NOTE: using --override-channels is required to avoid errors when packages
+  # were already installed from another channel like conda-forge.
+  local base_flags=(--name base --channel defaults --override-channels --yes)
+  "${CONDA}" install "${base_flags[@]}" conda-build
+  "${CONDA}" update "${base_flags[@]}" conda
+  if ((USE_MAMBA)); then
+    USE_MAMBA=0 _install_conda_env "${REPO_ROOT}/install/conda_envs/mamba.yml"
+    # local mamba_flags=(--name mamba --channel conda-forge --override-channel --yes)
+    # conda create "${mamba_flags[@]}" python=3.8 mamba
+  fi
   _log_info_bold 'Removing compiler_compat/ld'
   rm "${CONDA_LOCAL_DIR}/compiler_compat/ld" \
     "${CONDA_LOCAL_DIR}"/envs/*/compiler_compat/ld &> /dev/null || true
