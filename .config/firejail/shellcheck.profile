@@ -13,4 +13,5 @@ noblacklist ${HOME}/.config/google
 noblacklist ${HOME}/.config/i3
 noblacklist ${HOME}/.config/ranger
 noblacklist ${HOME}/.xsession
+ignore memory-deny-write-execute
 include /etc/firejail/shellcheck.profile
