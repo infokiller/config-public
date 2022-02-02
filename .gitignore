@@ -198,6 +198,7 @@
 /.semgrep
 /.config/Debauchee
 /.config/Dharkael/flameshot.ini
+/.config/JetBrains
 /.config/LinuxTV
 /.config/QtProject
 /.config/VirtualBox
@@ -345,11 +346,13 @@
 /.git-stats
 /.gtk-bookmarks
 /.i-nex
+/.jdks
 /.joe-data
 /.kodi/addons
 /.kube
 /.lesshst
 /.local/state/pnpm
+/.m2/repository
 /.mono
 /.mozilla
 /.mujoco
