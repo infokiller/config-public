@@ -686,8 +686,7 @@
 ################################################################################
 [submodule "submodules/emacs/doom-emacs"]
 	path = submodules/emacs/doom-emacs
-	url = https://github.com/infokiller/doom-emacs
-	branch = disable-git-hooks
+	url = https://github.com/hlissner/doom-emacs
 
 ################################################################################
 #                                     xplr                                     #

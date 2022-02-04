@@ -609,7 +609,8 @@ _install_doom_emacs_once() {
   #   should always start with the proper shell config.
   # * --no-config: don't create config files, they should already exist from my
   #   config repo.
-  doom --yes install --no-config --no-env
+  # * --no-hooks: don't deploy git hooks.
+  doom --yes install --no-config --no-env --no-hooks
   # TODO: Verify if `doom upgrade` is needed when independently updating the
   # doom repo commit and if package versions are locked
   # NOTE: I used to execute `doom upgrade` (which calls `doom sync`) but I don't
