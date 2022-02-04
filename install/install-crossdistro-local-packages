@@ -295,19 +295,25 @@ _install_cargo_from_rustup() {
     -mindepth 1 -maxdepth 1 -type f -print0)
 }
 
+_pip_compile_upgrade() {
+  # https://github.com/jazzband/pip-tools/issues/1558
+  pip install 'pip-tools>=6.5'
+  pip-compile --generate-hashes --allow-unsafe --upgrade "$@"
+}
+
 # TODO: Upgrade "tools" environment
 _upgrade_non_graphical_python_envs() {
   (
     cd -- "${REPO_ROOT}/.config/bash/history"
     # shellcheck disable=SC1091
     source activate shell_history
-    pip-compile --generate-hashes --allow-unsafe --upgrade
+    _pip_compile_upgrade
   )
   (
     cd -- "${REPO_ROOT}/install/conda_envs/urlextract"
     # shellcheck disable=SC1091
     source activate urlextract
-    pip-compile --generate-hashes --allow-unsafe --upgrade
+    _pip_compile_upgrade
   )
 }
 
@@ -316,46 +322,48 @@ _upgrade_graphical_python_envs() {
     cd -- "${SUBMODULES_DIR}/keydope"
     # shellcheck disable=SC1091
     source activate keydope
-    pip-compile --generate-hashes --allow-unsafe --upgrade
-    pip-compile --extra dev --generate-hashes --allow-unsafe --output-file requirements-dev.txt --upgrade
-    pip-compile --extra systemd --generate-hashes --allow-unsafe --output-file requirements-systemd.txt --upgrade
+    # shellcheck disable=SC2119
+    _pip_compile_upgrade
+    _pip_compile_upgrade --extra dev --output-file requirements-dev.txt
+    _pip_compile_upgrade --extra systemd --output-file requirements-systemd.txt
   )
   (
     cd -- "${SUBMODULES_DIR}/desktop/i3-workspace-groups"
     # shellcheck disable=SC1091
     source activate i3_workspace_groups
-    pip-compile --generate-hashes --allow-unsafe --upgrade
-    pip-compile --extra dev --generate-hashes --allow-unsafe --output-file requirements-dev.txt --upgrade
+    _pip_compile_upgrade
+    _pip_compile_upgrade --extra dev --output-file requirements-dev.txt
   )
   (
     cd -- "${SUBMODULES_DIR}/desktop/i3-scratchpad"
     # shellcheck disable=SC1091
     source activate i3_scratchpad
+    _pip_compile_upgrade
     pip-compile --generate-hashes --allow-unsafe --upgrade
   )
   (
     cd -- "${REPO_ROOT}/.my_scripts/i3"
     # shellcheck disable=SC1091
     source activate i3_scripts
-    pip-compile --generate-hashes --allow-unsafe --upgrade
+    _pip_compile_upgrade
   )
   (
     cd -- "${REPO_ROOT}/install/conda_envs/i3_resurrect"
     # shellcheck disable=SC1091
     source activate i3_resurrect
-    pip-compile --generate-hashes --allow-unsafe --upgrade
+    _pip_compile_upgrade
   )
   (
     cd -- "${SUBMODULES_DIR}/desktop/selfspy"
     # shellcheck disable=SC1091
     source activate selfspy
-    pip-compile --generate-hashes --allow-unsafe --upgrade
+    _pip_compile_upgrade
   )
   (
     cd -- "${REPO_ROOT}/.my_scripts/desktop_env/suspend-screenlock"
     # shellcheck disable=SC1091
     source activate suspend_screenlock
-    pip-compile --generate-hashes --allow-unsafe --upgrade
+    _pip_compile_upgrade
   )
 }
 
