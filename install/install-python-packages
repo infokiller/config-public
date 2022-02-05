@@ -251,6 +251,7 @@ _setup_conda() {
   "${CONDA}" update "${base_flags[@]}" conda
   if ((USE_MAMBA)); then
     USE_MAMBA=0 _install_conda_env "${REPO_ROOT}/install/conda_envs/mamba.yml"
+    symlink_binary "${MAMBA}"
     # local mamba_flags=(--name mamba --channel conda-forge --override-channel --yes)
     # conda create "${mamba_flags[@]}" python=3.8 mamba
   fi
