@@ -12993,13 +12993,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.218":
-  version: 1.1.218
-  resolution: "pyright@npm:1.1.218"
+"pyright@npm:1.1.219":
+  version: 1.1.219
+  resolution: "pyright@npm:1.1.219"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: bbabb5bb9728e41e6fd103a9275cb1dc245f13e6a692a50a29de22dbdf4a056b71c4e7ebfe146127e9a590127ca9409a61187ba5c1585c9d981fba10a5c22245
+  checksum: 13c489a77037bee68f8d91a39ebb2b34b11bf3018adff1694e1827885cf33e8c07d73f8e8febe3c34caf0c6406037076080b396cc4a2c039e2e729e1b7babee7
   languageName: node
   linkType: hard
 
@@ -13889,13 +13889,13 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
     puppeteer: 13.1.3
-    pyright: 1.1.218
+    pyright: 1.1.219
     release-it: 14.12.4
     semantic-release: 19.0.2
     snyk: 1.848.0
     stylelint: 14.3.0
     tldr: 3.3.7
-    uglify-js: 3.15.0
+    uglify-js: 3.15.1
     web-ext: 6.6.0
     write-good: 1.0.8
     yarn: 1.22.17
@@ -15867,12 +15867,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:3.15.0":
-  version: 3.15.0
-  resolution: "uglify-js@npm:3.15.0"
+"uglify-js@npm:3.15.1":
+  version: 3.15.1
+  resolution: "uglify-js@npm:3.15.1"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 598dd95f50855bcd409c2bd18be38e45398a8cb786b7e8a36f65b0d682f7312029f5302336ee887ea964ff96c25ec82894db33c6225ca5cccadc3fe604829927
+  checksum: cf88574ec8af4d69368142a3f9fb83ac11b1344a117dff08890fcf99ed12c782c810f02e71a0c2a7e8666ea6225894f1c171cbd90e1a1fe4b2c4a198f8ad61a3
   languageName: node
   linkType: hard
 
