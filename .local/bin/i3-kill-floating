@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+conda-run i3_scripts "${REPO_ROOT}/.my_scripts/i3/i3-kill-floating" "$@"
