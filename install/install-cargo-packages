@@ -16,6 +16,25 @@ CARGO_BIN_DIR = os.path.expanduser('~/.local/pkg/cargo/bin')
 CARGO = os.path.join(CARGO_BIN_DIR, 'cargo')
 
 
+def _list_installed_packages():
+    # Example `cargo install --list` output:
+    # bat v0.15.4:
+    #     bat
+    # cargo-update v7.0.0:
+    #     cargo-install-update
+    #     cargo-install-update-config
+    lines = subprocess.run([CARGO, 'install', '--list'],
+                           check=True,
+                           capture_output=True,
+                           text=True).stdout.split('\n')
+    packages = []
+    for l in lines:
+        m = re.match(r'^(\S+)', l)
+        if m:
+            packages.append(m.groups()[0])
+    return packages
+
+
 class PackageInstallSpec:
 
     # pylint: disable=too-many-arguments
@@ -24,7 +43,8 @@ class PackageInstallSpec:
                  version=None,
                  installed_binaries=None,
                  install_flags=None,
-                 distro_regex=''):
+                 distro_regex='',
+                 old_name=None):
         self.name = name
         self.version = version
         self.installed_binaries = installed_binaries
@@ -32,6 +52,7 @@ class PackageInstallSpec:
             install_flags = ['--locked', '--all-features']
         self.install_flags = install_flags
         self.distro_regex = re.compile(distro_regex)
+        self.old_name = old_name
 
     def __str__(self):
         result = self.name
@@ -44,6 +65,8 @@ class PackageInstallSpec:
             opt_parts.append(self.install_flags)
         if self.distro_regex:
             opt_parts.append(self.distro_regex)
+        if self.distro_regex:
+            opt_parts.append(self.old_name)
         if opt_parts:
             result += f' ({", ".join(str(p) for p in opt_parts)})'
         return result
@@ -65,13 +88,14 @@ PACKAGES = [
     # PackageInstallSpec('parallel'),
     PackageInstallSpec('tokei'),
     PackageInstallSpec('watchexec-cli',
-                       installed_binaries={'watchexec': 'watchexec'}),
+                       installed_binaries={'watchexec': 'watchexec'},
+                       install_flags=['--locked', '--all-features'],
+                       old_name='watchexec'),
     PackageInstallSpec('hyperfine'),
     # As of 2021-05-29, functiontrace-server has a build issue and is not really
     # used.
     # PackageInstallSpec('functiontrace-server'),
-    PackageInstallSpec('git-delta',
-                       installed_binaries={'delta': 'delta'}),
+    PackageInstallSpec('git-delta', installed_binaries={'delta': 'delta'}),
     # NOTE(2018-07-21): exa is now installed from the arch repos for Arch.
     # --git https://github.com/ogham/exa
     # NOTE(2018-07-21): ripgrep is now installed from the arch repos for Arch.
@@ -99,8 +123,8 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
         else:
             for binary_name, installed_name in pkg.installed_binaries.items():
                 binary_to_install_name[binary_name] = installed_name
-        is_installed = os.system(
-            f'{CARGO} install --list | grep -q {pkg.name}') == 0
+        installed_packages = _list_installed_packages()
+        is_installed = pkg.name in installed_packages
         # It seems that cargo sometimes rebuild packages even if they're already
         # installed, presumably because the build configuration changed
         # (toolchain, features, etc.). `cargo install` will also update packages
@@ -110,6 +134,12 @@ def _install_cargo_packages(packages: List[PackageInstallSpec]) -> None:
         #     util.log_info(f'Package {pkg.name} already installed, skipping')
         #     continue
         try:
+            # If a package changed its name but kept the previous binary name
+            # (like the change from watchexec to watchexec-cli), we must remove
+            # the old package to avoid conflicts.
+            if pkg.old_name and pkg.old_name in installed_packages:
+                subprocess.run([CARGO, 'uninstall', '--', pkg.old_name],
+                               check=True)
             subprocess.run(pkg.install_cmd, check=True)
         except subprocess.CalledProcessError:
             errors.append(pkg)
