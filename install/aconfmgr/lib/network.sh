@@ -75,7 +75,8 @@ else
   CopyFile '/etc/hostsctl/hostsctl.conf'
   CopyFile '/etc/hostsctl/disabled.hosts'
   CopyFile '/etc/hostsctl/enabled.hosts'
-  IgnorePath '/etc/hostsctl/orig.hosts'
+  # orig.hosts is set in 05-private-before.sh
+  # IgnorePath '/etc/hostsctl/orig.hosts'
   IgnorePath '/etc/hostsctl/remote.hosts'
   # NOTE: This should be executed after the hostsctl files were copied.
   set_hosts
