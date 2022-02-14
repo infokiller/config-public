@@ -19,7 +19,7 @@
     "markdownlint-cli2": "0.4.0",
     "prettier": "2.5.1",
     "puppeteer": "13.3.1",
-    "pyright": "1.1.220",
+    "pyright": "1.1.221",
     "release-it": "14.12.4",
     "semantic-release": "19.0.2",
     "snyk": "1.852.0",
