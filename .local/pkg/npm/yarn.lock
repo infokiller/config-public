@@ -12970,9 +12970,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:13.3.1":
-  version: 13.3.1
-  resolution: "puppeteer@npm:13.3.1"
+"puppeteer@npm:13.3.2":
+  version: 13.3.2
+  resolution: "puppeteer@npm:13.3.2"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.3
@@ -12986,7 +12986,7 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.5.0
-  checksum: 166736ccb7a00a18896f162549dd92ca8c1b4b8b770b27d3a9254af00688a491174b80588725ef07750300c0cde658d754edc8dc752dc9fbb79fb6dc5bcd92ee
+  checksum: 360a8fb2d3d69469b917554c4b88e4c6cae949d57a83183a0ddf7bd3f5e6ef6b2e41b14c72f6054220c0b18666f72778cfb7fb544d34d4087f3dcc5ac42447ce
   languageName: node
   linkType: hard
 
@@ -13885,11 +13885,11 @@ __metadata:
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
-    puppeteer: 13.3.1
+    puppeteer: 13.3.2
     pyright: 1.1.221
     release-it: 14.12.4
     semantic-release: 19.0.2
-    snyk: 1.852.0
+    snyk: 1.853.0
     stylelint: 14.5.0
     tldr: 3.3.7
     uglify-js: 3.15.1
@@ -14350,12 +14350,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.852.0":
-  version: 1.852.0
-  resolution: "snyk@npm:1.852.0"
+"snyk@npm:1.853.0":
+  version: 1.853.0
+  resolution: "snyk@npm:1.853.0"
   bin:
     snyk: bin/snyk
-  checksum: a1669dcd7e60fb7b78415b4efc93e677eb272c8a872931bf168af2cae58fc4e8fd28ccc8c7fba645d0e3a88b1d94c0c9c4bbf3a851c13454cc15e3e13c2cfee0
+  checksum: b6583c65181e532e5d35b0c2b70c29187579db13394e28087bce875bf8c1e450ee9ab0cc91c8bfe6d1fa029f1b3bc9b6d30e5c2661bb86f22c9a64b4f6b0b5d3
   languageName: node
   linkType: hard
 
