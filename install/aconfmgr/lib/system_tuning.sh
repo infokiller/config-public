@@ -8,6 +8,8 @@ CopyFile '/etc/systemd/system/earlyoom.service.d/override.conf'
 CreateLink '/etc/systemd/system/multi-user.target.wants/earlyoom.service' '/usr/lib/systemd/system/earlyoom.service'
 
 AddPackage reflector # A Python 3 module and script to retrieve and filter the latest Pacman mirror list.
+cat "${REPO_ROOT}/.config/reflector.conf" >| "$(GetPackageOriginalFile reflector '/etc/xdg/reflector/reflector.conf')"
+CreateLink /etc/systemd/system/timers.target.wants/reflector.timer /usr/lib/systemd/system/reflector.timer
 CopyFile '/etc/pacman.d/hooks/mirrorlist.hook'
 # NOTE: As of 2020-04-15, I stopped syncing the pacman mirrors across machines
 # because the mirrors should be optimized per machine, i.e. the best optimal
