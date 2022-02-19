@@ -68,7 +68,8 @@ _FIREJAILED_BINS=(
   # ranger
   redshift
   redshift-gtk
-  shellcheck
+  # As of 2022-02-19, I get errors from the firejailed shellcheck on pre-commit.
+  # shellcheck
   soffice
   sqlitebrowser
   # Breaks SSH via jumphosts in VSCode remote extension.
