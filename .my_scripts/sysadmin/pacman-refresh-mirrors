@@ -13,7 +13,9 @@ source "${REPO_ROOT}/.my_scripts/lib/base.sh"
 _update_pacman_mirrors() {
   # Refresh keys. This is required for handling new and expired keys properly.
   # As of 2020-05-29, `pacman-key --refresh-keys` has issues.
-  # TODO: Fix `pacman-key --refresh-keys`.
+  # As of 2022-02-19, I still get a few errors when running it, but it seems
+  # like it may not be a real problem:
+  # https://bbs.archlinux.org/viewtopic.php?id=273563
   # sudo pacman-key --refresh-keys
   # Create package database- needed to be done once.
   sudo pacman --files --refresh
