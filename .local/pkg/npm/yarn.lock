@@ -12990,13 +12990,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.222":
-  version: 1.1.222
-  resolution: "pyright@npm:1.1.222"
+"pyright@npm:1.1.223":
+  version: 1.1.223
+  resolution: "pyright@npm:1.1.223"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 8a3518c328d0d334ada133636ba9c14e153b1f3944cd3685663d0c8e55a7ab41e0ea5935da6fd1d9ada2f83b086cff89c8d2540f76ba28491a3bd3c347f9eb80
+  checksum: 86256da039e77f073bea62b2abd23350489288dc139f85e814bcc99f502cc13e2d668987dcf1e9d32d246d8fe5348b474853cbd8a31f14dc33e77f500ae5b53f
   languageName: node
   linkType: hard
 
@@ -13886,7 +13886,7 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
     puppeteer: 13.3.2
-    pyright: 1.1.222
+    pyright: 1.1.223
     release-it: 14.12.4
     semantic-release: 19.0.2
     snyk: 1.855.0
@@ -13896,7 +13896,7 @@ __metadata:
     web-ext: 6.7.0
     write-good: 1.0.8
     yarn: 1.22.17
-    yarn-audit-fix: 9.0.11
+    yarn-audit-fix: 9.1.2
   languageName: unknown
   linkType: soft
 
@@ -17046,9 +17046,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.0.11":
-  version: 9.0.11
-  resolution: "yarn-audit-fix@npm:9.0.11"
+"yarn-audit-fix@npm:9.1.2":
+  version: 9.1.2
+  resolution: "yarn-audit-fix@npm:9.1.2"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17070,7 +17070,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: ./target/es6/cli.js
-  checksum: 28548ca5c3c48dc351cfc16a300a4581b9d2dd40bfb607a79cbef291acff18539645835f3a8ffab73af299559e96884b88119717384e581b18720e7d6caff00f
+  checksum: dd882bd19a59990da51c75ce211de8f92f533ab1f31694b3d3104dfebb90d7f6ce4d983a938508c9d237d8a934491afebb99cee99abe88e6362890a945441c44
   languageName: node
   linkType: hard
 
