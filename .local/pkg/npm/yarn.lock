@@ -12970,9 +12970,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:13.3.2":
-  version: 13.3.2
-  resolution: "puppeteer@npm:13.3.2"
+"puppeteer@npm:13.4.0":
+  version: 13.4.0
+  resolution: "puppeteer@npm:13.4.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.3
@@ -12986,17 +12986,17 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.5.0
-  checksum: 360a8fb2d3d69469b917554c4b88e4c6cae949d57a83183a0ddf7bd3f5e6ef6b2e41b14c72f6054220c0b18666f72778cfb7fb544d34d4087f3dcc5ac42447ce
+  checksum: eaade11b985e02894db52b8feea1c69f368a14adc979b47d29f7a5bd318a85783e1805b993832b124c0ecc2733a01d00bf010f7b317366f6c9793a2ef524166b
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.223":
-  version: 1.1.223
-  resolution: "pyright@npm:1.1.223"
+"pyright@npm:1.1.224":
+  version: 1.1.224
+  resolution: "pyright@npm:1.1.224"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 86256da039e77f073bea62b2abd23350489288dc139f85e814bcc99f502cc13e2d668987dcf1e9d32d246d8fe5348b474853cbd8a31f14dc33e77f500ae5b53f
+  checksum: d504e225ff90de2775a5755d95935998a9bd33047664a48f7f4f47a3359a914e11ed7e2ab72be44f572be38e28ee16733581eba8adef991f680e7309fbe15393
   languageName: node
   linkType: hard
 
@@ -13421,9 +13421,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:14.12.4":
-  version: 14.12.4
-  resolution: "release-it@npm:14.12.4"
+"release-it@npm:14.12.5":
+  version: 14.12.5
+  resolution: "release-it@npm:14.12.5"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 18.12.0
@@ -13455,7 +13455,7 @@ __metadata:
     yargs-parser: 20.2.9
   bin:
     release-it: bin/release-it.js
-  checksum: 79b91a6059f5592827559150c920c92efa12e2ce91c4ca868795e62704fe70d2fade3fd855f5f6c66ad1f24789d3783536b84fb23907e752d87efa0938210806
+  checksum: cb3a08f242e1c0bd28c9607b3b30fea81d590674c815f9c04eafd7e3138ab6f043220ef52be5a79eb48c9321a5222718190c7c0d155ba726ec6f02a3cc13b726
   languageName: node
   linkType: hard
 
@@ -13885,12 +13885,12 @@ __metadata:
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
-    puppeteer: 13.3.2
-    pyright: 1.1.223
-    release-it: 14.12.4
+    puppeteer: 13.4.0
+    pyright: 1.1.224
+    release-it: 14.12.5
     semantic-release: 19.0.2
-    snyk: 1.855.0
-    stylelint: 14.5.1
+    snyk: 1.858.0
+    stylelint: 14.5.3
     tldr: 3.3.7
     uglify-js: 3.15.1
     web-ext: 6.7.0
@@ -14357,12 +14357,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.855.0":
-  version: 1.855.0
-  resolution: "snyk@npm:1.855.0"
+"snyk@npm:1.858.0":
+  version: 1.858.0
+  resolution: "snyk@npm:1.858.0"
   bin:
     snyk: bin/snyk
-  checksum: 08e7f220eaf48f67f75255f2c7ac7ad40061ee64aa6752001c171c80bec5fb5b4c5ff3624741efadca9cf894a44a62474d1aadbae0566911f80647f312ee8d8f
+  checksum: 45ecc9159f4eda27841030e81c3f1440e3e0916db5ff90cdc8248e249007969218a73f3e7802c93b3268f1d1a8ba35f1476cc34447870eeba5dab3e45e0d0355
   languageName: node
   linkType: hard
 
@@ -15039,9 +15039,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.5.1":
-  version: 14.5.1
-  resolution: "stylelint@npm:14.5.1"
+"stylelint@npm:14.5.3":
+  version: 14.5.3
+  resolution: "stylelint@npm:14.5.3"
   dependencies:
     balanced-match: ^2.0.0
     colord: ^2.9.2
@@ -15086,7 +15086,7 @@ __metadata:
     write-file-atomic: ^4.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: 200b25897e1561ef17ef31064971ba11f50afbd9cb9aa6e98bd66efc1a74bd06b91b9c64c307d7f96f5fff50d76531f3082f6680fed06bbc6933c503543c27e3
+  checksum: 5fadb61263e003fe791d6c8a31c48825e015a5fee909b0a484baad8d4a46622425409f18d2734a01e91405c825a5b3ccad943ed2298cd4f7df4a0a605c4d0292
   languageName: node
   linkType: hard
 
