@@ -17,7 +17,7 @@ from stats import shell_history_stats_util
     help='Only commands after this date are considered. Example: 2017-01-30')
 @click.option(
     '--max-date',
-    default='2020-03-11',
+    default='2100-01-01',
     help='Only commands before this date are considered. Example: 2017-01-30')
 @click.option('--expand-commands',
               default=False,
@@ -32,6 +32,9 @@ def main(min_date, max_date, expand_commands):
         e for e in entries
         if e.invocation_time >= min_date and e.invocation_time <= max_date
     ]
+    if not entries:
+        print('No entries found')
+        return
     print('First history entry:\n{}'.format(entries[0]))
     print('-' * 80)
     if expand_commands:
