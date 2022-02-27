@@ -7,4 +7,4 @@ Target = pacman-mirrorlist
 Description = Updating mirror list...
 When = PostTransaction
 Depends = reflector
-Exec = /usr/bin/systemctl start reflector.service
+Exec = /usr/bin/systemctl --no-block start reflector.service
