@@ -12970,9 +12970,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:13.4.0":
-  version: 13.4.0
-  resolution: "puppeteer@npm:13.4.0"
+"puppeteer@npm:13.4.1":
+  version: 13.4.1
+  resolution: "puppeteer@npm:13.4.1"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.3
@@ -12986,7 +12986,7 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.5.0
-  checksum: eaade11b985e02894db52b8feea1c69f368a14adc979b47d29f7a5bd318a85783e1805b993832b124c0ecc2733a01d00bf010f7b317366f6c9793a2ef524166b
+  checksum: ab6fa2f78d59ba13ff1100e97dd5cc59137b249727efef87193c057ff76ddeb91d5a748ef2775488fa19360c7368fe09cc229e7a28bbb7d63f5037931dd003c9
   languageName: node
   linkType: hard
 
@@ -13885,7 +13885,7 @@ __metadata:
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
     prettier: 2.5.1
-    puppeteer: 13.4.0
+    puppeteer: 13.4.1
     pyright: 1.1.225
     release-it: 14.12.5
     semantic-release: 19.0.2
