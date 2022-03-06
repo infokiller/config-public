@@ -11,6 +11,8 @@ IgnorePath '/etc/resolv.conf'
 IgnorePath '/etc/resolv.conf.bak'
 
 AddPackage openssh # Free version of the SSH connectivity tools
+# TODO: append my changes to the stock file or use the "Include" directive to
+# put my changes in a separate file.
 CopyFile '/etc/ssh/sshd_config' 600
 IgnorePath '/etc/ssh/ssh_host_*_key*'
 CreateLink '/etc/systemd/system/multi-user.target.wants/sshd.service' '/usr/lib/systemd/system/sshd.service'
