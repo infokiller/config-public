@@ -318,13 +318,13 @@ automated in the Arch installation, but not in Debian (yet) include:
    (this should have been fixed but I'm not 100% sure). After the script
    succeeds:
 
-1. Log in to hub (enter Github username and password when prompted):
+   1. Log in to hub (enter Github username and password when prompted):
 
    ```sh
    hub api repos/infokiller/web-search-navigator
    ```
 
-1. Initialize history: `sync-config-repos`
+   1. Initialize history: `sync-config-repos`
 
 #### Generate CopyQ encryption keys
 
