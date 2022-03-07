@@ -31,6 +31,11 @@ configuration {
 	sorting-method: "fzf";
 	/* normal, regex, glob, or fuzzy. */
 	matching: "fuzzy";
+	/* Default is 25, rofi manual warns that it can cause slowdowns when large */
+	max-history-size: 100;
+	/* https://github.com/davatorium/rofi/discussions/1464#discussioncomment-2307922 */
+	/* /* Directory for storing history files in run/drun mode */ */
+	/* cache-dir: env(HOST_HIST_DIR, "~/.cache"); */
 	/* Monitor to show rofi on. -1 means the currently focused monitor. */
 	m: "-1";
 	kb-remove-word-forward: "Control+Delete";
