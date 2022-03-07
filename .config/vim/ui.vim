@@ -196,11 +196,18 @@ nnoremap <silent> bl <Cmd>Buffers<CR>
 
 function! s:FzfFilesNoIgnore(args, bang) abort
   try
-    let prev_default_command = $FZF_DEFAULT_COMMAND
-    let $FZF_DEFAULT_COMMAND = 'rg --no-ignore --files'
+    let l:prev_default_command = $FZF_DEFAULT_COMMAND
+    let l:find_cmd_template = '%s -L . -mindepth 1 \( -fstype sysfs -o -fstype devfs -o -fstype devtmpfs -o -fstype proc \) -prune -o -print 2> /dev/null | cut -b3-'
+    if executable('bfs')
+      let $FZF_DEFAULT_COMMAND = printf(l:find_cmd_template, 'bfs')
+    elseif executable('rg')
+      let $FZF_DEFAULT_COMMAND = 'rg --no-ignore --files'
+    else
+      let $FZF_DEFAULT_COMMAND = printf(l:find_cmd_template, 'find')
+    endif
     call fzf#vim#files(a:args, fzf#vim#with_preview(), a:bang)
   finally
-    let $FZF_DEFAULT_COMMAND = prev_default_command
+    let $FZF_DEFAULT_COMMAND = l:prev_default_command
   endtry
 endfunction
 
