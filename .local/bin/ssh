@@ -18,6 +18,7 @@ find "${HOME}/.ssh" -type d -print0 |
 # NOTE: the tty command sometimes fails with "not a tty" even though the tty can
 # be found using ps.
 if tty="$(tty)" || tty="/dev/$(ps --no-headers -o 'tty' $$)"; then
+  mkdir -p -- "$(dirname -- "${PINENTRY_TTY}")"
   printf '%s\n' "${tty}" >| "${PINENTRY_TTY}"
   # https://unix.stackexchange.com/a/280974
   # Note that exporting GPG_TTY should be done before calling updatestartuptty.
