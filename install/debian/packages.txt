@@ -37,9 +37,10 @@ cmake
 earlyoom
 ripgrep
 copyq
-xdotool
 trash-cli
 shellcheck
+ctags
+parallel
 
 lightdm
 xss-lock
@@ -51,6 +52,7 @@ x11-xkb-utils
 xclip
 xsel
 xcape
+xdotool
 conky
 picom
 # Provides syndaemon

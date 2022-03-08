@@ -131,6 +131,7 @@
 	fsckObjects = true
 [fetch.fsck]
 	zeroPaddedFilemode = ignore
+	badTimezone = ignore
 [receive]
 	fsckObjects = true
 [receive.fsck]
