@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 # Workaround for:
-# - https://github.com/davatorium/rofi/issues/784
+# - Using case insensitive search in dmenu mode:
+#   https://github.com/davatorium/rofi/issues/784
 # - Setting different font size based on host. Rofi config is supposed to
 #   support environment variables but it causes a syntax error for me in 1.7
+# - Setting the history/cache dir:
+#   https://github.com/davatorium/rofi/discussions/1464#discussioncomment-2311592
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
 WRAPPER_PATH="$(readlink -f "$0")"
+
+# https://kerneltalks.com/linux/all-you-need-to-know-about-hostname-in-linux/
+_get_hostname() {
+  cat /proc/sys/kernel/hostname
+}
 
 main() {
   local cmd
@@ -22,7 +30,10 @@ main() {
       rofi_font_size=30
       ;;
   esac
-  exec -- "${cmd[@]}" -i -theme-str '* { font: "MyMono '${rofi_font_size}'";  }' "$@"
+  : "${HOST_HIST_DIR:=${HOME}/.local/var/hist/$(_get_hostname)}"
+  exec -- "${cmd[@]}" -i -cache-dir "${HOST_HIST_DIR}" \
+    -theme-str '* { font: "MyMono '${rofi_font_size}'";  }' \
+    "$@"
 }
 
 main "$@"
