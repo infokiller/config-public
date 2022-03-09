@@ -22,10 +22,12 @@ def _install_debian_packages(packages):
         # being installed with version <none>.
         # Therefore, I switched to `dpkg-query -s`, which worked on that case as
         # well.
+        # Update 2022-03-09: `dpkg-query -s` fails when the package is virtual
+        # (such as ctags), so I switch to `dpkg-query --show`.
         # Note that I'm using capture_output but not actually doing anything
         # with the output. This is done to avoid cluttering the terminal with
         # the output of dpkg-query and apt-cache.
-        is_installed = subprocess.run(['dpkg-query', '-s', pkg],
+        is_installed = subprocess.run(['dpkg-query', '--show', pkg],
                                       check=False,
                                       capture_output=True)
         if is_installed.returncode == 0:
