@@ -8,7 +8,7 @@ Description=tmux with automatic sessions snapshotting
 Type=forking
 ExecCondition=bash -c '(command -v tmux &> /dev/null) && (! tmux ls 2>/dev/null)'
 # Fixes an issue with the last symlink sometimes missing.
-ExecStartPre=bash -c 'cd ~/.local/var/tmux/resurrect && ln -srf "$(ls -1 . | grep tmux_resurrect | tail -1)" last'
+ExecStartPre=bash -c '[[ -n ~/.local/var/tmux/resurrect/tmux_resurrect_* ]] && cd ~/.local/var/tmux/resurrect && ln -srf "$(ls -1 . | grep tmux_resurrect | tail -1)" last'
 ExecStart=bash -c 'tmux start-server \\; run-shell ~/submodules/tmux/tmux-resurrect/scripts/restore.sh'
 ExecStop=%h/submodules/tmux/tmux-resurrect/scripts/save.sh
 # The binary may be locally built from source, in which case we want to use the
