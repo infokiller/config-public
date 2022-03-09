@@ -29,7 +29,7 @@ def _install_debian_packages(packages):
                                       check=False,
                                       capture_output=True)
         if is_installed.returncode == 0:
-            print('Package {} is already installed'.format(pkg))
+            print(f'Package {pkg} is already installed')
             continue
         package_found = subprocess.run(['apt-cache', 'show', pkg],
                                        check=False,
@@ -43,7 +43,7 @@ def _install_debian_packages(packages):
                 chose_not_to_install.append(pkg)
         else:
             not_found.append(pkg)
-            print(util.yellow('Package {} not found'.format(pkg)))
+            print(util.yellow(f'Package {pkg} not found'))
     print('\n============ SUMMARY =============\n')
     print('Packages installed:\n' + '\n'.join(installed))
     print('\nPackages not found:\n' + '\n'.join(not_found))
