@@ -36,16 +36,29 @@ zip
 cmake
 earlyoom
 ripgrep
-copyq
 trash-cli
 shellcheck
-ctags
+universal-ctags
 parallel
+apt-file
+wget
+curl
+gawk
+sed
+htop
+ncdu
+# Tool to compute lines of code.
+cloc
+policykit-1-gnome
+network-manager
+gnupg2
+ranger
 
 lightdm
 xss-lock
 physlock
 xbacklight
+copyq
 # Provides xrandr, xrdb, xset, xhost, and other utils.
 x11-xserver-utils
 x11-xkb-utils
@@ -72,31 +85,19 @@ pinta
 zathura
 zathura-djvu
 zathura-ps
-ranger
 pcmanfm
 udisks2
 udiskie
 qbittorrent
-wget
-curl
 # text to speech.
 espeak-ng
-gawk
-sed
-htop
-ncdu
-apt-file
 # GUI for xrandr. Should also consider lxrandr as an alternative.
 arandr
-# Tool to compute lines of code.
-cloc
 # Notifications daemon.
 dunst
 # Hides mouse cursor after inactivity.
 unclutter
 redshift-gtk
-policykit-1-gnome
-network-manager
 # Provides nm-applet
 network-manager-gnome
 # Provices volumeicon
@@ -104,7 +105,6 @@ volumeicon-alsa
 # Utility for autostarting apps. Used in xsession file to launch cinnamon
 # daemons.
 dex
-gnupg2
 seahorse
 
 fonts-dejavu
