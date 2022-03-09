@@ -308,7 +308,10 @@ _export_profile_env() {
   # http://greenwoodsoftware.com/less/news.590.html
   if test "${less_version}" -lt 590; then
     export LESSKEY="${XDG_CACHE_HOME}/lesskey_generated"
-    test -f "${LESSKEY}" || lesskey "${XDG_CONFIG_HOME}/lesskey"
+    if ! test -f "${LESSKEY}"; then
+      # The clear-search action is not supported by older versions of less.
+      grep -v 'clear-search' "${XDG_CONFIG_HOME}/lesskey" | lesskey -
+    fi
   fi
   # Use scope.sh as a less preprocessor to get syntax highlighting and
   # reasonable previews for zip, pdf, etc.
