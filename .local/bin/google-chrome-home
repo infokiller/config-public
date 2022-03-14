@@ -85,7 +85,13 @@ main() {
       # - https://wiki.debian.org/HardwareVideoAcceleration
       '--enable-gpu-rasterization'
       '--enable-accelerated-video-decode'
-      '--use-gl=desktop'
+      # As of 2022-03-14, use-gl=desktop results in disappearing content in
+      # Google Sheets in both my work desktop and laptop. use-gl=egl works and
+      # is advertised in a few places [1][2], but results in an error log [3] in
+      # chrome://gpu.
+      # [1] https://wiki.archlinux.org/title/Chromium#Hardware_video_acceleration
+      # [2] https://www.reddit.com/r/linux/comments/p2ivtq/updated_guide_on_how_to_get_hardware_acceleration/h8mpen6/
+      # [3] "Passthrough is not supported, GL is desktop, ANGLE is"
       '--ignore-gpu-blocklist'
     )
     # https://chromium.googlesource.com/chromium/src/+/refs/heads/main/docs/gpu/vaapi.md#vaapi-on-linux
