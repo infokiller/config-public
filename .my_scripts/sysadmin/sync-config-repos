@@ -25,7 +25,7 @@ readonly DCONF_DIR="${REPO_ROOT}/.config/dconf"
 source "${REPO_ROOT}/.my_scripts/lib/base.sh"
 # shellcheck source=../lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
-# For HOST_ALIAS
+# For HOST_ALIAS, HOST_HIST_DIR
 # shellcheck source=../../.profile
 source "${REPO_ROOT}/.profile"
 
@@ -139,6 +139,12 @@ _move_packages_if_needed() {
     _log_info 'Rebuilding packages'
     "${REPO_ROOT}/install/install-crossdistro-local-packages"
   fi
+}
+
+_move_rofi_history_if_needed() {
+  for f in "${XDG_CACHE_HOME:-${HOME}/.cache}"/rofi*; do
+    mv -- "${f}" "${HOST_HIST_DIR}"
+  done
 }
 
 _migrate_dir_if_needed() {
@@ -364,6 +370,7 @@ main() {
   _log_info 'Verifying dconf data is synced with config'
   _verify_dconf
   _move_packages_if_needed
+  _move_rofi_history_if_needed
   _migrate_dir_if_needed "${REPO_ROOT}/downloads" "${REPO_ROOT}/dl"
 }
 
