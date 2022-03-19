@@ -2558,6 +2558,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chalk@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "chalk@npm:5.0.1"
+  checksum: 7b45300372b908f0471fbf7389ce2f5de8d85bb949026fd51a1b95b10d0ed32c7ed5aab36dd5e9d2bf3191867909b4404cef75c5f4d2d1daeeacd301dd280b76
+  languageName: node
+  linkType: hard
+
 "character-entities-html4@npm:^2.0.0":
   version: 2.0.0
   resolution: "character-entities-html4@npm:2.0.0"
@@ -6148,6 +6155,17 @@ __metadata:
     jsonfile: ^6.0.1
     universalify: ^2.0.0
   checksum: 5285a3d8f34b917cf2b66af8c231a40c1623626e9d701a20051d3337be16c6d7cac94441c8b3732d47a92a2a027886ca93c69b6a4ae6aee3c89650d2a8880c0a
+  languageName: node
+  linkType: hard
+
+"fs-extra@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "fs-extra@npm:10.0.1"
+  dependencies:
+    graceful-fs: ^4.2.0
+    jsonfile: ^6.0.1
+    universalify: ^2.0.0
+  checksum: c1faaa5eb9e1c5c7c7ff09f966e93922ecb068ae1b04801cfc983ef05fcc1f66bfbb8d8d0b745c910014c7a2e7317fb6cf3bfe7390450c1157e3cc1a218f221d
   languageName: node
   linkType: hard
 
@@ -11022,6 +11040,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "nanoid@npm:3.3.1"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 4ef0969e1bbe866fc223eb32276cbccb0961900bfe79104fa5abe34361979dead8d0e061410a5c03bc3d47455685adf32c09d6f27790f4a6898fb51f7df7ec86
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -12720,7 +12747,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.6, postcss@npm:^8.4.6":
+"postcss@npm:8.4.6":
   version: 8.4.6
   resolution: "postcss@npm:8.4.6"
   dependencies:
@@ -12728,6 +12755,17 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 60e7808f39c4a9d0fa067bfd5eb906168c4eb6d3ff0093f7d314d1979b001a16363deedccd368a7df869c63ad4ae350d27da439c94ff3fb0f8fc93d49fe38a90
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.12":
+  version: 8.4.12
+  resolution: "postcss@npm:8.4.12"
+  dependencies:
+    nanoid: ^3.3.1
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 248e3d0f9bbb8efaafcfda7f91627a29bdc9a19f456896886330beb28c5abea0e14c7901b35191928602e2eccbed496b1e94097d27a0b2a980854cd00c7a835f
   languageName: node
   linkType: hard
 
@@ -12759,12 +12797,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.5.1":
-  version: 2.5.1
-  resolution: "prettier@npm:2.5.1"
+"prettier@npm:2.6.0":
+  version: 2.6.0
+  resolution: "prettier@npm:2.6.0"
   bin:
     prettier: bin-prettier.js
-  checksum: 21b9408476ea1c544b0e45d51ceb94a84789ff92095abb710942d780c862d0daebdb29972d47f6b4d0f7ebbfb0ffbf56cc2cfa3e3e9d1cca54864af185b15b66
+  checksum: 3e527ad62279676778a8404d18174d7ca2365ada4caba6eebbcdd9907d1187afd3bc6ade5b4e5f5d4549bb9fb71e45ca8930d71500017635524f8fc05bc52e93
   languageName: node
   linkType: hard
 
@@ -12990,13 +13028,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.229":
-  version: 1.1.229
-  resolution: "pyright@npm:1.1.229"
+"pyright@npm:1.1.231":
+  version: 1.1.231
+  resolution: "pyright@npm:1.1.231"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: a63a57db9324908fb9587a68efc9067f9ea78dafce0cb15472fb4d9832bc076ab1df3bbcb0c01b9c0a243ece1ce4faef7b7550b42389b9d0fed29b463ed30d35
+  checksum: c3b6b3570b87419e4b7dd2f2e9b1a3ab77c097726e24509bbc985fd8cd5589895ba52b093687152925f7c4c0944f518cf127e1511291cc2d59a40d62ace6cf7e
   languageName: node
   linkType: hard
 
@@ -13421,9 +13459,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:14.12.5":
-  version: 14.12.5
-  resolution: "release-it@npm:14.12.5"
+"release-it@npm:14.13.0":
+  version: 14.13.0
+  resolution: "release-it@npm:14.13.0"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 18.12.0
@@ -13451,11 +13489,12 @@ __metadata:
     update-notifier: 5.1.0
     url-join: 4.0.1
     uuid: 8.3.2
+    wildcard-match: 5.1.2
     yaml: 1.10.2
     yargs-parser: 20.2.9
   bin:
     release-it: bin/release-it.js
-  checksum: cb3a08f242e1c0bd28c9607b3b30fea81d590674c815f9c04eafd7e3138ab6f043220ef52be5a79eb48c9321a5222718190c7c0d155ba726ec6f02a3cc13b726
+  checksum: dfabcdc631cfa324d17bf0f42dcbcff6e65fd37669afb4c9e2ba0904166aa6b37f7bfc57233782bae635f66a90c55285a23d425228d3bac264848704f69c1f70
   languageName: node
   linkType: hard
 
@@ -13884,19 +13923,19 @@ __metadata:
     markdown-toc: 1.2.0
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
-    prettier: 2.5.1
+    prettier: 2.6.0
     puppeteer: 13.5.1
-    pyright: 1.1.229
-    release-it: 14.12.5
+    pyright: 1.1.231
+    release-it: 14.13.0
     semantic-release: 19.0.2
-    snyk: 1.868.0
-    stylelint: 14.5.3
+    snyk: 1.878.0
+    stylelint: 14.6.0
     tldr: 3.3.7
     uglify-js: 3.15.3
     web-ext: 6.7.0
     write-good: 1.0.8
-    yarn: 1.22.17
-    yarn-audit-fix: 9.1.2
+    yarn: 1.22.18
+    yarn-audit-fix: 9.2.0
   languageName: unknown
   linkType: soft
 
@@ -14357,12 +14396,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.868.0":
-  version: 1.868.0
-  resolution: "snyk@npm:1.868.0"
+"snyk@npm:1.878.0":
+  version: 1.878.0
+  resolution: "snyk@npm:1.878.0"
   bin:
     snyk: bin/snyk
-  checksum: ddd00a002290fd7875ca26d84a2501beaef0bc2d6a70a3798c30a9ad984b6e5f0a62a2362098a66e6367b3ce1211e122cd57bca51f808f9ba7b4c4c4998e7373
+  checksum: 39b8ff08c3ecca8f5c3b06539ade48e7cc6b008f0c22def435d96f2f254636413acc3076a32ff065990893696f873deea8419536dfd242e744eead4833d40403
   languageName: node
   linkType: hard
 
@@ -15039,9 +15078,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.5.3":
-  version: 14.5.3
-  resolution: "stylelint@npm:14.5.3"
+"stylelint@npm:14.6.0":
+  version: 14.6.0
+  resolution: "stylelint@npm:14.6.0"
   dependencies:
     balanced-match: ^2.0.0
     colord: ^2.9.2
@@ -15068,7 +15107,7 @@ __metadata:
     normalize-path: ^3.0.0
     normalize-selector: ^0.2.0
     picocolors: ^1.0.0
-    postcss: ^8.4.6
+    postcss: ^8.4.12
     postcss-media-query-parser: ^0.2.3
     postcss-resolve-nested-selector: ^0.1.1
     postcss-safe-parser: ^6.0.0
@@ -15086,7 +15125,7 @@ __metadata:
     write-file-atomic: ^4.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: 5fadb61263e003fe791d6c8a31c48825e015a5fee909b0a484baad8d4a46622425409f18d2734a01e91405c825a5b3ccad943ed2298cd4f7df4a0a605c4d0292
+  checksum: cb28abd153b0edea03ad0133bc9be789a315f9138e7254f5da372677cef67954da081cffb696a59fee7958d3d3781566acb9e8ab99e453fe4398ef91f0495378
   languageName: node
   linkType: hard
 
@@ -16681,6 +16720,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"wildcard-match@npm:5.1.2":
+  version: 5.1.2
+  resolution: "wildcard-match@npm:5.1.2"
+  checksum: d39ea5dcb807e9c515092adbb54c9a03743c9310e875919da5c25f268ed0c566a391c4afdca876e25d836fbbf5a71ce4a6e68ad034c24ce9751b5b60b4683bb9
+  languageName: node
+  linkType: hard
+
 "window-size@npm:^1.1.1":
   version: 1.1.1
   resolution: "window-size@npm:1.1.1"
@@ -17046,9 +17092,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.1.2":
-  version: 9.1.2
-  resolution: "yarn-audit-fix@npm:9.1.2"
+"yarn-audit-fix@npm:9.2.0":
+  version: 9.2.0
+  resolution: "yarn-audit-fix@npm:9.2.0"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17056,11 +17102,11 @@ __metadata:
     "@types/semver": ^7.3.9
     "@types/yarnpkg__lockfile": ^1.1.5
     "@yarnpkg/lockfile": ^1.1.0
-    chalk: ^5.0.0
+    chalk: ^5.0.1
     commander: ^9.0.0
     find-cache-dir: ^3.3.2
     find-up: ^6.3.0
-    fs-extra: ^10.0.0
+    fs-extra: ^10.0.1
     globby: ^13.1.1
     js-yaml: ^4.1.0
     lodash-es: ^4.17.21
@@ -17069,18 +17115,18 @@ __metadata:
     synp: ^1.9.10
     tslib: ^2.3.1
   bin:
-    yarn-audit-fix: ./target/es6/cli.js
-  checksum: dd882bd19a59990da51c75ce211de8f92f533ab1f31694b3d3104dfebb90d7f6ce4d983a938508c9d237d8a934491afebb99cee99abe88e6362890a945441c44
+    yarn-audit-fix: target/es6/cli.js
+  checksum: 55ed1bc3258cd839fbe6976c0a9f5078b8b149a746997bfad93c8eb6e4adb45f7078b1769658b6e410357d34210a750fe724e44e156a28877a3771cdcad0c86f
   languageName: node
   linkType: hard
 
-"yarn@npm:1.22.17":
-  version: 1.22.17
-  resolution: "yarn@npm:1.22.17"
+"yarn@npm:1.22.18":
+  version: 1.22.18
+  resolution: "yarn@npm:1.22.18"
   bin:
-    yarn: ./bin/yarn.js
-    yarnpkg: ./bin/yarn.js
-  checksum: 9d5211477d439a4d7b5632d7c290a3be36d2edc13599b64964bff520d3a3a480db85010f3262293981abb4e618ac92aaafa4c4c54bae50a7713c7b8ec431adac
+    yarn: bin/yarn.js
+    yarnpkg: bin/yarn.js
+  checksum: ffd9a4872caa5fce83e914592dd6a40bb978bf992d3dca839bc3853b9e6de951d7596f7e8c4a88bec3af3a049e46097f9139a51740d9074582fd923af8762f7a
   languageName: node
   linkType: hard
 
