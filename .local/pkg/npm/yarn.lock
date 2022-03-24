@@ -3102,7 +3102,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.0.0, commander@npm:~9.0.0":
+"commander@npm:^9.1.0":
+  version: 9.1.0
+  resolution: "commander@npm:9.1.0"
+  checksum: 1428319b6b90600a813c28fe1e413996d1be99bf01afe9ebc4a9fc6f8077ff3e75f11809b2d2f85bd9b13d7cb592154278e9bbfdb16dc5843cef97bcba6a9cfd
+  languageName: node
+  linkType: hard
+
+"commander@npm:~9.0.0":
   version: 9.0.0
   resolution: "commander@npm:9.0.0"
   checksum: 15066e433d528315ded8261d16bc600d1f3c5671c75021e685ae67e4d62f7551243ff28411b28dc0a6f8b23c2a0f033550ec6f3e66bdf9d11a4fdc2d33dd9802
@@ -13028,13 +13035,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.231":
-  version: 1.1.231
-  resolution: "pyright@npm:1.1.231"
+"pyright@npm:1.1.232":
+  version: 1.1.232
+  resolution: "pyright@npm:1.1.232"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: c3b6b3570b87419e4b7dd2f2e9b1a3ab77c097726e24509bbc985fd8cd5589895ba52b093687152925f7c4c0944f518cf127e1511291cc2d59a40d62ace6cf7e
+  checksum: 594ddd5392cbe5f383292f8e09820393940780d788c364d96384b58ec7fa5daecc479bf7f1d5c50f71a7362439dfdfb6a54f93d221c19dcf943803032564f96b
   languageName: node
   linkType: hard
 
@@ -13459,9 +13466,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:14.13.0":
-  version: 14.13.0
-  resolution: "release-it@npm:14.13.0"
+"release-it@npm:14.13.1":
+  version: 14.13.1
+  resolution: "release-it@npm:14.13.1"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 18.12.0
@@ -13494,7 +13501,7 @@ __metadata:
     yargs-parser: 20.2.9
   bin:
     release-it: bin/release-it.js
-  checksum: dfabcdc631cfa324d17bf0f42dcbcff6e65fd37669afb4c9e2ba0904166aa6b37f7bfc57233782bae635f66a90c55285a23d425228d3bac264848704f69c1f70
+  checksum: 25946668d5d295dc1d854dfdec8fb80968296fbb0a5b033237b7eb96e5fe51e77a3b96b6650f3eeeba5b50a20ddd6a4213b344e0768f38f1d232173a75b81a2f
   languageName: node
   linkType: hard
 
@@ -13925,17 +13932,17 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.6.0
     puppeteer: 13.5.1
-    pyright: 1.1.231
-    release-it: 14.13.0
+    pyright: 1.1.232
+    release-it: 14.13.1
     semantic-release: 19.0.2
-    snyk: 1.878.0
+    snyk: 1.881.0
     stylelint: 14.6.0
     tldr: 3.3.7
     uglify-js: 3.15.3
     web-ext: 6.7.0
     write-good: 1.0.8
     yarn: 1.22.18
-    yarn-audit-fix: 9.2.0
+    yarn-audit-fix: 9.2.1
   languageName: unknown
   linkType: soft
 
@@ -14396,12 +14403,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.878.0":
-  version: 1.878.0
-  resolution: "snyk@npm:1.878.0"
+"snyk@npm:1.881.0":
+  version: 1.881.0
+  resolution: "snyk@npm:1.881.0"
   bin:
     snyk: bin/snyk
-  checksum: 39b8ff08c3ecca8f5c3b06539ade48e7cc6b008f0c22def435d96f2f254636413acc3076a32ff065990893696f873deea8419536dfd242e744eead4833d40403
+  checksum: 0085ab23288c3fbd6d4b9333fbecbec89c143b8058d30406d73647f1f6ec3beedce42d11150a02596060a0d3411f9f49b4a7214534d14d4133967e985563b67c
   languageName: node
   linkType: hard
 
@@ -17092,9 +17099,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.2.0":
-  version: 9.2.0
-  resolution: "yarn-audit-fix@npm:9.2.0"
+"yarn-audit-fix@npm:9.2.1":
+  version: 9.2.1
+  resolution: "yarn-audit-fix@npm:9.2.1"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17103,7 +17110,7 @@ __metadata:
     "@types/yarnpkg__lockfile": ^1.1.5
     "@yarnpkg/lockfile": ^1.1.0
     chalk: ^5.0.1
-    commander: ^9.0.0
+    commander: ^9.1.0
     find-cache-dir: ^3.3.2
     find-up: ^6.3.0
     fs-extra: ^10.0.1
@@ -17116,7 +17123,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: 55ed1bc3258cd839fbe6976c0a9f5078b8b149a746997bfad93c8eb6e4adb45f7078b1769658b6e410357d34210a750fe724e44e156a28877a3771cdcad0c86f
+  checksum: a512339246c6eadfba8fb44bf6e1e9f0031a7f9c4956a053155dbefbd59c1f8db7a538cae0af7dd3acfdc20bddf150e65389209e21253c8e8aaecfebe4a469a8
   languageName: node
   linkType: hard
 

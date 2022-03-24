@@ -19,17 +19,17 @@
     "markdownlint-cli2": "0.4.0",
     "prettier": "2.6.0",
     "puppeteer": "13.5.1",
-    "pyright": "1.1.231",
-    "release-it": "14.13.0",
+    "pyright": "1.1.232",
+    "release-it": "14.13.1",
     "semantic-release": "19.0.2",
-    "snyk": "1.878.0",
+    "snyk": "1.881.0",
     "stylelint": "14.6.0",
     "tldr": "3.3.7",
     "uglify-js": "3.15.3",
     "web-ext": "6.7.0",
     "write-good": "1.0.8",
     "yarn": "1.22.18",
-    "yarn-audit-fix": "9.2.0"
+    "yarn-audit-fix": "9.2.1"
   },
   "//": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
