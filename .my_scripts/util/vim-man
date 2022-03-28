@@ -5,6 +5,8 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 # https://github.com/neovim/neovim/issues/14090#issuecomment-913837694
 nvim_man() {
+  # Workaround for "fuse: mount failed: Permission denied" error
+  export APPIMAGE_EXTRACT_AND_RUN=1
   exec nvim +Man! "$@"
 }
 
