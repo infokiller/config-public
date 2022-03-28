@@ -24,7 +24,7 @@ require (
 	github.com/containerd/cgroups v1.0.3 // indirect
 	github.com/containerd/containerd v1.6.1 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
-	github.com/direnv/direnv/v2 v2.30.3 // indirect
+	github.com/direnv/direnv/v2 v2.31.0 // indirect
 	github.com/direnv/go-dotenv v0.0.0-20210516213449-d90326084211 // indirect
 	github.com/docker/cli v20.10.13+incompatible // indirect
 	github.com/docker/distribution v2.8.1+incompatible // indirect

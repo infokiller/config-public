@@ -444,8 +444,8 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZm
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/dimchansky/utfbom v1.1.0/go.mod h1:rO41eb7gLfo8SF1jd9F8HplJm1Fewwi4mQvIirEdv+8=
 github.com/dimchansky/utfbom v1.1.1/go.mod h1:SxdoEBH5qIqFocHMyGOXVAybYJdr71b1Q/j0mACtrfE=
-github.com/direnv/direnv/v2 v2.30.3 h1:pSiAixvFINeCOp9TNxiVeX3FM4RKP7CfqtjfP0IKWkQ=
-github.com/direnv/direnv/v2 v2.30.3/go.mod h1:/99gb+z8Q9MqoFDiqT8Appek3QCCCLrMV5nmpN/KrXE=
+github.com/direnv/direnv/v2 v2.31.0 h1:00j8/I6eN2ZJaYin1/LgN7VSYLLFw6Dyn/8jlk+9pxo=
+github.com/direnv/direnv/v2 v2.31.0/go.mod h1:/99gb+z8Q9MqoFDiqT8Appek3QCCCLrMV5nmpN/KrXE=
 github.com/direnv/go-dotenv v0.0.0-20210516213449-d90326084211 h1:WdqUL3fCUJSYuFMgA18Sqv3R6Qp1yYbo0L6i1umswqk=
 github.com/direnv/go-dotenv v0.0.0-20210516213449-d90326084211/go.mod h1:K5R9ofHu1mQRwNWMZgDnr0s1Ca1nkvz9r09NN/U2UyM=
 github.com/dnaeon/go-vcr v1.0.1/go.mod h1:aBB1+wY4s93YsC3HHjMBMrwTj2R9FHDzUr9KyGc8n1E=
