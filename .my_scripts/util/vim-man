@@ -3,8 +3,9 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+# https://github.com/neovim/neovim/issues/14090#issuecomment-913837694
 nvim_man() {
-  exec nvim -c 'Man!' -
+  exec nvim +Man! "$@"
 }
 
 vim_man() {
