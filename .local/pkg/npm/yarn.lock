@@ -8338,9 +8338,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-beautify@npm:1.14.0":
-  version: 1.14.0
-  resolution: "js-beautify@npm:1.14.0"
+"js-beautify@npm:1.14.2":
+  version: 1.14.2
+  resolution: "js-beautify@npm:1.14.2"
   dependencies:
     config-chain: ^1.1.12
     editorconfig: ^0.15.3
@@ -8350,7 +8350,7 @@ __metadata:
     css-beautify: js/bin/css-beautify.js
     html-beautify: js/bin/html-beautify.js
     js-beautify: js/bin/js-beautify.js
-  checksum: 86a32c61364f9266d070b0a3b56c451b09d418d26030216ffdcb770b5bd06184c00ac9eb53ccf7765503bb74022a9e177b72bc043b9e6b8a8f22ca8569c3aef6
+  checksum: 9bdd180d078d0a530f2174f4d6741f57c98cb1b0b807267f146e21f02d218d6b499e10d3b5f0bfa96b68e0dabda08a8d5c570b3d78c074ea074dd6fc028fb806
   languageName: node
   linkType: hard
 
@@ -13847,7 +13847,7 @@ __metadata:
     html-beautify: 1.0.4
     improved-yarn-audit: 3.0.0
     instant-markdown-d: 0.2.0
-    js-beautify: 1.14.0
+    js-beautify: 1.14.2
     lebab: 3.1.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.31.1
@@ -13857,7 +13857,7 @@ __metadata:
     pyright: 1.1.233
     release-it: 14.13.1
     semantic-release: 19.0.2
-    snyk: 1.884.0
+    snyk: 1.886.0
     stylelint: 14.6.1
     tldr: 3.3.7
     uglify-js: 3.15.3
@@ -14325,12 +14325,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.884.0":
-  version: 1.884.0
-  resolution: "snyk@npm:1.884.0"
+"snyk@npm:1.886.0":
+  version: 1.886.0
+  resolution: "snyk@npm:1.886.0"
   bin:
     snyk: bin/snyk
-  checksum: a1a49dddc02eaa4db3a12e4c9013674af7e9bf974867f7383683a070f7df356f1b6d0c219266e9fcff05497d110c2d8dba299bc4e12d684ec1ca07eae8b6275f
+  checksum: 65779fdf3f755030e30ef585b23bf5ecac271bb6b66bae8b81ed30ffba12b4e2e7382e21d94dc5f717cc0d4d432fd99c61511c0babcb1954ec2a6b6d7657a829
   languageName: node
   linkType: hard
 
