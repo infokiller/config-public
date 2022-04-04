@@ -4290,19 +4290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4.3.3":
-  version: 4.3.3
-  resolution: "debug@npm:4.3.3"
-  dependencies:
-    ms: 2.1.2
-  peerDependenciesMeta:
-    supports-color:
-      optional: true
-  checksum: 14472d56fe4a94dbcfaa6dbed2dd3849f1d72ba78104a1a328047bb564643ca49df0224c3a17fa63533fd11dd3d4c8636cd861191232a2c6735af00cc2d4de16
-  languageName: node
-  linkType: hard
-
-"debug@npm:^4.3.4":
+"debug@npm:4.3.4, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -7596,7 +7584,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:8.2.0, inquirer@npm:^8.1.0":
+"inquirer@npm:8.2.2":
+  version: 8.2.2
+  resolution: "inquirer@npm:8.2.2"
+  dependencies:
+    ansi-escapes: ^4.2.1
+    chalk: ^4.1.1
+    cli-cursor: ^3.1.0
+    cli-width: ^3.0.0
+    external-editor: ^3.0.3
+    figures: ^3.0.0
+    lodash: ^4.17.21
+    mute-stream: 0.0.8
+    ora: ^5.4.1
+    run-async: ^2.4.0
+    rxjs: ^7.5.5
+    string-width: ^4.1.0
+    strip-ansi: ^6.0.0
+    through: ^2.3.6
+  checksum: 69a2cf32f51af0e94dd66c597fdca42b890ff521b537dbfe1fd532c19a751d54893b7896523691ec30357f6212a80a2417fec7bf34411f369bbf151bdbc95ae9
+  languageName: node
+  linkType: hard
+
+"inquirer@npm:^8.1.0":
   version: 8.2.0
   resolution: "inquirer@npm:8.2.0"
   dependencies:
@@ -10557,19 +10567,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-db@npm:1.51.0":
-  version: 1.51.0
-  resolution: "mime-db@npm:1.51.0"
-  checksum: 613b1ac9d6e725cc24444600b124a7f1ce6c60b1baa654f39a3e260d0995a6dffc5693190217e271af7e2a5612dae19f2a73f3e316707d797a7391165f7ef423
+"mime-db@npm:1.52.0":
+  version: 1.52.0
+  resolution: "mime-db@npm:1.52.0"
+  checksum: 0d99a03585f8b39d68182803b12ac601d9c01abfa28ec56204fa330bc9f3d1c5e14beb049bafadb3dbdf646dfb94b87e24d4ec7b31b7279ef906a8ea9b6a513f
   languageName: node
   linkType: hard
 
-"mime-types@npm:2.1.34":
-  version: 2.1.34
-  resolution: "mime-types@npm:2.1.34"
+"mime-types@npm:2.1.35":
+  version: 2.1.35
+  resolution: "mime-types@npm:2.1.35"
   dependencies:
-    mime-db: 1.51.0
-  checksum: 67013de9e9d6799bde6d669d18785b7e18bcd212e710d3e04a4727f92f67a8ad4e74aee24be28b685adb794944814bde649119b58ee3282ffdbee58f9278d9f3
+    mime-db: 1.52.0
+  checksum: 89a5b7f1def9f3af5dad6496c5ed50191ae4331cc5389d7c521c8ad28d5fdad2d06fd81baf38fed813dc4e46bb55c8145bb0ff406330818c9cf712fb2e9b3836
   languageName: node
   linkType: hard
 
@@ -12717,12 +12727,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.6.1":
-  version: 2.6.1
-  resolution: "prettier@npm:2.6.1"
+"prettier@npm:2.6.2":
+  version: 2.6.2
+  resolution: "prettier@npm:2.6.2"
   bin:
     prettier: bin-prettier.js
-  checksum: 78be1f8a3ddfad7c3d8a854b6c8941a3bb1ddfca4225c38d778e0fe1029a55368f71b3bbefff82c689015fbb4d391ec44add957f01308ad2725e01a7c1f37cb6
+  checksum: 48d08dde8e9fb1f5bccdd205baa7f192e9fc8bc98f86e1b97d919de804e28c806b0e6cc685e4a88211aa7987fa9668f30baae19580d87ced3ed0f2ec6572106f
   languageName: node
   linkType: hard
 
@@ -12937,12 +12947,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:13.5.1":
-  version: 13.5.1
-  resolution: "puppeteer@npm:13.5.1"
+"puppeteer@npm:13.5.2":
+  version: 13.5.2
+  resolution: "puppeteer@npm:13.5.2"
   dependencies:
     cross-fetch: 3.1.5
-    debug: 4.3.3
+    debug: 4.3.4
     devtools-protocol: 0.0.969999
     extract-zip: 2.0.1
     https-proxy-agent: 5.0.0
@@ -12953,17 +12963,17 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.5.0
-  checksum: adf7511977d9300386cc2b2699d83c7f4c2e890fb00a5d7a7b41a11561b599b1f19b26ac4ae9d469ce567c87a22be6362160166f31aca135d94148f68aeff2cc
+  checksum: 5f03c8a606067ae114ea646d9773b76b3e2c8f0654ef4453c5f813686a218481d934708fefc607822b75673c6e82b812755892f57d02e42a0dadeaabe3c56138
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.233":
-  version: 1.1.233
-  resolution: "pyright@npm:1.1.233"
+"pyright@npm:1.1.234":
+  version: 1.1.234
+  resolution: "pyright@npm:1.1.234"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 7716d01c528c3fc754a095411287bd79ea02fc5555bac0a295f8b18384898b63b9ab3e7eeb3b43e4e056347c6da367ba73b733e3dac239eec7da7d85fc82f4b2
+  checksum: 493e2bb08c9634e34cbcb7b4f16a9b244c637f0576a2d982c96bd97abce4fc61fe72168a946e23436a747220aa6c30bc694bfb61578a88879cccc653e6710ba0
   languageName: node
   linkType: hard
 
@@ -13388,26 +13398,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:14.13.1":
-  version: 14.13.1
-  resolution: "release-it@npm:14.13.1"
+"release-it@npm:14.14.0":
+  version: 14.14.0
+  resolution: "release-it@npm:14.14.0"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 18.12.0
     async-retry: 1.3.3
     chalk: 4.1.2
     cosmiconfig: 7.0.1
-    debug: 4.3.3
+    debug: 4.3.4
     execa: 5.1.1
     form-data: 4.0.0
     git-url-parse: 11.6.0
     globby: 11.0.4
     got: 11.8.3
     import-cwd: 3.0.0
-    inquirer: 8.2.0
+    inquirer: 8.2.2
     is-ci: 3.0.1
     lodash: 4.17.21
-    mime-types: 2.1.34
+    mime-types: 2.1.35
     new-github-release-url: 1.0.0
     open: 7.4.2
     ora: 5.4.1
@@ -13423,7 +13433,7 @@ __metadata:
     yargs-parser: 20.2.9
   bin:
     release-it: bin/release-it.js
-  checksum: 25946668d5d295dc1d854dfdec8fb80968296fbb0a5b033237b7eb96e5fe51e77a3b96b6650f3eeeba5b50a20ddd6a4213b344e0768f38f1d232173a75b81a2f
+  checksum: 0fafde8389d72555f66e34015e27f35fce8b76fd1da0fd03b475b04cd195f89c3b07d7ccb1cc293289c9e29fb4ae0318285d35c22b41e28d7b9062cb0028b6f4
   languageName: node
   linkType: hard
 
@@ -13852,19 +13862,19 @@ __metadata:
     markdown-toc: 1.2.0
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
-    prettier: 2.6.1
-    puppeteer: 13.5.1
-    pyright: 1.1.233
-    release-it: 14.13.1
+    prettier: 2.6.2
+    puppeteer: 13.5.2
+    pyright: 1.1.234
+    release-it: 14.14.0
     semantic-release: 19.0.2
-    snyk: 1.886.0
+    snyk: 1.893.0
     stylelint: 14.6.1
     tldr: 3.3.7
     uglify-js: 3.15.3
     web-ext: 6.8.0
     write-good: 1.0.8
     yarn: 1.22.18
-    yarn-audit-fix: 9.2.1
+    yarn-audit-fix: 9.2.2
   languageName: unknown
   linkType: soft
 
@@ -13927,6 +13937,15 @@ __metadata:
   dependencies:
     tslib: ~2.1.0
   checksum: 6b33172a760dcad6882fdc836ee8cf1ebe160dd7eaad95c45a12338ffdaa96eb41e48e6c25bbd3d1fdf45075949ff447954bc17a9d01c688558a67967d09c114
+  languageName: node
+  linkType: hard
+
+"rxjs@npm:^7.5.5":
+  version: 7.5.5
+  resolution: "rxjs@npm:7.5.5"
+  dependencies:
+    tslib: ^2.1.0
+  checksum: e034f60805210cce756dd2f49664a8108780b117cf5d0e2281506e9e6387f7b4f1532d974a8c8b09314fa7a16dd2f6cff3462072a5789672b5dcb45c4173f3c6
   languageName: node
   linkType: hard
 
@@ -14325,12 +14344,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.886.0":
-  version: 1.886.0
-  resolution: "snyk@npm:1.886.0"
+"snyk@npm:1.893.0":
+  version: 1.893.0
+  resolution: "snyk@npm:1.893.0"
   bin:
     snyk: bin/snyk
-  checksum: 65779fdf3f755030e30ef585b23bf5ecac271bb6b66bae8b81ed30ffba12b4e2e7382e21d94dc5f717cc0d4d432fd99c61511c0babcb1954ec2a6b6d7657a829
+  checksum: 461e1098b00546d122aa076df5d05b8f05b0a1847bfe4fb4ec526d32c45d123c0a3a498b5ce4f18afc49b2c3f8f89a62c6a964d18f677c77dd574c6cd58571a3
   languageName: node
   linkType: hard
 
@@ -15596,7 +15615,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.2.0, tslib@npm:^2.3.1":
+"tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.1":
   version: 2.3.1
   resolution: "tslib@npm:2.3.1"
   checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
@@ -17021,9 +17040,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.2.1":
-  version: 9.2.1
-  resolution: "yarn-audit-fix@npm:9.2.1"
+"yarn-audit-fix@npm:9.2.2":
+  version: 9.2.2
+  resolution: "yarn-audit-fix@npm:9.2.2"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17045,7 +17064,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: a512339246c6eadfba8fb44bf6e1e9f0031a7f9c4956a053155dbefbd59c1f8db7a538cae0af7dd3acfdc20bddf150e65389209e21253c8e8aaecfebe4a469a8
+  checksum: 9fc362d7f4ab23db827a8aaad79b09de149c544b3f963ce9bc9ad47b72b07a57c259eb0970b08af329262184766bebf4243c587dcb1f358df45fff80d36a7609
   languageName: node
   linkType: hard
 
