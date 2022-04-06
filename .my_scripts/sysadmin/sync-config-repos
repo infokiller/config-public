@@ -143,7 +143,9 @@ _move_packages_if_needed() {
 
 _move_rofi_history_if_needed() {
   for f in "${XDG_CACHE_HOME:-${HOME}/.cache}"/rofi*; do
-    mv -- "${f}" "${HOST_HIST_DIR}"
+    if [[ -f "${f}" ]]; then
+      mv -- "${f}" "${HOST_HIST_DIR}"
+    fi
   done
 }
 
