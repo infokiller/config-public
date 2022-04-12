@@ -30,6 +30,10 @@ _log_extraction() {
   printf 'Extracting %s to %s (%s)\n' "$1" "$2" "$3"
 }
 
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
 _get_archive_extension() {
   local filename="$1"
   local ext
@@ -66,7 +70,7 @@ main() {
     printf 'Supported extensions: %s\n' "${EXTENSIONS[*]}"
     exit 1
   fi
-  local filename_no_extension="${1%.${extension}}"
+  local filename_no_extension="${1%."${extension}"}"
 
   local target
   if [[ -n ${2-} ]]; then
@@ -108,7 +112,7 @@ main() {
       ;;
     gz)
       _log_extraction "$1" "${target}" 'gzip compressed file'
-      (command_exists pigz && pigz -d "${target}") || gunzip "$1"
+      (_command_exists pigz && pigz -d "${target}") || gunzip "$1"
       ;;
     bz2)
       _log_extraction "$1" "${target}" 'bzip compressed file'
