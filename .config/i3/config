@@ -830,5 +830,6 @@ $exec_cli sh -c 'sleep 3 && ~/.my_scripts/i3/i3-resurrect-wrapper restore'
 ################################################################################
 
 include ${HOST_ALIAS}.conf
+include private.conf
 
 # vim: set ft=conf :
