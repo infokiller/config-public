@@ -77,12 +77,16 @@ CreateLink '/etc/systemd/system/timers.target.wants/download-new-packages.timer'
 CreateLink '/etc/systemd/system/multi-user.target.wants/pkgfile-update.timer' '/usr/lib/systemd/system/pkgfile-update.timer'
 
 # Package management: nix
-AddPackage nix # A purely functional package manager
-CreateLink /etc/systemd/system/multi-user.target.wants/nix-daemon.service /usr/lib/systemd/system/nix-daemon.service
-cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << 'EOF'
-
-experimental-features = nix-command flakes
-EOF
+# nix installs /etc/profile.d/nix-daemon.sh which sets PATH and can cause issues
+# with other programs, for example loading a shared library from nix that is
+# incompatible with another library, so I'm disabling it till I fully commit to
+# using nix.
+# AddPackage nix # A purely functional package manager
+# CreateLink /etc/systemd/system/multi-user.target.wants/nix-daemon.service /usr/lib/systemd/system/nix-daemon.service
+# cat >> "$(GetPackageOriginalFile nix /etc/nix/nix.conf)" << 'EOF'
+#
+# experimental-features = nix-command flakes
+# EOF
 IgnorePath '/nix/*'
 
 # Package management: others
