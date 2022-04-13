@@ -808,6 +808,8 @@ client.urgent           $bg     $alert  $fg     $alert    $bg
 default_border pixel 1
 default_floating_border pixel 3
 
+# for_window [all] title_window_icon yes
+
 # As of 2021-11-10, these services are pulled by the i3wm.service unit.
 # NOTE: Double quotes are important so that the environment variable expands.
 # $exec_always_cli "systemctl --user restart polybar@i3-${HOST_ALIAS:-generic}"
