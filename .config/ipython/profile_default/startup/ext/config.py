@@ -237,18 +237,24 @@ def _configure_completion():
         jedi.settings.add_bracket_after_function = True
 
 
+def _configure_autoreload():
+    ipython = get_ipython()
+    # Loading autoreload prints a warning that we suppress:
+    # "the imp module is deprecated in favour of importlib; see the module's
+    # documentation for alternative uses"
+    # %reload_ext autoreload
+    # pylint: disable=undefined-variable
+    ipython.run_line_magic('reload_ext', 'autoreload')
+    ipython.run_line_magic('autoreload',
+                           3 if IPython.version_info[0] >= 8 else 2)
+
+
 _define_prompt_toolkit_keybindings()
 _define_aliases()
 _configure_matplotlib()
 _configure_completion()
+_configure_autoreload()
 _load_local_extension('autotime')
-# Loading autoreload prints a warning that we suppress:
-# "the imp module is deprecated in favour of importlib; see the module's
-# documentation for alternative uses"
-# %reload_ext autoreload
-# pylint: disable=undefined-variable
-get_ipython().run_line_magic('reload_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
 # which I don't like, so I'm setting it directly on the IPython object.
 # %pdb on

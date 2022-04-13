@@ -1093,3 +1093,6 @@ if IPython.version_info[0] >= 5:
     # Enable 24 bit true color.
     c.TerminalInteractiveShell.true_color = True
     c.TerminalInteractiveShell.highlighting_style = 'solarized-dark'
+
+    if IPython.version_info[0] >= 8:
+        c.TerminalInteractiveShell.auto_match = True
