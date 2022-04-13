@@ -2366,21 +2366,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cacheable-request@npm:^7.0.2":
-  version: 7.0.2
-  resolution: "cacheable-request@npm:7.0.2"
-  dependencies:
-    clone-response: ^1.0.2
-    get-stream: ^5.1.0
-    http-cache-semantics: ^4.0.0
-    keyv: ^4.0.0
-    lowercase-keys: ^2.0.0
-    normalize-url: ^6.0.1
-    responselike: ^2.0.0
-  checksum: 6152813982945a5c9989cb457a6c499f12edcc7ade323d2fbfd759abc860bdbd1306e08096916bb413c3c47e812f8e4c0a0cc1e112c8ce94381a960f115bc77f
-  languageName: node
-  linkType: hard
-
 "call-bind@npm:^1.0.0, call-bind@npm:^1.0.2":
   version: 1.0.2
   resolution: "call-bind@npm:1.0.2"
@@ -6805,22 +6790,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"got@npm:11.8.3":
-  version: 11.8.3
-  resolution: "got@npm:11.8.3"
+"got@npm:9.6.0, got@npm:^9.6.0":
+  version: 9.6.0
+  resolution: "got@npm:9.6.0"
   dependencies:
-    "@sindresorhus/is": ^4.0.0
-    "@szmarczak/http-timer": ^4.0.5
-    "@types/cacheable-request": ^6.0.1
-    "@types/responselike": ^1.0.0
-    cacheable-lookup: ^5.0.3
-    cacheable-request: ^7.0.2
-    decompress-response: ^6.0.0
-    http2-wrapper: ^1.0.0-beta.5.2
-    lowercase-keys: ^2.0.0
-    p-cancelable: ^2.0.0
-    responselike: ^2.0.0
-  checksum: 3b6db107d9765470b18e4cb22f7c7400381be7425b9be5823f0168d6c21b5d6b28b023c0b3ee208f73f6638c3ce251948ca9b54a1e8f936d3691139ac202d01b
+    "@sindresorhus/is": ^0.14.0
+    "@szmarczak/http-timer": ^1.1.2
+    cacheable-request: ^6.0.0
+    decompress-response: ^3.3.0
+    duplexer3: ^0.1.4
+    get-stream: ^4.1.0
+    lowercase-keys: ^1.0.1
+    mimic-response: ^1.0.1
+    p-cancelable: ^1.0.0
+    to-readable-stream: ^1.0.0
+    url-parse-lax: ^3.0.0
+  checksum: 941807bd9704bacf5eb401f0cc1212ffa1f67c6642f2d028fd75900471c221b1da2b8527f4553d2558f3faeda62ea1cf31665f8b002c6137f5de8732f07370b0
   languageName: node
   linkType: hard
 
@@ -6840,25 +6825,6 @@ __metadata:
     p-cancelable: ^2.0.0
     responselike: ^2.0.0
   checksum: 41ad7bf74f7ec18bca81997ea0a6c8b6b75405cc3ba76d49c5d9d4658cad200d5a9fa7b0a13058458d0df6bed217baabd122d5d351c6bc6996514a5e428744bb
-  languageName: node
-  linkType: hard
-
-"got@npm:^9.6.0":
-  version: 9.6.0
-  resolution: "got@npm:9.6.0"
-  dependencies:
-    "@sindresorhus/is": ^0.14.0
-    "@szmarczak/http-timer": ^1.1.2
-    cacheable-request: ^6.0.0
-    decompress-response: ^3.3.0
-    duplexer3: ^0.1.4
-    get-stream: ^4.1.0
-    lowercase-keys: ^1.0.1
-    mimic-response: ^1.0.1
-    p-cancelable: ^1.0.0
-    to-readable-stream: ^1.0.0
-    url-parse-lax: ^3.0.0
-  checksum: 941807bd9704bacf5eb401f0cc1212ffa1f67c6642f2d028fd75900471c221b1da2b8527f4553d2558f3faeda62ea1cf31665f8b002c6137f5de8732f07370b0
   languageName: node
   linkType: hard
 
@@ -9610,13 +9576,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^7.4.0":
-  version: 7.8.1
-  resolution: "lru-cache@npm:7.8.1"
-  checksum: 31ea67388c9774300331d70f4affd5a433869bcf0fae5405f967d19d7b447930b713b0566a2e95362c9082034a8b496f3671ccf8f0c061d8e8048412663f9432
-  languageName: node
-  linkType: hard
-
 "macos-release@npm:^2.5.0":
   version: 2.5.0
   resolution: "macos-release@npm:2.5.0"
@@ -11603,7 +11562,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-url@npm:^6.0.0, normalize-url@npm:^6.0.1":
+"normalize-url@npm:^6.0.0":
   version: 6.1.0
   resolution: "normalize-url@npm:6.1.0"
   checksum: 4a4944631173e7d521d6b80e4c85ccaeceb2870f315584fa30121f505a6dfd86439c5e3fdd8cd9e0e291290c41d0c3599f0cb12ab356722ed242584c30348e50
@@ -13681,9 +13640,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:14.14.1":
-  version: 14.14.1
-  resolution: "release-it@npm:14.14.1"
+"release-it@npm:14.14.2":
+  version: 14.14.2
+  resolution: "release-it@npm:14.14.2"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 18.12.0
@@ -13695,7 +13654,7 @@ __metadata:
     form-data: 4.0.0
     git-url-parse: 11.6.0
     globby: 11.0.4
-    got: 11.8.3
+    got: 9.6.0
     import-cwd: 3.0.0
     inquirer: 8.2.0
     is-ci: 3.0.1
@@ -13707,7 +13666,7 @@ __metadata:
     os-name: 4.0.1
     parse-json: 5.2.0
     promise.allsettled: 1.0.5
-    semver: 7.3.6
+    semver: 7.3.5
     shelljs: 0.8.5
     update-notifier: 5.1.0
     url-join: 4.0.1
@@ -13717,7 +13676,7 @@ __metadata:
     yargs-parser: 20.2.9
   bin:
     release-it: bin/release-it.js
-  checksum: 1cee5b21f33816c92c850433a7d937351575fdc4ec3424ada0474e7da0b5f93aaf420bb145966800f167537e8e27aad121971e205420db2b71f89a8c8e77927d
+  checksum: 754dbffc977776f40c90311e5980c5a7f3fa88e3a1061d8709507aa22f0c4d7873f2bf32effd04c46d87420f6106c712565a389d703287bdc4de75f862dfd221
   languageName: node
   linkType: hard
 
@@ -14149,9 +14108,9 @@ __metadata:
     prettier: 2.6.2
     puppeteer: 13.5.2
     pyright: 1.1.236
-    release-it: 14.14.1
+    release-it: 14.14.2
     semantic-release: 19.0.2
-    snyk: 1.900.0
+    snyk: 1.904.0
     stylelint: 14.6.1
     tldr: 3.3.7
     uglify-js: 3.15.4
@@ -14346,17 +14305,6 @@ __metadata:
   bin:
     semver: ./bin/semver
   checksum: 57fd0acfd0bac382ee87cd52cd0aaa5af086a7dc8d60379dfe65fea491fb2489b6016400813930ecd61fd0952dae75c115287a1b16c234b1550887117744dfaf
-  languageName: node
-  linkType: hard
-
-"semver@npm:7.3.6":
-  version: 7.3.6
-  resolution: "semver@npm:7.3.6"
-  dependencies:
-    lru-cache: ^7.4.0
-  bin:
-    semver: bin/semver.js
-  checksum: 9845f96b22268190b30025e02feca391451f2bd49b2c51920c27cc56744f64cbe397df089018fdb347d4b4fd800eabbd85661870eb63eb28055d2b72e457f759
   languageName: node
   linkType: hard
 
@@ -14641,12 +14589,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.900.0":
-  version: 1.900.0
-  resolution: "snyk@npm:1.900.0"
+"snyk@npm:1.904.0":
+  version: 1.904.0
+  resolution: "snyk@npm:1.904.0"
   bin:
     snyk: bin/snyk
-  checksum: 772394d2780098d68c0fbab0bcce8df0880739b782bae485a9e8437e28ccb300970690e87cfebda76909ddd61053c08533f06e35b5649f6069f04e8d672aae07
+  checksum: 5436dd0490ce02f739c75768669679385dba769603b98127641a3c635b59d61fbb3119127a1b1d173421080b78dd5722f6bc18fcd13b70c89304e9ad39778fe1
   languageName: node
   linkType: hard
 
