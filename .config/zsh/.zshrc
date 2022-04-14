@@ -1793,8 +1793,8 @@ fi
 #                                Local settings                                #
 ################################################################################
 
-if [[ -f "${ZSHENV_DIR}/zshrc_local.zsh" ]]; then
-  source_compiled "${ZSHENV_DIR}/zshrc_local.zsh"
+if [[ -f "${ZSHENV_DIR}/zshrc_private.zsh" ]]; then
+  source_compiled "${ZSHENV_DIR}/zshrc_private.zsh"
 fi
 
 ################################################################################

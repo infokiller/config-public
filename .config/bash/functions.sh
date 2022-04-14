@@ -1092,7 +1092,8 @@ _ssh-tmxcs() {
   else
     ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}"
   fi
-  _fix_terminal_after_ssh_tmux
+  local s=$?
+  _fix_terminal_after_ssh_tmux && return $s
 }
 _ssh-tmxns() {
   if (($# < 3)); then
