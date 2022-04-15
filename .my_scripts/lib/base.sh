@@ -14,6 +14,18 @@ is_zsh() {
   [[ -n "${ZSH_VERSION-}" ]]
 }
 
+get_shell_type() {
+  if is_zsh; then
+    printf 'zsh'
+  elif is_bash; then
+    printf 'bash'
+  else
+    printf 'unknown'
+    printf >&2 '%s\n' 'Unrecognized shell!'
+    return 1
+  fi
+}
+
 # Based on:
 # https://github.com/dylanaraps/pure-bash-bible#get-the-directory-name-of-a-file-path
 # Used instead of the dirname binary for performance.

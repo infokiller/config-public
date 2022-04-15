@@ -1784,6 +1784,8 @@ maybe-run-tracked-emulate -- source \
 # +a means not to print warnings when defining aliases.
 maybe-run-tracked-emulate +a -- source_compiled \
   "${SHELL_CONFIG_DIR}/functions.sh"
+maybe-run-tracked-emulate +a -- source_compiled \
+  "${ZSHENV_DIR}/functions.zsh"
 
 if command_exists broot; then
   autoload -Uz br
@@ -1793,8 +1795,8 @@ fi
 #                                Local settings                                #
 ################################################################################
 
-if [[ -f "${ZSHENV_DIR}/zshrc_local.zsh" ]]; then
-  source_compiled "${ZSHENV_DIR}/zshrc_local.zsh"
+if [[ -f "${ZSHENV_DIR}/zshrc_private.zsh" ]]; then
+  source_compiled "${ZSHENV_DIR}/zshrc_private.zsh"
 fi
 
 ################################################################################
