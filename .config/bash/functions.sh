@@ -1580,6 +1580,13 @@ detect-secrets-update-and-audit() {
 
 # }}} Misc 
 
+# Private includes {{{
+if [[ -r "${REPO_ROOT}/.config/bash/functions_private.sh" ]]; then
+  # shellcheck source=../../.config/bash/functions_private.sh
+  source "${REPO_ROOT}/.config/bash/functions_private.sh" 
+fi
+# }}} Private includes
+
 # Zsh specific  {{{
 if is_zsh; then
   # run-help is aliased to man by default, which masks Zsh's built-in run-help
