@@ -1088,12 +1088,12 @@ _ssh-tmxcs() {
   cmd+="$(_maybe_run_with_colorterm)"
   # shellcheck disable=SC2016
   cmd+='tmux attach -d -t "${s}"'
+  local s=0
   if ((use_et)); then
-    ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}"
+    ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}" || s=$?
   else
-    ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}"
+    ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}" || s=$?
   fi
-  local s=$?
   _fix_terminal_after_ssh_tmux && return $s
 }
 _ssh-tmxns() {
@@ -1110,12 +1110,12 @@ _ssh-tmxns() {
   local cmd
   cmd="$(_maybe_run_with_colorterm)"
   cmd+="$(printf "tmux new-session -A -D -s '%s'" "${session_name[*]}")"
+  local s=0
   if ((use_et)); then
-    ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}"
+    ssh-et "${ssh_args[@]}" -t "${cmd}" "${remote[*]}" || s=$?
   else
-    ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}"
+    ssh "${ssh_args[@]}" -t "${remote[*]}" "${cmd}" || s=$?
   fi
-  local s=$?
   _fix_terminal_after_ssh_tmux && return $s
 }
 alias ssh-tmxcs='_ssh-tmxcs 0'
