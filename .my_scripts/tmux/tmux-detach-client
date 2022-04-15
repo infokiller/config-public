@@ -3,6 +3,8 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
+readonly HIST_DIR="${HOME}/.local/var/hist/${HOSTNAME}"
+
 # shellcheck disable=SC2034
 delim=':::'
 # A command to list clients that is usable when presenting to the user.
@@ -19,24 +21,30 @@ clients_presentation_cmd='tmux list-clients \
   | gawk -F"${delim}" '"'"'{OFS=" | "; $3=strftime("%Y-%m-%d %H:%M", $3); $4=strftime("%Y-%m-%d %H:%M", $4); print $0}'"'"' \
   | (printf "%s\n" "${presentation_header}" && cat) \
   | column -t -s "|"'
+# The presentation must be evaluated only once for both selection and parsing,
+# otherwise it might change between them.
+clients_presentation="$(eval "${clients_presentation_cmd}")"
 
 # A command to list clients that is easily parsable.
 clients_parsing_cmd='tmux list-clients -F "#{client_tty}"'
 
-client_lines_selected=$(eval "${clients_presentation_cmd}" |
-  fzf-tmux --header-lines=1 --prompt="Clients > " --multi)
+client_lines_selected=$(
+  printf '%s\n' "${clients_presentation}" |
+    nl |
+    fzf --with-nth '2..' --header-lines=1 --prompt="Clients > " --multi \
+      --toggle-sort=ctrl-r \
+      "--history=${HIST_DIR}/tmux_detach_client_history" \
+      --history-size=100000
+)
 status=$?
 if ((status != 0)); then
   exit ${status}
 fi
 
-while IFS='' read -r client_line; do
-  client_line_index=$(eval "${clients_presentation_cmd}" |
-    grep --text -n "${client_line}" |
-    cut -f1 -d:)
-  # First line is the header that isn't printed in clients_parsing_cmd, so we
-  # need to decrement the returned index.
-  client_line_index=$((client_line_index - 1))
-  client_tty=$(eval "${clients_parsing_cmd}" | head -"${client_line_index}" | tail -1)
+while IFS='' read -r client_index; do
+  # Offset for the header row which is present in the presentation command but not
+  # in the parsing command.
+  client_index=$((client_index - 1))
+  client_tty=$(eval "${clients_parsing_cmd}" | head -n"${client_index}" | tail -n1)
   tmux detach-client -t "${client_tty}"
-done < <(printf '%s\n' "${client_lines_selected}")
+done < <(awk '{print $1}' <<< "${client_lines_selected}")
