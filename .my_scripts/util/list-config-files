@@ -37,6 +37,7 @@ readonly EXCLUDES=(
 readonly INCLUDED_SUBMODULES=(
   'keydope'
   'terminal/histcat'
+  'terminal/ssh-et'
   'desktop/i3-workspace-groups'
   'desktop/i3-scratchpad'
   'vim/vim-errorlist'
