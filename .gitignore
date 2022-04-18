@@ -295,9 +295,10 @@
 /.config/docker
 /.config/dolphinrc
 /.config/dotdrop.yaml
-/.config/evolution
 /.config/et
+/.config/evolution
 /.config/fdroidcl
+/.config/freerdp/shadow
 /.config/gambas3
 /.config/geeqie
 /.config/geequi
