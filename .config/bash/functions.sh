@@ -1122,6 +1122,36 @@ alias ssh-tmxcs='_ssh-tmxcs 0'
 alias ssh-tmxns='_ssh-tmxns 0'
 alias ssh-et-tmxcs='_ssh-tmxcs 1'
 alias ssh-et-tmxns='_ssh-tmxns 1'
+
+# Accepts shell commands in stdin and passes them to ssh in tmux-xpanes
+ssh-xpanes-stdin() {
+  # TODO: Fix this function
+  print_error 'ssh-xpanes-stdin: does not work yet'
+  return 1
+  if (($# < 1)); then
+    print_error 'Usage: cmd | ssh-xpanes-stdin [XPANES_ARGS] REMOTE...'
+    return 1
+  fi
+  if [[ ! -t 1 ]]; then
+    print_error 'ssh-xpanes-stdin: must be connected to tty'
+    return 1
+  fi
+  local cmds s=0
+  read -r -d '' -t 1 cmds || s=$?
+  if [[ -z "${cmds}" ]]; then
+    print_error 'ssh-xpanes-stdin: expecting standard input'
+    return 1
+  fi
+  # Remove line continuations
+  cmds="${cmds//$'\\\n'/}"
+  # Replace newlines with semicolon to separate commands, since passing the
+  # newlines causes issues. Also, wrap everything in a function.
+  cmds="f() { ${cmds//$'\n'/;}; }; f"
+  printf '%s\n' "${cmds}"
+  # We must redirect the stdin of tmux-xpanes to the tty so that it doesn't use
+  # "pipe mode" (see tmux-xpanes docs).
+  tmux-xpanes -t -c "ssh -t {} zsh -c ${cmds}" "$@" < /dev/tty
+}
 # }}} Tmux 
 
 # Python {{{
