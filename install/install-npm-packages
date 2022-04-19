@@ -28,6 +28,13 @@ def _get_npm_config_var(name: str):
     return p.stdout.strip()
 
 
+# https://yarnpkg.com/cli/set/version
+def _upgrade_yarn():
+    subprocess.run(['yarn', 'set', 'version', 'berry'],
+                   cwd=LOCAL_MODULES_PARENT_DIR,
+                   check=True)
+
+
 def _upgrade_packages(packages):
     # NOTE(infokiller): This doesn't upgrade package.json with the new versions,
     # see: https://github.com/yarnpkg/yarn/issues/3266
@@ -76,7 +83,7 @@ def _get_man_files(package_path, package_metadata):
 def _link_package_files(package_path, get_binary_install_name=lambda x: x):
     package_spec = os.path.basename(package_path)
     package_metadata_path = os.path.join(package_path, 'package.json')
-    with open(package_metadata_path) as f:
+    with open(package_metadata_path, encoding='utf8') as f:
         package_metadata = json.loads(f.read())
     package_bins = package_metadata.get('bin', {})
     if isinstance(package_bins, str):
@@ -151,6 +158,8 @@ def main():
     util.create_user_dirs()
 
     _install_pnpm_via_npm()
+    if args.upgrade:
+        _upgrade_yarn()
     _install_packages()
     with open(os.path.join(LOCAL_MODULES_PARENT_DIR, 'package.json')) as f:
         packages_json = json.loads(f.read())
