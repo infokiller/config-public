@@ -300,7 +300,7 @@ _install_cargo_from_rustup() {
 _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   pip install 'pip-tools>=6.5'
-  pip-compile --generate-hashes --allow-unsafe --upgrade "$@"
+  pip-compile --quiet --generate-hashes --allow-unsafe --upgrade "$@"
 }
 
 # TODO: Upgrade "tools" environment
@@ -341,7 +341,6 @@ _upgrade_graphical_python_envs() {
     # shellcheck disable=SC1091
     source activate i3_scratchpad
     _pip_compile_upgrade
-    pip-compile --generate-hashes --allow-unsafe --upgrade
   )
   (
     cd -- "${REPO_ROOT}/.my_scripts/i3"
