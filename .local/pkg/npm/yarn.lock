@@ -1969,9 +1969,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:2.0.0":
-  version: 2.0.0
-  resolution: "bash-language-server@npm:2.0.0"
+"bash-language-server@npm:2.1.0":
+  version: 2.1.0
+  resolution: "bash-language-server@npm:2.1.0"
   dependencies:
     fuzzy-search: ^3.2.1
     glob: ^7.1.6
@@ -1984,7 +1984,7 @@ __metadata:
     web-tree-sitter: ^0.19.4
   bin:
     bash-language-server: bin/main.js
-  checksum: 7c71cd7432abe2158b4d433f6a5fbf997496f0338d363739cdbca063c45dcaf12fa994a5d30b8f964aabb783c2f029153ccc6c808e8dac13ddbad016a8251454
+  checksum: ef926e176023b759775ba93077fcb9717a72e1b859419ff84cf9b00b980af5f93ecb5332a31dcee3749afdb894c42068ff794c78f99ee2ee897b2284d752e8df
   languageName: node
   linkType: hard
 
@@ -14107,7 +14107,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.1
     alex: 10.0.0
-    bash-language-server: 2.0.0
+    bash-language-server: 2.1.0
     corepack: 0.10.0
     diff-so-fancy: 1.4.3
     eslint: 8.13.0
@@ -14127,8 +14127,8 @@ __metadata:
     pyright: 1.1.238
     release-it: 14.14.2
     semantic-release: 19.0.2
-    snyk: 1.906.0
-    stylelint: 14.7.0
+    snyk: 1.907.0
+    stylelint: 14.7.1
     tldr: 3.3.7
     uglify-js: 3.15.4
     web-ext: 6.8.0
@@ -14617,12 +14617,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.906.0":
-  version: 1.906.0
-  resolution: "snyk@npm:1.906.0"
+"snyk@npm:1.907.0":
+  version: 1.907.0
+  resolution: "snyk@npm:1.907.0"
   bin:
     snyk: bin/snyk
-  checksum: 9fba5d9095fb6ad2ca1a8109bff6f4bcff911494a391f31a03841c92905f43a315e705d4a0cc142e25575287db8f7ca956c240beeb1b55b70a4a6cf2bb18a99a
+  checksum: a27f65f7839e845cff463781c7b411657955865617f1a0d839cfdf88e6a8a656e21aa68a23ec95bf4fa7e0591a64a45c5b7ec8be793be445d3a7f2fb373d9068
   languageName: node
   linkType: hard
 
@@ -15319,9 +15319,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.7.0":
-  version: 14.7.0
-  resolution: "stylelint@npm:14.7.0"
+"stylelint@npm:14.7.1":
+  version: 14.7.1
+  resolution: "stylelint@npm:14.7.1"
   dependencies:
     balanced-match: ^2.0.0
     colord: ^2.9.2
@@ -15366,7 +15366,7 @@ __metadata:
     write-file-atomic: ^4.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: 206df9b0a88e1be25f8ab236268211e1b3fbb1d7088e94ec9953161601b84214b1b1f3757ede03782141632c4d94f2b741d1307c813fda42af7330a1eac0d1d6
+  checksum: f369d55288fbd2daa149711f3bffb5a8abfba1373cb085a28b7c689c6b7ecbec192a0a9aa9961b20d7ecf1b9f9a8d8e0b4a32a833d1894963bf57086e294570d
   languageName: node
   linkType: hard
 
