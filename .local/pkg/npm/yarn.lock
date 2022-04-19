@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 5
+  version: 6
   cacheKey: 8
 
 "@babel/code-frame@npm:^7.0.0":
@@ -14127,7 +14127,7 @@ __metadata:
     pyright: 1.1.238
     release-it: 14.14.2
     semantic-release: 19.0.2
-    snyk: 1.907.0
+    snyk: 1.908.0
     stylelint: 14.7.1
     tldr: 3.3.7
     uglify-js: 3.15.4
@@ -14617,12 +14617,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.907.0":
-  version: 1.907.0
-  resolution: "snyk@npm:1.907.0"
+"snyk@npm:1.908.0":
+  version: 1.908.0
+  resolution: "snyk@npm:1.908.0"
   bin:
     snyk: bin/snyk
-  checksum: a27f65f7839e845cff463781c7b411657955865617f1a0d839cfdf88e6a8a656e21aa68a23ec95bf4fa7e0591a64a45c5b7ec8be793be445d3a7f2fb373d9068
+  checksum: 6a6b7da91263ed70a8fad69dc8f55edb6f43ba2d6806fb7d71b4dab9f352aca59fc1056e239e03b5143f837d7150840da8581a1b6f422231c16e28ec477c99c2
   languageName: node
   linkType: hard
 
@@ -16091,11 +16091,11 @@ __metadata:
 
 "typescript@patch:typescript@^4.3.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
   version: 4.4.4
-  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=493e53"
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bda367"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bd629ad0da4a15d79aaad56baf3ee7d96f6a181760d430ae77f8c5325df7bffd9edee57544a3970e3651e8b796fe03a5838a7eb39c6d46cc3866c0b23d36a0dd
+  checksum: 3d1b04449662193544b81d055479d03b4c5dca95f1a82f8922596f089d894c9fefbe16639d1d9dfe26a7054419645530cef44001bc17aed1fe1eb3c237e9b3c7
   languageName: node
   linkType: hard
 
