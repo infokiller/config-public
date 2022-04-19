@@ -31,7 +31,12 @@
     "yarn": "1.22.18",
     "yarn-audit-fix": "9.2.4"
   },
-  "//": "Any package not listed here will install all its binaries.",
+  "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
+  "resolutions": {
+    "minimist": "^1.2.6",
+    "url-parse": "^1.5.8"
+  },
+  "//2": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
     "write-good": {
       "write-good": "write-good",
