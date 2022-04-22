@@ -402,7 +402,7 @@ unset _grep_alias
 if command_exists rg; then
   _BEST_GREP_CMD=('rg')
 else
-  _BEST_GREP_CMD=(grep -E)
+  _BEST_GREP_CMD=(grep -Ei)
 fi
 _best_grep() {
   "${_BEST_GREP_CMD[@]}" "$@"
