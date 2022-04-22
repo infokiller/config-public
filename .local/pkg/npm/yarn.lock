@@ -6145,14 +6145,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-extra@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "fs-extra@npm:10.0.1"
+"fs-extra@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "fs-extra@npm:10.1.0"
   dependencies:
     graceful-fs: ^4.2.0
     jsonfile: ^6.0.1
     universalify: ^2.0.0
-  checksum: c1faaa5eb9e1c5c7c7ff09f966e93922ecb068ae1b04801cfc983ef05fcc1f66bfbb8d8d0b745c910014c7a2e7317fb6cf3bfe7390450c1157e3cc1a218f221d
+  checksum: dc94ab37096f813cc3ca12f0f1b5ad6744dfed9ed21e953d72530d103cea193c2f81584a39e9dee1bea36de5ee66805678c0dddc048e8af1427ac19c00fffc50
   languageName: node
   linkType: hard
 
@@ -14113,14 +14113,14 @@ __metadata:
     pyright: 1.1.239
     release-it: 14.14.2
     semantic-release: 19.0.2
-    snyk: 1.908.0
+    snyk: 1.910.0
     stylelint: 14.7.1
     tldr: 3.3.7
     uglify-js: 3.15.4
     web-ext: 6.8.0
     write-good: 1.0.8
     yarn: 1.22.18
-    yarn-audit-fix: 9.2.4
+    yarn-audit-fix: 9.3.0
   languageName: unknown
   linkType: soft
 
@@ -14603,12 +14603,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.908.0":
-  version: 1.908.0
-  resolution: "snyk@npm:1.908.0"
+"snyk@npm:1.910.0":
+  version: 1.910.0
+  resolution: "snyk@npm:1.910.0"
   bin:
     snyk: bin/snyk
-  checksum: 6a6b7da91263ed70a8fad69dc8f55edb6f43ba2d6806fb7d71b4dab9f352aca59fc1056e239e03b5143f837d7150840da8581a1b6f422231c16e28ec477c99c2
+  checksum: b310e85801acbc35fb06010eadf524b2a461bb3b814fb9629c0c282dc059ebb5bee05689a961dc271b2f6c93484b5e82a4a7d078da9f57cdf3db95a0e5e1cf4e
   languageName: node
   linkType: hard
 
@@ -17344,9 +17344,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.2.4":
-  version: 9.2.4
-  resolution: "yarn-audit-fix@npm:9.2.4"
+"yarn-audit-fix@npm:9.3.0":
+  version: 9.3.0
+  resolution: "yarn-audit-fix@npm:9.3.0"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17358,7 +17358,7 @@ __metadata:
     commander: ^9.2.0
     find-cache-dir: ^3.3.2
     find-up: ^6.3.0
-    fs-extra: ^10.0.1
+    fs-extra: ^10.1.0
     globby: ^13.1.1
     js-yaml: ^4.1.0
     lodash-es: ^4.17.21
@@ -17368,7 +17368,7 @@ __metadata:
     tslib: ^2.3.1
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: b2c3a4e68b44d31f90e517a0bc4983ce0cf553fe3ffcb01be5efc02f57a97967bca5944b13d522463dbdf6969fbf792c9dfe04236b77cacd549b61e3ebda6fd8
+  checksum: e305a6cc043fe2b68eecfb999671b86a30a6b96caed235e62fc69d94391d7005cea486696f98e34ae03d93c4980ca51bf54d421fd493c181a7aaa3f528f6732a
   languageName: node
   linkType: hard
 
