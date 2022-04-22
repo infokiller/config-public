@@ -20,10 +20,10 @@ source "${REPO_ROOT}/.my_scripts/lib/base.sh"
 # shellcheck source=./.my_scripts/lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
 
-SHELL_CONFIG_DIR="${REPO_ROOT}/.config/bash"
+BASH_CONFIG_DIR="${REPO_ROOT}/.config/bash"
 # shellcheck source=./.my_scripts/lib/base.sh
 # shellcheck source=./.config/bash/settings.sh
-source "${SHELL_CONFIG_DIR}/settings.sh"
+source "${BASH_CONFIG_DIR}/settings.sh"
 
 # Require at least this number of EOF (Ctrl+d) before exiting. Bash specific,
 # zsh uses setopt for that.
@@ -75,7 +75,7 @@ _append_prompt_command_hook() {
 #####                         History management                          #####
 ###############################################################################
 # shellcheck source=./.config/bash/history/history.sh
-source "${SHELL_CONFIG_DIR}/history/history.sh"
+source "${BASH_CONFIG_DIR}/history/history.sh"
 
 # Options set:
 # - ignoredups: don't put duplicate lines in the history.
@@ -148,7 +148,7 @@ _bashrc_init_fasd() {
 _bashrc_init_fasd && unset -f _bashrc_init_fasd
 
 # shellcheck source=./.config/bash/functions.sh
-source "${SHELL_CONFIG_DIR}/functions.sh"
+source "${BASH_CONFIG_DIR}/functions.sh"
 
 # shellcheck source=submodules/terminal/fzf/shell/key-bindings.bash
 source "${SUBMODULES_DIR}/terminal/fzf/shell/key-bindings.bash"
@@ -186,7 +186,7 @@ fi
 
 # Bash completion shared with zsh.
 # shellcheck source=./.config/bash/completion.sh
-source "${SHELL_CONFIG_DIR}/completion.sh"
+source "${BASH_CONFIG_DIR}/completion.sh"
 
 # Tmux bash completion.
 _tmux_completion_path=/usr/share/doc/tmux/examples/bash_completion_tmux.sh
@@ -240,7 +240,7 @@ _load_gitstatus && unset -f _load_gitstatus
 #####                               Local                                #####
 ###############################################################################
 
-if [[ -f "${SHELL_CONFIG_DIR}/bashrc_local.sh" ]]; then
+if [[ -f "${BASH_CONFIG_DIR}/bashrc_local.sh" ]]; then
   # shellcheck disable=SC1091
-  source "${SHELL_CONFIG_DIR}/bashrc_local.sh"
+  source "${BASH_CONFIG_DIR}/bashrc_local.sh"
 fi

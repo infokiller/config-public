@@ -15,8 +15,8 @@ readonly XDG_CACHE_HOME
 readonly XDG_DATA_HOME
 : "${ZSH_CACHE_DIR:="${XDG_CACHE_HOME}/zsh"}"
 readonly ZSH_CACHE_DIR
-: "${SHELL_CONFIG_DIR:="${REPO_ROOT}/.config/bash"}"
-readonly SHELL_CONFIG_DIR
+: "${BASH_CONFIG_DIR:="${REPO_ROOT}/.config/bash"}"
+readonly BASH_CONFIG_DIR
 
 # References:
 # - https://stackoverflow.com/a/4351664/1014208
@@ -202,7 +202,7 @@ setopt AUTO_RESUME
 # Perform path search even on command names with slashes.
 setopt PATH_DIRS
 
-source_compiled "${SHELL_CONFIG_DIR}/settings.sh"
+source_compiled "${BASH_CONFIG_DIR}/settings.sh"
 
 # update_environment_from_tmux is defined in settings.sh.
 autoload -Uz add-zsh-hook
@@ -341,7 +341,7 @@ zstyle ':chpwd:*' recent-dirs-pushd true
 ################################################################################
 #                                   History                                    #
 ################################################################################
-source_compiled "${SHELL_CONFIG_DIR}/history/history.sh"
+source_compiled "${BASH_CONFIG_DIR}/history/history.sh"
 HISTFILE="$(get_host_history_dir)/zsh_history"
 HISTSIZE=100000000
 SAVEHIST=100000000
@@ -709,7 +709,7 @@ function {
 
 # Understand completions written for bash.
 autoload -Uz bashcompinit && bashcompinit
-source_compiled "${SHELL_CONFIG_DIR}/completion.sh"
+source_compiled "${BASH_CONFIG_DIR}/completion.sh"
 
 function {
   # Newer versions of zsh already come with npm completions.
@@ -1783,7 +1783,7 @@ maybe-run-tracked-emulate -- source \
 # maybe-run-tracked-emulate -- source_compiled "${PLUGINS_DIR}/zpy/"*.plugin.zsh
 # +a means not to print warnings when defining aliases.
 maybe-run-tracked-emulate +a -- source_compiled \
-  "${SHELL_CONFIG_DIR}/functions.sh"
+  "${BASH_CONFIG_DIR}/functions.sh"
 maybe-run-tracked-emulate +a -- source_compiled \
   "${ZSHENV_DIR}/functions.zsh"
 

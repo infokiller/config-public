@@ -931,7 +931,7 @@ let g:ale_fixers['go'] = ['goimports', 'gofmt']
 " Recognize variables that are commonly used in my shell scripts.
 let $REPO_ROOT = g:REPO_ROOT
 let $SUBMODULES_DIR = Concat(g:REPO_ROOT, '/submodules')
-let $SHELL_CONFIG_DIR = Concat(g:REPO_ROOT, '/.config/bash')
+let $BASH_CONFIG_DIR = Concat(g:REPO_ROOT, '/.config/bash')
 let $XDG_CONFIG_HOME = get(environ(), 'XDG_CONFIG_HOME',
       \ Concat($HOME, '/.config'))
 augroup vimrc
