@@ -1560,6 +1560,8 @@ quickemu-port() {
   cat -- "${vm_ports}"
 }
 
+alias ssh-tmp='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+
 # https://stackoverflow.com/a/11532197
 dedup() {
   awk '!seen[$0]++'
