@@ -1513,6 +1513,53 @@ qemu-ls() {
     sed -E 's%.*bin/qemu.* -name[ =](guest=)?([^ ,]+).*$%\2%'
 }
 
+# https://github.com/dylanaraps/pure-bash-bible#strip-pattern-from-end-of-string
+rstrip() {
+    # Usage: rstrip "string" "pattern"
+    printf '%s\n' "${1%%"$2"}"
+}
+
+quickemu-port() {
+  if (($# < 1 || $# > 2)); then
+    print_error 'Usage: quickemu-port <VM_CONF_PATH> [<PORT_NAME>]'
+    return 1
+  fi
+  local vm_conf="$1"
+  local port_name="${2-}"
+  local vm_name
+  vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
+  local vm_dir
+  # Run in subshell to avoid modifying the global envrionment
+  vm_dir="$(
+    # shellcheck disable=SC1090
+    source -- "${vm_conf}" || return
+    if [[ -z "${disk_img-}" ]]; then
+      print_error "disk_img not set in ${vm_conf}"
+      return 1
+    fi
+    local disk_img_dir
+    disk_img_dir="$(dirname -- "${disk_img}")" || return 1
+    if [[ ! -d "${disk_img_dir}" ]]; then
+      print_error "disk_img dir does not exist: ${disk_img_dir}"
+      return 1
+    fi
+    if [[ "${disk_img:0:1}" == /* ]]; then
+
+      dirname -- "${disk_img}"
+      return
+    fi
+    local vm_conf_dir
+    vm_conf_dir="$(dirname -- "${vm_conf}")" || return 1
+    printf '%s/%s' "${vm_conf_dir}" "${disk_img_dir}"
+  )" || return
+  local vm_ports="${vm_dir}/${vm_name}.ports"
+  if [[ -n "${port_name}" ]]; then
+    grep "^${port_name}," "${vm_ports}" | cut -d, -f2
+    return
+  fi
+  cat -- "${vm_ports}"
+}
+
 # https://stackoverflow.com/a/11532197
 dedup() {
   awk '!seen[$0]++'
