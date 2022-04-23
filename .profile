@@ -159,7 +159,7 @@ _increase_xdg_conformance() {
   # possible to increase the size of /run/user/uid by configuring logind [2].
   # [1] https://www.freedesktop.org/software/systemd/man/logind.conf.html
   # [2] https://www.golinuxcloud.com/change-tmpfs-partition-size-redhat-linux
-  if test -n "${XDG_RUNTIME_DIR-}"; then
+  if test -z "${TMPDIR-}" && test -n "${XDG_RUNTIME_DIR-}"; then
     export TMPDIR="${XDG_RUNTIME_DIR}/tmp"
     export TMUX_TMPDIR="${TMPDIR}"
     _maybe_create_dir "${TMPDIR}"
