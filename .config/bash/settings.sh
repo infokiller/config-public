@@ -36,6 +36,7 @@ declare -g ENV_VARS_UPDATED_FROM_TMUX=(
   COLORTERM
 )
 
+# shellcheck disable=SC2296
 : "${REPO_ROOT:=$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]:-${(%):-%x}}" || echo "${HOME}")}"
 # shellcheck source=../../.my_scripts/lib/base.sh
 source "${REPO_ROOT}/.my_scripts/lib/base.sh"
@@ -94,10 +95,14 @@ update_environment_from_tmux() {
 
 # Sets the TTY variable if it's not already set.
 _maybe_set_tty() {
-  [[ -n ${TTY-} ]] && return
+  if [[ -n ${TTY-} ]]; then
+    return
+  fi
   # zsh already defines the TTY variable if it's connected to a tty, so if the
   # TTY var is not set it means it's not connected to a tty.
-  is_zsh && return 1
+  if is_zsh; then
+    return 1
+  fi
   local tty
   # I originally tried to use `tty --quiet` to only get the exit code, but I ran
   # into a bug when running it from a shell spawned from a firejailed ranger. In
@@ -138,9 +143,11 @@ _set_x11_terminal_settings() {
     _set_terminal_title_to_cmd() {
       # The (V) parameter expansion flag makes special chars printable, similar
       # to `cat -v`.
+      # shellcheck disable=SC2296
       printf '\e]0;%s\a' "${(V)1}" > "${TTY}"
     }
     _set_terminal_title_to_pwd() {
+      # shellcheck disable=SC2296
       printf '\e]0;%s\a' "${(%):-%~}" > "${TTY}"
     }
     autoload -Uz add-zsh-hook
@@ -241,7 +248,7 @@ _setup_conda() {
     # Setting CONDA_SHLVL prevents the script from modifying the PATH variable.
     CONDA_SHLVL=0
     # shellcheck source=../../.local/pkg/conda/etc/profile.d/conda.sh
-    source "${HOME}/.local/pkg/conda/etc/profile.d/conda.sh"
+    source -- "${HOME}/.local/pkg/conda/etc/profile.d/conda.sh"
   fi
 }
 
