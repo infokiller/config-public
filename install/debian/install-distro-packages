@@ -27,10 +27,16 @@ def _install_debian_packages(packages):
         # Note that I'm using capture_output but not actually doing anything
         # with the output. This is done to avoid cluttering the terminal with
         # the output of dpkg-query and apt-cache.
-        is_installed = subprocess.run(['dpkg-query', '--show', pkg],
-                                      check=False,
-                                      capture_output=True)
-        if is_installed.returncode == 0:
+        # Update 2022-04-24: `dpkg-query --show` returned that python3-dev was
+        # installed in an Ubuntu 20.04 VM, even though it was not.
+        dpkg = subprocess.run(['dpkg-query', '--show',
+                               '--showformat=${db:Status-Abbrev}',
+                               '--',
+                               pkg],
+                              check=False,
+                              capture_output=True)
+        if dpkg.returncode == 0 and dpkg.stdout and dpkg.stdout.startswith(
+                'ii'):
             print(f'Package {pkg} is already installed')
             continue
         package_found = subprocess.run(['apt-cache', 'show', pkg],

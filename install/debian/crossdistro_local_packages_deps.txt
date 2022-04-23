@@ -30,6 +30,7 @@ git
 pkg-config
 python3
 # Required deps
+libuv1-dev
 libcairo2-dev
 libxcb1-dev
 libxcb-util0-dev
