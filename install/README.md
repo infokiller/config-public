@@ -292,7 +292,7 @@ automated in the Arch installation, but not in Debian (yet) include:
 - Configure fstab. This depends on which drives/partitions are regularly used by
   the device. See the fstab files in the repo for a reference.
 
-- Install git if needed: `sudo apt install -y git`
+- Install git and curl if needed: `sudo apt install -y git curl`
 
 > TODO: Add more specific instructions for following the installation media to
 > make sure my settings are consistent across installations.

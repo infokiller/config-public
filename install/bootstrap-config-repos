@@ -103,6 +103,8 @@ main() {
   eval "$(ssh-agent -s)"
   chmod 600 -- "${ssh_key}"
   ssh-add "${ssh_key}"
+  echo 'Starting a new bash session with SSH agent set with the new key'
+  bash
 }
 
 main "$@"
