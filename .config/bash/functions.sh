@@ -1006,6 +1006,12 @@ alias scs='systemctl status'
 alias scsys='systemctl --system'
 alias scu='systemctl --user'
 alias scus='systemctl --user status'
+sclf() {
+  echo Checking system services
+  systemctl list-units --state=failed "$@"
+  printf '\nChecking user services\n'
+  systemctl --user list-units --state=failed "$@"
+}
 # I used to enable --pager-end but that implies -n1000 to guarantee that the
 # pager will not buffer logs of unbounded size, which is confusing (since it
 # makes it look like there's not many logs).
