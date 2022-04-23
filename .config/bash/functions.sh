@@ -1506,6 +1506,13 @@ retry-forever() {
   done
 }
 
+# Works for both libvirt and quickemu ones
+qemu-ls() {
+  pgrep -f '.*/bin/qemu-system-.*' | 
+    xargs ps -o command= | 
+    sed -E 's%.*bin/qemu.* -name[ =](guest=)?([^ ,]+).*$%\2%'
+}
+
 # https://stackoverflow.com/a/11532197
 dedup() {
   awk '!seen[$0]++'

@@ -18,7 +18,8 @@ Wants=i3-resurrect-save-all.timer
 # created from i3's exec command.
 Type=notify
 NotifyAccess=all
-ExecStart=i3
+# ExecStart=i3
+ExecStart=%h/src/desktop/i3-gaps/build/i3 --shmlog-size=100000000
 # TODO: This isn't getting triggered when I do `systemctl restart lightdm`, and
 # may not work for reboot too. Need to figure this out.
 ExecStop=%h/.my_scripts/i3/i3-resurrect-wrapper save --all
