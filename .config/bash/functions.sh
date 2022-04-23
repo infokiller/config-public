@@ -1519,18 +1519,14 @@ rstrip() {
     printf '%s\n' "${1%%"$2"}"
 }
 
-quickemu-port() {
-  if (($# < 1 || $# > 2)); then
-    print_error 'Usage: quickemu-port <VM_CONF_PATH> [<PORT_NAME>]'
+quickemu-vm-dir() {
+  if (($# != 1)); then
+    print_error 'Usage: quickemu-vm-dir <VM_CONF_PATH>'
     return 1
   fi
   local vm_conf="$1"
-  local port_name="${2-}"
-  local vm_name
-  vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
-  local vm_dir
   # Run in subshell to avoid modifying the global envrionment
-  vm_dir="$(
+  printf '%s' "$(
     # shellcheck disable=SC1090
     source -- "${vm_conf}" || return
     if [[ -z "${disk_img-}" ]]; then
@@ -1551,13 +1547,43 @@ quickemu-port() {
     local vm_conf_dir
     vm_conf_dir="$(dirname -- "${vm_conf}")" || return 1
     printf '%s/%s' "${vm_conf_dir}" "${disk_img_dir}"
-  )" || return
+  )"
+}
+
+quickemu-port() {
+  if (($# < 1 || $# > 2)); then
+    print_error 'Usage: quickemu-port <VM_CONF_PATH> [<PORT_NAME>]'
+    return 1
+  fi
+  local vm_conf="$1"
+  local port_name="${2-}"
+  local vm_name
+  vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
+  local vm_dir
+  # Run in subshell to avoid modifying the global envrionment
+  vm_dir="$(quickemu-vm-dir "${vm_conf}")" || return
   local vm_ports="${vm_dir}/${vm_name}.ports"
   if [[ -n "${port_name}" ]]; then
     grep "^${port_name}," "${vm_ports}" | cut -d, -f2
     return
   fi
   cat -- "${vm_ports}"
+}
+
+spicy-quickemu() {
+  if (($# < 1)); then
+    print_error 'spicy-quickemu: missing arguments'
+    return 1
+  fi
+  local vm_conf="$1"
+  local vm_dir
+  # Run in subshell to avoid modifying the global envrionment
+  vm_dir="$(quickemu-vm-dir "${vm_conf}")" || return
+  local vm_name
+  vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
+  local spice_port
+  spice_port="$(quickemu-port "${vm_conf}" spice)"
+  spicy --title "${vm_name}" --port "${spice_port}" --spice-shared-dir ~/media/public "${@:2}"
 }
 
 alias ssh-tmp='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
