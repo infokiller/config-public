@@ -39,7 +39,7 @@ declare -g ENV_VARS_UPDATED_FROM_TMUX=(
 # shellcheck disable=SC2296
 : "${REPO_ROOT:=$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]:-${(%):-%x}}" || echo "${HOME}")}"
 # shellcheck source=../../.my_scripts/lib/base.sh
-source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+source -- "${REPO_ROOT}/.my_scripts/lib/base.sh"
 
 _is_ssh() {
   [[ -n ${SSH_CLIENT-} || -n ${SSH_TTY-} || -n ${SSH_CONNECTION-} ]]
