@@ -693,19 +693,24 @@ _git_select_changed_files_fzf() {
   )
 }
 
-git-restore-files-fzf() {
+git-restore-files() {
+  if [[ ! -p /dev/stdin ]]; then
+    print_error 'git-restore-files: expecting list of files in stdin'
+    return 1
+  fi
   local repo_root files
   repo_root="$(git rev-parse --show-toplevel)"
   # Zsh doesn't support mapfile.
   local IFS=$'\n'
   # shellcheck disable=SC2207
-  if ! files=($(_git_select_changed_files_fzf --prompt='Restore > ')) ||
-    [[ -z ${files[*]} ]]; then
-    return 1
+  files=($(</dev/stdin))
+  if [[ -z ${files[*]} ]]; then
+    return
   fi
   (
     cd -- "${repo_root}" || return
-    printf '%s\n' "${files[@]}"
+    printf 'Restoring files:\n'
+    printf -- '- %s\n' "${files[@]}"
     # Check out other staged files.
     printf '%s\n' "${files[@]}" |
       sensible-xargs "${_git_ls_staged_files[@]}" --diff-filter=A -- |
@@ -719,6 +724,18 @@ git-restore-files-fzf() {
       sensible-xargs "${_git_ls_unstaged_files[@]}" -- |
       sensible-xargs git checkout HEAD --
   )
+}
+
+git-restore-files-fzf() {
+  local files
+  # Zsh doesn't support mapfile.
+  local IFS=$'\n'
+  # shellcheck disable=SC2207
+  if ! files=($(_git_select_changed_files_fzf --prompt='Restore > ')) ||
+    [[ -z ${files[*]} ]]; then
+    return 1
+  fi
+  printf '%s\n' "${files[@]}" | git-restore-files
 }
 
 # Based on https://github.com/junegunn/fzf/wiki/examples#git
