@@ -1156,31 +1156,37 @@ ssh-xpanes-stdin() {
     return 1
   fi
   if [[ ! -t 1 ]]; then
-    print_error 'ssh-xpanes-stdin: must be connected to tty'
+    print_error 'ssh-xpanes-stdin: stdout must be connected to tty'
     return 1
   fi
-  local cmds s=0
-  read -r -d '' -t 1 cmds || s=$?
-  if [[ -z "${cmds}" ]]; then
+  local src s=0
+  read -r -d '' -t 1 src || s=$?
+  if [[ -z "${src}" ]]; then
     print_error 'ssh-xpanes-stdin: expecting standard input'
     return 1
   fi
-  # Remove comments
-  cmds="$(sed -E 's/\s*#.*$//g' <<<"${cmds}")"
-  # Remove line continuations
-  cmds="${cmds//$'\\\n'/}"
-  # Replace newlines with semicolon to separate commands, since passing the
-  # newlines causes issues. Also wrap everything in a function.
-  cmds="f() { ${cmds//$'\n'/;}; }; f"
-  # Bash and zsh don't like consecutive semicolons
-  cmds="$(sed -E 's/;;+/;/g' <<<"${cmds}")"
-  printf '%s\n' "${cmds}"
-  # Quote the command to avoid shell expansion
-  local quoted_cmds
-  quoted_cmds="$(printf '%q' "${cmds}")"
-  # We must redirect the stdin of tmux-xpanes to the tty so that it doesn't use
-  # "pipe mode" (see tmux-xpanes docs).
-  tmux-xpanes -t -c "ssh -t {} zsh -c ${quoted_cmds}" "$@" < /dev/tty
+  printf '%s\n' "${src}"
+  # NOTE: Restore stdin to terminal?
+  # exec &</dev/tty
+  # Quote the source to pass it as a shell argument
+  src="$(printf '%q' "${src}")"
+  # We can pipe the script to ssh which will forward it to bash, but the problem
+  # with that approach is that stdin of bash is no longer connected to the
+  # terminal, which means that things like sudo and terminal pin entries won't
+  # work.
+  # To avoid this issue (and trying to figure out how to restore stdin to the
+  # terminal) We pass the source as an argument and then eval it.
+  local main='eval "$*"'
+  # Quote twice, because both SSH and tmux-xpanes seem to split words.
+  main="$(printf '%q' "$(printf '%q' "${main}")")"
+  printf '%s\n' tmux-xpanes -t -c "ssh -t {} bash -c ${main} my-ssh-script ${src}" "$@"
+  # local script
+  # script="$(mktemp -t 'a.XXXXXXXX')"
+  # cat - >> "${script}"
+  # # We must redirect the stdin of tmux-xpanes to the tty so that it doesn't use
+  # # "pipe mode" (see tmux-xpanes docs).
+  # tmux-xpanes -t -c "ssh {} -t bash -s < $(printf '%q' "${script}")" "$@"
+  # tmux-xpanes -t -c "ssh -t {} zsh -c ${quoted_cmds}" "$@" < /dev/tty
 }
 # }}} Tmux 
 
