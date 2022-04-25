@@ -1165,15 +1165,22 @@ ssh-xpanes-stdin() {
     print_error 'ssh-xpanes-stdin: expecting standard input'
     return 1
   fi
+  # Remove comments
+  cmds="$(sed -E 's/\s*#.*$//g' <<<"${cmds}")"
   # Remove line continuations
   cmds="${cmds//$'\\\n'/}"
   # Replace newlines with semicolon to separate commands, since passing the
-  # newlines causes issues. Also, wrap everything in a function.
+  # newlines causes issues. Also wrap everything in a function.
   cmds="f() { ${cmds//$'\n'/;}; }; f"
+  # Bash and zsh don't like consecutive semicolons
+  cmds="$(sed -E 's/;;+/;/g' <<<"${cmds}")"
   printf '%s\n' "${cmds}"
+  # Quote the command to avoid shell expansion
+  local quoted_cmds
+  quoted_cmds="$(printf '%q' "${cmds}")"
   # We must redirect the stdin of tmux-xpanes to the tty so that it doesn't use
   # "pipe mode" (see tmux-xpanes docs).
-  tmux-xpanes -t -c "ssh -t {} zsh -c ${cmds}" "$@" < /dev/tty
+  tmux-xpanes -t -c "ssh -t {} zsh -c ${quoted_cmds}" "$@" < /dev/tty
 }
 # }}} Tmux 
 
