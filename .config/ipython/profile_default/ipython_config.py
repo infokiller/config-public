@@ -1094,5 +1094,8 @@ if IPython.version_info[0] >= 5:
     c.TerminalInteractiveShell.true_color = True
     c.TerminalInteractiveShell.highlighting_style = 'solarized-dark'
 
-    if IPython.version_info[0] >= 8:
-        c.TerminalInteractiveShell.auto_match = True
+    # As of IPython 8.2 and 2022-04-26, this can cause IPython to hang with 100%
+    # CPU usage when quotes are inserted in existing text. See:
+    # https://github.com/ipython/ipython/issues/13654
+    # if IPython.version_info[0] >= 8:
+    #     c.TerminalInteractiveShell.auto_match = True
