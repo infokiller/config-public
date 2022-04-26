@@ -119,6 +119,25 @@ ColorScheme=Breeze
 contrast=4
 widgetStyle=Breeze
 
+[KFileDialog Settings]
+Allow Expansion=false
+Automatically select filename extension=true
+Breadcrumb Navigation=false
+Decoration position=0
+LocationCombo Completionmode=5
+PathCombo Completionmode=5
+Show Bookmarks=false
+Show Full Path=false
+Show Inline Previews=true
+Show Preview=false
+Show Speedbar=true
+Show hidden files=false
+Sort by=Name
+Sort directories first=true
+Sort reversed=false
+Speedbar Width=223
+View Style=Detail
+
 [WM]
 activeBackground=71,80,87
 activeBlend=252,252,252
