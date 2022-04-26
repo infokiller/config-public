@@ -205,6 +205,9 @@
 /.config/activitywatch
 /.config/gcloud
 /.config/autostart
+/.config/gtk-3.0/bookmarks
+/.local/share/user-places.xbel
+/.gtk-bookmarks
 /.config/borg
 /.config/libvirt/storage
 /.config/libfm/libfm.conf
@@ -307,7 +310,6 @@
 /.config/google-chrome-remote
 /.config/google-chrome-unstable
 /.config/grip/cache
-/.config/gtk-3.0/bookmarks
 /.config/helm
 /.config/htop/htoprc
 /.config/ibus
@@ -345,7 +347,6 @@
 /.gconf/system
 /.git-backup*
 /.git-stats
-/.gtk-bookmarks
 /.i-nex
 /.jdks
 /.joe-data

@@ -42,8 +42,13 @@ TERMINALS_RE = re.compile('^({})$'.format('|'.join(TERMINALS)), flags=re.I)
 # - Kitty doesn't handle ISO_LEVEL5 correctly:
 #   https://github.com/kovidgoyal/kitty/issues/1990
 CAPSLOCK_COMBOS_BUGGY_PROGRAMS = BROWSERS + [
-    'kitty', 'copyq', 'pinentry-qt', 'virt-manager', r'org\.remmina\.Remmina',
-    'spicy'
+    'kitty',
+    'copyq',
+    'pinentry-qt',
+    'virt-manager',
+    r'org\.remmina\.Remmina',
+    'spicy',
+    'xdg-desktop-portal-kde',
 ]
 # pylint: disable-next=consider-using-f-string
 CAPSLOCK_COMBOS_BUGGY_PROGRAMS_RE = re.compile('^({})$'.format(
