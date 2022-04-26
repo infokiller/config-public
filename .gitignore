@@ -296,6 +296,8 @@
 /.config/configstore
 /.config/dconf/user*
 /.config/docker
+/.config/lxqt/filedialog.conf
+/.config/xdg-desktop-portal-kderc
 /.config/dolphinrc
 /.config/dotdrop.yaml
 /.config/et
