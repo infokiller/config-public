@@ -13229,13 +13229,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.239":
-  version: 1.1.239
-  resolution: "pyright@npm:1.1.239"
+"pyright@npm:1.1.241":
+  version: 1.1.241
+  resolution: "pyright@npm:1.1.241"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: cca353633c8892672578c99685ffe514b4607b23ba263f7732f70c8f5b43ba5f54cd871647d8a49862e3ca2a0924652cc0364f5ba922a5f2666082fffdfa540c
+  checksum: eb539bd755fe7dfcf2f0f09cca4c6ab50648dd7bcdd147434a14aa125d56e728e3eff3d6a8ff0a201a30076ce42bffbd6be2fa8266d91134a6c7e0991de21bb7
   languageName: node
   linkType: hard
 
@@ -14127,17 +14127,17 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.6.2
     puppeteer: 13.6.0
-    pyright: 1.1.239
+    pyright: 1.1.241
     release-it: 14.14.2
     semantic-release: 19.0.2
-    snyk: 1.912.0
-    stylelint: 14.7.1
+    snyk: 1.914.0
+    stylelint: 14.8.0
     tldr: 3.3.7
     uglify-js: 3.15.4
     web-ext: 6.8.0
     write-good: 1.0.8
     yarn: 1.22.18
-    yarn-audit-fix: 9.3.0
+    yarn-audit-fix: 9.3.1
   languageName: unknown
   linkType: soft
 
@@ -14620,12 +14620,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.912.0":
-  version: 1.912.0
-  resolution: "snyk@npm:1.912.0"
+"snyk@npm:1.914.0":
+  version: 1.914.0
+  resolution: "snyk@npm:1.914.0"
   bin:
     snyk: bin/snyk
-  checksum: 1d4c36dc2c21f634eb3d97f55f20624cc125ac7d2314dc7cbd644f029adb46410fc04d52b80bf458cc7eb56bdc144ce70c0aa50254e0fafe19d83f3eb860f426
+  checksum: 00c18058ad3a56c4226944935afe5e6ad73a29cb83d4551ce5549a663f53605c0a6a4a909cbafff34b20799cb8fb48fa82ec9e566a1d48400a94221b59d6562e
   languageName: node
   linkType: hard
 
@@ -15322,9 +15322,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.7.1":
-  version: 14.7.1
-  resolution: "stylelint@npm:14.7.1"
+"stylelint@npm:14.8.0":
+  version: 14.8.0
+  resolution: "stylelint@npm:14.8.0"
   dependencies:
     balanced-match: ^2.0.0
     colord: ^2.9.2
@@ -15369,7 +15369,7 @@ __metadata:
     write-file-atomic: ^4.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: f369d55288fbd2daa149711f3bffb5a8abfba1373cb085a28b7c689c6b7ecbec192a0a9aa9961b20d7ecf1b9f9a8d8e0b4a32a833d1894963bf57086e294570d
+  checksum: cf222d7ec16c6c217998787e5fdf5c1b1acf857b1d19ba22ddce305309850a801e01ec7143671fa428db2f6e877cbee63c359f768880c4420373ad1609b7dde6
   languageName: node
   linkType: hard
 
@@ -15911,10 +15911,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.2.0, tslib@npm:^2.3.1":
+"tslib@npm:^2.2.0":
   version: 2.3.1
   resolution: "tslib@npm:2.3.1"
   checksum: de17a98d4614481f7fcb5cd53ffc1aaf8654313be0291e1bfaee4b4bb31a20494b7d218ff2e15017883e8ea9626599b3b0e0229c18383ba9dce89da2adf15cb9
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "tslib@npm:2.4.0"
+  checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
   languageName: node
   linkType: hard
 
@@ -17361,9 +17368,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.3.0":
-  version: 9.3.0
-  resolution: "yarn-audit-fix@npm:9.3.0"
+"yarn-audit-fix@npm:9.3.1":
+  version: 9.3.1
+  resolution: "yarn-audit-fix@npm:9.3.1"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -17382,10 +17389,10 @@ __metadata:
     pkg-dir: ^6.0.1
     semver: ^7.3.7
     synp: ^1.9.10
-    tslib: ^2.3.1
+    tslib: ^2.4.0
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: e305a6cc043fe2b68eecfb999671b86a30a6b96caed235e62fc69d94391d7005cea486696f98e34ae03d93c4980ca51bf54d421fd493c181a7aaa3f528f6732a
+  checksum: f64aa842490cb78cd7036a0aade5f530bd81bbb8b3d64c6e93fb7011704390247eb3d93b377429efdbba7a99936439041f9bdc6701250a66164cf9a700cea92b
   languageName: node
   linkType: hard
 
