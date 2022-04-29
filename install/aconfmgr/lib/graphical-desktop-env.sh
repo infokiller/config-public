@@ -11,14 +11,14 @@ CreateLink '/etc/systemd/system/display-manager.service' '/usr/lib/systemd/syste
 # installed then lightdm outputs a warning to the journal. The package seems
 # pretty lightweight and harmless so I'm installing it to remove this warning.
 # See also: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=837979
-AddPackage accountsservice  # D-Bus interface for user account query and manipulation
+AddPackage accountsservice # D-Bus interface for user account query and manipulation
 
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   AddPackage i3-gaps # A fork of i3wm tiling window manager with more features, including gaps
 else
   AddPackage i3-wm # An improved dynamic tiling window manager
 fi
-AddPackage i3status         # Generates status bar to use with i3bar, dzen2 or xmobar
+AddPackage i3status # Generates status bar to use with i3bar, dzen2 or xmobar
 # Required by i3-save-tree.
 AddPackage perl-anyevent-i3 # Communicate with the i3 window manager
 # Required by i3-workspace-groups client/server mode
@@ -41,6 +41,11 @@ AddPackage kdeconnect       # Adds communication between KDE and your smartphone
 # Required for kdeconnect to be able to browse file systems on remote devices.
 AddPackage sshfs # FUSE client based on the SSH File Transfer Protocol
 AddPackage dex   # Program to generate and execute DesktopEntry files of type Application
+# As of 2022-04-26, I have issues with xdg-desktop-portal-gnome (which seems to
+# use xdg-desktop-portal-gtk?): typing some characters in the address bar cause
+# it to start a search. xdg-desktop-portal-kde also seems to have better
+# integration with KDEConnect.
+AddPackage xdg-desktop-portal-kde # A backend implementation for xdg-desktop-portal using Qt/KF5
 
 AddPackage ibus # Next Generation Input Bus for Linux
 IgnorePath '/etc/dconf/db/ibus'
@@ -60,7 +65,7 @@ fi
 AddPackage redshift # Adjusts the color temperature of your screen according to your surroundings.
 # Append some options to geoclue config file to allow redshift to access the
 # network.
-cat >> "$(GetPackageOriginalFile geoclue /etc/geoclue/geoclue.conf)" <<'EOF'
+cat >> "$(GetPackageOriginalFile geoclue /etc/geoclue/geoclue.conf)" << 'EOF'
 
 [redshift]
 allowed=true

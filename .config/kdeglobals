@@ -126,7 +126,7 @@ Breadcrumb Navigation=false
 Decoration position=2
 LocationCombo Completionmode=5
 PathCombo Completionmode=5
-Preview Width=340
+Preview Width=418
 Show Bookmarks=false
 Show Full Path=false
 Show Inline Previews=true
@@ -135,7 +135,7 @@ Show Speedbar=true
 Show hidden files=false
 Sort by=Date
 Sort directories first=true
-Sort reversed=true
+Sort reversed=false
 Speedbar Width=223
 View Style=Detail
 
