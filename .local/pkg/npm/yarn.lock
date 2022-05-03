@@ -13672,13 +13672,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.242":
-  version: 1.1.242
-  resolution: "pyright@npm:1.1.242"
+"pyright@npm:1.1.243":
+  version: 1.1.243
+  resolution: "pyright@npm:1.1.243"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 2fc830c5e570c57f2c7a3692a076750893c7ada6bfaf728e6b0e3438ca06d4705e0e7e89116221db8cfa30f782e7d21ffa2fef8be7612e2786d55d868b4be84f
+  checksum: fe34c30f6a9b2db5df80440d1ba899b7e3fe7857f652c8d8a499042ad7ec67d402c81c21e04cd7f1a8118690d0a08e669b5f13a6d77219418a88c57fcdecda0a
   languageName: node
   linkType: hard
 
@@ -14607,10 +14607,10 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.6.2
     puppeteer: 13.7.0
-    pyright: 1.1.242
+    pyright: 1.1.243
     release-it: 15.0.0
     semantic-release: 19.0.2
-    snyk: 1.915.0
+    snyk: 1.916.0
     stylelint: 14.8.1
     tldr: 3.3.7
     uglify-js: 3.15.4
@@ -15123,12 +15123,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.915.0":
-  version: 1.915.0
-  resolution: "snyk@npm:1.915.0"
+"snyk@npm:1.916.0":
+  version: 1.916.0
+  resolution: "snyk@npm:1.916.0"
   bin:
     snyk: bin/snyk
-  checksum: dbb51ebccea5fe9175fc02bb372e393ac29d4563dc4aa4b559523fc1724546a853711391d1a36e40f44d388c56bdb39cec45d04db320b8bb11559307d6cb2db9
+  checksum: 9748d6231b582fdf837236285a3eef2af9d884b5dd6bd1d8f45951013897b3ea3d55a7c3a7ec895eb0c76947176796e1b20bd81a3a8b4f31d00466f707d706d6
   languageName: node
   linkType: hard
 
