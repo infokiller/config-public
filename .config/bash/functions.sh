@@ -1283,7 +1283,7 @@ conda-reset-env() {
 alias db='docker build'
 # Using "-it" instead of "--interactive --tty" causes the zsh completions to
 # complete external commands instead of docker images.
-alias dr='docker run --rm --interactive --tty'
+alias dr='docker run --rm --interactive --tty --init'
 # }}} Docker #
 
 # Bazel {{{ #
