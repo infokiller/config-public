@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+_print_usage_and_die() {
+  printf >&2 'Usage: %s <WMCTRL_ARGS>\n' "$0"
+  exit 1
+}
+
+main() {
+  if (($# == 0)); then
+    _print_usage_and_die
+  fi
+  while IFS=' ' read -r -a line; do
+    wmctrl -i "$@" -r "${line[0]}"
+  done < <(wmctrl -l)
+}
+
+main "$@"
