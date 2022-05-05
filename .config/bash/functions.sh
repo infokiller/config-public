@@ -1512,7 +1512,9 @@ benchmark-command() {
 }
 alias bm='benchmark-command'
 
-alias rif='run-interactive-function'
+# rif is now a regular executable to make it easier to type when executing it
+# via SSH and other contexts in which we can't run aliases directly.
+# alias rif='run-interactive-function'
 alias w='watch run-interactive-function'
 
 run-if-executable-exists() {
