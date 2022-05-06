@@ -1176,7 +1176,8 @@ alias ssh-et-tmxns='_ssh-tmxns 1'
 
 # Accepts shell commands in stdin and passes them to ssh in tmux-xpanes
 ssh-xpanes-stdin() {
-  # TODO: Fix this function
+  # TODO: Fix this function, though I already wasted too much time fighting with
+  # tmux-xpanes to make this work.
   print_error 'ssh-xpanes-stdin: does not work yet'
   return 1
   if (($# < 1)); then
@@ -1193,7 +1194,7 @@ ssh-xpanes-stdin() {
     print_error 'ssh-xpanes-stdin: expecting standard input'
     return 1
   fi
-  printf '%s\n' "${src}"
+  printf '# Script start\n%s\n# Script end\n' "${src}"
   # NOTE: Restore stdin to terminal?
   # exec &</dev/tty
   # Quote the source to pass it as a shell argument
@@ -1207,7 +1208,19 @@ ssh-xpanes-stdin() {
   local main='eval "$*"'
   # Quote twice, because both SSH and tmux-xpanes seem to split words.
   main="$(printf '%q' "$(printf '%q' "${main}")")"
-  printf '%s\n' tmux-xpanes -t -c "ssh -t {} bash -c ${main} my-ssh-script ${src}" "$@"
+  # main="$(printf '%q' "${main}")"
+  # We must redirect the stdin of tmux-xpanes to the tty so that it doesn't use
+  # "pipe mode" (see tmux-xpanes docs).
+  local tty
+  tty="$(tty)" || tty="/dev/$(ps --no-headers -o 'tty' $$)" || {
+    echo 'No TTY detected'
+    return 1
+  }
+  echo "Detected TTY: ${tty}"
+  tmux-xpanes -t -c "ssh -t {} bash -c ${main} my-ssh-script ${src}" "$@" < "${tty}"
+  # for host in "$@"; do
+  #   ssh -t "${host}" bash -c "${main}" my-ssh-script "${src}" < "${tty}"
+  # done
   # local script
   # script="$(mktemp -t 'a.XXXXXXXX')"
   # cat - >> "${script}"
