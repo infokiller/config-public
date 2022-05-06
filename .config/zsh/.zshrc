@@ -857,7 +857,7 @@ function {
   # otherwise zsh complains that `rg` is not defined.
   _set_same_completion() {
     # If the command doesn't exist compdef will print an error.
-    command_exists "$1" && compdef "$2=$1"
+    compdef "$2=$1" 2> /dev/null || true
   }
   local cmd
   for cmd in rgc rgcc rgcl rgl rgc-todos rgcl-todos tag; do
@@ -865,6 +865,8 @@ function {
   done
   # _set_same_completion ssh ssh-et-tmxcs
   _set_same_completion git git-https
+  _set_same_completion shenv gfexp
+  _set_same_completion shenv gfrexp
   _set_same_completion xargs sensible-xargs
   if [[ "${DISTRO}" == arch ]]; then
     _set_same_completion pacman pacmate

@@ -769,8 +769,36 @@ declare -g PUBLIC_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-public"
 declare -g PRIVATE_CONFIG_GIT_DIR="${HOME}/.local/var/git_dirs/config-private"
 alias config-public='git --git-dir="${PUBLIC_CONFIG_GIT_DIR}" --work-tree="${HOME}"'
 alias config-private='git --git-dir="${PRIVATE_CONFIG_GIT_DIR}" --work-tree="${HOME}"'
-alias gfexp='export GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}"'
-alias gfrexp='export GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}"'
+
+# Like env (the external command), but works in the current shell environment
+# shenv() {
+#   if (($# == 0)); then
+#     env
+#     return
+#   fi
+#   # Escape each argument so that we can
+#   # https://github.com/koalaman/shellcheck/wiki/SC2294
+#   local cmd_escaped=()
+#   for arg in "$@"; do
+#     cmd_escaped+=("$(printf '%q' "${arg}")")
+#   done
+#   eval "${cmd_escaped[*]}"
+# }
+
+gfexp() {
+  if (($# == 0)); then
+    export GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}"
+    return
+  fi
+  GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}" eval -- "$*"
+}
+gfrexp() {
+  if (($# == 0)); then
+    export GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}"
+    return
+  fi
+  GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}" eval -- "$*"
+}
 
 alias scr='sync-config-repos'
 
