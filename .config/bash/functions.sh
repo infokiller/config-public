@@ -790,14 +790,14 @@ gfexp() {
     export GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}"
     return
   fi
-  GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}" eval -- "$*"
+  eval GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}" "$*"
 }
 gfrexp() {
   if (($# == 0)); then
     export GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}"
     return
   fi
-  GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}" eval -- "$*"
+  eval GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}" GIT_WORK_TREE="${HOME}" "$*"
 }
 
 alias scr='sync-config-repos'

@@ -1,0 +1,18 @@
+#compdef shenv
+
+# Based on /usr/share/zsh/functions/Completion/Unix/_env from zsh 5.8.1
+
+local context state line args=() ret=1
+
+_arguments $args \
+  '*::arguments:->normal' && ret=0
+
+if [[ -n $state ]]; then
+  while [[ $words[1] = *=* ]]; do
+    shift words
+    (( CURRENT-- ))
+  done
+  _normal && ret=0
+fi
+
+return ret
