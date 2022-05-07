@@ -1287,6 +1287,7 @@ conda-or-mamba() {
 alias coba='conda-or-mamba'
 
 alias pya='conda activate'
+alias pyd='conda deactivate'
 
 # https://github.com/Russell91/pythonpy
 alias p=py
