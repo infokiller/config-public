@@ -95,9 +95,8 @@ def _get_history_files():
 # https://stackoverflow.com/q/57011659/1014208
 def _define_prompt_toolkit_keybindings():
     if IPython.version_info[0] < 5:
-        warnings.warn(
-            'Discovered old python version ({}), not defining keybindings.\n'.
-            format(IPython.version_info))
+        warnings.warn(f'Discovered old python version ({IPython.version_info}),'
+                      ' not defining keybindings.\n')
         return
     if not _is_using_prompt_toolkit():
         return
@@ -170,11 +169,9 @@ def _register_magic_aliases():
 # Copied from
 # http://stackoverflow.com/questions/7606062/is-there-a-way-to-directly-send-a-python-output-to-clipboard
 def copy_to_clipboard(value):
-    process = subprocess.Popen(['xsel', '--input', '--clipboard'],
-                               stdin=subprocess.PIPE)
-    process.communicate(input=str(value).encode('utf8'))
-    process.stdin.close()
-    process.wait()
+    with subprocess.Popen(['xsel', '--input', '--clipboard'],
+                          stdin=subprocess.PIPE) as p:
+        p.communicate(input=str(value).encode('utf8'))
 
 
 def _define_aliases():
