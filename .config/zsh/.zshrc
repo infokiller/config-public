@@ -880,6 +880,9 @@ function {
   _set_same_completion bazel bazel-in-docker
 }
 
+# TODO: add completions to custom git commands (git-cmd executables in PATH),
+# see: https://stackoverflow.com/a/38850556/1014208
+
 # NOTE(2018-11-09): Disabled because it's unused.
 # zplug "zsh-users/zaw"
 
