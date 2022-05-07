@@ -118,8 +118,7 @@ def _define_prompt_toolkit_keybindings():
         event.current_buffer.history_forward()
 
     def copy_buffer_to_clipboard(event: _KeyPressEvent):
-        subprocess.check_call(
-            ['copy-string-to-clipboard', event.current_buffer.text])
+        copy_to_clipboard(event.current_buffer.text)
 
     key_bindings = get_ipython().pt_app.key_bindings
 
