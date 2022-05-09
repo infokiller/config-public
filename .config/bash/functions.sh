@@ -1104,7 +1104,7 @@ alias n='notify-anyway'
 alias tmxcs='tmux-switch-session'
 alias tmxdc='tmux-detach-client'
 alias tmxks='tmux-kill-session'
-alias tmxns='tmux-main-or-zsh'
+alias tmxns='tmux new-session -A -s'
 
 _maybe_run_with_colorterm() {
   if [[ -n "${COLORTERM-}" ]]; then
