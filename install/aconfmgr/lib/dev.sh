@@ -3,8 +3,8 @@
 # dependencies.
 
 # Basic development packages, no X11 dependencies.
-AddPackage git             # the fast distributed version control system
-cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
+AddPackage git # the fast distributed version control system
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF'
 /bin/git-shell
 /usr/bin/git-shell
 EOF
@@ -31,16 +31,16 @@ AddPackage socat           # Multipurpose relay
 AddPackage android-tools # Android platform tools
 AddPackage android-udev  # Udev rules to connect Android devices to your linux box
 
-AddPackage dash            # POSIX compliant shell that aims to be as small as possible
-cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
+AddPackage dash # POSIX compliant shell that aims to be as small as possible
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF'
 /bin/dash
 /usr/bin/dash
 EOF
 
 AddPackage nodejs # Evented I/O for V8 javascript
 IgnorePath '/usr/lib/node_modules/*'
-AddPackage npm            # A package manager for javascript
-AddPackage yarn           # Fast, reliable, and secure dependency management
+AddPackage npm  # A package manager for javascript
+AddPackage yarn # Fast, reliable, and secure dependency management
 
 AddPackage docker         # Pack, ship and run any application as a lightweight container
 AddPackage docker-compose # Fast, isolated development environments using Docker
@@ -48,7 +48,7 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/docker.service' '/usr/li
 IgnorePath '/etc/docker/key.json'
 IgnorePath '/opt/containerd/*'
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
-  cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" <<'EOF'
+  cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" << 'EOF'
 {
     "data-root": "/mnt/evo970/docker"
 }
@@ -65,6 +65,13 @@ IgnorePath '/etc/libvirt/networks/*'
 IgnorePath '/etc/libvirt/nwfilter/*'
 IgnorePath '/etc/libvirt/qemu/*.xml'
 IgnorePath '/run/libvirt/*'
+if uses_local_graphics; then
+  AddPackage qemu-desktop # A QEMU setup for desktop environments
+else
+  AddPackage qemu-base # A basic QEMU setup for headless environments
+fi
+# Offline HTML docs for qemu
+AddPackage qemu-docs # A generic and open source machine emulator and virtualizer - documentation
 # Optional libvirt/qemu deps (see
 # https://wiki.archlinux.org/index.php/libvirt#Server):
 # ebtables and dnsmasq are required for NAT/DHCP networking
@@ -87,26 +94,26 @@ AddPackage libguestfs # Access and modify virtual machine disk images
 # multipath is a dependency of libguestfs
 IgnorePath '/etc/multipath'
 
-AddPackage emacs                # The extensible, customizable, self-documenting real-time display editor
-AddPackage bat                  # cat clone with Git integration and syntax highlighting support
-AddPackage jq                   # Command-line JSON processor
-AddPackage fd                   # Simple, fast and user-friendly alternative to find
-AddPackage shellcheck           # Shell script analysis tool
-AddPackage expect               # A tool for automating interactive applications
+AddPackage emacs      # The extensible, customizable, self-documenting real-time display editor
+AddPackage bat        # cat clone with Git integration and syntax highlighting support
+AddPackage jq         # Command-line JSON processor
+AddPackage fd         # Simple, fast and user-friendly alternative to find
+AddPackage shellcheck # Shell script analysis tool
+AddPackage expect     # A tool for automating interactive applications
 # Disabled because I don't really use it and AUR packages can be a security
 # issue.
 # AddPackage --foreign howdoi # A code search tool.
-AddPackage aspell-en            # English dictionary for aspell
-AddPackage cloc                 # Count lines of code
-AddPackage httpie               # cURL for humans
-AddPackage qrencode             # C library for encoding data in a QR Code symbol.
-AddPackage xonsh                # Python-powered, cross-platform, Unix-gazing shell
-cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
+AddPackage aspell-en # English dictionary for aspell
+AddPackage cloc      # Count lines of code
+AddPackage httpie    # cURL for humans
+AddPackage qrencode  # C library for encoding data in a QR Code symbol.
+AddPackage xonsh     # Python-powered, cross-platform, Unix-gazing shell
+cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF'
 /bin/xonsh
 /usr/bin/xonsh
 EOF
-AddPackage yapf                 # Python style guide checker
-AddPackage pandoc               # Conversion between markup formats
+AddPackage yapf   # Python style guide checker
+AddPackage pandoc # Conversion between markup formats
 # AddPackage termtosvg            # Record terminal sessions as SVG animations
 AddPackage hexyl     # Colored command-line hex viewer
 AddPackage moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago

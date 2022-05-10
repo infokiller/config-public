@@ -74,7 +74,10 @@ if is_primary_dev_machine; then
 
   AddPackage virt-manager # Desktop user interface for managing virtual machines
   AddPackage virt-viewer  # A lightweight interface for interacting with the graphical display of virtualized guest OS.
-  AddPackage qemu         # A generic and open source machine emulator and virtualizer
+  # NOTE: qemu was split to multiple packages [1] and is now installed in
+  # dev.sh.
+  # [1] https://archlinux.org/news/qemu-700-changes-split-package-setup/
+  # AddPackage qemu         # A generic and open source machine emulator and virtualizer
   AddPackage gnome-boxes  # Simple GNOME application to access virtual systems
   # AddPackage virtualbox           # Powerful x86 virtualization for enterprise as well as home use
   # AddPackage virtualbox-host-dkms # VirtualBox Host kernel modules sources
