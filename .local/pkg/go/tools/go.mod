@@ -17,7 +17,7 @@ require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/bazelbuild/bazelisk v1.11.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20220428174816-126821794126 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20220510163207-df8cabe96863 // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/caspr-io/yamlpath v0.0.0-20200722075116-502e8d113a9b // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -136,6 +136,6 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 	mvdan.cc/editorconfig v0.2.0 // indirect
-	mvdan.cc/sh/v3 v3.4.3 // indirect
+	mvdan.cc/sh/v3 v3.5.0 // indirect
 	rsc.io/qr v0.2.0 // indirect
 )
