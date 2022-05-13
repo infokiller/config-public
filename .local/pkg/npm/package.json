@@ -2,7 +2,7 @@
   "dependencies": {
     "@google/clasp": "2.4.1",
     "alex": "10.0.0",
-    "bash-language-server": "2.1.0",
+    "bash-language-server": "3.0.0",
     "corepack": "0.10.0",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.15.0",
@@ -18,11 +18,11 @@
     "markdownlint-cli": "0.31.1",
     "markdownlint-cli2": "0.4.0",
     "prettier": "2.6.2",
-    "puppeteer": "14.0.0",
+    "puppeteer": "14.1.0",
     "pyright": "1.1.246",
     "release-it": "15.0.0",
     "semantic-release": "19.0.2",
-    "snyk": "1.927.0",
+    "snyk": "1.931.0",
     "stylelint": "14.8.2",
     "tldr": "3.3.7",
     "uglify-js": "3.15.5",
@@ -52,5 +52,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.1"
 }

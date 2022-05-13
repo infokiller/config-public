@@ -2055,22 +2055,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:2.1.0":
-  version: 2.1.0
-  resolution: "bash-language-server@npm:2.1.0"
+"bash-language-server@npm:3.0.0":
+  version: 3.0.0
+  resolution: "bash-language-server@npm:3.0.0"
   dependencies:
     fuzzy-search: ^3.2.1
-    glob: ^7.1.6
+    glob: ^8.0.0
     request: ^2.83.0
     request-promise-native: ^1.0.5
-    turndown: ^4.0.2
+    turndown: ^7.0.0
     urijs: ^1.19.1
     vscode-languageserver: ^6.1.1
     vscode-languageserver-textdocument: ^1.0.1
     web-tree-sitter: ^0.19.4
   bin:
     bash-language-server: bin/main.js
-  checksum: ef926e176023b759775ba93077fcb9717a72e1b859419ff84cf9b00b980af5f93ecb5332a31dcee3749afdb894c42068ff794c78f99ee2ee897b2284d752e8df
+  checksum: bc36697a2763bf11263f1d30bea04f7f2dbd738ccb1e5952ac939e305f0c12296f84d29e4798fb9dcc8ab852532da8073c0143b683374b5d0986bb60c5ad0616
   languageName: node
   linkType: hard
 
@@ -2253,6 +2253,15 @@ __metadata:
     balanced-match: ^1.0.0
     concat-map: 0.0.1
   checksum: faf34a7bb0c3fcf4b59c7808bc5d2a96a40988addf2e7e09dfbb67a2251800e0d14cd2bfc1aa79174f2f5095c54ff27f46fb1289fe2d77dac755b5eb3434cc07
+  languageName: node
+  linkType: hard
+
+"brace-expansion@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "brace-expansion@npm:2.0.1"
+  dependencies:
+    balanced-match: ^1.0.0
+  checksum: a61e7cd2e8a8505e9f0036b3b6108ba5e926b4b55089eeb5550cd04a471fe216c96d4fe7e4c7f995c728c554ae20ddfc4244cad10aef255e72b62930afd233d1
   languageName: node
   linkType: hard
 
@@ -4845,6 +4854,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"domino@npm:^2.1.6":
+  version: 2.1.6
+  resolution: "domino@npm:2.1.6"
+  checksum: 9b1b6d2661efd8bf942b70d5e11ac0de6a63f17e49b7eb227d9a612fa7b7c12b7775520d64f498988a8ee334ea9c59a463c84ea510b0af17dd3e13fdce120410
+  languageName: node
+  linkType: hard
+
 "dompurify@npm:2.3.4":
   version: 2.3.4
   resolution: "dompurify@npm:2.3.4"
@@ -6885,6 +6901,19 @@ __metadata:
     once: ^1.3.0
     path-is-absolute: ^1.0.0
   checksum: 351d549dd90553b87c2d3f90ce11aed9e1093c74130440e7ae0592e11bbcd2ce7f0ebb8ba6bfe63aaf9b62166a7f4c80cb84490ae5d78408bb2572bf7d4ee0a6
+  languageName: node
+  linkType: hard
+
+"glob@npm:^8.0.0":
+  version: 8.0.2
+  resolution: "glob@npm:8.0.2"
+  dependencies:
+    fs.realpath: ^1.0.0
+    inflight: ^1.0.4
+    inherits: 2
+    minimatch: ^5.0.1
+    once: ^1.3.0
+  checksum: 9897d6d445711c23c54353b30b5c93db2453204d5d5e65d57f9f6759afd95bb9add91a7ce9fd2f332b20ae06fba291ff64fffd68b6ac9b97440647c396a80b51
   languageName: node
   linkType: hard
 
@@ -8954,7 +8983,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^11.0.0, jsdom@npm:^11.9.0":
+"jsdom@npm:^11.0.0":
   version: 11.12.0
   resolution: "jsdom@npm:11.12.0"
   dependencies:
@@ -11268,6 +11297,15 @@ __metadata:
   dependencies:
     brace-expansion: ^1.1.7
   checksum: c154e566406683e7bcb746e000b84d74465b3a832c45d59912b9b55cd50dee66e5c4b1e5566dba26154040e51672f9aa450a9aef0c97cfc7336b78b7afb9540a
+  languageName: node
+  linkType: hard
+
+"minimatch@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "minimatch@npm:5.0.1"
+  dependencies:
+    brace-expansion: ^2.0.1
+  checksum: b34b98463da4754bc526b244d680c69d4d6089451ebe512edaf6dd9eeed0279399cfa3edb19233513b8f830bf4bfcad911dddcdf125e75074100d52f724774f0
   languageName: node
   linkType: hard
 
@@ -13710,9 +13748,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:14.0.0":
-  version: 14.0.0
-  resolution: "puppeteer@npm:14.0.0"
+"puppeteer@npm:14.1.0":
+  version: 14.1.0
+  resolution: "puppeteer@npm:14.1.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -13726,7 +13764,7 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.6.0
-  checksum: cce00cede6a5c970604e744f481c852b8af76727b1ddfe2969598a69767a5f4a060cef4e5059dd71b25c952a76387a595b8804746c57363a96ce35f607010f59
+  checksum: d88b8c3a2496ed1cc62bec09cf071bf98e13ce7190b22f66062a5c0007ef84824b9ecdeed013a1db39b3013173989ab972ee3296bab9749a5eb1b0532c00b3c3
   languageName: node
   linkType: hard
 
@@ -14648,7 +14686,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.1
     alex: 10.0.0
-    bash-language-server: 2.1.0
+    bash-language-server: 3.0.0
     corepack: 0.10.0
     diff-so-fancy: 1.4.3
     eslint: 8.15.0
@@ -14664,11 +14702,11 @@ __metadata:
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
     prettier: 2.6.2
-    puppeteer: 14.0.0
+    puppeteer: 14.1.0
     pyright: 1.1.246
     release-it: 15.0.0
     semantic-release: 19.0.2
-    snyk: 1.927.0
+    snyk: 1.931.0
     stylelint: 14.8.2
     tldr: 3.3.7
     uglify-js: 3.15.5
@@ -15181,12 +15219,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.927.0":
-  version: 1.927.0
-  resolution: "snyk@npm:1.927.0"
+"snyk@npm:1.931.0":
+  version: 1.931.0
+  resolution: "snyk@npm:1.931.0"
   bin:
     snyk: bin/snyk
-  checksum: 69e4476dff2734ce091659872fda5c36ab1841a082992bd4322df9ef5947fe99facbc6debd2196440b0a4897c15b4f036855c3074b93d36d8a360ccf6cdccf4f
+  checksum: 5f9e09bd64789a1f9dde075a1e3dd4adbe712698b98a361410c2993ec0222d601161da518842b8c8e512e856f656870112c05c0c2fa3799cc26ab44e4fab8e0d
   languageName: node
   linkType: hard
 
@@ -16544,12 +16582,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turndown@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "turndown@npm:4.0.2"
+"turndown@npm:^7.0.0":
+  version: 7.1.1
+  resolution: "turndown@npm:7.1.1"
   dependencies:
-    jsdom: ^11.9.0
-  checksum: de2419e55a12c610417bd949fd4560844fddf4d6568f8de8dcc6a91a56263581b85f9b8cb1be313daed196cf5157b97c9a47ed9016c213eedd588bc49d4e5ce9
+    domino: ^2.1.6
+  checksum: f2d77632bd69bc93298b619f051dc0c050fabee15188afe874eab713f8ffdcaea89106a536c19db0962a677b5f7177f5aa84b45ef38e06d6e489a49f11abd80d
   languageName: node
   linkType: hard
 
@@ -16704,7 +16742,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.3.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
   version: 4.4.4
-  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bda367"
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=7ad353"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
