@@ -17,7 +17,10 @@ user_pref('app.update.background.scheduling.enabled', true);
 
 // 0403: enable SB checks for downloads with Google (remote)
 user_pref('browser.safebrowsing.downloads.remote.enabled', true);
-user_pref('browser.safebrowsing.downloads.remote.url', 'https://sb-ssl.google.com/safebrowsing/clientreport/download?key=%GOOGLE_SAFEBROWSING_API_KEY%');
+user_pref(
+  'browser.safebrowsing.downloads.remote.url',
+  'https://sb-ssl.google.com/safebrowsing/clientreport/download?key=%GOOGLE_SAFEBROWSING_API_KEY%'
+);
 
 // 0801: enable location bar using search
 // This makes it possible to use a search query directly in the address bar
@@ -31,7 +34,7 @@ user_pref('browser.urlbar.suggest.searches', true);
 /* 0807: enable location bar contextual suggestions [FF92+]
  * [SETTING] Privacy & Security>Address Bar>Suggestions from...
  * [1] https://blog.mozilla.org/data/2021/09/15/data-and-firefox-suggest/ ***/
-user_pref("browser.urlbar.suggest.quicksuggest.nonsponsored", true); // [FF95+]
+user_pref('browser.urlbar.suggest.quicksuggest.nonsponsored', true); // [FF95+]
 
 // 1021: enable storing extra session data [SETUP-CHROME]
 user_pref('browser.sessionstore.privacy_level', 0);
@@ -120,7 +123,7 @@ user_pref('browser.fullscreen.autohide', false);
 // user_pref('media.peerconnection.enabled', true);
 
 // 2619: use Punycode in Internationalized Domain Names to eliminate possible spoofing
- // [SETUP-WEB] Might be undesirable for non-latin alphabet users since legitimate IDN's are also punycoded
+// [SETUP-WEB] Might be undesirable for non-latin alphabet users since legitimate IDN's are also punycoded
 // user_pref('network.IDN_show_punycode', false);
 
 // 2620: enable PDFJS scripting [SETUP-CHROME]
