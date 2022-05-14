@@ -92,6 +92,9 @@ user_pref('signon.rememberSignons', false);
 // 9000: disable alt key toggling the menu bar [RESTART]
 user_pref('ui.key.menuAccessKey', 0);
 // 9000: [FF68+] allow userChrome/userContent
+// NOTE: this feature can cause issues if Firefox makes changes and the theme is
+// not adapted [1], which happened to me a few times with MaterialFox.
+// [1] https://github.com/muckSponge/MaterialFox/issues/317
 user_pref('toolkit.legacyUserProfileCustomizations.stylesheets', true);
 // Required or recommended by by MaterialFox:
 // https://github.com/muckSponge/MaterialFox/blob/master/user.js

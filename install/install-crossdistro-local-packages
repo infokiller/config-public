@@ -454,7 +454,12 @@ _install_firefox_settings() {
       sensible-diff "${backup}" "${profile_dir}/user.js" || true
     fi
     echo 'Installing MaterialFox'
-    ln -sf -- "${SUBMODULES_DIR}/desktop/MaterialFox/chrome" "${profile_dir}/chrome"
+    if [[ -e chrome ]]; then
+      rm -rf chrome
+    fi
+    # ln -sf -- "${SUBMODULES_DIR}/desktop/MaterialFox/chrome" "${profile_dir}/chrome"
+    # Only copy works, not symlinking
+    cp -rf -t "${profile_dir}" 'MaterialFox/chrome'
   done < <(\find "${FIREFOX_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
 }
 
