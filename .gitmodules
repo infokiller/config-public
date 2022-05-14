@@ -697,3 +697,6 @@
 [submodule "submodules/terminal/ssh-et"]
 	path = submodules/terminal/ssh-et
 	url = https://github.com/infokiller/ssh-et
+[submodule "submodules/desktop/MaterialFox"]
+	path = submodules/desktop/MaterialFox
+	url = https://github.com/infokiller/MaterialFox

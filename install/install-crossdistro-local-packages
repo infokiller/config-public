@@ -419,8 +419,6 @@ _install_firefox_settings() {
   download_file \
     'https://raw.githubusercontent.com/arkenfox/user.js/master/updater.sh'
   chmod +x 'updater.sh'
-  [[ -d 'MaterialFox' ]] && rm -rf -- 'MaterialFox'
-  git clone --depth 1 'https://github.com/muckSponge/MaterialFox'
   # Detect firefox profiles by the presence of the prefs.js file.
   # NOTE: there's also a ~/.mozilla/firefox/profiles.ini file, but I wasn't sure
   # if parsing it with regexes would be robust enough.
@@ -456,7 +454,7 @@ _install_firefox_settings() {
       sensible-diff "${backup}" "${profile_dir}/user.js" || true
     fi
     echo 'Installing MaterialFox'
-    cp -rf -t "${profile_dir}" 'MaterialFox/chrome'
+    ln -sf -- "${SUBMODULES_DIR}/desktop/MaterialFox/chrome" "${profile_dir}/chrome"
   done < <(\find "${FIREFOX_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
 }
 
