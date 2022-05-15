@@ -1,5 +1,5 @@
 # pylint: disable=line-too-long,too-many-lines
-# NOTE(infokiller): this file was generated on 2020-10-16 from IPython 7.18.1
+# NOTE(infokiller): this file was generated on 2022-05-15 from IPython 8.3.0
 # using `ipython profile create test`.
 # I DID NOT review the options in this file but they seem to mostly overlap with
 # the ones in ipython_config.py.
@@ -13,9 +13,9 @@
 
 ## JSON file in which to store connection info [default: kernel-<pid>.json]
 #
-#  This file will contain the IP, ports, and authentication key needed to connect
-#  clients to this kernel. By default, this file will be created in the security
-#  dir of the current profile, but can be specified by absolute path.
+#      This file will contain the IP, ports, and authentication key needed to connect
+#      clients to this kernel. By default, this file will be created in the security dir
+#      of the current profile, but can be specified by absolute path.
 #  Default: ''
 # c.ConnectionFileMixin.connection_file = ''
 
@@ -31,9 +31,10 @@
 #  Default: 0
 # c.ConnectionFileMixin.iopub_port = 0
 
-## Set the kernel's IP address [default localhost]. If the IP address is
-#  something other than localhost, then Consoles on other machines will be able
-#  to connect to the Kernel, so be careful!
+## Set the kernel's IP address [default localhost].
+#          If the IP address is something other than localhost, then
+#          Consoles on other machines will be able to connect
+#          to the Kernel, so be careful!
 #  Default: ''
 # c.ConnectionFileMixin.ip = ''
 
@@ -54,24 +55,24 @@
 #------------------------------------------------------------------------------
 ## A Mixin for applications that start InteractiveShell instances.
 #
-#  Provides configurables for loading extensions and executing files as part of
-#  configuring a Shell environment.
+#      Provides configurables for loading extensions and executing files
+#      as part of configuring a Shell environment.
 #
-#  The following methods should be called by the :meth:`initialize` method of the
-#  subclass:
+#      The following methods should be called by the :meth:`initialize` method
+#      of the subclass:
 #
-#    - :meth:`init_path`
-#    - :meth:`init_shell` (to be implemented by the subclass)
-#    - :meth:`init_gui_pylab`
-#    - :meth:`init_extensions`
-#    - :meth:`init_code`
+#        - :meth:`init_path`
+#        - :meth:`init_shell` (to be implemented by the subclass)
+#        - :meth:`init_gui_pylab`
+#        - :meth:`init_extensions`
+#        - :meth:`init_code`
 
 ## Execute the given command string.
 #  Default: ''
 # c.InteractiveShellApp.code_to_run = ''
 
-## Run the file referenced by the PYTHONSTARTUP environment variable at IPython
-#  startup.
+## Run the file referenced by the PYTHONSTARTUP environment
+#          variable at IPython startup.
 #  Default: True
 # c.InteractiveShellApp.exec_PYTHONSTARTUP = True
 
@@ -87,34 +88,39 @@
 #  Default: []
 # c.InteractiveShellApp.extensions = []
 
-## dotted module name of an IPython extension to load.
-#  Default: ''
-# c.InteractiveShellApp.extra_extension = ''
+## Dotted module name(s) of one or more IPython extensions to load.
+#
+#  For specifying extra extensions to load on the command-line.
+#
+#  .. versionadded:: 7.10
+#  Default: []
+# c.InteractiveShellApp.extra_extensions = []
 
 ## A file to be run
 #  Default: ''
 # c.InteractiveShellApp.file_to_run = ''
 
 ## Enable GUI event loop integration with any of ('asyncio', 'glut', 'gtk',
-#  'gtk2', 'gtk3', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'tk', 'wx', 'gtk2',
-#  'qt4').
-#  Choices: any of ['asyncio', 'glut', 'gtk', 'gtk2', 'gtk3', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'tk', 'wx', 'gtk2', 'qt4'] (case-insensitive) or None
+#  'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'qt6', 'tk',
+#  'wx', 'gtk2', 'qt4').
+#  Choices: any of ['asyncio', 'glut', 'gtk', 'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'qt6', 'tk', 'wx', 'gtk2', 'qt4'] (case-insensitive) or None
 #  Default: None
 # c.InteractiveShellApp.gui = None
 
-## Should variables loaded at startup (by startup files, exec_lines, etc.) be
-#  hidden from tools like %who?
+## Should variables loaded at startup (by startup files, exec_lines, etc.)
+#          be hidden from tools like %who?
 #  Default: True
 # c.InteractiveShellApp.hide_initial_ns = True
 
-## If True, IPython will not add the current working directory to sys.path. When
-#  False, the current working directory is added to sys.path, allowing imports of
-#  modules defined in the current directory.
+## If True, IPython will not add the current working directory to sys.path.
+#          When False, the current working directory is added to sys.path, allowing imports
+#          of modules defined in the current directory.
 #  Default: False
 # c.InteractiveShellApp.ignore_cwd = False
 
-## Configure matplotlib for interactive use with the default matplotlib backend.
-#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'svg', 'tk', 'widget', 'wx'] (case-insensitive) or None
+## Configure matplotlib for interactive use with
+#          the default matplotlib backend.
+#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'gtk4', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'qt6', 'svg', 'tk', 'widget', 'wx'] (case-insensitive) or None
 #  Default: None
 # c.InteractiveShellApp.matplotlib = None
 
@@ -122,16 +128,17 @@
 #  Default: ''
 # c.InteractiveShellApp.module_to_run = ''
 
-## Pre-load matplotlib and numpy for interactive use, selecting a particular
-#  matplotlib backend and loop integration.
-#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'svg', 'tk', 'widget', 'wx'] (case-insensitive) or None
+## Pre-load matplotlib and numpy for interactive use,
+#          selecting a particular matplotlib backend and loop integration.
+#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'gtk4', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'qt6', 'svg', 'tk', 'widget', 'wx'] (case-insensitive) or None
 #  Default: None
 # c.InteractiveShellApp.pylab = None
 
-## If true, IPython will populate the user namespace with numpy, pylab, etc. and
-#  an ``import *`` is done from numpy and pylab, when using pylab mode.
+## If true, IPython will populate the user namespace with numpy, pylab, etc.
+#          and an ``import *`` is done from numpy and pylab, when using pylab mode.
 #
-#  When False, pylab mode should not import any names into the user namespace.
+#          When False, pylab mode should not import any names into the user
+#  namespace.
 #  Default: True
 # c.InteractiveShellApp.pylab_import_all = True
 
@@ -170,20 +177,24 @@
 #------------------------------------------------------------------------------
 ## IPython: an enhanced interactive Python shell.
 
+#  Default: False
+# c.BaseIPythonApplication.add_ipython_dir_to_sys_path = False
+
 ## Whether to create profile dir if it doesn't exist
 #  Default: False
 # c.BaseIPythonApplication.auto_create = False
 
-## Whether to install the default config files into the profile dir. If a new
-#  profile is being created, and IPython contains config files for that profile,
-#  then they will be staged into the new directory.  Otherwise, default config
-#  files will be automatically generated.
+## Whether to install the default config files into the profile dir.
+#          If a new profile is being created, and IPython contains config files for that
+#          profile, then they will be staged into the new directory.  Otherwise,
+#          default config files will be automatically generated.
 #  Default: False
 # c.BaseIPythonApplication.copy_config_files = False
 
 ## Path to an extra config file to load.
 #
-#  If specified, load this config file in addition to any other IPython config.
+#      If specified, load this config file in addition to any other IPython
+#  config.
 #  Default: ''
 # c.BaseIPythonApplication.extra_config_file = ''
 
@@ -222,8 +233,9 @@
 #  See also: Application.show_config_json
 # c.BaseIPythonApplication.show_config_json = False
 
-## Create a massive crash report when IPython encounters what may be an internal
-#  error.  The default is to append a short message to the usual traceback
+## Create a massive crash report when IPython encounters what may be an
+#          internal error.  The default is to append a short message to the
+#          usual traceback
 #  Default: False
 # c.BaseIPythonApplication.verbose_crash = False
 
@@ -232,9 +244,17 @@
 #------------------------------------------------------------------------------
 ## IPython: an enhanced interactive Python shell.
 
+#  See also: BaseIPythonApplication.add_ipython_dir_to_sys_path
+# c.IPKernelApp.add_ipython_dir_to_sys_path = False
+
 ## Whether to create profile dir if it doesn't exist
 #  See also: BaseIPythonApplication.auto_create
 # c.IPKernelApp.auto_create = False
+
+## Attempt to capture and forward low-level output, e.g. produced by Extension
+#  libraries.
+#  Default: True
+# c.IPKernelApp.capture_fd_output = True
 
 ## Execute the given command string.
 #  See also: InteractiveShellApp.code_to_run
@@ -276,17 +296,17 @@
 #  See also: BaseIPythonApplication.extra_config_file
 # c.IPKernelApp.extra_config_file = ''
 
-## dotted module name of an IPython extension to load.
-#  See also: InteractiveShellApp.extra_extension
-# c.IPKernelApp.extra_extension = ''
+##
+#  See also: InteractiveShellApp.extra_extensions
+# c.IPKernelApp.extra_extensions = []
 
 ## A file to be run
 #  See also: InteractiveShellApp.file_to_run
 # c.IPKernelApp.file_to_run = ''
 
 ## Enable GUI event loop integration with any of ('asyncio', 'glut', 'gtk',
-#  'gtk2', 'gtk3', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'tk', 'wx', 'gtk2',
-#  'qt4').
+#  'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'qt6', 'tk',
+#  'wx', 'gtk2', 'qt4').
 #  See also: InteractiveShellApp.gui
 # c.IPKernelApp.gui = None
 
@@ -302,7 +322,8 @@
 #  See also: InteractiveShellApp.ignore_cwd
 # c.IPKernelApp.ignore_cwd = False
 
-## ONLY USED ON WINDOWS Interrupt this process when the parent is signaled.
+## ONLY USED ON WINDOWS
+#          Interrupt this process when the parent is signaled.
 #  Default: 0
 # c.IPKernelApp.interrupt = 0
 
@@ -320,8 +341,8 @@
 
 ## The Kernel subclass to be used.
 #
-#  This should allow easy re-use of the IPKernelApp entry point to configure and
-#  launch kernels other than IPython's own.
+#      This should allow easy re-use of the IPKernelApp entry point
+#      to configure and launch kernels other than IPython's own.
 #  Default: 'ipykernel.ipkernel.IPythonKernel'
 # c.IPKernelApp.kernel_class = 'ipykernel.ipkernel.IPythonKernel'
 
@@ -361,8 +382,8 @@
 #  See also: BaseIPythonApplication.overwrite
 # c.IPKernelApp.overwrite = False
 
-## kill this process if its parent dies.  On Windows, the argument specifies the
-#  HANDLE of the parent process, otherwise it is simply boolean.
+## kill this process if its parent dies.  On Windows, the argument
+#          specifies the HANDLE of the parent process, otherwise it is simply boolean.
 #  Default: 0
 # c.IPKernelApp.parent_handle = 0
 
@@ -418,7 +439,7 @@
 #------------------------------------------------------------------------------
 ## Whether to use appnope for compatibility with OS X App Nap.
 #
-#  Only affects OS X >= 10.9.
+#          Only affects OS X >= 10.9.
 #  Default: True
 # c.Kernel._darwin_app_nap = True
 
@@ -428,16 +449,22 @@
 #  Default: 0.01
 # c.Kernel._poll_interval = 0.01
 
-## time (in seconds) to wait for messages to arrive when aborting queued requests
-#  after an error.
+## Set to False if you want to debug python standard and dependent libraries.
+#  Default: True
+# c.Kernel.debug_just_my_code = True
+
+## time (in seconds) to wait for messages to arrive
+#          when aborting queued requests after an error.
 #
-#  Requests that arrive within this window after an error will be cancelled.
+#          Requests that arrive within this window after an error
+#          will be cancelled.
 #
-#  Increase in the event of unusually slow network causing significant delays,
-#  which can manifest as e.g. "Run all" in a notebook aborting some, but not all,
-#  messages after an error.
-#  Default: 0.1
-# c.Kernel.stop_on_error_timeout = 0.1
+#          Increase in the event of unusually slow network
+#          causing significant delays,
+#          which can manifest as e.g. "Run all" in a notebook
+#          aborting some, but not all, messages after an error.
+#  Default: 0.0
+# c.Kernel.stop_on_error_timeout = 0.0
 
 #------------------------------------------------------------------------------
 # IPythonKernel(Kernel) configuration
@@ -452,12 +479,16 @@
 #  See also: Kernel._poll_interval
 # c.IPythonKernel._poll_interval = 0.01
 
-#  Default: [{'text': 'Python Reference', 'url': 'https://docs.python.org/3.7'}, {'text': 'IPython Reference', 'url': 'https://ipython.org/documentation.html'}, {'text': 'NumPy Reference', 'url': 'https://docs.scipy.org/doc/numpy/reference/'}, {'text': 'SciPy Reference', 'url': 'https://docs.scipy.org/doc/scipy/reference/'}, {'text': 'Matplotlib Reference', 'url': 'https://matplotlib.org/contents.html'}, {'text': 'SymPy Reference', 'url': 'http://docs.sympy.org/latest/index.html'}, {'text': 'pandas Reference', 'url': 'https://pandas.pydata.org/pandas-docs/stable/'}]
-# c.IPythonKernel.help_links = [{'text': 'Python Reference', 'url': 'https://docs.python.org/3.7'}, {'text': 'IPython Reference', 'url': 'https://ipython.org/documentation.html'}, {'text': 'NumPy Reference', 'url': 'https://docs.scipy.org/doc/numpy/reference/'}, {'text': 'SciPy Reference', 'url': 'https://docs.scipy.org/doc/scipy/reference/'}, {'text': 'Matplotlib Reference', 'url': 'https://matplotlib.org/contents.html'}, {'text': 'SymPy Reference', 'url': 'http://docs.sympy.org/latest/index.html'}, {'text': 'pandas Reference', 'url': 'https://pandas.pydata.org/pandas-docs/stable/'}]
+## Set to False if you want to debug python standard and dependent libraries.
+#  See also: Kernel.debug_just_my_code
+# c.IPythonKernel.debug_just_my_code = True
+
+#  Default: [{'text': 'Python Reference', 'url': 'https://docs.python.org/3.8'}, {'text': 'IPython Reference', 'url': 'https://ipython.org/documentation.html'}, {'text': 'NumPy Reference', 'url': 'https://docs.scipy.org/doc/numpy/reference/'}, {'text': 'SciPy Reference', 'url': 'https://docs.scipy.org/doc/scipy/reference/'}, {'text': 'Matplotlib Reference', 'url': 'https://matplotlib.org/contents.html'}, {'text': 'SymPy Reference', 'url': 'http://docs.sympy.org/latest/index.html'}, {'text': 'pandas Reference', 'url': 'https://pandas.pydata.org/pandas-docs/stable/'}]
+# c.IPythonKernel.help_links = [{'text': 'Python Reference', 'url': 'https://docs.python.org/3.8'}, {'text': 'IPython Reference', 'url': 'https://ipython.org/documentation.html'}, {'text': 'NumPy Reference', 'url': 'https://docs.scipy.org/doc/numpy/reference/'}, {'text': 'SciPy Reference', 'url': 'https://docs.scipy.org/doc/scipy/reference/'}, {'text': 'Matplotlib Reference', 'url': 'https://matplotlib.org/contents.html'}, {'text': 'SymPy Reference', 'url': 'http://docs.sympy.org/latest/index.html'}, {'text': 'pandas Reference', 'url': 'https://pandas.pydata.org/pandas-docs/stable/'}]
 
 ## time (in seconds) to wait for messages to arrive
 #  See also: Kernel.stop_on_error_timeout
-# c.IPythonKernel.stop_on_error_timeout = 0.1
+# c.IPythonKernel.stop_on_error_timeout = 0.0
 
 ## Set this flag to False to deactivate the use of experimental IPython
 #  completion APIs.
@@ -503,8 +534,8 @@
 # c.InteractiveShell.automagic = True
 
 ## The part of the banner to be printed before the profile
-#  Default: "Python 3.7.8 | packaged by conda-forge | (default, Jul 31 2020, 02:25:08) \nType 'copyright', 'credits' or 'license' for more information\nIPython 7.18.1 -- An enhanced Interactive Python. Type '?' for help.\n"
-# c.InteractiveShell.banner1 = "Python 3.7.8 | packaged by conda-forge | (default, Jul 31 2020, 02:25:08) \nType 'copyright', 'credits' or 'license' for more information\nIPython 7.18.1 -- An enhanced Interactive Python. Type '?' for help.\n"
+#  Default: "Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:18) \nType 'copyright', 'credits' or 'license' for more information\nIPython 8.3.0 -- An enhanced Interactive Python. Type '?' for help.\n"
+# c.InteractiveShell.banner1 = "Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:18) \nType 'copyright', 'credits' or 'license' for more information\nIPython 8.3.0 -- An enhanced Interactive Python. Type '?' for help.\n"
 
 ## The part of the banner to be printed after the profile
 #  Default: ''
@@ -537,8 +568,8 @@
 #  Default: False
 # c.InteractiveShell.disable_failing_post_execute = False
 
-## If True, anything that would be passed to the pager will be displayed as
-#  regular output instead.
+## If True, anything that would be passed to the pager
+#          will be displayed as regular output instead.
 #  Default: False
 # c.InteractiveShell.display_page = False
 
@@ -584,26 +615,6 @@
 ## Automatically call the pdb debugger after every exception.
 #  Default: False
 # c.InteractiveShell.pdb = False
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  Default: 'In [\\#]: '
-# c.InteractiveShell.prompt_in1 = 'In [\\#]: '
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  Default: '   .\\D.: '
-# c.InteractiveShell.prompt_in2 = '   .\\D.: '
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  Default: 'Out[\\#]: '
-# c.InteractiveShell.prompt_out = 'Out[\\#]: '
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  Default: True
-# c.InteractiveShell.prompts_pad_left = True
 
 #  Default: False
 # c.InteractiveShell.quiet = False
@@ -661,7 +672,7 @@
 
 ## The part of the banner to be printed before the profile
 #  See also: InteractiveShell.banner1
-# c.ZMQInteractiveShell.banner1 = "Python 3.7.8 | packaged by conda-forge | (default, Jul 31 2020, 02:25:08) \nType 'copyright', 'credits' or 'license' for more information\nIPython 7.18.1 -- An enhanced Interactive Python. Type '?' for help.\n"
+# c.ZMQInteractiveShell.banner1 = "Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:18) \nType 'copyright', 'credits' or 'license' for more information\nIPython 8.3.0 -- An enhanced Interactive Python. Type '?' for help.\n"
 
 ## The part of the banner to be printed after the profile
 #  See also: InteractiveShell.banner2
@@ -729,26 +740,6 @@
 #  See also: InteractiveShell.pdb
 # c.ZMQInteractiveShell.pdb = False
 
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  See also: InteractiveShell.prompt_in1
-# c.ZMQInteractiveShell.prompt_in1 = 'In [\\#]: '
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  See also: InteractiveShell.prompt_in2
-# c.ZMQInteractiveShell.prompt_in2 = '   .\\D.: '
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  See also: InteractiveShell.prompt_out
-# c.ZMQInteractiveShell.prompt_out = 'Out[\\#]: '
-
-## Deprecated since IPython 4.0 and ignored since 5.0, set
-#  TerminalInteractiveShell.prompts object directly.
-#  See also: InteractiveShell.prompts_pad_left
-# c.ZMQInteractiveShell.prompts_pad_left = True
-
 #  See also: InteractiveShell.quiet
 # c.ZMQInteractiveShell.quiet = False
 
@@ -781,14 +772,14 @@
 #------------------------------------------------------------------------------
 ## An object to manage the profile directory and its resources.
 #
-#  The profile directory is used by all IPython applications, to manage
-#  configuration, logging and security.
+#      The profile directory is used by all IPython applications, to manage
+#      configuration, logging and security.
 #
-#  This object knows how to find, create and manage these directories. This
-#  should be used by any code that wants to handle profiles.
+#      This object knows how to find, create and manage these directories. This
+#      should be used by any code that wants to handle profiles.
 
 ## Set the profile location directly. This overrides the logic used by the
-#  `profile` option.
+#          `profile` option.
 #  Default: ''
 # c.ProfileDir.location = ''
 
@@ -797,40 +788,42 @@
 #------------------------------------------------------------------------------
 ## Object for handling serialization and sending of messages.
 #
-#  The Session object handles building messages and sending them with ZMQ sockets
-#  or ZMQStream objects.  Objects can communicate with each other over the
-#  network via Session objects, and only need to work with the dict-based IPython
-#  message spec. The Session will handle serialization/deserialization, security,
-#  and metadata.
+#      The Session object handles building messages and sending them
+#      with ZMQ sockets or ZMQStream objects.  Objects can communicate with each
+#      other over the network via Session objects, and only need to work with the
+#      dict-based IPython message spec. The Session will handle
+#      serialization/deserialization, security, and metadata.
 #
-#  Sessions support configurable serialization via packer/unpacker traits, and
-#  signing with HMAC digests via the key/keyfile traits.
+#      Sessions support configurable serialization via packer/unpacker traits,
+#      and signing with HMAC digests via the key/keyfile traits.
 #
-#  Parameters ----------
+#      Parameters
+#      ----------
 #
-#  debug : bool
-#      whether to trigger extra debugging statements
-#  packer/unpacker : str : 'json', 'pickle' or import_string
-#      importstrings for methods to serialize message parts.  If just
-#      'json' or 'pickle', predefined JSON and pickle packers will be used.
-#      Otherwise, the entire importstring must be used.
+#      debug : bool
+#          whether to trigger extra debugging statements
+#      packer/unpacker : str : 'json', 'pickle' or import_string
+#          importstrings for methods to serialize message parts.  If just
+#          'json' or 'pickle', predefined JSON and pickle packers will be used.
+#          Otherwise, the entire importstring must be used.
 #
-#      The functions must accept at least valid JSON input, and output *bytes*.
+#          The functions must accept at least valid JSON input, and output
+#  *bytes*.
 #
-#      For example, to use msgpack:
-#      packer = 'msgpack.packb', unpacker='msgpack.unpackb'
-#  pack/unpack : callables
-#      You can also set the pack/unpack callables for serialization directly.
-#  session : bytes
-#      the ID of this Session object.  The default is to generate a new UUID.
-#  username : unicode
-#      username added to message headers.  The default is to ask the OS.
-#  key : bytes
-#      The key used to initialize an HMAC signature.  If unset, messages
-#      will not be signed or checked.
-#  keyfile : filepath
-#      The file containing a key.  If this is set, `key` will be initialized
-#      to the contents of the file.
+#          For example, to use msgpack:
+#          packer = 'msgpack.packb', unpacker='msgpack.unpackb'
+#      pack/unpack : callables
+#          You can also set the pack/unpack callables for serialization directly.
+#      session : bytes
+#          the ID of this Session object.  The default is to generate a new UUID.
+#      username : unicode
+#          username added to message headers.  The default is to ask the OS.
+#      key : bytes
+#          The key used to initialize an HMAC signature.  If unset, messages
+#          will not be signed or checked.
+#      keyfile : filepath
+#          The file containing a key.  If this is set, `key` will be initialized
+#          to the contents of the file.
 
 ## Threshold (in bytes) beyond which an object's buffer should be extracted to
 #  avoid pickling.
@@ -839,7 +832,7 @@
 
 ## Whether to check PID to protect against calls after fork.
 #
-#  This check can be disabled if fork-safety is handled elsewhere.
+#          This check can be disabled if fork-safety is handled elsewhere.
 #  Default: True
 # c.Session.check_pid = True
 
@@ -853,12 +846,12 @@
 
 ## The maximum number of digests to remember.
 #
-#  The digest history will be culled when it exceeds this value.
+#          The digest history will be culled when it exceeds this value.
 #  Default: 65536
 # c.Session.digest_history_size = 65536
 
-## The maximum number of items for a container to be introspected for custom
-#  serialization. Containers larger than this are pickled outright.
+## The maximum number of items for a container to be introspected for custom serialization.
+#          Containers larger than this are pickled outright.
 #  Default: 64
 # c.Session.item_threshold = 64
 
@@ -875,8 +868,9 @@
 #  Default: {}
 # c.Session.metadata = {}
 
-## The name of the packer for serializing messages. Should be one of 'json',
-#  'pickle', or an import name for a custom callable serializer.
+## The name of the packer for serializing messages.
+#              Should be one of 'json', 'pickle', or an import name
+#              for a custom callable serializer.
 #  Default: 'json'
 # c.Session.packer = 'json'
 
@@ -884,13 +878,13 @@
 #  Default: ''
 # c.Session.session = ''
 
-## The digest scheme used to construct the message signatures. Must have the form
-#  'hmac-HASH'.
+## The digest scheme used to construct the message signatures.
+#          Must have the form 'hmac-HASH'.
 #  Default: 'hmac-sha256'
 # c.Session.signature_scheme = 'hmac-sha256'
 
-## The name of the unpacker for unserializing messages. Only used with custom
-#  functions for `packer`.
+## The name of the unpacker for unserializing messages.
+#          Only used with custom functions for `packer`.
 #  Default: 'json'
 # c.Session.unpacker = 'json'
 
