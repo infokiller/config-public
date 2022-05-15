@@ -52,6 +52,7 @@ OPTIONAL_IMPORTS = [
     'import torchvision.transforms as transforms',
     'import torchviz',
     'from dateutil import relativedelta',
+    'from rich import print',
 ]
 for opt_import in OPTIONAL_IMPORTS:
     try:

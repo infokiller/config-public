@@ -57,6 +57,14 @@ def _load_local_extension(name):
     return module
 
 
+def _run_pip(args):
+    # https://ipython.readthedocs.io/en/stable/whatsnew/version7.html#ipython-7-3-0
+    if IPython.version_info >= (7, 3, 0):
+        get_ipython().run_line_magic('pip', ' '.join(args))
+        return
+    subprocess.run(['pip'] + args, check=True)
+
+
 # def _init_file_logging():
 #     _BASE_LOG_DIR = os.path.expanduser('~/.local/var/log/ipython')
 #     now = time.localtime()
@@ -357,15 +365,23 @@ def _load_pyflyby():
         return
     except ModuleNotFoundError:
         pass
-    # https://ipython.readthedocs.io/en/stable/whatsnew/version7.html#ipython-7-3-0
-    if IPython.version_info >= (7, 3, 0):
-        ipython.run_line_magic('pip', 'install pyflyby')
-    else:
-        try:
-            subprocess.run(['pip', 'install', 'pyflyby'], check=True)
-        except subprocess.CalledProcessError:
-            return
+    try:
+        _run_pip('install pyflyby')
+    except subprocess.CalledProcessError:
+        return
     ipython.run_line_magic('load_ext', 'pyflyby')
+
+
+def _load_rich():
+    try:
+        # pylint: disable=import-outside-toplevel
+        import rich
+        import rich.pretty
+        import rich.traceback
+    except ImportError:
+        return
+    rich.pretty.install()
+    rich.traceback.install()
 
 
 _define_prompt_toolkit_keybindings()
@@ -376,6 +392,7 @@ _configure_autoreload()
 _load_local_extension('autotime')
 _configure_prompt()
 _load_pyflyby()
+_load_rich()
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
 # which I don't like, so I'm setting it directly on the IPython object.
 # %pdb on
