@@ -1290,7 +1290,10 @@ alias coba='conda-or-mamba'
 alias pya='conda activate'
 alias pyd='conda deactivate'
 
+# https://github.com/infokiller/pythonpy
+# Formerly:
 # https://github.com/Russell91/pythonpy
+alias py='PYTHONPATH="${SUBMODULES_DIR}/terminal/pythonpy" conda-run pythonpy "${SUBMODULES_DIR}/terminal/pythonpy/pythonpy/pyeval.py"'
 alias p=py
 alias px='py -x'
 # Disabled for now as ptipython is not mature enough for replacing the default
