@@ -659,7 +659,8 @@ git-add-fzf() {
     cd -- "${repo_root}" || exit
     # During a merge conflict, _git_ls_unstaged_files return duplicates, so we
     # must dedup the output.
-    "${_git_ls_unstaged_files[@]}" |
+    # --others --exclude-standard adds untracked files
+    "${_git_ls_unstaged_files[@]}" --others --exclude-standard |
       dedup |
       fzf-shell --height=80% --multi --preview="${_git_diff_index_preview}" \
         --prompt='Add > ' |
@@ -684,12 +685,12 @@ _git_select_changed_files_fzf() {
   repo_root="$(git rev-parse --show-toplevel)"
   (
     cd -- "${repo_root}" || exit
-    (
+    {
       # Concatenate the lists of staged and unstaged modified files. See also:
       # https://unix.stackexchange.com/a/176929/126543
       "${_git_ls_unstaged_files[@]}" "${repo_root}"
       "${_git_ls_staged_files[@]}"
-    ) | sort -u | fzf-shell --multi --preview="${_git_diff_head_preview}" "$@"
+    } | sort -u | fzf-shell --multi --preview="${_git_diff_head_preview}" "$@"
   )
 }
 
