@@ -5,9 +5,12 @@
 
 import importlib.util
 import os
+import pathlib
+import platform
 import socket
 import subprocess
 import sys
+import re
 import time
 import warnings
 
@@ -245,12 +248,98 @@ def _configure_autoreload():
                            3 if IPython.version_info[0] >= 8 else 2)
 
 
+# https://waylonwalker.com/custom-ipython-prompt/
+# https://blog.paynepride.com/ipython-prompt/
+# https://github.com/javidcf/ipython_venv_path_prompt
+def _configure_prompt():
+    if IPython.version_info[0] < 5:
+        warnings.warn(f'Discovered old python version ({IPython.version_info}),'
+                      ' not configuring prompt.\n')
+    try:
+        # pylint: disable-next=import-outside-toplevel
+        from IPython.terminal.prompts import Prompts, Token
+    except ImportError:
+        warnings.warn(
+            'Failed importing prompt classes, skipping prompt setup\n')
+        return
+
+    # https://github.com/javidcf/ipython_venv_path_prompt/blob/master/ipython_venv_path_prompt/ipython_venv_path_prompt.py#L9
+    def get_venv():
+        if 'CONDA_DEFAULT_ENV' in os.environ:
+            return os.environ['CONDA_DEFAULT_ENV']
+        m = re.match(r'.*/conda/envs/([^/]+)$', sys.prefix)
+        if m:
+            return m.groups()[0]
+        # if 'conda/envs':
+        #     pass
+        # if hasattr(sys, 'real_prefix') or sys.base_prefix != sys.prefix:
+        #     return pathlib.Path(sys.prefix).parts[-1]
+        # else:
+        #     for p in sys.path:
+        #         if p:
+        #            break
+        #     else:
+        #         return []
+        return ''
+
+    def get_path_tokens():
+        cwd = pathlib.Path.cwd()
+        home = pathlib.Path.home()
+        path = cwd
+        if cwd == home:
+            path = '~'
+        elif cwd.as_posix().startswith(home.as_posix()):
+            path = '~/' + cwd.relative_to(home).as_posix()
+        return [(Token, ' '), (Token.String.Other, path)]
+
+    # def get_branch():
+    #     try:
+    #         return subprocess.check_output(
+    #             'git branch --show-current',
+    #             shell=True,
+    #             stderr=subprocess.DEVNULL).decode('utf-8').replace('\n', '')
+    #     except BaseException:
+    #         return ''
+
+    class MyPrompt(Prompts):
+
+        def in_prompt_tokens(self):
+            venv = get_venv()
+            venv_tokens = [
+                (Token, ' '),
+                (Token.Prompt, venv),
+            ] if venv else []
+            # ver = platform.python_version_tuple()
+            return [
+                # (Token.Name.Class, f'Py v{ver[0]}.{ver[1]}'),
+                # (Token, ' '),
+                # (Token.Generic.Subheading, '↪'),
+                # (Token.Generic.Subheading, get_branch()),
+                # (Token, ' '),
+                (Token.Prompt, ''),
+                *venv_tokens,
+                *get_path_tokens(),
+                # (Token, ' '),
+                # (Token, ' '),
+                # (Token.Name.Entity, 'ipython'),
+                (Token, '\n'),
+                (
+                    Token.Prompt if self.shell.last_execution_succeeded else
+                    Token.Generic.Error,
+                    '❯ ',
+                ),
+            ]
+
+    get_ipython().prompts = MyPrompt(get_ipython())
+
+
 _define_prompt_toolkit_keybindings()
 _define_aliases()
 _configure_matplotlib()
 _configure_completion()
 _configure_autoreload()
 _load_local_extension('autotime')
+_configure_prompt()
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
 # which I don't like, so I'm setting it directly on the IPython object.
 # %pdb on
