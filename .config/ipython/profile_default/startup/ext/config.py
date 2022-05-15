@@ -349,11 +349,23 @@ def _configure_prompt():
 
 
 # https://github.com/deshaw/pyflyby
+# https://waylonwalker.com/pyflyby/
 def _load_pyflyby():
+    ipython = get_ipython()
     try:
-        get_ipython().run_line_magic('load_ext', 'pyflyby')
+        ipython.run_line_magic('load_ext', 'pyflyby')
+        return
     except ModuleNotFoundError:
         pass
+    # https://ipython.readthedocs.io/en/stable/whatsnew/version7.html#ipython-7-3-0
+    if IPython.version_info >= (7, 3, 0):
+        ipython.run_line_magic('pip', 'install pyflyby')
+    else:
+        try:
+            subprocess.run(['pip', 'install', 'pyflyby'], check=True)
+        except subprocess.CalledProcessError:
+            return
+    ipython.run_line_magic('load_ext', 'pyflyby')
 
 
 _define_prompt_toolkit_keybindings()
