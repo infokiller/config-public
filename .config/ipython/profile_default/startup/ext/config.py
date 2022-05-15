@@ -7,10 +7,10 @@ import importlib.util
 import os
 import pathlib
 import platform
+import re
 import socket
 import subprocess
 import sys
-import re
 import time
 import warnings
 
@@ -22,6 +22,7 @@ from IPython import get_ipython
 try:
     import prompt_toolkit
     from prompt_toolkit.keys import Keys
+    from prompt_toolkit.utils import get_cwidth
     _KeyPressEvent = prompt_toolkit.key_binding.key_processor.KeyPressEvent
 except (ImportError, ValueError):
     pass
@@ -255,6 +256,8 @@ def _configure_prompt():
     if IPython.version_info[0] < 5:
         warnings.warn(f'Discovered old python version ({IPython.version_info}),'
                       ' not configuring prompt.\n')
+    if not _is_ipython_terminal(get_ipython()):
+        return
     try:
         # pylint: disable-next=import-outside-toplevel
         from IPython.terminal.prompts import Prompts, Token
@@ -283,13 +286,22 @@ def _configure_prompt():
         return ''
 
     def get_displayed_path():
-        cwd = pathlib.Path.cwd()
+        cols = IPython.utils.terminal.get_terminal_size().columns
+        if cols < 10:
+            return ''
+        cwd = pathlib.Path.cwd().absolute()
         home = pathlib.Path.home()
         if cwd == home:
             return '~'
         if cwd.as_posix().startswith(home.as_posix()):
-            return '~/' + cwd.relative_to(home).as_posix()
-        return cwd
+            path = pathlib.Path('~', cwd.relative_to(home))
+        else:
+            path = cwd
+        if get_cwidth(path.as_posix()) < 30 and cols > 40:
+            return path.as_posix()
+        parts = [path.parts[0]] + [p[0] for p in path.parts[1:-2]] + list(
+            path.parts[-2:])
+        return pathlib.Path(*parts).as_posix()
 
     # pylint: disable-next=unused-variable
     def get_git_branch():
