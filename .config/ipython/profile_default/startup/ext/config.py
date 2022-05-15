@@ -307,7 +307,7 @@ def _configure_prompt():
             venv = get_venv()
             venv_tokens = [
                 (Token, ' '),
-                (Token.Prompt, venv),
+                (Token.Keyword, venv),
                 # (Token.Prompt, ' '),
             ] if venv else []
             path = get_displayed_path()
@@ -322,7 +322,7 @@ def _configure_prompt():
                 # (Token.Generic.Subheading, '↪'),
                 # (Token.Generic.Subheading, get_git_branch()),
                 # (Token, ' '),
-                (Token.Prompt, ''),
+                (Token.Keyword, ''),
                 *venv_tokens,
                 *path_tokens,
                 (Token, '\n'),
