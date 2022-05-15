@@ -109,11 +109,13 @@
 /.local/bin/pipenv-resolver
 /.local/bin/poetry
 /.local/bin/proselint
-/.local/bin/py
 /.local/bin/py3nvml
 /.local/bin/pydf
+/.local/bin/pyflyby
+/.local/bin/pyflyby-tidy-imports
 /.local/bin/pylint
 /.local/bin/python-semantic-release
+/.local/bin/pythonpy
 /.local/bin/pytype
 /.local/bin/s-tui
 /.local/bin/twine
@@ -193,6 +195,7 @@
 # Config files that are currently ignored but may be added in the future. These
 # files are usually used either experimental or mixed with host specific config
 # (like window sizes) and credentials.
+/submodules/.envrc
 /.PyCharm*
 /.Tribler
 /.semgrep
