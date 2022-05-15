@@ -710,7 +710,7 @@ let g:lightline = {
     \   'left': [ ['mode', 'spell', 'paste'],
     \             ['readonly', 'modified', 'git_branch', 'filename', 'method'] ],
     \   'right': [ ['column_info', 'percent', 'line_number'], 
-    \              ['autoindent', 'filetype'],
+    \              ['autoindent', 'venv', 'filetype'],
     \              ['linter_checking', 'linter_errors',
     \               'linter_warnings', 'linter_ok'] ],
     \ },
@@ -726,6 +726,7 @@ let g:lightline = {
     \   'spell':      'LightlineSpell',
     \   'modified':   'LightlineModified',
     \   'autoindent': 'LightlineAutoindent',
+    \   'venv':       'LightlineVirtualEnv',
     \ },
     \ 'component_expand': {
     \  'linter_checking': 'lightline#ale#checking',
@@ -804,6 +805,15 @@ endfunction
 
 function! g:LightlineAutoindent() abort
   return exists('*SleuthIndicator') ? SleuthIndicator() : ''
+endfunction
+
+function! g:LightlineVirtualEnv() abort
+  if &filetype is# 'python'
+    if !empty($CONDA_DEFAULT_ENV)
+      return $CONDA_DEFAULT_ENV
+    endif
+  endif
+  return ''
 endfunction
 
 Plug 'maximbaz/lightline-ale'
