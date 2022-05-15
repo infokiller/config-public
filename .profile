@@ -194,6 +194,8 @@ _increase_xdg_conformance() {
   # By default pylint stores data in ${HOME}/.pylint.d
   export PYLINTHOME="${XDG_CACHE_HOME}/pylint"
   # export PYLINTRC="${XDG_CONFIG_HOME}/pylintrc"
+  # https://github.com/deshaw/pyflyby
+  export PYFLYBY_PATH="${XDG_CONFIG_HOME}/pyflyby"
   export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npmrc"
   export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
   export NPM_CONFIG_TMP="${XDG_RUNTIME_DIR}/npm"
