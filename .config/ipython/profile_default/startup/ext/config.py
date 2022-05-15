@@ -348,6 +348,14 @@ def _configure_prompt():
     get_ipython().prompts = MyPrompt(get_ipython())
 
 
+# https://github.com/deshaw/pyflyby
+def _load_pyflyby():
+    try:
+        get_ipython().run_line_magic('load_ext', 'pyflyby')
+    except ModuleNotFoundError:
+        pass
+
+
 _define_prompt_toolkit_keybindings()
 _define_aliases()
 _configure_matplotlib()
@@ -355,6 +363,7 @@ _configure_completion()
 _configure_autoreload()
 _load_local_extension('autotime')
 _configure_prompt()
+_load_pyflyby()
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
 # which I don't like, so I'm setting it directly on the IPython object.
 # %pdb on

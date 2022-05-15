@@ -57,6 +57,7 @@ dependencies:
     ###
     - dephell
     - pypiserver
+    - pyflyby
     ###
     # General tools that happen to be implemented in python
     ###
