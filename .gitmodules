@@ -11,6 +11,9 @@
 [submodule "submodules/terminal/fasd"]
 	path = submodules/terminal/fasd
 	url = https://github.com/infokiller/fasd
+[submodule "submodules/terminal/ssh-et"]
+	path = submodules/terminal/ssh-et
+	url = https://github.com/infokiller/ssh-et
 [submodule "submodules/desktop/selfspy"]
 	path = submodules/desktop/selfspy
 	url = https://github.com/infokiller/selfspy
@@ -38,6 +41,9 @@
 [submodule "submodules/desktop/rofi-lpass"]
 	path = submodules/desktop/rofi-lpass
 	url = https://gitlab.com/infokiller/rofi-lpass
+[submodule "submodules/terminal/pythonpy"]
+	path = submodules/terminal/pythonpy
+	url = https://github.com/infokiller/pythonpy-fork
 [submodule "submodules/terminal/icdiff"]
 	path = submodules/terminal/icdiff
 	url = https://github.com/jeffkaufman/icdiff
@@ -68,6 +74,9 @@
 [submodule "submodules/desktop/activitywatch"]
 	path = submodules/desktop/activitywatch
 	url = https://github.com/ActivityWatch/activitywatch
+[submodule "submodules/desktop/MaterialFox"]
+	path = submodules/desktop/MaterialFox
+	url = https://github.com/infokiller/MaterialFox
 [submodule "submodules/terminal/archive"]
 	path = submodules/terminal/archive
 	url = https://github.com/romkatv/archive
@@ -694,12 +703,3 @@
 [submodule "submodules/xplr/preview-tabbed.xplr"]
 	path = submodules/xplr/preview-tabbed.xplr
 	url = https://github.com/sayanarijit/preview-tabbed.xplr
-[submodule "submodules/terminal/ssh-et"]
-	path = submodules/terminal/ssh-et
-	url = https://github.com/infokiller/ssh-et
-[submodule "submodules/desktop/MaterialFox"]
-	path = submodules/desktop/MaterialFox
-	url = https://github.com/infokiller/MaterialFox
-[submodule "submodules/terminal/pythonpy"]
-	path = submodules/terminal/pythonpy
-	url = https://github.com/infokiller/pythonpy-fork
