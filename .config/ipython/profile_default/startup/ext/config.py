@@ -366,7 +366,7 @@ def _load_pyflyby():
     except ModuleNotFoundError:
         pass
     try:
-        _run_pip('install pyflyby')
+        _run_pip(['install', 'pyflyby'])
     except subprocess.CalledProcessError:
         return
     ipython.run_line_magic('load_ext', 'pyflyby')
