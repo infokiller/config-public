@@ -2055,9 +2055,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:3.0.0":
-  version: 3.0.0
-  resolution: "bash-language-server@npm:3.0.0"
+"bash-language-server@npm:3.0.2":
+  version: 3.0.2
+  resolution: "bash-language-server@npm:3.0.2"
   dependencies:
     fuzzy-search: ^3.2.1
     glob: ^8.0.0
@@ -2067,10 +2067,10 @@ __metadata:
     urijs: ^1.19.1
     vscode-languageserver: ^6.1.1
     vscode-languageserver-textdocument: ^1.0.1
-    web-tree-sitter: ^0.19.4
+    web-tree-sitter: ^0.20.5
   bin:
     bash-language-server: bin/main.js
-  checksum: bc36697a2763bf11263f1d30bea04f7f2dbd738ccb1e5952ac939e305f0c12296f84d29e4798fb9dcc8ab852532da8073c0143b683374b5d0986bb60c5ad0616
+  checksum: 513fd996135727126ab7548e559f3caa08f0c9ec2bc9c97033d4e0b748c01fb90782f172e2b671ff8cd076d47a14d3987ef421f5814ca87f317d8091a092cfb9
   languageName: node
   linkType: hard
 
@@ -13768,13 +13768,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.246":
-  version: 1.1.246
-  resolution: "pyright@npm:1.1.246"
+"pyright@npm:1.1.247":
+  version: 1.1.247
+  resolution: "pyright@npm:1.1.247"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 9d04cf8954036ed2bcf7f0572de864ce6b58996216b7f2c5bfc6ab4afc0b659b54a13d2e5d223ec1b0e284488b706d62acf6307e5114e57a3897e2b658722b89
+  checksum: b879d184bf40685d35460ceb38ee091139e59ea727defe4689c86844c8aeedec82e9b8cbf412bc76728b38b3d3cbb338e20cd79d60dde826d063882d7a8c0184
   languageName: node
   linkType: hard
 
@@ -14686,7 +14686,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.1
     alex: 10.0.0
-    bash-language-server: 3.0.0
+    bash-language-server: 3.0.2
     corepack: 0.10.0
     diff-so-fancy: 1.4.3
     eslint: 8.15.0
@@ -14703,7 +14703,7 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.6.2
     puppeteer: 14.1.0
-    pyright: 1.1.246
+    pyright: 1.1.247
     release-it: 15.0.0
     semantic-release: 19.0.2
     snyk: 1.931.0
@@ -17513,10 +17513,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-tree-sitter@npm:^0.19.4":
-  version: 0.19.4
-  resolution: "web-tree-sitter@npm:0.19.4"
-  checksum: 2e7a2837bfcbb0c69b006243b3ad81eb5eacc5cb2b177f98d7501f068a674e1cbaa0719be191674fe080b0125318ecca7b1e4682664f6c7323e95957ceda66b3
+"web-tree-sitter@npm:^0.20.5":
+  version: 0.20.5
+  resolution: "web-tree-sitter@npm:0.20.5"
+  checksum: d1ecb4f84e37dc17f1f564dd43fadb62a588e5c1cab3a1e9dd499cf7a2b9ff723712899303d028c361bf2cf92817421039384e5fca732c40d6f7755cdc234299
   languageName: node
   linkType: hard
 
