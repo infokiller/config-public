@@ -19,6 +19,7 @@ import logging
 import math
 import operator
 import os
+import pathlib
 import pickle
 import pprint
 import random
@@ -33,6 +34,7 @@ from typing import (Any, Callable, Dict, Iterable, List, Optional, Sequence,
 
 reload = importlib.reload
 pprint = pprint.pprint
+Path = pathlib.Path
 
 OPTIONAL_IMPORTS = [
     'import matplotlib',
@@ -58,6 +60,7 @@ for opt_import in OPTIONAL_IMPORTS:
     except ImportError:
         pass
 del OPTIONAL_IMPORTS
+
 
 # NOTE: Keep this function in sync with the one in ext/config.py.
 def _load_local_extension(name):

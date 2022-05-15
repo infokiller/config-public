@@ -282,24 +282,24 @@ def _configure_prompt():
         #         return []
         return ''
 
-    def get_path_tokens():
+    def get_displayed_path():
         cwd = pathlib.Path.cwd()
         home = pathlib.Path.home()
-        path = cwd
         if cwd == home:
-            path = '~'
-        elif cwd.as_posix().startswith(home.as_posix()):
-            path = '~/' + cwd.relative_to(home).as_posix()
-        return [(Token, ' '), (Token.String.Other, path)]
+            return '~'
+        if cwd.as_posix().startswith(home.as_posix()):
+            return '~/' + cwd.relative_to(home).as_posix()
+        return cwd
 
-    # def get_branch():
-    #     try:
-    #         return subprocess.check_output(
-    #             'git branch --show-current',
-    #             shell=True,
-    #             stderr=subprocess.DEVNULL).decode('utf-8').replace('\n', '')
-    #     except BaseException:
-    #         return ''
+    # pylint: disable-next=unused-variable
+    def get_git_branch():
+        try:
+            return subprocess.check_output(
+                'git branch --show-current',
+                shell=True,
+                stderr=subprocess.DEVNULL).decode('utf-8').replace('\n', '')
+        except subprocess.CalledProcessError:
+            return ''
 
     class MyPrompt(Prompts):
 
@@ -308,20 +308,23 @@ def _configure_prompt():
             venv_tokens = [
                 (Token, ' '),
                 (Token.Prompt, venv),
+                # (Token.Prompt, ' '),
             ] if venv else []
+            path = get_displayed_path()
+            path_tokens = [
+                (Token, ' '),
+                (Token.String.Literal, path),
+            ] if path else []
             # ver = platform.python_version_tuple()
             return [
                 # (Token.Name.Class, f'Py v{ver[0]}.{ver[1]}'),
                 # (Token, ' '),
                 # (Token.Generic.Subheading, '↪'),
-                # (Token.Generic.Subheading, get_branch()),
+                # (Token.Generic.Subheading, get_git_branch()),
                 # (Token, ' '),
                 (Token.Prompt, ''),
                 *venv_tokens,
-                *get_path_tokens(),
-                # (Token, ' '),
-                # (Token, ' '),
-                # (Token.Name.Entity, 'ipython'),
+                *path_tokens,
                 (Token, '\n'),
                 (
                     Token.Prompt if self.shell.last_execution_succeeded else
