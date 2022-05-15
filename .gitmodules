@@ -700,3 +700,6 @@
 [submodule "submodules/desktop/MaterialFox"]
 	path = submodules/desktop/MaterialFox
 	url = https://github.com/infokiller/MaterialFox
+[submodule "submodules/terminal/pythonpy"]
+	path = submodules/terminal/pythonpy
+	url = https://github.com/infokiller/pythonpy-fork
