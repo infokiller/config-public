@@ -61,7 +61,6 @@ dependencies:
     ###
     # General tools that happen to be implemented in python
     ###
-    - pythonpy
     - codespell
     - proselint
     - vim-vint
