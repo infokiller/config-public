@@ -1293,7 +1293,7 @@ alias pyd='conda deactivate'
 # https://github.com/infokiller/pythonpy
 # Formerly:
 # https://github.com/Russell91/pythonpy
-alias py='PYTHONPATH="${SUBMODULES_DIR}/terminal/pythonpy" conda-run pythonpy "${SUBMODULES_DIR}/terminal/pythonpy/pythonpy/pyeval.py"'
+alias py='PYTHONPATH="${SUBMODULES_DIR}/terminal/pythonpy" conda-run pythonpy "${SUBMODULES_DIR}/terminal/pythonpy/main.py"'
 alias p=py
 alias px='py -x'
 # Disabled for now as ptipython is not mature enough for replacing the default
@@ -1735,7 +1735,7 @@ monitor-slow-pings() {
     stdbuf -oL -eL grep --text -E -v \
       -e 'time=[0-2]?[0-9]{1,2}(\.[0-9]+)? ms' \
       -e 'PING|ping statistics|packets transmitted|rtt min/avg|^\s*$' |
-    stdbuf -oL -eL py -c "${py_precmd}" -x "${py_cmd}"
+    stdbuf -oL -eL rif py -c "${py_precmd}" -x "${py_cmd}"
 }
 
 alias sd=sensible-diff
