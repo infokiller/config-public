@@ -124,7 +124,7 @@ _maybe_set_colorterm() {
     case "${terminal}" in
       # NOTE: tmux-256color can be reported as the real terminal when
       # I'm SSHing from a tmux session in my local machine.
-      xterm-kitty | xterm-termite | tmux-256color)
+      xterm-kitty | xterm-termite | xterm-256color | tmux-256color)
         export COLORTERM='truecolor'
         ;;
     esac
