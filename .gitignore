@@ -195,7 +195,6 @@
 # Config files that are currently ignored but may be added in the future. These
 # files are usually used either experimental or mixed with host specific config
 # (like window sizes) and credentials.
-/submodules/.envrc
 /.PyCharm*
 /.Tribler
 /.semgrep
