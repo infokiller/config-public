@@ -68,6 +68,7 @@ disable=fixme,
         missing-docstring,
         logging-format-interpolation,
         logging-fstring-interpolation,
+        consider-using-f-string,
         too-few-public-methods,
 
 # Things I disabled but were in the default config:
@@ -619,3 +620,5 @@ min-public-methods=2
 # "BaseException, Exception".
 overgeneral-exceptions=BaseException,
                        Exception
+
+# vim: set ft=conf :
