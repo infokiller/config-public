@@ -43,7 +43,7 @@
 	url = https://gitlab.com/infokiller/rofi-lpass
 [submodule "submodules/terminal/pythonpy"]
 	path = submodules/terminal/pythonpy
-	url = https://github.com/infokiller/pythonpy-fork
+	url = https://github.com/infokiller/pythonpy
 [submodule "submodules/terminal/icdiff"]
 	path = submodules/terminal/icdiff
 	url = https://github.com/jeffkaufman/icdiff
