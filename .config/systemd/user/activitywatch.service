@@ -10,7 +10,12 @@ Type=simple
 # NOTE: This used not to work because it complained about a permission error
 # when calling os.setpgrp(), but as of 2020-08-10 it works when running from an
 # activitywatch release.
-ExecStart=%h/submodules/desktop/activitywatch/dist/aw-qt
+# I can reproduce this issue with:
+# systemd-run --user --pty --wait python -c 'import os; os.setpgrp()'
+# The problem is described in [1] but the solution doesn't work for me, though
+# running it from a python wrapper does.
+# [1] https://stackoverflow.com/a/51005084/1014208
+ExecStart=python -c "import os; os.system('%h/submodules/desktop/activitywatch/dist/aw-qt')"
 # ExecStart=env conda-run activitywatch aw-qt
 # ExecStart=python -c 'import os; os.setpgrp()'
 Restart=on-failure
