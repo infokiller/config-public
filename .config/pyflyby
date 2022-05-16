@@ -1,3 +1,6 @@
+# https://github.com/deshaw/pyflyby#details-import-libraries
+# This file is added to ${PYFLYBY_PATH} to customize the imports
+
 from numpy import arange
 
 # vim: set ft=python :
