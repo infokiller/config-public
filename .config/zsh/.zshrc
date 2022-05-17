@@ -394,8 +394,8 @@ _histcat_preexec_hook() {
   local typed_cmd="$1"
   local expanded_cmd="$3"
   # Remove trailing whitespace
-  regexp-replace typed_cmd '\s+*$' ''
-  regexp-replace expanded_cmd '\s+*$' ''
+  regexp-replace typed_cmd '\s+$' ''
+  regexp-replace expanded_cmd '\s+$' ''
   # Respect HIST_IGNORE_SPACE: if the expanded command starts with a space,
   # don't add it to the persistent history. Useful for commands that have
   # sensitive information.
