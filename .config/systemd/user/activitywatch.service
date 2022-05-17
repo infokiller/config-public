@@ -13,10 +13,11 @@ Type=simple
 # I can reproduce this issue with:
 # systemd-run --user --pty --wait python -c 'import os; os.setpgrp()'
 # The problem is described in [1] but the solution doesn't work for me, though
-# running it from a python wrapper does.
+# running it from a python wrapper does. This issue should be solved in v0.12.0
+# following [2].
 # [1] https://stackoverflow.com/a/51005084/1014208
+# [2] https://github.com/ActivityWatch/aw-qt/pull/85/files
 ExecStart=python -c "import os; os.system('%h/submodules/desktop/activitywatch/dist/aw-qt')"
 # ExecStart=env conda-run activitywatch aw-qt
-# ExecStart=python -c 'import os; os.setpgrp()'
 Restart=on-failure
 RestartSec=10
