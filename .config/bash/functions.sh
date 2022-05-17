@@ -1266,7 +1266,7 @@ ssh-xpanes-script() {
 # Launch it with the python executable so that it works correctly in virtual
 # envs.
 # alias ip='EDITOR=vim-in-ipython python -c "import IPython; IPython.terminal.ipapp.launch_new_instance()"'
-alias ipy='EDITOR=vim-in-ipython ipython'
+alias ipy='hash -r && EDITOR=vim-in-ipython ipython'
 alias jnb='jupyter notebook'
 alias jlb='jupyter lab'
 
