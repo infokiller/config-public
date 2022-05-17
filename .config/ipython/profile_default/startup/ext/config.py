@@ -274,24 +274,36 @@ def _configure_prompt():
             'Failed importing prompt classes, skipping prompt setup\n')
         return
 
-    # https://github.com/javidcf/ipython_venv_path_prompt/blob/master/ipython_venv_path_prompt/ipython_venv_path_prompt.py#L9
-    def get_venv():
-        if 'CONDA_DEFAULT_ENV' in os.environ:
-            return os.environ['CONDA_DEFAULT_ENV']
+    def get_conda_env():
+        conda_env = os.getenv('CONDA_DEFAULT_ENV', '')
         m = re.match(r'.*/conda/envs/([^/]+)$', sys.prefix)
-        if m:
-            return m.groups()[0]
-        # if 'conda/envs':
-        #     pass
-        # if hasattr(sys, 'real_prefix') or sys.base_prefix != sys.prefix:
-        #     return pathlib.Path(sys.prefix).parts[-1]
-        # else:
-        #     for p in sys.path:
-        #         if p:
-        #            break
-        #     else:
-        #         return []
+        if not m:
+            return conda_env
+        conda_env_from_prefix = m.groups()[0]
+        if conda_env != conda_env_from_prefix:
+            warnings.warn(
+                f'Inconsistent conda env: CONDA_DEFAULT_ENV = {conda_env}, '
+                f'sys.prefix = {sys.prefix}')
+        return conda_env
+
+    # Returns the virtual env name for venv/virtualenv
+    def get_venv_env():
+        # https://stackoverflow.com/a/1883251/1014208
+        # https://stackoverflow.com/a/58026969/1014208
+        if hasattr(sys, 'real_prefix') or (sys.base_prefix and
+                                           sys.base_prefix != sys.prefix):
+            return pathlib.Path(sys.prefix).parts[-1]
         return ''
+
+    # https://github.com/javidcf/ipython_venv_path_prompt/blob/master/ipython_venv_path_prompt/ipython_venv_path_prompt.py#L9
+    def get_virtual_env():
+        conda_env = get_conda_env()
+        venv_env = get_venv_env()
+        if venv_env:
+            if conda_env and conda_env != venv_env:
+                return f'[{conda_env}][{venv_env}]'
+            return venv_env
+        return conda_env
 
     def get_displayed_path():
         cols = IPython.utils.terminal.get_terminal_size().columns
@@ -324,7 +336,7 @@ def _configure_prompt():
     class MyPrompt(Prompts):
 
         def in_prompt_tokens(self):
-            venv = get_venv()
+            venv = get_virtual_env()
             venv_tokens = [
                 (Token, ' '),
                 (Token.Keyword, venv),
