@@ -232,7 +232,7 @@ _load_gitstatus() {
   # shellcheck source=./submodules/terminal/gitstatus/gitstatus.prompt.sh
   source -- "${_gitstatus_path}"
   PROMPT_COMMAND="${tmp}"
-  _append_prompt_command_hook histcat_append_hook
+  _append_prompt_command_hook gitstatus_prompt_update
 }
 _load_gitstatus && unset -f _load_gitstatus
 
