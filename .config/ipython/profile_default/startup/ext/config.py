@@ -280,11 +280,11 @@ def _configure_prompt():
         if not m:
             return conda_env
         conda_env_from_prefix = m.groups()[0]
-        if conda_env != conda_env_from_prefix:
+        if conda_env and conda_env != conda_env_from_prefix:
             warnings.warn(
                 f'Inconsistent conda env: CONDA_DEFAULT_ENV = {conda_env}, '
                 f'sys.prefix = {sys.prefix}')
-        return conda_env
+        return conda_env_from_prefix
 
     # Returns the virtual env name for venv/virtualenv
     def get_venv_env():
