@@ -726,6 +726,11 @@ function {
   maybe-run-tracked-emulate -- source_compiled "${_npm_comp_file}"
 }
 
+# NOTE: As of 2022-05-19, using zsh 5.9 and fzf 0.30.0, I had issues with
+# completion failing or freezing (behavior was inconsistent) when the command
+# output was piped, i.e. using `cmd | _fzf_complete`. The bundled fzf
+# completion functions [1] all use process substitution, and that works.
+# [1] ${SUBMODULES_DIR}/terminal/fzf/shell/completion.zsh
 _fzf_complete_vim() {
   # To return only text files I can use the following command:
   # find . -type f -exec grep -Iq . {} \; -and -print
@@ -744,11 +749,6 @@ _fzf_complete_c()           { _fzf_complete_cd "$@" }
 _fzf_complete_cd-ranger()   { _fzf_complete_cd "$@" }
 
 _fzf_complete_git() {
-  # NOTE: As of 2022-05-19, using zsh 5.9 and fzf 0.30.0, I had issues with
-  # completion failing or freezing (behavior was inconsistent) when the command
-  # output was piped, i.e. using `cmd | _fzf_complete`. The bundled fzf
-  # completion functions [1] all use process substitution, and that works.
-  # [1] ${SUBMODULES_DIR}/terminal/fzf/shell/completion.zsh
   _fzf_complete --multi "$@" < <(git-list-files 2> /dev/null)
 }
 _fzf_complete_g()     { _fzf_complete_git "$@" }
