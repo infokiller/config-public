@@ -731,20 +731,25 @@ _fzf_complete_vim() {
   # find . -type f -exec grep -Iq . {} \; -and -print
   # However it's much slower than just returning every file without checking, so
   # I'm going with the speed now.
-  list-searched-files | _fzf_complete --multi "$@"
+  _fzf_complete --multi "$@" < <(list-searched-files)
 }
 _fzf_complete_v() { _fzf_complete_vim "$@" }
 _fzf_complete_e() { _fzf_complete_vim "$@" }
 
 _fzf_complete_cd() {
-  list-searched-files --list-dirs | _fzf_complete --multi "$@"
+  _fzf_complete --multi "$@" < <(list-searched-files --list-dirs)
 }
 _fzf_complete_cd-fasd-fzf() { _fzf_complete_cd "$@" }
 _fzf_complete_c()           { _fzf_complete_cd "$@" }
 _fzf_complete_cd-ranger()   { _fzf_complete_cd "$@" }
 
 _fzf_complete_git() {
-  git-list-files 2> /dev/null | _fzf_complete --multi "$@"
+  # NOTE: As of 2022-05-19, using zsh 5.9 and fzf 0.30.0, I had issues with
+  # completion failing or freezing (behavior was inconsistent) when the command
+  # output was piped, i.e. using `cmd | _fzf_complete`. The bundled fzf
+  # completion functions [1] all use process substitution, and that works.
+  # [1] ${SUBMODULES_DIR}/terminal/fzf/shell/completion.zsh
+  _fzf_complete --multi "$@" < <(git-list-files 2> /dev/null)
 }
 _fzf_complete_g()     { _fzf_complete_git "$@" }
 _fzf_complete_gf()    { _fzf_complete_git "$@" }
@@ -769,7 +774,7 @@ _fzf_complete_gfls()  { _fzf_complete_git "$@" }
 _fzf_complete_gfrls() { _fzf_complete_git "$@" }
 
 _fzf_complete_ga()    {
-  git ls-files --modified 2> /dev/null | _fzf_complete --multi "$@"
+  _fzf_complete --multi "$@" < <(git ls-files --modified 2> /dev/null)
 }
 _fzf_complete_gfa()   { _fzf_complete_ga "$@" }
 _fzf_complete_gfra()  { _fzf_complete_ga "$@" }
