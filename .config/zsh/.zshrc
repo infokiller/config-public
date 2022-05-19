@@ -786,6 +786,15 @@ fzf_default_completion='complete-word'
 maybe-run-tracked-emulate +b -- source_compiled \
   "${SUBMODULES_DIR}/terminal/fzf/shell/completion.zsh"
 
+# Improve completions from ${SUBMODULES_DIR}/terminal/fzf/shell/completion.zsh
+_fzf_complete_kill() {
+  _fzf_complete -m --preview 'echo {}' --preview-window down:3:wrap \
+      --min-height 15 --header-lines 1 -- "$@" < <(
+    command ps -e -o 'user,pid,ppid,etime,%cpu,rss,args' |
+    numfmt --field 6 --from-unit 1024 --to iec --header=1
+  )
+}
+
 # NOTE: As of 2018-12-29, the pip zsh completion doesn't work so I'm using the
 # bash completion (see below).
 # The following pip completion was generated using:
