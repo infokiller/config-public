@@ -408,10 +408,35 @@ _best_grep() {
   "${_BEST_GREP_CMD[@]}" "$@"
 }
 
+ps2() {
+  command ps -e -o 'user,pid,ppid,etime,%cpu,rss,args' --sort '-%cpu' "$@" |
+    numfmt --field 6 --from-unit 1024 --to iec --header=1 |
+    # Print first ps fields (all except cmd) tab separated. Those fields can't
+    # have whitespace in them so splitting them by whitespace will work. In
+    # contrast, the cmd field may have whitespace in it so we don't want to
+    # replace it with tabs because then the `column` command will treat every word
+    # in the cmd as a separate column. I used to do this with sed but it became
+    # cumbersome with multiple fields:
+    # sed -r 's/(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)/\1\t\2\t\3\t\4\t\5\t\6/' |
+    awk '{
+  for (i=1; i <= 6; i++) printf "%s\t", $i
+  for (i=7; i <= NF; i++) printf "%s ", $i
+  printf "\n"
+}' | 
+  column -t -s $'\t' | 
+  # Limit the width of huge command lines
+  cut -c -150
+}
 # Grep for a running process
-# The spaces around ${_BEST_GREP_CMD[*]} are intentional: this way Xorg won't
-# match "rg".
-alias pg='ps aux | \grep -v --fixed-strings " ${_BEST_GREP_CMD[*]} " | _best_grep'
+grep-processes() {
+  ps2 --no-headers | 
+    # The spaces around ${_BEST_GREP_CMD[*]} are intentional: this way Xorg
+      # won't match "rg".
+    \grep -v --fixed-strings " ${_BEST_GREP_CMD[*]} " | 
+    cut -c -120 |
+    _best_grep "$@"
+}
+alias pg='grep-processes'
 # Grep for an env variable
 alias eg='env | _best_grep'
 # Grep for a history entry
