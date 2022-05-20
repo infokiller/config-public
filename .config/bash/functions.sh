@@ -409,7 +409,11 @@ _best_grep() {
 }
 
 ps2() {
-  command ps -e -o 'user,pid,ppid,etime,%cpu,rss,args' --sort '-%cpu' "$@" |
+  local extra_opts=("$@")
+  if (($#==0)); then
+    extra_opts=(--sort '-%cpu')
+  fi
+  command ps -e -o 'user,pid,ppid,etime,%cpu,rss,args' "${extra_opts[@]}" |
     numfmt --field 6 --from-unit 1024 --to iec --header=1 |
     # Print first ps fields (all except cmd) tab separated. Those fields can't
     # have whitespace in them so splitting them by whitespace will work. In
@@ -427,6 +431,7 @@ ps2() {
   # Limit the width of huge command lines
   cut -c -150
 }
+alias ps2-rss='ps2 --sort -rss'
 # Grep for a running process
 grep-processes() {
   ps2 --no-headers | 
