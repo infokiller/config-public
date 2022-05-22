@@ -432,6 +432,7 @@ ps2() {
   cut -c -150
 }
 alias ps2-rss='ps2 --sort -rss'
+alias pst='pstree -hpausST'
 # Grep for a running process
 grep-processes() {
   ps2 --no-headers | 
