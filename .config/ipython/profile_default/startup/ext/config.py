@@ -169,6 +169,88 @@ def _define_prompt_toolkit_keybindings():
     key_bindings.remove_binding(handler)
 
 
+# I store my ipython history in a git repo, and the history saving thread has
+# issues in existing ipython sessions after I run inside the history repo:
+#   git stash push -- ipython_hist.sqlite && git stash pop
+# The error sqlite throws is "attempt to write a readonly database".
+def _enable_history_db_recovery():
+    # NOTE: I verified that the history_manager exists in IPython 2-8, hopefully
+    # this code won't break in future versions.
+    hm = get_ipython().history_manager
+    if not hm.enabled or hm.hist_file == ':memory:':
+        return
+
+    try:
+        # pylint: disable-next=import-outside-toplevel
+        import sqlite3
+    except ImportError:
+        warnings.warn('Importing sqlite3 failed, skipping history tweaks')
+        return
+
+    # Inherit from sqlite3.Connection because ipython verifies the type
+    class AutoReconnect(sqlite3.Connection):
+
+        def __init__(self,
+                     conn,
+                     extra_connection_opts=None,
+                     _my_max_retries=100):
+            # if not hasattr(obj, 'db'):
+            #     raise ValueError(f'Object {obj} missing "db" attribute')
+            # Name all attributes with _my_ prefix to reduce the change of a
+            # collision with an existing attribute of the parent class.
+            self._my_conn = conn
+            self._my_conn_opts = extra_connection_opts
+            self._my_num_retries = 0
+            self._my_max_retries = _my_max_retries
+            self._my_db_input_cache = []
+
+        def __getattribute__(self, name):
+            if name.startswith('_my_'):
+                return object.__getattribute__(self, name)
+            # Store a copy of the input cache so that we can write it to the DB
+            # in case of errors.
+            hm = get_ipython().history_manager
+            self._my_db_input_cache = list(hm.db_input_cache)
+            return object.__getattribute__(self._my_conn, name)
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            result = self._my_conn.__exit__(exc_type, exc_val, exc_tb)
+            if not isinstance(exc_val, sqlite3.OperationalError):
+                return result
+            if self._my_num_retries >= self._my_max_retries:
+                warnings.warn(
+                    'SQLite returned an error but reached max retries')
+                return result
+            warnings.warn(
+                f'SQLite returned an error, trying to recover: {exc_val}')
+            self._my_num_retries += 1
+            self._my_conn.close()
+            hm = get_ipython().history_manager
+            conn_options = dict(hm.connection_options)
+            if self._my_conn_opts:
+                conn_options.update(self._my_conn_opts)
+            self._my_conn = sqlite3.connect(hm.hist_file, **conn_options)
+            try:
+                with self._my_conn:
+                    for line in self._my_db_input_cache:
+                        self._my_conn.execute(
+                            "INSERT INTO history VALUES (?, ?, ?, ?)",
+                            (hm.session_number,) + line)
+            except sqlite3.Error:
+                print('sqlite error from my config')
+                return result
+            return True
+
+    # From IPython/core/history.py
+    db_init_options = dict(detect_types=sqlite3.PARSE_DECLTYPES |
+                           sqlite3.PARSE_COLNAMES)
+    db_init_options.update(hm.connection_options)
+    hm.db = AutoReconnect(
+        hm.db,
+        dict(detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES))
+    hm.save_thread.db = AutoReconnect(hm.save_thread.db, hm.connection_options)
+
+
 def _register_magic_aliases():
     # Aliases to magics need to be defined using the magics_manager.
     magics_manager = get_ipython().magics_manager
@@ -285,7 +367,7 @@ def _load_rich():
 
 
 _define_prompt_toolkit_keybindings()
-# _enable_history_db_recovery()
+_enable_history_db_recovery()
 _define_aliases()
 _configure_matplotlib()
 _configure_completion()
