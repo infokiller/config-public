@@ -2,11 +2,13 @@
 # https://waylonwalker.com/custom-ipython-prompt/
 # https://blog.paynepride.com/ipython-prompt/
 # https://github.com/javidcf/ipython_venv_path_prompt
+import functools
 import os
 import pathlib
 import re
 import subprocess
 import sys
+import time
 import warnings
 
 import IPython
@@ -98,7 +100,73 @@ def get_git_branch():
         return ''
 
 
+_BYTES_SUFFIX = [
+    (1024**0, 'b'),
+    (1024**1, 'K'),
+    (1024**2, 'M'),
+    (1024**3, 'G'),
+    (1024**4, 'T'),
+]
+
+
+def _format_num_bytes(num_bytes):
+    for scaling, suffix in _BYTES_SUFFIX[:-1]:
+        if num_bytes < 1024 * scaling:
+            return f'{num_bytes/scaling:.1f}{suffix}'
+    scaling, suffix = _BYTES_SUFFIX[-1]
+    return f'{num_bytes/scaling:.1f}{suffix}'
+
+
+def _cache_with_ttl(max_ttl):
+
+    def _decorator_cache_with_timeout(func):
+
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            now = time.time()
+            if hasattr(wrapper,
+                       'cached_result') and (now - wrapper.last_call < max_ttl):
+                return wrapper.cached_result
+            wrapper.last_call = now
+            wrapper.cached_result = func(*args, **kwargs)
+            return wrapper.cached_result
+
+        wrapper.last_call = 0
+
+        return wrapper
+
+    return _decorator_cache_with_timeout
+
+
 class MyPrompt(Prompts):
+
+    def __init__(self, shell):
+        super().__init__(shell)
+        self.pid = os.getpid()
+        try:
+            # pylint: disable-next=import-outside-toplevel
+            import psutil
+            self._process = psutil.Process(self.pid)
+        except ImportError:
+            warnings.warn('psutil not installed, falling back to cli')
+            self._process = None
+
+    # TODO: Add support for adding info to the right hand side of the prompt.
+    @_cache_with_ttl(10)
+    def get_process_rss(self):
+        if self._process:
+            return self._process.memory_info().rss
+        try:
+            ps = subprocess.run(['ps', '-o', 'rss=', '-p',
+                                 str(self.pid)],
+                                capture_output=True,
+                                universal_newlines=True,
+                                check=True,
+                                timeout=0.1)
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+            return None
+        # ps returns the result in kilobytes
+        return 1024 * int(ps.stdout)
 
     def in_prompt_tokens(self):
         venv = get_virtual_env()
@@ -112,6 +180,11 @@ class MyPrompt(Prompts):
             (Token, ' '),
             (Token.String.Literal, path),
         ] if path else []
+        rss = self.get_process_rss()
+        rss_tokens = [
+            (Token, ' '),
+            (Token.Operator, _format_num_bytes(rss)),
+        ] if rss and rss > 1024**3 else []
         # ver = platform.python_version_tuple()
         return [
             # (Token.Name.Class, f'Py v{ver[0]}.{ver[1]}'),
@@ -122,10 +195,11 @@ class MyPrompt(Prompts):
             (Token.Keyword, ''),
             *venv_tokens,
             *path_tokens,
+            *rss_tokens,
             (Token, '\n'),
             (
-                Token.Prompt if self.shell.last_execution_succeeded else
-                Token.Generic.Error,
+                Token.Prompt
+                if self.shell.last_execution_succeeded else Token.Generic.Error,
                 '❯ ',
             ),
         ]
@@ -139,5 +213,6 @@ def main():
     if not _is_ipython_terminal(get_ipython()) or not _is_using_prompt_toolkit:
         return
     get_ipython().prompts = MyPrompt(get_ipython())
+
 
 main()
