@@ -5,13 +5,13 @@
 
 # Display drivers.
 if is_nvidia_gpu; then
-  AddPackage nvidia-dkms            # NVIDIA driver sources for linux
-  AddPackage nvidia-utils           # NVIDIA drivers utilities
+  AddPackage nvidia-dkms  # NVIDIA driver sources for linux
+  AddPackage nvidia-utils # NVIDIA drivers utilities
   # Linux headers are required when using the NVIDIA DKMS drivers.
   AddPackage linux-headers          # Header files and scripts for building modules for Linux kernel
   AddPackage linux-hardened-headers # Header files and scripts for building modules for Linux-hardened kernel
   CopyFile '/etc/pacman.d/hooks/nvidia.hook'
-  AddPackage vdpauinfo          # Command line utility for querying the capabilities of a VDPAU device
+  AddPackage vdpauinfo # Command line utility for querying the capabilities of a VDPAU device
   # TODO: Consider switching to libva-vdpau-driver-vp9-git or
   # libva-vdpau-driver-chromium from AUR, see:
   # https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Translation_layers
@@ -23,8 +23,8 @@ if is_intel_gpu; then
   # 2017 [2].
   # [1] https://wiki.archlinux.org/index.php/Intel_graphics
   # [2] https://www.phoronix.com/scan.php?page=news_item&px=Fedora-Xorg-Intel-DDX-Switch
-  AddPackage xf86-video-intel   # X.org Intel i810/i830/i915/945G/G965+ video drivers
-  AddPackage vulkan-intel       # Intel's Vulkan mesa driver
+  AddPackage xf86-video-intel # X.org Intel i810/i830/i915/945G/G965+ video drivers
+  AddPackage vulkan-intel     # Intel's Vulkan mesa driver
   # TODO: detect the Intel GPU version and only install the required one. See:
   # https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
   AddPackage intel-media-driver # Intel Media Driver for VAAPI — Broadwell+ iGPUs
