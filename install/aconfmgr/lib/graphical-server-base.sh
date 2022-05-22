@@ -103,6 +103,8 @@ if is_laptop && is_intel_gpu; then
   CopyFile '/etc/X11/xorg.conf.d/20-intel-backlight.conf'
 fi
 
+AddPackage mesa-utils # Essential Mesa utilities
+
 # Audio server base system and utils.
 AddPackage pulseaudio # A featureful, general-purpose sound server
 CreateLink '/etc/systemd/user/sockets.target.wants/pulseaudio.socket' '/usr/lib/systemd/user/pulseaudio.socket'
