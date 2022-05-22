@@ -6,7 +6,6 @@
 import importlib.util
 import os
 import pathlib
-import platform
 import re
 import socket
 import subprocess
@@ -257,117 +256,6 @@ def _configure_autoreload():
                            3 if IPython.version_info[0] >= 8 else 2)
 
 
-# https://waylonwalker.com/custom-ipython-prompt/
-# https://blog.paynepride.com/ipython-prompt/
-# https://github.com/javidcf/ipython_venv_path_prompt
-def _configure_prompt():
-    if IPython.version_info[0] < 5:
-        warnings.warn(f'Discovered old python version ({IPython.version_info}),'
-                      ' not configuring prompt.\n')
-    if not _is_ipython_terminal(get_ipython()):
-        return
-    try:
-        # pylint: disable-next=import-outside-toplevel
-        from IPython.terminal.prompts import Prompts, Token
-    except ImportError:
-        warnings.warn(
-            'Failed importing prompt classes, skipping prompt setup\n')
-        return
-
-    def get_conda_env():
-        conda_env = os.getenv('CONDA_DEFAULT_ENV', '')
-        m = re.match(r'.*/conda/envs/([^/]+)$', sys.prefix)
-        if not m:
-            return conda_env
-        conda_env_from_prefix = m.groups()[0]
-        if conda_env and conda_env != conda_env_from_prefix:
-            warnings.warn(
-                f'Inconsistent conda env: CONDA_DEFAULT_ENV = {conda_env}, '
-                f'sys.prefix = {sys.prefix}')
-        return conda_env_from_prefix
-
-    # Returns the virtual env name for venv/virtualenv
-    def get_venv_env():
-        # https://stackoverflow.com/a/1883251/1014208
-        # https://stackoverflow.com/a/58026969/1014208
-        if hasattr(sys, 'real_prefix') or (sys.base_prefix and
-                                           sys.base_prefix != sys.prefix):
-            return pathlib.Path(sys.prefix).parts[-1]
-        return ''
-
-    # https://github.com/javidcf/ipython_venv_path_prompt/blob/master/ipython_venv_path_prompt/ipython_venv_path_prompt.py#L9
-    def get_virtual_env():
-        conda_env = get_conda_env()
-        venv_env = get_venv_env()
-        if venv_env:
-            if conda_env and conda_env != venv_env:
-                return f'[{conda_env}][{venv_env}]'
-            return venv_env
-        return conda_env
-
-    def get_displayed_path():
-        cols = IPython.utils.terminal.get_terminal_size().columns
-        if cols < 10:
-            return ''
-        cwd = pathlib.Path.cwd().absolute()
-        home = pathlib.Path.home()
-        if cwd == home:
-            return '~'
-        if cwd.as_posix().startswith(home.as_posix()):
-            path = pathlib.Path('~', cwd.relative_to(home))
-        else:
-            path = cwd
-        if get_cwidth(path.as_posix()) < 30 and cols > 40:
-            return path.as_posix()
-        parts = [path.parts[0]] + [p[0] for p in path.parts[1:-2]] + list(
-            path.parts[-2:])
-        return pathlib.Path(*parts).as_posix()
-
-    # pylint: disable-next=unused-variable
-    def get_git_branch():
-        try:
-            return subprocess.check_output(
-                'git branch --show-current',
-                shell=True,
-                stderr=subprocess.DEVNULL).decode('utf-8').replace('\n', '')
-        except subprocess.CalledProcessError:
-            return ''
-
-    class MyPrompt(Prompts):
-
-        def in_prompt_tokens(self):
-            venv = get_virtual_env()
-            venv_tokens = [
-                (Token, ' '),
-                (Token.Keyword, venv),
-                # (Token.Prompt, ' '),
-            ] if venv else []
-            path = get_displayed_path()
-            path_tokens = [
-                (Token, ' '),
-                (Token.String.Literal, path),
-            ] if path else []
-            # ver = platform.python_version_tuple()
-            return [
-                # (Token.Name.Class, f'Py v{ver[0]}.{ver[1]}'),
-                # (Token, ' '),
-                # (Token.Generic.Subheading, '↪'),
-                # (Token.Generic.Subheading, get_git_branch()),
-                # (Token, ' '),
-                (Token.Keyword, ''),
-                *venv_tokens,
-                *path_tokens,
-                (Token, '\n'),
-                (
-                    Token.Prompt if self.shell.last_execution_succeeded else
-                    Token.Generic.Error,
-                    '❯ ',
-                ),
-            ]
-
-    get_ipython().prompts = MyPrompt(get_ipython())
-
-
 # https://github.com/deshaw/pyflyby
 # https://waylonwalker.com/pyflyby/
 def _load_pyflyby():
@@ -397,12 +285,13 @@ def _load_rich():
 
 
 _define_prompt_toolkit_keybindings()
+# _enable_history_db_recovery()
 _define_aliases()
 _configure_matplotlib()
 _configure_completion()
 _configure_autoreload()
 _load_local_extension('autotime')
-_configure_prompt()
+_load_local_extension('prompt')
 _load_pyflyby()
 _load_rich()
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
