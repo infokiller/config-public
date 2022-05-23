@@ -2055,9 +2055,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:3.0.2":
-  version: 3.0.2
-  resolution: "bash-language-server@npm:3.0.2"
+"bash-language-server@npm:3.0.3":
+  version: 3.0.3
+  resolution: "bash-language-server@npm:3.0.3"
   dependencies:
     fuzzy-search: ^3.2.1
     glob: ^8.0.0
@@ -2070,7 +2070,7 @@ __metadata:
     web-tree-sitter: ^0.20.5
   bin:
     bash-language-server: bin/main.js
-  checksum: 513fd996135727126ab7548e559f3caa08f0c9ec2bc9c97033d4e0b748c01fb90782f172e2b671ff8cd076d47a14d3987ef421f5814ca87f317d8091a092cfb9
+  checksum: 409b4f8fd0076b8b941df94c5633bd20061daddcf90202d56227c13b4f4abbd37e37bfb179f72995f523a7b57a5f57a42c661a65babc58ae6c157ac84122be61
   languageName: node
   linkType: hard
 
@@ -14688,7 +14688,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.1
     alex: 10.0.0
-    bash-language-server: 3.0.2
+    bash-language-server: 3.0.3
     corepack: 0.10.0
     diff-so-fancy: 1.4.3
     eslint: 8.16.0
@@ -14708,7 +14708,7 @@ __metadata:
     pyright: 1.1.248
     release-it: 15.0.0
     semantic-release: 19.0.2
-    snyk: 1.935.0
+    snyk: 1.936.0
     stylelint: 14.8.3
     tldr: 3.3.7
     uglify-js: 3.15.5
@@ -15221,12 +15221,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.935.0":
-  version: 1.935.0
-  resolution: "snyk@npm:1.935.0"
+"snyk@npm:1.936.0":
+  version: 1.936.0
+  resolution: "snyk@npm:1.936.0"
   bin:
     snyk: bin/snyk
-  checksum: ed06e3bacc32c8d025f3bc4f2e0e459dd74a325115c3cc65317e182f19068cfe0726546b1e57f110632f8ea26246625242362b76630ae85ee06661708c955046
+  checksum: 8b66e68ebda28f9d5c092bf655c783a97cef5e500857a61d6498b4ce9da95fa1fc1290cab8e00772195e9346dc736fe88f49b0ebdf8b63450166f5434b1b374b
   languageName: node
   linkType: hard
 
