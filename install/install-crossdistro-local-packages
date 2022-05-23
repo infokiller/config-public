@@ -300,7 +300,7 @@ _install_cargo_from_rustup() {
 _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   # https://github.com/jazzband/pip-tools/issues/1617
-  pip install 'pip-tools>=6.6.1'
+  pip install 'pip-tools>=6.6.2'
   pip-compile --quiet --generate-hashes --allow-unsafe --upgrade "$@"
 }
 
