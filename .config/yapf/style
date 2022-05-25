@@ -1,2 +1,4 @@
 [style]
 based_on_style = google
+
+# vim: set ft=toml :

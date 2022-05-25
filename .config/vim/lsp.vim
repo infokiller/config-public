@@ -970,7 +970,7 @@ let g:ycm_language_server += [
 \ ]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                 web: Javascript, Typescript, HTML, CSS, JSON                 "
+"                 Web: Javascript, Typescript, HTML, CSS, JSON                 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " NOTE: I used to have separate plugins for every language before switching to
 " vim-polyglot. They're kept here for documentation, and will be removed if I
@@ -1061,6 +1061,15 @@ endfunction
 augroup vimrc
   autocmd FileType ++once markdown call <SID>CheckMarkdownPreviewInstalled()
 augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                     C++                                      "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ale_fixers = get(g:, 'ale_fixers', {})
+" TODO: adding clang-tidy makes the ale fixing slow (the formatting updates
+" have a delay), figure this out.
+" let g:ale_fixers['cpp'] = ['clang-format', 'clangtidy']
+let g:ale_fixers['cpp'] = ['clang-format']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Latex                                     "
