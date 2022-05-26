@@ -191,6 +191,11 @@ _install_conda_env() {
   env_name="$(grep -E '^\s*name: [a-zA-Z_][a-zA-Z0-9_-]*' -- "${file}" |
     sed -E 's/^\s*name:\s*//')"
   local env_prefix="${CONDA_LOCAL_DIR}/envs/${env_name}"
+  # Sometimes envs need to be deleted and recreated
+  # [[ $env_name == mamba ]] || {
+  #     _fastest_conda env remove --name "${env_name}"
+  #     [[ ! -e "${env_prefix}" ]] || rm -rf "${env_prefix}"
+  # }
   if [[ -e "${env_prefix}" ]]; then
     _log_info_bold "Updating conda environment ${env_name} from ${file}"
     # --prune should remove packages not specified in environment file, though
