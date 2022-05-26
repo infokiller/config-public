@@ -3,6 +3,7 @@
 
 # pylint: disable=import-error,unused-import
 
+from typing import Dict, List, Set, Optional, Tuple
 from numpy import arange
 
 # vim: set ft=python :
