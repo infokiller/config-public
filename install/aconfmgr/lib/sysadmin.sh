@@ -94,8 +94,9 @@ AddPackage flatpak # Linux application sandboxing and distribution framework (fo
 
 # GNOME keyring
 AddPackage gnome-keyring # Stores passwords and encryption keys
+CreateLink '/etc/systemd/user/sockets.target.wants/gnome-keyring-daemon.socket' '/usr/lib/systemd/user/gnome-keyring-daemon.socket'
 # gcr-ssh-agent is enabled by the arch package:
-# https://github.com/archlinux/svntogit-packages/blob/d85baf34d16e7eabffd385a4a688b3efc3670bbc/trunk/gcr.install
+# https://github.com/archlinux/svntogit-packages/blob/ab4cadffe15a327b582629ddef5f9c7f16c1c3e1/gcr/trunk/gcr.install
 CreateLink '/etc/systemd/user/sockets.target.wants/gcr-ssh-agent.socket' '/usr/lib/systemd/user/gcr-ssh-agent.socket'
 
 # GPG

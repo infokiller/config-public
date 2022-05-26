@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-# TODO: Use lockfiles for more reprodocible environments. See:
+# TODO: Use lockfiles for more reprodocible environments in the tools
+# environment. See:
 # - https://github.com/conda-incubator/conda-lock
 # - https://github.com/jazzband/pip-tools
+# TODO: Use a separate env for every tool (like pipx/pipz). I'll get that
+# automatically if using https://github.com/AndydeCleyre/zpy
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
@@ -62,11 +65,11 @@ declare -A INSTALLED_BINARIES=(
   ['pipenv-resolver']=''
   ['poetry']=''
   ['proselint']=''
-  ['py']=''
+  # ['py']=''
   ['py3']='pyflyby'
-  ['tidy-imports']='pyfly-tidy-imports'
-  ['find-imports']='pyfly-find-imports'
-  ['reformat-imports']='pyfly-reformat-imports'
+  ['tidy-imports']='pyflyby-tidy-imports'
+  ['find-import']='pyflyby-find-imports'
+  ['reformat-imports']='pyflyby-reformat-imports'
   ['pydf']=''
   ['pylint']=''
   ['semantic-release']='python-semantic-release'

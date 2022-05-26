@@ -112,6 +112,9 @@
 /.local/bin/py3nvml
 /.local/bin/pydf
 /.local/bin/pyflyby
+/.local/bin/pyflyby-find-imports
+/.local/bin/pyflyby-py
+/.local/bin/pyflyby-reformat-imports
 /.local/bin/pyflyby-tidy-imports
 /.local/bin/pylint
 /.local/bin/python-semantic-release
