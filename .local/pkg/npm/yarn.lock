@@ -11640,7 +11640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^3.3.3":
+"nanoid@npm:^3.3.4":
   version: 3.3.4
   resolution: "nanoid@npm:3.3.4"
   bin:
@@ -13461,14 +13461,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.4.13":
-  version: 8.4.13
-  resolution: "postcss@npm:8.4.13"
+"postcss@npm:^8.4.14":
+  version: 8.4.14
+  resolution: "postcss@npm:8.4.14"
   dependencies:
-    nanoid: ^3.3.3
+    nanoid: ^3.3.4
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
-  checksum: 514fb3552805a5d039a2d6b4df3e73f657001716ca93c0d57e6067b0473abdea70276d80afc96005c9aaff82ed5d98062bd97724d3f47ca400fba0b5e9e436ed
+  checksum: fe58766ff32e4becf65a7d57678995cfd239df6deed2fe0557f038b47c94e4132e7e5f68b5aa820c13adfec32e523b693efaeb65798efb995ce49ccd83953816
   languageName: node
   linkType: hard
 
@@ -13770,13 +13770,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.248":
-  version: 1.1.248
-  resolution: "pyright@npm:1.1.248"
+"pyright@npm:1.1.249":
+  version: 1.1.249
+  resolution: "pyright@npm:1.1.249"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 7c1069ca03e0f5fd6fc1bae4d7398059ebdee55da7bc01d9135c522bd203639132f54cd4f9ba275591a03d3dd9b247ee600bed246a3f56a08027be07efebec58
+  checksum: e3c728b257b9ce0a9ef57f6be4f3a1c755f99ea5caff4a06642530250f3bd70f6ac4c41c8a81891e17e55548b549a2ff872e6cb72362686bdfec8e42bb6606d9
   languageName: node
   linkType: hard
 
@@ -14705,11 +14705,11 @@ __metadata:
     markdownlint-cli2: 0.4.0
     prettier: 2.6.2
     puppeteer: 14.1.1
-    pyright: 1.1.248
+    pyright: 1.1.249
     release-it: 15.0.0
     semantic-release: 19.0.2
-    snyk: 1.936.0
-    stylelint: 14.8.3
+    snyk: 1.939.0
+    stylelint: 14.8.5
     tldr: 3.3.7
     uglify-js: 3.15.5
     web-ext: 6.8.0
@@ -15221,12 +15221,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.936.0":
-  version: 1.936.0
-  resolution: "snyk@npm:1.936.0"
+"snyk@npm:1.939.0":
+  version: 1.939.0
+  resolution: "snyk@npm:1.939.0"
   bin:
     snyk: bin/snyk
-  checksum: 8b66e68ebda28f9d5c092bf655c783a97cef5e500857a61d6498b4ce9da95fa1fc1290cab8e00772195e9346dc736fe88f49b0ebdf8b63450166f5434b1b374b
+  checksum: df60c5223cc7b663518329dc42eb82e60792f08c2efe2b7399c924a02cec5063412b4e4e2175a8ebf25e852bfddc85959bc7a8afff0102064299df6fc3147147
   languageName: node
   linkType: hard
 
@@ -15958,9 +15958,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.8.3":
-  version: 14.8.3
-  resolution: "stylelint@npm:14.8.3"
+"stylelint@npm:14.8.5":
+  version: 14.8.5
+  resolution: "stylelint@npm:14.8.5"
   dependencies:
     balanced-match: ^2.0.0
     colord: ^2.9.2
@@ -15986,7 +15986,7 @@ __metadata:
     micromatch: ^4.0.5
     normalize-path: ^3.0.0
     picocolors: ^1.0.0
-    postcss: ^8.4.13
+    postcss: ^8.4.14
     postcss-media-query-parser: ^0.2.3
     postcss-resolve-nested-selector: ^0.1.1
     postcss-safe-parser: ^6.0.0
@@ -16004,7 +16004,7 @@ __metadata:
     write-file-atomic: ^4.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: b9446b298ddfea7d2c9ad03dd50204b7213b08e2e8eba96b8cf94bd4dddaa6c8fa4b1ecb6b421e35db65c51aed751820e80e4a2b3abeca7103da086d7fd89140
+  checksum: ab4a8cbe49223f068f2219cddb8fac9061c21bc6544731cdbe18ec2c2aeff76566fadc185a7b49e8fb48242c732566a565f0e862af083c58ae97d5b2213617d1
   languageName: node
   linkType: hard
 

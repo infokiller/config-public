@@ -17,7 +17,7 @@ require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/bazelbuild/bazelisk v1.11.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20220510163207-df8cabe96863 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20220524123046-817e6881fa4b // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/caspr-io/yamlpath v0.0.0-20200722075116-502e8d113a9b // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
@@ -114,7 +114,7 @@ require (
 	github.com/urfave/cli/v2 v2.5.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.8.4 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.8.5 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
