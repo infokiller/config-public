@@ -2,7 +2,7 @@ name: i3_resurrect
 channels:
   - defaults
 dependencies:
-  - python=3.7
+  - python=3.8
   - pip
   - pip:
     - -r requirements.txt
