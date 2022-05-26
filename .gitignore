@@ -361,6 +361,7 @@
 /.kodi/addons
 /.kube
 /.lesshst
+/.local/etc/pyflyby
 /.local/state/pnpm
 /.m2/repository
 /.mono
