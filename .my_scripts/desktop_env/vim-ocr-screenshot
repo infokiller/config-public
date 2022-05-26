@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# This is inspired/copied from https://github.com/cknadler/vim-anywhere
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+main() {
+  local text
+  text="$(rif ocr-screenshot "$@")"
+  if [[ -z "${text}" ]]; then
+    return 1
+  fi
+  local tmpfile
+  tmpfile="$(mktemp -t 'screenshot_ocr_edit.XXXXXX.txt')"
+  printf '%s' "${text}" >| "${tmpfile}"
+  if sensible-terminal --window-name vim-ocr -- \
+    vim -c 'set filetype=text textwidth=0 wrapmargin=0' "${tmpfile}"; then
+    xclip -selection clipboard < "${tmpfile}"
+  fi
+}
+
+main "$@"

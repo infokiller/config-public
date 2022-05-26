@@ -1825,6 +1825,29 @@ detect-secrets-update-and-audit() {
   detect-secrets audit "${baseline_file}"
 }
 
+ocr-screenshot() {
+  local tmpdir
+  tmpdir="$(mktemp -d -t 'screenshot_ocr.XXXXXX')"
+  maim -s > "${tmpdir}/ss.png" 
+  # Pipe stderr to /dev/null to avoid the line "Estimating resolution as..."
+  tesseract "$@" "${tmpdir}/ss.png" "${tmpdir}/ocr" 2> /dev/null
+  cat -- "${tmpdir}/ocr.txt"
+}
+
+ocr-screenshot-app() {
+  local text
+  text="$(ocr-screenshot "$@")"
+  if [[ -z "${text}" ]]; then
+    return 1
+  fi
+  local tmpfile
+  printf '%s' "${text}" >| "${tmpfile}"
+  if sensible-terminal --window-name vim-ocr -- \
+    vim -c 'set filetype=text textwidth=0 wrapmargin=0' "${tmpfile}"; then
+    xclip -selection clipboard < "${tmpfile}"
+  fi
+}
+
 # }}} Misc 
 
 # Private includes {{{

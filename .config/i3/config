@@ -571,7 +571,7 @@ bindsym $mod+space mode "Launcher"
 ################################################################################
 
 for_window [instance=".*-file-terminal"] floating enable
-for_window [instance="vim-(anywhere|copyq)$"] floating enable
+for_window [instance="vim-(anywhere|copyq|ocr)$"] floating enable
 for_window [instance="kill-processes-terminal"] floating enable
 for_window [instance="chrome_app_list"] floating enable
 for_window [instance=".*bus-ui-gtk3.*"] floating enable
