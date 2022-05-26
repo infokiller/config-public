@@ -210,7 +210,12 @@ def _enable_history_db_recovery():
             # Store a copy of the input cache so that we can write it to the DB
             # in case of errors.
             hm = get_ipython().history_manager
-            self._my_db_input_cache = list(hm.db_input_cache)
+            # pylint: disable-next=line-too-long
+            # history_manager can be set to None at exit?
+            # I noticed this error message occasionally:
+            #   The history saving thread hit an unexpected error (AttributeError("'NoneType' object has no attribute 'db_input_cache'")).History will not be written to the database.
+            if hm:
+                self._my_db_input_cache = list(hm.db_input_cache)
             return object.__getattribute__(self._my_conn, name)
 
         def __exit__(self, exc_type, exc_val, exc_tb):
