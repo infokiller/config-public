@@ -785,7 +785,10 @@ augroup END
 let g:ale_linters = get(g:, 'ale_linters', {})
 let g:ale_linters['python'] = ['pylint']
 let g:ale_fixers = get(g:, 'ale_fixers', {})
-let g:ale_fixers['python'] = ['isort', 'yapf']
+let g:ale_fixers['python'] = ['pyflyby', 'isort', 'yapf']
+
+let g:ale_python_pyflyby_executable = 'pyflyby-tidy-imports'
+let g:ale_python_pyflyby_options = '--no-remove-unused'
 
 Plug 'jpalardy/vim-slime'
 let g:slime_target = 'tmux'
