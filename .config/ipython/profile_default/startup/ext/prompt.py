@@ -37,16 +37,23 @@ def _is_using_prompt_toolkit():
     return hasattr(get_ipython(), 'pt_app')
 
 
+_warned_inconsistent_env = 0
+
+
 def get_conda_env():
+    # pylint: disable-next=global-statement
+    global _warned_inconsistent_env
     conda_env = os.getenv('CONDA_DEFAULT_ENV', '')
     m = re.match(r'.*/conda/envs/([^/]+)$', sys.prefix)
     if not m:
         return conda_env
     conda_env_from_prefix = m.groups()[0]
-    if conda_env and conda_env != conda_env_from_prefix:
+    if conda_env and conda_env != conda_env_from_prefix and (
+            not _warned_inconsistent_env):
         warnings.warn(
             f'Inconsistent conda env: CONDA_DEFAULT_ENV = {conda_env}, '
             f'sys.prefix = {sys.prefix}')
+        _warned_inconsistent_env = 1
     return conda_env_from_prefix
 
 
