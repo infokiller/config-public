@@ -193,12 +193,25 @@ _install_conda_env() {
   local env_name
   env_name="$(grep -E '^\s*name: [a-zA-Z_][a-zA-Z0-9_-]*' -- "${file}" |
     sed -E 's/^\s*name:\s*//')"
+  local py_version
+  py_version="$(grep -E '^\s*-\s*python\s*=\s*[0-9]\.[0-9]+' -- "${file}" |
+    sed -E 's/^\s*-\s*python\s*=\s*([0-9]\.[0-9]+)/\1/')"
   local env_prefix="${CONDA_LOCAL_DIR}/envs/${env_name}"
-  # Sometimes envs need to be deleted and recreated
-  # [[ $env_name == mamba ]] || {
-  #     _fastest_conda env remove --name "${env_name}"
-  #     [[ ! -e "${env_prefix}" ]] || rm -rf "${env_prefix}"
-  # }
+  local py_bin="${env_prefix}/bin/python"
+  local current_py_version=''
+  if [[ -x "${py_bin}" ]]; then
+    current_py_version="$("${py_bin}" -c \
+      'import sys; v = sys.version_info[:2]; print(f"{v[0]}.{v[1]}")')" || true
+    # Sometimes envs need to be deleted and recreated, especially when python
+    # versions change in the spec vs what is already installed.
+    if [[ "${py_version}" != "${current_py_version}" ]]; then
+      _log_info "Env ${env_name} wants python ${py_version}, " \
+        "but currently has ${current_py_version} installed"
+      _log_info_bold "Removing environment ${env_name}"
+      _fastest_conda env remove --name "${env_name}" || true
+      rm -rf -- "${env_prefix}" 2> /dev/null || true
+    fi
+  fi
   if [[ -e "${env_prefix}" ]]; then
     _log_info_bold "Updating conda environment ${env_name} from ${file}"
     # --prune should remove packages not specified in environment file, though
