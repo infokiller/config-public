@@ -1,7 +1,7 @@
 # Used by list-commands in ../bash/functions.sh.
 _list_commands_zsh() {
-  printf '%s\n' "${(k)builtins[@]}" "${(k)commands[@]}" "${(k)functions[@]}" \
-    "${(k)aliases[@]}"
+  printf '%s\n' "${(ok)builtins[@]}" "${(ok)commands[@]}" \
+    "${(ok)functions[@]}" "${(ok)aliases[@]}"
 }
 
 # run-help is aliased to man by default, which masks Zsh's built-in run-help
