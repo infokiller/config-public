@@ -198,12 +198,15 @@ _install_conda_env() {
     sed -E 's/^\s*-\s*python\s*=\s*([0-9]\.[0-9]+)/\1/')"
   local env_prefix="${CONDA_LOCAL_DIR}/envs/${env_name}"
   local py_bin="${env_prefix}/bin/python"
-  local current_py_version=''
   if [[ -x "${py_bin}" ]]; then
+    local current_py_version=''
     current_py_version="$("${py_bin}" -c \
       'import sys; v = sys.version_info[:2]; print(f"{v[0]}.{v[1]}")')" || true
-    # Sometimes envs need to be deleted and recreated, especially when python
-    # versions change in the spec vs what is already installed.
+    # When the env file specifies a python version that is different from the
+    # one already installed in that env, it seems `conda env update` can either
+    # fail or leave an environment in an inconsistent state (some libraries
+    # using the first python version, some the second). Therefore, if we detect
+    # a different python version, we remove the env.
     if [[ "${py_version}" != "${current_py_version}" ]]; then
       _log_info "Env ${env_name} wants python ${py_version}, " \
         "but currently has ${current_py_version} installed"
