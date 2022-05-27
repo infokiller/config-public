@@ -248,6 +248,16 @@
     "command": "-vscode-neovim.send",
     "when": "editorTextFocus && neovim.mode == 'visual'"
   },
+  {
+    "key": "ctrl+n",
+    "command": "interactive.history.next",
+    "when": "!suggestWidgetVisible && resourceScheme == 'vscode-interactive'"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "interactive.history.previous",
+    "when": "!suggestWidgetVisible && resourceScheme == 'vscode-interactive'"
+  },
   // Disable all ctrl+k keybindings so that ctrl+k can be used.
   {
     "key": "ctrl+k ctrl+up",
@@ -741,6 +751,11 @@
     "key": "o",
     "command": "-jupyter.notebookeditor.keybind.toggleOutput",
     "when": "config.jupyter.enableKeyboardShortcuts && notebookEditorFocused && !inputFocus && notebookType == 'jupyter-notebook'"
+  },
+  {
+    "key": "escape",
+    "command": "-interactive.input.clear",
+    "when": "!LinkedEditingInputVisible && !accessibilityHelpWidgetVisible && !breakpointWidgetVisible && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !exceptionWidgetVisible && !findWidgetVisible && !inSnippetMode && !isComposing && !markersNavigationVisible && !notificationToastsVisible && !parameterHintsVisible && !renameInputVisible && !selectionAnchorSet && !suggestWidgetVisible && resourceScheme == 'vscode-interactive'"
   }
 ]
 // vim: set ft=jsonc :
