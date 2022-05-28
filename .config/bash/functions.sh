@@ -1305,7 +1305,11 @@ alias jlb='jupyter lab'
 # by the conda.sh script shipped by conda for enabling the `conda activate`
 # command.
 conda-or-mamba() {
-  if [[ ${1-} =~ (activate|deactivate) ]]; then
+  # As of 2022-05-28 and mamba 0.23.3, `mamba create` creates the virtual env
+  # under my isolated mamba env, i.e. it uses ~/.local/pkg/conda/envs/mamba/envs
+  # instead of ~/.local/pkg/conda/envs. This causes an issue because conda is
+  # then unaware of the env.
+  if [[ ${1-} =~ (activate|deactivate|create) ]]; then
     command conda "$@"
     return
   fi
