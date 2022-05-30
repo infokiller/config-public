@@ -26,6 +26,8 @@ AddPackage zathura-ps        # Adds ps support to zathura by using the libspectr
 AddPackage pcmanfm     # Extremely fast and lightweight file manager
 # file-roller enables extracting archives directly from pcmanfm.
 AddPackage file-roller # Create and modify archives
+# Matrix client
+AddPackage element-desktop # Glossy Matrix collaboration client — desktop version.
 
 AddPackage vlc # Multi-platform MPEG, VCD/DVD, and DivX player
 IgnorePath '/usr/lib/vlc/plugins/plugins.dat'
@@ -41,6 +43,10 @@ AddPackage seahorse           # GNOME application for managing PGP keys
 if is_nvidia_gpu; then
   AddPackage nvidia-settings # Tool for configuring the NVIDIA graphics driver
 fi
+
+# Used by ~/.my_scripts/desktop_env/vim-ocr-screenshot and a copyq script
+AddPackage tesseract          # An OCR program
+AddPackage tesseract-data-eng # Tesseract OCR data (eng)
 
 if is_primary_dev_machine; then
   AddPackage gvim                             # Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)
