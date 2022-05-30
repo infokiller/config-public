@@ -175,12 +175,17 @@ function! s:SmartCursorLineMovementCmd(direction) abort
   if v:count
     return (v:count > 5 ? "m'" . v:count : '') . l:key
   endif
-  if !g:VSCODE_MODE
-    return 'g' . l:key
-  endif
-  let l:params = printf("{ 'to': '%s', 'by': 'wrappedLine', 'value': %d }", 
-      \ a:direction, v:count ? v:count : 1)
-  return printf("\<Cmd>call VSCodeNotify('cursorMove', %s)\<CR>", l:params)
+  return 'g' . l:key
+  " As of 2022-05-30, this code causes issues when holding the up/down keys- the
+  " cursor jumps a bit without making progress. I don't remember why I wrote it
+  " in the first place, it was probably needed in some older version of VSCode
+  " Neovim.
+  " if !g:VSCODE_MODE
+  "   return 'g' . l:key
+  " endif
+  " let l:params = printf("{ 'to': '%s', 'by': 'wrappedLine', 'value': %d }", 
+  "     \ a:direction, v:count ? v:count : 1)
+  " return printf("\<Cmd>call VSCodeNotify('cursorMove', %s)\<CR>", l:params)
 endfunction
 
 " Normal mode.
