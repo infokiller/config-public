@@ -573,6 +573,25 @@ git-fetch-prs() {
   done < <(git remote)
 }
 
+git-diff-sum() {
+  local diff_opts="${1:---shortstat}"
+  local since="${2:-1 year ago}"
+  local base_commit
+  base_commit="$(git log -1 --until="${since}" --pretty='format:%h')"
+  if [[ -z "${base_commit}" ]]; then
+    base_commit="$(git log --since="${since}" --pretty='format:%h' | tail -1)"
+  fi
+  local diffstat
+  diffstat="$(git --no-pager diff --color=always \
+    "${diff_opts}" "${base_commit}")"
+  printf 'Since %s:\n' "${since}"
+  if [[ -n "${diffstat}" ]]; then
+    printf '%s\n' "${diffstat}"
+  else
+    echo ' no changes'
+  fi
+}
+
 # https://gist.github.com/magnetikonline/dd5837d597722c9c2d5dfa16d8efe5b9
 git-list-large-objects() {
   local i=0

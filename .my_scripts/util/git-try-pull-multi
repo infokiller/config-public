@@ -13,19 +13,8 @@ process_repo() {
   local repo="$1"
   timeout 5 "${GIT_TRY_PULL}" "${repo}" || true
   (
-    cd "${repo}"
-    base_commit="$(git log -1 --until="1 year ago" --pretty='format:%h')"
-    if [[ -z "${base_commit}" ]]; then
-      base_commit="$(git log --since="1 year ago" --pretty='format:%h' | tail -1)"
-    fi
-    local diffstat
-    diffstat="$(git --no-pager diff --stat-count=-1 "${base_commit}" | tail -1)"
-    printf 'Last year:'
-    if [[ -n "${diffstat}" ]]; then
-      echo "${diffstat}"
-    else
-      echo ' no changes'
-    fi
+    cd -- "${repo}"
+    rif git-diff-sum
   )
 }
 
