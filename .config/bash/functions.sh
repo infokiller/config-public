@@ -863,6 +863,38 @@ gh-gist-edit() {
   [[ -n "${gist_id}" ]] || return 1
   gh gist edit "${gist_id}"
 }
+
+gh-clone-user-repos() {
+  if (($# < 1)); then
+    print_error 'Usage: gh-clone-user-repos <OWNER> [DIRECTORY]'
+    return 1
+  fi
+  local owner="$1"
+  local dir="${2:-${owner}}"
+  mkdir -p -- "${dir}"
+  local gh_cmd=(gh repo list --limit 1000 --source --no-archived --json name
+    --template $'{{range .}}{{.name}}\n{{end}}' "${owner}")
+  # shellcheck disable=SC2016
+  local fzf_cmd=(fzf -m --preview 
+        'name={}; export GH_FORCE_TTY="${FZF_PREVIEW_COLUMNS}"; 
+        gh repo view "${GH_OWNER}/${name}"')
+  (
+    export GH_OWNER="${owner}"
+    local repo_dir
+    local pretty_path
+    while IFS='' read -r repo; do
+      repo_dir="${dir}/${repo}"
+      if [[ -d "${repo_dir}" ]]; then
+        echo "Directory ${repo_dir} already exists, pulling from origin"
+        "${REPO_ROOT}/.my_scripts/util/git-try-pull" "${repo_dir}"
+        continue
+      fi
+      pretty_path="$(printf '%s' "${repo_dir}" | sed -r 's%/home/(\w|-)+%~%g')"
+      print_bold "Repo: ${pretty_path}"
+      git clone "https://github.com/${owner}/${repo}" -- "${dir}/${repo}"
+    done < <("${gh_cmd[@]}" | "${fzf_cmd[@]}")
+  )
+}
 # }}} Github/Gitlab
 
 # NOTE(infokiller): I used to define the git aliases programmatically in this
