@@ -219,6 +219,7 @@ _increase_xdg_conformance() {
   export MACHINE_STORAGE_PATH="${XDG_DATA_HOME}/docker-machine"
   export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
   export VAGRANT_ALIAS_FILE="${XDG_DATA_HOME}/vagrant/aliases"
+  export JULIA_DEPOT_PATH="${XDG_DATA_HOME}/julia:${JULIA_DEPOT_PATH-}"
   export ATHAME_TEST_RC="${XDG_CONFIG_HOME}/athamerc"
   export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
   export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Djavafx.cacheDir=${XDG_CACHE_HOME}/openjfx"
