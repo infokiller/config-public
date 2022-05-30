@@ -242,7 +242,7 @@ _install_conda_envs_from_dir() {
   done < <(\find -L "${dir}" -maxdepth 1 -type f -print0 | sort --zero-terminated)
 }
 
-_install_non_graphical_conda_envs() {
+_install_non_graphical_envs() {
   _log_info_bold 'Installing non-graphical conda environments'
   _install_conda_env "${REPO_ROOT}/.config/bash/history/environment.yml"
   _install_conda_env "${REPO_ROOT}/install/conda_envs/urlextract/urlextract.yml"
@@ -250,7 +250,7 @@ _install_non_graphical_conda_envs() {
   _symlink_tools_binaries
 }
 
-_install_graphical_conda_envs() {
+_install_graphical_envs() {
   _log_info_bold 'Installing graphical conda environments'
   _install_conda_env "${SUBMODULES_DIR}/keydope/environment.yml"
   _install_conda_env "${SUBMODULES_DIR}/desktop/i3-workspace-groups/environment.yml"
@@ -259,6 +259,78 @@ _install_graphical_conda_envs() {
   _install_conda_env "${REPO_ROOT}/install/conda_envs/i3_resurrect/i3_resurrect.yml"
   _install_conda_env "${SUBMODULES_DIR}/desktop/selfspy/environment.yml"
   _install_conda_env "${REPO_ROOT}/.my_scripts/desktop_env/suspend-screenlock/environment.yml"
+}
+
+_pip_compile_upgrade() {
+  # https://github.com/jazzband/pip-tools/issues/1558
+  # https://github.com/jazzband/pip-tools/issues/1617
+  pip install 'pip-tools>=6.6.2'
+  pip-compile --quiet --generate-hashes --allow-unsafe --upgrade "$@"
+}
+
+# TODO: Upgrade "tools" environment
+_upgrade_non_graphical_envs() {
+  (
+    cd -- "${REPO_ROOT}/.config/bash/history"
+    # shellcheck disable=SC1091
+    source activate shell_history
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/install/conda_envs/urlextract"
+    # shellcheck disable=SC1091
+    source activate urlextract
+    _pip_compile_upgrade
+  )
+}
+
+_upgrade_graphical_envs() {
+  (
+    cd -- "${SUBMODULES_DIR}/keydope"
+    # shellcheck disable=SC1091
+    source activate keydope
+    # shellcheck disable=SC2119
+    _pip_compile_upgrade
+    _pip_compile_upgrade --extra dev --output-file requirements-dev.txt
+    _pip_compile_upgrade --extra systemd --output-file requirements-systemd.txt
+  )
+  (
+    cd -- "${SUBMODULES_DIR}/desktop/i3-workspace-groups"
+    # shellcheck disable=SC1091
+    source activate i3_workspace_groups
+    _pip_compile_upgrade
+    _pip_compile_upgrade --extra dev --output-file requirements-dev.txt
+  )
+  (
+    cd -- "${SUBMODULES_DIR}/desktop/i3-scratchpad"
+    # shellcheck disable=SC1091
+    source activate i3_scratchpad
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/.my_scripts/i3"
+    # shellcheck disable=SC1091
+    source activate i3_scripts
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/install/conda_envs/i3_resurrect"
+    # shellcheck disable=SC1091
+    source activate i3_resurrect
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${SUBMODULES_DIR}/desktop/selfspy"
+    # shellcheck disable=SC1091
+    source activate selfspy
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/.my_scripts/desktop_env/suspend-screenlock"
+    # shellcheck disable=SC1091
+    source activate suspend_screenlock
+    _pip_compile_upgrade
+  )
 }
 
 _setup_conda() {
@@ -304,20 +376,25 @@ _symlink_tools_binaries() {
 }
 
 main() {
-  local install_non_graphical=0
-  local install_graphical=0
+  local non_graphical=0
+  local graphical=0
+  local upgrade=0
   if (($# == 0)); then
-    install_non_graphical=1
-    install_graphical=1
+    non_graphical=1
+    graphical=1
   fi
   while (($# > 0)); do
     case "$1" in
       --non-graphical)
-        install_non_graphical=1
+        non_graphical=1
         shift 1
         ;;
       --graphical)
-        install_graphical=1
+        graphical=1
+        shift 1
+        ;;
+      --upgrade)
+        upgrade=1
         shift 1
         ;;
       *)
@@ -326,15 +403,24 @@ main() {
     esac
   done
 
-  _setup_conda
-  for base_tool in conda activate deactivate; do
-    symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
-  done
-  if ((install_non_graphical)); then
-    _install_non_graphical_conda_envs
-  fi
-  if ((install_graphical)); then
-    _install_graphical_conda_envs
+  if ((upgrade)); then
+    if ((non_graphical)); then
+      _upgrade_non_graphical_envs
+    fi
+    if ((graphical)); then
+      _upgrade_graphical_envs
+    fi
+  else
+    _setup_conda
+    for base_tool in conda activate deactivate; do
+      symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
+    done
+    if ((non_graphical)); then
+      _install_non_graphical_envs
+    fi
+    if ((graphical)); then
+      _install_graphical_envs
+    fi
   fi
 }
 
