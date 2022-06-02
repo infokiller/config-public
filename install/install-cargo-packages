@@ -107,7 +107,10 @@ PACKAGES = [
                        installed_binaries={'rg': 'rg'},
                        distro_regex='debian|ubuntu',
                        install_flags=['--locked']),
-    PackageInstallSpec('bat', distro_regex='debian|ubuntu'),
+    # bat is temporarily installed in archlinux as well to work around
+    # https://github.com/dandavison/delta/issues/878
+    # PackageInstallSpec('bat', distro_regex='debian|ubuntu'),
+    PackageInstallSpec('bat'),
 ]
 
 
