@@ -148,6 +148,7 @@ AddPackage pciutils           # PCI bus configuration space access library and t
 AddPackage inotify-tools      # inotify-tools is a C library and a set of command-line programs for Linux providing a simple interface to inotify.
 AddPackage neofetch           # A CLI system information tool written in BASH that supports displaying images.
 AddPackage perl-file-mimeinfo # Determine file type, includes mimeopen and mimetype
+AddPackage croc               # Easily and securely send things from one computer to another.
 
 if ! is_wsl; then
   # It's unlikely I'll want to print anything on WSL since I can just use the

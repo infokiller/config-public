@@ -47,7 +47,6 @@ AddPackage qt5ct                   # Qt5 Configuration Utility
 AddPackage sound-theme-freedesktop # Freedesktop sound theme
 AddPackage gnome-themes-extra      # Extra Themes for GNOME Applications
 AddPackage hicolor-icon-theme      # Freedesktop.org Hicolor icon theme
-AddPackage gnome-icon-theme        # GNOME icon theme
 AddPackage gnome-icon-theme-extras # Extra GNOME icons for specific devices and file types
 AddPackage adwaita-icon-theme      # GNOME standard icons
 # breeze is the default for KDE apps.
