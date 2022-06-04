@@ -113,6 +113,10 @@
     "jupyter.alwaysTrustNotebooks": true,
     "jupyter.codeLenses": "jupyter.runcell, jupyter.debugcell",
     "jupyter.enableNativeInteractiveWindow": true,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
     "go.useLanguageServer": true,
     "[javascript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint"
@@ -134,10 +138,6 @@
     "todohighlight.defaultStyle": {
         "color": "#d33682",
         "backgroundColor": ""
-    },
-    "notebook.cellToolbarLocation": {
-        "default": "right",
-        "jupyter-notebook": "left"
     }
 }
 
