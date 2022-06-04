@@ -6,6 +6,10 @@
 # - https://github.com/jazzband/pip-tools
 # TODO: Use a separate env for every tool (like pipx/pipz). I'll get that
 # automatically if using https://github.com/AndydeCleyre/zpy
+# pipz uses the built-in venv, which uses the python version it was run from, and
+# doesn't support specifying an isolated python version. To pin the python
+# version, I can use pipz with the python version from the tools env, which
+# means all the tools will share the same python version.
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
