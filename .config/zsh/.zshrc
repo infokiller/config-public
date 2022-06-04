@@ -1796,7 +1796,10 @@ maybe-run-tracked-emulate +b -- source_compiled \
 # sourcing.
 maybe-run-tracked-emulate -- source \
   "${PLUGINS_DIR}/alias-tips/"*.plugin.zsh
-# maybe-run-tracked-emulate -- source_compiled "${PLUGINS_DIR}/zpy/"*.plugin.zsh
+# https://github.com/AndydeCleyre/zpy/issues/18#issuecomment-1146508441
+# zstyle ':zpy:*' exposed-funcs zpy
+zstyle ':zpy:*' pip-compile-args --generate-hashes --allow-unsafe
+maybe-run-tracked-emulate -- source_compiled "${PLUGINS_DIR}/zpy/"*.plugin.zsh
 # +a means not to print warnings when defining aliases.
 maybe-run-tracked-emulate +a -- source_compiled \
   "${BASH_CONFIG_DIR}/functions.sh"
