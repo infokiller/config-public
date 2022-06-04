@@ -9,7 +9,10 @@
 # pipz uses the built-in venv, which uses the python version it was run from, and
 # doesn't support specifying an isolated python version. To pin the python
 # version, I can use pipz with the python version from the tools env, which
-# means all the tools will share the same python version.
+# means all the tools will share the same python version. Alternatively, I can
+# define several tools envs with different python versions (tools-venv-3.7,
+# tools-venv-3.8, etc.) to support any python package. And also tools-conda-3.X
+# for tools that can only be installed with conda.
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
