@@ -574,8 +574,11 @@ git-fetch-prs() {
 }
 
 git-diff-sum() {
-  local diff_opts="${1:---shortstat}"
-  local since="${2:-1 year ago}"
+  local since="${1:-1 year ago}"
+  local diff_opts=("${@:2:$#}")
+  if ((!${#diff_opts[@]})); then
+    diff_opts=('--shortstat')
+  fi
   local base_commit
   base_commit="$(git log -1 --until="${since}" --pretty='format:%h')"
   if [[ -z "${base_commit}" ]]; then
@@ -583,7 +586,7 @@ git-diff-sum() {
   fi
   local diffstat
   diffstat="$(git --no-pager diff --color=always \
-    "${diff_opts}" "${base_commit}")"
+    "${base_commit}" "${diff_opts[@]}")"
   printf 'Since %s:\n' "${since}"
   if [[ -n "${diffstat}" ]]; then
     printf '%s\n' "${diffstat}"
