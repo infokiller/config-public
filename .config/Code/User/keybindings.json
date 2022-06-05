@@ -1,18 +1,7 @@
 // NOTE: Keybinding conditions match from bottom to top. See:
 // https://code.visualstudio.com/docs/getstarted/keybindings#_keyboard-rules
 [
-  {
-    "key": "alt+u",
-    "command": "vscode-neovim.send",
-    "args": "<M-u>",
-    "when": "editorTextFocus && neovim.init"
-  },
-  {
-    "key": "ctrl+f",
-    "command": "vscode-neovim.send",
-    "args": "<C-f>",
-    "when": "editorTextFocus && neovim.init"
-  },
+  // Workbench/panels/editors navigation {{{
   {
     "key": "alt+l",
     "command": "-toggleFindInSelection",
@@ -143,6 +132,21 @@
     "key": "ctrl+q",
     "command": "-workbench.action.quit"
   },
+  // }}} Workbench/panels/editors navigation
+
+  // VSCode Neovim {{{
+  {
+    "key": "alt+u",
+    "command": "vscode-neovim.send",
+    "args": "<M-u>",
+    "when": "editorTextFocus && neovim.init"
+  },
+  {
+    "key": "ctrl+f",
+    "command": "vscode-neovim.send",
+    "args": "<C-f>",
+    "when": "editorTextFocus && neovim.init"
+  },
   // Disable keybindings that are handled in neovim.
   {
     "key": "ctrl+o",
@@ -152,35 +156,33 @@
     "key": "ctrl+p",
     "command": "-workbench.action.quickOpen"
   },
-  // Snippets keybindings similar to vim.
-  // TODO: Snippet insertion doesn't work with Ctrl+k (but does work with tab).
+
+  // Handle ctrl+w correctly in different modes {{{
   {
-    "key": "ctrl+k",
-    "command": "acceptSnippet",
-    "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
+    "key": "ctrl+w",
+    "command": "-workbench.action.closeActiveEditor"
   },
+  // NOTE: the ctrl+w conditions are simplified and don't include the full condition
+  // from vscode-neovim because as of 2021-03-03 VSCode don't support
+  // paranthesis in when clauses:
+  // https://github.com/microsoft/vscode/issues/91473
+  // "when": "editorFocus && !(neovim.ctrlKeysInsert && !neovim.recording && neovim.mode == 'insert')"
+ {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "editorFocus && neovim.mode == 'normal'"
+  },
+  // focusedView is empty or undefined in when the focus is on regular edited files, the Jupyter
+  // Notebook editor, or web views (such as the release notes).
+  // An alternative is checking !panelFocus && !sideBarFocus.
   {
-    "key": "ctrl+j",
-    "command": "jumpToPrevSnippetPlaceholder",
-    "when": "editorTextFocus && hasPrevTabstop && inSnippetMode"
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!focusedView && activeEditor == 'WebviewEditor'"
   },
-  {
-    "key": "ctrl+l",
-    "command": "jumpToNextSnippetPlaceholder",
-    "when": "editorTextFocus && hasNextTabstop && inSnippetMode"
-  },
-  // Jupyter interactive window
-  {
-    "key": "ctrl+j",
-    "command": "interactive.execute",
-    "when": "resourceScheme == 'vscode-interactive'"
-  },
-  {
-    "key": "meta+enter",
-    "command": "-interactive.execute",
-    "when": "resourceScheme == 'vscode-interactive'"
-  },
-  // Disable unused vscode-neovim keys.
+  // }}} Handle ctrl+w correctly in different modes
+
+  // Disable unused vscode-neovim keys {{{
   {
     "key": "ctrl+[",
     "command": "-vscode-neovim.escape",
@@ -222,31 +224,49 @@
     "when": "editorTextFocus && neovim.ctrlKeysInsert && neovim.recording && neovim.mode == 'insert'"
   },
   {
-    "key": "ctrl+w",
-    "command": "-workbench.action.closeActiveEditor"
-  },
-  // NOTE: the ctrl+w conditions are simplified and don't include the full condition
-  // from vscode-neovim because as of 2021-03-03 VSCode don't support
-  // paranthesis in when clauses:
-  // https://github.com/microsoft/vscode/issues/91473
-  // "when": "editorFocus && !(neovim.ctrlKeysInsert && !neovim.recording && neovim.mode == 'insert')"
-  {
-    "key": "ctrl+w",
-    "command": "workbench.action.closeActiveEditor",
-    "when": "editorFocus && neovim.mode == 'normal'"
-  },
-  // focusedView is empty or undefined in when the focus is on regular edited files, the Jupyter
-  // Notebook editor, or web views (such as the release notes).
-  // An alternative is checking !panelFocus && !sideBarFocus.
-  {
-    "key": "ctrl+w",
-    "command": "workbench.action.closeActiveEditor",
-    "when": "!focusedView && activeEditor == 'WebviewEditor'"
-  },
-  {
     "key": "ctrl+shift+p",
     "command": "-vscode-neovim.send",
     "when": "editorTextFocus && neovim.mode == 'visual'"
+  },
+  // }}} Disable unused vscode-neovim keys
+
+  // }}} VSCode Neovim
+
+  // Snippet expansion {{{
+  // Snippets keybindings similar to vim.
+  // TODO: make snippet acception work similar to YCM
+  // acceptSnippet doesn't work for me.
+  // As of 2022-06-05 and VSCode 1.67.2-1 I disabled all other ctrl+k
+  // keybindings (using ~/.my_scripts/util/vscode-keybindings-cli) and now I can
+  // remap ctrl+k to anything (without the waiting to another keypress that was
+    // caused by all the default bindings).
+  {
+    "key": "ctrl+k",
+    "command": "acceptSnippet",
+    "when": "editorTextFocus && hasSnippetCompletions && !editorTabMovesFocus && !inSnippetMode"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "jumpToPrevSnippetPlaceholder",
+    "when": "editorTextFocus && hasPrevTabstop && inSnippetMode"
+  },
+  {
+    "key": "ctrl+l",
+    "command": "jumpToNextSnippetPlaceholder",
+    "when": "editorTextFocus && hasNextTabstop && inSnippetMode"
+  },
+  // }}} Snippet expansion
+
+  // Interactive window (Jupyter/Python etc.) {{{ //
+  {
+    "key": "ctrl+j",
+    "command": "interactive.execute",
+    "when": "resourceScheme == 'vscode-interactive'"
+  },
+  {
+    "key": "meta+enter",
+    "command": "-interactive.execute",
+    "when": "resourceScheme == 'vscode-interactive'"
   },
   {
     "key": "ctrl+n",
@@ -258,7 +278,10 @@
     "command": "interactive.history.previous",
     "when": "!suggestWidgetVisible && resourceScheme == 'vscode-interactive'"
   },
-  // Disable all ctrl+k keybindings so that ctrl+k can be used.
+  // }}} Interactive window (Jupyter/Python etc.) //
+
+  // {{{ Autogenerated disabled ctrl+k bindings
+  // Generated by vscode-keybindings-cli on 2022-06-05 18:51:52 UTC with installed code version 1.67.2
   {
     "key": "ctrl+k ctrl+c",
     "command": "-editor.action.addCommentLine",
@@ -667,7 +690,9 @@
     "command": "-markdown.extension.closePreview",
     "when": "markdownPreviewFocus"
   },
-  // Disable unused/conflicting mappings
+  // }}} Autogenerated disabled ctrl+k bindings
+
+  // Disable unused/conflicting mappings {{{
   {
     "key": "ctrl+b",
     "command": "-markdown.extension.editing.toggleBold",
@@ -708,6 +733,9 @@
     "command": "-notebook.cell.execute",
     "when": "notebookCellListFocused"
   },
+  // }}} Disable unused/conflicting mappings
+
+  // Notebooks/Jupyter {{{ //
   {
     "key": "i",
     "command": "list.focusUp",
@@ -787,6 +815,21 @@
     "key": "escape",
     "command": "-interactive.input.clear",
     "when": "!LinkedEditingInputVisible && !accessibilityHelpWidgetVisible && !breakpointWidgetVisible && !editorHasMultipleSelections && !editorHasSelection && !editorHoverVisible && !exceptionWidgetVisible && !findWidgetVisible && !inSnippetMode && !isComposing && !markersNavigationVisible && !notificationToastsVisible && !parameterHintsVisible && !renameInputVisible && !selectionAnchorSet && !suggestWidgetVisible && resourceScheme == 'vscode-interactive'"
+  },
+  // }}} Notebooks/Jupyter //
+
+  // Terminal {{{
+  // Disable keybindings that suppress stuff I use {{{ //
+  {
+    "key": "alt+c",
+    "command": "-workbench.action.terminal.toggleFindCaseSensitive",
+    "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported"
+  },
+  {
+    "key": "ctrl+e",
+    "command": "-workbench.action.quickOpen"
   }
+  // }}} Disable keybindings that suppress stuff I use //
+  // }}} Terminal
 ]
 // vim: set ft=jsonc :
