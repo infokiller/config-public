@@ -565,10 +565,16 @@ _install_doom_emacs_once() {
   # doom repo commit and if package versions are locked
   # NOTE: I used to execute `doom upgrade` (which calls `doom sync`) but I don't
   # think packages should be updated independently from the main repo.
+  # NOTE: I think it's actually required because otherwise package may stay on
+  # old versions (the pinned versions when `doom install` was last run?).
   # * --packages: only upgrade packages, not doom itself. I update doom by using
   #   git-sensible-update, so I don't need to do it here.
   # * --force: discard local changes.
-  # doom --yes upgrade --packages --force
+  # Use timeout because I ran into cases where doom upgrade hangs on a specific
+  # repo.
+  timeout 900 doom --yes upgrade --packages --force || return
+  # * -e: don't generate an envvars file. I don't need it because doom
+  #   should always start with the proper shell config.
   doom --yes sync -e
 }
 
