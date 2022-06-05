@@ -94,12 +94,12 @@ AddPackage libguestfs # Access and modify virtual machine disk images
 # multipath is a dependency of libguestfs
 IgnorePath '/etc/multipath'
 
-AddPackage emacs      # The extensible, customizable, self-documenting real-time display editor
-AddPackage bat        # cat clone with Git integration and syntax highlighting support
-AddPackage jq         # Command-line JSON processor
-AddPackage fd         # Simple, fast and user-friendly alternative to find
-AddPackage shellcheck # Shell script analysis tool
-AddPackage expect     # A tool for automating interactive applications
+AddPackage emacs-nativecomp # The extensible, customizable, self-documenting real-time display editor with native compilation enabled
+AddPackage bat              # cat clone with Git integration and syntax highlighting support
+AddPackage jq               # Command-line JSON processor
+AddPackage fd               # Simple, fast and user-friendly alternative to find
+AddPackage shellcheck       # Shell script analysis tool
+AddPackage expect           # A tool for automating interactive applications
 # Disabled because I don't really use it and AUR packages can be a security
 # issue.
 # AddPackage --foreign howdoi # A code search tool.
