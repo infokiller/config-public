@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+
+import argparse
+import json
+import os
+import re
+import sys
+
+
+def _parse_args():
+    parser = argparse.ArgumentParser(description='Parse VSCode keybindings')
+    parser.add_argument('--key-include-regex',
+                        help='Regex for keys that should be included')
+    parser.add_argument('--key-exclude-regex',
+                        help='Regex for keys that should be excluded')
+    parser.add_argument('--command-include-regex',
+                        help='Regex for commands that should be included')
+    parser.add_argument('--command-exclude-regex',
+                        help='Regex for commands that should be excluded')
+    parser.add_argument('--when-include-regex',
+                        help='Regex for when clauses that should be included')
+    parser.add_argument('--when-exclude-regex',
+                        help='Regex for when clauses that should be excluded')
+    subparsers = parser.add_subparsers(dest='command')
+    subparsers.required = True
+    subparsers.add_parser('disable').add_argument(
+        'file', help='keybindings.json file to parse')
+    return parser.parse_args()
+
+
+def _does_match(value, include_regex, exclude_regex):
+    if include_regex and not re.match(include_regex, value):
+        return False
+    if exclude_regex and re.match(exclude_regex, value):
+        return False
+    return True
+
+
+def _get_matching_bindings(args):
+    with open(args.file, encoding='utf-8') as f:
+        lines = [
+            l for l in f.read().split('\n') if not l.strip().startswith('//')
+        ]
+    bindings = json.loads('\n'.join(lines))
+    result = []
+    for binding in bindings:
+        if not _does_match(binding['key'], args.key_include_regex,
+                           args.key_exclude_regex):
+            continue
+        if not _does_match(binding['command'], args.command_include_regex,
+                           args.command_exclude_regex):
+            continue
+        if not _does_match(binding.get('when', ''), args.when_include_regex,
+                           args.when_exclude_regex):
+            continue
+        result.append(binding)
+    return result
+
+
+def main():
+    args = _parse_args()
+    result = _get_matching_bindings(args)
+    if args.command == 'disable':
+        for binding in result:
+            binding['command'] = '-' + binding['command']
+        print(json.dumps(result, indent=2))
+        return
+    raise ValueError(f'Not handling command: {args.command}')
+
+
+if __name__ == '__main__':
+    main()
