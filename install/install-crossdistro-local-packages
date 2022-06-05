@@ -560,22 +560,25 @@ _install_doom_emacs_once() {
   # * --no-config: don't create config files, they should already exist from my
   #   config repo.
   # * --no-hooks: don't deploy git hooks.
-  doom --yes install --no-config --no-env --no-hooks
+  # doom --yes install --no-config --no-env --no-hooks
   # TODO: Verify if `doom upgrade` is needed when independently updating the
   # doom repo commit and if package versions are locked
   # NOTE: I used to execute `doom upgrade` (which calls `doom sync`) but I don't
   # think packages should be updated independently from the main repo.
-  # NOTE: I think it's actually required because otherwise package may stay on
-  # old versions (the pinned versions when `doom install` was last run?).
+  # NOTE: I think it's actually required because otherwise packages may stay on
+  # old versions (the pinned versions when `doom install` was last run?), which
+  # was causing me issues. I now upgrade packages with the -u flag to doom sync,
+  # because it provides more control.
   # * --packages: only upgrade packages, not doom itself. I update doom by using
   #   git-sensible-update, so I don't need to do it here.
   # * --force: discard local changes.
   # Use timeout because I ran into cases where doom upgrade hangs on a specific
   # repo.
-  timeout 900 doom --yes upgrade --packages --force || return
+  # timeout 900 doom --yes upgrade --packages || return
   # * -e: don't generate an envvars file. I don't need it because doom
   #   should always start with the proper shell config.
-  doom --yes sync -e
+  # * -u: upgrade packages
+  timeout 900 doom --yes sync -e -u
 }
 
 _install_doom_emacs() {
