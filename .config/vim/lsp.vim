@@ -866,7 +866,7 @@ if empty($VIRTUAL_ENV)
   if !empty($CONDA_PREFIX)
     let $VIRTUAL_ENV = $CONDA_PREFIX
   else
-    let $VIRTUAL_ENV = Concat($HOME, '/.local/pkg/conda')
+    let $VIRTUAL_ENV = Concat($HOME, '/.local/pkg/conda/envs/tools')
   endif
 endif
 
