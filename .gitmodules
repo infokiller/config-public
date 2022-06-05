@@ -169,6 +169,7 @@
 [submodule "submodules/zsh/zpy"]
 	path = submodules/zsh/zpy
 	url = https://github.com/AndydeCleyre/zpy
+	branch = feature/interface-as-subcommands
 [submodule "submodules/zsh/zunit"]
 	path = submodules/zsh/zunit
 	url = https://github.com/zunit-zsh/zunit
