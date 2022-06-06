@@ -203,6 +203,8 @@ _install_conda_env() {
   local py_version
   py_version="$(grep -E '^\s*-\s*python\s*=\s*[0-9]\.[0-9]+' -- "${file}" |
     sed -E 's/^\s*-\s*python\s*=\s*([0-9]\.[0-9]+)/\1/')"
+  # NOTE: We must use the full env prefix (instead of just name) for these
+  # commands to work in mamba as well.
   local env_prefix="${CONDA_LOCAL_DIR}/envs/${env_name}"
   local py_bin="${env_prefix}/bin/python"
   if [[ -x "${py_bin}" ]]; then
@@ -226,6 +228,8 @@ _install_conda_env() {
     _log_info_bold "Updating conda environment ${env_name} from ${file}"
     # --prune should remove packages not specified in environment file, though
     # it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
+    # One workaround is to run `conda env create --force` which will re-create
+    # the environment from scratch.
     local cmd=(_fastest_conda env update --prune -p "${env_prefix}" -f "${file}")
   else
     _log_info_bold "Installing conda environment ${env_name} from ${file}"
