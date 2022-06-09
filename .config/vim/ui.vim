@@ -753,6 +753,10 @@ function! s:GetGitBranchName() abort
   if exists('*gina#component#repo#branch')
     return gina#component#repo#branch()
   endif
+  if exists('*FugitiveHead')
+    return FugitiveHead()
+  endif
+  # fugitive#head was removed in commit b81c59b
   if exists('*fugitive#head')
     return fugitive#head()
   endif
