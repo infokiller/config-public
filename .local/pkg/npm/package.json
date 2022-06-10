@@ -21,7 +21,7 @@
     "puppeteer": "13.6.0",
     "pyright": "1.1.239",
     "release-it": "14.14.2",
-    "semantic-release": "19.0.2",
+    "semantic-release": "19.0.3",
     "snyk": "1.910.0",
     "stylelint": "14.7.1",
     "tldr": "3.3.7",
