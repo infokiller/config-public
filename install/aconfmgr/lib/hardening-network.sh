@@ -42,6 +42,7 @@ configure_mullvad_vpn() {
   fi
   # CopyFile '/etc/mullvad-vpn/settings.json'
   IgnorePath '/etc/mullvad-vpn/account-history.json'
+  IgnorePath '/etc/mullvad-vpn/device.json'
   IgnorePath '/usr/bin/mullvad-problem-report'
   IgnorePath '/opt/Mullvad VPN/resources/mullvad-problem-report'
   CreateLink '/usr/lib/systemd/system/mullvad-daemon.service' '/opt/Mullvad VPN/resources/mullvad-daemon.service'
