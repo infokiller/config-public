@@ -10,9 +10,9 @@ click==8.1.3 \
     # via
     #   i3-resurrect
     #   pip-tools
-i3-resurrect==1.4.3 \
-    --hash=sha256:19928b3b4601a2a627d01bf8c9fb8961ffdd587c7810fe54920e5fdeb20b2840 \
-    --hash=sha256:27fe9a72793ec979be4018adfe554116a1e42113899d01a3d2b4f22ace227833
+i3-resurrect==1.4.5 \
+    --hash=sha256:62a438c20ca42a5b202e27c0d2b676acbf4abdd1028b7fc04b44f99a00c1971a \
+    --hash=sha256:d7714a46f104e2f1eae46e751b55320677cd896792f50fd26021b5e84d529f87
     # via -r requirements.in
 i3ipc==2.2.1 \
     --hash=sha256:c0b898223d50d42c90c818deb5033d1304c582755547dee7d15df3e3781bc690 \
@@ -86,7 +86,7 @@ pip==22.1.2 \
     --hash=sha256:6d55b27e10f506312894a87ccc59f280136bad9061719fac9101bdad5a6bce69 \
     --hash=sha256:a3edacb89022ef5258bf61852728bf866632a394da837ca49eb4303635835f17
     # via pip-tools
-setuptools==62.4.0 \
-    --hash=sha256:5a844ad6e190dccc67d6d7411d119c5152ce01f7c76be4d8a1eaa314501bba77 \
-    --hash=sha256:bf8a748ac98b09d32c9a64a995a6b25921c96cc5743c1efa82763ba80ff54e91
+setuptools==62.5.0 \
+    --hash=sha256:2a5de5d1ed1fd6dfbe4f1a1079af816032e2d8dfc0975265b57a61429511d10c \
+    --hash=sha256:a4c782ac58fcc9e3a86e5e1a4c74cf9d24bf21e4f1562043309022e1bb76951c
     # via pip-tools
