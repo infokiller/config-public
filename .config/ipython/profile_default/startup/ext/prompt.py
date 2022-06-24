@@ -18,6 +18,8 @@ from IPython import get_ipython
 # toolkit, and may fail importing it.
 try:
     from IPython.terminal.prompts import Prompts, Token
+    from prompt_toolkit.enums import EditingMode
+    from prompt_toolkit.key_binding import vi_state
     from prompt_toolkit.utils import get_cwidth
 except (ImportError, ValueError):
     # Required for the class definition below to not fail.
@@ -107,6 +109,29 @@ def get_git_branch():
         return ''
 
 
+_VI_INPUT_MODE_TO_DISPLAYED = {
+    'vi-insert': 'I',
+    'vi-insert-multiple': 'M',
+    # Normal mode.
+    'vi-navigation': 'N',
+    'vi-replace': 'R',
+    'vi-replace-single': 'r',
+}
+
+
+# See also:
+# https://github.com/ipython/ipython/commit/ee3eebcc0768f845f00a516296959438fdb32384
+def get_vi_input_mode_str(shell):
+    if (getattr(shell.pt_app, 'editing_mode', None) != EditingMode.VI or
+            not shell.prompt_includes_vi_mode):
+        return None
+    mode = shell.pt_app.app.vi_state.input_mode
+    if isinstance(mode, vi_state.InputMode):
+        return mode.value
+    assert isinstance(mode, str)
+    return mode
+
+
 _BYTES_SUFFIX = [
     (1024**0, 'b'),
     (1024**1, 'K'),
@@ -175,6 +200,21 @@ class MyPrompt(Prompts):
         # ps returns the result in kilobytes
         return 1024 * int(ps.stdout)
 
+    def _get_vi_mode_tokens(self):
+        mode = _VI_INPUT_MODE_TO_DISPLAYED.get(get_vi_input_mode_str(
+            self.shell))
+        if not mode:
+            return []
+        return [(Token.Prompt, f'{mode} ')]
+
+    def _get_input_prompt_tokens(self):
+        tokens = self._get_vi_mode_tokens()
+        style = Token.Prompt
+        if not self.shell.last_execution_succeeded:
+            style = Token.Generic.Error
+        tokens.append((style, '❯ '))
+        return tokens
+
     def in_prompt_tokens(self):
         venv = get_virtual_env()
         venv_tokens = [
@@ -204,11 +244,7 @@ class MyPrompt(Prompts):
             *path_tokens,
             *rss_tokens,
             (Token, '\n'),
-            (
-                Token.Prompt
-                if self.shell.last_execution_succeeded else Token.Generic.Error,
-                '❯ ',
-            ),
+            *self._get_input_prompt_tokens(),
         ]
 
 

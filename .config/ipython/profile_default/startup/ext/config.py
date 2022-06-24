@@ -20,6 +20,9 @@ from IPython import get_ipython
 # toolkit, and may fail importing it.
 try:
     import prompt_toolkit
+    from prompt_toolkit import filters
+    from prompt_toolkit.enums import EditingMode
+    from prompt_toolkit.key_binding.bindings import named_commands as cmds
     from prompt_toolkit.keys import Keys
     from prompt_toolkit.utils import get_cwidth
     _KeyPressEvent = prompt_toolkit.key_binding.key_processor.KeyPressEvent
@@ -112,61 +115,52 @@ def _define_prompt_toolkit_keybindings():
     if not _is_using_prompt_toolkit():
         return
 
-    def undo(event: _KeyPressEvent):
-        event.current_buffer.undo()
+    key_bindings = get_ipython().pt_app.key_bindings
 
-    def redo(event: _KeyPressEvent):
-        event.current_buffer.redo()
-
+    # yapf: disable
+    # Bind Ctrl+Enter (equivalent to Ctrl+J) to execute current command.
+    # This only works on version 2. See:
+    # https://github.com/jonathanslenders/python-prompt-toolkit/issues/420
     def execute_current_commands(event: _KeyPressEvent):
         buff = event.current_buffer
         buff.validate_and_handle()
-
-    def history_backward(event: _KeyPressEvent):
-        event.current_buffer.history_backward()
-
-    def history_forward(event: _KeyPressEvent):
-        event.current_buffer.history_forward()
-
-    def copy_buffer_to_clipboard(event: _KeyPressEvent):
-        copy_to_clipboard(event.current_buffer.text)
-
-    key_bindings = get_ipython().pt_app.key_bindings
-
-    # This only works on version 2. See:
-    # https://github.com/jonathanslenders/python-prompt-toolkit/issues/420
-    # Bind Ctrl+Enter (equivalent to Ctrl+J) to execute current command.
     key_bindings.add(Keys.ControlJ, filter=True)(execute_current_commands)
-
     # Bind Alt+_ to undo.
     key_bindings.add(Keys.Escape, '_', filter=True,
-                     save_before=lambda x: False)(undo)
-
+                     save_before=lambda x: False)(cmds.undo)
     # Bind Alt++ to redo.
+    def redo(event: _KeyPressEvent):
+        event.current_buffer.redo()
     key_bindings.add(Keys.Escape, '+', filter=True,
                      save_before=lambda x: False)(redo)
-
-    key_bindings.add(Keys.ControlP, filter=True)(history_backward)
-
-    key_bindings.add(Keys.ControlN, filter=True)(history_forward)
-
+    key_bindings.add(Keys.ControlP, filter=True)(cmds.previous_history)
+    key_bindings.add(Keys.ControlN, filter=True)(cmds.next_history)
+    # Bind Ctrl-Q,y to copy current line
+    def copy_buffer_to_clipboard(event: _KeyPressEvent):
+        copy_to_clipboard(event.current_buffer.text)
     key_bindings.add(Keys.ControlQ, 'y', filter=True)(copy_buffer_to_clipboard)
+    # Bind Esc to switch to vi mode
+    # Disabled because it's unused for now, and can cause issues with delay
+    # settings, for background see:
+    # https://github.com/prompt-toolkit/python-prompt-toolkit/issues/560
+    def vi_mode(event: _KeyPressEvent):
+        event.app.editing_mode = EditingMode.VI
+    # key_bindings.add(Keys.Escape, filter=filters.emacs_insert_mode)(vi_mode)
 
+    # Bind Ctrl-R to fzf history search
     fzf_history = _load_local_extension('fzf_history')
-
-    def select_history_line(event: _KeyPressEvent):
-        return fzf_history.select_history_line(event, _get_history_files())
-
     if fzf_history:
+        def select_history_line(event: _KeyPressEvent):
+            return fzf_history.select_history_line(event, _get_history_files())
         key_bindings.add(Keys.ControlR, filter=True)(select_history_line)
-
-    # Make C-o work as operate-and-get-next. See also:
+    # Bind Ctrl-o to operate-and-get-next. See also:
     # https://github.com/jonathanslenders/python-prompt-toolkit/issues/416#issuecomment-391387698
     handler = next(kb.handler
                    for kb in key_bindings.bindings
                    if kb.handler.__name__ in
                    {'newline_autoindent', 'newline_with_copy_margin'})
     key_bindings.remove_binding(handler)
+    # yapf: enable
 
 
 # I store my ipython history in a git repo, and the history saving thread has
