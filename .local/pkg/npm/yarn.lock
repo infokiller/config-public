@@ -13701,9 +13701,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:15.0.0":
-  version: 15.0.0
-  resolution: "puppeteer@npm:15.0.0"
+"puppeteer@npm:15.0.1":
+  version: 15.0.1
+  resolution: "puppeteer@npm:15.0.1"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -13716,8 +13716,8 @@ __metadata:
     rimraf: 3.0.2
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
-    ws: 8.7.0
-  checksum: 6c57d2a34239b418d9499875d20b842c8055e51cd02a24d38f7605414ef5ee54a8b0c031711c1edddc0344336ee2eb9db811033e5699cc734d06ec4d03ee39eb
+    ws: 8.8.0
+  checksum: eb8b069d0ad558a6b22fbe2f3c7f417ea01fe37ee285c1e089716264af321f238321197a2a787fe45baf203ecc113b3aabe8c020f805d0d90cc62e55eeac2e60
   languageName: node
   linkType: hard
 
@@ -14645,11 +14645,11 @@ __metadata:
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
     prettier: 2.7.1
-    puppeteer: 15.0.0
+    puppeteer: 15.0.1
     pyright: 1.1.255
     release-it: 15.1.0
     semantic-release: 19.0.3
-    snyk: 1.956.0
+    snyk: 1.958.0
     stylelint: 14.9.1
     tldr: 3.3.7
     uglify-js: 3.16.1
@@ -15162,12 +15162,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.956.0":
-  version: 1.956.0
-  resolution: "snyk@npm:1.956.0"
+"snyk@npm:1.958.0":
+  version: 1.958.0
+  resolution: "snyk@npm:1.958.0"
   bin:
     snyk: bin/snyk
-  checksum: e6d92204c6763550de0a3e4a777a1290946eb348d291ab033ee09240175f90a9269223cd31a46b0e0783c6a8b76b8467df82173f9b76c83feebf351df9afe990
+  checksum: 7189419ff8dcbb7b7981f418fde4126a6c84052906f84a49f25342f989a0b1e89fa047042c04b749c47a327c2270c7cf73b764080491f2393f0938e870843f58
   languageName: node
   linkType: hard
 
@@ -17698,21 +17698,6 @@ __metadata:
     write-good: bin/write-good.js
     writegood: bin/write-good.js
   checksum: 045f1d1b50f73d15c6664350ecacaa4bf74bab681376747b42c14ccaec06a667db89874ec0c1ff31a46e01f52051ed76518c2b920d114925f84aefcb91708e92
-  languageName: node
-  linkType: hard
-
-"ws@npm:8.7.0":
-  version: 8.7.0
-  resolution: "ws@npm:8.7.0"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ^5.0.2
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 078fa2dbc06b31a45e0057b19e2930d26c222622e355955afe019c9b9b25f62eb2a8eff7cceabdad04910ecd2bd6ef4fa48e6f3673f2fdddff02a6e4c2459584
   languageName: node
   linkType: hard
 
