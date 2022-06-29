@@ -224,6 +224,8 @@ _increase_xdg_conformance() {
   export ICEAUTHORITY="${XDG_CACHE_HOME}/ICEauthority"
   export _JAVA_OPTIONS="-Djava.util.prefs.userRoot=${XDG_CONFIG_HOME}/java -Djavafx.cacheDir=${XDG_CACHE_HOME}/openjfx"
   export GRIPHOME="${XDG_CONFIG_HOME}/grip"
+  # https://aesara.readthedocs.io/en/latest/library/config.html#envvar-AESARARC
+  export AESARARC="${XDG_CONFIG_HOME}/aesara.ini"
   # NOTE: The variables below are commented out because they're not really used.
   # export RECOLL_CONFDIR="${XDG_CONFIG_HOME}/recoll"
   # export HTTPIE_CONFIG_DIR="${XDG_CONFIG_HOME}/httpie"
