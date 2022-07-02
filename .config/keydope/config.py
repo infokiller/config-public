@@ -45,6 +45,7 @@ CAPSLOCK_COMBOS_BUGGY_PROGRAMS = BROWSERS + [
     'kitty',
     'copyq',
     'pinentry-qt',
+    'calibre',
     'virt-manager',
     r'org\.remmina\.Remmina',
     'spicy',

@@ -208,6 +208,7 @@
 /.config/QtProject
 /.config/VirtualBox
 /.config/activitywatch
+/.config/calibre
 /.config/gcloud
 /.config/autostart
 /.config/gtk-3.0/bookmarks
