@@ -29,6 +29,7 @@ AddPackage pcmanfm # Extremely fast and lightweight file manager
 AddPackage file-roller # Create and modify archives
 # Matrix client
 AddPackage element-desktop # Glossy Matrix collaboration client — desktop version.
+AddPackage calibre         # Ebook management application
 AddPackage rofimoji        # Character picker for rofi
 
 AddPackage vlc # Multi-platform MPEG, VCD/DVD, and DivX player
