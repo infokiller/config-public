@@ -2106,9 +2106,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:3.0.4":
-  version: 3.0.4
-  resolution: "bash-language-server@npm:3.0.4"
+"bash-language-server@npm:3.0.5":
+  version: 3.0.5
+  resolution: "bash-language-server@npm:3.0.5"
   dependencies:
     fuzzy-search: ^3.2.1
     glob: ^8.0.0
@@ -2121,7 +2121,7 @@ __metadata:
     web-tree-sitter: ^0.20.5
   bin:
     bash-language-server: bin/main.js
-  checksum: c6cb9c229f187f7285215f1e684fea3a804033d65654bbf2d4c3b4b95c5e37cba01901abf2eae73ee749242a05ef44ccc6a0116cd3747b0af3da579691ca5d96
+  checksum: ab84536f09ea341163b9d7b0f0f46ed729398d4d9059fa700de632e10b1f812eba30e65d3979c447a95c70fb19d814e020cac456ae74d9b54efa61b658ef450e
   languageName: node
   linkType: hard
 
@@ -14856,7 +14856,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.1
     alex: 10.0.0
-    bash-language-server: 3.0.4
+    bash-language-server: 3.0.5
     corepack: 0.11.2
     diff-so-fancy: 1.4.3
     eslint: 8.19.0
@@ -14876,10 +14876,10 @@ __metadata:
     pyright: 1.1.257
     release-it: 15.1.1
     semantic-release: 19.0.3
-    snyk: 1.961.0
+    snyk: 1.963.0
     stylelint: 14.9.1
     tldr: 3.3.7
-    uglify-js: 3.16.1
+    uglify-js: 3.16.2
     web-ext: 7.1.0
     write-good: 1.0.8
     yarn: 1.22.19
@@ -15398,12 +15398,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.961.0":
-  version: 1.961.0
-  resolution: "snyk@npm:1.961.0"
+"snyk@npm:1.963.0":
+  version: 1.963.0
+  resolution: "snyk@npm:1.963.0"
   bin:
     snyk: bin/snyk
-  checksum: c2ba1001197bbcb50662c2aecbb477def4a68793898ed5bf3888643fff9d9af5be2e783ffa57759b806fbf13ba404e0b299f84fcc143bb76e304946d49ec4d2a
+  checksum: 642c57ee1fe01b035cc909d3c4b71469d330f4da0f78fde18c47e4f6c1f363e9cb54251a750bfb317fe22381710ccfdc4ea08d3c06b2c6f4867ca47c322e402d
   languageName: node
   linkType: hard
 
@@ -16923,12 +16923,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:3.16.1":
-  version: 3.16.1
-  resolution: "uglify-js@npm:3.16.1"
+"uglify-js@npm:3.16.2":
+  version: 3.16.2
+  resolution: "uglify-js@npm:3.16.2"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: e4108b35af7bcc9cf3be5366614bb1df2c78695aa14dee85b48cb9036a4478e60e91afe2375917e3284b61ef056fcab3a1d4bfc7c563e57bc77fd5ac89463a4c
+  checksum: 5b62e748b7fa1d982f0949ed1876b9367dcde4782f74159f4ea0b3d130835336eb0245e090456ec057468d937eb016114677bb38a7a4fdc7f68c3d002ca760ee
   languageName: node
   linkType: hard
 
