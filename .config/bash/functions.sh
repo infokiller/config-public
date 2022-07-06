@@ -1795,7 +1795,9 @@ fi
 
 alias cht='${SUBMODULES_DIR}/terminal/cheat.sh/share/cht.sh.txt'
 
-if command_exists pydf; then
+if command_exists duf; then
+  alias df='duf -hide special'
+elif command_exists pydf; then
   alias df='pydf'
 else
   alias df='df -h'
