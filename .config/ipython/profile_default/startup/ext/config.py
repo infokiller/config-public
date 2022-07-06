@@ -143,8 +143,8 @@ def _define_prompt_toolkit_keybindings():
     # Disabled because it's unused for now, and can cause issues with delay
     # settings, for background see:
     # https://github.com/prompt-toolkit/python-prompt-toolkit/issues/560
-    def vi_mode(event: _KeyPressEvent):
-        event.app.editing_mode = EditingMode.VI
+    # def vi_mode(event: _KeyPressEvent):
+    #     event.app.editing_mode = EditingMode.VI
     # key_bindings.add(Keys.Escape, filter=filters.emacs_insert_mode)(vi_mode)
 
     # Bind Ctrl-R to fzf history search
