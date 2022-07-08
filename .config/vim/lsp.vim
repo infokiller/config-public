@@ -1002,7 +1002,9 @@ let g:ycm_language_server += [
 
 " Adds a jsonc filetype that supports comments.
 " Another alternative: https://github.com/neoclide/jsonc.vim
-Plug 'kevinoid/vim-jsonc'
+" Update 2022-07-08: the jsonc repo says it's deprecated because it's included
+" in vim 8.2+ and neovim 0.6+.
+" Plug 'kevinoid/vim-jsonc'
 " Plug 'elzr/vim-json'
 
 augroup vimrc

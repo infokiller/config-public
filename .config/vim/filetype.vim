@@ -24,4 +24,5 @@ augroup filetypedetect
       \ setfiletype conf |
       \ endif
   autocmd BufReadPost,BufNewFile *.ipy nested setfiletype python
+  autocmd BufReadPost,BufNewFile *.jwcc nested setfiletype jwcc
 augroup END

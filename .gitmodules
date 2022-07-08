@@ -534,9 +534,6 @@
 [submodule "submodules/vim/vim-instant-markdown"]
 	path = submodules/vim/vim-instant-markdown
 	url = https://github.com/suan/vim-instant-markdown
-[submodule "submodules/vim/vim-jsonc"]
-	path = submodules/vim/vim-jsonc
-	url = https://github.com/kevinoid/vim-jsonc
 [submodule "submodules/vim/vim-lion"]
 	path = submodules/vim/vim-lion
 	url = https://github.com/tommcdo/vim-lion
