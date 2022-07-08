@@ -33,6 +33,9 @@
     "terminal.integrated.inheritEnv": false,
     "terminal.integrated.rendererType": "canvas",
     "terminal.integrated.scrollback": 10000,
+    // Shell integration doesn't work with p10k yet:
+    // https://github.com/romkatv/powerlevel10k/issues/1827
+    // "terminal.integrated.shellIntegration.enabled": true,
     "terminal.external.linuxExec": "sensible-terminal",
     "workbench.commandPalette.history": 1000000,
     // "workbench.colorTheme": "Github Dark",
