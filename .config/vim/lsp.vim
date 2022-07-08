@@ -487,7 +487,13 @@ Plug 'ludovicchabant/vim-gutentags'
 let &tags = '.tags'
 " json is used for storing large data in some of my projects, so I disable tags
 " generation for it.
-let g:fzf_tags_command = printf('list-searched-files | grep -v ''\.json$'' | xargs --no-run-if-empty --delimiter=''\n'' ctags -f %s --languages=-json', &tags)
+let s:tags_file_list_cmds = [
+    \ 'list-searched-files',
+    \ 'grep -v ''\.json$''',
+\ ]
+let g:fzf_tags_command = join(s:tags_file_list_cmds +
+    \ [printf('xargs --no-run-if-empty --delimiter=''\n'' ctags -f %s --languages=-json', &tags)]
+\, ' | ')
 
 " Centralize all tags files in this directory to avoid polluting projects with
 " tags files.
@@ -499,9 +505,13 @@ let g:gutentags_resolve_symlinks = 1
 " including generated files, which consumes too much resources.
 " Also, disable project tags generation for json files which seem to generate an
 " excessive number of tags.
+" NOTE: As of 2022-07-08, ctags has a segfault when executed from gutentags
+" because of issues parsing a few files, so they are skipped below.
 let g:gutentags_file_list_command = {
     \ 'markers': {
-        \ '.git': 'list-searched-files | grep -v ''\.json$''',
+        \ '.git': join(s:tags_file_list_cmds +
+            \ ['grep -Ev ''(yarn.*\.cjs|comment\.js|rifle\.conf)$'''],
+        \ ' | '),
         \ '.hg': 'hg files',
         \ },
 \ }
