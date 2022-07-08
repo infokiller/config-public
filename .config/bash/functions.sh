@@ -1436,14 +1436,14 @@ conda-reset-env() {
 }
 # }}} Python 
 
-# Docker {{{ #
+# Docker {{{
 alias db='docker build'
 # Using "-it" instead of "--interactive --tty" causes the zsh completions to
 # complete external commands instead of docker images.
 alias dr='docker run --rm --interactive --tty --init'
-# }}} Docker #
+# }}} Docker
 
-# Bazel {{{ #
+# Bazel {{{
 # Run Bazel in a container. There is an official container [1] but as of
 # 2021-11-12 it doesn't support Bazel 4.0+.
 # [1] https://docs.bazel.build/versions/main/bazel-container.html
@@ -1523,7 +1523,7 @@ bazel-in-docker() {
   docker run "${docker_run_opts[@]}" "${image_id}" --output_user_root="${host_cache_dir}" "$@"
 }
 alias bid=bazel-in-docker
-# }}} Bazel #
+# }}} Bazel
 
 # GPUs {{{
 # TODO: Add to each process the used GPU and memory usage. The gpustat library
