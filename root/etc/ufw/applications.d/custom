@@ -1,3 +1,9 @@
+# https://eternalterminal.dev/
+[eternal-terminal]
+title=Eternal Terminal (ET)
+description=Eternal Terminal (ET)
+ports=2022/tcp
+
 # https://tailscale.com/kb/1082/firewall-ports/
 [tailscale]
 title=Tailscale

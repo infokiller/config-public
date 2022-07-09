@@ -25,21 +25,16 @@
 -A ufw6-user-input -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw6-user-limit -m comment --comment 'dapp_SSH'
 -A ufw6-user-input -p tcp --dport 22 -j ufw6-user-limit-accept -m comment --comment 'dapp_SSH'
 
-### tuple ### limit tcp 22 ::/0 any ::/0 in
--A ufw6-user-input -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --set
--A ufw6-user-input -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw6-user-limit
--A ufw6-user-input -p tcp --dport 22 -j ufw6-user-limit-accept
-
 ### tuple ### allow tcp 22000 ::/0 any ::/0 syncthing - in
 -A ufw6-user-input -p tcp --dport 22000 -j ACCEPT -m comment --comment 'dapp_syncthing'
 
 ### tuple ### allow udp 21027 ::/0 any ::/0 syncthing - in
 -A ufw6-user-input -p udp --dport 21027 -j ACCEPT -m comment --comment 'dapp_syncthing'
 
-### tuple ### limit tcp 2022 ::/0 any ::/0 in
--A ufw6-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --set
--A ufw6-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw6-user-limit
--A ufw6-user-input -p tcp --dport 2022 -j ufw6-user-limit-accept
+### tuple ### limit tcp 2022 ::/0 any ::/0 eternal-terminal - in
+-A ufw6-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --set -m comment --comment 'dapp_eternal-terminal'
+-A ufw6-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw6-user-limit -m comment --comment 'dapp_eternal-terminal'
+-A ufw6-user-input -p tcp --dport 2022 -j ufw6-user-limit-accept -m comment --comment 'dapp_eternal-terminal'
 
 ### tuple ### allow udp 41641 ::/0 any ::/0 tailscale - in
 -A ufw6-user-input -p udp --dport 41641 -j ACCEPT -m comment --comment 'dapp_tailscale'

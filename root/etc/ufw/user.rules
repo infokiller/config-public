@@ -31,24 +31,22 @@
 -A ufw-user-input -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw-user-limit -m comment --comment 'dapp_SSH'
 -A ufw-user-input -p tcp --dport 22 -j ufw-user-limit-accept -m comment --comment 'dapp_SSH'
 
-### tuple ### limit tcp 22 0.0.0.0/0 any 0.0.0.0/0 in
--A ufw-user-input -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --set
--A ufw-user-input -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw-user-limit
--A ufw-user-input -p tcp --dport 22 -j ufw-user-limit-accept
-
 ### tuple ### allow tcp 22000 0.0.0.0/0 any 0.0.0.0/0 syncthing - in
 -A ufw-user-input -p tcp --dport 22000 -j ACCEPT -m comment --comment 'dapp_syncthing'
 
 ### tuple ### allow udp 21027 0.0.0.0/0 any 0.0.0.0/0 syncthing - in
 -A ufw-user-input -p udp --dport 21027 -j ACCEPT -m comment --comment 'dapp_syncthing'
 
-### tuple ### limit tcp 2022 0.0.0.0/0 any 0.0.0.0/0 in
--A ufw-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --set
--A ufw-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw-user-limit
--A ufw-user-input -p tcp --dport 2022 -j ufw-user-limit-accept
+### tuple ### limit tcp 2022 0.0.0.0/0 any 0.0.0.0/0 eternal-terminal - in
+-A ufw-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --set -m comment --comment 'dapp_eternal-terminal'
+-A ufw-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw-user-limit -m comment --comment 'dapp_eternal-terminal'
+-A ufw-user-input -p tcp --dport 2022 -j ufw-user-limit-accept -m comment --comment 'dapp_eternal-terminal'
 
 ### tuple ### allow udp 41641 0.0.0.0/0 any 0.0.0.0/0 tailscale - in
 -A ufw-user-input -p udp --dport 41641 -j ACCEPT -m comment --comment 'dapp_tailscale'
+
+### tuple ### allow any any 0.0.0.0/0 any 100.64.0.0/10 in comment=5461696c7363616c653a2068747470733a2f2f7461696c7363616c652e636f6d2f6b622f313031352f3130302e782d6164647265737365732f
+-A ufw-user-input -s 100.64.0.0/10 -j ACCEPT
 
 ### END RULES ###
 
