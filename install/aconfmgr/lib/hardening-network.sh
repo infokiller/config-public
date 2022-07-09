@@ -24,6 +24,7 @@ CopyFile '/etc/ufw/sysctl.conf'
 CopyFile '/etc/ufw/ufw.conf'
 CopyFile '/etc/ufw/user.rules'
 CopyFile '/etc/ufw/user6.rules'
+CopyFile '/etc/ufw/applications.d/custom'
 CreateLink '/etc/systemd/system/multi-user.target.wants/ufw.service' '/usr/lib/systemd/system/ufw.service'
 
 AddPackage tor                 # Anonymizing overlay network.

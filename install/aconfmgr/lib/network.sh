@@ -19,8 +19,10 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/sshd.service' '/usr/lib/
 
 AddPackage --foreign eternalterminal # Re-Connectable Terminal connection. Includes both client and server.
 CreateLink /etc/systemd/system/multi-user.target.wants/et.service /usr/lib/systemd/system/et.service
-# inetutils provides telnet which is needed by ssh-et to check for open ports.
-AddPackage inetutils # A collection of common network programs
+
+# VPN
+AddPackage tailscale # A mesh VPN that makes it easy to connect your devices, wherever they are.
+CreateLink /etc/systemd/system/multi-user.target.wants/tailscaled.service /usr/lib/systemd/system/tailscaled.service
 
 HOST_SPECIFIC_FILES=(
   /etc/udev/rules.d/10-network.rules

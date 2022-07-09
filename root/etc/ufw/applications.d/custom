@@ -1,0 +1,7 @@
+# https://tailscale.com/kb/1082/firewall-ports/
+[tailscale]
+title=Tailscale
+description=Tailscale VPN
+ports=41641/udp
+
+# vim: set ft=dosini :

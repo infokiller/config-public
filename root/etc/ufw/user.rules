@@ -47,6 +47,9 @@
 -A ufw-user-input -p tcp --dport 2022 -m conntrack --ctstate NEW -m recent --update --seconds 30 --hitcount 6 -j ufw-user-limit
 -A ufw-user-input -p tcp --dport 2022 -j ufw-user-limit-accept
 
+### tuple ### allow udp 41641 0.0.0.0/0 any 0.0.0.0/0 tailscale - in
+-A ufw-user-input -p udp --dport 41641 -j ACCEPT -m comment --comment 'dapp_tailscale'
+
 ### END RULES ###
 
 ### LOGGING ###
