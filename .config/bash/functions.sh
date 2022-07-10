@@ -438,9 +438,9 @@ grep-processes() {
   ps2 --no-headers | 
     # The spaces around ${_BEST_GREP_CMD[*]} are intentional: this way Xorg
       # won't match "rg".
-    \grep -v --fixed-strings " ${_BEST_GREP_CMD[*]} " | 
-    cut -c -120 |
-    _best_grep "$@"
+    \grep --text -v --fixed-strings " ${_BEST_GREP_CMD[*]} " | 
+    _best_grep "$@" |
+    cut -c -120
 }
 alias pg='grep-processes'
 # Grep for an env variable
