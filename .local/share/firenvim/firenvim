@@ -3,12 +3,17 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-unset NVIM_LISTEN_ADDRESS
-
 XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
 cd -- "${XDG_DATA_HOME}/firenvim"
 
 export PATH="${PATH}:/usr/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:${HOME}/submodules/vim/firenvim/node_modules/.bin"
+unset NVIM_LISTEN_ADDRESS
+if [ -n "$VIM" ] && [ ! -d "$VIM" ]; then
+  unset VIM
+fi
+if [ -n "$VIMRUNTIME" ] && [ ! -d "$VIMRUNTIME" ]; then
+  unset VIMRUNTIME
+fi
 
 # TODO: Run with sandboxing. See also:
 # https://github.com/glacambre/firenvim/issues/238
