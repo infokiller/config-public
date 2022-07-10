@@ -131,7 +131,7 @@ readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
 # shellcheck disable=SC2016
 readonly -A _INSTALL_TASK_TO_CMD=(
   ['vim-plugins']='_install_vim_plugins'
-  ['neovim-nightly']='_install_neovim_nightly'
+  ['neovim-nightly']='_install_neovim_release nightly'
   ['doom-emacs']='_install_doom_emacs'
   ['fzf']='_install_fzf'
   ['histcat']='_install_histcat'
@@ -329,7 +329,7 @@ cmd_audit() {
 }
 
 _install_nerd_fonts() {
-  cd "${INSTALLATION_TMP_DIR}"
+  cd -- "${INSTALLATION_TMP_DIR}"
   download_file \
     'https://gitlab.com/infokiller/fonts/-/archive/master/fonts-master.zip' \
     'fonts.zip'
@@ -347,7 +347,7 @@ _install_firefox_settings() {
   if [[ ! -d "${FIREFOX_DIR}" ]]; then
     print_warning 'Firefox data not found, skipping settings installation'
   fi
-  cd "${INSTALLATION_TMP_DIR}"
+  cd -- "${INSTALLATION_TMP_DIR}"
   mkdir -p firefox && cd firefox
   download_file \
     'https://raw.githubusercontent.com/arkenfox/user.js/master/updater.sh'
@@ -462,7 +462,7 @@ _install_activitywatch_from_release() {
   local releases_base_url='https://github.com/ActivityWatch/activitywatch/releases/download'
   local filename="activitywatch-${tag}-linux-x86_64.zip"
   local url="${releases_base_url}/${tag}/${filename}"
-  cd "${INSTALLATION_TMP_DIR}"
+  cd -- "${INSTALLATION_TMP_DIR}"
   echo 'Downloading activitywatch release archive...'
   wget -q --continue "${url}"
   # Note that unzip is very picky about the order of options, so don't change it
@@ -525,6 +525,8 @@ _install_firenvim() {
     -c 'call firenvim#install(0) | q'
   cd "${REPO_ROOT}"
   git checkout -- "${XDG_DATA_HOME:-${HOME}/.local/share}/firenvim/"
+  # https://github.com/glacambre/firenvim/issues/1382#issuecomment-1176560109
+  _install_neovim_release 'v0.7.0' 'nvim-firenvim'
 }
 
 # TODO: Pin VSCode extension dependencies. Listing the current versions:
@@ -548,7 +550,7 @@ _install_vscode_extensions() {
   # print_bold 'Installating neovim nightly for vscode-neovim'
   # # vscode-neovim requires neovim nightly
   # # https://github.com/asvetliakov/vscode-neovim#installation
-  # cd "${INSTALLATION_TMP_DIR}"
+  # cd -- "${INSTALLATION_TMP_DIR}"
   # download_file 'https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage'
   # mv -f 'nvim.appimage' "${USER_BIN_DIR}/nvim-nightly"
   # chmod +x "${USER_BIN_DIR}/nvim-nightly"
@@ -611,12 +613,16 @@ _install_vim_plugins() {
   nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins' -c 'q'
 }
 
-_install_neovim_nightly() {
-  print_bold 'Installating neovim nightly'
-  cd "${INSTALLATION_TMP_DIR}"
-  download_file 'https://github.com/neovim/neovim/releases/download/nightly/nvim.appimage'
-  mv -f 'nvim.appimage' "${USER_BIN_DIR}/nvim-nightly"
-  chmod +x "${USER_BIN_DIR}/nvim-nightly"
+_install_neovim_release() {
+  local version="$1"
+  local filename="${2:-nvim-"${version}"}"
+  print_bold "Installating neovim ${version} as ${filename}"
+  cd -- "${INSTALLATION_TMP_DIR}"
+  download_file \
+    "https://github.com/neovim/neovim/releases/download/${version}/nvim.appimage" \
+    "${filename}"
+  chmod +x -- "${filename}"
+  mv -f -- "${filename}" "${USER_BIN_DIR}"
 }
 
 _install_fzf() {

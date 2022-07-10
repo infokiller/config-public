@@ -6,10 +6,10 @@ set -o errexit -o errtrace -o nounset -o pipefail
 unset NVIM_LISTEN_ADDRESS
 
 XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
-cd "${XDG_DATA_HOME}/firenvim"
+cd -- "${XDG_DATA_HOME}/firenvim"
 
 export PATH="${PATH}:/usr/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:${HOME}/submodules/vim/firenvim/node_modules/.bin"
 
 # TODO: Run with sandboxing. See also:
 # https://github.com/glacambre/firenvim/issues/238
-exec nvim --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
+exec nvim-firenvim --headless --cmd 'let g:started_by_firenvim = v:true' -c 'call firenvim#run()'
