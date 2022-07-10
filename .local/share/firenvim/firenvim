@@ -8,10 +8,10 @@ cd -- "${XDG_DATA_HOME}/firenvim"
 
 export PATH="${PATH}:/usr/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:${HOME}/submodules/vim/firenvim/node_modules/.bin"
 unset NVIM_LISTEN_ADDRESS
-if [ -n "$VIM" ] && [ ! -d "$VIM" ]; then
+if [ -n "${VIM-}" ] && [ ! -d "${VIM-}" ]; then
   unset VIM
 fi
-if [ -n "$VIMRUNTIME" ] && [ ! -d "$VIMRUNTIME" ]; then
+if [ -n "${VIMRUNTIME-}" ] && [ ! -d "${VIMRUNTIME-}" ]; then
   unset VIMRUNTIME
 fi
 
