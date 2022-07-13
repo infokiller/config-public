@@ -35,14 +35,10 @@ AddPackage torbrowser-launcher # Securely and easily download, verify, install, 
 configure_mullvad_vpn() {
   AddPackage --foreign mullvad-vpn # VPN Client for Mullvad.net
   # AddPackage --foreign nvm         # Node Version Manager - Simple bash script to manage multiple active node.js versions
-  # TODO: Copy the wireguard key for the specific device.
-  if [[ ! -f /etc/mullvad-vpn/settings.json ]] || ! diff -q <(sudo jq -r 'del(.wireguard)' /etc/mullvad-vpn/settings.json) <(jq -r 'del(.wireguard)' "${REPO_ROOT}/root/etc/mullvad-vpn/settings.json") > /dev/null; then
-    CopyFile '/etc/mullvad-vpn/settings.json'
-  else
-    IgnorePath '/etc/mullvad-vpn/settings.json'
-  fi
-  # CopyFile '/etc/mullvad-vpn/settings.json'
-  IgnorePath '/etc/mullvad-vpn/account-history.json'
+  # NOTE: The wireguard key is stored in /etc/mullvad-vpn/device.json since
+  # version 2022.2.
+  CopyFile '/etc/mullvad-vpn/settings.json'
+  CopyFile '/etc/mullvad-vpn/account-history.json'
   IgnorePath '/etc/mullvad-vpn/device.json'
   IgnorePath '/usr/bin/mullvad-problem-report'
   IgnorePath '/opt/Mullvad VPN/resources/mullvad-problem-report'
