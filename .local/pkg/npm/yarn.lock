@@ -13908,9 +13908,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:15.3.2":
-  version: 15.3.2
-  resolution: "puppeteer@npm:15.3.2"
+"puppeteer@npm:15.4.0":
+  version: 15.4.0
+  resolution: "puppeteer@npm:15.4.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -13924,17 +13924,17 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.8.0
-  checksum: c1dab2b958e36961bedae08bde907c3298c5decb731eec42d459078d6e305391b3f9529ab3c7f1ae282ae24cf4ad232d21e64e5bf62d59ac5e8aa637bc1cd305
+  checksum: 57f05042a58e5b5b6b9457da8b88680a0db170f9a6cd44153a8da03d5888ff0d9fcfc0bb1c4e72e1e3f19cb7707091e883ec5a7d0a2172ee36e29741ab8d7288
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.258":
-  version: 1.1.258
-  resolution: "pyright@npm:1.1.258"
+"pyright@npm:1.1.260":
+  version: 1.1.260
+  resolution: "pyright@npm:1.1.260"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 6eb37db334f5ae705bbc82446ff603d0a13473f71d00bcf55479c0992afffec1b46c52dc02b953a2cb167fe46ebdf2e49d490b640cbf66783ef66ee713e5bf83
+  checksum: 5626690e843d60807dbe86f88393321183eb9acafe13a1c41aa8d94417432aca362048514b004f056cfb4376e42dd4aa4eb336ac009348881c1982f789426b97
   languageName: node
   linkType: hard
 
@@ -14879,11 +14879,11 @@ __metadata:
     markdownlint-cli: 0.31.1
     markdownlint-cli2: 0.4.0
     prettier: 2.7.1
-    puppeteer: 15.3.2
-    pyright: 1.1.258
+    puppeteer: 15.4.0
+    pyright: 1.1.260
     release-it: 15.1.1
     semantic-release: 19.0.3
-    snyk: 1.966.0
+    snyk: 1.972.0
     stylelint: 14.9.1
     tldr: 3.3.7
     uglify-js: 3.16.2
@@ -15405,12 +15405,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.966.0":
-  version: 1.966.0
-  resolution: "snyk@npm:1.966.0"
+"snyk@npm:1.972.0":
+  version: 1.972.0
+  resolution: "snyk@npm:1.972.0"
   bin:
     snyk: bin/snyk
-  checksum: c8850965471ce91d837b3d119cfb0711570c1be3c71e2a4feadd2a0c124aea84fe7dc0447eb799f3aabaea433a6aac60a9f0684e844b1f9179c80328828beec8
+  checksum: 446303c84910f9ea0cafe7cfff0b7984c34422364ef39636c0444fdeebe7606ce26a7db1024184e947f9cf982645f3dce8a7ad218303e56c1b82c30a332d6daf
   languageName: node
   linkType: hard
 
