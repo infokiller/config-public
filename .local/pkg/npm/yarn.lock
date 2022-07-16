@@ -14883,7 +14883,7 @@ __metadata:
     pyright: 1.1.260
     release-it: 15.1.1
     semantic-release: 19.0.3
-    snyk: 1.972.0
+    snyk: 1.973.0
     stylelint: 14.9.1
     tldr: 3.3.7
     uglify-js: 3.16.2
@@ -15405,12 +15405,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.972.0":
-  version: 1.972.0
-  resolution: "snyk@npm:1.972.0"
+"snyk@npm:1.973.0":
+  version: 1.973.0
+  resolution: "snyk@npm:1.973.0"
   bin:
     snyk: bin/snyk
-  checksum: 446303c84910f9ea0cafe7cfff0b7984c34422364ef39636c0444fdeebe7606ce26a7db1024184e947f9cf982645f3dce8a7ad218303e56c1b82c30a332d6daf
+  checksum: 928b08c67d783c30cd3cc166dce14288a114f8495e6d7ebce88c858f47b8b3ae734b8023197f02345fb9cea4781caf9631d2cea98e047f5bf777466927ea7819
   languageName: node
   linkType: hard
 
