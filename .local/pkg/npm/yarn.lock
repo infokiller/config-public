@@ -4967,10 +4967,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1011705":
-  version: 0.0.1011705
-  resolution: "devtools-protocol@npm:0.0.1011705"
-  checksum: 2e97d2eda45bbdfd549b3e2fdb441b8803387cacebdb7eb186bd06a24beb65cda116ea0163b6895da2edb7ac85ce8602bb4e961c99849ff3a43eab24fb70b300
+"devtools-protocol@npm:0.0.1019158":
+  version: 0.0.1019158
+  resolution: "devtools-protocol@npm:0.0.1019158"
+  checksum: 3b40771d231597dea5d502e708ac1ea1225214d4e007e12f7f82fb1966b76d9980665481f8495df444e3632d86b0361e2625502b5ef918884a4ed7fe57518723
   languageName: node
   linkType: hard
 
@@ -8284,9 +8284,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:9.0.1":
-  version: 9.0.1
-  resolution: "inquirer@npm:9.0.1"
+"inquirer@npm:9.0.2":
+  version: 9.0.2
+  resolution: "inquirer@npm:9.0.2"
   dependencies:
     ansi-escapes: ^5.0.0
     chalk: ^5.0.1
@@ -8303,7 +8303,7 @@ __metadata:
     strip-ansi: ^7.0.1
     through: ^2.3.6
     wrap-ansi: ^8.0.1
-  checksum: 5e4272ecab950d4154442f804a8b9f69d5a39c89ea514901199bc309fea654c4c5ebaa91efb00baeca9331c3990a2fe4a77ef283dd573e2d3bd460fac487a857
+  checksum: 59dceecd4560374e9b8a8ca766320e6a60379f256fc66636ad0bf14ffb22391719ed3dec0bca066e11ba077ba29e899426aef5caa19e406161006a3700ab269a
   languageName: node
   linkType: hard
 
@@ -12184,14 +12184,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:3.2.8":
-  version: 3.2.8
-  resolution: "node-fetch@npm:3.2.8"
+"node-fetch@npm:3.2.9":
+  version: 3.2.9
+  resolution: "node-fetch@npm:3.2.9"
   dependencies:
     data-uri-to-buffer: ^4.0.0
     fetch-blob: ^3.1.4
     formdata-polyfill: ^4.0.10
-  checksum: 2f7fc3e59fbede43a273e988d2f2a3dd68160618114e32ad537477db253808b65221f1dbfd666b8fb33ff07bf1de9d6448035b0f8ada5ef876c5afec93b27318
+  checksum: ba421350b2dbab67d8068f9d24f30ef8b9a37a3f83388d2efaf79628de754c85df81829c009579ea5562a2b11d9f07ecd21d27b5b8bed0cb393b92abe4817a75
   languageName: node
   linkType: hard
 
@@ -14111,13 +14111,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:15.4.0":
-  version: 15.4.0
-  resolution: "puppeteer@npm:15.4.0"
+"puppeteer@npm:15.5.0":
+  version: 15.5.0
+  resolution: "puppeteer@npm:15.5.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
-    devtools-protocol: 0.0.1011705
+    devtools-protocol: 0.0.1019158
     extract-zip: 2.0.1
     https-proxy-agent: 5.0.1
     pkg-dir: 4.2.0
@@ -14127,17 +14127,17 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.8.0
-  checksum: 57f05042a58e5b5b6b9457da8b88680a0db170f9a6cd44153a8da03d5888ff0d9fcfc0bb1c4e72e1e3f19cb7707091e883ec5a7d0a2172ee36e29741ab8d7288
+  checksum: 2bc9e230b397f6b0c42eb5ba4e9179879b3d52f64d767a0bffbb266ecd5f8268ee982fd643c09362e29248e8f9566607c128bf7f60ec625b7605c9e609871788
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.261":
-  version: 1.1.261
-  resolution: "pyright@npm:1.1.261"
+"pyright@npm:1.1.262":
+  version: 1.1.262
+  resolution: "pyright@npm:1.1.262"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: d4564a13333d976ec04de4b1469aa9ae03eb93274b816711f6669a58edf0dcdb5ec963ccbc2aff5db2d2319cf870ba58bd77fd846a31a8a3740c2b44f71099b1
+  checksum: f721576a14f352199d29f81e3394e735fc2b2985741294c9a1ebfa2d284c7265d635c46b21d6370057b80fba4b4f42aec101f44fa02c398aae9b8994e7d088f2
   languageName: node
   linkType: hard
 
@@ -14603,9 +14603,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:15.1.2":
-  version: 15.1.2
-  resolution: "release-it@npm:15.1.2"
+"release-it@npm:15.1.3":
+  version: 15.1.3
+  resolution: "release-it@npm:15.1.3"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 19.0.3
@@ -14617,12 +14617,12 @@ __metadata:
     git-url-parse: 11.6.0
     globby: 13.1.2
     got: 12.1.0
-    inquirer: 9.0.1
+    inquirer: 9.0.2
     is-ci: 3.0.1
     lodash: 4.17.21
     mime-types: 2.1.35
     new-github-release-url: 2.0.0
-    node-fetch: 3.2.8
+    node-fetch: 3.2.9
     open: 8.4.0
     ora: 6.1.2
     os-name: 5.0.1
@@ -14636,7 +14636,7 @@ __metadata:
     yargs-parser: 21.0.1
   bin:
     release-it: bin/release-it.js
-  checksum: d869d0ed9cefedb36094a601fa48493aa5c5381330fbf7ca762bd9f457cc27be9c4584d2185a78d1599bba2b9376400a27833613d4c44b837f24104e5d6c1513
+  checksum: dce1ff291944cf3519c73bd2108be9fd71e80fd0bbcc86bc9a4ed9cfbe1027fda9d09e12cfa8b0321b0bb74e5c4d3b21d66171cda1f3669f1563fd409df0ca8f
   languageName: node
   linkType: hard
 
@@ -15083,11 +15083,11 @@ __metadata:
     markdownlint-cli: 0.32.0
     markdownlint-cli2: 0.4.0
     prettier: 2.7.1
-    puppeteer: 15.4.0
-    pyright: 1.1.261
-    release-it: 15.1.2
+    puppeteer: 15.5.0
+    pyright: 1.1.262
+    release-it: 15.1.3
     semantic-release: 19.0.3
-    snyk: 1.974.0
+    snyk: 1.979.0
     stylelint: 14.9.1
     tldr: 3.3.7
     uglify-js: 3.16.2
@@ -15609,12 +15609,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.974.0":
-  version: 1.974.0
-  resolution: "snyk@npm:1.974.0"
+"snyk@npm:1.979.0":
+  version: 1.979.0
+  resolution: "snyk@npm:1.979.0"
   bin:
     snyk: bin/snyk
-  checksum: 8fe08f82a813fe54c551a9d82bbb4f421e8d8edf6f0016aed6b485e45e422852e2c8bcbacfd5a42cc6d1f308d6a8838c6c135b617c18815d4566e277fa81d95a
+  checksum: 9eb1fccba33e3f7941dc40e15c521e7c062bd9a5081e4a8b7f09bb6c624326b7b0e56ecd49cea7c936c0fba612015c646a2fc5b9a9dfecf1b691f5c5cfe67f25
   languageName: node
   linkType: hard
 
@@ -17080,7 +17080,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.3.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
   version: 4.4.4
-  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=7ad353"
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=f456af"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
