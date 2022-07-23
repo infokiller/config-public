@@ -46,7 +46,8 @@ readonly -A _GOLANG_PACKAGES=(
   ['github.com/nektos/act']='act'
   ['github.com/bazelbuild/bazelisk']='bazelisk'
   ['github.com/bazelbuild/buildtools/buildifier']='buildifier'
-  ['github.com/gopasspw/gopass@v1.14.3']='gopass'
+  # As of 2022-07-23, the gopass build fails.
+  # ['github.com/gopasspw/gopass@v1.14.3']='gopass'
   # As of 2021-10-30, installing vale fails with "module ... found ... but does
   # not contain package".
   # ['github.com/errata-ai/vale/v2']='vale'
