@@ -17,8 +17,13 @@ _update_pacman_mirrors() {
   # like it may not be a real problem:
   # https://bbs.archlinux.org/viewtopic.php?id=273563
   # sudo pacman-key --refresh-keys
-  # Create package database- needed to be done once.
-  sudo pacman --files --refresh
+
+  # As of 2022-07-25, this is disabled because it can cause a partial update. I
+  # think I originally used it in install-new-workstation, but I'm not sure if
+  # it's needed now.
+  # # Create package database- needed to be done once.
+  # sudo pacman --files --refresh
+
   sudo pacman --sync --needed --noconfirm reflector
   # Remove lines starting with comments and whitespace-only lines
   mapfile -t opts < <(grep -Ev '^\s*(#|$)' "${REPO_ROOT}/.config/reflector.conf")
