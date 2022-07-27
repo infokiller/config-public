@@ -583,6 +583,9 @@ _install_doom_emacs_once() {
   #   should always start with the proper shell config.
   # * -u: upgrade packages
   timeout 60m doom --force sync -e -u
+  # https://github.com/doomemacs/doomemacs/issues/6494
+  "${SUBMODULES_DIR}/emacs/doom-emacs/bin/doomscript" \
+    "${REPO_ROOT}/.config/doom/my_install_cmds.el"
 }
 
 _install_doom_emacs() {
