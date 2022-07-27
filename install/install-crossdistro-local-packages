@@ -578,11 +578,11 @@ _install_doom_emacs_once() {
   # * --force: discard local changes.
   # Use timeout because I ran into cases where doom upgrade hangs on a specific
   # repo.
-  # timeout 900 doom --force upgrade --packages || return
+  # timeout 60m doom --force upgrade --packages || return
   # * -e: don't generate an envvars file. I don't need it because doom
   #   should always start with the proper shell config.
   # * -u: upgrade packages
-  timeout 900 doom --force sync -e -u
+  timeout 60m doom --force sync -e -u
 }
 
 _install_doom_emacs() {
