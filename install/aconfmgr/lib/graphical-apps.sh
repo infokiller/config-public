@@ -47,7 +47,7 @@ if is_nvidia_gpu; then
   AddPackage nvidia-settings # Tool for configuring the NVIDIA graphics driver
 fi
 
-# Used by ~/.my_scripts/desktop_env/vim-ocr-screenshot and a copyq script
+# Used by vim-ocr-screenshot function and a copyq script
 AddPackage tesseract          # An OCR program
 AddPackage tesseract-data-eng # Tesseract OCR data (eng)
 
