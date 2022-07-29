@@ -614,6 +614,8 @@ _install_vim_plugins() {
     --build-dir "${XDG_CACHE_HOME}/ycm_build"
   print_bold 'Installing vim-go binaries'
   vim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'GoInstallBinaries' -c 'q'
+  print_bold 'Installing markdown-preview'
+  (cd "${SUBMODULES_DIR}/vim/markdown-preview.nvim/app" && yarn install)
   print_bold 'Installing NeoVim remote plugins'
   nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins' -c 'q'
 }

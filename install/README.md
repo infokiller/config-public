@@ -1,19 +1,45 @@
 # Installation
 
-## Setting up a new workstation: high level process
+## Table of contents
+
+- [Table of contents](#table-of-contents)
+- [High level process](#high-level-process)
+- [Partition the disk for Windows](#partition-the-disk-for-windows)
+  - [Steps](#steps)
+- [Install Windows 10](#install-windows-10)
+  - [Install Windows packages](#install-windows-packages)
+    - [winget](#winget)
+    - [Chocolately](#chocolately)
+  - [Notes](#notes)
+  - [Deprecated software installation](#deprecated-software-installation)
+    - [Ninite](#ninite)
+- [Partition the disk for Linux](#partition-the-disk-for-linux)
+- [Set up Linux](#set-up-linux)
+  - [Arch Linux](#arch-linux)
+  - [WSL installation notes](#wsl-installation-notes)
+    - [Useful references](#useful-references)
+  - [Debian and derivatives](#debian-and-derivatives)
+  - [Cross distro setup](#cross-distro-setup)
+    - [Clone and install config repo](#clone-and-install-config-repo)
+    - [Generate CopyQ encryption keys](#generate-copyq-encryption-keys)
+    - [Whitelist needed USB devices in USBGuard](#whitelist-needed-usb-devices-in-usbguard)
+    - [Log in to Tailscale](#log-in-to-tailscale)
+- [Set up Chrome profile](#set-up-chrome-profile)
+  - [Log in to extensions](#log-in-to-extensions)
+  - [Fix extension settings that are not synced](#fix-extension-settings-that-are-not-synced)
+  - [Limit extensions site access](#limit-extensions-site-access)
+  - [DEPRECATED](#deprecated)
+- [Known issues](#known-issues)
+- [Resources](#resources)
+
+## High level process
 
 - [Partition the disk for Windows](#partition-the-disk-for-windows)
-
 - [Install and set up](#install-windows-10) Windows 10.
-
 - [Partition the disk for Linux](#partition-the-disk-for-linux).
-
 - [Install and set up Linux](#set-up-linux).
-
-- [Set up Chrome](#set-up-chrome)
-
+- [Set up Chrome](#set-up-chrome-profile)
 - Test and verify system stability.
-
 - Save disk image for future restore.
 
 ## Partition the disk for Windows
@@ -55,7 +81,7 @@ different, probably because it was somehow done in the Windows installation.
 8. Run `diskpart /s <script-path>` with `<script-path>` set to the location of
    the script.
 
-## Install and set up Windows 10
+## Install Windows 10
 
 - Boot into the Windows 10 installation media.
 
@@ -340,6 +366,17 @@ List blocked devices: `sudo usbguard list-devices --blocked` Allow a device:
 
 You should also whitelist the host in the `aconfmgr` function
 `is_usbguard_enabled`.
+
+#### Log in to Tailscale
+
+- Log in to Tailscale:
+
+  ```sh
+  sudo tailscale up
+  ```
+
+- Go to the [admin console](https://login.tailscale.com/admin/machines) and tag
+  the device.
 
 ## Set up Chrome profile
 
