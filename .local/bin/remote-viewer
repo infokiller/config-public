@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# virt-viewer supports setting configuration in ~/.config/virt-viewer/settings,
+# however it doesn't support all the options. This behavior is undocumented and
+# I had to read the actual source [1] to find this out.
+# [1] https://gitlab.com/virt-viewer/virt-viewer/blob/master/src/virt-viewer-app.c
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+WRAPPER_PATH="$(readlink -f "$0")"
+DEFAULT_ARGS=(
+  '--hotkeys=release-cursor=ctrl+alt'
+)
+
+main() {
+  local cmd
+  mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  if ((${#cmd[@]} == 0)); then
+    echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+    exit 1
+  fi
+  exec -- "${cmd[@]}" "${DEFAULT_ARGS[@]}" "$@"
+}
+
+main "$@"

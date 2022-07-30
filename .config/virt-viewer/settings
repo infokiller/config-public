@@ -1,3 +1,14 @@
+# virt-viewer/remote-viewer only supports the following options:
+# - share-clipboard
+# - ask-quit
+# - monitor-mapping
+#
+# This behavior is not documented. I'm setting other options in wrapper scripts:
+# ~/.local/bin/virt-viewer
+# ~/.local/bin/remote-viewer
+
 [virt-viewer]
 share-clipboard=true
 ask-quit=true
+
+# vim: set ft=dosini :

@@ -47,6 +47,8 @@ CAPSLOCK_COMBOS_BUGGY_PROGRAMS = BROWSERS + [
     'pinentry-qt',
     'calibre',
     'virt-manager',
+    'virt-viewer',
+    'remote-viewer',
     r'org\.remmina\.Remmina',
     'spicy',
     'xdg-desktop-portal-kde',

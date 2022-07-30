@@ -1762,9 +1762,9 @@ quickemu-port() {
   cat -- "${vm_ports}"
 }
 
-spicy-quickemu() {
+quickemu-spicy() {
   if (($# < 1)); then
-    print_error 'spicy-quickemu: missing arguments'
+    print_error 'quickemu-spicy: missing arguments'
     return 1
   fi
   local vm_conf="$1"
@@ -1776,6 +1776,18 @@ spicy-quickemu() {
   local spice_port
   spice_port="$(quickemu-port "${vm_conf}" spice)"
   spicy --title "${vm_name}" --port "${spice_port}" --spice-shared-dir ~/media/public "${@:2}"
+}
+
+quickemu-remote-viewer() {
+  if (($# < 1)); then
+    print_error 'Usage: quickemu-remote-viewer <VM_NAME_OR_CONF> [EXTRA_OPTIONS]'
+    return 1
+  fi
+  local vm_conf="$1"
+  local vm_name
+  vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
+  local socket="${XDG_RUNTIME_DIR}/qemu/${vm_name}/spice.sock"
+  remote-viewer --title "${vm_name}" "${@:2}" "spice+unix://${socket}"
 }
 
 alias ssh-tmp='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
