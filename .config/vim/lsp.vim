@@ -1118,7 +1118,7 @@ let g:jsx_ext_required = 1
 let g:no_csv_maps = 1
 " Syntax, indentation, and other basic language support for many languages.
 Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['go', 'jsonc']
+let g:polyglot_disabled = ['ftdetect', 'sensible', 'go', 'jsonc']
 
 Plug 'jamessan/vim-gnupg'
 
