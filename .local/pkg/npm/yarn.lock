@@ -7028,9 +7028,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"git-stats@npm:3.0.0":
-  version: 3.0.0
-  resolution: "git-stats@npm:3.0.0"
+"git-stats@npm:3.1.1":
+  version: 3.1.1
+  resolution: "git-stats@npm:3.1.1"
   dependencies:
     abs: ^1.0.0
     bug-killer: ^4.0.0
@@ -7049,7 +7049,7 @@ __metadata:
     w-json: ^1.0.0
   bin:
     git-stats: bin/git-stats
-  checksum: 25052cf7bec43203d4436b05de92c8f3a3038004369013425684803f6f430925f0a41a12804d9a06948c5d10f3f7845a907b372fbdd741922da418be5d80805c
+  checksum: 3ab031a7aeda2fb86bee1b526eeefcf1cbef2ce94c6d8afc4b353bf7daf6312911df242ada67789130410ac5a68f11d609d1e52ce5f6edb5897ad253c8d7519f
   languageName: node
   linkType: hard
 
@@ -14112,9 +14112,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:15.5.0":
-  version: 15.5.0
-  resolution: "puppeteer@npm:15.5.0"
+"puppeteer@npm:16.0.0":
+  version: 16.0.0
+  resolution: "puppeteer@npm:16.0.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14127,18 +14127,18 @@ __metadata:
     rimraf: 3.0.2
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
-    ws: 8.8.0
-  checksum: 2bc9e230b397f6b0c42eb5ba4e9179879b3d52f64d767a0bffbb266ecd5f8268ee982fd643c09362e29248e8f9566607c128bf7f60ec625b7605c9e609871788
+    ws: 8.8.1
+  checksum: 2d1d3b2d231c94095a1841cd8ac05b31bec6227e6facdbd5c98c1a47e9d7718fe648002c79d4d623b4668538aea75eb2da939082e377144f3cca4360b23fd4f9
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.264":
-  version: 1.1.264
-  resolution: "pyright@npm:1.1.264"
+"pyright@npm:1.1.265":
+  version: 1.1.265
+  resolution: "pyright@npm:1.1.265"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 4b5d2006c1f2803b3b196994d18ff82e4042e4f1cf8e792b67709e0527296b509a7ce7811bb138d7408a1a153c1ee3e42cebef91c8890d70a3a47f58c270808b
+  checksum: 3c631d25732f2a3494cfcc01eaa21db626b63bb598080db405b3a265409b566f3dfb488593311ad5a4ddf4170a0d28d389d3e096005b15d84011873ca9aa6156
   languageName: node
   linkType: hard
 
@@ -15072,7 +15072,7 @@ __metadata:
     corepack: 0.12.1
     diff-so-fancy: 1.4.3
     eslint: 8.21.0
-    git-stats: 3.0.0
+    git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
     html-beautify: 1.0.4
@@ -15084,8 +15084,8 @@ __metadata:
     markdownlint-cli: 0.32.1
     markdownlint-cli2: 0.5.0
     prettier: 2.7.1
-    puppeteer: 15.5.0
-    pyright: 1.1.264
+    puppeteer: 16.0.0
+    pyright: 1.1.265
     release-it: 15.2.0
     semantic-release: 19.0.3
     snyk: 1.982.0
@@ -18215,6 +18215,21 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 6ceed1ca1cb800ef60c7fc8346c7d5d73d73be754228eb958765abf5d714519338efa20ffe674167039486eb3a813aae5a497f8d319e16b4d96216a31df5bd95
+  languageName: node
+  linkType: hard
+
+"ws@npm:8.8.1":
+  version: 8.8.1
+  resolution: "ws@npm:8.8.1"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 2152cf862cae0693f3775bc688a6afb2e989d19d626d215e70f5fcd8eb55b1c3b0d3a6a4052905ec320e2d7734e20aeedbf9744496d62f15a26ad79cf4cf7dae
   languageName: node
   linkType: hard
 

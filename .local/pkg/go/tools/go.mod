@@ -1,6 +1,6 @@
 module gitlab.com/infokiller/config-public/.local/pkg/go/tools
 
-go 1.18
+go 1.19
 
 require (
 	bitbucket.org/creachadair/stringset v0.0.10 // indirect
