@@ -8,10 +8,10 @@ runtime! syntax/jsonc.vim
 " Ensure syntax is loaded once, unless nested inside another (main) syntax
 " For description of main_syntax, see https://stackoverflow.com/q/16164549
 if !exists('g:main_syntax')
-  if exists('b:current_syntax') && b:current_syntax ==# 'jwpp'
+  if exists('b:current_syntax') && b:current_syntax ==# 'jwcc'
     finish
   endif
-  let g:main_syntax = 'jwpp'
+  let g:main_syntax = 'jwcc'
 endif
 
 " Based on vim-jsonc syntax
@@ -20,7 +20,7 @@ runtime! syntax/jsonc.vim
 syntax clear jsonTrailingCommaError
 
 " Set/Unset syntax to avoid duplicate inclusion and correctly handle nesting
-let b:current_syntax = 'jwpp'
-if g:main_syntax ==# 'jwpp'
+let b:current_syntax = 'jwcc'
+if g:main_syntax ==# 'jwcc'
   unlet g:main_syntax
 endif
