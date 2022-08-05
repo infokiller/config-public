@@ -47,7 +47,6 @@ require (
 	github.com/go-ini/ini v1.66.6 // indirect
 	github.com/godbus/dbus v0.0.0-20190623212516-8a1682060722 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/gokyle/twofactor v1.0.1 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/go-cmp v0.5.8 // indirect
@@ -137,5 +136,4 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	mvdan.cc/editorconfig v0.2.0 // indirect
 	mvdan.cc/sh/v3 v3.5.1 // indirect
-	rsc.io/qr v0.2.0 // indirect
 )
