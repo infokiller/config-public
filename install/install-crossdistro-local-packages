@@ -539,7 +539,7 @@ _install_firenvim() {
   _install_neovim_release 'v0.7.0' 'nvim-firenvim'
 }
 
-# TODO: Pin VSCode extension dependencies. Listing the current versions:
+# TODO: Pin VSCode extensions. Listing the current versions:
 # code --list-extensions --show-versions
 _install_vscode_extensions() {
   if ! command_exists code; then
