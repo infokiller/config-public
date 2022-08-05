@@ -259,7 +259,7 @@ _get_common_excludes() {
   cat -- "${REPO_ROOT}/.gitignore_private"
   # DGX machines create some files in the home directory that should be ignored.
   # In addition, as of 2020-04-12 they don't have recent versions of exa.
-  # TODO: Is this general to Ubuntu 18.04?
+  # Is this general to Ubuntu 20.04?
   if is_nvidia_dgx; then
     local dgx_excludes=(
       '/.sudo_as_admin_successful'
