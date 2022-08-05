@@ -95,3 +95,28 @@ join_by() {
   shift
   printf '%s\n' "$*"
 }
+
+file_has_line() {
+  local filename="$1"
+  local line=$2
+  # TODO: This is incorrect for lines with special regex characters, fix this.
+  # Using --fixed-strings is also incorrect, because README matches a/README.
+  grep -q '^'"${line}"'$' "${filename}"
+  # This is slow for files that are not very small.
+  # while IFS='' read -r l; do
+  #   if [[ "${l}" == "${line}" ]]; then
+  #     return 0
+  #   fi
+  # done < "${filename}"
+  # return 1
+}
+
+append_line_if_needed() {
+  local filename="$1"
+  [[ -f "${filename}" ]] || touch -- "${filename}"
+  for exclude in "${@:2}"; do
+    if ! file_has_line "${filename}" "${exclude}"; then
+      printf '%s\n' "${exclude}" >> "${filename}"
+    fi
+  done
+}

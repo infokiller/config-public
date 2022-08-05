@@ -603,6 +603,10 @@ _install_doom_emacs() {
   fi
   # If install or upgrade fails, remove .local dir and try again
   _install_doom_emacs_once || {
+    print_warning 'Doom installation failed, removing files and retrying...'
+    # Sleep a little to give us a chance to kill the installation from the CLI
+    # without removing the files.
+    sleep 3
     rm -rf -- "${SUBMODULES_DIR}/emacs/doom-emacs/.local"
     _install_doom_emacs_once
   }

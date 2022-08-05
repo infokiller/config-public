@@ -206,30 +206,9 @@ _init_repo_in_existing_dir() {
   "${git[@]}" branch --set-upstream-to=origin/master master
 }
 
-_file_has_line() {
-  local filename="$1"
-  local line=$2
-  # TODO: This is incorrect for lines with special regex characters, fix this.
-  # Using --fixed-strings is also incorrect, because README matches a/README.
-  grep -q '^'"${line}"'$' "${filename}"
-  # This is slow for files that are not very small.
-  # while IFS='' read -r l; do
-  #   if [[ "${l}" == "${line}" ]]; then
-  #     return 0
-  #   fi
-  # done < "${filename}"
-  # return 1
-}
-
 _add_excludes() {
   local gitdir="$1"
-  local exclude_file="${gitdir}/info/exclude"
-  [[ -f "${exclude_file}" ]] || touch -- "${exclude_file}"
-  for exclude in "${@:2}"; do
-    if ! _file_has_line "${exclude_file}" "${exclude}"; then
-      printf '%s\n' "${exclude}" >> "${exclude_file}"
-    fi
-  done
+  append_line_if_needed "${gitdir}/info/exclude" "${@:2}"
 }
 
 _verify_dconf() {
