@@ -1,1 +1,0 @@
-../../submodules/emacs/doom-emacs/early-init.el

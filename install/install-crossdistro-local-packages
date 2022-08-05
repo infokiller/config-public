@@ -591,9 +591,16 @@ _install_doom_emacs_once() {
   #   should always start with the proper shell config.
   # * -u: upgrade packages
   timeout 60m doom --force sync -e -u
+  cd -- "${SUBMODULES_DIR}/emacs/doom-emacs"
   # https://github.com/doomemacs/doomemacs/issues/6494
-  "${SUBMODULES_DIR}/emacs/doom-emacs/bin/doomscript" \
-    "${REPO_ROOT}/.config/doom/my_install_cmds.el"
+  ./bin/doomscript "${REPO_ROOT}/.config/doom/my_install_cmds.el"
+  # ignore org-trello credentials
+  local gitdir
+  gitdir="$(git rev-parse --git-dir)"
+  append_line_if_needed "${gitdir}/info/exclude" /.trello
+  mkdir -p -- .trello
+  ln -srf -- "${REPO_ROOT}/.config/org_trello_creds.el" \
+    .trello/org_trello_creds.el
 }
 
 _install_doom_emacs() {
