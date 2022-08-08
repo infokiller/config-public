@@ -48,9 +48,17 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/docker.service' '/usr/li
 IgnorePath '/etc/docker/key.json'
 IgnorePath '/opt/containerd/*'
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
+  # NOTE: runsc is for gVisor [1] which I'm experimenting with.
+  # [1] https://github.com/google/gvisor
   cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" << 'EOF'
 {
-    "data-root": "/mnt/evo970/docker"
+    "data-root": "/mnt/evo970/docker",
+    "runtimes": {
+        "runsc": {
+            "path": "/usr/local/bin/runsc",
+            "runtimeArgs": []
+        }
+    }
 }
 EOF
 fi
