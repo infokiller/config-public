@@ -594,13 +594,17 @@ _install_doom_emacs_once() {
   cd -- "${SUBMODULES_DIR}/emacs/doom-emacs"
   # https://github.com/doomemacs/doomemacs/issues/6494
   ./bin/doomscript "${REPO_ROOT}/.config/doom/my_install_cmds.el"
-  # ignore org-trello credentials
-  local gitdir
-  gitdir="$(git rev-parse --git-dir)"
-  append_line_if_needed "${gitdir}/info/exclude" /.trello
-  mkdir -p -- .trello
+  local org_trello_dir="${REPO_ROOT}/.config/emacs/.local/cache/.trello"
+  mkdir -p -- "${org_trello_dir}"
   ln -srf -- "${REPO_ROOT}/.config/org_trello_creds.el" \
-    .trello/org_trello_creds.el
+    "${org_trello_dir}/org_trello_creds.el"
+  # ignore org-trello credentials
+  # Update: turns out this is not required because it seems org-trello stores
+  # the creds in ~/.config/emacs/.local/cache/.trello which is ignored by the
+  # doom repo anyway (earlier I thought it was in ~/.config/emacs/.trello).
+  # local gitdir
+  # gitdir="$(git rev-parse --git-dir)"
+  # append_line_if_needed "${gitdir}/info/exclude" /.trello
 }
 
 _install_doom_emacs() {
