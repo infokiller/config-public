@@ -53,6 +53,7 @@
 /.local/bin/pnpm
 /.local/bin/pnpx
 /.local/bin/prettier
+/.local/bin/prettier-eslint
 /.local/bin/pyright
 /.local/bin/pyright-langserver
 /.local/bin/release-it

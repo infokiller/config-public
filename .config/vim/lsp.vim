@@ -1012,8 +1012,8 @@ augroup vimrc
 augroup END
 
 let g:ale_fixers = get(g:, 'ale_fixers', {})
-" NOTE: prettier-eslint doesn't work:
-" https://github.com/prettier/prettier-eslint-cli/issues/208
+" NOTE: prettier-eslint didn't work before 5.0.1 [1], but it should work now.
+" [1] https://github.com/prettier/prettier-eslint-cli/issues/208
 let g:ale_fixers['javascript'] = ['prettier', 'eslint']
 let g:ale_fixers['typescript'] = ['prettier', 'eslint']
 let g:ale_fixers['css'] = ['stylelint']
