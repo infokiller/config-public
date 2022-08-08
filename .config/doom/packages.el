@@ -53,7 +53,9 @@
 
 (package! expand-region)
 
-(package! org-trello)
+; https://github.com/org-trello/org-trello/issues/418#issuecomment-865668488
+(package! org-trello
+  :recipe (:build (:not native-compile)))
 
 ;; org jupyter
 (package! jupyter)
