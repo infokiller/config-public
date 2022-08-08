@@ -307,7 +307,6 @@
 /.config/xdg-desktop-portal-kderc
 /.config/dolphinrc
 /.config/dotdrop.yaml
-/.config/emacs/eln-cache
 /.config/et
 /.config/evolution
 /.config/fdroidcl
