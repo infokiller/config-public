@@ -1287,7 +1287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"abbrev@npm:*, abbrev@npm:1":
+"abbrev@npm:*, abbrev@npm:1, abbrev@npm:^1.0.0":
   version: 1.1.1
   resolution: "abbrev@npm:1.1.1"
   checksum: a4a97ec07d7ea112c517036882b2ac22f3109b7b19077dc656316d07d308438aac28e4d9746dc4d84bf6b1e75b4a7b0a5f3cb30592419f128ca9a8cee3bcfa17
@@ -7166,7 +7166,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:8.0.3, glob@npm:~8.0.3":
+"glob@npm:8.0.3, glob@npm:^8.0.3, glob@npm:~8.0.3":
   version: 8.0.3
   resolution: "glob@npm:8.0.3"
   dependencies:
@@ -9265,19 +9265,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-beautify@npm:1.14.4":
-  version: 1.14.4
-  resolution: "js-beautify@npm:1.14.4"
+"js-beautify@npm:1.14.5":
+  version: 1.14.5
+  resolution: "js-beautify@npm:1.14.5"
   dependencies:
     config-chain: ^1.1.13
     editorconfig: ^0.15.3
-    glob: ^7.1.3
-    nopt: ^5.0.0
+    glob: ^8.0.3
+    nopt: ^6.0.0
   bin:
     css-beautify: js/bin/css-beautify.js
     html-beautify: js/bin/html-beautify.js
     js-beautify: js/bin/js-beautify.js
-  checksum: ec0c2e12804f7eb556b0d77c12325f2a3ab3451f03d9c6f4639cec1353b6b04711898f5b08a34449719ce244c4c1621edd7ed35d49a10a598b1b71b0ff184805
+  checksum: f96ff4603fb544ac9e34303926226df4a017bfe324819f7fe8de7b0386c61ece204ca11d6ce37669308aa27c899304bd02e47f106bb0a2df6e76c41ab5176f68
   languageName: node
   linkType: hard
 
@@ -12311,6 +12311,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nopt@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "nopt@npm:6.0.0"
+  dependencies:
+    abbrev: ^1.0.0
+  bin:
+    nopt: bin/nopt.js
+  checksum: 82149371f8be0c4b9ec2f863cc6509a7fd0fa729929c009f3a58e4eb0c9e4cae9920e8f1f8eb46e7d032fec8fb01bede7f0f41a67eb3553b7b8e14fa53de1dac
+  languageName: node
+  linkType: hard
+
 "nopt@npm:~2.1.2":
   version: 2.1.2
   resolution: "nopt@npm:2.1.2"
@@ -14112,9 +14123,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:16.0.0":
-  version: 16.0.0
-  resolution: "puppeteer@npm:16.0.0"
+"puppeteer@npm:16.1.0":
+  version: 16.1.0
+  resolution: "puppeteer@npm:16.1.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14128,7 +14139,7 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.8.1
-  checksum: 2d1d3b2d231c94095a1841cd8ac05b31bec6227e6facdbd5c98c1a47e9d7718fe648002c79d4d623b4668538aea75eb2da939082e377144f3cca4360b23fd4f9
+  checksum: fca08c33f1096f15b7461326f28725f463e458190844b09dc34f55dee86b6455f0078497c861cdf0af8931797c1f60a64389f531ca9c0758ce68427d27736596
   languageName: node
   linkType: hard
 
@@ -15078,13 +15089,13 @@ __metadata:
     html-beautify: 1.0.4
     improved-yarn-audit: 3.0.0
     instant-markdown-d: 0.2.0
-    js-beautify: 1.14.4
+    js-beautify: 1.14.5
     lebab: 3.1.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.32.1
     markdownlint-cli2: 0.5.0
     prettier: 2.7.1
-    puppeteer: 16.0.0
+    puppeteer: 16.1.0
     pyright: 1.1.265
     release-it: 15.2.0
     semantic-release: 19.0.3
