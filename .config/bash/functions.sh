@@ -1773,9 +1773,22 @@ quickemu-spicy() {
   vm_dir="$(quickemu-vm-dir "${vm_conf}")" || return
   local vm_name
   vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
+  local args=(--title "${vm_name}")
   local spice_port
-  spice_port="$(quickemu-port "${vm_conf}" spice)"
-  spicy --title "${vm_name}" --port "${spice_port}" --spice-shared-dir ~/media/public "${@:2}"
+  local socket="${XDG_RUNTIME_DIR-}/qemu/${vm_name}/spice.sock"
+  if spice_port="$(quickemu-port "${vm_conf}" spice)"; then
+    args+=(--port "${spice_port}")
+  elif [[ -S "${socket}" ]]; then
+    args+=(--uri "spice+unix://${socket}")
+  else
+    print_error 'quickemu-spicy: spice port or socket not found'
+    return 1
+  fi
+  local shared_dir="${XDG_PUBLICSHARE_DIR:-${HOME}/Public}"
+  if [[ -d "${shared_dir}" ]]; then
+    args+=(--spice-shared-dir "${shared_dir}")
+  fi
+  spicy "${args[@]}" "${@:2}"
 }
 
 quickemu-remote-viewer() {
