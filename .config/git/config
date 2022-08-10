@@ -96,6 +96,9 @@
 	# Automatically set upstream branch. See also:
 	# https://stackoverflow.com/a/22933955/1014208
 	default = current
+	# Assume --set-upstream on default push when no upstream tracking exists for
+	# the current branch.
+	autoSetupRemote = true
 	# Push annotated tags by default. Unfortunately, there's no equivalent option
 	# for lightweight tags since they seem to be designated as private/temporary
 	# labels.
