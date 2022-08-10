@@ -128,6 +128,8 @@
 # is the default), since it doesn't seem to provide much benefit.
 [transfer]
 	fsckObjects = true
+	# Fail if credentials are detected in a URL
+	credentialsInUrl = die
 [transfer.fsck]
 	zeroPaddedFilemode = ignore
 [fetch]
