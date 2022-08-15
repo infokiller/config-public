@@ -93,6 +93,8 @@ histcat-verify() {
   fi
   if command_exists go && [[ ! -x "${histcat_dir}/histcat" ]]; then
     printf 'Building histcat\n'
+    # TODO: Using `git submodule update` can change the checked out commit. We
+    # should instead make sure it's initialized and checked out.
     (cd "${REPO_ROOT}" && git submodule update --init "${histcat_dir}")
     (cd "${histcat_dir}" && go build -v cmd/histcat/histcat.go)
   fi

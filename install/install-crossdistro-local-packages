@@ -437,7 +437,6 @@ _build_polybar_direct() {
 
 _install_polybar() {
   cd "${SUBMODULES_DIR}/desktop/polybar"
-  git submodule update --init --recursive
   # NOTE: if the build gives me trouble in the future, I can try to switch to
   # the docker build below. The distadvantage of using the docker build is that
   # I'm copying the build executable to my Arch machine, and this may cause
@@ -494,7 +493,6 @@ _install_activitywatch_from_release() {
 # latest tags anyway, so I switched to downloading releases.
 _install_activitywatch_from_src() {
   cd "${SUBMODULES_DIR}/desktop/activitywatch"
-  git submodule update --init --recursive
   # activitywatch requires cargo nightly, see:
   # https://github.com/ActivityWatch/aw-server-rust/issues/116
   if ! [[ -f "${CARGO_BIN}/rustup" ]]; then
@@ -515,7 +513,7 @@ _install_activitywatch_from_src() {
   )
   # activitywatch frequently has modified submodule commits and files after
   # installation, this should get rid of it.
-  git submodule update --recursive
+  # git submodule update --recursive
   git checkout -- .
   git submodule foreach --recursive git checkout -- .
 }
