@@ -14386,9 +14386,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:16.1.0":
-  version: 16.1.0
-  resolution: "puppeteer@npm:16.1.0"
+"puppeteer@npm:16.1.1":
+  version: 16.1.1
+  resolution: "puppeteer@npm:16.1.1"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14402,17 +14402,17 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.8.1
-  checksum: fca08c33f1096f15b7461326f28725f463e458190844b09dc34f55dee86b6455f0078497c861cdf0af8931797c1f60a64389f531ca9c0758ce68427d27736596
+  checksum: 19ab48370fc13bd525e2992c11e12f1e46d379b9d15dfd45f31ee568a16f1e8f08f0a98aca652bd1090bdb52d1891202e1b13c2e00c339c16a8c09e864e433f4
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.266":
-  version: 1.1.266
-  resolution: "pyright@npm:1.1.266"
+"pyright@npm:1.1.267":
+  version: 1.1.267
+  resolution: "pyright@npm:1.1.267"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 054dca72183404838b1e7a74201475bfd70cf64ab1752f3803c6cbe13678cea90175f09d02ef24ada4a9e3bbc9652964f88b293cedea2d4147a47154c72fd34a
+  checksum: 13487fd24fd15a9ede69d61f1d36999c42df59325abfd7843744b4b1d34015d08edd20198116660033676443531f43407587da201ddcf250f3bd12af1e495d7d
   languageName: node
   linkType: hard
 
@@ -15373,14 +15373,14 @@ __metadata:
     markdownlint-cli2: 0.5.1
     prettier: 2.7.1
     prettier-eslint-cli: 7.0.0
-    puppeteer: 16.1.0
-    pyright: 1.1.266
+    puppeteer: 16.1.1
+    pyright: 1.1.267
     release-it: 15.3.0
     semantic-release: 19.0.3
-    snyk: 1.987.0
+    snyk: 1.988.0
     stylelint: 14.10.0
     tldr: 3.3.7
-    uglify-js: 3.16.3
+    uglify-js: 3.17.0
     web-ext: 7.2.0
     write-good: 1.0.8
     yarn: 1.22.19
@@ -15899,12 +15899,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.987.0":
-  version: 1.987.0
-  resolution: "snyk@npm:1.987.0"
+"snyk@npm:1.988.0":
+  version: 1.988.0
+  resolution: "snyk@npm:1.988.0"
   bin:
     snyk: bin/snyk
-  checksum: b9393e6c6b06ec3c2f8424681f413dbe1e3bbdb50bfd4a5da41ce74474b2ba16d0e296f1109bd09b75a99f6462baa9787e334747bd0fa4e947cdb56f309fd375
+  checksum: 8feb42c0410aaa3d82de23480961472365345dd167e942d56ab0aa28917000c5c29b931cdcc32ab7438672f5e414e42bf8151b9f4d58087c16cdf324e3b21bf2
   languageName: node
   linkType: hard
 
@@ -17453,12 +17453,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:3.16.3":
-  version: 3.16.3
-  resolution: "uglify-js@npm:3.16.3"
+"uglify-js@npm:3.17.0":
+  version: 3.17.0
+  resolution: "uglify-js@npm:3.17.0"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 908a6bc877c49ca756bbf50d2ab365ee0315a66af52e14042a5c56077311f3d7c9e028524703c54c8d4b608e3d57346ee0400105acab3c3cded3238513657916
+  checksum: 20d1fcac05e74db949a9579a36f9a1af88430e590bc9c22410b76686035c55cef65247ca1935d2f6440c78928227684219c8b1ddfcd858213049cb2890821392
   languageName: node
   linkType: hard
 
