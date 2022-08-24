@@ -2370,22 +2370,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:3.0.5":
-  version: 3.0.5
-  resolution: "bash-language-server@npm:3.0.5"
+"bash-language-server@npm:3.1.0":
+  version: 3.1.0
+  resolution: "bash-language-server@npm:3.1.0"
   dependencies:
     fuzzy-search: ^3.2.1
     glob: ^8.0.0
     request: ^2.83.0
     request-promise-native: ^1.0.5
     turndown: ^7.0.0
-    urijs: ^1.19.1
+    urijs: ^1.19.11
     vscode-languageserver: ^6.1.1
     vscode-languageserver-textdocument: ^1.0.1
     web-tree-sitter: ^0.20.5
   bin:
     bash-language-server: bin/main.js
-  checksum: ab84536f09ea341163b9d7b0f0f46ed729398d4d9059fa700de632e10b1f812eba30e65d3979c447a95c70fb19d814e020cac456ae74d9b54efa61b658ef450e
+  checksum: 50d44de8973b1cde2f0c7a14fc0a9de3ea81e4ef2a1d4587aa2b98818a08bb8cbe63031fc3c32ef58825dac4deb3a8597501c3779f3c2df57f4394f7f225c294
   languageName: node
   linkType: hard
 
@@ -3532,10 +3532,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colord@npm:^2.9.2":
-  version: 2.9.2
-  resolution: "colord@npm:2.9.2"
-  checksum: 2aa6a9b3abbce74ba3c563886cfeb433ea0d7df5ad6f4a560005eddab1ddf7c0fc98f39b09b599767a19c86dd3837b77f66f036e479515d4b17347006dbd6d9f
+"colord@npm:^2.9.3":
+  version: 2.9.3
+  resolution: "colord@npm:2.9.3"
+  checksum: 95d909bfbcfd8d5605cbb5af56f2d1ce2b323990258fd7c0d2eb0e6d3bb177254d7fb8213758db56bb4ede708964f78c6b992b326615f81a18a6aaf11d64c650
   languageName: node
   linkType: hard
 
@@ -3872,16 +3872,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.12.3":
-  version: 0.12.3
-  resolution: "corepack@npm:0.12.3"
+"corepack@npm:0.13.0":
+  version: 0.13.0
+  resolution: "corepack@npm:0.13.0"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: 3102d389483e828a74040cb7caf904285bd4f95e60c9c2f24750297d1128922f76f621eb5852df0f37a7c1e1a3f2b1adc88c590cfab7597e89e27f77d83e6388
+  checksum: d1fe11a358931b2bc062a24e9639af5c9198c62c992f3307be12c73c996105954c5ec86492043ea5b183454514cb9a10cd8b9d227573069d14dbd953ac373f1a
   languageName: node
   linkType: hard
 
@@ -9413,9 +9413,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-beautify@npm:1.14.5":
-  version: 1.14.5
-  resolution: "js-beautify@npm:1.14.5"
+"js-beautify@npm:1.14.6":
+  version: 1.14.6
+  resolution: "js-beautify@npm:1.14.6"
   dependencies:
     config-chain: ^1.1.13
     editorconfig: ^0.15.3
@@ -9425,7 +9425,7 @@ __metadata:
     css-beautify: js/bin/css-beautify.js
     html-beautify: js/bin/html-beautify.js
     js-beautify: js/bin/js-beautify.js
-  checksum: f96ff4603fb544ac9e34303926226df4a017bfe324819f7fe8de7b0386c61ece204ca11d6ce37669308aa27c899304bd02e47f106bb0a2df6e76c41ab5176f68
+  checksum: 2e61c1183c73d7464ec7d5354763ee9e17ecb4b5c7a3744e9a9dc2e9c406fc6e0c37399130d1ee48313ff502e03e8a949dce96acdaee309dc44317249565934d
   languageName: node
   linkType: hard
 
@@ -10741,9 +10741,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli@npm:0.32.1":
-  version: 0.32.1
-  resolution: "markdownlint-cli@npm:0.32.1"
+"markdownlint-cli@npm:0.32.2":
+  version: 0.32.2
+  resolution: "markdownlint-cli@npm:0.32.2"
   dependencies:
     commander: ~9.4.0
     get-stdin: ~9.0.0
@@ -10751,38 +10751,29 @@ __metadata:
     ignore: ~5.2.0
     js-yaml: ^4.1.0
     jsonc-parser: ~3.1.0
-    markdownlint: ~0.26.1
-    markdownlint-rule-helpers: ~0.17.1
+    markdownlint: ~0.26.2
+    markdownlint-rule-helpers: ~0.17.2
     minimatch: ~5.1.0
     run-con: ~1.2.11
   bin:
     markdownlint: markdownlint.js
-  checksum: 094b559ef0dd2b05ba8da7fc6ceec5ba116af04049c25ab947585d009439ba289b62d6ebbb7f0f8065c0ac30a9d4f9430ee0fdbc1560624052662e3ee0b4b79a
+  checksum: 131cb66b0d6da54f0feee4a73edda6337bf81ee5fbf3afcc6417faf4d0ec6f0231b2b471614e43588f6ea19f080b1a2bc5f4312e9dbf87656934fba0edb51231
   languageName: node
   linkType: hard
 
-"markdownlint-rule-helpers@npm:~0.17.1":
-  version: 0.17.1
-  resolution: "markdownlint-rule-helpers@npm:0.17.1"
-  checksum: 0d6db4f5a20abcdc7ee8bd23311a726b573da056ae2d9063c4364a80f992ff0aaaad06cc01ab126a53c269e3e5971984f30f90fce82d1ccd351cbe1284608487
+"markdownlint-rule-helpers@npm:~0.17.2":
+  version: 0.17.2
+  resolution: "markdownlint-rule-helpers@npm:0.17.2"
+  checksum: e34c0266ffc0e1102fdd839dd70228b719c3120e8b61d0e21d4e21388a87203b7ec69d5dceb00d7bdc02fe215d2b51b14a7a72d89caa3acc7498edb38877cb40
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.26.2":
+"markdownlint@npm:0.26.2, markdownlint@npm:~0.26.2":
   version: 0.26.2
   resolution: "markdownlint@npm:0.26.2"
   dependencies:
     markdown-it: 13.0.1
   checksum: 9e20401410b5701bdaf2306a7856c8fd89c4c004b4b00568fb0f67f51a08952621e5cd260c50f947563794c971e45aac3c80f711781d921a19708c4c7ccc278c
-  languageName: node
-  linkType: hard
-
-"markdownlint@npm:~0.26.1":
-  version: 0.26.1
-  resolution: "markdownlint@npm:0.26.1"
-  dependencies:
-    markdown-it: 13.0.1
-  checksum: 0a971abc92086fe7f9a598d2ac288a048e0c340fa5543ab4962ad7614f923fdf0e278d54fa487ea4d36a4fd1429e20b6592ce7f0ad00e95fe823970238cc3049
   languageName: node
   linkType: hard
 
@@ -13966,7 +13957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-dir@npm:4.2.0, pkg-dir@npm:^4.1.0":
+"pkg-dir@npm:^4.1.0":
   version: 4.2.0
   resolution: "pkg-dir@npm:4.2.0"
   dependencies:
@@ -14386,23 +14377,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer@npm:16.1.1":
-  version: 16.1.1
-  resolution: "puppeteer@npm:16.1.1"
+"puppeteer@npm:16.2.0":
+  version: 16.2.0
+  resolution: "puppeteer@npm:16.2.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
     devtools-protocol: 0.0.1019158
     extract-zip: 2.0.1
     https-proxy-agent: 5.0.1
-    pkg-dir: 4.2.0
     progress: 2.0.3
     proxy-from-env: 1.1.0
     rimraf: 3.0.2
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.8.1
-  checksum: 19ab48370fc13bd525e2992c11e12f1e46d379b9d15dfd45f31ee568a16f1e8f08f0a98aca652bd1090bdb52d1891202e1b13c2e00c339c16a8c09e864e433f4
+  checksum: b0f96f27e48e421410800b2a61ba8d45b3d4f60295a0d5189dfa0c442eedeea4b936cfe2c7cf00ba92057b9f42a1f000e5d843d0288137b0f76800a57ccbafdc
   languageName: node
   linkType: hard
 
@@ -15356,8 +15346,8 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.1
     alex: 10.0.0
-    bash-language-server: 3.0.5
-    corepack: 0.12.3
+    bash-language-server: 3.1.0
+    corepack: 0.13.0
     diff-so-fancy: 1.4.3
     eslint: 8.22.0
     git-stats: 3.1.1
@@ -15366,19 +15356,19 @@ __metadata:
     html-beautify: 1.0.4
     improved-yarn-audit: 3.0.0
     instant-markdown-d: 0.2.0
-    js-beautify: 1.14.5
+    js-beautify: 1.14.6
     lebab: 3.1.1
     markdown-toc: 1.2.0
-    markdownlint-cli: 0.32.1
+    markdownlint-cli: 0.32.2
     markdownlint-cli2: 0.5.1
     prettier: 2.7.1
     prettier-eslint-cli: 7.0.0
-    puppeteer: 16.1.1
+    puppeteer: 16.2.0
     pyright: 1.1.267
     release-it: 15.3.0
-    semantic-release: 19.0.3
-    snyk: 1.988.0
-    stylelint: 14.10.0
+    semantic-release: 19.0.4
+    snyk: 1.990.0
+    stylelint: 14.11.0
     tldr: 3.3.7
     uglify-js: 3.17.0
     web-ext: 7.2.0
@@ -15510,9 +15500,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:19.0.3":
-  version: 19.0.3
-  resolution: "semantic-release@npm:19.0.3"
+"semantic-release@npm:19.0.4":
+  version: 19.0.4
+  resolution: "semantic-release@npm:19.0.4"
   dependencies:
     "@semantic-release/commit-analyzer": ^9.0.2
     "@semantic-release/error": ^3.0.0
@@ -15541,10 +15531,10 @@ __metadata:
     semver: ^7.3.2
     semver-diff: ^3.1.1
     signale: ^1.2.1
-    yargs: ^16.2.0
+    yargs: ^17.0.0
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: 89afc3bba5b7addc503e92387de76274bf7f8b6c955ea4338760719f91ed730df9774ccfc58b28a0c739eb1eb3bed1f9c9bef393dda1156c4481197bb6671760
+  checksum: 46bc947a464ca9eb609731febc30b5868721209a7f97251279db10154a715d0523cc9dceb24206d08080f41036ce43a76f64b77073674a7dea5e268d7731616f
   languageName: node
   linkType: hard
 
@@ -15899,12 +15889,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.988.0":
-  version: 1.988.0
-  resolution: "snyk@npm:1.988.0"
+"snyk@npm:1.990.0":
+  version: 1.990.0
+  resolution: "snyk@npm:1.990.0"
   bin:
     snyk: bin/snyk
-  checksum: 8feb42c0410aaa3d82de23480961472365345dd167e942d56ab0aa28917000c5c29b931cdcc32ab7438672f5e414e42bf8151b9f4d58087c16cdf324e3b21bf2
+  checksum: 2642b937869c4509fc0a1a5cc1d4c856ff8abf5dd1c9750ebae9289190ca5e63b147183d0d5ac101f01516f11dd400f29fa9884fbcb7c85d60bf5e9e72efa956
   languageName: node
   linkType: hard
 
@@ -16585,13 +16575,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.10.0":
-  version: 14.10.0
-  resolution: "stylelint@npm:14.10.0"
+"stylelint@npm:14.11.0":
+  version: 14.11.0
+  resolution: "stylelint@npm:14.11.0"
   dependencies:
     "@csstools/selector-specificity": ^2.0.2
     balanced-match: ^2.0.0
-    colord: ^2.9.2
+    colord: ^2.9.3
     cosmiconfig: ^7.0.1
     css-functions-list: ^3.1.0
     debug: ^4.3.4
@@ -16626,10 +16616,10 @@ __metadata:
     svg-tags: ^1.0.0
     table: ^6.8.0
     v8-compile-cache: ^2.3.0
-    write-file-atomic: ^4.0.1
+    write-file-atomic: ^4.0.2
   bin:
     stylelint: bin/stylelint.js
-  checksum: e0c9f80064e02fdca253001650506d1ddc89bcfbbc86b2245ed90faa03ec4616239e179000c5fd288f6cae079463b2b724790872cf78fbeb08a68803eaf465fd
+  checksum: 23fe2cb55453551f004b01a732e0aff82d8d98d0ac1f4c95c1d605f0fbd0f09d9079fc8d07c9da2796d6287985167a6c59791d7b1af2c4e8a1caa08dd591b980
   languageName: node
   linkType: hard
 
@@ -17837,7 +17827,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"urijs@npm:^1.19.1":
+"urijs@npm:^1.19.11":
   version: 1.19.11
   resolution: "urijs@npm:1.19.11"
   checksum: f9b95004560754d30fd7dbee44b47414d662dc9863f1cf5632a7c7983648df11d23c0be73b9b4f9554463b61d5b0a520b70df9e1ee963ebb4af02e6da2cc80f3
@@ -18521,13 +18511,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"write-file-atomic@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "write-file-atomic@npm:4.0.1"
+"write-file-atomic@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "write-file-atomic@npm:4.0.2"
   dependencies:
     imurmurhash: ^0.1.4
     signal-exit: ^3.0.7
-  checksum: 8f780232533ca6223c63c9b9c01c4386ca8c625ebe5017a9ed17d037aec19462ae17109e0aa155bff5966ee4ae7a27b67a99f55caf3f32ffd84155e9da3929fc
+  checksum: 5da60bd4eeeb935eec97ead3df6e28e5917a6bd317478e4a85a5285e8480b8ed96032bbcc6ecd07b236142a24f3ca871c924ec4a6575e623ec1b11bf8c1c253c
   languageName: node
   linkType: hard
 
@@ -18748,7 +18738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs-parser@npm:^20.2.2, yargs-parser@npm:^20.2.3":
+"yargs-parser@npm:^20.2.3":
   version: 20.2.4
   resolution: "yargs-parser@npm:20.2.4"
   checksum: d251998a374b2743a20271c2fd752b9fbef24eb881d53a3b99a7caa5e8227fcafd9abf1f345ac5de46435821be25ec12189a11030c12ee6481fef6863ed8b924
@@ -18778,7 +18768,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:17.5.1":
+"yargs@npm:17.5.1, yargs@npm:^17.0.0":
   version: 17.5.1
   resolution: "yargs@npm:17.5.1"
   dependencies:
@@ -18828,21 +18818,6 @@ __metadata:
     y18n: ^4.0.0
     yargs-parser: ^13.1.2
   checksum: 75c13e837eb2bb25717957ba58d277e864efc0cca7f945c98bdf6477e6ec2f9be6afa9ed8a876b251a21423500c148d7b91e88dee7adea6029bdec97af1ef3e8
-  languageName: node
-  linkType: hard
-
-"yargs@npm:^16.2.0":
-  version: 16.2.0
-  resolution: "yargs@npm:16.2.0"
-  dependencies:
-    cliui: ^7.0.2
-    escalade: ^3.1.1
-    get-caller-file: ^2.0.5
-    require-directory: ^2.1.1
-    string-width: ^4.2.0
-    y18n: ^5.0.5
-    yargs-parser: ^20.2.2
-  checksum: b14afbb51e3251a204d81937c86a7e9d4bdbf9a2bcee38226c900d00f522969ab675703bee2a6f99f8e20103f608382936034e64d921b74df82b63c07c5e8f59
   languageName: node
   linkType: hard
 
