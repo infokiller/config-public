@@ -91,6 +91,7 @@ IgnorePath '/etc/ssl/certs/*'
 
 AddPackage iproute2      # IP Routing Utilities
 AddPackage iputils       # Network monitoring tools, including ping
+AddPackage ldns          # Fast DNS library supporting recent RFCs
 AddPackage net-tools     # Configuration tools for Linux networking
 AddPackage bind          # The ISC DNS Server
 AddPackage traceroute    # Tracks the route taken by packets over an IP network
