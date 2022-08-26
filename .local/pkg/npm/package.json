@@ -18,12 +18,12 @@
     "markdownlint-cli": "0.32.2",
     "markdownlint-cli2": "0.5.1",
     "prettier": "2.7.1",
-    "prettier-eslint-cli": "7.0.1",
+    "prettier-eslint-cli": "7.1.0",
     "puppeteer": "16.2.0",
     "pyright": "1.1.268",
     "release-it": "15.4.0",
     "semantic-release": "19.0.5",
-    "snyk": "1.991.0",
+    "snyk": "1.992.0",
     "stylelint": "14.11.0",
     "tldr": "3.3.7",
     "uglify-js": "3.17.0",
@@ -53,5 +53,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.2.2"
+  "packageManager": "yarn@3.2.3"
 }

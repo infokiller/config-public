@@ -14096,9 +14096,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-eslint-cli@npm:7.0.1":
-  version: 7.0.1
-  resolution: "prettier-eslint-cli@npm:7.0.1"
+"prettier-eslint-cli@npm:7.1.0":
+  version: 7.1.0
+  resolution: "prettier-eslint-cli@npm:7.1.0"
   dependencies:
     "@messageformat/core": ^3.0.1
     "@prettier/eslint": "npm:prettier-eslint@^15.0.1"
@@ -14125,7 +14125,7 @@ __metadata:
       optional: true
   bin:
     prettier-eslint: dist/index.js
-  checksum: 40aeaf1e439ec759e219e2dc62f11249e8e06de1b6827b759a2c1a2e313051612688b0d8939aef487685f43572ec704f8acce3677d7b295198b0fb80c71b44a7
+  checksum: 7c948d748ec5c34c1d1fb3d47cffe55629141a2383a099af15b2887db87908fe8edd6f1328b922521b531c9403d6a3924b4484b36622ca8889c90351e47d4ec5
   languageName: node
   linkType: hard
 
@@ -15383,12 +15383,12 @@ __metadata:
     markdownlint-cli: 0.32.2
     markdownlint-cli2: 0.5.1
     prettier: 2.7.1
-    prettier-eslint-cli: 7.0.1
+    prettier-eslint-cli: 7.1.0
     puppeteer: 16.2.0
     pyright: 1.1.268
     release-it: 15.4.0
     semantic-release: 19.0.5
-    snyk: 1.991.0
+    snyk: 1.992.0
     stylelint: 14.11.0
     tldr: 3.3.7
     uglify-js: 3.17.0
@@ -15917,12 +15917,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.991.0":
-  version: 1.991.0
-  resolution: "snyk@npm:1.991.0"
+"snyk@npm:1.992.0":
+  version: 1.992.0
+  resolution: "snyk@npm:1.992.0"
   bin:
     snyk: bin/snyk
-  checksum: e4e0e66fbc99c8cb12db954117d2d97b58d1a07151e0e6ed57a2ae2046e1947855a8625ce1dc21dd3e9f616b003f5876afbf911ef8bc277f38918c341a2c92ef
+  checksum: 3fa7d62cf08fa4f8bf2dd03b26918b41c5329e522f1df6a3aad6b84111a6a4dd008001445967361257e1a54eab4c5302efb6ae5325f8ce1e82354bdb019ef994
   languageName: node
   linkType: hard
 
@@ -17414,7 +17414,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.3.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
   version: 4.4.4
-  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=f456af"
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -17424,7 +17424,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
