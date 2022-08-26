@@ -4,7 +4,6 @@
 set -o errexit -o errtrace -o nounset -o pipefail
 
 _SELECTOR=(fzf-tmux --multi --select-1 --exit-0)
-# _SELECTOR=(rofi -dmenu -multi-select -auto-select -kb-accept-alt 'Tab')
 
 main() {
   # Fetch visible pane contents and extract URLs.

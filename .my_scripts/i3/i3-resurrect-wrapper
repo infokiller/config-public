@@ -12,14 +12,14 @@ readonly SAVE_WS_HEADING='Select workspaces to save using <u>Enter</u> (single s
 readonly SAVE_WS_CONTENT='The selected workspaces will be saved in a new snapshot.'
 # shellcheck disable=SC2059
 # shellcheck disable=SC2155
-readonly SAVE_WS_MESSAGE="$(printf "${HELP_FORMAT}" \
+readonly SAVE_WS_MSG="$(printf "${HELP_FORMAT}" \
   "${SAVE_WS_HEADING}" "${SAVE_WS_CONTENT}")"
 
 readonly SELECT_SNAPSHOT_HEADING='Select a snapshot to restore using <u>Enter</u>'
 readonly SELECT_SNAPSHOT_CONTENT='After the snapshot is selected, you will be prompted to select the set of workspaces you want to restore, and you will still have a chance to exit with no modifications to your workspaces.'
 # shellcheck disable=SC2059
 # shellcheck disable=SC2155
-readonly SELECT_SNAPSHOT_MESSAGE="$(printf "${HELP_FORMAT}" \
+readonly SELECT_SNAPSHOT_MSG="$(printf "${HELP_FORMAT}" \
   "${SELECT_SNAPSHOT_HEADING}" "${SELECT_SNAPSHOT_CONTENT}")"
 
 readonly SELECT_WS_CONTENT='Select workspaces to restore using <u>Enter</u> (single selection) or <u>Tab</u> (multiple selections).'
@@ -85,9 +85,7 @@ cmd_save() {
     mapfile -t selected < <((
       echo '<all>'
       printf '%s\n' "${workspaces[@]}"
-    ) |
-      rofi -dmenu -multi-select -kb-row-tab '' -kb-accept-alt 'Tab' \
-        -p 'Workspace' -mesg "$(format_message "${SAVE_WS_MESSAGE}")")
+    ) | rofi-multi -p 'Workspace' -mesg "$(format_message "${SAVE_WS_MSG}")")
     if ((${#selected[@]} == 0)); then
       exit 2
     fi
@@ -125,7 +123,7 @@ cmd_restore() {
   while true; do
     if ! index="$(printf '%s\n' "${presented_snapshots[@]}" |
       rofi -dmenu -format i -p 'Snapshot' -selected-row "${index}" \
-        -mesg "$(format_message "${SELECT_SNAPSHOT_MESSAGE}")")"; then
+        -mesg "$(format_message "${SELECT_SNAPSHOT_MSG}")")"; then
       exit 2
     fi
     local snapshot_dir="${I3_RESURRECT_DIR}/${snapshots[${index}]}"
@@ -144,9 +142,7 @@ cmd_restore() {
     mapfile -t selected_indices < <((
       echo '<all>'
       printf '%s\n' "${workspaces[@]}"
-    ) |
-      rofi -dmenu -format i -multi-select -kb-row-tab '' -kb-accept-alt 'Tab' \
-        -p 'Workspace' -mesg "$(format_message "${mesg}")")
+    ) | rofi-multi -format i -p 'Workspace' -mesg "$(format_message "${mesg}")")
     if ! ((${#selected_indices[@]})); then
       continue
     fi

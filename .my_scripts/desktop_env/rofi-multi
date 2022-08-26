@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# rofi 1.7.4 gives an error if two actions are mapped to the same key, so we
+# must unbind the default tab keybinding.
+rofi -dmenu -multi-select -kb-element-next '' -kb-accept-alt 'Tab' "$@"

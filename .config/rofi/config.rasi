@@ -39,10 +39,6 @@ configuration {
 	/* Monitor to show rofi on. -1 means the currently focused monitor. */
 	m: "-1";
 	kb-remove-word-forward: "Control+Delete";
-	/* Disable the default keybinding for Tab (Go to next row, if one left,
-	 * accept it, if no left next mode), so that it is available for multiple
-	 * selections. */
-	kb-row-tab: "";
 	kb-toggle-sort: "Super+d";
   timeout {
       action: "kb-cancel";
