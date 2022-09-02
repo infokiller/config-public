@@ -354,6 +354,8 @@ xnoremap <expr> L mode() is# 'v' ? "\<Plug>MoveBlockRight" : '>gv'
 " xnoremap J <gv
 " xnoremap L >gv
 
+Plug 'ojroques/vim-oscyank'
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              Undo, Redo, Repeat                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

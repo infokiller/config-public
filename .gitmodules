@@ -700,3 +700,6 @@
 [submodule "submodules/xplr/preview-tabbed.xplr"]
 	path = submodules/xplr/preview-tabbed.xplr
 	url = https://github.com/sayanarijit/preview-tabbed.xplr
+[submodule "submodules/vim/vim-oscyank"]
+	path = submodules/vim/vim-oscyank
+	url = https://github.com/ojroques/vim-oscyank
