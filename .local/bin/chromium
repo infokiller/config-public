@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# shellcheck disable=SC2155
+readonly WRAPPER_PATH="$(readlink -f "$0")"
+
+mapfile -t COMMAND < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+if ((${#COMMAND[@]} == 0)); then
+  echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+  exit 1
+fi
+args=()
+# If no API keys are set via env variables, add the CLI args required for
+# enabling sync:
+# https://gist.github.com/foutrelis/14e339596b89813aa9c37fd1b4e5d9d5
+if [[ -z "${GOOGLE_DEFAULT_CLIENT_SECRET-}" ]]; then
+  args=(
+    # We must use a separate data dir because we use the auth data via cli args,
+    # which will be different from the regular invocation in google-chrome-home.
+    --user-data-dir="${XDG_CONFIG_HOME:-${HOME}/.config}/chromium-sync"
+    --oauth2-client-id=77185425430.apps.googleusercontent.com
+    --oauth2-client-secret=OTJgUOQcT7lO7GsGZq2G4IlT
+  )
+fi
+exec -- "${COMMAND[@]}" "${args[@]}" "$@"
