@@ -112,6 +112,8 @@ main() {
     "--enable-features=$(_join_by ',' "${enabled_features[@]}")"
     "--disable-features=$(_join_by ',' "${disabled_features[@]}")"
   )
+  # shellcheck source=../../.my_scripts/browser/chromium_api_keys.sh
+  source -- "${REPO_ROOT}/.my_scripts/browser/chromium_api_keys.sh"
   exec google-chrome --profile-directory='Home' "${flags[@]}" "$@"
 }
 
