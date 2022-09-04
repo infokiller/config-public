@@ -78,6 +78,8 @@ link_files_in_dir() {
   done < <(find "${source_dir}" -mindepth 1 -maxdepth 1 -type f -print0 -o -type l -print0)
 }
 
+# Consider using eget [1] when downloading github releases.
+# [1] https://github.com/zyedidia/eget
 download_file() {
   # NOTE: we don't use `--continue` because it can result in a garbled file when
   # the remote file was changed and is bigger than the local file, in which case
