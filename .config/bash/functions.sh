@@ -426,10 +426,16 @@ ps2() {
   for (i=1; i <= 6; i++) printf "%s\t", $i
   for (i=7; i <= NF; i++) printf "%s ", $i
   printf "\n"
-}' | 
-  column -t -s $'\t' | 
-  # Limit the width of huge command lines
-  cut -c -150
+}' | column -t -s $'\t' | {
+    # Limit the width of huge command lines
+    # cut -c -150
+    # If the output is a terminal, pipe to less, otherwise don't pipe it
+    if [[ -t 1 ]]; then
+      less
+    else
+      cat -
+    fi
+  }
 }
 alias ps2-rss='ps2 --sort -rss'
 alias pst='pstree -hpausST'
