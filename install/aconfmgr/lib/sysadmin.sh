@@ -128,6 +128,7 @@ fi
 # Performance monitoring
 AddPackage htop    # Interactive process viewer
 AddPackage glances # CLI curses-based monitoring tool
+AddPackage btop    # A monitor of system resources, bpytop ported to C++
 AddPackage iotop   # View I/O usage of processes
 AddPackage sysstat # a collection of performance monitoring tools (iostat,isag,mpstat,pidstat,sadf,sar)
 if is_intel_cpu; then
