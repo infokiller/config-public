@@ -301,6 +301,7 @@
 /.config/Yubico/YKPersonalization.conf
 /.config/Yubico/YubiKey Manager.conf
 /.config/borg/security
+/.config/btop/btop.log
 /.config/configstore
 /.config/dconf/user*
 /.config/docker
