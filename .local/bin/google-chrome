@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# NOTE: This file is required in machines that only have chromium.
+
 # Sometimes chromium will output many warnings or errors, which floods the
 # ~/.xsession-error file. To filter out these errors, run chromium as following:
 #
