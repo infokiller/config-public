@@ -341,8 +341,8 @@ github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815/go.mod h1:WwZ+bS3
 github.com/dustin/go-humanize v0.0.0-20171111073723-bb3d318650d4/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/dustin/go-humanize v1.0.0 h1:VSnTsYCnlFHaM2/igO1h6X3HA71jcobQuxemgkq4zYo=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
-github.com/edi9999/path-extractor v0.2.1-0.20220908141604-42731297ccb8 h1:LhnxjcZTR6GttGJOqxg6l3AtAW7zmEeAPwpcSk0icJA=
-github.com/edi9999/path-extractor v0.2.1-0.20220908141604-42731297ccb8/go.mod h1:3IJX3CgQ5KjHx+jNlAbmLdXFGAKF7ff+OsvX2v9R2yY=
+github.com/edi9999/path-extractor v1.0.2 h1:kxG2Q79z0RsQ0cdXdgse879O82VS/dndgxBqwZNsF28=
+github.com/edi9999/path-extractor v1.0.2/go.mod h1:9VbfjmkBY0DOu/bmnhRB6JCchjsbHQGIQu2BKIl0m7E=
 github.com/elazarl/goproxy v0.0.0-20180725130230-947c36da3153/go.mod h1:/Zj4wYkgs4iZTTu3o/KG3Itv/qCCa8VVMlb3i9OVuzc=
 github.com/emicklei/go-restful v0.0.0-20170410110728-ff4f55a20633/go.mod h1:otzb+WCGbkyDHkqmQmT5YD2WR4BBwUdeQoFo8l/7tVs=
 github.com/emicklei/go-restful v2.9.5+incompatible/go.mod h1:otzb+WCGbkyDHkqmQmT5YD2WR4BBwUdeQoFo8l/7tVs=

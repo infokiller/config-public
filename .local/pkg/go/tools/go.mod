@@ -37,7 +37,7 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
-	github.com/edi9999/path-extractor v0.2.1-0.20220908141604-42731297ccb8 // indirect
+	github.com/edi9999/path-extractor v1.0.2 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fatih/semgroup v1.2.0 // indirect
