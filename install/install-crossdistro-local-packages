@@ -38,7 +38,10 @@ readonly _GOLANG_TOOLS_MODULE_DIR="${GOPATH:-${HOME}/go}/tools"
 readonly _GOLANG_BIN_DIR="${GOPATH:-${HOME}/go}/bin"
 readonly -A _GOLANG_PACKAGES=(
   ['github.com/aykamko/tag']='tag'
-  ['github.com/edi9999/path-extractor/path-extractor']='path-extractor'
+  # TODO: remote the explicit path-extractor commit once the PR to fix the
+  # module path [1] is merged.
+  # [1] https://github.com/edi9999/path-extractor/pull/11
+  ['github.com/edi9999/path-extractor@4273129']='path-extractor'
   ['github.com/direnv/direnv/v2']='direnv'
   ['github.com/zricethezav/gitleaks/v8']='gitleaks'
   ['mvdan.cc/sh/v3/cmd/shfmt']='shfmt'
@@ -293,7 +296,7 @@ _install_golang_packages() {
 
 _upgrade_golang_packages() {
   cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
-  rm go.{sum,mod} || true
+  rm go.{sum,mod} 2> /dev/null || true
   go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
   GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
 }
