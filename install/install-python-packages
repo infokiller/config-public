@@ -276,7 +276,14 @@ _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   # https://github.com/jazzband/pip-tools/issues/1617
   pip install 'pip-tools>=6.6.2'
-  pip-compile --quiet --generate-hashes --allow-unsafe --upgrade "$@"
+  local comp=(pip-compile --quiet --generate-hashes --allow-unsafe --upgrade)
+  local sync=(pip-sync requirements.txt)
+  "${comp[@]}"
+  for extra in "$@"; do
+    "${comp[@]}" --extra "${extra}" --output-file requirements-"${extra}".txt
+    sync+=(requirements-"${extra}".txt)
+  done
+  "${sync[@]}"
 }
 
 # TODO: Upgrade "tools" environment
@@ -301,16 +308,13 @@ _upgrade_graphical_envs() {
     # shellcheck disable=SC1091
     source activate keydope
     # shellcheck disable=SC2119
-    _pip_compile_upgrade
-    _pip_compile_upgrade --extra dev --output-file requirements-dev.txt
-    _pip_compile_upgrade --extra systemd --output-file requirements-systemd.txt
+    _pip_compile_upgrade dev systemd
   )
   (
     cd -- "${SUBMODULES_DIR}/desktop/i3-workspace-groups"
     # shellcheck disable=SC1091
     source activate i3_workspace_groups
-    _pip_compile_upgrade
-    _pip_compile_upgrade --extra dev --output-file requirements-dev.txt
+    _pip_compile_upgrade dev
   )
   (
     cd -- "${SUBMODULES_DIR}/desktop/i3-scratchpad"
