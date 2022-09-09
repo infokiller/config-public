@@ -121,8 +121,8 @@ github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn
 github.com/aws/aws-sdk-go v1.15.11/go.mod h1:mFuSZ37Z9YOHbQEwBWztmVzqXrEkub65tZoCYDt7FT0=
 github.com/aykamko/tag v1.4.0 h1:Y3+XNph+E1uy8+96ib+guUHpmOW8/6tqoRVZpyUmbRg=
 github.com/aykamko/tag v1.4.0/go.mod h1:APxqnhx9iW97BhBlOSJaosVPuhYlfFw3UwWOYzi4/fo=
-github.com/bazelbuild/bazelisk v1.13.2 h1:SpigbUorngcfDULmft0WkdrYVCqqqsFPEW4hm8UA+Gk=
-github.com/bazelbuild/bazelisk v1.13.2/go.mod h1:jVD8/E7hMAXgWKCljEz8hOV0PZ+nFBgCpjIOJ6Xyzus=
+github.com/bazelbuild/bazelisk v1.14.0 h1:2VXAeyKE3vU0kF2x5Oj5FLsBIbxF4+NCb51bTZiaEL8=
+github.com/bazelbuild/bazelisk v1.14.0/go.mod h1:jVD8/E7hMAXgWKCljEz8hOV0PZ+nFBgCpjIOJ6Xyzus=
 github.com/bazelbuild/buildtools v0.0.0-20220907133145-b9bfff5d7f91 h1:7xSt0nPZ74liqR8jjBYmjentrQVrdQEhoW4/+4BrmoM=
 github.com/bazelbuild/buildtools v0.0.0-20220907133145-b9bfff5d7f91/go.mod h1:689QdV3hBP7Vo9dJMmzhoYIyo/9iMhEmHkJcnaPRCbo=
 github.com/bazelbuild/rules_go v0.34.0/go.mod h1:MC23Dc/wkXEyk3Wpq6lCqz0ZAYOZDw2DR5y3N1q2i7M=
@@ -341,8 +341,8 @@ github.com/docopt/docopt-go v0.0.0-20180111231733-ee0de3bc6815/go.mod h1:WwZ+bS3
 github.com/dustin/go-humanize v0.0.0-20171111073723-bb3d318650d4/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/dustin/go-humanize v1.0.0 h1:VSnTsYCnlFHaM2/igO1h6X3HA71jcobQuxemgkq4zYo=
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
-github.com/edi9999/path-extractor v0.2.0 h1:22iBGvXpyH0HWQZsGx8mcO3Y1EEF1l+jXUgRZonDlkw=
-github.com/edi9999/path-extractor v0.2.0/go.mod h1:3IJX3CgQ5KjHx+jNlAbmLdXFGAKF7ff+OsvX2v9R2yY=
+github.com/edi9999/path-extractor v0.2.1-0.20220908141604-42731297ccb8 h1:LhnxjcZTR6GttGJOqxg6l3AtAW7zmEeAPwpcSk0icJA=
+github.com/edi9999/path-extractor v0.2.1-0.20220908141604-42731297ccb8/go.mod h1:3IJX3CgQ5KjHx+jNlAbmLdXFGAKF7ff+OsvX2v9R2yY=
 github.com/elazarl/goproxy v0.0.0-20180725130230-947c36da3153/go.mod h1:/Zj4wYkgs4iZTTu3o/KG3Itv/qCCa8VVMlb3i9OVuzc=
 github.com/emicklei/go-restful v0.0.0-20170410110728-ff4f55a20633/go.mod h1:otzb+WCGbkyDHkqmQmT5YD2WR4BBwUdeQoFo8l/7tVs=
 github.com/emicklei/go-restful v2.9.5+incompatible/go.mod h1:otzb+WCGbkyDHkqmQmT5YD2WR4BBwUdeQoFo8l/7tVs=

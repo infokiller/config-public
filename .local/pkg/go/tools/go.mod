@@ -16,7 +16,7 @@ require (
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
-	github.com/bazelbuild/bazelisk v1.13.2 // indirect
+	github.com/bazelbuild/bazelisk v1.14.0 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20220907133145-b9bfff5d7f91 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
@@ -37,7 +37,7 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
-	github.com/edi9999/path-extractor v0.2.0 // indirect
+	github.com/edi9999/path-extractor v0.2.1-0.20220908141604-42731297ccb8 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fatih/semgroup v1.2.0 // indirect
