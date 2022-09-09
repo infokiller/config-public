@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# TODO: Support opening paths with line and column numbers, for example myfile:3
+# or myfile:3:8.
+
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
