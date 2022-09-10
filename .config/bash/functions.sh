@@ -391,8 +391,8 @@ dirsize() {
 
 # Search {{{
 _grep_alias='grep -Ei'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
+alias egrep='grep -E --color=auto'
+alias fgrep='grep -F --color=auto'
 # alias grep='grep --color=auto'
 _grep_alias="${_grep_alias} --color=auto"
 # shellcheck disable=SC2139
