@@ -11,6 +11,7 @@
 # Also consider task runners and build systems (should have minimal deps):
 #   - Makefile
 #   - Bazel
+#   - https://github.com/go-task/task
 #   - https://github.com/pydoit/doit
 #   - http://www.pyinvoke.org
 #   - https://github.com/stylemistake/runner
