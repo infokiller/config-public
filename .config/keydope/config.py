@@ -45,6 +45,7 @@ CAPSLOCK_COMBOS_BUGGY_PROGRAMS = BROWSERS + [
     'kitty',
     'copyq',
     'pinentry-qt',
+    'sioyek',
     'calibre',
     'virt-manager',
     'virt-viewer',
