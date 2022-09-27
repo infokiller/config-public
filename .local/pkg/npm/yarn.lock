@@ -157,22 +157,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@google/clasp@npm:2.4.1":
-  version: 2.4.1
-  resolution: "@google/clasp@npm:2.4.1"
+"@google/clasp@npm:2.4.2":
+  version: 2.4.2
+  resolution: "@google/clasp@npm:2.4.2"
   dependencies:
-    chalk: ^4.1.1
-    chokidar: ^3.5.1
-    cli-truncate: ^2.1.0
-    commander: ^7.2.0
+    "@sindresorhus/is": ^4.0.1
+    chalk: ^4.1.2
+    chokidar: ^3.5.2
+    cli-truncate: ^3.0.0
+    commander: ^8.1.0
     debounce: ^1.2.1
-    dotf: ^2.0.0
-    find-up: ^5.0.0
+    dotf: ^2.0.2
+    find-up: ^6.0.0
     fs-extra: ^10.0.0
     fuzzy: ^0.1.3
-    google-auth-library: ^7.1.2
-    googleapis: ^76.0.0
-    inquirer: ^8.1.0
+    google-auth-library: ^7.6.2
+    googleapis: ^84.0.0
+    inquirer: ^8.1.2
     inquirer-autocomplete-prompt-ipt: ^2.0.0
     is-reachable: ^5.0.0
     log-symbols: ^5.0.0
@@ -180,20 +181,19 @@ __metadata:
     make-dir: ^3.1.0
     multimatch: ^5.0.0
     normalize-newline: ^4.1.0
-    open: ^8.2.0
-    ora: ^5.4.1
-    p-map: ^5.0.0
+    open: ^8.2.1
+    ora: ^6.0.0
+    p-map: ^5.1.0
     read-pkg-up: ^8.0.0
     recursive-readdir: ^2.2.2
     server-destroy: ^1.0.1
     split-lines: ^3.0.0
     strip-bom: ^5.0.0
-    ts2gas: ^4.0.0
-    typescript: ^4.3.2
-    wtfnode: ^0.8.4
+    ts2gas: ^4.2.0
+    typescript: ^4.4.2
   bin:
     clasp: build/src/index.js
-  checksum: 5c25061b6bf8d83b54fe613c662e759ce1785d00803c3f90b84375ca4a4808b0b5c50a18fbd59d18478392383137dbc252d9c02e24d04fb5cfb60cc582918070
+  checksum: 4e7011e46188c9af5abec4534b84f74bf1624332d2415be43acd7889f45776adf5fad6311de7fcd1e5bd0b20e6ec11441b673595754841204e645d3f9d2f9aa3
   languageName: node
   linkType: hard
 
@@ -966,7 +966,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sindresorhus/is@npm:^4.6.0":
+"@sindresorhus/is@npm:^4.0.1, @sindresorhus/is@npm:^4.6.0":
   version: 4.6.0
   resolution: "@sindresorhus/is@npm:4.6.0"
   checksum: 83839f13da2c29d55c97abc3bc2c55b250d33a0447554997a85c539e058e57b8da092da396e252b11ec24a0279a0bed1f537fa26302209327060643e327f81d2
@@ -2022,6 +2022,13 @@ __metadata:
   dependencies:
     color-convert: ^2.0.1
   checksum: 513b44c3b2105dd14cc42a19271e80f386466c4be574bccf60b627432f9198571ebf4ab1e4c3ba17347658f4ee1711c163d574248c0c1cdc2d5917a0ad582ec4
+  languageName: node
+  linkType: hard
+
+"ansi-styles@npm:^6.0.0":
+  version: 6.1.1
+  resolution: "ansi-styles@npm:6.1.1"
+  checksum: f2b1ed658ead23caf77effe7b875960cacd70d1ebe47c830e191358b242d688cf52a28d55ef9b19d102f792e8c1dec34bd865db264f1c7f4f63dd3a5fa84677e
   languageName: node
   linkType: hard
 
@@ -3224,9 +3231,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:^3.5.1":
-  version: 3.5.2
-  resolution: "chokidar@npm:3.5.2"
+"chokidar@npm:^3.5.2":
+  version: 3.5.3
+  resolution: "chokidar@npm:3.5.3"
   dependencies:
     anymatch: ~3.1.2
     braces: ~3.0.2
@@ -3239,7 +3246,7 @@ __metadata:
   dependenciesMeta:
     fsevents:
       optional: true
-  checksum: d1fda32fcd67d9f6170a8468ad2630a3c6194949c9db3f6a91b16478c328b2800f433fb5d2592511b6cb145a47c013ea1cce60b432b1a001ae3ee978a8bffc2d
+  checksum: b49fcde40176ba007ff361b198a2d35df60d9bb2a5aab228279eb810feae9294a6b4649ab15981304447afe1e6ffbf4788ad5db77235dc770ab777c6e771980c
   languageName: node
   linkType: hard
 
@@ -3467,13 +3474,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-truncate@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "cli-truncate@npm:2.1.0"
+"cli-truncate@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "cli-truncate@npm:3.1.0"
   dependencies:
-    slice-ansi: ^3.0.0
-    string-width: ^4.2.0
-  checksum: bf1e4e6195392dc718bf9cd71f317b6300dc4a9191d052f31046b8773230ece4fa09458813bf0e3455a5e68c0690d2ea2c197d14a8b85a7b5e01c97f4b5feb5d
+    slice-ansi: ^5.0.0
+    string-width: ^5.0.0
+  checksum: c3243e41974445691c63f8b405df1d5a24049dc33d324fe448dc572e561a7b772ae982692900b1a5960901cc4fc7def25a629b9c69a4208ee89d12ab3332617a
   languageName: node
   linkType: hard
 
@@ -3723,6 +3730,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:^8.1.0":
+  version: 8.3.0
+  resolution: "commander@npm:8.3.0"
+  checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
+  languageName: node
+  linkType: hard
+
 "commander@npm:^9.1.0":
   version: 9.3.0
   resolution: "commander@npm:9.3.0"
@@ -3969,16 +3983,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.14.1":
-  version: 0.14.1
-  resolution: "corepack@npm:0.14.1"
+"corepack@npm:0.14.2":
+  version: 0.14.2
+  resolution: "corepack@npm:0.14.2"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: 57fdc3346f9650c8311599f618854f58f8399179d54c8a49285b5a55a77bcef9b4555abbf13489c3ad44eeddcf3964642e260cbea236052e7bb410f9dbcc06eb
+  checksum: 898df26ef94ddee30048fcba5339bcaef1b783f3c5613834caffcdd6b262ff5a55b87d4351fdaebd19f5bd0a67b11470ca6271349195b44afffdd7b55c18a757
   languageName: node
   linkType: hard
 
@@ -5399,7 +5413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotf@npm:^2.0.0":
+"dotf@npm:^2.0.2":
   version: 2.0.2
   resolution: "dotf@npm:2.0.2"
   dependencies:
@@ -6739,7 +6753,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-up@npm:^6.3.0":
+"find-up@npm:^6.0.0, find-up@npm:^6.3.0":
   version: 6.3.0
   resolution: "find-up@npm:6.3.0"
   dependencies:
@@ -7620,7 +7634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"google-auth-library@npm:^7.0.2, google-auth-library@npm:^7.1.2":
+"google-auth-library@npm:^7.0.2":
   version: 7.10.1
   resolution: "google-auth-library@npm:7.10.1"
   dependencies:
@@ -7634,6 +7648,23 @@ __metadata:
     jws: ^4.0.0
     lru-cache: ^6.0.0
   checksum: b5f55d4db005dfe9419f413689b0d3ff2847cb52c8ccd0b50036f524f72314eab4465f46c5268f52525d268df82327c9fc1cf0f365e90c734e4056de29f414ac
+  languageName: node
+  linkType: hard
+
+"google-auth-library@npm:^7.6.2":
+  version: 7.14.1
+  resolution: "google-auth-library@npm:7.14.1"
+  dependencies:
+    arrify: ^2.0.0
+    base64-js: ^1.3.0
+    ecdsa-sig-formatter: ^1.0.11
+    fast-text-encoding: ^1.0.0
+    gaxios: ^4.0.0
+    gcp-metadata: ^4.2.0
+    gtoken: ^5.0.4
+    jws: ^4.0.0
+    lru-cache: ^6.0.0
+  checksum: 78376eb2d424151dea7e3e162e20e06c11f0133451dd5ee3ea759dcb514d946acf2e0238ff08f002bdb3bf9d43c619793939feff9bc1d92025206ee836a641cf
   languageName: node
   linkType: hard
 
@@ -7662,13 +7693,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"googleapis@npm:^76.0.0":
-  version: 76.0.0
-  resolution: "googleapis@npm:76.0.0"
+"googleapis@npm:^84.0.0":
+  version: 84.0.0
+  resolution: "googleapis@npm:84.0.0"
   dependencies:
     google-auth-library: ^7.0.2
     googleapis-common: ^5.0.2
-  checksum: eb1bd3ebb8a1ae358c776c6f4d3a16847791653dcf97a57dda43e6bcb44dc8fe33f15dc522da7bfc8258a9b0ca0d8da7391c268aae408a648f55307170cec396
+  checksum: 63698db1c5a92bdc136d9d49eb98ccbed71a7ba7232ea4fb3e982eca4651342103ad6be8cd05a1a84a616d13f57c2e5ab529da89a9454a94ce04062d9130ef4a
   languageName: node
   linkType: hard
 
@@ -8671,9 +8702,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:^8.1.0":
-  version: 8.2.0
-  resolution: "inquirer@npm:8.2.0"
+"inquirer@npm:^8.1.2":
+  version: 8.2.4
+  resolution: "inquirer@npm:8.2.4"
   dependencies:
     ansi-escapes: ^4.2.1
     chalk: ^4.1.1
@@ -8685,11 +8716,12 @@ __metadata:
     mute-stream: 0.0.8
     ora: ^5.4.1
     run-async: ^2.4.0
-    rxjs: ^7.2.0
+    rxjs: ^7.5.5
     string-width: ^4.1.0
     strip-ansi: ^6.0.0
     through: ^2.3.6
-  checksum: 861d1a9324ae933b49126b3541d94e4d6a2f2a25411b3f3cc00c34bf1bdab34146362d702cf289efe6d8034900dc5905bcf2ea716092a02b6fc390e5986dd236
+    wrap-ansi: ^7.0.0
+  checksum: dfcb6529d3af443dfea2241cb471508091b51f5121a088fdb8728b23ec9b349ef0a5e13a0ef2c8e19457b0bed22f7cbbcd561f7a4529d084c562a58c605e2655
   languageName: node
   linkType: hard
 
@@ -13173,7 +13205,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"open@npm:8.4.0, open@npm:^8.2.0":
+"open@npm:8.4.0, open@npm:^8.2.1":
   version: 8.4.0
   resolution: "open@npm:8.4.0"
   dependencies:
@@ -13239,7 +13271,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora@npm:6.1.2, ora@npm:^6.1.2":
+"ora@npm:6.1.2, ora@npm:^6.0.0, ora@npm:^6.1.2":
   version: 6.1.2
   resolution: "ora@npm:6.1.2"
   dependencies:
@@ -13545,12 +13577,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"p-map@npm:^5.0.0":
-  version: 5.2.0
-  resolution: "p-map@npm:5.2.0"
+"p-map@npm:^5.1.0":
+  version: 5.5.0
+  resolution: "p-map@npm:5.5.0"
   dependencies:
     aggregate-error: ^4.0.0
-  checksum: e72158cfff2561680772a43475bd3e08f4562704d1cac8d6d4f84281aa4118ba369a6f0f296ed3e3ebba93318d7e8f612aad12beeddf8db3d912b0671686b4c8
+  checksum: 065cb6fca6b78afbd070dd9224ff160dc23eea96e57863c09a0c8ea7ce921043f76854be7ee0abc295cff1ac9adcf700e79a1fbe3b80b625081087be58e7effb
   languageName: node
   linkType: hard
 
@@ -15482,10 +15514,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@google/clasp": 2.4.1
+    "@google/clasp": 2.4.2
     alex: 10.0.0
     bash-language-server: 3.1.0
-    corepack: 0.14.1
+    corepack: 0.14.2
     diff-so-fancy: 1.4.3
     eslint: 8.24.0
     git-stats: 3.1.1
@@ -15508,7 +15540,7 @@ __metadata:
     snyk: 1.1012.0
     stylelint: 14.12.1
     tldr: 3.3.8
-    uglify-js: 3.17.1
+    uglify-js: 3.17.2
     web-ext: 7.2.0
     write-good: 1.0.8
     yarn: 1.22.19
@@ -15569,12 +15601,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.2.0":
-  version: 7.4.0
-  resolution: "rxjs@npm:7.4.0"
+"rxjs@npm:^7.5.5":
+  version: 7.5.7
+  resolution: "rxjs@npm:7.5.7"
   dependencies:
-    tslib: ~2.1.0
-  checksum: 6b33172a760dcad6882fdc836ee8cf1ebe160dd7eaad95c45a12338ffdaa96eb41e48e6c25bbd3d1fdf45075949ff447954bc17a9d01c688558a67967d09c114
+    tslib: ^2.1.0
+  checksum: edabcdb73b0f7e0f5f6e05c2077aff8c52222ac939069729704357d6406438acca831c24210db320aba269e86dbe1a400f3769c89101791885121a342fb15d9c
   languageName: node
   linkType: hard
 
@@ -15982,17 +16014,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"slice-ansi@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "slice-ansi@npm:3.0.0"
-  dependencies:
-    ansi-styles: ^4.0.0
-    astral-regex: ^2.0.0
-    is-fullwidth-code-point: ^3.0.0
-  checksum: 5ec6d022d12e016347e9e3e98a7eb2a592213a43a65f1b61b74d2c78288da0aded781f665807a9f3876b9daa9ad94f64f77d7633a0458876c3a4fdc4eb223f24
-  languageName: node
-  linkType: hard
-
 "slice-ansi@npm:^4.0.0":
   version: 4.0.0
   resolution: "slice-ansi@npm:4.0.0"
@@ -16001,6 +16022,16 @@ __metadata:
     astral-regex: ^2.0.0
     is-fullwidth-code-point: ^3.0.0
   checksum: 4a82d7f085b0e1b070e004941ada3c40d3818563ac44766cca4ceadd2080427d337554f9f99a13aaeb3b4a94d9964d9466c807b3d7b7541d1ec37ee32d308756
+  languageName: node
+  linkType: hard
+
+"slice-ansi@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "slice-ansi@npm:5.0.0"
+  dependencies:
+    ansi-styles: ^6.0.0
+    is-fullwidth-code-point: ^4.0.0
+  checksum: 7e600a2a55e333a21ef5214b987c8358fe28bfb03c2867ff2cbf919d62143d1812ac27b4297a077fdaf27a03da3678e49551c93e35f9498a3d90221908a1180e
   languageName: node
   linkType: hard
 
@@ -17306,7 +17337,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts2gas@npm:^4.0.0":
+"ts2gas@npm:^4.2.0":
   version: 4.2.0
   resolution: "ts2gas@npm:4.2.0"
   dependencies:
@@ -17334,13 +17365,6 @@ __metadata:
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
-  languageName: node
-  linkType: hard
-
-"tslib@npm:~2.1.0":
-  version: 2.1.0
-  resolution: "tslib@npm:2.1.0"
-  checksum: aa189c8179de0427b0906da30926fd53c59d96ec239dff87d6e6bc831f608df0cbd6f77c61dabc074408bd0aa0b9ae4ec35cb2c15f729e32f37274db5730cb78
   languageName: node
   linkType: hard
 
@@ -17519,7 +17543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.3.2, typescript@npm:^4.4.2":
+"typescript@npm:^4.4.2":
   version: 4.4.4
   resolution: "typescript@npm:4.4.4"
   bin:
@@ -17539,7 +17563,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.3.2#~builtin<compat/typescript>, typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
   version: 4.4.4
   resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=a1c5e5"
   bin:
@@ -17598,12 +17622,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:3.17.1":
-  version: 3.17.1
-  resolution: "uglify-js@npm:3.17.1"
+"uglify-js@npm:3.17.2":
+  version: 3.17.2
+  resolution: "uglify-js@npm:3.17.2"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 5e24ad48e096d309e77a462fa0508a9bfe33e2ab00e1bd21dc8bd5d035cf0b58063914bef1c6d6aca78e9e5bbe619714b142ffc646165702e3714f4cfbc7151c
+  checksum: 128233638176abe6cc0ec0f1dbae7bcb3f02edd78eb5c7752b4f379ec9d29032cd2edf06b2522dbeba0a1f05afb25f6eaffe638581da6d8554bd4c060d6622b1
   languageName: node
   linkType: hard
 
@@ -18730,15 +18754,6 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 3a990b32ed08c72070d5e8913e14dfcd831919205be52a3ff0b4cdd998c8d554f167c9df3841605cde8b11d607768cacab3e823c58c96a5c08c987e093eb767a
-  languageName: node
-  linkType: hard
-
-"wtfnode@npm:^0.8.4":
-  version: 0.8.4
-  resolution: "wtfnode@npm:0.8.4"
-  bin:
-    wtfnode: proxy.js
-  checksum: 0d6413ed27d84d4cd54c86b7a843e5611bce901f8c137fb8c8bc9b2412e14fdabad5249104116c54f4ba0435d1152b84e78a5404c660b90f17a8e6cf9578d8e8
   languageName: node
   linkType: hard
 

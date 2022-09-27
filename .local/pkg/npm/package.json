@@ -1,9 +1,9 @@
 {
   "dependencies": {
-    "@google/clasp": "2.4.1",
+    "@google/clasp": "2.4.2",
     "alex": "10.0.0",
     "bash-language-server": "3.1.0",
-    "corepack": "0.14.1",
+    "corepack": "0.14.2",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.24.0",
     "git-stats": "3.1.1",
@@ -26,7 +26,7 @@
     "snyk": "1.1012.0",
     "stylelint": "14.12.1",
     "tldr": "3.3.8",
-    "uglify-js": "3.17.1",
+    "uglify-js": "3.17.2",
     "web-ext": "7.2.0",
     "write-good": "1.0.8",
     "yarn": "1.22.19",
