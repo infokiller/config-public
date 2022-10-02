@@ -152,7 +152,7 @@ _export_history_vars() {
 # - https://wiki.archlinux.org/index.php/XDG_Base_Directory#Support
 # - https://github.com/grawity/dotfiles/blob/master/.dotfiles.notes
 _increase_xdg_conformance() {
-  export XDG_CONFIG_HOME XDG_DATA_HOME XDG_CACHE_HOME
+  export XDG_CONFIG_HOME XDG_DATA_HOME XDG_STATE_HOME XDG_CACHE_HOME
   # XDG_RUNTIME_DIR is guaranteed to be owned by the user, so it should be safer
   # to use than /tmp. However, systemd limits it to 10% of the physical memory
   # by default [1], so it can run out of space when used with large files. It's
@@ -362,6 +362,7 @@ _profile_main() {
   # environment.
   : "${XDG_CONFIG_HOME:=${HOME}/.config}"
   : "${XDG_DATA_HOME:=${HOME}/.local/share}"
+  : "${XDG_STATE_HOME:=${HOME}/.local/state}"
   : "${XDG_CACHE_HOME:=${HOME}/.cache}"
 
   _export_profile_env
