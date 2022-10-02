@@ -14557,13 +14557,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.272":
-  version: 1.1.272
-  resolution: "pyright@npm:1.1.272"
+"pyright@npm:1.1.273":
+  version: 1.1.273
+  resolution: "pyright@npm:1.1.273"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 6aa8d765370eda98b9949067eba1bec5849302551b1d644aa340f70d0e77306f7c281526625184e450d69273b41c1ed636d9772d8e5a775fc2c1205b97d2722f
+  checksum: b05f5c7baa42abad28828c3dede899dc9e15b7ddb649b7d4fabba924f2801768460a233ac353ce278dda4dc8f9caabd4d58a5548c7aa4497abff2ee2d2393bd8
   languageName: node
   linkType: hard
 
@@ -15534,11 +15534,11 @@ __metadata:
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
     puppeteer: 18.0.5
-    pyright: 1.1.272
+    pyright: 1.1.273
     release-it: 15.4.2
     semantic-release: 19.0.5
-    snyk: 1.1012.0
-    stylelint: 14.12.1
+    snyk: 1.1019.0
+    stylelint: 14.13.0
     tldr: 3.3.8
     uglify-js: 3.17.2
     web-ext: 7.2.0
@@ -16065,12 +16065,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1012.0":
-  version: 1.1012.0
-  resolution: "snyk@npm:1.1012.0"
+"snyk@npm:1.1019.0":
+  version: 1.1019.0
+  resolution: "snyk@npm:1.1019.0"
   bin:
     snyk: bin/snyk
-  checksum: 7d1288ecc2161899e8eb29007bfd6c7fecd3ac11cdf651e700da55022e940dac2c59806dc8eb81049d7b63b41f32df6b18fed4cd718e13e2f362921f4f356557
+  checksum: 7b5557f25f1af18d132462aca60ad8de4eca9f0a8104e8168742060a0d020755df184df44aba63e8f226073a8b27bca6795a7c2db7fbe4bf18408b90b8bfdcb1
   languageName: node
   linkType: hard
 
@@ -16751,9 +16751,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.12.1":
-  version: 14.12.1
-  resolution: "stylelint@npm:14.12.1"
+"stylelint@npm:14.13.0":
+  version: 14.13.0
+  resolution: "stylelint@npm:14.13.0"
   dependencies:
     "@csstools/selector-specificity": ^2.0.2
     balanced-match: ^2.0.0
@@ -16795,7 +16795,7 @@ __metadata:
     write-file-atomic: ^4.0.2
   bin:
     stylelint: bin/stylelint.js
-  checksum: f44ca63482edd6339ee3d57b273e55f14b47c8e9d4239b31c47404bc146d56d516abbb375630c86496bcb2b6c8ba5977ba1c170cef0a5e63fd2eaf737e817422
+  checksum: 81efcb2ea015fe490651f0976a927c51efa493a32b2b8e681d68aba8a275a1d8d0ebf8eaf50ef3233e3dc367077db63792e7e69bf6abb18940d63fd6c9f772df
   languageName: node
   linkType: hard
 
