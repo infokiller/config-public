@@ -6,6 +6,8 @@ IgnorePath '/boot/initramfs-*.img'
 IgnorePath '/boot/lost+found'
 IgnorePath '/boot/vmlinuz-*'
 if ! is_wsl; then
+  # Systemd should soon be supported in WSL:
+  # https://devblogs.microsoft.com/commandline/systemd-support-is-now-available-in-wsl/
   AddPackage systemd            # system and service manager
   AddPackage systemd-sysvcompat # sysvinit compat for systemd
   if is_uefi; then
