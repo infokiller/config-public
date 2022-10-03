@@ -366,6 +366,7 @@
 /.kube
 /.lesshst
 /.local/etc/pyflyby
+/.local/state/nvim
 /.local/state/pnpm
 /.m2/repository
 /.mono
