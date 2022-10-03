@@ -189,7 +189,6 @@ alias mv='mv -i'
 # -a: recurse directories and preserve attributes
 # -A: preserve ACLs
 # -X: preserve extended attributes
-# -u: don't overwrite newer files on the receiver side
 # -zz: use new rsync compression
 # --info=*: specify what to log
 # --partial-dir=*: keep partial transfers to enable resuming
@@ -198,8 +197,10 @@ alias mv='mv -i'
 # USB drive, and then removing the drive without sync, file_b will have a newer
 # modification time, so a subsequent transfer will not do anything, even though
 # file_b is not identical to file_a.
-alias rsync='rsync -aAX -u -zz --info=flist2,name,progress --partial-dir=.rsync-partial'
+alias rsync='rsync -aAX -zz --info=flist2,name,progress --partial-dir=.rsync-partial'
 alias rcp='rsync'
+# -u: don't overwrite newer files on the receiver side
+alias rcps='rsync -u'
 alias rcpc='rsync-cont'
 
 # Swap two files
