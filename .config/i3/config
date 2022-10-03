@@ -819,6 +819,8 @@ client.urgent           $bg     $alert  $fg     $alert    $bg
 default_border pixel 1
 default_floating_border pixel 3
 
+# https://github.com/i3/i3/issues/5149
+for_window [all] border pixel 1
 # for_window [all] title_window_icon yes
 
 # As of 2021-11-10, these services are pulled by the i3wm.service unit.
