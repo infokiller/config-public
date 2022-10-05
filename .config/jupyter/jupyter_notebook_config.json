@@ -1,7 +1,6 @@
 {
   "NotebookApp": {
     "nbserver_extensions": {
-      "jupyter_nbextensions_configurator": true
     }
   }
 }
