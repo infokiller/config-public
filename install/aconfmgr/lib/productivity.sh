@@ -49,3 +49,5 @@ AddPackage w3m        # Text-based Web browser as well as pager
 AddPackage broot # Fuzzy Search + tree + cd
 
 AddPackage youtube-dl # A small command-line program to download videos from YouTube.com and a few more sites
+AddPackage yt-dlp     # A youtube-dl fork with additional features and fixes
+AddPackage aria2      # Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink
