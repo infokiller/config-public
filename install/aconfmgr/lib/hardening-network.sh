@@ -24,6 +24,10 @@ CopyFile '/etc/ufw/sysctl.conf'
 CopyFile '/etc/ufw/ufw.conf'
 CopyFile '/etc/ufw/user.rules'
 CopyFile '/etc/ufw/user6.rules'
+# The Plex file is based on the Arch wiki [1] but I'm not sure it's needed when
+# only accessed from my LAN or VPN.
+# [1] https://wiki.archlinux.org/title/plex#UFW_Rule
+CopyFile '/etc/ufw/applications.d/plexmediaserver'
 CopyFile '/etc/ufw/applications.d/custom'
 CreateLink '/etc/systemd/system/multi-user.target.wants/ufw.service' '/usr/lib/systemd/system/ufw.service'
 
