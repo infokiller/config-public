@@ -119,7 +119,7 @@ require (
 	github.com/urfave/cli/v2 v2.11.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.13.0 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.14.0 // indirect
 	go.opencensus.io v0.23.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
