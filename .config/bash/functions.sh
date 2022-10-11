@@ -409,6 +409,7 @@ _best_grep() {
   "${_BEST_GREP_CMD[@]}" "$@"
 }
 
+# shellcheck disable=SC2120
 ps2() {
   local extra_opts=("$@")
   if (($#==0)); then
@@ -442,12 +443,21 @@ alias ps2-rss='ps2 --sort -rss'
 alias pst='pstree -hpausST'
 # Grep for a running process
 grep-processes() {
-  ps2 --no-headers | 
+  local header
+  local grep_args=()
+  if [[ -t 1 ]]; then
+    grep_args+=('--color=always')
+  fi
+  grep_args+=("$@")
+  # shellcheck disable=SC2119
+  ps2 | {
+    IFS='' read -r header
+    printf '%s\n' "${header}"
     # The spaces around ${_BEST_GREP_CMD[*]} are intentional: this way Xorg
-      # won't match "rg".
-    \grep --text -v --fixed-strings " ${_BEST_GREP_CMD[*]} " | 
-    _best_grep "$@" |
-    cut -c -120
+    # won't match "rg".
+    \grep --text -v --fixed-strings " ${_BEST_GREP_CMD[*]} " |
+      _best_grep "${grep_args[@]}"
+  } | cut -c -150
 }
 alias pg='grep-processes'
 # Grep for an env variable
