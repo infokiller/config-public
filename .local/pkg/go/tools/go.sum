@@ -940,6 +940,8 @@ github.com/yvasiyarov/gorelic v0.0.0-20141212073537-a9bba5b9ab50/go.mod h1:NUSPS
 github.com/yvasiyarov/newrelic_platform_go v0.0.0-20140908184405-b21fdbd4370f/go.mod h1:GlGEuHIJweS1mbCqG+7vt2nvWLzLLnRHbXz5JKd/Qbg=
 github.com/zricethezav/gitleaks/v8 v8.14.0 h1:lcfxo//I/S0wHlGPlM2T9Op3DBFWMaeNq/ZEoolEaWo=
 github.com/zricethezav/gitleaks/v8 v8.14.0/go.mod h1:JzsbTtA88h1ioImguqG0BL2IV2JfblVO0qj/LSwgUKQ=
+github.com/zricethezav/gitleaks/v8 v8.14.1 h1:zE9NBNlljWTHcgWMoV8W4HuVuURUtb/th+mA34CZv0s=
+github.com/zricethezav/gitleaks/v8 v8.14.1/go.mod h1:JzsbTtA88h1ioImguqG0BL2IV2JfblVO0qj/LSwgUKQ=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.5/go.mod h1:G5EMThwa9y8QZGBClrRx5EY+Yw9kAhnjy3bSjsnlVTQ=
