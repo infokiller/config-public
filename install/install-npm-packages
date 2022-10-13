@@ -167,7 +167,8 @@ def main():
     if args.upgrade:
         _upgrade_yarn()
     _install_packages()
-    with open(os.path.join(LOCAL_MODULES_PARENT_DIR, 'package.json')) as f:
+    with open(os.path.join(LOCAL_MODULES_PARENT_DIR, 'package.json'),
+              encoding='utf-8') as f:
         packages_json = json.loads(f.read())
     packages = list(packages_json.get('dependencies', {}).keys())
     if args.upgrade:
@@ -176,6 +177,7 @@ def main():
     explicitly_installed_binaries = packages_json.get(
         'explicitly_installed_binaries', {})
     for package in packages:
+        # pylint: disable-next=unnecessary-lambda-assignment
         get_binary_install_name = lambda x: x
         if package in explicitly_installed_binaries:
             get_binary_install_name = explicitly_installed_binaries[package].get
