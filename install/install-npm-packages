@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import stat
 import subprocess
 
 import installation_util as util
@@ -99,7 +100,11 @@ def _link_package_files(package_path, get_binary_install_name=lambda x: x):
             continue
         util.log_info(f'Installing binary {name} from package {package_spec} '
                       f'as {install_name}')
-        util.symlink_relative(os.path.join(package_path, path),
+        # I ran into a case where the file is not executable, for example
+        # build/src/index.js in clasp 2.4.2.
+        bin_src_path = os.path.join(package_path, path)
+        os.chmod(bin_src_path, os.stat(bin_src_path).st_mode | stat.S_IEXEC)
+        util.symlink_relative(bin_src_path,
                               os.path.join(util.USER_BIN_DIR, install_name))
     man_files = _get_man_files(package_path, package_metadata)
     # The package.json docs say: "If only a single file is provided, then it's
@@ -155,6 +160,7 @@ def main():
                         help='Upgrade npm packages to their latest version.')
     args = parser.parse_args()
 
+    util.log_name = 'install-npm-packages'
     util.create_user_dirs()
 
     _install_pnpm_via_npm()
