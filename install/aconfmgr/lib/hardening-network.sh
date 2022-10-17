@@ -37,11 +37,17 @@ configure_mullvad_vpn() {
   # AddPackage --foreign nvm         # Node Version Manager - Simple bash script to manage multiple active node.js versions
   # NOTE: The wireguard key is stored in /etc/mullvad-vpn/device.json since
   # version 2022.2.
-  CopyFile '/etc/mullvad-vpn/settings.json'
+
+  if [[ ! -f /etc/mullvad-vpn/settings.json ]] || ! diff -q <(sudo jq -r 'del(.wg_migration_rand_num)' /etc/mullvad-vpn/settings.json) "${REPO_ROOT}/root/etc/mullvad-vpn/settings.json"; then
+    CopyFile '/etc/mullvad-vpn/settings.json'
+  else
+    IgnorePath '/etc/mullvad-vpn/settings.json'
+  fi
   CopyFile '/etc/mullvad-vpn/account-history.json'
   IgnorePath '/etc/mullvad-vpn/device.json'
   IgnorePath '/usr/bin/mullvad-problem-report'
   IgnorePath '/opt/Mullvad VPN/resources/mullvad-problem-report'
+  IgnorePath '/etc/systemd/system/mullvad-daemon.service.wants/mullvad-early-boot-blocking.service'
   CreateLink '/usr/lib/systemd/system/mullvad-daemon.service' '/opt/Mullvad VPN/resources/mullvad-daemon.service'
   # for server in at1 au1 be1 bg1 br1 ca1 ca2 ca3 ch1 ch2 cz1 de1 de2 de4 de5 dk1 \
   #   es1 fi1 fr1 gb2 gb3 gb4 gb5 hk1 in1 it1 jp1 md1 nl1 nl2 nl3 no1 pl1 ro1 rs1 \
