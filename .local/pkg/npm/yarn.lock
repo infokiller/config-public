@@ -14262,7 +14262,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.18":
+"postcss@npm:8.4.18, postcss@npm:^8.4.17":
   version: 8.4.18
   resolution: "postcss@npm:8.4.18"
   dependencies:
@@ -14270,17 +14270,6 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 9349fd99849b2e3d2e134ff949b7770ecb12375f352723ce2bcc06167eba3850ea7844c1b191a85cd915d6a396b4e8ee9a5267e6cc5d8d003d0cbc7a97555d39
-  languageName: node
-  linkType: hard
-
-"postcss@npm:^8.4.16":
-  version: 8.4.16
-  resolution: "postcss@npm:8.4.16"
-  dependencies:
-    nanoid: ^3.3.4
-    picocolors: ^1.0.0
-    source-map-js: ^1.0.2
-  checksum: 10eee25efd77868036403858577da0cefaf2e0905feeaba5770d5438ccdddba3d01cba8063e96b8aac4c6daa0ed413dd5ae0554a433a3c4db38df1d134cffc1f
   languageName: node
   linkType: hard
 
@@ -15625,7 +15614,7 @@ __metadata:
     release-it: 15.5.0
     semantic-release: 19.0.5
     snyk: 1.1032.0
-    stylelint: 14.13.0
+    stylelint: 14.14.0
     tldr: 3.3.8
     uglify-js: 3.17.3
     web-ext: 7.3.0
@@ -16849,9 +16838,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.13.0":
-  version: 14.13.0
-  resolution: "stylelint@npm:14.13.0"
+"stylelint@npm:14.14.0":
+  version: 14.14.0
+  resolution: "stylelint@npm:14.14.0"
   dependencies:
     "@csstools/selector-specificity": ^2.0.2
     balanced-match: ^2.0.0
@@ -16876,7 +16865,7 @@ __metadata:
     micromatch: ^4.0.5
     normalize-path: ^3.0.0
     picocolors: ^1.0.0
-    postcss: ^8.4.16
+    postcss: ^8.4.17
     postcss-media-query-parser: ^0.2.3
     postcss-resolve-nested-selector: ^0.1.1
     postcss-safe-parser: ^6.0.0
@@ -16893,7 +16882,7 @@ __metadata:
     write-file-atomic: ^4.0.2
   bin:
     stylelint: bin/stylelint.js
-  checksum: 81efcb2ea015fe490651f0976a927c51efa493a32b2b8e681d68aba8a275a1d8d0ebf8eaf50ef3233e3dc367077db63792e7e69bf6abb18940d63fd6c9f772df
+  checksum: 3196f5992262d82f3c8dea1d710a3dda1b6c890697eba7df58a3bc8fcd681d509449fa4be3f03e91155f5014df82973b57266ddbc34f41130aa27cc046113b8b
   languageName: node
   linkType: hard
 
