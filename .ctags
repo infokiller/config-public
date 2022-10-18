@@ -3,10 +3,10 @@
 # In addition, the latest git version seems to already support the definitions
 # in this file, so I commented them out.
 
---langdef=zsh
---langmap=zsh:.zsh.zshrc.zshenv.zprofile
---regex-zsh=/^(function)?[\t ]*([a-zA-Z0-9_-]+)\(\)/\2/f,function/
---regex-zsh=/^([A-Z0-9_]+)=/\1/c,const/
+# --langdef=zsh
+# --langmap=zsh:.zsh.zshrc.zshenv.zprofile
+# --regex-zsh=/^(function)?[\t ]*([a-zA-Z0-9_-]+)\(\)/\2/f,function/
+# --regex-zsh=/^([A-Z0-9_]+)=/\1/c,const/
 
 # --langdef=protobuf
 # --langmap=protobuf:.proto
