@@ -14633,13 +14633,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.275":
-  version: 1.1.275
-  resolution: "pyright@npm:1.1.275"
+"pyright@npm:1.1.276":
+  version: 1.1.276
+  resolution: "pyright@npm:1.1.276"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 98b1ff90cba0a67f488f770419621511739a31a00383de228078e63882a10703480ce1e1bac43790b2d96a34efd9d436fc96cd7eaff5048d021fe82c1af8e393
+  checksum: 1b08c39093d2e66205bb819abcdb1743eb689006f1af4cbd2f9f1a8a6a0c948dba8b1b490df5cc7d6e7c90665e3cd3c013b572ed844555ee0ca9a81742ca11af
   languageName: node
   linkType: hard
 
@@ -15610,14 +15610,14 @@ __metadata:
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.0.0
-    pyright: 1.1.275
+    pyright: 1.1.276
     release-it: 15.5.0
     semantic-release: 19.0.5
-    snyk: 1.1032.0
+    snyk: 1.1038.0
     stylelint: 14.14.0
     tldr: 3.3.8
     uglify-js: 3.17.3
-    web-ext: 7.3.0
+    web-ext: 7.3.1
     write-good: 1.0.8
     yarn: 1.22.19
     yarn-audit-fix: 9.3.6
@@ -16152,12 +16152,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1032.0":
-  version: 1.1032.0
-  resolution: "snyk@npm:1.1032.0"
+"snyk@npm:1.1038.0":
+  version: 1.1038.0
+  resolution: "snyk@npm:1.1038.0"
   bin:
     snyk: bin/snyk
-  checksum: c58011799ace86593e6c631b557cb88c1da8ddb81aa5e3f722dfc40308765215498466eb3494042bfe19ea6e8701073f9aa82a1ef3acfeba9a2ccb2bda1db358
+  checksum: 4f134ea4ef8e177c8f6ecf42822c6ff5d97ed2e2f0db1622d07c4ff09e673f80ef355763d8930ceaa6f6952919403b6d86c3b000c4dd80417605828ebc7e8730
   languageName: node
   linkType: hard
 
@@ -18425,9 +18425,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-ext@npm:7.3.0":
-  version: 7.3.0
-  resolution: "web-ext@npm:7.3.0"
+"web-ext@npm:7.3.1":
+  version: 7.3.1
+  resolution: "web-ext@npm:7.3.1"
   dependencies:
     "@babel/runtime": 7.19.4
     "@devicefarmer/adbkit": 3.2.3
@@ -18463,7 +18463,7 @@ __metadata:
     zip-dir: 2.0.0
   bin:
     web-ext: bin/web-ext.js
-  checksum: da40f76b62e25f634626928cc187f3b5e5ecae062b148587612454dbe6d83c825551c628f39799abe7cc6b3ffe398f1dbfcb6364d5c9daf4b4c13330c283e8ec
+  checksum: dc0c70a5569777736d40f202a73853749ec24be622aaf271e986295958e189d373c04cc267daec081a67b30d5a31c81f060fbc195d7d0487883a6ba3a6f8f00c
   languageName: node
   linkType: hard
 
