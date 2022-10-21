@@ -355,6 +355,7 @@
 /.config/zoomus.conf
 /.config/zsh/completion/_npm
 /.electron-gyp
+/.elinks
 /.esd_auth
 /.gconf/system
 /.git-backup*

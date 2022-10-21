@@ -1694,6 +1694,41 @@ alias bm='benchmark-command'
 # alias rif='run-interactive-function'
 alias w='watch run-interactive-function'
 
+explainshell-render() {
+  w3m -T text/html -dump | tail -n +10
+  # elinks -dump -dump-color-mode 1 | tail -n +12
+}
+
+explainshell-term() {
+  local quoted_cmd
+  quoted_cmd="$(printf '%q ' "$@")" || return
+  # NOTE: w3m removes colors when dumping, which is unfortunate
+  # local render_cmd=(w3m -T text/html -dump)
+  # elinks has some color support in dump mode, but it's not maintained since
+  # 2012 or so.
+  local render_cmd=(elinks -dump -dump-color-mode 1)
+  # -G tells curl to append the encoded data to the URL as a query string
+  curl -fsSL -G 'https://explainshell.com/explain' \
+    --data-urlencode "cmd=${quoted_cmd}" | explainshell-render
+}
+
+explainshell-get-url() {
+  local quoted_cmd
+  quoted_cmd="$(printf '%q ' "$@")" || return
+  local url_encoded_cmd
+  url_encoded_cmd="$(python -c '
+import sys, urllib.parse 
+print(urllib.parse.quote(sys.argv[1]))' "${quoted_cmd}")" || return
+  sensible-browser "https://explainshell.com/explain?cmd=${url_encoded_cmd}"
+}
+
+explainshell-web() {
+  sensible-browser "https://explainshell.com/explain?cmd=${url_encoded_cmd}"
+}
+
+alias es='explainshell-term'
+alias esw='explainshell-web'
+
 run-if-executable-exists() {
   local e1="$1"
   local e2="$2"
