@@ -50,9 +50,9 @@ uritools==4.0.0 \
     --hash=sha256:420d94c1ff4bf90c678fca9c17b8314243bbcaa992c400a95e327f7f622e1edf \
     --hash=sha256:9a5a1495c55072093216f79931ca45fd81b59208aa64caae50ab68333514f97e
     # via urlextract
-urlextract==1.6.0 \
-    --hash=sha256:574f0d8c562d377336a5154840c7e4eecf54c102a538971c897f7313075a8887 \
-    --hash=sha256:c22a9645cae1e1390cc512fd4f4d1f37b72538eecfdc3365905a2e616e7b6b88
+urlextract==1.7.0 \
+    --hash=sha256:0c1ce02391323e17427b1768e962ac292b280c5fe8c27c3de2662dacc96644b2 \
+    --hash=sha256:aadc05932f1c0e2b8d038dbb01998efb75fc56296a1c6659a67b3db9d653125b
     # via -r requirements.in
 wheel==0.37.1 \
     --hash=sha256:4bdcd7d840138086126cd09254dc6195fb4fc6f01c050a1d7236f2630db1d22a \

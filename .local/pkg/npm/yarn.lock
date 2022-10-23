@@ -219,6 +219,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@humanwhocodes/config-array@npm:^0.11.6":
+  version: 0.11.6
+  resolution: "@humanwhocodes/config-array@npm:0.11.6"
+  dependencies:
+    "@humanwhocodes/object-schema": ^1.2.1
+    debug: ^4.1.1
+    minimatch: ^3.0.4
+  checksum: 2fb7288638968dfeec27f06aef52f043726edd126ac47f24b54256902fdb35b3bf9863d4a4caf0423dccca5dd1354ca5899f3ac047b56774641ca0c4cbedb104
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/gitignore-to-minimatch@npm:^1.0.2":
   version: 1.0.2
   resolution: "@humanwhocodes/gitignore-to-minimatch@npm:1.0.2"
@@ -317,10 +328,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nodelib/fs.scandir@npm:2.1.5":
+  version: 2.1.5
+  resolution: "@nodelib/fs.scandir@npm:2.1.5"
+  dependencies:
+    "@nodelib/fs.stat": 2.0.5
+    run-parallel: ^1.1.9
+  checksum: a970d595bd23c66c880e0ef1817791432dbb7acbb8d44b7e7d0e7a22f4521260d4a83f7f9fd61d44fda4610105577f8f58a60718105fb38352baed612fd79e59
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.stat@npm:2.0.3, @nodelib/fs.stat@npm:^2.0.2":
   version: 2.0.3
   resolution: "@nodelib/fs.stat@npm:2.0.3"
   checksum: d3612efceea83fb0bec4e64967888ff0c3e5fbbae96121bc526bbbe5529f32fc6f8a785b550f397d20f09c84dc1e5a6c8e9fd7f9b8b62387a8f80f680be8430e
+  languageName: node
+  linkType: hard
+
+"@nodelib/fs.stat@npm:2.0.5":
+  version: 2.0.5
+  resolution: "@nodelib/fs.stat@npm:2.0.5"
+  checksum: 012480b5ca9d97bff9261571dbbec7bbc6033f69cc92908bc1ecfad0792361a5a1994bc48674b9ef76419d056a03efadfce5a6cf6dbc0a36559571a7a483f6f0
   languageName: node
   linkType: hard
 
@@ -331,6 +359,16 @@ __metadata:
     "@nodelib/fs.scandir": 2.1.3
     fastq: ^1.6.0
   checksum: a971d1dcc1cf593e25651738e915be201053b63775c39c1ee221d2adee6316503ad6043136ceda0e099724875f2d72ea04b3b57c0e3a20b7f280bd3e951ae2e4
+  languageName: node
+  linkType: hard
+
+"@nodelib/fs.walk@npm:^1.2.8":
+  version: 1.2.8
+  resolution: "@nodelib/fs.walk@npm:1.2.8"
+  dependencies:
+    "@nodelib/fs.scandir": 2.1.5
+    fastq: ^1.6.0
+  checksum: 190c643f156d8f8f277bf2a6078af1ffde1fd43f498f187c2db24d35b4b4b5785c02c7dc52e356497b9a1b65b13edc996de08de0b961c32844364da02986dc53
   languageName: node
   linkType: hard
 
@@ -6071,6 +6109,55 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint@npm:8.26.0":
+  version: 8.26.0
+  resolution: "eslint@npm:8.26.0"
+  dependencies:
+    "@eslint/eslintrc": ^1.3.3
+    "@humanwhocodes/config-array": ^0.11.6
+    "@humanwhocodes/module-importer": ^1.0.1
+    "@nodelib/fs.walk": ^1.2.8
+    ajv: ^6.10.0
+    chalk: ^4.0.0
+    cross-spawn: ^7.0.2
+    debug: ^4.3.2
+    doctrine: ^3.0.0
+    escape-string-regexp: ^4.0.0
+    eslint-scope: ^7.1.1
+    eslint-utils: ^3.0.0
+    eslint-visitor-keys: ^3.3.0
+    espree: ^9.4.0
+    esquery: ^1.4.0
+    esutils: ^2.0.2
+    fast-deep-equal: ^3.1.3
+    file-entry-cache: ^6.0.1
+    find-up: ^5.0.0
+    glob-parent: ^6.0.2
+    globals: ^13.15.0
+    grapheme-splitter: ^1.0.4
+    ignore: ^5.2.0
+    import-fresh: ^3.0.0
+    imurmurhash: ^0.1.4
+    is-glob: ^4.0.0
+    is-path-inside: ^3.0.3
+    js-sdsl: ^4.1.4
+    js-yaml: ^4.1.0
+    json-stable-stringify-without-jsonify: ^1.0.1
+    levn: ^0.4.1
+    lodash.merge: ^4.6.2
+    minimatch: ^3.1.2
+    natural-compare: ^1.4.0
+    optionator: ^0.9.1
+    regexpp: ^3.2.0
+    strip-ansi: ^6.0.1
+    strip-json-comments: ^3.1.0
+    text-table: ^0.2.0
+  bin:
+    eslint: bin/eslint.js
+  checksum: a2aced939ea060f77d10dcfced5cfeb940f63f383fd7ab1decadea64170ab552582e1c5909db1db641d4283178c9bc569f19b0f8900e00314a5f783e4b3f759d
+  languageName: node
+  linkType: hard
+
 "eslint@npm:^8.21.0":
   version: 8.22.0
   resolution: "eslint@npm:8.22.0"
@@ -7473,7 +7560,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob-parent@npm:^6.0.1":
+"glob-parent@npm:^6.0.1, glob-parent@npm:^6.0.2":
   version: 6.0.2
   resolution: "glob-parent@npm:6.0.2"
   dependencies:
@@ -9262,7 +9349,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-path-inside@npm:^3.0.2":
+"is-path-inside@npm:^3.0.2, is-path-inside@npm:^3.0.3":
   version: 3.0.3
   resolution: "is-path-inside@npm:3.0.3"
   checksum: abd50f06186a052b349c15e55b182326f1936c89a78bf6c8f2b707412517c097ce04bc49a0ca221787bc44e1049f51f09a2ffb63d22899051988d3a618ba13e9
@@ -9646,9 +9733,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"js-beautify@npm:1.14.6":
-  version: 1.14.6
-  resolution: "js-beautify@npm:1.14.6"
+"js-beautify@npm:1.14.7":
+  version: 1.14.7
+  resolution: "js-beautify@npm:1.14.7"
   dependencies:
     config-chain: ^1.1.13
     editorconfig: ^0.15.3
@@ -9658,7 +9745,7 @@ __metadata:
     css-beautify: js/bin/css-beautify.js
     html-beautify: js/bin/html-beautify.js
     js-beautify: js/bin/js-beautify.js
-  checksum: 2e61c1183c73d7464ec7d5354763ee9e17ecb4b5c7a3744e9a9dc2e9c406fc6e0c37399130d1ee48313ff502e03e8a949dce96acdaee309dc44317249565934d
+  checksum: 1950d0d3f05f8ad06b73eb77b9aac602d00b24eab7d8a6d8ea0b1841ab9c730acecd5a6f3926e360dce7a2583481bc77caf6d024490a58fa9897cbbbdfc35984
   languageName: node
   linkType: hard
 
@@ -14603,9 +14690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.0.0":
-  version: 19.0.0
-  resolution: "puppeteer-core@npm:19.0.0"
+"puppeteer-core@npm:19.1.0":
+  version: 19.1.0
+  resolution: "puppeteer-core@npm:19.1.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14617,19 +14704,20 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.9.0
-  checksum: bc2a111761b1ef72ed715d72e339f0a3b74f9ae22fdac1e3b40ba2e673505143b399479f6f1bc2f701cb8b88a0a5ad13c3ba4286f508d686e7746379e749e818
+  checksum: 8c5df14503e9b5841e9ca55fe3ad9a08bd0b296089fa029609d942f435913f58d87103835fe8b284e76e0be21ca718427e0c4f068eb17e098b49bbdfc1906361
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.0.0":
-  version: 19.0.0
-  resolution: "puppeteer@npm:19.0.0"
+"puppeteer@npm:19.1.0":
+  version: 19.1.0
+  resolution: "puppeteer@npm:19.1.0"
   dependencies:
+    cosmiconfig: 7.0.1
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.0.0
-  checksum: 8c52f8f53cc5ee9699c609e26baab230addb4dd37d29131afd72bf996dc3bacfaaf7c5766a85ee0e35a3f5ba22b1d26c64780a45dc82da3d3fce15e66c47026b
+    puppeteer-core: 19.1.0
+  checksum: 489a9b7379488743ea30b901bbef3346593fcb6a33bf656e84de36800ba9b71ca6eb4faa1cbfc7e956583f76bb8e42074302de3f1bf4a7d68147f0428dc1fe8b
   languageName: node
   linkType: hard
 
@@ -15595,25 +15683,25 @@ __metadata:
     bash-language-server: 3.1.0
     corepack: 0.14.2
     diff-so-fancy: 1.4.3
-    eslint: 8.25.0
+    eslint: 8.26.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
     html-beautify: 1.0.4
     improved-yarn-audit: 3.0.0
     instant-markdown-d: 0.2.0
-    js-beautify: 1.14.6
+    js-beautify: 1.14.7
     lebab: 3.1.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.32.2
     markdownlint-cli2: 0.5.1
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.0.0
+    puppeteer: 19.1.0
     pyright: 1.1.276
     release-it: 15.5.0
     semantic-release: 19.0.5
-    snyk: 1.1039.0
+    snyk: 1.1040.0
     stylelint: 14.14.0
     tldr: 3.3.8
     uglify-js: 3.17.3
@@ -16152,12 +16240,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1039.0":
-  version: 1.1039.0
-  resolution: "snyk@npm:1.1039.0"
+"snyk@npm:1.1040.0":
+  version: 1.1040.0
+  resolution: "snyk@npm:1.1040.0"
   bin:
     snyk: bin/snyk
-  checksum: 06073e6ae9541693be39e1dde4584016872d861a03b1336524fe3c6d5d309274945a2b428128269aa425a43a9c7dc98b73094adb7f4b4544e6fc6433efde6b68
+  checksum: 396f0733de84b3455d7b921dcf1f5cc3e270dc518874ac9bf44d102a6de82dfd4445706ddd7e25c212e51e969e57461392be6dde7e8680290094a732ba975653
   languageName: node
   linkType: hard
 
