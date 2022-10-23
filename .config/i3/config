@@ -738,6 +738,7 @@ bindcode $mod+27 mode "Resize"
 ################################################################################
 
 mode "Passthrough" {
+    # Key: Ctrl+P
     bindcode $mod+Control+33 mode "default"
 }
 
