@@ -4058,16 +4058,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.14.2":
-  version: 0.14.2
-  resolution: "corepack@npm:0.14.2"
+"corepack@npm:0.15.0":
+  version: 0.15.0
+  resolution: "corepack@npm:0.15.0"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: 898df26ef94ddee30048fcba5339bcaef1b783f3c5613834caffcdd6b262ff5a55b87d4351fdaebd19f5bd0a67b11470ca6271349195b44afffdd7b55c18a757
+  checksum: aa6d241d6f846457fa062411b634c139a1620fde8560637769015a5e28abfb213b0210bf5332c116b0a2e613919b259fc44bf8e2aa050e064b5cc5da76037060
   languageName: node
   linkType: hard
 
@@ -5319,10 +5319,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1045489":
-  version: 0.0.1045489
-  resolution: "devtools-protocol@npm:0.0.1045489"
-  checksum: 670b2ecc8e890358b08da3095b4c927ffc5ef846a39e1526ff99aecaa623b339450dfe308e421e64bf94308441832b8e9497ebda97fb02266fef3f455286742f
+"devtools-protocol@npm:0.0.1056733":
+  version: 0.0.1056733
+  resolution: "devtools-protocol@npm:0.0.1056733"
+  checksum: d81b474d656d5cdfa0ec6afb8725e8707ba8b38ad7fc68abe05e5accdef1967a6bc1a1545744c8b69cb22ec5d3b3e5225d4bc0313b6a017c94a32a43f3d2c3d3
   languageName: node
   linkType: hard
 
@@ -14690,44 +14690,45 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.1.0":
-  version: 19.1.0
-  resolution: "puppeteer-core@npm:19.1.0"
+"puppeteer-core@npm:19.2.0":
+  version: 19.2.0
+  resolution: "puppeteer-core@npm:19.2.0"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
-    devtools-protocol: 0.0.1045489
+    devtools-protocol: 0.0.1056733
     extract-zip: 2.0.1
     https-proxy-agent: 5.0.1
     proxy-from-env: 1.1.0
     rimraf: 3.0.2
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
-    ws: 8.9.0
-  checksum: 8c5df14503e9b5841e9ca55fe3ad9a08bd0b296089fa029609d942f435913f58d87103835fe8b284e76e0be21ca718427e0c4f068eb17e098b49bbdfc1906361
+    ws: 8.10.0
+  checksum: 72a8e0940ebd0cdec96def743c9cdba962e5f9ff7553cc34dd6d9ddc0529f01eaad1f0bd8a58d3b9130ec7242ab31a69be49841bf49712dcf78aea829e67664a
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.1.0":
-  version: 19.1.0
-  resolution: "puppeteer@npm:19.1.0"
+"puppeteer@npm:19.2.0":
+  version: 19.2.0
+  resolution: "puppeteer@npm:19.2.0"
   dependencies:
     cosmiconfig: 7.0.1
+    devtools-protocol: 0.0.1056733
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.1.0
-  checksum: 489a9b7379488743ea30b901bbef3346593fcb6a33bf656e84de36800ba9b71ca6eb4faa1cbfc7e956583f76bb8e42074302de3f1bf4a7d68147f0428dc1fe8b
+    puppeteer-core: 19.2.0
+  checksum: 21234abfb88b1d61edaf9055227e56443340eac972ff40f11f8abaa371183cc0d91a6dbfa5d44b283e3a370cd0b2ee1892cbf382ecf22525b1a8e8f52032791a
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.276":
-  version: 1.1.276
-  resolution: "pyright@npm:1.1.276"
+"pyright@npm:1.1.277":
+  version: 1.1.277
+  resolution: "pyright@npm:1.1.277"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 1b08c39093d2e66205bb819abcdb1743eb689006f1af4cbd2f9f1a8a6a0c948dba8b1b490df5cc7d6e7c90665e3cd3c013b572ed844555ee0ca9a81742ca11af
+  checksum: 4d2d064eed1b10964bc6007dcc544d5228ecdce1cea9d85fdd8cba61045c0426b1b9818ea5cf6ec9bac675b0defd2bfa2e539df22e72b2d0c8be94f45038913d
   languageName: node
   linkType: hard
 
@@ -15681,7 +15682,7 @@ __metadata:
     "@google/clasp": 2.4.2
     alex: 10.0.0
     bash-language-server: 3.1.0
-    corepack: 0.14.2
+    corepack: 0.15.0
     diff-so-fancy: 1.4.3
     eslint: 8.26.0
     git-stats: 3.1.1
@@ -15697,14 +15698,14 @@ __metadata:
     markdownlint-cli2: 0.5.1
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.1.0
-    pyright: 1.1.276
+    puppeteer: 19.2.0
+    pyright: 1.1.277
     release-it: 15.5.0
     semantic-release: 19.0.5
-    snyk: 1.1040.0
+    snyk: 1.1044.0
     stylelint: 14.14.0
     tldr: 3.3.8
-    uglify-js: 3.17.3
+    uglify-js: 3.17.4
     web-ext: 7.3.1
     write-good: 1.0.8
     yarn: 1.22.19
@@ -16240,12 +16241,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1040.0":
-  version: 1.1040.0
-  resolution: "snyk@npm:1.1040.0"
+"snyk@npm:1.1044.0":
+  version: 1.1044.0
+  resolution: "snyk@npm:1.1044.0"
   bin:
     snyk: bin/snyk
-  checksum: 396f0733de84b3455d7b921dcf1f5cc3e270dc518874ac9bf44d102a6de82dfd4445706ddd7e25c212e51e969e57461392be6dde7e8680290094a732ba975653
+  checksum: 4d464005bc6ab55fb9925d66f0654c6f1ed0dfb11259ffa29c3e2287d8b29782218978e90ac2873347e48ea3dac46bddc42afbd2eb2b22e6f7e5a1247443a759
   languageName: node
   linkType: hard
 
@@ -17797,12 +17798,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uglify-js@npm:3.17.3":
-  version: 3.17.3
-  resolution: "uglify-js@npm:3.17.3"
+"uglify-js@npm:3.17.4":
+  version: 3.17.4
+  resolution: "uglify-js@npm:3.17.4"
   bin:
     uglifyjs: bin/uglifyjs
-  checksum: 2650b2e0385fe6bf68bc0b7746028fd004bbe839447c28a59f8a9e458187e897a5057900cb715b3be4cf7cf3f1d10217198210c5c23c0bffcb20feca2de5bb17
+  checksum: 7b3897df38b6fc7d7d9f4dcd658599d81aa2b1fb0d074829dd4e5290f7318dbca1f4af2f45acb833b95b1fe0ed4698662ab61b87e94328eb4c0a0d3435baf924
   languageName: node
   linkType: hard
 
@@ -18892,6 +18893,21 @@ __metadata:
     write-good: bin/write-good.js
     writegood: bin/write-good.js
   checksum: 045f1d1b50f73d15c6664350ecacaa4bf74bab681376747b42c14ccaec06a667db89874ec0c1ff31a46e01f52051ed76518c2b920d114925f84aefcb91708e92
+  languageName: node
+  linkType: hard
+
+"ws@npm:8.10.0":
+  version: 8.10.0
+  resolution: "ws@npm:8.10.0"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 3a32e15dffe633dd5ce99659793dbcf1440ea25d2da1060c88cbd22efdfb7986a6933e68aaa4b098fc3f1f7870cb386afd378a1ceaca4b31748471576d5a8b52
   languageName: node
   linkType: hard
 
