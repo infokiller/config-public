@@ -81,6 +81,10 @@ if is_primary_dev_machine; then
   AddPackage freerdp # Free implementation of the Remote Desktop Protocol (RDP)
   AddPackage remmina # remote desktop client written in GTK+
 
+  # NOTE: Needs to be installed both in the graphical client and server.
+  AddPackage xpra            # multi-platform screen and application forwarding system screen for X11
+  AddPackage x11-ssh-askpass # Lightweight passphrase dialog for SSH
+
   AddPackage virt-manager # Desktop user interface for managing virtual machines
   AddPackage virt-viewer  # A lightweight interface for interacting with the graphical display of virtualized guest OS.
   # NOTE: qemu was split to multiple packages [1] and is now installed in
@@ -97,11 +101,10 @@ if is_primary_dev_machine; then
   AddPackage audacity # A program that lets you manipulate digital audio waveforms
 fi
 
-# hera11 is used as a media center.
-if [[ "${HOST_ALIAS}" == hera11 ]]; then
+if is_media_server; then
+  # shellcheck source=./media-server.sh
+  source "${ACONF_LIB}/media-server.sh"
+fi
+if is_htpc; then
   AddPackage kodi # A software media player and entertainment hub for digital media
-  # AddPackage --foreign plex-media-server # Plex Media Server
-  # NOTE: As of 2019-05-15, plex is not used, so it's disabled for performance
-  # reasons.
-  # CreateLink /etc/systemd/system/multi-user.target.wants/plexmediaserver.service /usr/lib/systemd/system/plexmediaserver.service
 fi

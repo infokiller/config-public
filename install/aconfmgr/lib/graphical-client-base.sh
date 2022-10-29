@@ -57,3 +57,6 @@ CopyFile '/usr/share/X11/xkb/symbols/extend'
 CopyFile '/usr/share/X11/xkb/symbols/level5'
 CopyFile '/usr/share/X11/xkb/types/level5'
 # IgnorePath '/usr/share/X11/dbak-xkb_*'
+
+# NOTE: Needs to be installed both in the graphical client and server.
+AddPackage xpra # multi-platform screen and application forwarding system screen for X11
