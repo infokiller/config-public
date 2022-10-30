@@ -325,14 +325,14 @@ main() {
     export GIT_WORK_TREE="${REPO_ROOT}" GIT_DIR="${PUBLIC_CONFIG_GIT_DIR}"
     _fix_unmerged_submodules
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
-    "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules" --update
+    "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules"
   )
   # shellcheck disable=SC2030,SC2031
   (
     export GIT_WORK_TREE="${REPO_ROOT}" GIT_DIR="${PRIVATE_CONFIG_GIT_DIR}"
     _fix_unmerged_submodules
     "${REPO_ROOT}/.my_scripts/sysadmin/git-sensible-update"
-    "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules" --update
+    "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules"
   )
   # shellcheck disable=SC2030,SC2031
   (
