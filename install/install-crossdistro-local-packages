@@ -758,7 +758,8 @@ cmd_list() {
 }
 
 main() {
-  do_basic_setup --no-sync-submodules
+  # shellcheck disable=SC2119
+  do_basic_setup
   if (($# == 0)); then
     cmd_install install --all --parallel
     return
