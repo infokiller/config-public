@@ -89,7 +89,9 @@ PACKAGES = [
     PackageInstallSpec('tokei'),
     PackageInstallSpec('watchexec-cli',
                        installed_binaries={'watchexec': 'watchexec'},
-                       install_flags=['--locked', '--all-features'],
+                       # As of 2022-10-30, cargo install fails when using
+                       # --all-features
+                       install_flags=['--locked'],
                        old_name='watchexec'),
     PackageInstallSpec('hyperfine'),
     # As of 2021-05-29, functiontrace-server has a build issue and is not really
