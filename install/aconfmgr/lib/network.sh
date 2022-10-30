@@ -47,8 +47,8 @@ AddPackage iw             # nl80211 based CLI configuration utility for wireless
 AddPackage wireless_tools # Tools allowing to manipulate the Wireless Extensions
 AddPackage wpa_supplicant # A utility providing key negotiation for WPA wireless networks
 # Bluetooth
-AddPackage bluez          # Daemons for the bluetooth protocol stack
-AddPackage bluez-utils    # Development and debugging utilities for the bluetooth protocol stack
+AddPackage bluez       # Daemons for the bluetooth protocol stack
+AddPackage bluez-utils # Development and debugging utilities for the bluetooth protocol stack
 
 AddPackage networkmanager # Network connection manager and user applications
 CopyFile /etc/NetworkManager/conf.d/dns.conf
@@ -99,6 +99,8 @@ AddPackage whois         # Intelligent WHOIS client
 AddPackage speedtest-cli # Command line interface for testing internet bandwidth using speedtest.net
 AddPackage wget          # Network utility to retrieve files from the Web
 AddPackage ethtool       # Utility for controlling network drivers and hardware
+# Only the hostname command is used in inetutils
+AddPackage inetutils # A collection of common network programs
 
 AddPackage nmap      # Utility for network discovery and security auditing
 AddPackage rsync     # A file transfer program to keep remote files in sync
