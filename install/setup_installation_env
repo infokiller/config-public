@@ -111,21 +111,23 @@ _ctrl_c_handler() {
 }
 
 do_basic_setup() {
-  local update_submodules=0
+  local submodules=''
   for arg in "$@"; do
     case "${arg}" in
-      --no-update-submodules)
-        update_submodules=0
-        ;;
-      --update-submodules)
-        update_submodules=1
+      --submodules)
+        submodules="$2"
+        shift 2
         ;;
       *)
-        print_error 'Usage: do_basic_setup [--[no-]update-submodules]'
+        print_error 'Usage: do_basic_setup [--submodules=(init|update|)]'
         return 1
         ;;
     esac
   done
+  if [[ ! "${submodules}" =~ (init|update|) ]]; then
+    print_error 'Usage: do_basic_setup [--submodules=(init|update|)]'
+    return 1
+  fi
   _log_info_bold "Repo root: ${REPO_ROOT}"
   _log_info_bold "Submodules dir: ${SUBMODULES_DIR}"
 
@@ -134,11 +136,11 @@ do_basic_setup() {
   _make_installation_tmpdir
   _log_info "Installation tmp files dir: ${INSTALLATION_TMP_DIR}"
 
-  update_arg=()
-  if ((update_submodules)); then
-    update_arg=(--update)
+  if [[ "${submodules}" == init ]]; then
+    "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules"
+  elif [[ "${submodules}" == update ]]; then
+    "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules" --update
   fi
-  "${REPO_ROOT}/.my_scripts/sysadmin/init-submodules" "${update_arg[@]}"
 
   trap _ctrl_c_handler INT
 

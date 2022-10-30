@@ -26,9 +26,11 @@ init_submodules() {
   local update="$1"
   _log_info 'Syncing submodules remotes URLs'
   git submodule sync --recursive > /dev/null
-  _log_info 'Initializing and updating required submodules'
   local excludes=()
-  if ((!update)); then
+  if ((update)); then
+    _log_info 'Initializing and updating required submodules'
+  else
+    _log_info 'Only initializing required submodules that are missing'
     # "git submodule update" changes the working tree of submodules, even if they
     # already have a different commit checked out. We don't want this behavior
     # because it can override local changes that were not yet committed to the
