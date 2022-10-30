@@ -26,9 +26,28 @@ update_submodules() {
   _log_info 'Syncing submodules remotes URLs'
   git submodule sync --recursive > /dev/null
   _log_info 'Initializing and updating required submodules'
+  # "git submodule update" changes the working tree of submodules, even if they
+  # already have a different commit checked out. We don't want this behavior
+  # because it can override local changes that were not yet committed to the
+  # superproject, so we grab a list of submodules we shouldn't touch by
+  # utilizing the fact that "git submodule foreach" only runs on submodules that
+  # are checked out (even if to a different commit than the one committed to the
+  # superproject)
+  local initialized=()
+  # shellcheck disable=SC2016
+  mapfile -t -d '' initialized < <(
+    git submodule foreach -q 'printf "%s\0" "${sm_path}"'
+  )
+  local excludes=()
+  for submodule in "${initialized[@]}"; do
+    if [[ -n "${submodule}" ]]; then
+      excludes+=(":(exclude)${submodule}")
+    fi
+  done
+  local update_cmd=(git submodule update --init --recursive "${excludes[@]}")
   # Exclude submodules in the optional directory using git's pathspec argument.
   # https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpathspecapathspec
-  git submodule update --init --recursive ":(exclude)${SUBMODULES_DIR}/optional"
+  "${update_cmd[@]}" ":(exclude)${SUBMODULES_DIR}/optional"
   if [[ -z "$(git ls-files "${SUBMODULES_DIR}/optional")" ]]; then
     _log_info 'Optional submodules not found, skipping'
     return 0
@@ -38,7 +57,7 @@ update_submodules() {
   # that we can correctly pass the pathspec components separated.
   mapfile -t opt_submodules < <(get_optional_submodules_pathspec) || return 1
   if ((${#opt_submodules[@]})); then
-    git submodule update --init --recursive "${opt_submodules[@]}"
+    "${update_cmd[@]}" "${opt_submodules[@]}"
   fi
   _log_info 'Deinitializing unused optional submodules'
   local deinit_excludes=()
