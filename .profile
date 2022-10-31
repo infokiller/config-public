@@ -215,6 +215,8 @@ _increase_xdg_conformance() {
   _maybe_create_dir "${WAKATIME_HOME}"
   export GTK2_RC_FILES="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc"
   export KDEHOME="${XDG_CONFIG_HOME}/kde"
+  # NOTE: if ${DOCKER_CONFIG}/config.json doesn't exist, podman has errors [1],
+  # so we have an empty file there.
   export DOCKER_CONFIG="${XDG_CONFIG_HOME}/docker"
   export MACHINE_STORAGE_PATH="${XDG_DATA_HOME}/docker-machine"
   export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"

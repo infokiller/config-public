@@ -304,7 +304,6 @@
 /.config/btop/btop.log
 /.config/configstore
 /.config/dconf/user*
-/.config/docker
 /.config/lxqt/filedialog.conf
 /.config/xdg-desktop-portal-kderc
 /.config/dolphinrc
@@ -489,6 +488,9 @@
 # !/.config/chromium/Home
 # /.config/chromium/Home/*
 # !/.config/chromium/Home/exported_extensions.txt
+!/.config/docker
+/.config/docker/*
+!/.config/docker/config.json
 
 # qBittorrent
 /.config/qBittorrent
