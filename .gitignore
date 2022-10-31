@@ -419,12 +419,16 @@
 # https://stackoverflow.com/a/5534865/1014208
 # As of 2020-06-01, this is partially disabled because some files show up as
 # untracked in the config repos after making the public repo primary.
+# Update 2022-10-31: this may be related to the content in info/exclude not
+# overriding what's in this file, cause the private repo to show untracked
+# files.
 /.config/chromium
 /.config/chromium-sync
 /.config/Code
 /.config/Mullvad VPN
 /.config/copyq
 /.config/recoll
+/.config/docker
 
 # User pacakages installed in ~/.local/pkg
 /.local/pkg/*
@@ -488,9 +492,9 @@
 # !/.config/chromium/Home
 # /.config/chromium/Home/*
 # !/.config/chromium/Home/exported_extensions.txt
-!/.config/docker
-/.config/docker/*
-!/.config/docker/config.json
+# !/.config/docker
+# /.config/docker/*
+# !/.config/docker/config.json
 
 # qBittorrent
 /.config/qBittorrent
