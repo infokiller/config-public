@@ -14690,9 +14690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.2.0":
-  version: 19.2.0
-  resolution: "puppeteer-core@npm:19.2.0"
+"puppeteer-core@npm:19.2.2":
+  version: 19.2.2
+  resolution: "puppeteer-core@npm:19.2.2"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14704,31 +14704,31 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.10.0
-  checksum: 72a8e0940ebd0cdec96def743c9cdba962e5f9ff7553cc34dd6d9ddc0529f01eaad1f0bd8a58d3b9130ec7242ab31a69be49841bf49712dcf78aea829e67664a
+  checksum: 5d275456667b57f3fb3caedfa4bc00474bd24f6028e3b1520281404584675dfb5e1b7d2daf6a57f62ca52f71eea899b0cc429aca5b65a9646da8b4588786431c
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.2.0":
-  version: 19.2.0
-  resolution: "puppeteer@npm:19.2.0"
+"puppeteer@npm:19.2.2":
+  version: 19.2.2
+  resolution: "puppeteer@npm:19.2.2"
   dependencies:
     cosmiconfig: 7.0.1
     devtools-protocol: 0.0.1056733
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.2.0
-  checksum: 21234abfb88b1d61edaf9055227e56443340eac972ff40f11f8abaa371183cc0d91a6dbfa5d44b283e3a370cd0b2ee1892cbf382ecf22525b1a8e8f52032791a
+    puppeteer-core: 19.2.2
+  checksum: 8b66180ee62e624bd494c5fdcb36e023caca4058a151c30a99e938346c74a33951132c17149b72c90a87cb04ad1a5e220b554d69fd0bcd206345c9983d71edbe
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.277":
-  version: 1.1.277
-  resolution: "pyright@npm:1.1.277"
+"pyright@npm:1.1.278":
+  version: 1.1.278
+  resolution: "pyright@npm:1.1.278"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 4d2d064eed1b10964bc6007dcc544d5228ecdce1cea9d85fdd8cba61045c0426b1b9818ea5cf6ec9bac675b0defd2bfa2e539df22e72b2d0c8be94f45038913d
+  checksum: fe1c792398571ad7f1c8691b74f85dc2e24696284e8943cd69300118d9357cbff110a3af893c0c2a34a64d294871a41e828d3349917e078d7639baef7efd0739
   languageName: node
   linkType: hard
 
@@ -15698,11 +15698,11 @@ __metadata:
     markdownlint-cli2: 0.5.1
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.2.0
-    pyright: 1.1.277
+    puppeteer: 19.2.2
+    pyright: 1.1.278
     release-it: 15.5.0
     semantic-release: 19.0.5
-    snyk: 1.1047.0
+    snyk: 1.1049.0
     stylelint: 14.14.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16241,12 +16241,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1047.0":
-  version: 1.1047.0
-  resolution: "snyk@npm:1.1047.0"
+"snyk@npm:1.1049.0":
+  version: 1.1049.0
+  resolution: "snyk@npm:1.1049.0"
   bin:
     snyk: bin/snyk
-  checksum: 29bacd27b0d6abf68052203800edaeb3740af45d3e975e5ab69f3bbbabddeb99daeb575d2122d22df8905137a938630642aee1df5a8c53eaf568393b4cea4ba4
+  checksum: 8fcffcdd33641d3a3b01a362d91503b1d6d63f4a4ae9b21b85412d3a06a16e99c438163cdae76ad63e849bbee707c91533fea728958762aa7dbb2ff85a9c419f
   languageName: node
   linkType: hard
 
