@@ -306,6 +306,7 @@
 /.config/dconf/user*
 /.config/lxqt/filedialog.conf
 /.config/xdg-desktop-portal-kderc
+/.config/discord
 /.config/dolphinrc
 /.config/dotdrop.yaml
 /.config/et
