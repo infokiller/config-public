@@ -10,16 +10,26 @@ from keydope.keycodes import Key
 In = key_parsing.parse_combo_spec
 Out = key_parsing.parse_combo
 
-BROWSERS = [
-    'firefox',
+
+def window_classes_to_re(window_classes):
+    # NOTE: this function causes an error if re is not imported inside, I'm not
+    # sure why this happens.
+    # pylint: disable-next=import-outside-toplevel,reimported,redefined-outer-name
+    import re
+    return re.compile('^({})$'.format('|'.join(window_classes)), flags=re.I)
+
+
+CHROMIUM_BROWSERS = [
     'google-chrome',
     'chromium',
     'brave-browser',
     'vivaldi-stable',
+]
+FIREFOX_BROWSERS = [
+    'firefox',
     'tor browser',
 ]
-# pylint: disable-next=consider-using-f-string
-BROWSERS_RE = re.compile('^({})$'.format('|'.join(BROWSERS)), flags=re.I)
+BROWSERS = CHROMIUM_BROWSERS + FIREFOX_BROWSERS
 
 TERMINALS = [
     'kitty',
@@ -32,8 +42,6 @@ TERMINALS = [
     'guake',
     'st',
 ]
-# pylint: disable-next=consider-using-f-string
-TERMINALS_RE = re.compile('^({})$'.format('|'.join(TERMINALS)), flags=re.I)
 
 # List of used programs that don't correctly interpret XKB CapsLock/ISO_LEVEL5
 # combos:
@@ -55,10 +63,8 @@ CAPSLOCK_COMBOS_BUGGY_PROGRAMS = BROWSERS + [
     'spicy',
     'xdg-desktop-portal-kde',
 ]
-# pylint: disable-next=consider-using-f-string
-CAPSLOCK_COMBOS_BUGGY_PROGRAMS_RE = re.compile('^({})$'.format(
-    '|'.join(CAPSLOCK_COMBOS_BUGGY_PROGRAMS)),
-                                               flags=re.I)
+CAPSLOCK_COMBOS_BUGGY_PROGRAMS_RE = window_classes_to_re(
+    CAPSLOCK_COMBOS_BUGGY_PROGRAMS)
 
 DEFAULT_CAPSLOCK_MAPPINGS = {
     In('LV5-i'): Out('Up'),
@@ -108,22 +114,30 @@ key_processor.define_multipurpose_modmap({
 # Keybindings for Chromium/Chrome and Firefox, which don't support mapping
 # Alt+Semicolon. I'm not sure if Vivaldi, Brave, Edge, and other Chromium-based
 # browsers also have this limitation.
-key_processor.define_keymap(re.compile(BROWSERS_RE), {
+key_processor.define_keymap(window_classes_to_re(BROWSERS), {
     In('M-Semicolon'): Out('M-Shift-dot'),
 }, 'Web browsers')
 
-# Key bindings for non-Chromium web browsers only. Chromium based browsers can
-# use the tabctl extension.
-# NOTE: tabctl works on Firefox, but Firefox has buggy handling of Alt
-# keybindings when RFP is on. See comment in user-overrides.js.
+# Key bindings for browser naviagation (back, forward, next/previous tab).
+# This capability is also provided by the tabctl extension.
 key_processor.define_keymap(
-    re.compile('^(firefox|tor browser)$', flags=re.I), {
+    # TODO: browser navigation is enabled in chrome now as well because tabctl
+    # doesn't work well with tab groups. This should be an easy fix.
+    window_classes_to_re(BROWSERS),
+    # window_classes_to_re(FIREFOX_BROWSERS),
+    {
         In('M-k'): Out('C-page_down'),
         In('M-i'): Out('C-page_up'),
         In('M-Shift-k'): Out('C-Shift-page_down'),
         In('M-Shift-i'): Out('C-Shift-page_up'),
         In('M-j'): Out('Back'),
         In('M-l'): Out('Forward'),
+    },
+    'Web browsers navigation')
+
+key_processor.define_keymap(
+    window_classes_to_re(FIREFOX_BROWSERS),
+    {
         # Changing the keyboard layout with CapsLock+m causes it to output "m",
         # possibly because it leaks from i3.
         In('LV5-m'): Out('Super-Shift-Insert'),
@@ -156,8 +170,8 @@ key_processor.define_keymap(re.compile('^termite$', flags=re.I), {
     In('C-Shift-0'): Out('C-Equal'),
 }, 'Termite zooming')
 
-key_processor.define_keymap(TERMINALS_RE, TERMINALS_CAPSLOCK_MAPPINGS,
-                            'Terminal emulators')
+key_processor.define_keymap(window_classes_to_re(TERMINALS),
+                            TERMINALS_CAPSLOCK_MAPPINGS, 'Terminal emulators')
 
 # This should be at the end to enable programs to override these keys (since the
 # first matching keymap is used).
