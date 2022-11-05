@@ -16,7 +16,7 @@ require (
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
-	github.com/bazelbuild/bazelisk v1.14.1 // indirect
+	github.com/bazelbuild/bazelisk v1.15.0 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20221004120235-7186f635531b // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect

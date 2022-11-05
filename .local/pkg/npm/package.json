@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "@google/clasp": "2.4.2",
-    "alex": "10.0.0",
+    "alex": "11.0.0",
     "bash-language-server": "3.1.0",
-    "corepack": "0.15.0",
+    "corepack": "0.15.1",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.26.0",
     "git-stats": "3.1.1",
@@ -23,14 +23,14 @@
     "pyright": "1.1.278",
     "release-it": "15.5.0",
     "semantic-release": "19.0.5",
-    "snyk": "1.1052.0",
+    "snyk": "1.1053.0",
     "stylelint": "14.14.1",
     "tldr": "3.3.8",
     "uglify-js": "3.17.4",
     "web-ext": "7.3.1",
     "write-good": "1.0.8",
     "yarn": "1.22.19",
-    "yarn-audit-fix": "9.3.6"
+    "yarn-audit-fix": "9.3.7"
   },
   "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
   "resolutions": {
