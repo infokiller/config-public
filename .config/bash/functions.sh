@@ -1709,7 +1709,7 @@ explainshell-term() {
   # local render_cmd=(w3m -T text/html -dump)
   # elinks has some color support in dump mode, but it's not maintained since
   # 2012 or so.
-  local render_cmd=(elinks -dump -dump-color-mode 1)
+  # local render_cmd=(elinks -dump -dump-color-mode 1)
   # -G tells curl to append the encoded data to the URL as a query string
   curl -fsSL -G 'https://explainshell.com/explain' \
     --data-urlencode "cmd=${quoted_cmd}" | explainshell-render
