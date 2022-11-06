@@ -409,6 +409,14 @@ _best_grep() {
   "${_BEST_GREP_CMD[@]}" "$@"
 }
 
+_pipe_if_term() {
+  if [[ -t 1 ]]; then
+    "$@"
+  else
+    cat -
+  fi
+}
+
 # shellcheck disable=SC2120
 ps2() {
   local extra_opts=("$@")
@@ -428,16 +436,11 @@ ps2() {
   for (i=1; i <= 6; i++) printf "%s\t", $i
   for (i=7; i <= NF; i++) printf "%s ", $i
   printf "\n"
-}' | column -t -s $'\t' | {
-    # Limit the width of huge command lines
-    # cut -c -150
-    # If the output is a terminal, pipe to less, otherwise don't pipe it
-    if [[ -t 1 ]]; then
-      less
-    else
-      cat -
-    fi
-  }
+}' | column -t -s $'\t' |
+  # Limit the width of huge command lines
+  # cut -c -150
+  # If the output is a terminal, pipe to less, otherwise don't pipe it
+  _pipe_if_term less
 }
 alias ps2-rss='ps2 --sort -rss'
 alias pst='pstree -hpausST'
@@ -457,7 +460,7 @@ grep-processes() {
     # won't match "rg".
     \grep --text -v --fixed-strings " ${_BEST_GREP_CMD[*]} " |
       _best_grep "${grep_args[@]}"
-  } | cut -c -150
+  } | _pipe_if_term cut -c -150
 }
 alias pg='grep-processes'
 # Grep for an env variable
