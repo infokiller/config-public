@@ -392,6 +392,7 @@
 /.ssh/sockets
 /.ssh/ssh_auth_sock
 /.streamlit
+/.sudo_as_admin_successful
 /.theano
 /.thumbnails
 /.tig_history
