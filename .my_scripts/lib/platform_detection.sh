@@ -9,6 +9,7 @@ __sh_platform_detection_loaded=1
 
 # NOTE: We intentionally only set these variables if they're not already set so
 # that if they are readonly there won't be an error.
+# shellcheck disable=
 : "${REPO_ROOT:=$(config-repo-root "${BASH_SOURCE[0]:-${(%):-%x}}" 2> /dev/null || echo "${HOME}")}"
 : "${SUBMODULES_DIR:=${REPO_ROOT}/submodules}"
 # Detect distro- see https://unix.stackexchange.com/a/6348
@@ -104,8 +105,15 @@ is_nvidia_dgx() {
   [[ -f /etc/dgx-release ]]
 }
 
+# https://stackoverflow.com/a/68819871/1014208
+is_azure_vm() {
+  local tag
+  tag="$(</sys/devices/virtual/dmi/id/chassis_asset_tag)"
+  [[ ${tag} == 7783-7084-3265-9085-8269-3286-77 ]]
+}
+
 uses_local_graphics() {
-  ! is_wsl1 && ! is_nvidia_dgx
+  ! is_wsl1 && ! is_nvidia_dgx && ! is_azure_vm
 }
 
 # Enables private/local overrides.
