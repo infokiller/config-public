@@ -8,6 +8,7 @@
 : "${USER_BIN_DIR:="${HOME}/.local/bin"}"
 : "${USER_MAN_DIR:="${HOME}/.local/share/man/man1"}"
 : "${CARGO_BIN:="${CARGO_HOME:-${HOME}/.local/pkg/cargo}/bin"}"
+: "${TMUX_RESURRECT_DIR:="${HOME}/.local/var/tmux/resurrect"}"
 
 # For print_bold
 # shellcheck source=../.my_scripts/lib/base.sh
@@ -133,6 +134,7 @@ do_basic_setup() {
 
   mkdir -p -- "${USER_BIN_DIR}"
   mkdir -p -- "${CARGO_BIN}"
+  mkdir -p -- "${TMUX_RESURRECT_DIR}"
 
   _make_installation_tmpdir
   _log_info "Installation tmp files dir: ${INSTALLATION_TMP_DIR}"
