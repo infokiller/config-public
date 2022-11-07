@@ -132,6 +132,7 @@ do_basic_setup() {
   _log_info_bold "Submodules dir: ${SUBMODULES_DIR}"
 
   mkdir -p -- "${USER_BIN_DIR}"
+  mkdir -p -- "${CARGO_BIN}"
 
   _make_installation_tmpdir
   _log_info "Installation tmp files dir: ${INSTALLATION_TMP_DIR}"
