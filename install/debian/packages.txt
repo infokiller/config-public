@@ -22,6 +22,7 @@ tmux
 # clipboard, clientserver, etc. See also:
 # https://askubuntu.com/questions/347519/unable-to-copy-from-vim-to-system-clipboard
 vim-gtk
+python3-pynvim
 highlight
 silversearcher-ag
 at
