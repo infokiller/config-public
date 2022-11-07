@@ -543,7 +543,9 @@ _install_firenvim() {
 # TODO: Pin VSCode extensions. Listing the current versions:
 # code --list-extensions --show-versions
 _install_vscode_extensions() {
-  if ! command_exists code; then
+  # A code wrapper is installed in ~/.local/bin, so we also check that the
+  # command works.
+  if ! command_exists code || ! code --help 2> /dev/null; then
     print_warning 'VSCode not found, skipping extensions installation'
     return
   fi
