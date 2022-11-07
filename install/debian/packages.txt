@@ -78,7 +78,8 @@ libnotify-bin
 alsa-utils
 pulseaudio
 pulseaudio-utils
-rxvt-unicode-256color
+kitty
+gnome-terminal
 vlc
 geeqie
 pinta
