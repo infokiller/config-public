@@ -112,20 +112,20 @@ _ctrl_c_handler() {
 
 do_basic_setup() {
   local submodules=''
-  for arg in "$@"; do
-    case "${arg}" in
+  while (($# > 0)); do
+    case "$1" in
       --submodules)
         submodules="$2"
         shift 2
         ;;
       *)
-        print_error 'Usage: do_basic_setup [--submodules=(init|update|)]'
+        print_error 'Usage: do_basic_setup [--submodules (init|update)]'
         return 1
         ;;
     esac
   done
   if [[ ! "${submodules}" =~ (init|update|) ]]; then
-    print_error 'Usage: do_basic_setup [--submodules=(init|update|)]'
+    print_error 'Usage: do_basic_setup [--submodules (init|update)]'
     return 1
   fi
   _log_info_bold "Repo root: ${REPO_ROOT}"
