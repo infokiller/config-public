@@ -63,7 +63,7 @@ main() {
   # shellcheck source=./setup_installation_env
   source "${REPO_ROOT}/install/setup_installation_env"
   # shellcheck disable=SC2119
-  do_basic_setup --submodules=init
+  do_basic_setup --submodules init
 
   print_bold 'Creating XDG directories'
   "${REPO_ROOT}/.my_scripts/desktop_env/create-xdg-dirs"
