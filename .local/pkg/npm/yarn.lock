@@ -6014,9 +6014,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.26.0":
-  version: 8.26.0
-  resolution: "eslint@npm:8.26.0"
+"eslint@npm:8.27.0":
+  version: 8.27.0
+  resolution: "eslint@npm:8.27.0"
   dependencies:
     "@eslint/eslintrc": ^1.3.3
     "@humanwhocodes/config-array": ^0.11.6
@@ -6059,7 +6059,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: a2aced939ea060f77d10dcfced5cfeb940f63f383fd7ab1decadea64170ab552582e1c5909db1db641d4283178c9bc569f19b0f8900e00314a5f783e4b3f759d
+  checksum: 153b022d309e1b647a73b1bb0fa98912add699b06e279084155f23c6f2b5fc5abd05411fc1ba81608a24bbfaf044ca079544c16fffa6fc987b8f676c9960a2c4
   languageName: node
   linkType: hard
 
@@ -14547,13 +14547,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.278":
-  version: 1.1.278
-  resolution: "pyright@npm:1.1.278"
+"pyright@npm:1.1.279":
+  version: 1.1.279
+  resolution: "pyright@npm:1.1.279"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: fe1c792398571ad7f1c8691b74f85dc2e24696284e8943cd69300118d9357cbff110a3af893c0c2a34a64d294871a41e828d3349917e078d7639baef7efd0739
+  checksum: e5d8a2277ff7bd9a48a95bdcb3972dc205a31c74f04ca48bfe29a83bbe03b4d00b7ca410e02ee3ca3c7bf9cf64cea0528e3d1d043fa2604c63c84909c7921ed8
   languageName: node
   linkType: hard
 
@@ -15521,7 +15521,7 @@ __metadata:
     bash-language-server: 3.1.0
     corepack: 0.15.1
     diff-so-fancy: 1.4.3
-    eslint: 8.26.0
+    eslint: 8.27.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -15536,10 +15536,10 @@ __metadata:
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.2.2
-    pyright: 1.1.278
+    pyright: 1.1.279
     release-it: 15.5.0
     semantic-release: 19.0.5
-    snyk: 1.1053.0
+    snyk: 1.1056.0
     stylelint: 14.14.1
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16078,12 +16078,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1053.0":
-  version: 1.1053.0
-  resolution: "snyk@npm:1.1053.0"
+"snyk@npm:1.1056.0":
+  version: 1.1056.0
+  resolution: "snyk@npm:1.1056.0"
   bin:
     snyk: bin/snyk
-  checksum: 4390f513f1671d613b5fb889da998af32c3bc5b52e8a723574ce40343e975df26aed96c9a567c77a8b80cb0f32ee07e551fff4d7446ef6549c0340752f7440f4
+  checksum: 958d658bde98537a5230f41a3f246bb2eb067be1b5f2bb37008874b83980b7b72401ae3aab03f640956dae58c001e5b8090bc1fc17303646571e20f7753fb626
   languageName: node
   linkType: hard
 
