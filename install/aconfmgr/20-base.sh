@@ -112,30 +112,38 @@ _verify_safe_group_update() {
   fi
 }
 
-if ((${ACONF_UPDATE_USERS:-1})); then
-  _verify_safe_group_update || exit 1
-  # Conventions of system groups for Linux:
-  # - https://wiki.archlinux.org/index.php/DeveloperWiki:UID_/_GID_Database
-  # - https://wiki.debian.org/SystemGroups
-  # - https://git.archlinux.org/svntogit/packages.git/tree/trunk/sysusers?h=packages/filesystem
-  # See also the output from `systemd-sysusers --cat-config`
-  CopyFile '/etc/passwd'
-  CopyFile '/etc/shadow' 0
-  CopyFile '/etc/group'
-  CopyFile '/etc/gshadow' 0
-else
-  IgnorePath '/etc/passwd'
-  IgnorePath '/etc/shadow'
-  IgnorePath '/etc/group'
-  IgnorePath '/etc/gshadow'
-fi
+config_users_groups() {
+  # NOTE: I used to set the mod to 0 (IIRC this was recommended by Lynis), but
+  # it breaks shadow.service.
+  # local shadow_mod=0
+  local shadow_mod=600
+  if ((${ACONF_UPDATE_USERS:-1})); then
+    _verify_safe_group_update || exit 1
+    # Conventions of system groups for Linux:
+    # - https://wiki.archlinux.org/index.php/DeveloperWiki:UID_/_GID_Database
+    # - https://wiki.debian.org/SystemGroups
+    # - https://git.archlinux.org/svntogit/packages.git/tree/trunk/sysusers?h=packages/filesystem
+    # See also the output from `systemd-sysusers --cat-config`
+    CopyFile '/etc/passwd'
+    CopyFile '/etc/shadow' "${shadow_mod}"
+    CopyFile '/etc/group'
+    CopyFile '/etc/gshadow' "${shadow_mod}"
+  else
+    IgnorePath '/etc/passwd'
+    IgnorePath '/etc/shadow'
+    IgnorePath '/etc/group'
+    IgnorePath '/etc/gshadow'
+  fi
 
-# Backups for group, passwd, shadow, and gshadow. See also:
-# https://stackoverflow.com/q/7872907/1014208
-IgnorePath '/etc/shadow-'
-IgnorePath '/etc/gshadow-'
-IgnorePath '/etc/group-'
-IgnorePath '/etc/passwd-'
+  # Backups for group, passwd, shadow, and gshadow. See also:
+  # https://stackoverflow.com/q/7872907/1014208
+  IgnorePath '/etc/shadow-'
+  IgnorePath '/etc/gshadow-'
+  IgnorePath '/etc/group-'
+  IgnorePath '/etc/passwd-'
+}
+
+config_users_groups
 
 CopyFile '/etc/mkinitcpio.conf'
 IgnorePath '/etc/mkinitcpio.d/*.preset'
