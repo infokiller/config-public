@@ -35,7 +35,8 @@
   "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
   "resolutions": {
     "minimist": "^1.2.6",
-    "url-parse": "^1.5.8"
+    "url-parse": "^1.5.8",
+    "socket.io": "^3.0.5"
   },
   "//2": "Any package not listed here will install all its binaries.",
   "explicitly_installed_binaries": {
