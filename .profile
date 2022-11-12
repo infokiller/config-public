@@ -198,8 +198,9 @@ _increase_xdg_conformance() {
   # The dash is used to get the default pyflyby value.
   export PYFLYBY_PATH="-:${XDG_CONFIG_HOME}/pyflyby"
   export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME}/npmrc"
-  export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
-  export NPM_CONFIG_TMP="${XDG_RUNTIME_DIR}/npm"
+  # NPM_CONFIG_CACHE seems unnecessary since it's already set in
+  # ${XDG_CONFIG_HOME}/npmrc
+  # export NPM_CONFIG_CACHE="${XDG_CACHE_HOME}/npm"
   export YARN_CACHE_FOLDER="${XDG_CACHE_HOME}/yarn"
   export PNPM_HOME="${XDG_DATA_HOME}/pnpm"
   export GEMRC="${XDG_CONFIG_HOME}/gemrc"
