@@ -20,10 +20,10 @@
     "prettier": "2.7.1",
     "prettier-eslint-cli": "7.1.0",
     "puppeteer": "19.2.2",
-    "pyright": "1.1.279",
+    "pyright": "1.1.280",
     "release-it": "15.5.0",
     "semantic-release": "19.0.5",
-    "snyk": "1.1058.0",
+    "snyk": "1.1060.0",
     "stylelint": "14.15.0",
     "tldr": "3.3.8",
     "uglify-js": "3.17.4",
@@ -54,5 +54,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.2.4"
+  "packageManager": "yarn@3.3.0"
 }

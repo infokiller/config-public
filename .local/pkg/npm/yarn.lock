@@ -7064,7 +7064,7 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -14571,13 +14571,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.279":
-  version: 1.1.279
-  resolution: "pyright@npm:1.1.279"
+"pyright@npm:1.1.280":
+  version: 1.1.280
+  resolution: "pyright@npm:1.1.280"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: e5d8a2277ff7bd9a48a95bdcb3972dc205a31c74f04ca48bfe29a83bbe03b4d00b7ca410e02ee3ca3c7bf9cf64cea0528e3d1d043fa2604c63c84909c7921ed8
+  checksum: 6f1f9c63f76e3672269acad41887c2837a3fe8b9c357a18519f1129a9f6310577959330731da307c50338d9f3005ad57455bd8353d95dbbacf501b41d0c7809e
   languageName: node
   linkType: hard
 
@@ -15365,7 +15365,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>":
   version: 1.17.0
-  resolution: "resolve@patch:resolve@npm%3A1.17.0#~builtin<compat/resolve>::version=1.17.0&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.17.0#~builtin<compat/resolve>::version=1.17.0&hash=c3c19d"
   dependencies:
     path-parse: ^1.0.6
   checksum: 6fd799f282ddf078c4bc20ce863e3af01fa8cb218f0658d9162c57161a2dbafe092b13015b9a4c58d0e1e801cf7aa7a4f13115fea9db98c3f9a0c43e429bad6f
@@ -15374,7 +15374,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>":
   version: 1.15.1
-  resolution: "resolve@patch:resolve@npm%3A1.15.1#~builtin<compat/resolve>::version=1.15.1&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.15.1#~builtin<compat/resolve>::version=1.15.1&hash=c3c19d"
   dependencies:
     path-parse: ^1.0.6
   checksum: db40f1203ef19e18edc66801c7a5903b903f20c318c1d7d234dd5b792361bf336b556d27e7f1831871d15471d3d7ed7baad979a781fb57463a36ea1abd293608
@@ -15383,7 +15383,7 @@ __metadata:
 
 "resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>":
   version: 1.19.0
-  resolution: "resolve@patch:resolve@npm%3A1.19.0#~builtin<compat/resolve>::version=1.19.0&hash=07638b"
+  resolution: "resolve@patch:resolve@npm%3A1.19.0#~builtin<compat/resolve>::version=1.19.0&hash=c3c19d"
   dependencies:
     is-core-module: ^2.1.0
     path-parse: ^1.0.6
@@ -15560,10 +15560,10 @@ __metadata:
     prettier: 2.7.1
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.2.2
-    pyright: 1.1.279
+    pyright: 1.1.280
     release-it: 15.5.0
     semantic-release: 19.0.5
-    snyk: 1.1058.0
+    snyk: 1.1060.0
     stylelint: 14.15.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16102,12 +16102,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1058.0":
-  version: 1.1058.0
-  resolution: "snyk@npm:1.1058.0"
+"snyk@npm:1.1060.0":
+  version: 1.1060.0
+  resolution: "snyk@npm:1.1060.0"
   bin:
     snyk: bin/snyk
-  checksum: c1cd882d348e027543d226170d1a390a5df93bc2d82d7c0ec53208b369e3e08d953440fd6a1a74431740d2dd45feeea590e2cfca683c148765c8420ce35f20b5
+  checksum: 3ece7443775896dfcb0355ac5f20ab52bc830fab53b49a36baa720e119758dd1db23b3f93b3e696d50bfe07ed00ec7d05795ccfbc3b462c00815e37b24bb811c
   languageName: node
   linkType: hard
 
@@ -17609,7 +17609,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
   version: 4.4.4
-  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=701156"
+  resolution: "typescript@patch:typescript@npm%3A4.4.4#~builtin<compat/typescript>::version=4.4.4&hash=bbeadb"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -17619,7 +17619,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.5.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=701156"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=65a307"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
