@@ -323,6 +323,7 @@ _install_cargo_from_rustup() {
 }
 
 # TODO: Audit all python environments
+# TODO: Add snyk ignores for false positives
 cmd_audit() {
   snyk test "${SUBMODULES_DIR}/terminal/histcat"
   snyk code test "${SUBMODULES_DIR}/terminal/histcat"
