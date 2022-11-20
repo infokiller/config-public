@@ -294,11 +294,18 @@ _install_golang_packages() {
   done
 }
 
-_upgrade_golang_packages() {
+_upgrade_golang_tools_module() {
   cd -- "${_GOLANG_TOOLS_MODULE_DIR}" || return 1
   rm go.{sum,mod} 2> /dev/null || true
   go mod init 'gitlab.com/infokiller/config-public/.local/pkg/go/tools'
   GO111MODULE=on go get -d "${!_GOLANG_PACKAGES[@]}"
+}
+
+_upgrade_golang_packages() {
+  _upgrade_golang_tools_module
+  # https://stackoverflow.com/a/67202539/1014208
+  cd -- "${SUBMODULES_DIR}/terminal/histcat"
+  GO111MODULE=on go get -u ./... && go mod tidy
 }
 
 # https://doc.rust-lang.org/cargo/getting-started/installation.html
