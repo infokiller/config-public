@@ -303,9 +303,11 @@ _upgrade_golang_tools_module() {
 
 _upgrade_golang_packages() {
   _upgrade_golang_tools_module
-  # https://stackoverflow.com/a/67202539/1014208
   cd -- "${SUBMODULES_DIR}/terminal/histcat"
-  GO111MODULE=on go get -u ./... && go mod tidy
+  # https://stackoverflow.com/a/67202539/1014208
+  # NOTE: We don't use the -u flag because we only want to apply updates to
+  # direct dependencies, otherwise we can get issues.
+  GO111MODULE=on go get ... && go mod tidy
 }
 
 # https://doc.rust-lang.org/cargo/getting-started/installation.html
