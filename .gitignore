@@ -354,6 +354,7 @@
 /.config/xdg-desktop-portal-kderc
 /.config/zoomus.conf
 /.config/zsh/completion/_npm
+/.dotnet
 /.electron-gyp
 /.elinks
 /.esd_auth
