@@ -1,5 +1,10 @@
 [general]
 grab-keyboard=true
+# grab-sequence is the key sequence to *ungrab* the keyboard. It is not
+# documented and not available from the settings UI, but I found it in the
+# source code:
+# https://gitlab.freedesktop.org/spice/spice-gtk/-/blob/2ed5f940f6ce559ce483a83d7c36bcce2886dee9/tools/spicy.c#L667
+grab-sequence=Control_L+Alt_L
 grab-mouse=true
 scaling=true
 resize-guest=true
@@ -7,5 +12,7 @@ auto-clipboard=true
 sync-modifiers=true
 
 [ui]
-toolbar=true
-statusbar=true
+toolbar=false
+statusbar=false
+
+# vim: set ft=dosini :
