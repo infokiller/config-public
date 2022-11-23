@@ -14272,7 +14272,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.7.1, prettier@npm:^2.5.1":
+"prettier@npm:2.8.0":
+  version: 2.8.0
+  resolution: "prettier@npm:2.8.0"
+  bin:
+    prettier: bin-prettier.js
+  checksum: 72004ce0cc9bb097daf3e3833f62495768724392c1d5b178dd47372337616e9e50ecbb0804f236596223f7b5eb1bbe69cefc8957dca21112c5777e77ef73a564
+  languageName: node
+  linkType: hard
+
+"prettier@npm:^2.5.1":
   version: 2.7.1
   resolution: "prettier@npm:2.7.1"
   bin:
@@ -14571,13 +14580,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.280":
-  version: 1.1.280
-  resolution: "pyright@npm:1.1.280"
+"pyright@npm:1.1.281":
+  version: 1.1.281
+  resolution: "pyright@npm:1.1.281"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 6f1f9c63f76e3672269acad41887c2837a3fe8b9c357a18519f1129a9f6310577959330731da307c50338d9f3005ad57455bd8353d95dbbacf501b41d0c7809e
+  checksum: 5ad62a56e3e158ec370cf79d5af0e2768db02b1abf377ad4729e0f4941aaf14ae73a5d92537e6dd276f857f7bd527219156b0cd2f4349ddba10749e203b4bf81
   languageName: node
   linkType: hard
 
@@ -15557,10 +15566,10 @@ __metadata:
     markdown-toc: 1.2.0
     markdownlint-cli: 0.32.2
     markdownlint-cli2: 0.5.1
-    prettier: 2.7.1
+    prettier: 2.8.0
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.2.2
-    pyright: 1.1.280
+    pyright: 1.1.281
     release-it: 15.5.0
     semantic-release: 19.0.5
     snyk: 1.1061.0
