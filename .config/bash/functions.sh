@@ -1804,6 +1804,10 @@ quickemu-port() {
   fi
   local vm_conf="$1"
   local port_name="${2-}"
+  if [[ ! -f "${vm_conf}" ]]; then
+    print_error "quickemu config not found in ${vm_conf}"
+    return 1
+  fi
   local vm_name
   vm_name="$(rstrip "$(basename -- "${vm_conf}")" .conf)"
   local vm_dir
