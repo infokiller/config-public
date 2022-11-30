@@ -9,7 +9,7 @@ __sh_platform_detection_loaded=1
 
 # NOTE: We intentionally only set these variables if they're not already set so
 # that if they are readonly there won't be an error.
-# shellcheck disable=
+# shellcheck disable=SC2296
 : "${REPO_ROOT:=$(config-repo-root "${BASH_SOURCE[0]:-${(%):-%x}}" 2> /dev/null || echo "${HOME}")}"
 : "${SUBMODULES_DIR:=${REPO_ROOT}/submodules}"
 # Detect distro- see https://unix.stackexchange.com/a/6348
