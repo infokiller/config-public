@@ -68,9 +68,9 @@ main() {
   echo 'Doing an initial sync'
   _run_rsync "$@"
   local inotify_cmd=(inotifywait --monitor --recursive
-    --event='modify,attrib,create,move'
-    --exclude='\.git/'
-    --format='%w%f'
+    '--event=modify,attrib,create,move'
+    '--exclude=\.git/'
+    '--format=%w%f'
     -- "${src_files[@]}")
   trap '_kill_inotify' EXIT
   exec {inotify_fd}< <("${inotify_cmd[@]}")
