@@ -689,7 +689,7 @@ _configure_personal_device_services() {
     systemctl --user enable --now "${_PERSONAL_DEVICE_SYSTEMD_UNITS[@]}"
   else
     print_bold 'Looks like a shared device, disabling appropriate services'
-    systemctl --user disable --now "${_PERSONAL_DEVICE_SYSTEMD_UNITS[@]}" || true
+    systemctl --user disable --now "${_PERSONAL_DEVICE_SYSTEMD_UNITS[@]}" 2> /dev/null || true
   fi
 }
 
