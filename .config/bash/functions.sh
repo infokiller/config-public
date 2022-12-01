@@ -1919,15 +1919,21 @@ monitor-slow-pings() {
 alias sd=sensible-diff
 
 config-repo-grep-command() {
+  local grep=(grep --perl-regexp --color=auto)
   (
     _cd_config_repo || return
     local query
     query="$(printf '^\s*(\s*|[^#].*[^a-zA-Z0-9_-])%s([^a-zA-Z0-9_-]|$)' \
-      "${1:-git}")"
+      "$1")"
     "${REPO_ROOT}/.my_scripts/sysadmin/list-config-repo-shell-scripts" |
-      sensible-xargs "${_BEST_GREP_CMD[@]}" "${query}"
+      sensible-xargs "${grep[@]}" --with-filename -- "${query}" |
+      # \K is a special escape sequence in PCRE that resets the match start, so
+      # that we only highlight the command after the file name.
+      "${grep[@]}" "[^:]*: .*\K$1"
   ) || return
 }
+
+alias rgc-cmd=config-repo-grep-command
 
 upgrade-local-packages() {
   "${REPO_ROOT}/install/install-crossdistro-local-packages" upgrade --all --parallel && {
