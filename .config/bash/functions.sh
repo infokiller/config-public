@@ -469,6 +469,12 @@ alias eg='env | _best_grep'
 # shellcheck disable=SC2139
 alias hg="conda-run shell_history ${REPO_ROOT}/.config/bash/history/shell_history_choose_line.py --max-entries 100000 --initial-query"
 
+kill-grepped-processes() {
+  grep-processes "$@" | tail -n +2 | awk '{print $2}' | sensible-xargs kill
+}
+
+alias pgk='kill-grepped-processes'
+
 _RG_OR_TAG='rg'
 # AG_OR_TAG="ag --path-to-ignore ${REPO_ROOT}/.config/ripgrep/ignore"
 if command_exists tag; then
