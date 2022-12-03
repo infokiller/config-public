@@ -547,7 +547,7 @@ _install_firenvim() {
   cd "${REPO_ROOT}"
   git checkout -- "${XDG_DATA_HOME:-${HOME}/.local/share}/firenvim/"
   # https://github.com/glacambre/firenvim/issues/1382#issuecomment-1176560109
-  _install_neovim_release 'v0.7.0' 'nvim-firenvim'
+  _install_neovim_release 'v0.8.1' 'nvim-firenvim'
 }
 
 # TODO: Pin VSCode extensions. Listing the current versions:
