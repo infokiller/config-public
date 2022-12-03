@@ -909,7 +909,9 @@ endfor
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Colorscheme                                  "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('nvim-0.5')
+" nvim-solarized-lua has issues with nvim 0.7
+" https://github.com/ishan9299/nvim-solarized-lua/commit/f8e4e60a2873b6f1a28c837ab217deb1bfdc723e
+if has('nvim-0.8')
   Plug 'ishan9299/nvim-solarized-lua'
   let s:solarized_variant = 'solarized'
 else
