@@ -44,6 +44,21 @@ _run_rsync() {
   # -zz: use new rsync compression
   # --info=*: specify what to log
   # --partial-dir=*: keep partial transfers to enable resuming
+  #
+  # TODO: Consider adding --ignore-missing-args to the default options, since
+  # the following sequence of events can cause issues:
+  # 1. A new file is created in the watched directory
+  # 2. inotify captures the file creation event
+  # 3. The file is deleted
+  # 4. rsync is run and outputs an error about the file missing
+  #
+  # I ran into this with files of the form ".__atomic-write*", which seem to be
+  # used as lock files by pip-tools. I tried to add an exclude to the rsync
+  # command, but it doesn't seem to work when using the --files-from option.
+  #
+  # Commands to reproduce the issue:
+  # mkdir -p /tmp/d{1,2}
+  # \rsync --dry-run --files-from=<(echo a) --exclude='a' /tmp/d{1,2}
   rsync -aAX -u -zz --info=flist2,name,progress --partial-dir=.rsync-part "$@"
 }
 
