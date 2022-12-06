@@ -1298,16 +1298,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node-fetch@npm:2.6.2":
-  version: 2.6.2
-  resolution: "@types/node-fetch@npm:2.6.2"
-  dependencies:
-    "@types/node": "*"
-    form-data: ^3.0.0
-  checksum: 6f73b1470000d303d25a6fb92875ea837a216656cb7474f66cdd67bb014aa81a5a11e7ac9c21fe19bee9ecb2ef87c1962bceeaec31386119d1ac86e4c30ad7a6
-  languageName: node
-  linkType: hard
-
 "@types/node@npm:*":
   version: 13.13.0
   resolution: "@types/node@npm:13.13.0"
@@ -2518,22 +2508,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:3.3.1":
-  version: 3.3.1
-  resolution: "bash-language-server@npm:3.3.1"
+"bash-language-server@npm:4.0.1":
+  version: 4.0.1
+  resolution: "bash-language-server@npm:4.0.1"
   dependencies:
-    "@types/node-fetch": 2.6.2
     fast-glob: 3.2.12
-    fuzzy-search: ^3.2.1
-    node-fetch: ^2.6.7
-    turndown: ^7.0.0
-    urijs: ^1.19.11
-    vscode-languageserver: ^6.1.1
-    vscode-languageserver-textdocument: ^1.0.1
-    web-tree-sitter: ^0.20.5
+    fuzzy-search: 3.2.1
+    node-fetch: 2.6.7
+    turndown: 7.1.1
+    urijs: 1.19.11
+    vscode-languageserver: 8.0.2
+    vscode-languageserver-textdocument: 1.0.7
+    web-tree-sitter: 0.20.7
+    zod: 3.19.1
   bin:
     bash-language-server: bin/main.js
-  checksum: 53545b9069fb8156f5884f8551cc7732cb6722d2e86b515b2afb678666a6bb3998c9ca06a86243b2b0eecdb93efd13aedf74d51853c94e1bb4bb5b94ec450f8e
+  checksum: 7f2e28f281da78b9ceefb0ed115f2ef23bc3d299e1ef00fa598a09411c8c220f0d2084912c55c876b5edb12a6f2101647dbedb6fcaf4245d68b7ae378d52c566
   languageName: node
   linkType: hard
 
@@ -6986,17 +6976,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^3.0.0":
-  version: 3.0.1
-  resolution: "form-data@npm:3.0.1"
-  dependencies:
-    asynckit: ^0.4.0
-    combined-stream: ^1.0.8
-    mime-types: ^2.1.12
-  checksum: b019e8d35c8afc14a2bd8a7a92fa4f525a4726b6d5a9740e8d2623c30e308fbb58dc8469f90415a856698933c8479b01646a9dff33c87cc4e76d72aedbbf860d
-  languageName: node
-  linkType: hard
-
 "form-data@npm:~2.3.2":
   version: 2.3.3
   resolution: "form-data@npm:2.3.3"
@@ -7211,7 +7190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fuzzy-search@npm:^3.2.1":
+"fuzzy-search@npm:3.2.1":
   version: 3.2.1
   resolution: "fuzzy-search@npm:3.2.1"
   checksum: 65d50909e69216f830a6e88eade08df00662e2c081edb02063404cc922cc7319ef8958eff781aa4e3e64543a394a912cd8c80abb4c6b158c119e811364e7cfb9
@@ -8633,6 +8612,13 @@ __metadata:
   version: 5.2.0
   resolution: "ignore@npm:5.2.0"
   checksum: 6b1f926792d614f64c6c83da3a1f9c83f6196c2839aa41e1e32dd7b8d174cef2e329d75caabb62cb61ce9dc432f75e67d07d122a037312db7caa73166a1bdb77
+  languageName: node
+  linkType: hard
+
+"ignore@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "ignore@npm:5.2.1"
+  checksum: 7251d00cba49fe88c4f3565fadeb4aa726ba38294a9a79ffed542edc47bafd989d4b2ccf65700c5b1b26a1e91dfc7218fb23017937c79216025d5caeec0ee9d5
   languageName: node
   linkType: hard
 
@@ -14327,13 +14313,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-selector-parser@npm:^6.0.10":
-  version: 6.0.10
-  resolution: "postcss-selector-parser@npm:6.0.10"
+"postcss-selector-parser@npm:^6.0.11":
+  version: 6.0.11
+  resolution: "postcss-selector-parser@npm:6.0.11"
   dependencies:
     cssesc: ^3.0.0
     util-deprecate: ^1.0.2
-  checksum: 46afaa60e3d1998bd7adf6caa374baf857cc58d3ff944e29459c9a9e4680a7fe41597bd5b755fc81d7c388357e9bf67c0251d047c640a09f148e13606b8a8608
+  checksum: 0b01aa9c2d2c8dbeb51e9b204796b678284be9823abc8d6d40a8b16d4149514e922c264a8ed4deb4d6dbced564b9be390f5942c058582d8656351516d6c49cde
   languageName: node
   linkType: hard
 
@@ -15699,7 +15685,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 3.3.1
+    bash-language-server: 4.0.1
     corepack: 0.15.2
     diff-so-fancy: 1.4.3
     eslint: 8.29.0
@@ -15720,8 +15706,8 @@ __metadata:
     pyright: 1.1.282
     release-it: 15.5.1
     semantic-release: 19.0.5
-    snyk: 1.1066.0
-    stylelint: 14.15.0
+    snyk: 1.1069.0
+    stylelint: 14.16.0
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.4.0
@@ -16270,12 +16256,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1066.0":
-  version: 1.1066.0
-  resolution: "snyk@npm:1.1066.0"
+"snyk@npm:1.1069.0":
+  version: 1.1069.0
+  resolution: "snyk@npm:1.1069.0"
   bin:
     snyk: bin/snyk
-  checksum: ab17bdb3d09c4feb61613e570c5ffa9f21151d55950c04089ecf3bb876602b67054572a90730e137c05af2a3d4e45c5a7bcd532e835e5e39c63ef16549ce9d51
+  checksum: a9e9e6f7a6206d76cf64fe9398810d8afab86265cda5915bfdd8f3df4573538b87161dc225dac9eed39f83c5f5686f211b32006cb916bfafddb86894f3154795
   languageName: node
   linkType: hard
 
@@ -16978,9 +16964,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.15.0":
-  version: 14.15.0
-  resolution: "stylelint@npm:14.15.0"
+"stylelint@npm:14.16.0":
+  version: 14.16.0
+  resolution: "stylelint@npm:14.16.0"
   dependencies:
     "@csstools/selector-specificity": ^2.0.2
     balanced-match: ^2.0.0
@@ -16995,7 +16981,7 @@ __metadata:
     globby: ^11.1.0
     globjoin: ^0.1.4
     html-tags: ^3.2.0
-    ignore: ^5.2.0
+    ignore: ^5.2.1
     import-lazy: ^4.0.0
     imurmurhash: ^0.1.4
     is-plain-object: ^5.0.0
@@ -17009,7 +16995,7 @@ __metadata:
     postcss-media-query-parser: ^0.2.3
     postcss-resolve-nested-selector: ^0.1.1
     postcss-safe-parser: ^6.0.0
-    postcss-selector-parser: ^6.0.10
+    postcss-selector-parser: ^6.0.11
     postcss-value-parser: ^4.2.0
     resolve-from: ^5.0.0
     string-width: ^4.2.3
@@ -17022,7 +17008,7 @@ __metadata:
     write-file-atomic: ^4.0.2
   bin:
     stylelint: bin/stylelint.js
-  checksum: a3b4593a35a2303987305ca5147ea31e92a47e1994d393be8d1a07a6dc8720b9eee1fed62aafaca618cd8f06e0b3ca601af4fa6618967f1f359ea36ade4c2550
+  checksum: 3b8d003aa0756cd8101e06be08a621fe4a2627c962d5ee471a231e71132ea90468f34f12f7bf8ba1e6c9857f55ac2d5c1b63f7a6e5c4ed667b1826925e0fd267
   languageName: node
   linkType: hard
 
@@ -17608,7 +17594,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"turndown@npm:^7.0.0":
+"turndown@npm:7.1.1":
   version: 7.1.1
   resolution: "turndown@npm:7.1.1"
   dependencies:
@@ -18236,7 +18222,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"urijs@npm:^1.19.11":
+"urijs@npm:1.19.11":
   version: 1.19.11
   resolution: "urijs@npm:1.19.11"
   checksum: f9b95004560754d30fd7dbee44b47414d662dc9863f1cf5632a7c7983648df11d23c0be73b9b4f9554463b61d5b0a520b70df9e1ee963ebb4af02e6da2cc80f3
@@ -18451,45 +18437,45 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-jsonrpc@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "vscode-jsonrpc@npm:5.0.1"
-  checksum: a9188774d8d9ceb4e0d2215aa71bd85bb9f4e1129d5decfda74587e791c6a2b532b2e0026931b45c52087c328429be6510ef841e203293ede7ed4114bb596cd0
+"vscode-jsonrpc@npm:8.0.2":
+  version: 8.0.2
+  resolution: "vscode-jsonrpc@npm:8.0.2"
+  checksum: 9d055fd4c87ef1093b0eecb5370bfaf3402179b6639149b6d0f7e0bde60cf580091c7e07b0caff868f10f90331b17e7383c087217c077fdd1b5ae7bc23b72f77
   languageName: node
   linkType: hard
 
-"vscode-languageserver-protocol@npm:^3.15.3":
-  version: 3.15.3
-  resolution: "vscode-languageserver-protocol@npm:3.15.3"
+"vscode-languageserver-protocol@npm:3.17.2":
+  version: 3.17.2
+  resolution: "vscode-languageserver-protocol@npm:3.17.2"
   dependencies:
-    vscode-jsonrpc: ^5.0.1
-    vscode-languageserver-types: 3.15.1
-  checksum: 9344f2d8b5855c4b09cbb59eef8366b750ec02212eb365af1772dd6dba970de0aac7b75332d90466bc29ce878b3f79a55a78b39cab6451ebf690f616918a9d3e
+    vscode-jsonrpc: 8.0.2
+    vscode-languageserver-types: 3.17.2
+  checksum: f4a05d3a631af315a32a3700953c2117fa4e5c44bc03764154c6605da9cbbcb50a1b01b46f11b2f6948916d01b4948bebf1a84c135fc73b27fa839c58d0847ab
   languageName: node
   linkType: hard
 
-"vscode-languageserver-textdocument@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "vscode-languageserver-textdocument@npm:1.0.1"
-  checksum: 1d000a2bae6c05142f73690af60ec0987f5cdee656190406cfde183806e731ab7d220324bb8e819e379412419749a3cabc7228ff06188869e7d5631d5b10bc46
+"vscode-languageserver-textdocument@npm:1.0.7":
+  version: 1.0.7
+  resolution: "vscode-languageserver-textdocument@npm:1.0.7"
+  checksum: 6018a8b2c87aeb6441419431909e9161e9659d214814193b029ca2b30d8b097d23538e4930942ef78f1440f52c57a93f7597144736b79ba1abd9f1a53c2ffbc0
   languageName: node
   linkType: hard
 
-"vscode-languageserver-types@npm:3.15.1":
-  version: 3.15.1
-  resolution: "vscode-languageserver-types@npm:3.15.1"
-  checksum: 28c1cb0d5b7ad7c719015a6eb5f774c000fe68c41bbd4a3fd0cbe6d862f27eec075d6bfb14c9d86c22d0e8711c2df8194295bf1e7d6ac0c359cab348c5e14887
+"vscode-languageserver-types@npm:3.17.2":
+  version: 3.17.2
+  resolution: "vscode-languageserver-types@npm:3.17.2"
+  checksum: ef2d862d22f622b64de0f428773d50a5928ec6cdd485960a7564ebe4fd4a3c8bcd956f29eb15bc45a0f353846e62f39f6c764d2ab85ce774b8724411ba84342f
   languageName: node
   linkType: hard
 
-"vscode-languageserver@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "vscode-languageserver@npm:6.1.1"
+"vscode-languageserver@npm:8.0.2":
+  version: 8.0.2
+  resolution: "vscode-languageserver@npm:8.0.2"
   dependencies:
-    vscode-languageserver-protocol: ^3.15.3
+    vscode-languageserver-protocol: 3.17.2
   bin:
-    installServerIntoExtension: ./bin/installServerIntoExtension
-  checksum: 6b1b7376d4b00333bc02185801e7fe888f7314bba10d2f5b38fb3ffe869c2699ad9c241a7cd4ce00f76176712c0a35453f42704c34c81428553b78661552d811
+    installServerIntoExtension: bin/installServerIntoExtension
+  checksum: f564417bf08f5400e8381b6d0defb4e7242a04525696b1728b05524b89932047af625fac07715b4d36307e1de599cbef54d240c15101fe831aaface431f21e1b
   languageName: node
   linkType: hard
 
@@ -18615,10 +18601,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-tree-sitter@npm:^0.20.5":
-  version: 0.20.5
-  resolution: "web-tree-sitter@npm:0.20.5"
-  checksum: d1ecb4f84e37dc17f1f564dd43fadb62a588e5c1cab3a1e9dd499cf7a2b9ff723712899303d028c361bf2cf92817421039384e5fca732c40d6f7755cdc234299
+"web-tree-sitter@npm:0.20.7":
+  version: 0.20.7
+  resolution: "web-tree-sitter@npm:0.20.7"
+  checksum: f2949a679bbca5ecb225ab26a67ff99e6e3907fa905c6bd62bfe6d2cfa216347f8cc481efcd32f181cb6b964bc03c42f9611e16da0825bff43de389b17ff9f7f
   languageName: node
   linkType: hard
 
@@ -19290,6 +19276,13 @@ __metadata:
     async: ^3.2.0
     jszip: ^3.2.2
   checksum: bfcfdefe410da3dd583f294b51db8dd670e6b4f742c95255e526df58cb9302e3c742fe84a0834fe4705c72c9c601fc3a14d7402560ce580a1ae3bd307cbed60c
+  languageName: node
+  linkType: hard
+
+"zod@npm:3.19.1":
+  version: 3.19.1
+  resolution: "zod@npm:3.19.1"
+  checksum: 56e420ea5845912324a8fc61833714a2aec84954e418b52660d76502183c6e62fef9447cbfa64349640c5ce190cf2c24267e006bb80f066183e2f3fa9fe11864
   languageName: node
   linkType: hard
 
