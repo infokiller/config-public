@@ -1,6 +1,7 @@
 {
   "NotebookApp": {
     "nbserver_extensions": {
+      "jupytext": true
     }
   }
 }
