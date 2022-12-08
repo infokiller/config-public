@@ -59,7 +59,8 @@ _run_rsync() {
   # Commands to reproduce the issue:
   # mkdir -p /tmp/d{1,2}
   # \rsync --dry-run --files-from=<(echo a) --exclude='a' /tmp/d{1,2}
-  rsync -aAX -u -zz --info=flist2,name,progress --partial-dir=.rsync-part "$@"
+  # NOTE: --partial-dir is not used because it's incompatible with --inplace
+  rsync -aAX -u -zz --info=flist2,name,progress "$@"
 }
 
 main() {
