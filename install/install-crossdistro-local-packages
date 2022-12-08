@@ -555,7 +555,7 @@ _install_firenvim() {
 _install_vscode_extensions() {
   # A code wrapper is installed in ~/.local/bin, so we also check that the
   # command works.
-  if ! command_exists code || ! code --help 2> /dev/null; then
+  if ! command_exists code || ! code --help &> /dev/null; then
     print_warning 'VSCode not found, skipping extensions installation'
     return
   fi
