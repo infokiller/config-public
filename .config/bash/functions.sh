@@ -1943,11 +1943,16 @@ alias rgc-cmd=config-repo-grep-command
 
 upgrade-local-packages() {
   "${REPO_ROOT}/install/install-crossdistro-local-packages" upgrade --all --parallel && {
-    for sub in $(git diff-index --name-only HEAD | rg '^submodules/.*(keydope|i3-workspace-groups|i3-scratchpad|selfspy)$'); do
+    for sub in $(git diff-index --name-only HEAD | rg '^submodules/.*(keydope|i3-workspace-groups|i3-scratchpad|selfspy|histcat)$'); do
       (
         cd -- "${sub}" && git status
-        if [[ -n "$(git diff-index --name-only --ignore-submodules=all --diff-filter=AM HEAD '*requirements*')" ]]; then
-          git add -- '*requirements*' && git commit -m 'update deps'
+        local files
+        # Zsh doesn't support mapfile.
+        # shellcheck disable=SC2207
+        IFS=$'\n' files=($(git diff-index --name-only --ignore-submodules=all \
+          --diff-filter=AM HEAD '*requirements*' go.mod go.sum))
+        if ((${#files[@]})); then
+          git add -- "${files[@]}" && git commit -m 'update deps'
         fi
       )
     done
