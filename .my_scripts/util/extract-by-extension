@@ -101,7 +101,7 @@ main() {
       tar_comp='zstd'
       ;;
   esac
-  if [[ -n "${tar_comp}" ]]; then
+  if [[ -n "${tar_comp-}" ]]; then
     mkdir -p -- "${target}"
     _log_extraction "$1" "${target}" "${tar_comp} compressed tar"
     tar --"${tar_comp}" "${tar_args[@]}"
