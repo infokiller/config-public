@@ -48,9 +48,9 @@ _get_archive_extension() {
 
 _get_available_file() {
   local prefix="$1"
-  for suffix in '' {1..100}; do
-    if [[ ! -e "${prefix}.${suffix}" ]]; then
-      printf '%s' "${prefix}.${suffix}"
+  for suffix in '' .{1..100}; do
+    if [[ ! -e "${prefix}${suffix}" ]]; then
+      printf '%s' "${prefix}${suffix}"
       return
     fi
   done
@@ -79,49 +79,52 @@ main() {
     _print_error 'Could not find an available extraction dir, giving up'
     exit 1
   fi
-  if [[ "${extension}" == tar.* ]]; then
-    mkdir -p -- "${target}"
-  fi
 
+  local tar_args=(-xvf "$1" -C "${target}")
+  local tar_comp
   case "${extension}" in
     # NOTE: the tar.xxx checks must be done before xxx, or otherwise the latter
     # will always match.
     tar.gz | tgz)
-      _log_extraction "$1" "${target}" 'gzip compressed tar'
-      tar --gzip -xvf "$1" -C "${target}"
+      tar_comp='gzip'
       ;;
     tar.bz2 | tbz | tbz2)
-      _log_extraction "$1" "${target}" 'bzip compressed tar'
-      tar --bzip2 -xvf "$1" -C "${target}"
+      tar_comp='bzip2'
       ;;
     tar.xz | txz)
-      _log_extraction "$1" "${target}" 'xz compressed tar'
-      tar --xz -xvf "$1" -C "${target}"
+      tar_comp='xz'
       ;;
     tar.lzma)
-      _log_extraction "$1" "${target}" 'lzma compressed tar'
-      tar --lzma -xvf "$1" -C "${target}"
+      tar_comp='lzma'
       ;;
     tar.zst)
-      _log_extraction "$1" "${target}" 'zstandard compressed tar'
-      tar --zstd -xvf "$1" -C "${target}"
+      tar_comp='zstd'
       ;;
+  esac
+  if [[ -n "${tar_comp}" ]]; then
+    mkdir -p -- "${target}"
+    _log_extraction "$1" "${target}" "${tar_comp} compressed tar"
+    tar --"${tar_comp}" "${tar_args[@]}"
+    return
+  fi
+
+  case "${extension}" in
     tar)
       _log_extraction "$1" "${target}" 'uncompressed tar'
-      tar -xvf "$1" -C "${target}"
+      tar "${tar_args[@]}"
       ;;
     gz)
-      _log_extraction "$1" "${target}" 'gzip compressed file'
+      _log_extraction "$1" "${target}" 'gzip'
       (_command_exists pigz && pigz -d "${target}") || gunzip "$1"
       ;;
     bz2)
-      _log_extraction "$1" "${target}" 'bzip compressed file'
+      _log_extraction "$1" "${target}" 'bzip'
       bunzip2 "$1"
       [[ "${filename_no_extension}" != "${target}" ]] &&
         mv -- "${filename_no_extension}" "${target}"
       ;;
     xz)
-      _log_extraction "$1" "${target}" 'xz compressed file'
+      _log_extraction "$1" "${target}" 'xz'
       # xz --decompress "$1" --to-stdout >
       [[ "${filename_no_extension}" != "${target}" ]] &&
         mv -- "${filename_no_extension}" "${target}"
@@ -130,19 +133,19 @@ main() {
       unlzma "$1"
       ;;
     zst)
-      _log_extraction "$1" "${target}" 'zstandard compressed file'
+      _log_extraction "$1" "${target}" 'zstd'
       zstd -d "$1" -o "${target}"
       ;;
     zip | jar | apk)
-      _log_extraction "$1" "${target}" 'zip compressed file'
+      _log_extraction "$1" "${target}" 'zip'
       unzip "$1" -d "${target}"
       ;;
     rar)
-      _log_extraction "$1" "${target}" 'rar compressed file'
+      _log_extraction "$1" "${target}" 'rar'
       unrar x "$1" "${target}"
       ;;
     7z)
-      _log_extraction "$1" "${target}" '7zip compressed file'
+      _log_extraction "$1" "${target}" '7zip'
       7za e "$1" -o"${target}"
       ;;
     *)
