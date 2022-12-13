@@ -2508,9 +2508,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.0.1":
-  version: 4.0.1
-  resolution: "bash-language-server@npm:4.0.1"
+"bash-language-server@npm:4.1.1":
+  version: 4.1.1
+  resolution: "bash-language-server@npm:4.1.1"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2518,12 +2518,12 @@ __metadata:
     turndown: 7.1.1
     urijs: 1.19.11
     vscode-languageserver: 8.0.2
-    vscode-languageserver-textdocument: 1.0.7
+    vscode-languageserver-textdocument: 1.0.8
     web-tree-sitter: 0.20.7
-    zod: 3.19.1
+    zod: 3.20.2
   bin:
     bash-language-server: bin/main.js
-  checksum: 7f2e28f281da78b9ceefb0ed115f2ef23bc3d299e1ef00fa598a09411c8c220f0d2084912c55c876b5edb12a6f2101647dbedb6fcaf4245d68b7ae378d52c566
+  checksum: 81ba47d328fc59268f73ddf1c52d2e3985789d5011d377d81b46bf41c85ff17fa563b4c727411a974fb323fc540276ea8158ffe718047996858cca150803b3b3
   languageName: node
   linkType: hard
 
@@ -15672,7 +15672,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.0.1
+    bash-language-server: 4.1.1
     corepack: 0.15.2
     diff-so-fancy: 1.4.3
     eslint: 8.29.0
@@ -15693,7 +15693,7 @@ __metadata:
     pyright: 1.1.283
     release-it: 15.5.1
     semantic-release: 19.0.5
-    snyk: 1.1069.0
+    snyk: 1.1070.0
     stylelint: 14.16.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16243,12 +16243,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1069.0":
-  version: 1.1069.0
-  resolution: "snyk@npm:1.1069.0"
+"snyk@npm:1.1070.0":
+  version: 1.1070.0
+  resolution: "snyk@npm:1.1070.0"
   bin:
     snyk: bin/snyk
-  checksum: a9e9e6f7a6206d76cf64fe9398810d8afab86265cda5915bfdd8f3df4573538b87161dc225dac9eed39f83c5f5686f211b32006cb916bfafddb86894f3154795
+  checksum: 209151f7ebefc92abc0be2b29f34e5b7089b8f7d0cc095cdfaf2a97f8bd817bb7fc5c6615b46b6a8bc99877fa49afd4d78cbc4c72facd7e9105ec7b0ad2e1640
   languageName: node
   linkType: hard
 
@@ -18441,10 +18441,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-languageserver-textdocument@npm:1.0.7":
-  version: 1.0.7
-  resolution: "vscode-languageserver-textdocument@npm:1.0.7"
-  checksum: 6018a8b2c87aeb6441419431909e9161e9659d214814193b029ca2b30d8b097d23538e4930942ef78f1440f52c57a93f7597144736b79ba1abd9f1a53c2ffbc0
+"vscode-languageserver-textdocument@npm:1.0.8":
+  version: 1.0.8
+  resolution: "vscode-languageserver-textdocument@npm:1.0.8"
+  checksum: d6b685456ceca2736793d7fc1924d78a8483997c96c6ec4900d90e64115730da6c0c03e3fbc2c5d031a4592f2acd9cca2ca58a651b696c4f40b8690a48538c06
   languageName: node
   linkType: hard
 
@@ -19266,10 +19266,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.19.1":
-  version: 3.19.1
-  resolution: "zod@npm:3.19.1"
-  checksum: 56e420ea5845912324a8fc61833714a2aec84954e418b52660d76502183c6e62fef9447cbfa64349640c5ce190cf2c24267e006bb80f066183e2f3fa9fe11864
+"zod@npm:3.20.2":
+  version: 3.20.2
+  resolution: "zod@npm:3.20.2"
+  checksum: 04172f7e9350372684ccd298d4716908edc9113751295b6c4e1b3ea84e2af8997e504b33ba36f4741417bb2a5dc90bfd40501f6b0e7389df10e42a63d6d8366c
   languageName: node
   linkType: hard
 

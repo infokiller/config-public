@@ -2,7 +2,7 @@
   "dependencies": {
     "@google/clasp": "2.4.2",
     "alex": "11.0.0",
-    "bash-language-server": "4.0.1",
+    "bash-language-server": "4.1.1",
     "corepack": "0.15.2",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.29.0",
@@ -23,7 +23,7 @@
     "pyright": "1.1.283",
     "release-it": "15.5.1",
     "semantic-release": "19.0.5",
-    "snyk": "1.1069.0",
+    "snyk": "1.1070.0",
     "stylelint": "14.16.0",
     "tldr": "3.3.8",
     "uglify-js": "3.17.4",
