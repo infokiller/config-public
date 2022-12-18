@@ -150,6 +150,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/eslintrc@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "@eslint/eslintrc@npm:1.4.0"
+  dependencies:
+    ajv: ^6.12.4
+    debug: ^4.3.2
+    espree: ^9.4.0
+    globals: ^13.19.0
+    ignore: ^5.2.0
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    minimatch: ^3.1.2
+    strip-json-comments: ^3.1.1
+  checksum: 73e39c833deafde8d8706e6fa9b52b6d99927c094ead8e405ea4174e8197ec24aac9ba88ae38cc8ad32eaccf07b9c7fc5dc70761d1fba6da41a928691447305f
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1":
   version: 1.1.2
   resolution: "@gar/promisify@npm:1.1.2"
@@ -216,6 +233,17 @@ __metadata:
     debug: ^4.1.1
     minimatch: ^3.0.4
   checksum: 2fb7288638968dfeec27f06aef52f043726edd126ac47f24b54256902fdb35b3bf9863d4a4caf0423dccca5dd1354ca5899f3ac047b56774641ca0c4cbedb104
+  languageName: node
+  linkType: hard
+
+"@humanwhocodes/config-array@npm:^0.11.8":
+  version: 0.11.8
+  resolution: "@humanwhocodes/config-array@npm:0.11.8"
+  dependencies:
+    "@humanwhocodes/object-schema": ^1.2.1
+    debug: ^4.1.1
+    minimatch: ^3.0.5
+  checksum: 0fd6b3c54f1674ce0a224df09b9c2f9846d20b9e54fabae1281ecfc04f2e6ad69bf19e1d6af6a28f88e8aa3990168b6cb9e1ef755868c3256a630605ec2cb1d3
   languageName: node
   linkType: hard
 
@@ -2508,9 +2536,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.1.1":
-  version: 4.1.1
-  resolution: "bash-language-server@npm:4.1.1"
+"bash-language-server@npm:4.1.2":
+  version: 4.1.2
+  resolution: "bash-language-server@npm:4.1.2"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2523,7 +2551,7 @@ __metadata:
     zod: 3.20.2
   bin:
     bash-language-server: bin/main.js
-  checksum: 81ba47d328fc59268f73ddf1c52d2e3985789d5011d377d81b46bf41c85ff17fa563b4c727411a974fb323fc540276ea8158ffe718047996858cca150803b3b3
+  checksum: e315b277ff062e32fa9dc58e1afe43f4d91ce75fa4bf508e38943af9cde51df0e76d5b5e14dd7f972ce8a1b5d36f314df4d1aa3215688dab97b5b47b4d57db8b
   languageName: node
   linkType: hard
 
@@ -6058,12 +6086,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.29.0":
-  version: 8.29.0
-  resolution: "eslint@npm:8.29.0"
+"eslint@npm:8.30.0":
+  version: 8.30.0
+  resolution: "eslint@npm:8.30.0"
   dependencies:
-    "@eslint/eslintrc": ^1.3.3
-    "@humanwhocodes/config-array": ^0.11.6
+    "@eslint/eslintrc": ^1.4.0
+    "@humanwhocodes/config-array": ^0.11.8
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
     ajv: ^6.10.0
@@ -6082,7 +6110,7 @@ __metadata:
     file-entry-cache: ^6.0.1
     find-up: ^5.0.0
     glob-parent: ^6.0.2
-    globals: ^13.15.0
+    globals: ^13.19.0
     grapheme-splitter: ^1.0.4
     ignore: ^5.2.0
     import-fresh: ^3.0.0
@@ -6103,7 +6131,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: e05204b05907b82d910983995cb946e0ba62ca514eb2b6791c43f623333b143564a2eee0139909d31c10935c21877d815b1f76dd674a59cb91c471064325c4ab
+  checksum: b7525bb465b342665c3b8bab7e114d514ef1bc4e79f211c919863f9c71767e7412ec82383a22614a92d159783f91101018817000f7c61ce69a5e7015280cafaf
   languageName: node
   linkType: hard
 
@@ -7688,6 +7716,15 @@ __metadata:
   dependencies:
     type-fest: ^0.20.2
   checksum: 383ade0873b2ab29ce6d143466c203ed960491575bc97406395e5c8434026fb02472ab2dfff5bc16689b8460269b18fda1047975295cd0183904385c51258bae
+  languageName: node
+  linkType: hard
+
+"globals@npm:^13.19.0":
+  version: 13.19.0
+  resolution: "globals@npm:13.19.0"
+  dependencies:
+    type-fest: ^0.20.2
+  checksum: a000dbd00bcf28f0941d8a29c3522b1c3b8e4bfe4e60e262c477a550c3cbbe8dbe2925a6905f037acd40f9a93c039242e1f7079c76b0fd184bc41dcc3b5c8e2e
   languageName: node
   linkType: hard
 
@@ -12103,7 +12140,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
+"minimatch@npm:^3.0.5, minimatch@npm:^3.1.1, minimatch@npm:^3.1.2":
   version: 3.1.2
   resolution: "minimatch@npm:3.1.2"
   dependencies:
@@ -14658,9 +14695,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.4.0":
-  version: 19.4.0
-  resolution: "puppeteer-core@npm:19.4.0"
+"puppeteer-core@npm:19.4.1":
+  version: 19.4.1
+  resolution: "puppeteer-core@npm:19.4.1"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14671,32 +14708,31 @@ __metadata:
     rimraf: 3.0.2
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
-    ws: 8.10.0
-  checksum: f5f7986de8fcd692ffbcd80d9835c81f93a7cf270d229fed8f437740b5bb2d91d6c99a1ec52f3a4d50aa56b920b3fda366b1c801be77105e447f459fd7c8b96d
+    ws: 8.11.0
+  checksum: f4db1aa1d1e642356744bed2dc49ff7960a8b530d147ace1fe067937433ae40234ea973260b9b264d53a2f2297f53df796d008d4756f735b3f0a64a69724eaba
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.4.0":
-  version: 19.4.0
-  resolution: "puppeteer@npm:19.4.0"
+"puppeteer@npm:19.4.1":
+  version: 19.4.1
+  resolution: "puppeteer@npm:19.4.1"
   dependencies:
     cosmiconfig: 8.0.0
-    devtools-protocol: 0.0.1068969
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.4.0
-  checksum: 48169804b2a8a175a0efd09aff1898b4b22b74e47e441254277cc9dc2526840059b42cd408230c23c007fbee4b9d6f2b582d135d29f046d0a3777de8065a718d
+    puppeteer-core: 19.4.1
+  checksum: 14b6bd8d5f73f389e5bf424df6a89c346b7a8a8d0326b6aa3670e447a98b638b9091f46b6980515d56152b916a4e7be49c21f25fe7bb5c66828e02466a891f57
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.283":
-  version: 1.1.283
-  resolution: "pyright@npm:1.1.283"
+"pyright@npm:1.1.284":
+  version: 1.1.284
+  resolution: "pyright@npm:1.1.284"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: d8852da10bcc869bd05205e11b715e1278a51bba05af959876071938f2c80b8bb905e0eb3d188aeee0973c67023140ae7c30163d1416ca5ddfb79226eb6e9214
+  checksum: eabc6f84c6517dd8c3e5094b1f57e008c58b1a80bdcec08b6dc00d7c67fb4f7357685dad712f83b17a43832bb9ed8f87e40e311cefce1d166d4f481ed70f4a74
   languageName: node
   linkType: hard
 
@@ -15672,10 +15708,10 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.1.1
+    bash-language-server: 4.1.2
     corepack: 0.15.2
     diff-so-fancy: 1.4.3
-    eslint: 8.29.0
+    eslint: 8.30.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -15689,11 +15725,11 @@ __metadata:
     markdownlint-cli2: 0.5.1
     prettier: 2.8.1
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.4.0
-    pyright: 1.1.283
+    puppeteer: 19.4.1
+    pyright: 1.1.284
     release-it: 15.5.1
     semantic-release: 19.0.5
-    snyk: 1.1070.0
+    snyk: 1.1071.0
     stylelint: 14.16.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16243,12 +16279,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1070.0":
-  version: 1.1070.0
-  resolution: "snyk@npm:1.1070.0"
+"snyk@npm:1.1071.0":
+  version: 1.1071.0
+  resolution: "snyk@npm:1.1071.0"
   bin:
     snyk: bin/snyk
-  checksum: 209151f7ebefc92abc0be2b29f34e5b7089b8f7d0cc095cdfaf2a97f8bd817bb7fc5c6615b46b6a8bc99877fa49afd4d78cbc4c72facd7e9105ec7b0ad2e1640
+  checksum: 4f84ee3ec71beb05bf298c3afacdc5f027411534daebcfc2013fcaea6855ee7168366d3a8129e1593ac8dd45c0f8f55ab50198822637fdcc84c6ab1ce1156aa9
   languageName: node
   linkType: hard
 
@@ -18902,21 +18938,6 @@ __metadata:
     write-good: bin/write-good.js
     writegood: bin/write-good.js
   checksum: 045f1d1b50f73d15c6664350ecacaa4bf74bab681376747b42c14ccaec06a667db89874ec0c1ff31a46e01f52051ed76518c2b920d114925f84aefcb91708e92
-  languageName: node
-  linkType: hard
-
-"ws@npm:8.10.0":
-  version: 8.10.0
-  resolution: "ws@npm:8.10.0"
-  peerDependencies:
-    bufferutil: ^4.0.1
-    utf-8-validate: ^5.0.2
-  peerDependenciesMeta:
-    bufferutil:
-      optional: true
-    utf-8-validate:
-      optional: true
-  checksum: 3a32e15dffe633dd5ce99659793dbcf1440ea25d2da1060c88cbd22efdfb7986a6933e68aaa4b098fc3f1f7870cb386afd378a1ceaca4b31748471576d5a8b52
   languageName: node
   linkType: hard
 
