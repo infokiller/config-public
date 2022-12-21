@@ -26,7 +26,7 @@ AddPackage lesspipe            # an input filter for the pager less
 AddPackage duf                 # Disk Usage/Free Utility
 AddPackage mlocate             # Merging locate/updatedb implementation
 
-# AddPackage atool               # A script for managing file archives of various types
+AddPackage atool               # A script for managing file archives of various types
 AddPackage unrar               # The RAR uncompression program
 # gvfs is needed for trash integration (`trash:///`).
 AddPackage gvfs                # Virtual filesystem implementation for GIO
