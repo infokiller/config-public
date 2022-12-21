@@ -134,6 +134,7 @@ readonly _VSCODE_EXTENSIONS=(
   # TODO: Review these extensions.
   # 'ms-kubernetes-tools.vscode-kubernetes-tools'
   # 'ms-azuretools.vscode-docker'
+  # 'pomdtr.excalidraw-editor'
 )
 readonly _NERD_FONTS_DIRECTORY="${XDG_DATA_HOME}/fonts/NerdFonts"
 readonly _PERSONAL_DEVICE_SYSTEMD_UNITS=(
