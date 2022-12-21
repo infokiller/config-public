@@ -28,6 +28,10 @@ pep517==0.13.0 \
     --hash=sha256:4ba4446d80aed5b5eac6509ade100bff3e7943a8489de249654a5ae9b33ee35b \
     --hash=sha256:ae69927c5c172be1add9203726d4b84cf3ebad1edcd5f71fcdc746e66e829f59
     # via build
+pip==22.3.1 \
+    --hash=sha256:65fd48317359f3af8e593943e6ae1506b66325085ea64b706a998c6e83eeaf38 \
+    --hash=sha256:908c78e6bc29b676ede1c4d57981d490cb892eb45cd8c214ab6298125119e077
+    # via pip-tools
 pip-tools==6.12.1 \
     --hash=sha256:88efb7b29a923ffeac0713e6f23ef8529cc6175527d42b93f73756cc94387293 \
     --hash=sha256:f0c0c0ec57b58250afce458e2e6058b1f30a4263db895b7d72fd6311bf1dc6f7
@@ -36,6 +40,10 @@ platformdirs==2.6.0 \
     --hash=sha256:1a89a12377800c81983db6be069ec068eee989748799b946cce2a6e80dcc54ca \
     --hash=sha256:b46ffafa316e6b83b47489d240ce17173f123a9b9c83282141c3daf26ad9ac2e
     # via urlextract
+setuptools==65.6.3 \
+    --hash=sha256:57f6f22bde4e042978bcd50176fdb381d7c21a9efa4041202288d3737a0c6a54 \
+    --hash=sha256:a7620757bf984b58deaf32fc8a4577a9bbc0850cf92c20e1ce41c38c19e5fb75
+    # via pip-tools
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
@@ -46,21 +54,11 @@ uritools==4.0.0 \
     --hash=sha256:420d94c1ff4bf90c678fca9c17b8314243bbcaa992c400a95e327f7f622e1edf \
     --hash=sha256:9a5a1495c55072093216f79931ca45fd81b59208aa64caae50ab68333514f97e
     # via urlextract
-urlextract==1.7.1 \
-    --hash=sha256:0d883b59de5387873ea3825e62b343583313135ac664c3f5c0d55f17b2b3bf7d \
-    --hash=sha256:6c7d43b55eaef609622a4564f30a1b0e109c02900e639f3aaf4108e367bb28e8
+urlextract==1.8.0 \
+    --hash=sha256:3573f6b812814efe06ca46e91e82d984edaa3cd07daaaaa296a467ad9881a037 \
+    --hash=sha256:98b38aca4a555116e8b46e5a134b9e4e54e351b8e37169d2857730d1d0ce42c7
     # via -r requirements.in
 wheel==0.38.4 \
     --hash=sha256:965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac \
     --hash=sha256:b60533f3f5d530e971d6737ca6d58681ee434818fab630c83a734bb10c083ce8
-    # via pip-tools
-
-# The following packages are considered to be unsafe in a requirements file:
-pip==22.3.1 \
-    --hash=sha256:65fd48317359f3af8e593943e6ae1506b66325085ea64b706a998c6e83eeaf38 \
-    --hash=sha256:908c78e6bc29b676ede1c4d57981d490cb892eb45cd8c214ab6298125119e077
-    # via pip-tools
-setuptools==65.6.3 \
-    --hash=sha256:57f6f22bde4e042978bcd50176fdb381d7c21a9efa4041202288d3737a0c6a54 \
-    --hash=sha256:a7620757bf984b58deaf32fc8a4577a9bbc0850cf92c20e1ce41c38c19e5fb75
     # via pip-tools
