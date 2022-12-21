@@ -276,14 +276,14 @@ _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   # https://github.com/jazzband/pip-tools/issues/1617
   pip install 'pip-tools>=6.6.2'
-  local comp=(pip-compile --quiet --generate-hashes --allow-unsafe --upgrade)
-  local sync=(pip-sync requirements.txt)
-  "${comp[@]}"
+  local compile=(pip-compile --quiet --generate-hashes --allow-unsafe --upgrade)
+  local sync_cmd=(pip-sync requirements.txt)
+  "${compile[@]}"
   for extra in "$@"; do
-    "${comp[@]}" --extra "${extra}" --output-file requirements-"${extra}".txt
-    sync+=(requirements-"${extra}".txt)
+    "${compile[@]}" --extra "${extra}" --output-file requirements-"${extra}".txt
+    sync_cmd+=(requirements-"${extra}".txt)
   done
-  "${sync[@]}"
+  "${sync_cmd[@]}"
 }
 
 # TODO: Upgrade "tools" environment
