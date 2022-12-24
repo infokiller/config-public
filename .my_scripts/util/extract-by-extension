@@ -110,6 +110,7 @@ main() {
 
   case "${extension}" in
     tar)
+      mkdir -p -- "${target}"
       _log_extraction "$1" "${target}" 'uncompressed tar'
       tar "${tar_args[@]}"
       ;;
