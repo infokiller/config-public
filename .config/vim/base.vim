@@ -907,7 +907,9 @@ set secure
 " let g:no_vim_maps = 1
 " let g:no_zimbu_maps = 1
 
-Plug 'wakatime/vim-wakatime'
-if !empty($DISPLAY) && $HOST_ALIAS =~# '\v\C^(zeus|hera)'
-  Plug 'ActivityWatch/aw-watcher-vim'
+if !g:VSCODE_MODE
+  Plug 'wakatime/vim-wakatime'
+  if !empty($DISPLAY) && $HOST_ALIAS =~# '\v\C^(zeus|hera)'
+    Plug 'ActivityWatch/aw-watcher-vim'
+  endif
 endif
