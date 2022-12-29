@@ -3718,7 +3718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.6, combined-stream@npm:^1.0.8, combined-stream@npm:~1.0.6":
+"combined-stream@npm:^1.0.6, combined-stream@npm:~1.0.6":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -6977,17 +6977,6 @@ __metadata:
   version: 2.1.3
   resolution: "form-data-encoder@npm:2.1.3"
   checksum: f2db77767f2c0f45fcbab717f4c8ec1a952fba372440b841bd0f9f3f7b867e3a26bbe8bf72598127ebcfee5d493caee87942b30e9dff219898a4c12dad1dcedc
-  languageName: node
-  linkType: hard
-
-"form-data@npm:4.0.0":
-  version: 4.0.0
-  resolution: "form-data@npm:4.0.0"
-  dependencies:
-    asynckit: ^0.4.0
-    combined-stream: ^1.0.8
-    mime-types: ^2.1.12
-  checksum: 01135bf8675f9d5c61ff18e2e2932f719ca4de964e3be90ef4c36aacfc7b9cb2fceb5eca0b7e0190e3383fe51c5b37f4cb80b62ca06a99aaabfcfd6ac7c9328c
   languageName: node
   linkType: hard
 
@@ -14726,13 +14715,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.285":
-  version: 1.1.285
-  resolution: "pyright@npm:1.1.285"
+"pyright@npm:1.1.286":
+  version: 1.1.286
+  resolution: "pyright@npm:1.1.286"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 27fc3162dff0b28bbfa7a882aa583f61f750245fdb15a1ba1fb043a21d71ddb249aa6aab89a2b1ace0971a3a46269d61155e342d21a0dc83fa4dfdf45b5fc5ac
+  checksum: 05c2c970b3349daa2f7270072ae263a73f4c7bb2f8f986c5cf5a3018f42903ba7aa295f17cebdabe4b6c786822e1d39f3789ef0bf045f6172c37bb1123e8b6ee
   languageName: node
   linkType: hard
 
@@ -15230,9 +15219,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:15.5.1":
-  version: 15.5.1
-  resolution: "release-it@npm:15.5.1"
+"release-it@npm:15.6.0":
+  version: 15.6.0
+  resolution: "release-it@npm:15.6.0"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 19.0.5
@@ -15240,7 +15229,6 @@ __metadata:
     chalk: 5.1.2
     cosmiconfig: 8.0.0
     execa: 6.1.0
-    form-data: 4.0.0
     git-url-parse: 13.1.0
     globby: 13.1.2
     got: 12.5.3
@@ -15263,7 +15251,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     release-it: bin/release-it.js
-  checksum: 910c528a746bec60ad5f5a75f3d5efdc57cb75af721c408106980895189ea018f5a0384e461c83eccbec6e2e22f0edb47830f51c5a5596cc3b738128c3c340b0
+  checksum: b6a1ee059f46bceddf7b192b60d5baa50506f47f78e8e877ce948ac5304ed3316153c38f60354aa8de8426cabf80ab43cb19c79b49f173d9a6021399067b399e
   languageName: node
   linkType: hard
 
@@ -15726,11 +15714,11 @@ __metadata:
     prettier: 2.8.1
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.4.1
-    pyright: 1.1.285
-    release-it: 15.5.1
+    pyright: 1.1.286
+    release-it: 15.6.0
     semantic-release: 19.0.5
-    snyk: 1.1076.0
-    stylelint: 14.16.0
+    snyk: 1.1079.0
+    stylelint: 14.16.1
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.4.0
@@ -16279,12 +16267,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1076.0":
-  version: 1.1076.0
-  resolution: "snyk@npm:1.1076.0"
+"snyk@npm:1.1079.0":
+  version: 1.1079.0
+  resolution: "snyk@npm:1.1079.0"
   bin:
     snyk: bin/snyk
-  checksum: 3e894867b06ea622e4afe0bedcfd68ee7c7827338426ce3721caea22a22d5892c11bf60cf9ca86b8776cfe78eb2a9b9844449faa53f07f90dfa0045b09afdc23
+  checksum: 16d5bb81f61f58735e67fb925d7cc279363db596442d6748920122c71d690ff35d03857e181516e28b126c9c448e48284da54593f52a3149ba573979e1593cfa
   languageName: node
   linkType: hard
 
@@ -16987,9 +16975,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:14.16.0":
-  version: 14.16.0
-  resolution: "stylelint@npm:14.16.0"
+"stylelint@npm:14.16.1":
+  version: 14.16.1
+  resolution: "stylelint@npm:14.16.1"
   dependencies:
     "@csstools/selector-specificity": ^2.0.2
     balanced-match: ^2.0.0
@@ -17031,7 +17019,7 @@ __metadata:
     write-file-atomic: ^4.0.2
   bin:
     stylelint: bin/stylelint.js
-  checksum: 3b8d003aa0756cd8101e06be08a621fe4a2627c962d5ee471a231e71132ea90468f34f12f7bf8ba1e6c9857f55ac2d5c1b63f7a6e5c4ed667b1826925e0fd267
+  checksum: bc24050415e3c357a76d8ca2799e74ce31f33c9158b4086462512b0191db5d6a161b81ef35b064039c6eacf98a5553e45fca4c5f21eb4d45e7f1d44b2d226e9b
   languageName: node
   linkType: hard
 
