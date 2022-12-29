@@ -30,6 +30,7 @@ AddPackage file-roller # Create and modify archives
 # Matrix client
 AddPackage element-desktop # Glossy Matrix collaboration client — desktop version.
 AddPackage calibre         # Ebook management application
+IgnorePath '/usr/lib/python3.*/site-packages/html2text-*.egg-info/*'
 AddPackage rofimoji        # Character picker for rofi
 
 AddPackage vlc # Multi-platform MPEG, VCD/DVD, and DivX player

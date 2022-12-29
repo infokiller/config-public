@@ -45,6 +45,8 @@ AddPackage device-mapper # Device mapper userspace library and tools
 AddPackage udisks2       # Disk Management Service, version 2
 AddPackage lsof          # Lists open files for running Unix processes
 AddPackage rsync         # A file transfer program to keep remote files in sync
+AddPackage btrfs-progs   # Btrfs filesystem utilities
+IgnorePath '/usr/lib/python3.*/site-packages/btrfsutil-*.egg-info/*'
 AddPackage gdu           # Fast disk usage analyzer
 AddPackage ncdu          # Disk usage analyzer with an ncurses interface
 AddPackage wipe          # Secure file wiping utility
