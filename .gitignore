@@ -220,6 +220,9 @@
 /.config/libvirt/storage
 /.config/libfm/libfm.conf
 /.config/menus
+# Created by gnome-terminal, see also
+# https://github.com/Vladimir-csp/xdg-terminal-exec
+/.config/*xdg-terminals.list
 /.config/pavucontrol.ini
 /.config/pcmanfm
 /.config/gtk-2.0/gtkfilechooser.ini
