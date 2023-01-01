@@ -150,9 +150,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/eslintrc@npm:^1.4.0":
-  version: 1.4.0
-  resolution: "@eslint/eslintrc@npm:1.4.0"
+"@eslint/eslintrc@npm:^1.4.1":
+  version: 1.4.1
+  resolution: "@eslint/eslintrc@npm:1.4.1"
   dependencies:
     ajv: ^6.12.4
     debug: ^4.3.2
@@ -163,7 +163,7 @@ __metadata:
     js-yaml: ^4.1.0
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
-  checksum: 73e39c833deafde8d8706e6fa9b52b6d99927c094ead8e405ea4174e8197ec24aac9ba88ae38cc8ad32eaccf07b9c7fc5dc70761d1fba6da41a928691447305f
+  checksum: cd3e5a8683db604739938b1c1c8b77927dc04fce3e28e0c88e7f2cd4900b89466baf83dfbad76b2b9e4d2746abdd00dd3f9da544d3e311633d8693f327d04cd7
   languageName: node
   linkType: hard
 
@@ -4017,16 +4017,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.15.2":
-  version: 0.15.2
-  resolution: "corepack@npm:0.15.2"
+"corepack@npm:0.15.3":
+  version: 0.15.3
+  resolution: "corepack@npm:0.15.3"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: 42fa8c0bf85b3bc029b24f79271718553f71ced7d4c394e8843314ccd2f2065a1d4d185e9b7c55dccf1101617f2a8e9ab3d1e1cb3127284400d29b2672febf89
+  checksum: 00d0d17a7e8393b8ea5f1768a2e45ce1d3f18a93ececc77ac1695d94e47ea60287d67573ef68da1d710c5909341f0c694120d66266894bbaccdb2f607535d24b
   languageName: node
   linkType: hard
 
@@ -6086,11 +6086,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.30.0":
-  version: 8.30.0
-  resolution: "eslint@npm:8.30.0"
+"eslint@npm:8.31.0":
+  version: 8.31.0
+  resolution: "eslint@npm:8.31.0"
   dependencies:
-    "@eslint/eslintrc": ^1.4.0
+    "@eslint/eslintrc": ^1.4.1
     "@humanwhocodes/config-array": ^0.11.8
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6131,7 +6131,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: b7525bb465b342665c3b8bab7e114d514ef1bc4e79f211c919863f9c71767e7412ec82383a22614a92d159783f91101018817000f7c61ce69a5e7015280cafaf
+  checksum: 5e5688bb864edc6b12d165849994812eefa67fb3fc44bb26f53659b63edcd8bcc68389d27cc6cc9e5b79ee22f24b6f311fa3ed047bddcafdec7d84c1b5561e4f
   languageName: node
   linkType: hard
 
@@ -7727,6 +7727,19 @@ __metadata:
     merge2: ^1.4.1
     slash: ^4.0.0
   checksum: c148fcda0c981f00fb434bb94ca258f0a9d23cedbde6fb3f37098e1abde5b065019e2c63fe2aa2fad4daf2b54bf360b4d0423d85fb3a63d09ed75a2837d4de0f
+  languageName: node
+  linkType: hard
+
+"globby@npm:13.1.3":
+  version: 13.1.3
+  resolution: "globby@npm:13.1.3"
+  dependencies:
+    dir-glob: ^3.0.1
+    fast-glob: ^3.2.11
+    ignore: ^5.2.0
+    merge2: ^1.4.1
+    slash: ^4.0.0
+  checksum: 93f06e02002cdf368f7e3d55bd59e7b00784c7cc8fe92c7ee5082cc7171ff6109fda45e1c97a80bb48bc811dedaf7843c7c9186f5f84bde4883ab630e13c43df
   languageName: node
   linkType: hard
 
@@ -11001,21 +11014,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:0.5.1":
-  version: 0.5.1
-  resolution: "markdownlint-cli2@npm:0.5.1"
+"markdownlint-cli2@npm:0.6.0":
+  version: 0.6.0
+  resolution: "markdownlint-cli2@npm:0.6.0"
   dependencies:
-    globby: 13.1.2
-    markdownlint: 0.26.2
+    globby: 13.1.3
+    markdownlint: 0.27.0
     markdownlint-cli2-formatter-default: 0.0.3
     micromatch: 4.0.5
     strip-json-comments: 5.0.0
-    yaml: 2.1.1
+    yaml: 2.2.1
   bin:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: de6c822af4f259d318ba0b72335d5f225fc898e95ce6eb7f9d42dc53fe8cfbb27dd7b923fca4846791d17663a09d3b385b41bac9444ce10c6405d89e24d8c59e
+  checksum: 79efe3789c90dcf5c70f67c0f55790489c4072e74045be44c54f7b7343bc18d0f02538e1cfa2b0a90be8615eab0b413409c3bdc6dba241c970ffe37e40f093d4
   languageName: node
   linkType: hard
 
@@ -11046,7 +11059,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.26.2, markdownlint@npm:~0.26.2":
+"markdownlint@npm:0.27.0":
+  version: 0.27.0
+  resolution: "markdownlint@npm:0.27.0"
+  dependencies:
+    markdown-it: 13.0.1
+  checksum: aecc5849e611f66f4c666c9fe47f798fc7cb044ee0bf7884d666152961f1bf585f0e16cafe575386d40d5d19b82e6071aeecee14f1a7006495fe46fcf93c7aa7
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:~0.26.2":
   version: 0.26.2
   resolution: "markdownlint@npm:0.26.2"
   dependencies:
@@ -15697,9 +15719,9 @@ __metadata:
     "@google/clasp": 2.4.2
     alex: 11.0.0
     bash-language-server: 4.1.3
-    corepack: 0.15.2
+    corepack: 0.15.3
     diff-so-fancy: 1.4.3
-    eslint: 8.30.0
+    eslint: 8.31.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -15710,14 +15732,14 @@ __metadata:
     lebab: 3.1.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.32.2
-    markdownlint-cli2: 0.5.1
+    markdownlint-cli2: 0.6.0
     prettier: 2.8.1
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.4.1
     pyright: 1.1.286
     release-it: 15.6.0
     semantic-release: 19.0.5
-    snyk: 1.1079.0
+    snyk: 1.1080.0
     stylelint: 14.16.1
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16267,12 +16289,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1079.0":
-  version: 1.1079.0
-  resolution: "snyk@npm:1.1079.0"
+"snyk@npm:1.1080.0":
+  version: 1.1080.0
+  resolution: "snyk@npm:1.1080.0"
   bin:
     snyk: bin/snyk
-  checksum: 16d5bb81f61f58735e67fb925d7cc279363db596442d6748920122c71d690ff35d03857e181516e28b126c9c448e48284da54593f52a3149ba573979e1593cfa
+  checksum: 4d097bfe7abc5f2f20e39578b68deaef24ae6f891863fad245b31cf9d01d14061ed11d97d102cebd4a935a8e413a91b330d5b5b35893d00db2bcfe0f1162aa93
   languageName: node
   linkType: hard
 
@@ -19071,10 +19093,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.1.1":
-  version: 2.1.1
-  resolution: "yaml@npm:2.1.1"
-  checksum: f48bb209918aa57cfaf78ef6448d1a1f8187f45c746f933268b7023dc59e5456004611879126c9bb5ea55b0a2b1c2b392dfde436931ece0c703a3d754562bb96
+"yaml@npm:2.2.1":
+  version: 2.2.1
+  resolution: "yaml@npm:2.2.1"
+  checksum: 84f68cbe462d5da4e7ded4a8bded949ffa912bc264472e5a684c3d45b22d8f73a3019963a32164023bdf3d83cfb6f5b58ff7b2b10ef5b717c630f40bd6369a23
   languageName: node
   linkType: hard
 
