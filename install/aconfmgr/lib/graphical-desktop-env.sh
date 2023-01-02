@@ -13,11 +13,7 @@ CreateLink '/etc/systemd/system/display-manager.service' '/usr/lib/systemd/syste
 # See also: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=837979
 AddPackage accountsservice # D-Bus interface for user account query and manipulation
 
-if [[ "${HOST_ALIAS}" == zeus18 ]]; then
-  AddPackage i3-gaps # A fork of i3wm tiling window manager with more features, including gaps
-else
-  AddPackage i3-wm # An improved dynamic tiling window manager
-fi
+AddPackage i3-wm # An improved dynamic tiling window manager
 AddPackage i3status # Generates status bar to use with i3bar, dzen2 or xmobar
 # Required by i3-save-tree.
 AddPackage perl-anyevent-i3 # Communicate with the i3 window manager
