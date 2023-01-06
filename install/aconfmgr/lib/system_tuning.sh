@@ -35,7 +35,7 @@ AddPackage irqbalance # IRQ balancing daemon for SMP systems
 CreateLink /etc/systemd/system/multi-user.target.wants/irqbalance.service /usr/lib/systemd/system/irqbalance.service
 
 # Benchmarking and stress testing. Monitoring packages are in sysadmin.sh.
-AddPackage stress   # A tool that stress tests your system (CPU, memory, I/O, disks)
+AddPackage stress # A tool that stress tests your system (CPU, memory, I/O, disks)
 
 AddPackage cpupower # Linux kernel tool to examine and tune power saving related features of your processor
 CreateLink '/etc/systemd/system/multi-user.target.wants/cpupower.service' '/usr/lib/systemd/system/cpupower.service'
@@ -50,6 +50,8 @@ if is_desktop; then
   unset f
 fi
 
+AddPackage --foreign cfs-zen-tweaks # Script tweak CFS for desktop interactivity
+
 # hera11's battery doesn't work, no point for power management software to run.
 if is_laptop && [[ "${HOST_ALIAS}" != hera11 ]]; then
   AddPackage powertop # A tool to diagnose issues with power consumption and power management
@@ -61,10 +63,10 @@ if is_laptop && [[ "${HOST_ALIAS}" != hera11 ]]; then
   CreateLink '/etc/systemd/system/systemd-rfkill.service' '/dev/null'
   CreateLink '/etc/systemd/system/systemd-rfkill.socket' '/dev/null'
   # ethtool is an optional dependency of tlp which adds support to disable wake on LAN.
-  AddPackage ethtool                # Utility for controlling network drivers and hardware
+  AddPackage ethtool # Utility for controlling network drivers and hardware
   # x86_energy_perf_policy is an optional dependency of tlp.
   AddPackage x86_energy_perf_policy # Read or write MSR_IA32_ENERGY_PERF_BIAS
-  AddPackage thermald # The Linux Thermal Daemon program from 01.org
+  AddPackage thermald               # The Linux Thermal Daemon program from 01.org
   CreateLink '/etc/systemd/system/dbus-org.freedesktop.thermald.service' '/usr/lib/systemd/system/thermald.service'
   CreateLink '/etc/systemd/system/multi-user.target.wants/thermald.service' '/usr/lib/systemd/system/thermald.service'
 fi

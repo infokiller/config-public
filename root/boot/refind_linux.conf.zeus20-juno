@@ -28,8 +28,14 @@
 #   NOTE: As of kernel 5.5 the freezes should be fixed, but I'm keeping these
 #   flags for the linux kernel (not linux-hardened) in case they are still
 #   needed.
+#
+# - debugfs: enables debugfs [1][2] (which mounts /sys/kernel/debug), which is
+#   needed to tweak CPU scheduler params as done by cfs-zen-tweaks [3]
+#   - [1] https://github.com/torvalds/linux/blob/c2bf05db6c78f53ca5cd4b48f3b9b71f78d215f1/Documentation/admin-guide/kernel-parameters.txt#L954
+#   - [2] https://lkml.org/lkml/2020/7/16/122
+#   - [3] https://github.com/igo95862/cfs-zen-tweaks
 
-"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=c9f310bf-8b03-47c9-b327-62b0ec067e6b:cryptlvm consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192"
+"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=c9f310bf-8b03-47c9-b327-62b0ec067e6b:cryptlvm consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192 debugfs=on"
 "Regular kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=c9f310bf-8b03-47c9-b327-62b0ec067e6b:cryptlvm consoleblank=300 intel_idle.max_cstate=1 i915.enable_dc=0"
 
 # vim: set ft=conf :

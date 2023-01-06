@@ -1,3 +1,7 @@
+# Multiple sourced [1][2] say that the main initrd must be set in the initrd
+# param, and the microcode initrd should be in the options.
+# [1] https://sourceforge.net/p/refind/discussion/general/thread/7da6cd81/#19f8
+# [2] https://wiki.archlinux.org/index.php/microcode#rEFInd
 # NOTE: The loader and initrd refind params and the initrd kernel param are all
 # relative to the root of the volume param.
 # NOTE: The initrd param in the kernel command line needs to use backslashes.
@@ -6,7 +10,7 @@ menuentry "Arch Linux" {
     volume   01ea550c-c9b4-431a-82c7-4362ca0a5460
     loader   vmlinuz-linux-hardened
     initrd   initramfs-linux-hardened.img
-    options  "initrd=intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192 pci=nommconf"
+    options  "initrd=intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=b49451e6-1847-482f-ab0a-d66113c75185:cryptlvm consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192 pci=nommconf debugfs=on"
     submenuentry "linux-hardened: fallback initramfs" {
         initrd initramfs-linux-hardened-fallback.img
     }
