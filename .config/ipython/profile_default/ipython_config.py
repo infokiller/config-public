@@ -1137,6 +1137,9 @@ if IPython.version_info[0] >= 5:
     # See https://github.com/ipython/ipython/issues/5646 for details.
     # Also, this option is expected to be removed, and the behavior seems to be
     # included now that jedi is the default completer.
+    # Update 2023-01-08: there is progress on the Completer.greedy deprecation
+    # with a new Completer.evaluation setting in IPython 8.8:
+    # https://github.com/ipython/ipython/pull/13852/
     # c.Completer.greedy = False
 
     c.TerminalInteractiveShell.editor = 'vim-in-ipython'
