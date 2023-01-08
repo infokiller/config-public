@@ -51,6 +51,11 @@ if is_desktop; then
 fi
 
 AddPackage --foreign cfs-zen-tweaks # Script tweak CFS for desktop interactivity
+CreateLink /etc/systemd/system/hibernate.target.wants/set-cfs-tweaks.service /usr/lib/systemd/system/set-cfs-tweaks.service
+CreateLink /etc/systemd/system/hybrid-sleep.target.wants/set-cfs-tweaks.service /usr/lib/systemd/system/set-cfs-tweaks.service
+CreateLink /etc/systemd/system/multi-user.target.wants/set-cfs-tweaks.service /usr/lib/systemd/system/set-cfs-tweaks.service
+CreateLink /etc/systemd/system/suspend.target.wants/set-cfs-tweaks.service /usr/lib/systemd/system/set-cfs-tweaks.service
+CreateLink /etc/systemd/system/suspend-then-hibernate.target.wants/set-cfs-tweaks.service /usr/lib/systemd/system/set-cfs-tweaks.service
 
 # hera11's battery doesn't work, no point for power management software to run.
 if is_laptop && [[ "${HOST_ALIAS}" != hera11 ]]; then
