@@ -42,3 +42,4 @@ AddPackage pacutils            # Helper tools for libalpm
 AddPackage python-jupyter_core # Jupyter core package. A base package on which Jupyter projects rely.
 # AddPackage ipython # An enhanced Interactive Python shell.
 # AddPackage python-ipykernel # The ipython kernel for Jupyter
+IgnorePath '/usr/lib/python3.*/site-packages/debugpy-*.egg-info/*'

@@ -41,7 +41,9 @@ AddPackage mediainfo           # Supplies technical and tag information about a 
 AddPackage odt2txt             # extracts the text out of OpenDocument Texts
 AddPackage perl-image-exiftool # Reader and rewriter of EXIF informations that supports raw files
 AddPackage mat2                # Metadata removal tool, supporting a wide range of commonly used file formats
+IgnorePath '/usr/lib/python3.*/site-packages/mat2-*.egg-info/*'
 AddPackage python-pygments     # Python syntax highlighter
+IgnorePath '/usr/lib/python3.*/site-packages/Pygments-*.egg-info/*'
 AddPackage transmission-cli    # Fast, easy, and free BitTorrent client (CLI tools, daemon and web client)
 # For image previews.
 AddPackage w3m        # Text-based Web browser as well as pager

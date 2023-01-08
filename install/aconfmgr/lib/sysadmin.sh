@@ -37,6 +37,7 @@ EOF
 fi
 
 AddPackage borg # Deduplicating backup program with compression and authenticated encryption
+IgnorePath '/usr/lib/python3.*/site-packages/borgbackup-*.egg-info/*'
 # Required for mounting borg backups.
 AddPackage python-llfuse # A set of Python bindings for the low level FUSE API.
 
