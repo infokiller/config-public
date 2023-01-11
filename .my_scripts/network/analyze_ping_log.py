@@ -87,7 +87,7 @@ def main():
             log_content = f.read()
         label = os.path.basename(path)
         loss_dt, sent, received = _parse_packet_loss(log_content, min_datetime)
-        lost = [(s - r) / s for s, r in zip(sent, received)]
+        lost = [s - r for s, r in zip(sent, received)]
         print('Packet loss: {:.1f}% ({}/{})'.format(100 * sum(lost) / sum(sent),
                                                     sum(lost), sum(sent)))
         datetimes, latencies = _parse_ping_latencies(log_content, min_datetime)
@@ -108,7 +108,7 @@ def main():
                 plt.axvline(x=loss_dt[i],
                             color='red',
                             alpha=0.4,
-                            linewidth=20 * frac)
+                            linewidth=5*frac)
     plt.legend()
     plt.show()
 
