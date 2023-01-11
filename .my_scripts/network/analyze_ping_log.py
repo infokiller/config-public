@@ -7,9 +7,9 @@ import os
 import re
 import sys
 
-import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal
+from matplotlib import pyplot as plt
 
 # import pandas as pd
 
@@ -34,8 +34,9 @@ def _parse_ping_latencies(log_content, min_datetime):
 
 
 def _parse_packet_loss(log_content, min_datetime):
-    sent = 0
-    received = 0
+    datetimes = []
+    sent = []
+    received = []
     last_datetime = None
     for line in log_content.split('\n'):
         match = PING_TIME_REGEX.match(line)
@@ -48,9 +49,10 @@ def _parse_packet_loss(log_content, min_datetime):
         match = PING_STATS_REGEX.match(line)
         if not match:
             continue
-        sent += int(match.groups()[0])
-        received += int(match.groups()[1])
-    return (sent, received)
+        datetimes.append(last_datetime)
+        sent.append(int(match.groups()[0]))
+        received.append(int(match.groups()[1]))
+    return (datetimes, sent, received)
 
 
 def compute_percentile(values, percentile):
@@ -81,13 +83,13 @@ def main():
         print('Parsing file: {}'.format(path))
         if not os.path.exists(path):
             sys.exit('File not found: {}'.format(path))
-        with open(path) as f:
+        with open(path, encoding='utf-8') as f:
             log_content = f.read()
         label = os.path.basename(path)
-        sent, received = _parse_packet_loss(log_content, min_datetime)
-        lost = sent - received
-        print('Packet loss: {:.1f}% ({}/{})'.format(100 * lost / sent, lost,
-                                                    sent))
+        loss_dt, sent, received = _parse_packet_loss(log_content, min_datetime)
+        lost = [(s - r) / s for s, r in zip(sent, received)]
+        print('Packet loss: {:.1f}% ({}/{})'.format(100 * sum(lost) / sum(sent),
+                                                    sum(lost), sum(sent)))
         datetimes, latencies = _parse_ping_latencies(log_content, min_datetime)
         sorted_latencies = sorted(latencies)
         percentile_latencies = []
@@ -100,6 +102,13 @@ def main():
         smoothing_filter /= sum(smoothing_filter)
         latencies = np.convolve(latencies, smoothing_filter, mode='same')
         plt.plot(datetimes, latencies, label=label)
+        for i, l in enumerate(lost):
+            if l > 0:
+                frac = l / sent[i]
+                plt.axvline(x=loss_dt[i],
+                            color='red',
+                            alpha=0.4,
+                            linewidth=20 * frac)
     plt.legend()
     plt.show()
 
