@@ -1677,7 +1677,8 @@ select-command() {
 # Misc {{{
 alias t='time'
 time-output-lines() {
-  "$@" > >(prepend-time) 2> >(prepend-time 1>&2)
+  local prepend_cmd=(stdbuf -oL -eL prepend-time)
+  stdbuf -oL -eL "$@" > >("${prepend_cmd[@]}") 2> >("${prepend_cmd[@]}" 1>&2)
 }
 alias tt='time-output-lines'
 
