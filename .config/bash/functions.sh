@@ -1908,12 +1908,27 @@ monitor-slow-pings() {
   py_cmd='print(f"{datetime.datetime.now()}: {get_con()}: {x}", flush=True)'
   # Without using stdbuf the output buffering causes lines to be output after a
   # large delay.
-  local s=0
+  local s=0 c=0
   {
     while true; do
       s=0
-      timeout 3 ping -c 1 "${1:-1.1}" 2>&1 || s=$?
-      ((s == 124)) && echo 'ping command timed out'
+      timeout 2 ping -c 1 "${1:-1.1}" 2>&1 || s=$?
+      if ((s == 0)); then 
+        ((c += 1))
+      fi
+      if ((c > 0 && (s != 0 || c % 100 == 0))); then
+        if ((s == 0)); then
+          echo '100 fast pings'
+        elif ((c % 100 != 0)); then
+          printf '%d fast pings' $((c%100))
+        fi
+      fi
+      if ((s == 124)); then
+        echo 'ping command timed out'
+      fi
+      if ((s != 0)); then 
+        c=0
+      fi
       sleep 1
     done
   } |
