@@ -1456,12 +1456,31 @@ conda-reset-env() {
     sqlite tk wheel xz zlib)
   local packages_regex
   packages_regex="$(printf '^(%s)' \
-    "$(join_by '|' "${manadatory_packages[@]}")")"
-  conda list |
-    \grep --text -E -v -e 'pypi$' -e '^\s*#' -e "${packages_regex}" |
-    awk '{print $1}' |
-    sensible-xargs conda uninstall
-  conda list | \grep --text 'pypi$' | sensible-xargs pip uninstall
+  "$(join_by '|' "${manadatory_packages[@]}")")"
+  local extra_conda_pkgs=() extra_pip_pkgs=()
+  # Zsh doesn't support mapfile.
+  # shellcheck disable=SC2207
+  IFS=$'\n' extra_conda_pkgs=($(conda list --json |
+    jq -r '.[] | select(.channel != "pypi") | .name' |
+    \grep -Ev "${packages_regex}")) || true
+  # Zsh doesn't support mapfile.
+  # shellcheck disable=SC2207
+  IFS=$'\n' extra_pip_pkgs=($(conda list --json |
+    jq -r '.[] | select(.channel == "pypi") | .name' |
+    \grep -Ev "${packages_regex}")) || true
+  # IFS=$'\n' extra_pkgs=($(conda list |
+  #   \grep --text -E -v -e '^\s*#' -e "${packages_regex}" |
+  #   awk '{print $1}'))
+  if ((${#extra_conda_pkgs[@]})); then
+    cmd=(conda uninstall "${extra_conda_pkgs[@]}")
+    print_bold "Dry run command: $(join_by ' ' "${cmd[@]}")"
+    # "${cmd[@]}"
+  fi
+  if ((${#extra_pip_pkgs[@]})); then
+    cmd=(pip uninstall "${extra_pip_pkgs[@]}")
+    print_bold "Dry run command: $(join_by ' ' "${cmd[@]}")"
+    # "${cmd[@]}"
+  fi
 }
 # }}} Python 
 
