@@ -1920,7 +1920,7 @@ monitor-slow-pings() {
         if ((s == 0)); then
           echo '100 fast pings'
         elif ((c % 100 != 0)); then
-          printf '%d fast pings' $((c%100))
+          printf '%d fast pings before error\n' $((c%100))
         fi
       fi
       if ((s == 124)); then
