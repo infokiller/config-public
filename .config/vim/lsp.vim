@@ -182,6 +182,8 @@ augroup END
 " Mnemonic: Code Help
 nnoremap <Leader>ch <Cmd>YcmCompleter GetDoc<CR>
 
+Plug 'github/copilot.vim'
+
 " Issues with CompleteParameter.vim:
 " - <C-L> mapping (same as UltiSnips) conflicts with RefreshScreenCommand. I
 "   think UltiSnips doesn't cause a conflict because it only remaps the keys

@@ -261,6 +261,9 @@
 	path = submodules/vim/conflict-marker.vim
 	url = https://github.com/rhysd/conflict-marker.vim
 	ignore = untracked
+[submodule "submodules/vim/copilot.vim"]
+	path = submodules/vim/copilot.vim
+	url = https://github.com/github/copilot.vim
 [submodule "submodules/vim/ctrlsf.vim"]
 	path = submodules/vim/ctrlsf.vim
 	url = https://github.com/dyng/ctrlsf.vim
@@ -554,6 +557,9 @@
 	path = submodules/vim/vim-operator-user
 	url = https://github.com/kana/vim-operator-user
 	ignore = untracked
+[submodule "submodules/vim/vim-oscyank"]
+	path = submodules/vim/vim-oscyank
+	url = https://github.com/ojroques/vim-oscyank
 [submodule "submodules/vim/vim-peekaboo"]
 	path = submodules/vim/vim-peekaboo
 	url = https://github.com/junegunn/vim-peekaboo
@@ -700,6 +706,3 @@
 [submodule "submodules/xplr/preview-tabbed.xplr"]
 	path = submodules/xplr/preview-tabbed.xplr
 	url = https://github.com/sayanarijit/preview-tabbed.xplr
-[submodule "submodules/vim/vim-oscyank"]
-	path = submodules/vim/vim-oscyank
-	url = https://github.com/ojroques/vim-oscyank
