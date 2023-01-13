@@ -84,7 +84,7 @@ def _get_man_files(package_path, package_metadata):
 def _link_package_files(package_path, get_binary_install_name=lambda x: x):
     package_spec = os.path.basename(package_path)
     package_metadata_path = os.path.join(package_path, 'package.json')
-    with open(package_metadata_path, encoding='utf8') as f:
+    with open(package_metadata_path, encoding='utf-8') as f:
         package_metadata = json.loads(f.read())
     package_bins = package_metadata.get('bin', {})
     if isinstance(package_bins, str):

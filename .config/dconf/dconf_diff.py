@@ -53,11 +53,11 @@ def main():
     args = parser.parse_args()
     base_config_parser = configparser.ConfigParser()
     for path in args.base_configs.split(','):
-        with open(path) as f:
+        with open(path, encoding='utf-8') as f:
             base_config_parser.read_file(f)
     other_config_parser = configparser.ConfigParser()
     for path in args.other_configs.split(','):
-        with open(path) as f:
+        with open(path, encoding='utf-8') as f:
             other_config_parser.read_file(f)
     all_sections = set(base_config_parser.sections() +
                        other_config_parser.sections())

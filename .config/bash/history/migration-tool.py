@@ -24,7 +24,7 @@ def write_csv_shard(entries, path):
         ])
     stream.seek(0)
     print(f'Writing CSV shard: {path}')
-    with open(path, 'w') as f:
+    with open(path, 'w', encoding='utf-8') as f:
         f.write(stream.read())
 
 

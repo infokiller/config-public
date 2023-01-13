@@ -82,7 +82,7 @@ def read_packages_file(filename: str) -> List[str]:
     this_file_path = os.path.realpath(__file__)
     this_file_dir = os.path.dirname(this_file_path)
     packages_file_path = os.path.join(this_file_dir, filename)
-    with open(packages_file_path) as f:
+    with open(packages_file_path, encoding='utf-8') as f:
         lines = f.read().splitlines()
     packages = []
     for line in lines:

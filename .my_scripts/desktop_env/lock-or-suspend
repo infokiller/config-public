@@ -55,7 +55,7 @@ def _is_on_battery():
     battery = batteries[0]
     status_file_path = os.path.join(power_supplies_dir, battery, 'status')
     try:
-        with open(status_file_path) as f:
+        with open(status_file_path, encoding='utf-8') as f:
             status = f.read().strip().lower()
     except IOError as e:
         _logger.error('Error reading battery status: %s', e)

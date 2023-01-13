@@ -82,10 +82,10 @@ def compute_all_stats(cmds, max_printed_values=100, should_shorten=True):
     cmds_counts.sort(key=operator.itemgetter(1), reverse=True)
     args_counts.sort(key=operator.itemgetter(1), reverse=True)
     top_cmds_csv = generate_csv_output(cmds_counts[:500])
-    with open('top_commands.csv', 'w') as f:
+    with open('top_commands.csv', 'w', encoding='utf-8') as f:
         f.write(top_cmds_csv)
     top_args_csv = generate_csv_output(args_counts[:500])
-    with open('top_args.csv', 'w') as f:
+    with open('top_args.csv', 'w', encoding='utf-8') as f:
         f.write(top_args_csv)
     if should_shorten:
         cmds_counts = shorten_commands(cmds_counts)

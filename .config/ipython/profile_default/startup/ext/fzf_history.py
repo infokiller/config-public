@@ -81,7 +81,7 @@ class _HistoryPreviewThread(threading.Thread):
 
     def run(self) -> None:
         while not self.is_done.is_set():
-            with open(self.fifo_input_path) as fifo_input:
+            with open(self.fifo_input_path, encoding='utf-8') as fifo_input:
                 while not self.is_done.is_set():
                     data = fifo_input.read()
                     if len(data) == 0:
@@ -90,12 +90,12 @@ class _HistoryPreviewThread(threading.Thread):
                     entries = [self.history_getter(i)[1] for i in indices]
                     code = '\n\n'.join(entries)
                     highlighted_code = _highlight_code(code)
-                    with open(self.fifo_output_path, 'w') as fifo_output:
+                    with open(self.fifo_output_path, 'w', encoding='utf-8') as fifo_output:
                         fifo_output.write(highlighted_code)
 
     def stop(self):
         self.is_done.set()
-        with open(self.fifo_input_path, 'w') as f:
+        with open(self.fifo_input_path, 'w', encoding='utf-8') as f:
             f.close()
         self.join()
 
