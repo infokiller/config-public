@@ -183,6 +183,8 @@ augroup END
 nnoremap <Leader>ch <Cmd>YcmCompleter GetDoc<CR>
 
 Plug 'github/copilot.vim'
+" Use the right key as an additional key to accept a suggestion.
+imap <silent><script><expr> <Right> copilot#Accept("\<Right>")
 
 " Issues with CompleteParameter.vim:
 " - <C-L> mapping (same as UltiSnips) conflicts with RefreshScreenCommand. I
