@@ -148,6 +148,9 @@ Plug 'Valloric/YouCompleteMe', { 'do': g:ycm_installer }
 let g:ycm_key_list_select_completion = ['<Tab>']
 " By default YouCompleteMe uses <Down> as well which conflicts with my mappings.
 let g:ycm_key_list_previous_completion = ['<S-Tab>']
+" Close the completion menu with Ctrl-t. This is useful when the completion menu
+" or I want to get Copilot suggestions.
+let g:ycm_key_list_stop_completion = ['<C-t>']
 
 " Collect identifiers from comments and strings for YCM completions.
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
