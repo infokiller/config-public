@@ -17,6 +17,9 @@ CopyFile '/etc/ssh/sshd_config' 600
 IgnorePath '/etc/ssh/ssh_host_*_key*'
 CreateLink '/etc/systemd/system/multi-user.target.wants/sshd.service' '/usr/lib/systemd/system/sshd.service'
 
+# As of 2023-01-14, eternalterminal requires openssl 1.x but requires the
+# openssl package which now defaults to 3.x.
+AddPackage openssl-1.1               # The Open Source toolkit for Secure Sockets Layer and Transport Layer Security
 AddPackage --foreign eternalterminal # Re-Connectable Terminal connection. Includes both client and server.
 CreateLink /etc/systemd/system/multi-user.target.wants/et.service /usr/lib/systemd/system/et.service
 
