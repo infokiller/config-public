@@ -1,0 +1,12 @@
+-c requirements.txt
+pip-tools~=6.12
+pylint~=2.15
+yapf~=0.32
+isort~=5.10
+ipython~=8.8
+jupytext~=1.0
+# ipykernel is required for the VSCode interactive window
+ipykernel~=6.13
+# ipywidgets is required for rich to run in Jupyter Notebook or the VSCode
+# interactive window.
+ipywidgets~=7.7
