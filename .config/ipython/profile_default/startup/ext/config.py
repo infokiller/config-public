@@ -192,6 +192,9 @@ def _enable_history_db_recovery():
             #     raise ValueError(f'Object {obj} missing "db" attribute')
             # Name all attributes with _my_ prefix to reduce the change of a
             # collision with an existing attribute of the parent class.
+            # Calling super is required to avoid the following sqlite3 error:
+            # ProgrammingError: Base Connection.__init__ not called.
+            super().__init__(':memory:')
             self._my_conn = conn
             self._my_conn_opts = extra_connection_opts
             self._my_num_retries = 0
@@ -204,9 +207,9 @@ def _enable_history_db_recovery():
             # Store a copy of the input cache so that we can write it to the DB
             # in case of errors.
             hm = get_ipython().history_manager
-            # pylint: disable-next=line-too-long
             # history_manager can be set to None at exit?
             # I noticed this error message occasionally:
+            # pylint: disable-next=line-too-long
             #   The history saving thread hit an unexpected error (AttributeError("'NoneType' object has no attribute 'db_input_cache'")).History will not be written to the database.
             if hm:
                 self._my_db_input_cache = list(hm.db_input_cache)
