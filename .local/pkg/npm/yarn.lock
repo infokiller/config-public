@@ -2553,13 +2553,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.4.0":
-  version: 4.4.0
-  resolution: "bash-language-server@npm:4.4.0"
+"bash-language-server@npm:4.5.1":
+  version: 4.5.1
+  resolution: "bash-language-server@npm:4.5.1"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
-    node-fetch: 2.6.7
+    node-fetch: 2.6.8
     turndown: 7.1.1
     urijs: 1.19.11
     vscode-languageserver: 8.0.2
@@ -2568,7 +2568,7 @@ __metadata:
     zod: 3.20.2
   bin:
     bash-language-server: out/cli.js
-  checksum: f3d41ef2bcb17306ece75b93d7e073644e26518fecad91c4101a33649ea81da7bd7868a2a35c5e2c0c052c13ce7fda9e1eeed6b695b37417f98c06a344cdb6a6
+  checksum: 2b86c83a84274d8c402c472355cb37607735d4b0cdcd117d48bc3d9a58575eb04af8eedbf27fd943089aa179317d9575ae51414c751aa7efb54a97afddd878f0
   languageName: node
   linkType: hard
 
@@ -6099,9 +6099,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.31.0":
-  version: 8.31.0
-  resolution: "eslint@npm:8.31.0"
+"eslint@npm:8.32.0":
+  version: 8.32.0
+  resolution: "eslint@npm:8.32.0"
   dependencies:
     "@eslint/eslintrc": ^1.4.1
     "@humanwhocodes/config-array": ^0.11.8
@@ -6144,7 +6144,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 5e5688bb864edc6b12d165849994812eefa67fb3fc44bb26f53659b63edcd8bcc68389d27cc6cc9e5b79ee22f24b6f311fa3ed047bddcafdec7d84c1b5561e4f
+  checksum: 23c8fb3c57291eecd9c1448faf603226a8f885022a2cd96e303459bf72e39b7f54987c6fb948f0f9eecaf7085600e6eb0663482a35ea83da12e9f9141a22b91e
   languageName: node
   linkType: hard
 
@@ -12731,6 +12731,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:2.6.8":
+  version: 2.6.8
+  resolution: "node-fetch@npm:2.6.8"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 91f57be68e29f9b1382750693619e199733a6936998e6d618f1aa779853ad8fc4a2facf170db7957bf1d2510bad33449edf74b5802713d81b63de5986fa3be00
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:3.3.0":
   version: 3.3.0
   resolution: "node-fetch@npm:3.3.0"
@@ -14758,13 +14772,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.289":
-  version: 1.1.289
-  resolution: "pyright@npm:1.1.289"
+"pyright@npm:1.1.290":
+  version: 1.1.290
+  resolution: "pyright@npm:1.1.290"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 260470e438eacece99905af53b72747bbeab6bc4fbaacacd88e94b1ed618ada54ef1e1d8a086306b58bb148245e368d1b4157f441143a66d3acbeb5b78339023
+  checksum: 4c1f032d47cb48c08969b7987ab2d7395785999c1c29c6569cc43271b2e36a3826d5aebdf0c9d6e7bf4a5c835fcdf9e83397fa7bba24ae0726ef7a24185741fe
   languageName: node
   linkType: hard
 
@@ -15739,10 +15753,10 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.4.0
+    bash-language-server: 4.5.1
     corepack: 0.15.3
     diff-so-fancy: 1.4.3
-    eslint: 8.31.0
+    eslint: 8.32.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -15757,7 +15771,7 @@ __metadata:
     prettier: 2.8.3
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.5.2
-    pyright: 1.1.289
+    pyright: 1.1.290
     release-it: 15.6.0
     semantic-release: 20.0.2
     snyk: 1.1087.0
