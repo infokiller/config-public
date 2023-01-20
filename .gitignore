@@ -288,6 +288,7 @@
 /.config/BraveSoftware
 /.config/Code - OSS
 /.config/Element
+/.config/GIMP
 /.config/Insync
 /.config/Keybase
 /.config/Microsoft/Microsoft Teams
@@ -318,7 +319,6 @@
 /.config/gambas3
 /.config/geeqie
 /.config/geequi
-/.config/gimp
 /.config/git/gitk
 /.config/google-chrome
 /.config/google-chrome-remote
