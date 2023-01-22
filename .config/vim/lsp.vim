@@ -971,6 +971,8 @@ function! s:FixALEForBashLibraries() abort
   let b:ale_linters_ignore = ['shell']
 endfunction
 
+let g:ale_linters = get(g:, 'ale_linters', {})
+let g:ale_linters['sh'] = ['shellcheck']
 let g:ale_fixers = get(g:, 'ale_fixers', {})
 let g:ale_fixers['sh'] = ['shfmt']
 let g:ale_sh_shfmt_options = '-i 2 -sr -ci'
