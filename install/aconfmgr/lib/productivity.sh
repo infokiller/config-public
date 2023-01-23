@@ -45,8 +45,10 @@ IgnorePath '/usr/lib/python3.*/site-packages/mat2-*.egg-info/*'
 AddPackage python-pygments     # Python syntax highlighter
 IgnorePath '/usr/lib/python3.*/site-packages/Pygments-*.egg-info/*'
 AddPackage transmission-cli    # Fast, easy, and free BitTorrent client (CLI tools, daemon and web client)
-# For image previews.
-AddPackage w3m        # Text-based Web browser as well as pager
+# For w3m image previews.
+AddPackage w3m           # Text-based Web browser as well as pager
+# For kitty image previews.
+AddPackage python-pillow # Python Imaging Library (PIL) fork
 
 AddPackage broot # Fuzzy Search + tree + cd
 

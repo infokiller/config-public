@@ -84,7 +84,6 @@ declare -A INSTALLED_BINARIES=(
   ['s-tui']=''
   ['semgrep']=''
   ['twine']=''
-  ['ueberzug']=''
   ['undervolt']=''
   ['vint']=''
   ['yapf']=''

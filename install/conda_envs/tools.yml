@@ -76,7 +76,6 @@ dependencies:
     - pydf
     - python-gitlab
     - s-tui
-    - ueberzug
     - undervolt
     - detect-secrets
     - semgrep

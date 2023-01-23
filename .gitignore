@@ -123,7 +123,6 @@
 /.local/bin/pytype
 /.local/bin/s-tui
 /.local/bin/twine
-/.local/bin/ueberzug
 /.local/bin/undervolt
 /.local/bin/vint
 /.local/bin/yapf

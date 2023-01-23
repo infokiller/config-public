@@ -22,10 +22,8 @@ draw_image() {
 
 _has_image_preview() {
   false
-  # TODO: Support ueberzug image previews:
-  # https://github.com/seebye/ueberzug/blob/master/examples/fzfimg.sh
   # As of 2020-08-16, w3mimgdisplay doesn't work.
-  # _command_exists ueberzug && _command_exists perl
+  # _command_exists perl
 }
 
 main() {
