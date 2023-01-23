@@ -31,7 +31,7 @@ AddPackage file-roller # Create and modify archives
 AddPackage element-desktop # Glossy Matrix collaboration client — desktop version.
 AddPackage calibre         # Ebook management application
 IgnorePath '/usr/lib/python3.*/site-packages/html2text-*.egg-info/*'
-AddPackage rofimoji        # Character picker for rofi
+AddPackage rofimoji # Character picker for rofi
 
 AddPackage vlc # Multi-platform MPEG, VCD/DVD, and DivX player
 IgnorePath '/usr/lib/vlc/plugins/plugins.dat'
@@ -97,6 +97,7 @@ if is_primary_dev_machine; then
   # AddPackage virtualbox-host-dkms # VirtualBox Host kernel modules sources
 
   AddPackage pinta # Drawing/editing program modeled after Paint.NET. It's goal is to provide a simplified alternative to GIMP for casual users
+  AddPackage gimp  # GNU Image Manipulation Program
   # I don't like the overcomplicated krita UI and it also pulls many deps.
   # AddPackage krita    # Edit and paint images
   AddPackage audacity # A program that lets you manipulate digital audio waveforms
