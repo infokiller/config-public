@@ -96,6 +96,10 @@ main() {
   # mkdir -p "${HOME}/.local/var/git_dirs/"
   git config --global --add credential.helper "cache --timeout=86400"
   _init_config_repos
+  # Restore .profile that could have existed before cloning the repo, and wasn't
+  # overridden by _init_repo_in_existing_dir. This is important to verify we
+  # have the correct environment.
+  git checkout -- .profile
   if [[ ! -r "${ssh_key}" ]]; then
     _log_error 'SSH key file does not exist'
     return 1
