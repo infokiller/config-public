@@ -32,9 +32,9 @@ pytimeparse==1.1.8 \
     --hash=sha256:04b7be6cc8bd9f5647a6325444926c3ac34ee6bc7e69da4367ba282f076036bd \
     --hash=sha256:e86136477be924d7e670646a98561957e8ca7308d44841e21f5ddea757556a0a
     # via -r requirements.in
-setuptools==66.0.0 \
-    --hash=sha256:a78d01d1e2c175c474884671dde039962c9d74c7223db7369771fcf6e29ceeab \
-    --hash=sha256:bd6eb2d6722568de6d14b87c44a96fac54b2a45ff5e940e639979a3d1792adb6
+setuptools==66.1.1 \
+    --hash=sha256:6f590d76b713d5de4e49fe4fbca24474469f53c83632d5d0fd056f7ff7e8112b \
+    --hash=sha256:ac4008d396bc9cd983ea483cb7139c0240a07bbc74ffb6232fceffedc6cf03a8
     # via pip-tools
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
