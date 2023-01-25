@@ -879,12 +879,8 @@ let g:ale_python_pylint_change_directory = 0
 
 " Set VIRTUALENV from CONDA_PREFIX so that jedi-vim completions will work in the
 " conda environment. See also: https://github.com/davidhalter/jedi-vim/issues/907#issuecomment-462209633
-if empty($VIRTUAL_ENV)
-  if !empty($CONDA_PREFIX)
-    let $VIRTUAL_ENV = $CONDA_PREFIX
-  else
-    let $VIRTUAL_ENV = Concat($HOME, '/.local/pkg/conda/envs/tools')
-  endif
+if empty($VIRTUAL_ENV) && !empty($CONDA_PREFIX)
+  let $VIRTUAL_ENV = $CONDA_PREFIX
 endif
 
 " Neovim recommends setting g:python3_host_prog so that the pynvim module is
