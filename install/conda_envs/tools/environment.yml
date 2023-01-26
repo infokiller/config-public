@@ -11,7 +11,7 @@ dependencies:
   - python=3.11
   - conda-tree
   - conda-lock
-  - conda-docker
+  # - conda-docker
   - pip
   - pip:
     - -r requirements.txt
