@@ -242,5 +242,6 @@ _load_gitstatus && unset -f _load_gitstatus
 
 if [[ -f "${BASH_CONFIG_DIR}/bashrc_local.sh" ]]; then
   # shellcheck disable=SC1091
+  # shellcheck source=./.config/bash/bashrc_local.sh
   source "${BASH_CONFIG_DIR}/bashrc_local.sh"
 fi
