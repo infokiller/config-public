@@ -14644,9 +14644,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.6.0":
-  version: 19.6.0
-  resolution: "puppeteer-core@npm:19.6.0"
+"puppeteer-core@npm:19.6.1":
+  version: 19.6.1
+  resolution: "puppeteer-core@npm:19.6.1"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14658,20 +14658,20 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.11.0
-  checksum: 82927bc285c9e48e1036ffe1c345c85c9edbd49498577b21990a80c53d1b8b9415317841f63d0e56ee8babefc41325d0b6f4d7167785401924749752eae9bdda
+  checksum: 6235d81ddb2cb5116eff8f3c3b4e45e12f778ed673885bdf308327cb20b98eac5a0ecaea16d2582dcae51c495d5650376a99e384ffdca7dce1084e1cc9503bd5
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.6.0":
-  version: 19.6.0
-  resolution: "puppeteer@npm:19.6.0"
+"puppeteer@npm:19.6.1":
+  version: 19.6.1
+  resolution: "puppeteer@npm:19.6.1"
   dependencies:
     cosmiconfig: 8.0.0
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.6.0
-  checksum: 8f776dbde26f9bfffc466a75584f0a7b4d7578283f19fb90ac0bc66374e0df0c12f1acd4879530f30fce67c3b5f4f4254c58d1e5679af460266203d4737957e7
+    puppeteer-core: 19.6.1
+  checksum: acdf750da962ac089e30d5688f260b5164fcd9f4447e1e5daa237633a492a69da2cd2859e732688cdb725c2b4393196674d7fedd66a008cbfaa945a00001b0cf
   languageName: node
   linkType: hard
 
@@ -15673,11 +15673,11 @@ __metadata:
     markdownlint-cli2: 0.6.0
     prettier: 2.8.3
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.6.0
+    puppeteer: 19.6.1
     pyright: 1.1.291
     release-it: 15.6.0
     semantic-release: 20.1.0
-    snyk: 1.1090.0
+    snyk: 1.1091.0
     stylelint: 14.16.1
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16218,12 +16218,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1090.0":
-  version: 1.1090.0
-  resolution: "snyk@npm:1.1090.0"
+"snyk@npm:1.1091.0":
+  version: 1.1091.0
+  resolution: "snyk@npm:1.1091.0"
   bin:
     snyk: bin/snyk
-  checksum: d0cc658edcf06972f51736bd2dba9466537332ed938e355d0cf462c3b55319a94323d8a5f6822e32b8489e7580f29b97a9330708498facf7cec45eb8eb230d0e
+  checksum: 333fcfdb70c408a07e5fb868af3f8954939c317c8f4d63de4f3349277baa7d428231c33cea342b2ebf2e2f0bebaba14e9c386cf1ae2089f864fd0e3f9274869d
   languageName: node
   linkType: hard
 
