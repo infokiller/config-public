@@ -201,6 +201,7 @@
 # (like window sizes) and credentials.
 /.PyCharm*
 /.Tribler
+/.logseq
 /.semgrep
 /.config/Debauchee
 /.config/Dharkael/flameshot.ini
@@ -290,6 +291,7 @@
 /.config/GIMP
 /.config/Insync
 /.config/Keybase
+/.config/Logseq
 /.config/Microsoft/Microsoft Teams
 /.config/Outline Manager
 /.config/Pinta/layouts.xml
