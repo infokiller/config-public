@@ -1,0 +1,17 @@
+# This environment contains tools that are useful in a general context or for a
+# large number of projects.
+# NOTE: the base (previously root) environment should contain as little packages
+# as possible to avoid breaking conda, so general tools are installed into this
+# environment.
+name: tools
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - conda-tree
+  - conda-lock
+  - conda-docker
+  - pip
+  - pip:
+    - -r requirements.txt

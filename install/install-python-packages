@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO: Use lockfiles for more reprodocible environments in the tools
-# environment. See:
-# - https://github.com/conda-incubator/conda-lock
-# - https://github.com/jazzband/pip-tools
 # TODO: Use a separate env for every tool (like pipx/pipz). I'll get that
 # automatically if using https://github.com/AndydeCleyre/zpy
 # pipz uses the built-in venv, which uses the python version it was run from, and
@@ -35,7 +31,7 @@ source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
 source "${REPO_ROOT}/install/setup_installation_env"
 
 declare -A INSTALLED_BINARIES=(
-  ['black']=''
+  # ['black']=''
   ['buku']=''
   ['codespell']=''
   ['conda-docker']=''
@@ -68,9 +64,9 @@ declare -A INSTALLED_BINARIES=(
   ['nbmerge-web']=''
   ['nbshow']=''
   ['pip']=''
-  ['pipenv']=''
-  ['pipenv-resolver']=''
-  ['poetry']=''
+  # ['pipenv']=''
+  # ['pipenv-resolver']=''
+  # ['poetry']=''
   ['proselint']=''
   # ['py']=''
   ['py3']='pyflyby'
@@ -254,9 +250,9 @@ _install_conda_envs_from_dir() {
 
 _install_non_graphical_envs() {
   _log_info_bold 'Installing non-graphical conda environments'
-  _install_conda_env "${REPO_ROOT}/.config/bash/history/environment.yml"
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/tools/environment.yml"
   _install_conda_env "${REPO_ROOT}/install/conda_envs/urlextract/urlextract.yml"
-  _install_conda_env "${REPO_ROOT}/install/conda_envs/tools.yml"
+  _install_conda_env "${REPO_ROOT}/.config/bash/history/environment.yml"
   _symlink_tools_binaries
 }
 
@@ -285,18 +281,23 @@ _pip_compile_upgrade() {
   "${sync_cmd[@]}"
 }
 
-# TODO: Upgrade "tools" environment
 _upgrade_non_graphical_envs() {
   (
-    cd -- "${REPO_ROOT}/.config/bash/history"
+    cd -- "${REPO_ROOT}/install/conda_envs/tools"
     # shellcheck disable=SC1091
-    source activate shell_history
+    source activate tools
     _pip_compile_upgrade
   )
   (
     cd -- "${REPO_ROOT}/install/conda_envs/urlextract"
     # shellcheck disable=SC1091
     source activate urlextract
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/.config/bash/history"
+    # shellcheck disable=SC1091
+    source activate shell_history
     _pip_compile_upgrade
   )
 }

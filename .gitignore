@@ -77,7 +77,6 @@
 /.local/bin/conda
 /.local/bin/conda-docker
 /.local/bin/conda-lock
-/.local/bin/dephell
 /.local/bin/deactivate
 /.local/bin/detect-secrets
 /.local/bin/detect-secrets-hook
