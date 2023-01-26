@@ -4,7 +4,9 @@ ipdb
 yapf
 isort
 pylint
-pytype
+# pytype doesn't support 3.11 as of 2023-01-26, see:
+# https://github.com/google/pytype/issues/1308
+# pytype
 twine
 python-semantic-release
 # pip-tools only seems to work well when installed in the environment it is
