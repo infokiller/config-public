@@ -360,6 +360,9 @@
 [submodule "submodules/vim/nerdtree"]
 	path = submodules/vim/nerdtree
 	url = https://github.com/scrooloose/nerdtree
+[submodule "submodules/vim/notational-fzf-vim"]
+	path = submodules/vim/notational-fzf-vim
+	url = https://github.com/infokiller/notational-fzf-vim
 [submodule "submodules/vim/nvim-solarized-lua"]
 	path = submodules/vim/nvim-solarized-lua
 	url = https://github.com/ishan9299/nvim-solarized-lua
