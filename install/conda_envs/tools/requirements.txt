@@ -625,9 +625,9 @@ jsonschema[format-nongpl]==4.17.3 \
     #   jupyterlab-server
     #   nbformat
     #   semgrep
-jupyter-client==8.0.0 \
-    --hash=sha256:4ef8959666f650f268d17284ad3b8a23eb1faa3e133a80f6227e30bad8512295 \
-    --hash=sha256:f5eafd11c2878b346b3861d3444a0fbc7fda2ce0180c8f80f9c546e32ea9bc33
+jupyter-client==8.0.1 \
+    --hash=sha256:3f67b1c8b7687e6db09bef10ff97669932b5e6ef6f5a8ee56d444b89022c5007 \
+    --hash=sha256:6016b874fd1111d721bc5bee30624399e876e79e6f395d1a559e6dce9fb2e1ba
     # via
     #   ipykernel
     #   jupyter-server
