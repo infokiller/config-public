@@ -63,29 +63,6 @@ matplotlib
 seaborn
 # }}} Data science
 
-# General tools implemented in Python {{{
-codespell
-proselint
-vim-vint
-glances
-# py3nvml provides GPU stats for glances
-py3nvml
-buku
-pinggraph
-litecli
-grip
-gpustat
-gpu-utils
-pydf
-python-gitlab
-s-tui
-undervolt
-detect-secrets
-semgrep
-# https://github.com/kristopolous/mansnip
-mansnip-kristopolous
-# }}} General tools implemented in Python
-
 # Misc {{{
 # Rich terminal output
 rich

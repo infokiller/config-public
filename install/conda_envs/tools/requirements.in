@@ -1,68 +1,3 @@
-# Python dev tools {{{ #
-ipython
-ipdb
-yapf
-isort
-pylint
-# pytype doesn't support 3.11 as of 2023-01-26, see:
-# https://github.com/google/pytype/issues/1308
-# pytype
-twine
-python-semantic-release
-# pip-tools only seems to work well when installed in the environment it is
-# being used for, so we shouldn't link it to ~/.local/bin by default.
-pip-tools
-# dephell is dead: https://github.com/dephell/dephell
-# dephell
-pypiserver
-pyflyby
-# Unused  {{{
-# Other Python dev tools I'm not using at the moment
-# pipenv
-# poetry
-# black
-# }}} Unused 
-# }}} Python dev tools #
-
-# Jupyter {{{
-jupytext
-# Classic notebook {{{
-notebook
-# jupyter_contrib_nbextensions and jupyter_contrib_nbextensions only work in
-# the classic Notebook, not JupyterLab [1][2].  However, they are still needed
-# to avoid errors in JupyterLab, because both notebook frontends share a
-# config file jupyter_notebook_config.json that specifies to load these
-# extensions. 
-# [1] https://github.com/ipython-contrib/jupyter_contrib_nbextensions#jupyterlab
-# [2] https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/issues/64
-# As of 2020-05-09, jupyter_contrib_nbextensions caused update errors in
-# zeus18, and I needed to reinstall the environment to work around that.
-jupyter_contrib_nbextensions
-jupyter_nbextensions_configurator
-# }}} Classic notebook
-# Jupyter Lab {{{ #
-jupyterlab
-# Experimental JupyterLab extensions
-jupyterlab_github
-jupyterlab-git
-# jupyterlab-lsp
-# python-lsp-server[all]
-# }}} Jupyter Lab #
-# ipykernel is required for the VSCode interactive window
-ipykernel
-# ipywidgets is required for rich to run in Jupyter Notebook or the VSCode
-# interactive window.
-ipywidgets
-nbdime
-qtconsole
-# }}} Jupyter
-
-# Data science {{{
-pandas
-matplotlib
-seaborn
-# }}} Data science
-
 # General tools implemented in Python {{{
 codespell
 proselint
@@ -85,8 +20,3 @@ semgrep
 # https://github.com/kristopolous/mansnip
 mansnip-kristopolous
 # }}} General tools implemented in Python
-
-# Misc {{{
-# Rich terminal output
-rich
-# }}} Misc
