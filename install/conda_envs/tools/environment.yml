@@ -9,9 +9,6 @@ channels:
   - defaults
 dependencies:
   - python=3.11
-  - conda-tree
-  - conda-lock
-  # - conda-docker
   - pip
   - pip:
     - -r requirements.txt

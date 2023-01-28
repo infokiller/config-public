@@ -1,0 +1,12 @@
+# This environment contains tools that are useful for python development. Most
+# projects use dedicated virtual environments, so these tools should rarely be
+# used (mainly for one-off changes to simple files).
+name: tools-dev
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - -r requirements.txt

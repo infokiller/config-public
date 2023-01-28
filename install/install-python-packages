@@ -18,7 +18,6 @@ readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BA
 readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
-readonly CONDA_TOOLS_BIN_DIR="${CONDA_LOCAL_DIR}/envs/tools/bin"
 readonly MAMBA="${CONDA_LOCAL_DIR}/envs/mamba/bin/mamba"
 readonly MINICONDA_INSTALLER='Miniconda3-py39_4.10.3-Linux-x86_64.sh'
 readonly MINICONDA_SHA256='1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f' # pragma: allowlist secret
@@ -30,19 +29,13 @@ source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
 # shellcheck source=setup_installation_env
 source "${REPO_ROOT}/install/setup_installation_env"
 
-declare -A INSTALLED_BINARIES=(
-  # ['black']=''
+# shellcheck disable=SC2034
+declare -A TOOLS_BINS=(
   ['buku']=''
   ['codespell']=''
-  # ['conda-docker']=''
-  ['conda-lock']=''
   ['detect-secrets']=''
   ['detect-secrets-hook']=''
   # gh
-  ['git-nbdiffdriver']=''
-  ['git-nbdifftool']=''
-  ['git-nbmergedriver']=''
-  ['git-nbmergetool']=''
   ['gitlab']=''
   # gitsome
   ['glances']=''
@@ -50,39 +43,57 @@ declare -A INSTALLED_BINARIES=(
   ['gpu']='gpu-cli'
   ['gpustat']=''
   ['grip']=''
+  ['litecli']=''
+  ['mansnip']=''
+  ['pip']=''
+  ['proselint']=''
+  ['pydf']=''
+  ['s-tui']=''
+  ['semgrep']=''
+  ['twine']=''
+  ['undervolt']=''
+  ['vint']=''
+)
+
+# shellcheck disable=SC2034
+declare -A TOOLS_DEV_BINS=(
+  # ['black']=''
+  ['git-nbdiffdriver']=''
+  ['git-nbdifftool']=''
+  ['git-nbmergedriver']=''
+  ['git-nbmergetool']=''
   ['ipython']=''
   ['isort']=''
   ['jupyter']=''
-  ['jupyter-qtconsole']=''
+  # ['jupyter-qtconsole']=''
   ['jupytext']=''
-  ['litecli']=''
-  ['mansnip']=''
   ['nbdiff']=''
   ['nbdiff-web']=''
   ['nbdime']=''
   ['nbmerge']=''
   ['nbmerge-web']=''
   ['nbshow']=''
-  ['pip']=''
+  ['pip']='pip-dev'
   # ['pipenv']=''
   # ['pipenv-resolver']=''
   # ['poetry']=''
-  ['proselint']=''
   # ['py']=''
   ['py3']='pyflyby'
   ['tidy-imports']='pyflyby-tidy-imports'
   ['find-import']='pyflyby-find-imports'
   ['reformat-imports']='pyflyby-reformat-imports'
-  ['pydf']=''
-  ['pylint']=''
   ['semantic-release']='python-semantic-release'
+  ['pylint']=''
   # ['pytype']=''
-  ['s-tui']=''
-  ['semgrep']=''
   ['twine']=''
-  ['undervolt']=''
-  ['vint']=''
   ['yapf']=''
+)
+
+# shellcheck disable=SC2034
+declare -A TOOLS_CONDA_BINS=(
+  ['conda-docker']=''
+  ['conda-lock']=''
+  ['conda-tree']=''
 )
 
 _print_bold() {
@@ -158,7 +169,7 @@ _create_python_env_wrappers() {
   for i in "${!envs[@]}"; do
     local dest_dir="${bin_dirs[${i}]}/wrappers"
     [[ -d ${dest_dir} ]] || mkdir -- "${dest_dir}"
-    "${CONDA_TOOLS_BIN_DIR}/create-wrappers" --type conda \
+    "${CONDA_LOCAL_DIR}/envs/tools-dev/bin/create-wrappers" --type conda \
       --conda-env-dir "${CONDA_LOCAL_DIR}/envs/${envs[${i}]}" \
       --bin-dir "${bin_dirs[${i}]}" \
       --dest-dir "${dest_dir}"
@@ -251,9 +262,13 @@ _install_conda_envs_from_dir() {
 _install_non_graphical_envs() {
   _log_info_bold 'Installing non-graphical conda environments'
   _install_conda_env "${REPO_ROOT}/install/conda_envs/tools/environment.yml"
+  _symlink_tools_binaries tools TOOLS_BINS
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/tools-dev/environment.yml"
+  _symlink_tools_binaries tools-dev TOOLS_DEV_BINS
+  _install_conda_env "${REPO_ROOT}/install/conda_envs/tools-conda/environment.yml"
+  _symlink_tools_binaries tools-conda TOOLS_CONDA_BINS
   _install_conda_env "${REPO_ROOT}/install/conda_envs/urlextract/urlextract.yml"
   _install_conda_env "${REPO_ROOT}/.config/bash/history/environment.yml"
-  _symlink_tools_binaries
 }
 
 _install_graphical_envs() {
@@ -286,6 +301,18 @@ _upgrade_non_graphical_envs() {
     cd -- "${REPO_ROOT}/install/conda_envs/tools"
     # shellcheck disable=SC1091
     source activate tools
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/install/conda_envs/tools-dev"
+    # shellcheck disable=SC1091
+    source activate tools-dev
+    _pip_compile_upgrade
+  )
+  (
+    cd -- "${REPO_ROOT}/install/conda_envs/tools-conda"
+    # shellcheck disable=SC1091
+    source activate tools-conda
     _pip_compile_upgrade
   )
   (
@@ -376,17 +403,21 @@ _setup_conda() {
 }
 
 _symlink_tools_binaries() {
-  _log_info_bold 'Symlinking binaries from conda tools environment'
+  local env="$1"
+  # -n specifies a reference variable
+  local -n bins_var="$2"
+  _log_info_bold "Symlinking binaries from conda environment: ${env}"
+  local bin_dir="${CONDA_LOCAL_DIR}/envs/${env}/bin"
   local bin install_name
-  for bin in "${!INSTALLED_BINARIES[@]}"; do
-    if [[ -n "${INSTALLED_BINARIES[${bin}]}" ]]; then
-      install_name="${INSTALLED_BINARIES[${bin}]}"
+  for bin in "${!bins_var[@]}"; do
+    if [[ -n "${bins_var[${bin}]}" ]]; then
+      install_name="${bins_var[${bin}]}"
       _log_info "Installing ${bin} as ${install_name}"
     else
       install_name="${bin}"
       _log_info "Installing ${bin}"
     fi
-    symlink_binary "${CONDA_TOOLS_BIN_DIR}/${bin}" "${install_name}"
+    symlink_binary "${bin_dir}/${bin}" "${install_name}"
   done
 }
 

@@ -105,6 +105,7 @@
 /.local/bin/nbmerge-web
 /.local/bin/nbshow
 /.local/bin/pip
+/.local/bin/pip-dev
 /.local/bin/pipenv
 /.local/bin/pipenv-resolver
 /.local/bin/poetry

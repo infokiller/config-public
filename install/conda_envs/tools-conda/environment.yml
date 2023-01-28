@@ -1,0 +1,13 @@
+# This environment contains tools that are best installed from conda.
+name: tools-conda
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  # I'm not really using these conda packages, so to minimize conflicts with pip
+  # dependencies, I disabled them for now. I can create a separate tools-conda
+  # env for them if needed.
+  - conda-tree
+  - conda-lock
+  - conda-docker
