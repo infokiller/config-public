@@ -2514,9 +2514,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.6.0":
-  version: 4.6.0
-  resolution: "bash-language-server@npm:4.6.0"
+"bash-language-server@npm:4.6.1":
+  version: 4.6.1
+  resolution: "bash-language-server@npm:4.6.1"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2528,7 +2528,7 @@ __metadata:
     zod: 3.20.2
   bin:
     bash-language-server: out/cli.js
-  checksum: 624a8067346531264aedcf866dddcaef9947a649530dbb4e72b859496cd9dd9a78fb6b6388175ad814afb1b75616470d87f17128aa997fc6ab48360662c0cb56
+  checksum: bf32e1f057b209ca45232d479ce45df0ea47a48112cf26c8b30f01dfd851f6741cec91bc293009cafacd3bb87f2fad17a1caa4bf0f24aa287fb462646b0fcfda
   languageName: node
   linkType: hard
 
@@ -14644,9 +14644,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.6.1":
-  version: 19.6.1
-  resolution: "puppeteer-core@npm:19.6.1"
+"puppeteer-core@npm:19.6.2":
+  version: 19.6.2
+  resolution: "puppeteer-core@npm:19.6.2"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14658,20 +14658,20 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.11.0
-  checksum: 6235d81ddb2cb5116eff8f3c3b4e45e12f778ed673885bdf308327cb20b98eac5a0ecaea16d2582dcae51c495d5650376a99e384ffdca7dce1084e1cc9503bd5
+  checksum: 92325f78de3e468a2444136012806ad9b0b1c694b3647022e71aa3f04b776781a9241b9b7984e5c7800acc4c9cfc3176752da37bcca7cb2a8c92e6e3e6c65be4
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.6.1":
-  version: 19.6.1
-  resolution: "puppeteer@npm:19.6.1"
+"puppeteer@npm:19.6.2":
+  version: 19.6.2
+  resolution: "puppeteer@npm:19.6.2"
   dependencies:
     cosmiconfig: 8.0.0
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.6.1
-  checksum: acdf750da962ac089e30d5688f260b5164fcd9f4447e1e5daa237633a492a69da2cd2859e732688cdb725c2b4393196674d7fedd66a008cbfaa945a00001b0cf
+    puppeteer-core: 19.6.2
+  checksum: 7ed12a8be7d243d82d4569e3f30fe376b96515b88562cbd6dca60e9fc052b232669db736666c9212d4d23366ed30764e3f5a6633e1195cf0709cba49771a8fa2
   languageName: node
   linkType: hard
 
@@ -15656,7 +15656,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.6.0
+    bash-language-server: 4.6.1
     corepack: 0.15.3
     diff-so-fancy: 1.4.3
     eslint: 8.32.0
@@ -15673,7 +15673,7 @@ __metadata:
     markdownlint-cli2: 0.6.0
     prettier: 2.8.3
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.6.1
+    puppeteer: 19.6.2
     pyright: 1.1.291
     release-it: 15.6.0
     semantic-release: 20.1.0

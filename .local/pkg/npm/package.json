@@ -2,7 +2,7 @@
   "dependencies": {
     "@google/clasp": "2.4.2",
     "alex": "11.0.0",
-    "bash-language-server": "4.6.0",
+    "bash-language-server": "4.6.1",
     "corepack": "0.15.3",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.32.0",
@@ -19,7 +19,7 @@
     "markdownlint-cli2": "0.6.0",
     "prettier": "2.8.3",
     "prettier-eslint-cli": "7.1.0",
-    "puppeteer": "19.6.1",
+    "puppeteer": "19.6.2",
     "pyright": "1.1.291",
     "release-it": "15.6.0",
     "semantic-release": "20.1.0",
