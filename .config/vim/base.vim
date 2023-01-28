@@ -89,6 +89,8 @@ if !has('nvim-0.6')
   if has('nvim-0.4.4')
     set wildoptions+=pum
   endif
+  set mouse=nvi
+  set mousemodel=popup_setpos
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
