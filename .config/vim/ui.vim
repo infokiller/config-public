@@ -756,7 +756,7 @@ function! s:GetGitBranchName() abort
   if exists('*FugitiveHead')
     return FugitiveHead()
   endif
-  # fugitive#head was removed in commit b81c59b
+  " fugitive#head was removed in commit b81c59b
   if exists('*fugitive#head')
     return fugitive#head()
   endif
