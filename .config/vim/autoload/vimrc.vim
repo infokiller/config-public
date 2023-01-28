@@ -30,8 +30,12 @@ function! vimrc#Log(message_or_format, ...) abort
     return
   endif
   let l:message = s:FormatMessage(a:message_or_format, a:000)
-  let l:dt = execute('pythonx import datetime; 
-        \ print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"))')
+  try
+    let l:dt = execute('pythonx import datetime; 
+          \ print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f"))')
+  catch /.*/
+    let l:dt = strftime('%Y-%m-%d %H:%M:%S')
+  endtry
   " If this function was not called from an autocmd, <sfile> will expand into
   " the format: 'function {name}[{lnum}]..vimrc#Log'.
   " If the function is script local, the name will also be prefixed with
