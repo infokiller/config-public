@@ -9,6 +9,30 @@ scriptencoding utf-8
 " vint: +ProhibitEncodingOptionAfterScriptEncoding
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                 Load Python3                                 "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Neovim recommends setting g:python3_host_prog so that the pynvim module is
+" always available, regardless of the currently active virtual environment.
+" NOTE: this should be done early, before any files that may try to use python
+" are loaded.
+if has('nvim')
+  if executable('/usr/bin/python3')
+    let g:python3_host_prog = '/usr/bin/python3'
+  elseif executable('/bin/python3')
+    let g:python3_host_prog = '/bin/python3'
+  endif
+else
+  " NOTE: As of 2020-02-15, this is needed so that YouCompleteMe works with
+  " regular vim.
+  " When python is dynamically compiled, regular vim can load either python 2 or
+  " python 3, but not both. It seems that some plugin is loading python 2, which
+  " causes an error message from YouCompleteMe when it tries to use python 3.
+  " Using has('python3') loads python 3. See also `:help python-2-and-3` in
+  " regular vim.
+  call has('python3')
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                         Consistent vim/nvim defaults                         "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set consistent defaults between vim and neovim. Some options that appear in 
@@ -70,8 +94,6 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               General settings                               "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax on
-
 augroup vimrc
   autocmd BufReadPost * call vimrc#base#SetPreviousPosition()
 augroup END
