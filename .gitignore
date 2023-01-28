@@ -77,8 +77,7 @@
 /.local/bin/conda
 /.local/bin/conda-docker
 /.local/bin/conda-lock
-/.local/bin/deactivate
-/.local/bin/detect-secrets
+/.local/bin/conda-tree
 /.local/bin/detect-secrets-hook
 /.local/bin/git-nbdiffdriver
 /.local/bin/git-nbdifftool
