@@ -310,12 +310,6 @@ _upgrade_non_graphical_envs() {
     _pip_compile_upgrade
   )
   (
-    cd -- "${REPO_ROOT}/install/conda_envs/tools-conda"
-    # shellcheck disable=SC1091
-    source activate tools-conda
-    _pip_compile_upgrade
-  )
-  (
     cd -- "${REPO_ROOT}/install/conda_envs/urlextract"
     # shellcheck disable=SC1091
     source activate urlextract
