@@ -39,7 +39,7 @@ AddPackage pacutils            # Helper tools for libalpm
 # Needed by the vim jupyter plugin: https://github.com/wmvanvliet/jupyter-vim
 # NOTE: As of 2020-01-27, the python 2 version is needed for vim, while the
 # python 3 version is needed by neovim.
-AddPackage python-jupyter_core # Jupyter core package. A base package on which Jupyter projects rely.
+AddPackage python-jupyter-core # Jupyter core package. A base package on which Jupyter projects rely.
 # AddPackage ipython # An enhanced Interactive Python shell.
 # AddPackage python-ipykernel # The ipython kernel for Jupyter
 IgnorePath '/usr/lib/python3.*/site-packages/debugpy-*.egg-info/*'
