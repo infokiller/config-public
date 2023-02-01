@@ -50,7 +50,6 @@ declare -A TOOLS_BINS=(
   ['pydf']=''
   ['s-tui']=''
   ['semgrep']=''
-  ['twine']=''
   ['undervolt']=''
   ['vint']=''
 )
