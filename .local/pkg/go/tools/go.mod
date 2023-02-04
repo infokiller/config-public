@@ -1,6 +1,6 @@
 module gitlab.com/infokiller/config-public/.local/pkg/go/tools
 
-go 1.19
+go 1.20
 
 require (
 	bitbucket.org/creachadair/stringset v0.0.10 // indirect
@@ -15,7 +15,7 @@ require (
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
-	github.com/bazelbuild/bazelisk v1.15.0 // indirect
+	github.com/bazelbuild/bazelisk v1.16.0 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20230127124510-cf446296fb76 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
@@ -45,7 +45,6 @@ require (
 	github.com/go-git/gcfg v1.5.0 // indirect
 	github.com/go-git/go-billy/v5 v5.4.0 // indirect
 	github.com/go-git/go-git/v5 v5.4.2 // indirect
-	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/godbus/dbus v0.0.0-20190623212516-8a1682060722 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
@@ -88,7 +87,7 @@ require (
 	github.com/muesli/reflow v0.2.1-0.20210115123740-9e1d0d53df68 // indirect
 	github.com/muesli/termenv v0.11.1-0.20220204035834-5ac8409525e0 // indirect
 	github.com/nbutton23/zxcvbn-go v0.0.0-20210217022336-fa2cb2858354 // indirect
-	github.com/nektos/act v0.2.41 // indirect
+	github.com/nektos/act v0.2.42 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.0.3-0.20220303224323-02efb9a75ee1 // indirect
 	github.com/opencontainers/runc v1.1.3 // indirect

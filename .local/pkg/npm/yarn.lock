@@ -2514,13 +2514,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.6.1":
-  version: 4.6.1
-  resolution: "bash-language-server@npm:4.6.1"
+"bash-language-server@npm:4.6.2":
+  version: 4.6.2
+  resolution: "bash-language-server@npm:4.6.2"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
-    node-fetch: 2.6.8
+    node-fetch: 2.6.9
     turndown: 7.1.1
     vscode-languageserver: 8.0.2
     vscode-languageserver-textdocument: 1.0.8
@@ -2528,7 +2528,7 @@ __metadata:
     zod: 3.20.2
   bin:
     bash-language-server: out/cli.js
-  checksum: bf32e1f057b209ca45232d479ce45df0ea47a48112cf26c8b30f01dfd851f6741cec91bc293009cafacd3bb87f2fad17a1caa4bf0f24aa287fb462646b0fcfda
+  checksum: c33191959501f0e034c418d211c5a7f7a5ed4e283b680937f1392441e850b1c838a965e28c5a0220fa71d1a9a648874dae9a8afacd4129fe7435fa80dbb43a99
   languageName: node
   linkType: hard
 
@@ -12672,9 +12672,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.8":
-  version: 2.6.8
-  resolution: "node-fetch@npm:2.6.8"
+"node-fetch@npm:2.6.9":
+  version: 2.6.9
+  resolution: "node-fetch@npm:2.6.9"
   dependencies:
     whatwg-url: ^5.0.0
   peerDependencies:
@@ -12682,7 +12682,7 @@ __metadata:
   peerDependenciesMeta:
     encoding:
       optional: true
-  checksum: 91f57be68e29f9b1382750693619e199733a6936998e6d618f1aa779853ad8fc4a2facf170db7957bf1d2510bad33449edf74b5802713d81b63de5986fa3be00
+  checksum: acb04f9ce7224965b2b59e71b33c639794d8991efd73855b0b250921382b38331ffc9d61bce502571f6cc6e11a8905ca9b1b6d4aeb586ab093e2756a1fd190d0
   languageName: node
   linkType: hard
 
@@ -14693,9 +14693,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.6.2":
-  version: 19.6.2
-  resolution: "puppeteer-core@npm:19.6.2"
+"puppeteer-core@npm:19.6.3":
+  version: 19.6.3
+  resolution: "puppeteer-core@npm:19.6.3"
   dependencies:
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -14707,30 +14707,30 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.11.0
-  checksum: 92325f78de3e468a2444136012806ad9b0b1c694b3647022e71aa3f04b776781a9241b9b7984e5c7800acc4c9cfc3176752da37bcca7cb2a8c92e6e3e6c65be4
+  checksum: afad54c829b9ad476a2a84c753760f1543b1afe68eda11ad77adb9cc87912b4d1899a71d137afedc44a75a1566b28e53ee9be73ca894a77901c62df05ad18c96
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.6.2":
-  version: 19.6.2
-  resolution: "puppeteer@npm:19.6.2"
+"puppeteer@npm:19.6.3":
+  version: 19.6.3
+  resolution: "puppeteer@npm:19.6.3"
   dependencies:
     cosmiconfig: 8.0.0
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.6.2
-  checksum: 7ed12a8be7d243d82d4569e3f30fe376b96515b88562cbd6dca60e9fc052b232669db736666c9212d4d23366ed30764e3f5a6633e1195cf0709cba49771a8fa2
+    puppeteer-core: 19.6.3
+  checksum: 5d4ffcfcb297d5dffac73c5860316b5d4ad868b84bb82e9467c93b36e6a0a16efc3252269cd4feab53a1d661ee2dde40c6d764b2ffd60cef177fdba07f195648
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.291":
-  version: 1.1.291
-  resolution: "pyright@npm:1.1.291"
+"pyright@npm:1.1.292":
+  version: 1.1.292
+  resolution: "pyright@npm:1.1.292"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: dee9384a5e2b573949ffdc6ba6e170fb1f4e506e400462bcbcb7675aadd634e791758c471162d272b4f5887afeba4572b8803b47d4426179755067312945c4e2
+  checksum: e3fed9c3324b11fb2c0f213883819e5cb1a9222ec661e8a71d4f69594ad10e9d324932d27dd792eb80302a347cc3a31ccd15d7a83178c1b6dc5d08de1514efe9
   languageName: node
   linkType: hard
 
@@ -15705,7 +15705,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.6.1
+    bash-language-server: 4.6.2
     corepack: 0.15.3
     diff-so-fancy: 1.4.3
     eslint: 8.33.0
@@ -15722,11 +15722,11 @@ __metadata:
     markdownlint-cli2: 0.6.0
     prettier: 2.8.3
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.6.2
-    pyright: 1.1.291
+    puppeteer: 19.6.3
+    pyright: 1.1.292
     release-it: 15.6.0
     semantic-release: 20.1.0
-    snyk: 1.1091.0
+    snyk: 1.1096.0
     stylelint: 14.16.1
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16267,12 +16267,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1091.0":
-  version: 1.1091.0
-  resolution: "snyk@npm:1.1091.0"
+"snyk@npm:1.1096.0":
+  version: 1.1096.0
+  resolution: "snyk@npm:1.1096.0"
   bin:
     snyk: bin/snyk
-  checksum: 333fcfdb70c408a07e5fb868af3f8954939c317c8f4d63de4f3349277baa7d428231c33cea342b2ebf2e2f0bebaba14e9c386cf1ae2089f864fd0e3f9274869d
+  checksum: ae086d40d55dd5edb07a89e4effa8523015cb0deb25ad8afdb02a6d67f3f6f83fc5aff3029c9591709a79161c011f1ac8799df2f0e1944196f0b2e7967479b7e
   languageName: node
   linkType: hard
 

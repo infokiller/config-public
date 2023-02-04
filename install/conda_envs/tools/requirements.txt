@@ -15,13 +15,13 @@ attrs==22.2.0 \
     #   glom
     #   jsonschema
     #   semgrep
-beautifulsoup4==4.11.1 \
-    --hash=sha256:58d5c3d29f5a36ffeb94f02f0d786cd53014cf9b3b3951d42e0080d8a9498d30 \
-    --hash=sha256:ad9aa55b65ef2808eb405f46cf74df7fcb7044d5cbc26487f96eb2ef2e436693
+beautifulsoup4==4.11.2 \
+    --hash=sha256:0e79446b10b3ecb499c1556f7e228a53e64a2bfcebd455f370d8927cb5b59e39 \
+    --hash=sha256:bc4bdda6717de5a2987436fb8d72f45dc90dd856bdfd512a1314ce90349a0106
     # via buku
-blessed==1.19.1 \
-    --hash=sha256:63b8554ae2e0e7f43749b6715c734cc8f3883010a809bf16790102563e6cf25b \
-    --hash=sha256:9a0d099695bf621d4680dd6c73f6ad547f6a3442fbdbe80c4b1daa1edbc492fc
+blessed==1.20.0 \
+    --hash=sha256:0c542922586a265e699188e52d5f5ac5ec0dd517e5a1041d90d2bbf23f906058 \
+    --hash=sha256:2cdd67f8746e048f00df47a2880f4d6acbcdb399031b604e34ba8f71d5787680
     # via gpustat
 boltons==21.0.0 \
     --hash=sha256:65e70a79a731a7fe6e98592ecfb5ccf2115873d01dbc576079874629e5c90f13 \
@@ -398,9 +398,9 @@ nvidia-ml-py==11.495.46 \
 nvidia-ml-py3==7.352.0 \
     --hash=sha256:390f02919ee9d73fe63a98c73101061a6b37fa694a793abf56673320f1f51277
     # via gpu-utils
-packaging==21.3 \
-    --hash=sha256:dd47c42927d89ab911e606518907cc2d3a1f38bbd026385970643f9c5b8ecfeb \
-    --hash=sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522
+packaging==23.0 \
+    --hash=sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2 \
+    --hash=sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97
     # via
     #   glances
     #   semgrep
@@ -465,10 +465,6 @@ pygments==2.14.0 \
     #   cli-helpers
     #   grip
     #   litecli
-pyparsing==3.0.9 \
-    --hash=sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb \
-    --hash=sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc
-    # via packaging
 pyrsistent==0.19.3 \
     --hash=sha256:016ad1afadf318eb7911baa24b049909f7f3bb2c5b1ed7b6a8f21db21ea3faa8 \
     --hash=sha256:1a2994773706bbb4995c31a97bc94f1418314923bd1048c6d964837040376440 \
@@ -498,9 +494,9 @@ pyrsistent==0.19.3 \
     --hash=sha256:f0774bf48631f3a20471dd7c5989657b639fd2d285b861237ea9e82c36a415a9 \
     --hash=sha256:f0e7c4b2f77593871e918be000b96c8107da48444d57005b6a6bc61fb4331b2c
     # via jsonschema
-python-gitlab==3.12.0 \
-    --hash=sha256:567390c2b93690dae62ed9738bf9f221fa45c01378fdf896089dbf7c8a134fbd \
-    --hash=sha256:a5eb36b49783fda34563376674d5251dbbdbd1abd23b287dadf82f67d861b2c1
+python-gitlab==3.13.0 \
+    --hash=sha256:85ae778d8953aba87ad4b78aef7fbb5dae053980d2c20ff200bea29799685743 \
+    --hash=sha256:ad502b72b5d1137f4af37d4a68ae20fe7d6c9778f67cbe2aec566f7995053c7d
     # via -r requirements.in
 python-lsp-jsonrpc==1.0.0 \
     --hash=sha256:079b143be64b0a378bdb21dff5e28a8c1393fe7e8a654ef068322d754e545fc7 \
@@ -570,11 +566,11 @@ ruamel-yaml==0.17.21 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.6.0 \
-    --hash=sha256:302426f8505101fcf4c92df97b4a4da8cd70d9f872235af95c4e6af7123d960c \
-    --hash=sha256:693b4328dd78a1394e5c8e4374caddb7901a8bc4f059eef245b9ee580ab0206b \
-    --hash=sha256:79ca318c612482c5c66561eaa5566b731da7f156b30e5b65e82646ba86a8c5ba \
-    --hash=sha256:7a3d1bea34057edfb4b63948f202f307351e89712d482005dec20075ee8660c3
+semgrep==1.9.0 \
+    --hash=sha256:6a8751905347d9cf0774f5fe782655c1c655309c2bb18cd433eb5957d60746c7 \
+    --hash=sha256:7435d1919ab30d5106b63b97dc8323fbc64595a2807bee1727ed2f5f74289616 \
+    --hash=sha256:cf1fef19f3751fef8534093912152d3df299590283c953ad049cc331f44fcc50 \
+    --hash=sha256:d8419719fbbd52f716ffa6e41463bcf88364c05e2e2d52b0f587d35fca4c917c
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
