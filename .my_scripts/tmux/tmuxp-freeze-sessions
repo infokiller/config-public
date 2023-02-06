@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+main() {
+  local sessions=()
+  mapfile -t sessions < <(tmux-select-session --multi "$@")
+  # mapfile doesn't return an error, so we check if the array is empty.
+  if ((${#sessions[@]} == 0)); then
+    return 130
+  fi
+  while IFS='' read -r session; do
+    # tmuxp still prompts even with these flags set, so we have to use echo.
+    echo | tmuxp freeze --quiet --yes --force "${session}"
+    echo
+  done < <(printf '%s\n' "${sessions[@]}")
+}
+
+main "$@"
