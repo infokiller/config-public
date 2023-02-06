@@ -60,8 +60,8 @@ cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF
 /bin/xonsh
 /usr/bin/xonsh
 EOF
-AddPackage yapf   # Python style guide checker
-AddPackage pandoc # Conversion between markup formats
+AddPackage yapf       # Python style guide checker
+AddPackage pandoc-cli # Conversion between markup formats
 # AddPackage termtosvg            # Record terminal sessions as SVG animations
 AddPackage hexyl     # Colored command-line hex viewer
 AddPackage moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
