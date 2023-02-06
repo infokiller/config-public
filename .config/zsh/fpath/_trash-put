@@ -1,0 +1,18 @@
+#compdef trash-put
+
+# NOTE: this is based on the default zsh completion script for trash-put that
+# can be found at /usr/share/zsh/site-functions/_trash-put
+
+_shtab_trash_put_options=(
+  "(- :)"{-h,--help}"[show this help message and exit]"
+  "--print-completion[print shell completion script]:print_completion:(bash zsh tcsh)"
+  {-d,--directory}"[ignored (for GNU rm compatibility)]"
+  {-f,--force}"[silently ignore nonexistent files]"
+  {-i,--interactive}"[prompt before every removal]"
+  {-r,-R,--recursive}"[ignored (for GNU rm compatibility)]"
+  "--trash-dir[use TRASHDIR as trash folder]:trashdir:(${$(trash-list --trash-dirs)#parent_*:})"
+  "*"{-v,--verbose}"[explain what is being done]"
+  "(- :)--version[show program\'s version number and exit]"
+)
+
+_arguments -C $_shtab_trash_put_options '*:::files to remove:_files'
