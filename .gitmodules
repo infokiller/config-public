@@ -146,7 +146,7 @@
 	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule "submodules/zsh/zsh-completions"]
 	path = submodules/zsh/zsh-completions
-	url = https://github.com/zsh-users/zsh-completions
+	url = https://github.com/infokiller/zsh-completions
 [submodule "submodules/zsh/zsh-defer"]
 	path = submodules/zsh/zsh-defer
 	url = https://github.com/romkatv/zsh-defer

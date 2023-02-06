@@ -134,6 +134,8 @@ _export_history_vars() {
   export SQLITE_HISTORY="${HOST_HIST_DIR}/sqlite_history"
   export PSQL_HISTORY="${HOST_HIST_DIR}/psql_history"
   export MYSQL_HISTFILE="${HOST_HIST_DIR}/mysql_history"
+  export TMUXP_CONFIGDIR="${HOST_HIST_DIR}/tmuxp"
+  _maybe_create_dir "${TMUXP_CONFIGDIR}"
 }
 
 # Set program specific environment variables to increase XDG conformance. The
