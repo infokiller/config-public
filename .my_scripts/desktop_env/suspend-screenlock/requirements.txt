@@ -16,10 +16,6 @@ packaging==23.0 \
     --hash=sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2 \
     --hash=sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97
     # via build
-pip==23.0 \
-    --hash=sha256:aee438284e82c8def684b0bcc50b1f6ed5e941af97fa940e83e2e8ef1a59da9b \
-    --hash=sha256:b5f88adff801f5ef052bcdef3daa31b55eb67b0fccd6d0106c206fa248e0463c
-    # via pip-tools
 pip-tools==6.12.2 \
     --hash=sha256:6a51f4fd67140d5e83703ebfa9610fb61398727151f56a1be02a972d062e4679 \
     --hash=sha256:8b903696df4598b10d469026ef9995c5f9a874b416e88e7a214884ebe4a70245
@@ -32,11 +28,17 @@ pytimeparse==1.1.8 \
     --hash=sha256:04b7be6cc8bd9f5647a6325444926c3ac34ee6bc7e69da4367ba282f076036bd \
     --hash=sha256:e86136477be924d7e670646a98561957e8ca7308d44841e21f5ddea757556a0a
     # via -r requirements.in
-setuptools==67.1.0 \
-    --hash=sha256:a7687c12b444eaac951ea87a9627c4f904ac757e7abdc5aac32833234af90378 \
-    --hash=sha256:e261cdf010c11a41cb5cb5f1bf3338a7433832029f559a6a7614bd42a967c300
-    # via pip-tools
 wheel==0.38.4 \
     --hash=sha256:965f5259b566725405b05e7cf774052044b1ed30119b5d586b2703aafe8719ac \
     --hash=sha256:b60533f3f5d530e971d6737ca6d58681ee434818fab630c83a734bb10c083ce8
+    # via pip-tools
+
+# The following packages are considered to be unsafe in a requirements file:
+pip==23.0 \
+    --hash=sha256:aee438284e82c8def684b0bcc50b1f6ed5e941af97fa940e83e2e8ef1a59da9b \
+    --hash=sha256:b5f88adff801f5ef052bcdef3daa31b55eb67b0fccd6d0106c206fa248e0463c
+    # via pip-tools
+setuptools==67.1.0 \
+    --hash=sha256:a7687c12b444eaac951ea87a9627c4f904ac757e7abdc5aac32833234af90378 \
+    --hash=sha256:e261cdf010c11a41cb5cb5f1bf3338a7433832029f559a6a7614bd42a967c300
     # via pip-tools

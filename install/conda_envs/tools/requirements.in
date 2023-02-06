@@ -1,4 +1,4 @@
-# General tools implemented in Python {{{
+tmuxp
 codespell
 proselint
 vim-vint
@@ -19,4 +19,3 @@ detect-secrets
 semgrep
 # https://github.com/kristopolous/mansnip
 mansnip-kristopolous
-# }}} General tools implemented in Python

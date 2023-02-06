@@ -228,6 +228,7 @@ colorama==0.4.6 \
     # via
     #   pinggraph
     #   semgrep
+    #   tmuxp
 colored==1.4.4 \
     --hash=sha256:04ff4d4dd514274fe3b99a21bb52fb96f2688c01e93fba7bef37221e7cb56ce0
     # via gpu-utils
@@ -325,6 +326,10 @@ jsonschema==4.17.3 \
     --hash=sha256:0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d \
     --hash=sha256:a870ad254da1a8ca84b6a2905cac29d265f805acc57af304784962a2aa6508f6
     # via semgrep
+libtmux==0.21.0 \
+    --hash=sha256:b557b49549b40e11ffa23fafae8da85be6577feeecfbe4fac4402200cbaaf21c \
+    --hash=sha256:dc30b94ac25571c438a853ec75102fe5f1a2d7c8195b5ebdc6f71106760b15b3
+    # via tmuxp
 litecli==1.9.0 \
     --hash=sha256:21af2cfa083dd4df1e3ccaa2a2117129b5f17212756f596ea090e296776c27a1 \
     --hash=sha256:9190099368224a8f610ebcd55ddd3e3dd2148f083d2347b9853c89586652cb7d
@@ -545,6 +550,7 @@ pyyaml==6.0 \
     --hash=sha256:f84fbc98b019fef2ee9a1cb3ce93e3187a6df0b2538a651bfb890254ba9f90b5
     # via
     #   detect-secrets
+    #   tmuxp
     #   vim-vint
 requests==2.28.2 \
     --hash=sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa \
@@ -593,6 +599,10 @@ tabulate[widechars]==0.9.0 \
     --hash=sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c \
     --hash=sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f
     # via cli-helpers
+tmuxp==1.27.0 \
+    --hash=sha256:40093eadc3588e10209095f67dad1b977747ac1e32c9843fa0d9545f7210311f \
+    --hash=sha256:6031f0fe6ffccd3b5afd01abffef9097833d9e4f68b5e9b503ede21d99621853
+    # via -r requirements.in
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f

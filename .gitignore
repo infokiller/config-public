@@ -123,6 +123,7 @@
 /.local/bin/pythonpy
 /.local/bin/pytype
 /.local/bin/s-tui
+/.local/bin/tmuxp
 /.local/bin/twine
 /.local/bin/undervolt
 /.local/bin/vint
