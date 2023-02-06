@@ -705,6 +705,18 @@ function {
   else
     compinit -C -d "${zcompdump}"
   fi
+  if [[ "${ZSHRC_REFRESH_COMP-}" = "preexec" ]]; then
+    # https://stackoverflow.com/a/40014760/1014208
+    _reset_compinit() {
+      local c
+      for c in ${(v)_comps:#-*(-|-,*)}; do
+        unset -f "${c}" 2> /dev/null || true
+      done
+      compinit
+    }
+    autoload -Uz add-zsh-hook
+    add-zsh-hook preexec _reset_compinit
+  fi
 }
 
 # Understand completions written for bash.
