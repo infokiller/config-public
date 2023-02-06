@@ -43,7 +43,9 @@ def main():
                        encoding='utf-8')
     if p.returncode != 0:
         sys.exit(p.returncode)
-    print(p.stdout.splitlines())
+    for session in p.stdout.splitlines():
+        print(f'Killing session: {session}')
+        subprocess.run(['tmux', 'kill-session', '-t', session], check=True)
 
 
 if __name__ == '__main__':
