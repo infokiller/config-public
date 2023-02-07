@@ -705,7 +705,7 @@ function {
   else
     compinit -C -d "${zcompdump}"
   fi
-  if [[ "${ZSHRC_REFRESH_COMP-}" = "preexec" ]]; then
+  if [[ "${ZSHRC_REFRESH_COMP-}" == (precmd|preexec)* ]]; then
     # https://stackoverflow.com/a/40014760/1014208
     _reset_compinit() {
       local c
@@ -715,7 +715,7 @@ function {
       compinit
     }
     autoload -Uz add-zsh-hook
-    add-zsh-hook preexec _reset_compinit
+    add-zsh-hook "${ZSHRC_REFRESH_COMP}" _reset_compinit
   fi
 }
 
