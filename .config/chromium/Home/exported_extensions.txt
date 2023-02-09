@@ -1,51 +1,52 @@
-# infokiller: manually exported on 2021-11-25 from chrome://system
+# infokiller: manually exported on 2023-02-09 from chrome://system
 # Note that this only includes enabled extensions.
 
 acgimceffoceigocablmjdpebeodphgc : Cloudy Calculator : version 6_1_6
-aggiiclaiamajehmlfpkjmlbadmkledi : TransOver : version 1_60
+aggiiclaiamajehmlfpkjmlbadmkledi : TransOver : version 1_67
 ahfgeienlihckogmohjhadlkjgocpleb : Web Store : version 0_2
-bmnlcjabgnpnenekpadlanbbkooimhnj : Honey : version 14_1_1
-ccinledjceanimdkflfafdpoljflhbjf : AliPrice Price Tracker : version 11_2_82
-cjmfiochlaffhnellbhffgnjocahinnh : Lustre : version 1_8_5
-cjpalhdlnbpafiamejdnhcphjbkeiagm : uBlock Origin : version 1_38_6
-cohamjploocgoejdfanacfgkhjkhdkek : Web Search Navigator : version 0_4_18
-dgmanlpmmkibanfdgjocnabmcaclkmod : Just Read : version 5_1_10
-dphilobhebphkdjbpfohgikllaljmgbn : SimpleLogin:Receive & Send emails anonymously : version 2_5_1
+bmnlcjabgnpnenekpadlanbbkooimhnj : PayPal Honey: Automatic Coupons & Cash Back : version 15_10_1
+ccinledjceanimdkflfafdpoljflhbjf : AliPrice Price Tracker : version 11_2_111
+cjmfiochlaffhnellbhffgnjocahinnh : Vetted : version 2_9_1
+cjpalhdlnbpafiamejdnhcphjbkeiagm : uBlock Origin : version 1_46_0
+cohamjploocgoejdfanacfgkhjkhdkek : Web Search Navigator : version 0_4_22
+dgmanlpmmkibanfdgjocnabmcaclkmod : Just Read : version 5_2_14
+dphilobhebphkdjbpfohgikllaljmgbn : SimpleLogin:Receive & Send emails anonymously : version 2_9_1
 efhkcafmbonnomnimilnephjgeccffdn : Octobox Web Extension : version 1_3_0
-egpjdkipkomnmjhjmdamaniclmdlobbo : Firenvim : version 0_2_11
-eimadpbcbfnmbkopoojfekhnkhdbieeh : Dark Reader : version 4_9_42
+egpjdkipkomnmjhjmdamaniclmdlobbo : Firenvim : version 0_2_14
+eimadpbcbfnmbkopoojfekhnkhdbieeh : Dark Reader : version 4_9_62
 emffkefkbkpkgpdeeooapgaicgmcbolj : Wikiwand: Wikipedia Modernized : version 8_3_2
 fdmdnnfdofijijgcbhdbnlohaabnmdkb : MonkeyECHO - GearBest Price Tracker : version 1_5_5
-fhcgjolkccmbidfldomjliifgaodjagh : Cookie AutoDelete : version 3_6_0
-gcbommkclmclpchllfjekcdonpmejbdp : HTTPS Everywhere : version 2021_7_13
-gcibdgjaladjjloeocimnijdgopejkfk : Refined Hacker News : version 21_10_20
-ghbmnnjooekpmoecnnnilnnbdlolhkhi : Google Docs Offline : version 1_35_0
-ghnomdcacenbmilgjigehppbamfndblo : The Camelizer : version 3_0_10
-godoifjoiadanijplaghmhgfeffnblib : URL Shortener : version 13
-hdokiejnpimakedhajhdlcegeplioahd : LastPass: Free Password Manager : version 4_85_0_1
-hfjbmagddngcpeloejdejnfgbamkjaeg : Vimium C - All by Keyboard : version 1_94_0
-hlepfoohegkhhmjieoechaddaejaokhf : Refined GitHub : version 21_11_23
+fhcgjolkccmbidfldomjliifgaodjagh : Cookie AutoDelete : version 3_8_2
+gcbommkclmclpchllfjekcdonpmejbdp : HTTPS Everywhere : version 2022_5_24
+gcibdgjaladjjloeocimnijdgopejkfk : Refined Hacker News : version 22_12_17
+ghbmnnjooekpmoecnnnilnnbdlolhkhi : Google Docs Offline : version 1_53_0
+ghnomdcacenbmilgjigehppbamfndblo : The Camelizer : version 3_0_12
+godoifjoiadanijplaghmhgfeffnblib : Url Shortener : version 14_0_4
+hdokiejnpimakedhajhdlcegeplioahd : LastPass: Free Password Manager : version 4_108_1_7
+hfjbmagddngcpeloejdejnfgbamkjaeg : Vimium C - All by Keyboard : version 1_99_97
+hlepfoohegkhhmjieoechaddaejaokhf : Refined GitHub : version 23_2_5
+ialbpcipalajnakfondkflpkagbkdoib : Lovely forks : version 3_7_1
 iclamjopejhobafonejmigadmdbcnokf : One Click Extensions Manager : version 20_3_16_1532
 jchobbjgibcahbheicfocecmhocglkco : Neat URL : version 5_0_0
-jinjaccalgkegednnccohejagnlnfdag : Violentmonkey : version 2_13_0
-jlmafbaeoofdegohdhinkhilhclaklkp : OctoLinker : version 6_9_0
-kbmfpngjjgdllneeigpgjifpgocmfgmb : Reddit Enhancement Suite : version 5_22_5
-kmendfapggjehodndflmmgagdbamhnfd : CryptoTokenExtension : version 0_9_74
-ldlghkoiihaelfnggonhjnfiabmaficg : QuicKey – The quick tab switcher : version 1_7_0
-ldpochfccmkkmhdbclfhpagapcfdljkj : Decentraleyes : version 2_0_16
-lpcaedmchfhocbbapmcbpinfpgnhiddi : Google Keep Chrome Extension : version 4_21462_600_1
+jinjaccalgkegednnccohejagnlnfdag : Violentmonkey : version 2_13_9
+jlmafbaeoofdegohdhinkhilhclaklkp : OctoLinker : version 6_10_5
+kbmfpngjjgdllneeigpgjifpgocmfgmb : Reddit Enhancement Suite : version 5_22_15
+kfimphpokifbjgmjflanmfeppcjimgah : RSS Reader Extension (by Inoreader) : version 5_1_2
+ldlghkoiihaelfnggonhjnfiabmaficg : QuicKey – The quick tab switcher : version 1_7_3
+ldpochfccmkkmhdbclfhpagapcfdljkj : Decentraleyes : version 2_0_17
+lpcaedmchfhocbbapmcbpinfpgnhiddi : Google Keep Chrome Extension : version 4_23052_600_1
 mgijmajocgfcbeboacabfgobmjgjcoja : Google Dictionary (by Google) : version 4_1_8
 mhjfbmdgcfjbbpaeojofohoefgiehjai : Chromium PDF Viewer : version 1
-mlanbilbnpmhobffjimijciioidbhfac : tabctl : version 0_0_9
-mpbjkejclgfgadiemmefgebjfooflfhl : Buster: Captcha Solver for Humans : version 1_3_1
-nacjakoppgmdcpemlfnfegmlhipddanj : PDF Viewer for Vimium C : version 2_7_111
-nakplnnackehceedgkgkokbgbmfghain : Fakespot Fake Amazon Reviews and eBay Sellers : version 0_8_63
-nfhdjopbhlggibjlimhdbogflgmbiahc : Better Pull Request for GitHub : version 1_0_35
+mlanbilbnpmhobffjimijciioidbhfac : tabctl : version 0_1_2
+mpbjkejclgfgadiemmefgebjfooflfhl : Buster: Captcha Solver for Humans : version 2_0_1
+nacjakoppgmdcpemlfnfegmlhipddanj : PDF Viewer for Vimium C : version 2_15_349
+nakplnnackehceedgkgkokbgbmfghain : Fakespot Fake Amazon Reviews and eBay Sellers : version 0_9_26
+nfhdjopbhlggibjlimhdbogflgmbiahc : Better Pull Request for GitHub : version 1_0_37
 nglaklhklhcoonedhgnpgddginnjdadi : ActivityWatch Web Watcher : version 0_4_3
-niloccemoadcdkdjlinkgdfekeahmflj : Save to Pocket : version 4_0_2
-nkeimhogjdpnpccoofpliimaahmaaome : Google Hangouts : version 1_3_16
+niloccemoadcdkdjlinkgdfekeahmflj : Save to Pocket : version 4_0_6
+nkeimhogjdpnpccoofpliimaahmaaome : Google Hangouts : version 1_3_21
 npadhaijchjemiifipabpmeebeelbmpd : Material Dark : version 2_0_1
 ocgpenflpmgnfapjedencafcfakcekcd : Redirector : version 3_5_3
-pbgfhojacpjjjpdnimblbbcjccoefbim : Tabs Tamer : version 0_0_2
-pkehgijcmpdhfbdbbnkijodmdjhbjlgp : Privacy Badger : version 2021_8_17
-pnmchffiealhkdloeffcdnbgdnedheme : History Trends Unlimited : version 1_6
+pbgfhojacpjjjpdnimblbbcjccoefbim : Tabs Tamer : version 0_0_5
+pkehgijcmpdhfbdbbnkijodmdjhbjlgp : Privacy Badger : version 2023_1_31
+pnmchffiealhkdloeffcdnbgdnedheme : History Trends Unlimited : version 1_6_2
