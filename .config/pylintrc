@@ -1,3 +1,6 @@
+# The initial template for this file was generated on 2023-02-10 using pylint
+# 2.16.1 with the command:
+# `pylint --rcfile /dev/null --generate-rcfile`
 [MAIN]
 
 # Analyse import fallback blocks. This can be used to support both Python 2 and
@@ -88,7 +91,7 @@ persistent=yes
 
 # Minimum Python version to use for version dependent checks. Will default to
 # the version used to run pylint.
-py-version=3.11
+# py-version=3.8
 
 # Discover python modules and packages in the file system subtree.
 recursive=no
@@ -168,7 +171,7 @@ const-naming-style=UPPER_CASE
 
 # Minimum line length for functions/classes that require docstrings, shorter
 # ones are exempt.
-docstring-min-length=-1
+docstring-min-length=10
 
 # Naming style matching correct function names.
 function-naming-style=snake_case
@@ -182,13 +185,18 @@ function-naming-style=snake_case
 good-names=i,
            j,
            k,
+           e,
+           f,
            ex,
-           Run,
+           fd,
+           fp,
+           logger,
+           # Run,
            _
 
 # Good variable names regexes, separated by a comma. If names match any regex,
 # they will always be accepted
-good-names-rgxs=
+good-names-rgxs=_?[a-z]
 
 # Include a hint for the correct naming format with invalid-name.
 include-naming-hint=no
@@ -213,7 +221,9 @@ module-naming-style=snake_case
 
 # Regular expression matching correct module names. Overrides module-naming-
 # style. If left empty, module names will be checked with the set naming style.
-#module-rgx=
+# NOTE(infokiller): dashes are also included because I have many python
+# executables that are named with dashes.
+module-rgx=[a-z_][a-z0-9_-]{2,30}$
 
 # Colon-delimited sets of names that determine each other's naming style when
 # the name regexes allow several styles.
@@ -320,7 +330,15 @@ overgeneral-exceptions=builtins.BaseException,builtins.Exception
 expected-line-ending-format=
 
 # Regexp for a line that is allowed to be longer than the limit.
-ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+# ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+# NOTE: I redefined ignore-long-lines because the default doesn't capture
+# the form '[1] https://' which I often use for references.
+ignore-long-lines=(https?://\S{10,}|nosemgrep)
+# NOTE(infokiller): I used to have the following setting that allows URLs that
+# start before 72 chars. As of 2020-05-15, this is disabled because I'm
+# usually putting long URLs on their own lines in comments, so the default
+# should suffice.
+# ignore-long-lines=^.{0,72}<?https?://\S+>?$
 
 # Number of spaces of indent required inside a hanging or continued line.
 indent-after-paren=4
@@ -330,7 +348,7 @@ indent-after-paren=4
 indent-string='    '
 
 # Maximum number of characters on a single line.
-max-line-length=100
+max-line-length=80
 
 # Maximum number of lines in a module.
 max-module-lines=1000
@@ -414,14 +432,20 @@ confidence=HIGH,
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
-disable=raw-checker-failed,
-        bad-inline-option,
-        locally-disabled,
-        file-ignored,
-        suppressed-message,
-        useless-suppression,
-        deprecated-pragma,
-        use-symbolic-message-instead
+# disable=raw-checker-failed,
+#         bad-inline-option,
+#         locally-disabled,
+#         file-ignored,
+#         suppressed-message,
+#         useless-suppression,
+#         deprecated-pragma,
+#         use-symbolic-message-instead
+disable=fixme,
+        missing-docstring,
+        logging-format-interpolation,
+        logging-fstring-interpolation,
+        consider-using-f-string,
+        too-few-public-methods,
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
@@ -520,7 +544,7 @@ spelling-ignore-comment-directives=fmt: on,fmt: off,noqa:,noqa,nosec,isort:skip,
 spelling-ignore-words=
 
 # A path to a file that contains the private dictionary; one word per line.
-spelling-private-dict-file=
+spelling-private-dict-file=~/.config/vim/spell/en.utf-8.add
 
 # Tells whether to store unknown words to the private dictionary (see the
 # --spelling-private-dict-file option) instead of raising a message.
@@ -622,3 +646,5 @@ init-import=no
 # List of qualified module names which can have objects that can redefine
 # builtins.
 redefining-builtins-modules=six.moves,past.builtins,future.builtins,builtins,io
+
+# vim: set ft=conf :
