@@ -712,7 +712,7 @@ function {
       for c in ${(v)_comps:#-*(-|-,*)}; do
         unset -f "${c}" 2> /dev/null || true
       done
-      compinit
+      compinit "${ZSH_CACHE_DIR}/zcompdump-refreshed-${ZSH_VERSION}"
     }
     autoload -Uz add-zsh-hook
     add-zsh-hook "${ZSHRC_REFRESH_COMP}" _reset_compinit
