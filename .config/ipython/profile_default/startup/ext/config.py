@@ -160,6 +160,10 @@ def _define_prompt_toolkit_keybindings():
                    if kb.handler.__name__ in
                    {'newline_autoindent', 'newline_with_copy_margin'})
     key_bindings.remove_binding(handler)
+    # Workaround for IPython 8.9 change:
+    # https://github.com/ipython/ipython/issues/13878#issuecomment-1409237629
+    if IPython.version_info[:2] == (8, 9):
+        key_bindings.remove('right')
     # yapf: enable
 
 
