@@ -57,7 +57,7 @@ _make_installation_tmpdir() {
   local user_dirs="${XDG_CONFIG_HOME:-${HOME}/.config}/user-dirs.dirs"
   # shellcheck source=../.config/user-dirs.dirs
   [[ -f ${user_dirs} ]] && source "${user_dirs}"
-  INSTALLATION_TMP_DIR="${XDG_DOWNLOAD_DIR:-${HOME}/downloads}/installation_files"
+  INSTALLATION_TMP_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/my_install"
   [[ -d ${INSTALLATION_TMP_DIR} ]] || mkdir -p -- "${INSTALLATION_TMP_DIR}"
 }
 
