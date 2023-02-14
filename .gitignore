@@ -172,10 +172,10 @@
 /.local/share/man/man1/git-quick-stats.1
 
 # Symlinks to binaries linked to the standalone Google Cloud SDK package.
-/.local/bin/gcloud
-/.local/bin/gsutil
 /.local/bin/bq
 /.local/bin/dev_appserver.py
+/.local/bin/gcloud
+/.local/bin/gsutil
 
 # Platform specific files generated/installed by install scripts.
 /.local/bin/tmux

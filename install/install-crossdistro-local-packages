@@ -32,6 +32,7 @@ source "${REPO_ROOT}/install/setup_installation_env"
 readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 readonly XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+readonly STANDALONE_PKG_DIR="${STANDALONE_PKG_DIR:-${HOME}/.local/pkg/standalone}"
 # Compile go binaries statically
 export CGO_ENABLED=0
 # TODO: GOPATH can be colon separated like PATH and this should be handled.
@@ -191,6 +192,7 @@ readonly -A _INSTALL_TASK_TO_CMD=(
     symlink_binary xkblayout-state
   )'
   ['vscode-extensions']='_install_vscode_extensions 0'
+  ['gcloud']='_install_gcloud'
 )
 # shellcheck disable=SC2016
 readonly -A _UPGRADE_TASK_TO_CMD=(
@@ -683,6 +685,24 @@ _install_histcat() {
   cd "${SUBMODULES_DIR}/terminal/histcat"
   go build -v cmd/histcat/histcat.go
   symlink_binary histcat
+}
+
+# https://cloud.google.com/sdk/docs/install
+_install_gcloud() {
+  cd -- "${INSTALLATION_TMP_DIR}"
+  # local archive=google-cloud-cli-417.0.1-linux-x86_64.tar.gz
+  # download_file "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/${archive}"
+  # tar -xf google-cloud-cli-417.0.1-linux-x86_64.tar.gz
+  # ./google-cloud-sdk/install.sh
+  local gcloud_dir="${STANDALONE_PKG_DIR}/google-cloud-sdk"
+  if [[ ! -d "${gcloud_dir}" ]]; then
+    download_file 'https://sdk.cloud.google.com' gcp_sdk_install.sh
+    bash gcp_sdk_install.sh --disable-prompts --install-dir="${STANDALONE_PKG_DIR}"
+  fi
+  local bin
+  for bin in bq dev_appserver.py gcloud gsutil; do
+    symlink_binary "${gcloud_dir}/bin/${bin}"
+  done
 }
 
 _configure_personal_device_services() {
