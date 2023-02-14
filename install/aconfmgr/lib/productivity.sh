@@ -25,6 +25,7 @@ AddPackage source-highlight    # Convert source code to syntax highlighted docum
 AddPackage lesspipe            # an input filter for the pager less
 AddPackage duf                 # Disk Usage/Free Utility
 AddPackage mlocate             # Merging locate/updatedb implementation
+AddPackage bc                  # An arbitrary precision calculator language
 
 AddPackage atool               # A script for managing file archives of various types
 AddPackage unrar               # The RAR uncompression program

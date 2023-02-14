@@ -74,5 +74,6 @@ if function_exists 'is_usbguard_enabled' && is_usbguard_enabled; then
 fi
 
 # NOTE: ${ACONF_LIB} is defined in 00-helpers.sh.
-# shellcheck source=./firejail.sh
-source "${ACONF_LIB}/firejail.sh"
+# As of 2023-02-14, firejail is disabled because of too many issues with
+# bugs in program profiles the need to customize them to fix it.
+# source "${ACONF_LIB}/firejail.sh"
