@@ -4,6 +4,7 @@
 
 # Docker {{{
 AddPackage docker         # Pack, ship and run any application as a lightweight container
+AddPackage docker-buildx  # Docker CLI plugin for extended build capabilities with BuildKit
 AddPackage docker-compose # Fast, isolated development environments using Docker
 CreateLink '/etc/systemd/system/multi-user.target.wants/docker.service' '/usr/lib/systemd/system/docker.service'
 IgnorePath '/etc/docker/key.json'
@@ -76,6 +77,6 @@ IgnorePath '/etc/multipath'
 # }}} Qemu
 
 # Misc {{{
-AddPackage skopeo # A command line utility for various operations on container images and image repositories.
+AddPackage skopeo        # A command line utility for various operations on container images and image repositories.
 AddPackage gitlab-runner # The official GitLab CI runner written in Go
 # }}} Misc
