@@ -419,7 +419,7 @@ _install_firefox_settings() {
     fi
     # ln -sf -- "${SUBMODULES_DIR}/desktop/MaterialFox/chrome" "${profile_dir}/chrome"
     # Only copy works, not symlinking
-    cp -rf -t "${profile_dir}" 'MaterialFox/chrome'
+    cp -rf -t "${profile_dir}" "${SUBMODULES_DIR}/desktop/MaterialFox/chrome"
   done < <(\find "${FIREFOX_DIR}" -mindepth 1 -maxdepth 1 -type d -print0)
 }
 
