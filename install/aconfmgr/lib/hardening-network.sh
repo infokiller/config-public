@@ -38,7 +38,7 @@ configure_mullvad_vpn() {
   # NOTE: The wireguard key is stored in /etc/mullvad-vpn/device.json since
   # version 2022.2.
 
-  if [[ ! -f /etc/mullvad-vpn/settings.json ]] || ! diff -q <(sudo jq -r 'del(.wg_migration_rand_num)' /etc/mullvad-vpn/settings.json) "${REPO_ROOT}/root/etc/mullvad-vpn/settings.json"; then
+  if [[ ! -f /etc/mullvad-vpn/settings.json ]] || ! diff -q <(sudo jq -r 'del(.wg_migration_rand_num, .relay_settings.normal.location)' /etc/mullvad-vpn/settings.json) "${REPO_ROOT}/root/etc/mullvad-vpn/settings.json"; then
     CopyFile '/etc/mullvad-vpn/settings.json'
   else
     IgnorePath '/etc/mullvad-vpn/settings.json'
