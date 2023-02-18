@@ -1921,7 +1921,7 @@ fi
 # For a persistent log:
 #   monitor-slow-pings 1.1 | tee -a ~/tmp/slow_pings_log.txt
 monitor-slow-pings() {
-  local get_con="nmcli con show --active | \grep --text -Ev '(vpn|bridge|tun)' | tail -1 | awk '{print \$1}'"
+  local get_con="nmcli con show --active | \grep --text -E '(ethernet|wifi)' | tail -1 | awk '{print \$1}'"
   local py_precmd
   py_precmd="$(printf 'get_con = lambda: subprocess.check_output("%s", shell=True).decode("utf-8").strip()' "${get_con}")"
   py_cmd='print(f"{datetime.datetime.now()}: {get_con()}: {x}", flush=True)'
