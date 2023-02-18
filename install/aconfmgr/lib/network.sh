@@ -99,6 +99,7 @@ AddPackage net-tools     # Configuration tools for Linux networking
 AddPackage bind          # The ISC DNS Server
 AddPackage traceroute    # Tracks the route taken by packets over an IP network
 AddPackage whois         # Intelligent WHOIS client
+AddPackage macchanger    # A small utility to change your NIC's MAC address
 AddPackage speedtest-cli # Command line interface for testing internet bandwidth using speedtest.net
 IgnorePath '/usr/lib/python3.*/site-packages/speedtest_cli-*.egg-info/*'
 AddPackage wget    # Network utility to retrieve files from the Web
