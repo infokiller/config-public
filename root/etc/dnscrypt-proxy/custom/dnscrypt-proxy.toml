@@ -248,7 +248,10 @@ cert_refresh_delay = 240
 ## not be sent there. If you're using DNSCrypt or Anonymized DNS and your
 ## lists are up to date, these resolvers will not even be used.
 
-bootstrap_resolvers = ['1.1.1.1:53', '9.9.9.11:53', '8.8.8.8:53']
+# NOTE: 10.64.0.1 is the Mullvad DNS resolver and must be used when connected to
+# Mullvad, since Mullvad seems to intercept DNS queries to prevent leaks, which
+# results in "connection refused".
+bootstrap_resolvers = ['1.1.1.1:53', '9.9.9.11:53', '8.8.8.8:53', '10.64.0.1:53']
 
 
 ## Always use the bootstrap resolver before the system DNS settings.
