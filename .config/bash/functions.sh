@@ -225,6 +225,13 @@ alias vos='vim --cmd "let g:vimrc_oss_only = 1"'
 alias le='less-fasd-fzf'
 # Use vim as a pager.
 alias vp='vim-less'
+# Edit as root. Preserving the TMUX env variable is required for
+# vim-tmux-navigator to work. Otherwise, vim will not be aware of the tmux
+# session and will not be able to navigate between panes.
+# shellcheck disable=SC2153
+alias suedit='sudo --preserve-env=TMUX "${EDITOR:-vim}"'
+alias se='suedit'
+alias sv='suedit'
 
 alias oo='sensible-open'
 alias xo='sensible-open'
