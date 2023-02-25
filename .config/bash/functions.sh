@@ -1731,6 +1731,10 @@ alias bm='benchmark-command'
 alias w='watch run-interactive-function'
 
 explainshell-render() {
+  # NOTE: w3m removes colors when dumping, which is unfortunate
+  # local render_cmd=(w3m -T text/html -dump)
+  # elinks has some color support in dump mode, but it's not maintained since
+  # 2012 or so.
   w3m -T text/html -dump | tail -n +10
   # elinks -dump -dump-color-mode 1 | tail -n +12
 }
@@ -1738,28 +1742,45 @@ explainshell-render() {
 explainshell-term() {
   local quoted_cmd
   quoted_cmd="$(printf '%q ' "$@")" || return
-  # NOTE: w3m removes colors when dumping, which is unfortunate
-  # local render_cmd=(w3m -T text/html -dump)
-  # elinks has some color support in dump mode, but it's not maintained since
-  # 2012 or so.
-  # local render_cmd=(elinks -dump -dump-color-mode 1)
   # -G tells curl to append the encoded data to the URL as a query string
-  curl -fsSL -G 'https://explainshell.com/explain' \
-    --data-urlencode "cmd=${quoted_cmd}" | explainshell-render
+  curl -fsSL -G --data-urlencode "cmd=${quoted_cmd}" \
+    'https://explainshell.com/explain' | explainshell-render
 }
 
-explainshell-get-url() {
+explainshell-get-url-python() {
   local quoted_cmd
   quoted_cmd="$(printf '%q ' "$@")" || return
   local url_encoded_cmd
   url_encoded_cmd="$(python -c '
 import sys, urllib.parse 
 print(urllib.parse.quote(sys.argv[1]))' "${quoted_cmd}")" || return
-  sensible-browser "https://explainshell.com/explain?cmd=${url_encoded_cmd}"
+  printf "https://explainshell.com/explain?cmd=%s" "${url_encoded_cmd}"
+}
+
+explainshell-get-url-curl() {
+  local quoted_cmd
+  quoted_cmd="$(printf '%q ' "$@")" || return
+  # -G tells curl to append the encoded data to the URL as a query string
+  # We use two hacks to make curl return immediately (each of them sufficies on
+  # their own, but we use both to be safe):
+  # --proxy '0.0.0.0' sets tha proxy to an invalid address
+  # --max-time 0.001 sets the maximum time to 1ms
+  # NOTE: using --max-time with a value less than 1ms causes curl to ignore
+  # --max-time
+  curl --proxy '0.0.0.0' --max-time '0.001' -fsSL -G -o /dev/null -w '%{url_effective}' \
+    --data-urlencode "cmd=${quoted_cmd}" 'https://explainshell.com/explain' 2> /dev/null || true
+}
+
+explainshell-carbonyl() {
+  local url
+  url="$(explainshell-get-url-curl "$@")"
+  docker run -it fathyb/carbonyl "${url}"
 }
 
 explainshell-web() {
-  sensible-browser "https://explainshell.com/explain?cmd=${url_encoded_cmd}"
+  local url
+  url="$(explainshell-get-url-curl "$@")"
+  sensible-browser "${url}"
 }
 
 alias es='explainshell-term'
