@@ -180,7 +180,7 @@ class MyPrompt(Prompts):
             import psutil
             self._process = psutil.Process(self.pid)
         except ImportError:
-            warnings.warn('psutil not installed, falling back to cli')
+            # warnings.warn('psutil not installed, falling back to cli')
             self._process = None
 
     # TODO: Add support for adding info to the right hand side of the prompt.
