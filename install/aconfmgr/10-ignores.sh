@@ -11,6 +11,7 @@ IgnorePath '__pycache__'
 IgnorePath '*.pyc'
 IgnorePath '/usr/share/.mono/*'
 IgnorePath '/var/*'
+IgnorePath '/etc/credstore'
 
 # These paths are related to graphical programs, but are still used by programs
 # that aren't graphical or can be used without graphics (like emacs), so they
