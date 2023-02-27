@@ -229,7 +229,7 @@ alias vp='vim-less'
 # vim-tmux-navigator to work. Otherwise, vim will not be aware of the tmux
 # session and will not be able to navigate between panes.
 # shellcheck disable=SC2153
-alias suedit='sudo --preserve-env=TMUX "${EDITOR:-vim}"'
+alias suedit='sudo --preserve-env=TMUX --shell "${EDITOR:-vim}"'
 alias se='suedit'
 alias sv='suedit'
 

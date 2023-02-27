@@ -9,6 +9,10 @@ _is_ssh() {
   [[ -n ${SSH_CLIENT-} || -n ${SSH_TTY-} || -n ${SSH_CONNECTION-} ]]
 }
 
+_is_sudo_shlvl1() {
+  [[ -n "${SUDO_USER-}" ]] && ((SHLVL==1))
+}
+
 # As of 2021-08-28, this increases the shell startup time in zeus18 by 20 ms.
 # NOTE: As of 2021-09-12, on Archlinux (but not Ubuntu), /etc/zsh/zprofile
 # sources /etc/profile. Since /etc/zsh/zprofile is sourced after .zshenv (but
@@ -19,7 +23,10 @@ _is_ssh() {
 # NOTE: When using `ssh <host> <command>` it seems that .zshenv is read when zsh
 # is configured as the shell for the user. In this case, .profile won't be
 # sourced from .zlogin, so we source it here.
-if _is_ssh && [[ ! -o INTERACTIVE ]]; then
+# NOTE: When running `sudo -s` or `sudo --shell`, .zshenv won't be read, which
+# means some environment variables won't be set, so we source .profile in this
+# case, but only in the first shell level.
+if (_is_sudo_shlvl1 || _is_ssh) && [[ ! -o INTERACTIVE ]]; then
   _IKL_PROFILE_LOADED=1
   emulate sh -c 'source ${ZSHENV_DIR}/../../.profile'
 fi
