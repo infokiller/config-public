@@ -242,6 +242,7 @@
 /.config/qt5ct
 /.config/fontforge
 /.config/hub
+/.config/rusty-krab-manager
 /.config/syncthing
 /.config/psd/psd.conf
 /.config/qterminal.org/qterminal.ini
