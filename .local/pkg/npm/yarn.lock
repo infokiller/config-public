@@ -183,6 +183,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/eslintrc@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@eslint/eslintrc@npm:2.0.0"
+  dependencies:
+    ajv: ^6.12.4
+    debug: ^4.3.2
+    espree: ^9.4.0
+    globals: ^13.19.0
+    ignore: ^5.2.0
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    minimatch: ^3.1.2
+    strip-json-comments: ^3.1.1
+  checksum: 31119c8ca06723d80384f18f5c78e0530d8e6306ad36379868650131a8b10dd7cffd7aff79a5deb3a2e9933660823052623d268532bae9538ded53d5b19a69a6
+  languageName: node
+  linkType: hard
+
+"@eslint/js@npm:8.35.0":
+  version: 8.35.0
+  resolution: "@eslint/js@npm:8.35.0"
+  checksum: 6687ceff659a6d617e37823f809dc9c4b096535961a81acead27d26b1a51a4cf608a5e59d831ddd57f24f6f8bb99340a4a0e19f9c99b390fbb4b275f51ed5f5e
+  languageName: node
+  linkType: hard
+
 "@gar/promisify@npm:^1.0.1":
   version: 1.1.2
   resolution: "@gar/promisify@npm:1.1.2"
@@ -3332,6 +3356,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chromium-bidi@npm:0.4.4":
+  version: 0.4.4
+  resolution: "chromium-bidi@npm:0.4.4"
+  dependencies:
+    mitt: 3.0.0
+  peerDependencies:
+    devtools-protocol: "*"
+  checksum: 153a276fcce8eb934c9e6a6f8bde5bc37c454d76e82994ce3eca16ab32415a44c553cba3e2ab7ab48ef65f7423f4be35e0ff5b57c7eb378f65fd9b2042df7d03
+  languageName: node
+  linkType: hard
+
 "ci-info@npm:^3.2.0":
   version: 3.2.0
   resolution: "ci-info@npm:3.2.0"
@@ -4029,16 +4064,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.15.3":
-  version: 0.15.3
-  resolution: "corepack@npm:0.15.3"
+"corepack@npm:0.17.0":
+  version: 0.17.0
+  resolution: "corepack@npm:0.17.0"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: 00d0d17a7e8393b8ea5f1768a2e45ce1d3f18a93ececc77ac1695d94e47ea60287d67573ef68da1d710c5909341f0c694120d66266894bbaccdb2f607535d24b
+  checksum: 87fafa8e758ce6a5462c6a23bbefb5cb0f165ce6bf5b4832512cec6573e874e813795e73461f190cc9497b2e5eff3809b5ea455642335f032a1585837990f3ff
   languageName: node
   linkType: hard
 
@@ -5282,10 +5317,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1082910":
-  version: 0.0.1082910
-  resolution: "devtools-protocol@npm:0.0.1082910"
-  checksum: 62b95b58f33c09412ea715826a184b81f5afe10c63945d444bf18f8455b0eaf16e5a4c4aa0a1f797f710e36b8e2d31c32938084371967662a51043fa9ebddd80
+"devtools-protocol@npm:0.0.1094867":
+  version: 0.0.1094867
+  resolution: "devtools-protocol@npm:0.0.1094867"
+  checksum: 3e4cc4646a84d3b9bb0cbe570819564ed1e65182e950e60c02eac36db2fe9a08be4a2693c7a9f0e1636da8ac81406b238e7a047c9dd1a20c876dcbc6df549b75
   languageName: node
   linkType: hard
 
@@ -6082,11 +6117,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.34.0":
-  version: 8.34.0
-  resolution: "eslint@npm:8.34.0"
+"eslint@npm:8.35.0":
+  version: 8.35.0
+  resolution: "eslint@npm:8.35.0"
   dependencies:
-    "@eslint/eslintrc": ^1.4.1
+    "@eslint/eslintrc": ^2.0.0
+    "@eslint/js": 8.35.0
     "@humanwhocodes/config-array": ^0.11.8
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6100,7 +6136,7 @@ __metadata:
     eslint-utils: ^3.0.0
     eslint-visitor-keys: ^3.3.0
     espree: ^9.4.0
-    esquery: ^1.4.0
+    esquery: ^1.4.2
     esutils: ^2.0.2
     fast-deep-equal: ^3.1.3
     file-entry-cache: ^6.0.1
@@ -6127,7 +6163,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 4e13e9eb05ac2248efbb6acae0b2325091235d5c47ba91a4775c7d6760778cbcd358a773ebd42f4629d2ad89e27c02f5d66eb1f737d75d9f5fc411454f83b2e5
+  checksum: 6212173691d90b1bc94dd3d640e1f210374b30c3905fc0a15e501cf71c6ca52aa3d80ea7a9a245adaaed26d6019169e01fb6881b3f2885b188d37069c749308c
   languageName: node
   linkType: hard
 
@@ -6300,6 +6336,15 @@ __metadata:
   dependencies:
     estraverse: ^5.1.0
   checksum: a0807e17abd7fbe5fbd4fab673038d6d8a50675cdae6b04fbaa520c34581be0c5fa24582990e8acd8854f671dd291c78bb2efb9e0ed5b62f33bac4f9cf820210
+  languageName: node
+  linkType: hard
+
+"esquery@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "esquery@npm:1.4.2"
+  dependencies:
+    estraverse: ^5.1.0
+  checksum: 2f4ad89c5aafaca61cc2c15e256190f0d6deb4791cae6552d3cb4b1eb8867958cdf27a56aaa3272ff17435e3eaa19ee0d4129fac336ca6373d7354d7b5da7966
   languageName: node
   linkType: hard
 
@@ -12254,6 +12299,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mitt@npm:3.0.0":
+  version: 3.0.0
+  resolution: "mitt@npm:3.0.0"
+  checksum: f7be5049d27d18b1dbe9408452d66376fa60ae4a79fe9319869d1b90ae8cbaedadc7e9dab30b32d781411256d468be5538996bb7368941c09009ef6bbfa6bfc7
+  languageName: node
+  linkType: hard
+
 "mixin-deep@npm:^1.1.3":
   version: 1.3.2
   resolution: "mixin-deep@npm:1.3.2"
@@ -14698,13 +14750,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.6.3":
-  version: 19.6.3
-  resolution: "puppeteer-core@npm:19.6.3"
+"puppeteer-core@npm:19.7.2":
+  version: 19.7.2
+  resolution: "puppeteer-core@npm:19.7.2"
   dependencies:
+    chromium-bidi: 0.4.4
     cross-fetch: 3.1.5
     debug: 4.3.4
-    devtools-protocol: 0.0.1082910
+    devtools-protocol: 0.0.1094867
     extract-zip: 2.0.1
     https-proxy-agent: 5.0.1
     proxy-from-env: 1.1.0
@@ -14712,30 +14765,35 @@ __metadata:
     tar-fs: 2.1.1
     unbzip2-stream: 1.4.3
     ws: 8.11.0
-  checksum: afad54c829b9ad476a2a84c753760f1543b1afe68eda11ad77adb9cc87912b4d1899a71d137afedc44a75a1566b28e53ee9be73ca894a77901c62df05ad18c96
+  peerDependencies:
+    typescript: ">= 4.7.4"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: dafb2f63b74e3270426011ddcd1f4a06e74ca44322137d4240bfaf6090d8450fbf3607336109286861aa96e1f4f2ab9c13cef66c2fc4ec1a690d92d48e8fe773
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.6.3":
-  version: 19.6.3
-  resolution: "puppeteer@npm:19.6.3"
+"puppeteer@npm:19.7.2":
+  version: 19.7.2
+  resolution: "puppeteer@npm:19.7.2"
   dependencies:
     cosmiconfig: 8.0.0
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.6.3
-  checksum: 5d4ffcfcb297d5dffac73c5860316b5d4ad868b84bb82e9467c93b36e6a0a16efc3252269cd4feab53a1d661ee2dde40c6d764b2ffd60cef177fdba07f195648
+    puppeteer-core: 19.7.2
+  checksum: 10a77ee40173e56ddce605c07296b7e538a7e18b0a517e55d570fb2944c7d983d1b19581e31e0f3626e21544c63d20bbac1583307a7a3afbfc80f83fa695f1ae
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.293":
-  version: 1.1.293
-  resolution: "pyright@npm:1.1.293"
+"pyright@npm:1.1.295":
+  version: 1.1.295
+  resolution: "pyright@npm:1.1.295"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 509c5a9a4575fd869c137f75fb6cfe84f0ccc8c85ed8ffad6843864b817f016537dfc8ec3351f490231d3db1dd95fc5e49cee42068ee8c63e040175621ec7246
+  checksum: a813fb91c10837d1a39a61cc97fddd68a8aec424974b2c8b9108bab582514255ecebe42201b70a70b99e04819ba4418bd8af2aff7dfbc7fe04b41a4757fbe2cb
   languageName: node
   linkType: hard
 
@@ -15711,9 +15769,9 @@ __metadata:
     "@google/clasp": 2.4.2
     alex: 11.0.0
     bash-language-server: 4.7.0
-    corepack: 0.15.3
+    corepack: 0.17.0
     diff-so-fancy: 1.4.3
-    eslint: 8.34.0
+    eslint: 8.35.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -15727,18 +15785,18 @@ __metadata:
     markdownlint-cli2: 0.6.0
     prettier: 2.8.4
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.6.3
-    pyright: 1.1.293
+    puppeteer: 19.7.2
+    pyright: 1.1.295
     release-it: 15.6.0
     semantic-release: 20.1.0
-    snyk: 1.1100.0
-    stylelint: 15.1.0
+    snyk: 1.1109.0
+    stylelint: 15.2.0
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.5.0
     write-good: 1.0.8
     yarn: 1.22.19
-    yarn-audit-fix: 9.3.8
+    yarn-audit-fix: 9.3.9
   languageName: unknown
   linkType: soft
 
@@ -16272,12 +16330,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1100.0":
-  version: 1.1100.0
-  resolution: "snyk@npm:1.1100.0"
+"snyk@npm:1.1109.0":
+  version: 1.1109.0
+  resolution: "snyk@npm:1.1109.0"
   bin:
     snyk: bin/snyk
-  checksum: 3dd3cbdc0ce56ededea7008bb7f6d3db5d57ae2f321882ae3a12c9e1c372585f8497a055307dae3a166ab0b91b36f6180596f0c6a53d5061f9fd5433a1f78d2f
+  checksum: 8317cda0a24cf1e481e558fed601a86f1c11c6470e96adebc767dd023ed1c3e6de07a2f02a892706772d695b98e2fe68611a9273097f70b503d6c16c5d3782f6
   languageName: node
   linkType: hard
 
@@ -16980,9 +17038,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:15.1.0":
-  version: 15.1.0
-  resolution: "stylelint@npm:15.1.0"
+"stylelint@npm:15.2.0":
+  version: 15.2.0
+  resolution: "stylelint@npm:15.2.0"
   dependencies:
     "@csstools/css-parser-algorithms": ^2.0.1
     "@csstools/css-tokenizer": ^2.0.1
@@ -17028,7 +17086,7 @@ __metadata:
     write-file-atomic: ^5.0.0
   bin:
     stylelint: bin/stylelint.js
-  checksum: 65cb90cf52fd6214999affd4463090ad52fa2735471987a79860028ed8b4149670158fd56e2c2c7f0efff3d7070329ba167a0fa1c4bfc0cd79dc841ed113a20e
+  checksum: 2a52d1b36345659e92280317554d82fc621203341d3a6baf1b19f3c28d06a07b8c5f7a25b9be2383f73a4e6a395d69dfbbe4daeca19bd119b88673dd8b6518ac
   languageName: node
   linkType: hard
 
@@ -19198,9 +19256,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:9.3.8":
-  version: 9.3.8
-  resolution: "yarn-audit-fix@npm:9.3.8"
+"yarn-audit-fix@npm:9.3.9":
+  version: 9.3.9
+  resolution: "yarn-audit-fix@npm:9.3.9"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^9.0.13
@@ -19222,7 +19280,7 @@ __metadata:
     tslib: ^2.4.0
   bin:
     yarn-audit-fix: target/es6/cli.js
-  checksum: 3cb3bd97dd1bce18898b863cb7ff29944e55b7b6ac775386f75ab90e3170e678180eca04b2f762d2df80bf5a1696a2debad880c18612d28d69bd8ab67f7c2391
+  checksum: beb49996870bdaf360ac297db55bb76707dfe979fa70aab15e8feb98cd5717c66d0ee8cc579635941ad9e6fc8a87614e2082f8e600952bee31ac979fa082f963
   languageName: node
   linkType: hard
 

@@ -41,10 +41,12 @@ jupyter_contrib_nbextensions
 jupyter_nbextensions_configurator
 # }}} Classic notebook
 # Jupyter Lab {{{ #
-jupyterlab
+# As of 2023-02-27, dependency resolution fails for the latest stable jupyterlab
+# version (v3.6.1).
+jupyterlab>=4.0.0.a34,<5
 # Experimental JupyterLab extensions
-jupyterlab_github
-jupyterlab-git
+# jupyterlab_github
+# jupyterlab-git
 # jupyterlab-lsp
 # python-lsp-server[all]
 # }}} Jupyter Lab #
