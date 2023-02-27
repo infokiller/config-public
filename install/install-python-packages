@@ -285,8 +285,8 @@ _install_graphical_envs() {
 _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   # https://github.com/jazzband/pip-tools/issues/1617
-  pip install 'pip-tools>=6.6.2'
-  local compile=(pip-compile --quiet --generate-hashes --allow-unsafe --upgrade)
+  pip install 'pip-tools>=6.12'
+  local compile=(pip-compile --resolver=backtracking --quiet --generate-hashes --allow-unsafe --upgrade)
   local sync_cmd=(pip-sync requirements.txt)
   "${compile[@]}"
   for extra in "$@"; do
