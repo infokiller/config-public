@@ -1381,8 +1381,8 @@ if IPython.version_info[0] >= 8:
     # https://github.com/ipython/ipython/issues/13654#issuecomment-1231475950
     if IPython.version_info >= (8, 5, 0):
         c.TerminalInteractiveShell.auto_match = True
-    if IPython.version_info >= (8, 11, 0):
-        c.TerminalInteractiveShell.shortcuts = [{
-            'command': 'IPython:auto_suggest.accept_character',
-            'new_keys': ['right'],
-        }]
+    # if IPython.version_info >= (8, 11, 0):
+    #     c.TerminalInteractiveShell.shortcuts = [{
+    #         'command': 'IPython:auto_suggest.accept_in_vi_insert_mode',
+    #         'new_keys': ['right'],
+    #     }]

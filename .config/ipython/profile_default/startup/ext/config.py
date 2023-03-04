@@ -164,7 +164,7 @@ def _define_prompt_toolkit_keybindings():
     # Workaround for a IPython 8.9 change:
     # https://github.com/ipython/ipython/issues/13878#issuecomment-1409237629
     # In IPython 8.11 the keyboard shortcuts can be customised in the config and
-    # the issue is fixed there:
+    # the old default was restored:
     # https://ipython.readthedocs.io/en/8.11.0/whatsnew/version8.html#terminal-shortcuts-customization
     if IPython.version_info[:2] in [(8, 9), (8, 10)]:
         key_bindings.remove('right')
@@ -346,7 +346,7 @@ def _configure_autoreload():
     # pylint: disable=undefined-variable
     ipython.run_line_magic('reload_ext', 'autoreload')
     ipython.run_line_magic('autoreload',
-                           3 if IPython.version_info[0] >= 8 else 2)
+                           '3' if IPython.version_info[0] >= 8 else '2')
 
 
 # https://github.com/deshaw/pyflyby
