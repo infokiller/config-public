@@ -63,7 +63,6 @@ def _load_pygments_objects():
 
 def _highlight_code(code: str) -> str:
     import pygments
-    global _PYGMENTS_LEXER, _PYGMENTS_STYLE, _PYGMENTS_FORMATTER
     if _PYGMENTS_LEXER is None:
         _load_pygments_objects()
     return pygments.highlight(code, _PYGMENTS_LEXER, _PYGMENTS_FORMATTER)
@@ -90,7 +89,8 @@ class _HistoryPreviewThread(threading.Thread):
                     entries = [self.history_getter(i)[1] for i in indices]
                     code = '\n\n'.join(entries)
                     highlighted_code = _highlight_code(code)
-                    with open(self.fifo_output_path, 'w', encoding='utf-8') as fifo_output:
+                    with open(self.fifo_output_path, 'w',
+                              encoding='utf-8') as fifo_output:
                         fifo_output.write(highlighted_code)
 
     def stop(self):
