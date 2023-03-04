@@ -1,9 +1,10 @@
 # pylint: disable=line-too-long,too-many-lines
-# NOTE(infokiller): this file was generated on 2022-05-15 from IPython 8.3.0
+# NOTE(infokiller): this file was generated on 2023-03-05 from IPython 8.11.0
 # using `ipython profile create test` and I reviewed all the options in this
 # file. My changes are at the bottom of this file in a separate section.
 
-# Configuration file for ipython.
+# pylint: disable-next=undefined-variable
+c = get_config()  #noqa
 
 #------------------------------------------------------------------------------
 # InteractiveShellApp(Configurable) configuration
@@ -56,9 +57,9 @@
 # c.InteractiveShellApp.file_to_run = ''
 
 ## Enable GUI event loop integration with any of ('asyncio', 'glut', 'gtk',
-#  'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'qt6', 'tk',
-#  'wx', 'gtk2', 'qt4').
-#  Choices: any of ['asyncio', 'glut', 'gtk', 'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'qt6', 'tk', 'wx', 'gtk2', 'qt4'] (case-insensitive) or None
+#  'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt5', 'qt6', 'tk', 'wx',
+#  'gtk2', 'qt4').
+#  Choices: any of ['asyncio', 'glut', 'gtk', 'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt5', 'qt6', 'tk', 'wx', 'gtk2', 'qt4'] (case-insensitive) or None
 #  Default: None
 # c.InteractiveShellApp.gui = None
 
@@ -75,7 +76,7 @@
 
 ## Configure matplotlib for interactive use with
 #          the default matplotlib backend.
-#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'gtk4', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'qt6', 'svg', 'tk', 'widget', 'wx'] (case-insensitive) or None
+#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'gtk4', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'qt6', 'svg', 'tk', 'webagg', 'widget', 'wx'] (case-insensitive) or None
 #  Default: None
 # c.InteractiveShellApp.matplotlib = None
 
@@ -85,7 +86,7 @@
 
 ## Pre-load matplotlib and numpy for interactive use,
 #          selecting a particular matplotlib backend and loop integration.
-#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'gtk4', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'qt6', 'svg', 'tk', 'widget', 'wx'] (case-insensitive) or None
+#  Choices: any of ['auto', 'agg', 'gtk', 'gtk3', 'gtk4', 'inline', 'ipympl', 'nbagg', 'notebook', 'osx', 'pdf', 'ps', 'qt', 'qt4', 'qt5', 'qt6', 'svg', 'tk', 'webagg', 'widget', 'wx'] (case-insensitive) or None
 #  Default: None
 # c.InteractiveShellApp.pylab = None
 
@@ -119,6 +120,53 @@
 #  Default: 30
 # c.Application.log_level = 30
 
+## Configure additional log handlers.
+#
+#  The default stderr logs handler is configured by the log_level, log_datefmt
+#  and log_format settings.
+#
+#  This configuration can be used to configure additional handlers (e.g. to
+#  output the log to a file) or for finer control over the default handlers.
+#
+#  If provided this should be a logging configuration dictionary, for more
+#  information see:
+#  https://docs.python.org/3/library/logging.config.html#logging-config-
+#  dictschema
+#
+#  This dictionary is merged with the base logging configuration which defines
+#  the following:
+#
+#  * A logging formatter intended for interactive use called
+#    ``console``.
+#  * A logging handler that writes to stderr called
+#    ``console`` which uses the formatter ``console``.
+#  * A logger with the name of this application set to ``DEBUG``
+#    level.
+#
+#  This example adds a new handler that writes to a file:
+#
+#  .. code-block:: python
+#
+#     c.Application.logging_config = {
+#         'handlers': {
+#             'file': {
+#                 'class': 'logging.FileHandler',
+#                 'level': 'DEBUG',
+#                 'filename': '<path/to/file>',
+#             }
+#         },
+#         'loggers': {
+#             '<application-name>': {
+#                 'level': 'DEBUG',
+#                 # NOTE: if you don't list the default "console"
+#                 # handler here then it will be disabled
+#                 'handlers': ['console', 'file'],
+#             },
+#         }
+#     }
+#  Default: {}
+# c.Application.logging_config = {}
+
 ## Instead of starting the Application, dump configuration to stdout
 #  Default: False
 # c.Application.show_config = False
@@ -130,8 +178,6 @@
 #------------------------------------------------------------------------------
 # BaseIPythonApplication(Application) configuration
 #------------------------------------------------------------------------------
-## IPython: an enhanced interactive Python shell.
-
 #  Default: False
 # c.BaseIPythonApplication.add_ipython_dir_to_sys_path = False
 
@@ -171,6 +217,10 @@
 ## Set the log level by value or name.
 #  See also: Application.log_level
 # c.BaseIPythonApplication.log_level = 30
+
+##
+#  See also: Application.logging_config
+# c.BaseIPythonApplication.logging_config = {}
 
 ## Whether to overwrite existing config files when copying
 #  Default: False
@@ -247,8 +297,8 @@
 # c.TerminalIPythonApp.force_interact = False
 
 ## Enable GUI event loop integration with any of ('asyncio', 'glut', 'gtk',
-#  'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt4', 'qt5', 'qt6', 'tk',
-#  'wx', 'gtk2', 'qt4').
+#  'gtk2', 'gtk3', 'gtk4', 'osx', 'pyglet', 'qt', 'qt5', 'qt6', 'tk', 'wx',
+#  'gtk2', 'qt4').
 #  See also: InteractiveShellApp.gui
 # c.TerminalIPythonApp.gui = None
 
@@ -280,6 +330,10 @@
 ## Set the log level by value or name.
 #  See also: Application.log_level
 # c.TerminalIPythonApp.log_level = 30
+
+##
+#  See also: Application.logging_config
+# c.TerminalIPythonApp.logging_config = {}
 
 ## Configure matplotlib for interactive use with
 #  See also: InteractiveShellApp.matplotlib
@@ -364,8 +418,8 @@
 # c.InteractiveShell.automagic = True
 
 ## The part of the banner to be printed before the profile
-#  Default: "Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:18) \nType 'copyright', 'credits' or 'license' for more information\nIPython 8.3.0 -- An enhanced Interactive Python. Type '?' for help.\n"
-# c.InteractiveShell.banner1 = "Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:18) \nType 'copyright', 'credits' or 'license' for more information\nIPython 8.3.0 -- An enhanced Interactive Python. Type '?' for help.\n"
+#  Default: "Python 3.11.0 | packaged by conda-forge | (main, Jan 14 2023, 12:27:40) [GCC 11.3.0]\nType 'copyright', 'credits' or 'license' for more information\nIPython 8.11.0 -- An enhanced Interactive Python. Type '?' for help.\n"
+# c.InteractiveShell.banner1 = "Python 3.11.0 | packaged by conda-forge | (main, Jan 14 2023, 12:27:40) [GCC 11.3.0]\nType 'copyright', 'credits' or 'license' for more information\nIPython 8.11.0 -- An enhanced Interactive Python. Type '?' for help.\n"
 
 ## The part of the banner to be printed after the profile
 #  Default: ''
@@ -415,6 +469,10 @@
 #  startup.
 #  Default: 1000
 # c.InteractiveShell.history_load_length = 1000
+
+## Class to use to instantiate the shell inspector
+#  Default: 'IPython.core.oinspect.Inspector'
+# c.InteractiveShell.inspector_class = 'IPython.core.oinspect.Inspector'
 
 #  Default: ''
 # c.InteractiveShell.ipython_dir = ''
@@ -467,6 +525,11 @@
 #  Default: False
 # c.InteractiveShell.sphinxify_docstring = False
 
+## Warn if running in a virtual environment with no IPython installed (so IPython
+#  from the global environment is used).
+#  Default: True
+# c.InteractiveShell.warn_venv = True
+
 #  Default: True
 # c.InteractiveShell.wildcards_case_sensitive = True
 
@@ -512,14 +575,15 @@
 # c.TerminalInteractiveShell.automagic = True
 
 ## Specifies from which source automatic suggestions are provided. Can be set to
-#  `'AutoSuggestFromHistory`' or `None` to disableautomatic suggestions. Default
-#  is `'AutoSuggestFromHistory`'.
-#  Default: 'AutoSuggestFromHistory'
-# c.TerminalInteractiveShell.autosuggestions_provider = 'AutoSuggestFromHistory'
+#  ``'NavigableAutoSuggestFromHistory'`` (:kbd:`up` and :kbd:`down` swap
+#  suggestions), ``'AutoSuggestFromHistory'``,  or ``None`` to disable automatic
+#  suggestions. Default is `'NavigableAutoSuggestFromHistory`'.
+#  Default: 'NavigableAutoSuggestFromHistory'
+# c.TerminalInteractiveShell.autosuggestions_provider = 'NavigableAutoSuggestFromHistory'
 
 ## The part of the banner to be printed before the profile
 #  See also: InteractiveShell.banner1
-# c.TerminalInteractiveShell.banner1 = "Python 3.8.13 | packaged by conda-forge | (default, Mar 25 2022, 06:04:18) \nType 'copyright', 'credits' or 'license' for more information\nIPython 8.3.0 -- An enhanced Interactive Python. Type '?' for help.\n"
+# c.TerminalInteractiveShell.banner1 = "Python 3.11.0 | packaged by conda-forge | (main, Jan 14 2023, 12:27:40) [GCC 11.3.0]\nType 'copyright', 'credits' or 'license' for more information\nIPython 8.11.0 -- An enhanced Interactive Python. Type '?' for help.\n"
 
 ## The part of the banner to be printed after the profile
 #  See also: InteractiveShell.banner2
@@ -617,6 +681,10 @@
 #  See also: InteractiveShell.history_load_length
 # c.TerminalInteractiveShell.history_load_length = 1000
 
+## Class to use to instantiate the shell inspector
+#  See also: InteractiveShell.inspector_class
+# c.TerminalInteractiveShell.inspector_class = 'IPython.core.oinspect.Inspector'
+
 #  See also: InteractiveShell.ipython_dir
 # c.TerminalInteractiveShell.ipython_dir = ''
 
@@ -677,6 +745,75 @@
 #  See also: InteractiveShell.separate_out2
 # c.TerminalInteractiveShell.separate_out2 = ''
 
+## Add, disable or modifying shortcuts.
+#
+#          Each entry on the list should be a dictionary with ``command`` key
+#          identifying the target function executed by the shortcut and at least
+#          one of the following:
+#
+#          - ``match_keys``: list of keys used to match an existing shortcut,
+#          - ``match_filter``: shortcut filter used to match an existing shortcut,
+#          - ``new_keys``: list of keys to set,
+#          - ``new_filter``: a new shortcut filter to set
+#
+#          The filters have to be composed of pre-defined verbs and joined by one
+#          of the following conjunctions: ``&`` (and), ``|`` (or), ``~`` (not).
+#          The pre-defined verbs are:
+#
+#          - `always`
+#          - `has_line_below`
+#          - `has_line_above`
+#          - `has_selection`
+#          - `has_suggestion`
+#          - `vi_mode`
+#          - `vi_insert_mode`
+#          - `emacs_insert_mode`
+#          - `has_completions`
+#          - `insert_mode`
+#          - `default_buffer_focused`
+#          - `search_buffer_focused`
+#          - `ebivim`
+#          - `supports_suspend`
+#          - `is_windows_os`
+#          - `auto_match`
+#          - `focused_insert`
+#          - `not_inside_unclosed_string`
+#          - `readline_like_completions`
+#          - `preceded_by_paired_double_quotes`
+#          - `preceded_by_paired_single_quotes`
+#          - `preceded_by_raw_str_prefix`
+#          - `preceded_by_two_double_quotes`
+#          - `preceded_by_two_single_quotes`
+#          - `followed_by_closing_paren_or_end`
+#          - `preceded_by_opening_round_paren`
+#          - `preceded_by_opening_bracket`
+#          - `preceded_by_opening_brace`
+#          - `preceded_by_double_quote`
+#          - `preceded_by_single_quote`
+#          - `followed_by_closing_round_paren`
+#          - `followed_by_closing_bracket`
+#          - `followed_by_closing_brace`
+#          - `followed_by_double_quote`
+#          - `followed_by_single_quote`
+#          - `navigable_suggestions`
+#          - `cursor_in_leading_ws`
+#
+#          To disable a shortcut set ``new_keys`` to an empty list.
+#          To add a shortcut add key ``create`` with value ``True``.
+#
+#          When modifying/disabling shortcuts, ``match_keys``/``match_filter`` can
+#          be omitted if the provided specification uniquely identifies a shortcut
+#          to be modified/disabled. When modifying a shortcut ``new_filter`` or
+#          ``new_keys`` can be omitted which will result in reuse of the existing
+#          filter/keys.
+#
+#          Only shortcuts defined in IPython (and not default prompt-toolkit
+#          shortcuts) can be modified or disabled. The full list of shortcuts,
+#          command identifiers and filters is available under
+#          :ref:`terminal-shortcuts-list`.
+#  Default: []
+# c.TerminalInteractiveShell.shortcuts = []
+
 ## Show rewritten input, e.g. for autocall.
 #  See also: InteractiveShell.show_rewritten_input
 # c.TerminalInteractiveShell.show_rewritten_input = True
@@ -728,6 +865,11 @@
 #         to complete.
 #  Default: 0.01
 # c.TerminalInteractiveShell.ttimeoutlen = 0.01
+
+## Warn if running in a virtual environment with no IPython installed (so IPython
+#  from the global environment is used).
+#  See also: InteractiveShell.warn_venv
+# c.TerminalInteractiveShell.warn_venv = True
 
 #  See also: InteractiveShell.wildcards_case_sensitive
 # c.TerminalInteractiveShell.wildcards_case_sensitive = True
@@ -949,6 +1091,14 @@
 #------------------------------------------------------------------------------
 # Completer(Configurable) configuration
 #------------------------------------------------------------------------------
+## Enable auto-closing dictionary keys.
+#
+#  When enabled string keys will be suffixed with a final quote (matching the
+#  opening quote), tuple keys will also receive a separating comma if needed, and
+#  keys which are final will receive a closing bracket (``]``).
+#  Default: False
+# c.Completer.auto_close_dict_keys = False
+
 ## Enable unicode completions, e.g. \alpha<tab> . Includes completion of latex
 #  commands, unicode names, and expanding unicode characters back to latex
 #  commands.
@@ -960,11 +1110,41 @@
 #  Default: False
 # c.Completer.debug = False
 
-## Activate greedy completion
-#          PENDING DEPRECATION. this is now mostly taken care of with Jedi.
+## Policy for code evaluation under completion.
 #
-#          This will enable completion on elements of lists, results of function calls, etc.,
-#          but can be unsafe because the code is actually evaluated on TAB.
+#          Successive options allow to enable more eager evaluation for better
+#          completion suggestions, including for nested dictionaries, nested lists,
+#          or even results of function calls.
+#          Setting ``unsafe`` or higher can lead to evaluation of arbitrary user
+#          code on :kbd:`Tab` with potentially unwanted or dangerous side effects.
+#
+#          Allowed values are:
+#
+#          - ``forbidden``: no evaluation of code is permitted,
+#          - ``minimal``: evaluation of literals and access to built-in namespace;
+#            no item/attribute evaluationm no access to locals/globals,
+#            no evaluation of any operations or comparisons.
+#          - ``limited``: access to all namespaces, evaluation of hard-coded methods
+#            (for example: :any:`dict.keys`, :any:`object.__getattr__`,
+#            :any:`object.__getitem__`) on allow-listed objects (for example:
+#            :any:`dict`, :any:`list`, :any:`tuple`, ``pandas.Series``),
+#          - ``unsafe``: evaluation of all methods and function calls but not of
+#            syntax with side-effects like `del x`,
+#          - ``dangerous``: completely arbitrary evaluation.
+#  Choices: any of ['forbidden', 'minimal', 'limited', 'unsafe', 'dangerous']
+#  Default: 'limited'
+# c.Completer.evaluation = 'limited'
+
+## Activate greedy completion.
+#
+#          .. deprecated:: 8.8
+#              Use :std:configtrait:`Completer.evaluation` and :std:configtrait:`Completer.auto_close_dict_keys` instead.
+#
+#          When enabled in IPython 8.8 or newer, changes configuration as
+#  follows:
+#
+#          - ``Completer.evaluation = 'unsafe'``
+#          - ``Completer.auto_close_dict_keys = True``
 #  Default: False
 # c.Completer.greedy = False
 
@@ -984,6 +1164,10 @@
 #------------------------------------------------------------------------------
 ## Extension of the completer class with IPython-specific features
 
+##
+#  See also: Completer.auto_close_dict_keys
+# c.IPCompleter.auto_close_dict_keys = False
+
 ## Enable unicode completions, e.g. \alpha<tab> . Includes completion of latex
 #  commands, unicode names, and expanding unicode characters back to latex
 #  commands.
@@ -995,7 +1179,18 @@
 #  See also: Completer.debug
 # c.IPCompleter.debug = False
 
-## Activate greedy completion
+## List of matchers to disable.
+#
+#          The list should contain matcher identifiers (see
+#  :any:`completion_matcher`).
+#  Default: []
+# c.IPCompleter.disable_matchers = []
+
+## Policy for code evaluation under completion.
+#  See also: Completer.evaluation
+# c.IPCompleter.evaluation = 'limited'
+
+## Activate greedy completion.
 #  See also: Completer.greedy
 # c.IPCompleter.greedy = False
 
@@ -1020,6 +1215,9 @@
 #
 #          If False, only the completion results from the first non-empty
 #          completer will be returned.
+#
+#          As of version 8.6.0, setting the value to ``False`` is an alias for:
+#          ``IPCompleter.suppress_competing_matchers = True.``.
 #  Default: True
 # c.IPCompleter.merge_completions = True
 
@@ -1043,6 +1241,28 @@
 ## Template for path at which to output profile data for completions.
 #  Default: '.completion_profiles'
 # c.IPCompleter.profiler_output_dir = '.completion_profiles'
+
+## Whether to suppress completions from other *Matchers*.
+#
+#  When set to ``None`` (default) the matchers will attempt to auto-detect
+#  whether suppression of other matchers is desirable. For example, at the
+#  beginning of a line followed by `%` we expect a magic completion to be the
+#  only applicable option, and after ``my_dict['`` we usually expect a completion
+#  with an existing dictionary key.
+#
+#  If you want to disable this heuristic and see completions from all matchers,
+#  set ``IPCompleter.suppress_competing_matchers = False``. To disable the
+#  heuristic for specific matchers provide a dictionary mapping:
+#  ``IPCompleter.suppress_competing_matchers = {'IPCompleter.dict_key_matcher':
+#  False}``.
+#
+#  Set ``IPCompleter.suppress_competing_matchers = True`` to limit completions to
+#  the set of matchers with the highest priority; this is equivalent to
+#  ``IPCompleter.merge_completions`` and can be beneficial for performance, but
+#  will sometimes omit relevant candidates from matchers further down the
+#  priority list.
+#  Default: None
+# c.IPCompleter.suppress_competing_matchers = None
 
 ## Experimental: Use Jedi to generate autocompletions. Default to True if jedi is
 #  installed.
@@ -1161,3 +1381,8 @@ if IPython.version_info[0] >= 8:
     # https://github.com/ipython/ipython/issues/13654#issuecomment-1231475950
     if IPython.version_info >= (8, 5, 0):
         c.TerminalInteractiveShell.auto_match = True
+    if IPython.version_info >= (8, 11, 0):
+        c.TerminalInteractiveShell.shortcuts = [{
+            'command': 'IPython:auto_suggest.accept_character',
+            'new_keys': ['right'],
+        }]
