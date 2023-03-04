@@ -22,17 +22,17 @@ i3ipc==2.2.1 \
     --hash=sha256:c0b898223d50d42c90c818deb5033d1304c582755547dee7d15df3e3781bc690 \
     --hash=sha256:e880d7d7147959ead5cb34764f08b97b41385b36eb8256e8af1ce163dbcccce8
     # via i3-resurrect
-natsort==8.2.0 \
-    --hash=sha256:04fe18fdd2b9e5957f19f687eb117f102ef8dde6b574764e536e91194bed4f5f \
-    --hash=sha256:57f85b72c688b09e053cdac302dd5b5b53df5f73ae20b4874fcbffd8bf783d11
+natsort==8.3.1 \
+    --hash=sha256:517595492dde570a4fd6b6a76f644440c1ba51e2338c8a671d7f0475fda8f9fd \
+    --hash=sha256:d583bc9050dd10538de36297c960b93f873f0cd01671a3c50df5bd86dd391dcb
     # via i3-resurrect
 packaging==23.0 \
     --hash=sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2 \
     --hash=sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97
     # via build
-pip-tools==6.12.2 \
-    --hash=sha256:6a51f4fd67140d5e83703ebfa9610fb61398727151f56a1be02a972d062e4679 \
-    --hash=sha256:8b903696df4598b10d469026ef9995c5f9a874b416e88e7a214884ebe4a70245
+pip-tools==6.12.3 \
+    --hash=sha256:480d44fae6e09fad3f9bd3d0a7e8423088715d10477e8ef0663440db25e3114f \
+    --hash=sha256:8510420f46572b2e26c357541390593d9365eb6edd2d1e7505267910ecaec080
     # via -r requirements.in
 psutil==5.9.4 \
     --hash=sha256:149555f59a69b33f056ba1c4eb22bb7bf24332ce631c44a319cec09f876aaeff \
