@@ -409,6 +409,7 @@
 /.tldr/cache
 /.tor
 /.tor-browser
+/.torchtext
 /.tox
 /.v8flags.*
 /.vscode

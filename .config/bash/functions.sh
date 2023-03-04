@@ -1515,9 +1515,9 @@ _build_bazel_oci_image() {
       tail -1)"
   fi
   local build_args=(
-    --build-arg="BAZEL_DIR=${BAZEL_DIR:-/bazel}"
-    --build-arg="USE_BAZEL_VERSION=${USE_BAZEL_VERSION}"
-    --build-arg="BAZELISK_VERSION=${BAZELISK_VERSION}"
+    '--build-arg='"BAZEL_DIR=${BAZEL_DIR:-/bazel}"
+    '--build-arg='"USE_BAZEL_VERSION=${USE_BAZEL_VERSION}"
+    '--build-arg='"BAZELISK_VERSION=${BAZELISK_VERSION}"
   )
   docker build "${build_args[@]}" "$@" - << 'EOF'
   FROM debian:11
