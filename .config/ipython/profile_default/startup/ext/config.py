@@ -153,6 +153,7 @@ def _define_prompt_toolkit_keybindings():
         def select_history_line(event: _KeyPressEvent):
             return fzf_history.select_history_line(event, _get_history_files())
         key_bindings.add(Keys.ControlR, filter=True)(select_history_line)
+    # yapf: enable
     # Bind Ctrl-o to operate-and-get-next. See also:
     # https://github.com/jonathanslenders/python-prompt-toolkit/issues/416#issuecomment-391387698
     handler = next(kb.handler
@@ -160,11 +161,13 @@ def _define_prompt_toolkit_keybindings():
                    if kb.handler.__name__ in
                    {'newline_autoindent', 'newline_with_copy_margin'})
     key_bindings.remove_binding(handler)
-    # Workaround for IPython 8.9 change:
+    # Workaround for a IPython 8.9 change:
     # https://github.com/ipython/ipython/issues/13878#issuecomment-1409237629
-    if IPython.version_info[:2] == (8, 9):
+    # In IPython 8.11 the keyboard shortcuts can be customised in the config and
+    # the issue is fixed there:
+    # https://ipython.readthedocs.io/en/8.11.0/whatsnew/version8.html#terminal-shortcuts-customization
+    if IPython.version_info[:2] in [(8, 9), (8, 10)]:
         key_bindings.remove('right')
-    # yapf: enable
 
 
 # I store my ipython history in a git repo, and the history saving thread has
@@ -248,11 +251,13 @@ def _enable_history_db_recovery():
             return True
 
     # From IPython/core/history.py
+    # pylint: disable-next=use-dict-literal
     db_init_options = dict(detect_types=sqlite3.PARSE_DECLTYPES |
                            sqlite3.PARSE_COLNAMES)
     db_init_options.update(hm.connection_options)
     hm.db = AutoReconnect(
         hm.db,
+        # pylint: disable-next=use-dict-literal
         dict(detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES))
     hm.save_thread.db = AutoReconnect(hm.save_thread.db, hm.connection_options)
 
