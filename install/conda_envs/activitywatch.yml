@@ -5,3 +5,7 @@ channels:
 dependencies:
   - python=3.8
   - pip
+  - pip:
+    # activitywatch uses poetry to lock deps, so we don't use pip-tools to avoid
+    # conflicts between them.
+    - poetry
