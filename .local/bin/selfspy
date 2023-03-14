@@ -16,4 +16,8 @@ lockfile="${HOME}/.local/share/selfspy/selfspy.pid.lock"
 [[ -f "${lockfile}" ]] && rm -- "${lockfile}"
 
 SELFSPY_DIR="${REPO_ROOT}/submodules/desktop/selfspy"
-PYTHONPATH="${SELFSPY_DIR}" conda-run selfspy firejail --net=none python "${SELFSPY_DIR}"/selfspy/__init__.py "$@"
+sandbox=()
+if command -v firejail > /dev/null; then
+  sandbox=(firejail --net=none)
+fi
+PYTHONPATH="${SELFSPY_DIR}" conda-run selfspy "${sandbox[@]}" python "${SELFSPY_DIR}"/selfspy/__init__.py "$@"
