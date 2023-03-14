@@ -256,6 +256,7 @@
 /.nix-defexpr
 /.nix-profile
 /.gitsomeconfigurl
+/.pdbhistory
 # Used by kitty to install terminfo files. Only needed when the package manager
 # can't install kitty and update the system terminfo DB at /usr/share/terminfo.
 /.terminfo
