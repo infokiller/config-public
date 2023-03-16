@@ -3,7 +3,8 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-I3_RESURRECT_DIR="${HOME}/.local/var/i3-resurrect"
+: "${HOST_HIST_DIR:=${HOME}/.local/var/hist/$(_get_hostname)}"
+I3_RESURRECT_DIR="${HOST_HIST_DIR}/i3-resurrect"
 
 readonly HELP_FORMAT='<span alpha="50%%" size="smaller"><b>%s</b>
 %s</span>'
@@ -117,7 +118,7 @@ cmd_restore() {
     local ws_count
     ws_count="$(find "${snapshot_dir}" -mindepth 1 -maxdepth 1 \
       -name 'workspace_*_layout.json' | wc -l)"
-    presented_snapshots[$i]+="$(printf ' (%d workspaces)' "${ws_count}")"
+    presented_snapshots[i]+="$(printf ' (%d workspaces)' "${ws_count}")"
   done
   local index=0
   while true; do

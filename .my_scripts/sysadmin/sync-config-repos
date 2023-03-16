@@ -355,6 +355,7 @@ main() {
   _move_packages_if_needed
   _move_rofi_history_if_needed
   _migrate_dir_if_needed "${REPO_ROOT}/downloads" "${REPO_ROOT}/dl"
+  _migrate_dir_if_needed "${HOME}/.local/var/i3-resurrect" "${HOST_HIST_DIR}/i3-resurrect"
 }
 
 main "$@"
