@@ -2,8 +2,8 @@
   "dependencies": {
     "@google/clasp": "2.4.2",
     "alex": "11.0.0",
-    "bash-language-server": "4.8.3",
-    "corepack": "0.17.0",
+    "bash-language-server": "4.8.4",
+    "corepack": "0.17.1",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.36.0",
     "git-stats": "3.1.1",
@@ -17,20 +17,20 @@
     "markdown-toc": "1.2.0",
     "markdownlint-cli": "0.33.0",
     "markdownlint-cli2": "0.6.0",
-    "prettier": "2.8.4",
+    "prettier": "2.8.7",
     "prettier-eslint-cli": "7.1.0",
-    "puppeteer": "19.7.4",
-    "pyright": "1.1.298",
-    "release-it": "15.8.0",
-    "semantic-release": "20.1.1",
-    "snyk": "1.1118.0",
-    "stylelint": "15.2.0",
+    "puppeteer": "19.8.0",
+    "pyright": "1.1.300",
+    "release-it": "15.9.3",
+    "semantic-release": "21.0.0",
+    "snyk": "1.1127.0",
+    "stylelint": "15.3.0",
     "tldr": "3.3.8",
     "uglify-js": "3.17.4",
-    "web-ext": "7.5.0",
+    "web-ext": "7.6.0",
     "write-good": "1.0.8",
     "yarn": "1.22.19",
-    "yarn-audit-fix": "9.3.9"
+    "yarn-audit-fix": "9.3.10"
   },
   "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
   "resolutions": {
@@ -54,5 +54,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.5.0"
 }

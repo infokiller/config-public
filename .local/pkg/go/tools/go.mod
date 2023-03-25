@@ -16,7 +16,7 @@ require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/bazelbuild/bazelisk v1.16.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20230302165817-a6ca93fd072d // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20230317132445-9c3c1fc0106e // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
@@ -121,7 +121,7 @@ require (
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.16.0 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.16.1 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.2.0 // indirect
