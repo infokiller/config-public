@@ -214,6 +214,7 @@
 /.config/VirtualBox
 /.config/activitywatch
 /.config/calibre
+/.config/ripgrep-all
 /.config/gcloud
 /.config/autostart
 /.config/gtk-3.0/bookmarks

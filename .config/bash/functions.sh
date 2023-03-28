@@ -485,13 +485,23 @@ alias pgk='kill-grepped-processes'
 _RG_OR_TAG='rg'
 # AG_OR_TAG="ag --path-to-ignore ${REPO_ROOT}/.config/ripgrep/ignore"
 if command_exists tag; then
+  _RG_OR_TAG='tag'
   tag() {
     command tag "$@"
     # shellcheck disable=SC1090
     source "${TAG_ALIAS_FILE:-/tmp/tag_aliases}" 2> /dev/null
   }
-  _RG_OR_TAG='tag'
-  # AG_OR_TAG='tag'
+  # if command_exists rga; then
+  #   tmpdir="$(mktemp -d -t "rga-bin-$$_XXX")"
+  #   ln -srf "$(which rga)" "${tmpdir}/rg"
+  #   # NOTE: The path variable in trap must be expanded here because it may not be
+  #   # defined when the trap is ran.
+  #   # shellcheck disable=SC2064
+  #   # trap "rm -rf -- '${tmpdir}' &> /dev/null || true" EXIT
+  #   rga() {
+  #     PATH="${tmpdir}:${PATH}" tag "$@"
+  #   }
+  # fi
 fi
 
 # shellcheck disable=SC2139
