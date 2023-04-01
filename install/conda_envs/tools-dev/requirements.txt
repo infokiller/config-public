@@ -430,9 +430,9 @@ ipykernel==6.22.0 \
     #   nbclassic
     #   notebook
     #   qtconsole
-ipython==8.11.0 \
-    --hash=sha256:5b54478e459155a326bf5f42ee4f29df76258c0279c36f21d71ddb560f88b156 \
-    --hash=sha256:735cede4099dbc903ee540307b9171fbfef4aa75cfcacc5a273b2cda2f02be04
+ipython==8.12.0 \
+    --hash=sha256:1c183bf61b148b00bcebfa5d9b39312733ae97f6dad90d7e9b4d86c8647f498c \
+    --hash=sha256:a950236df04ad75b5bc7f816f9af3d74dc118fd42f2ff7e80e8e60ca1f182e2d
     # via
     #   -r requirements.in
     #   ipdb
@@ -579,9 +579,9 @@ jupyterlab-pygments==0.2.2 \
     --hash=sha256:2405800db07c9f770863bcf8049a529c3dd4d3e28536638bd7c1c01d2748309f \
     --hash=sha256:7405d7fde60819d905a9fa8ce89e4cd830e318cdad22a0030f7a901da705585d
     # via nbconvert
-jupyterlab-server==2.21.0 \
-    --hash=sha256:b4f5b48eaae1be83e2fd6fb77ac49d9b639be4ca4bd2e05b5368d29632a93725 \
-    --hash=sha256:ff1e7a81deb2dcb433215d469000988590fd5a5733574aa2698d643a6c9b3ace
+jupyterlab-server==2.22.0 \
+    --hash=sha256:0f9f6752b0c534a7b22a6542b984fa6a2c18ab4d4e0a4c79f191138506a9a75f \
+    --hash=sha256:f4a7263ada89958854631a64bed45285caeac482925233159709f643c5871490
     # via jupyterlab
 jupyterlab-widgets==3.0.7 \
     --hash=sha256:c3a50ed5bf528a0c7a869096503af54702f86dda1db469aee1c92dc0c01b43ca \
@@ -914,9 +914,9 @@ more-itertools==9.1.0 \
     --hash=sha256:cabaa341ad0389ea83c17a94566a53ae4c9d07349861ecb14dc6d0345cf9ac5d \
     --hash=sha256:d2bc7f02446e86a68911e58ded76d6561eea00cddfb2a91e7019bbb586c799f3
     # via jaraco-classes
-nbclassic==0.5.3 \
-    --hash=sha256:889772a7ba524eb781d2901f396540bcad41151e1f7e043f12ebc14a6540d342 \
-    --hash=sha256:e849277872d9ffd8fe4b39a8038d01ba82d6a1def9ce11b1b3c26c9546ed5131
+nbclassic==0.5.4 \
+    --hash=sha256:312b3f7d7ff2e6c261d51799bb12e6493498ab47d3469d3a01015d5533fd4d2b \
+    --hash=sha256:df78e4ba143f35084ad060deec16cb1d4839dde47bfdbc4232beb7071a6d70ea
     # via notebook
 nbclient==0.7.2 \
     --hash=sha256:884a3f4a8c4fc24bb9302f263e0af47d97f0d01fe11ba714171b320c8ac09547 \

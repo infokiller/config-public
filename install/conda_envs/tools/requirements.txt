@@ -564,11 +564,11 @@ ruamel-yaml==0.17.21 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.15.0 \
-    --hash=sha256:77377efda82eb03632e5b6ce470cae5e871608a81d5e7317531087fae111d304 \
-    --hash=sha256:b55392f912ee9fb6fb803086c251d9c37fdfd54ab9be14e0447d89ff2da79411 \
-    --hash=sha256:ba638c65b0fea50259501e6b56faccf5d88d625c7e0c0c47f881bcb772bb2c44 \
-    --hash=sha256:d4a4182f801c131ab835b3cf4659ac1619f361ce22ab3ca46acd72ba04f68181
+semgrep==1.16.0 \
+    --hash=sha256:397f1ede96a66532922525663efba27be9f63ff0370182865ff7df1ab9edac9e \
+    --hash=sha256:7b1f0a037849fda5d80c06ab36bf6b5c427d975b211d10c4c7c7fe1a7927d597 \
+    --hash=sha256:83fafcea96100ab1051c153ae0b144dc9a73f5f1cc2cc8bd11d486b4e9688271 \
+    --hash=sha256:a480a880cee2953e68ae828726399d1aaabffe3489219e30af609ccc72e8ed2d
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
