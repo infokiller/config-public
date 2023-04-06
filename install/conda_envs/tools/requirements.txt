@@ -15,9 +15,9 @@ attrs==22.2.0 \
     #   glom
     #   jsonschema
     #   semgrep
-beautifulsoup4==4.12.0 \
-    --hash=sha256:2130a5ad7f513200fae61a17abb5e338ca980fa28c439c0571014bc0217e9591 \
-    --hash=sha256:c5fceeaec29d09c84970e47c65f2f0efe57872f7cff494c9691a26ec0ff13234
+beautifulsoup4==4.12.1 \
+    --hash=sha256:c7bdbfb20a0dbe09518b96a809d93351b2e2bcb8046c0809466fa6632a10c257 \
+    --hash=sha256:e44795bb4f156d94abb5fbc56efff871c1045bfef72e9efe77558db9f9616ac3
     # via buku
 blessed==1.20.0 \
     --hash=sha256:0c542922586a265e699188e52d5f5ac5ec0dd517e5a1041d90d2bbf23f906058 \
@@ -282,8 +282,8 @@ gpu-utils==0.2.8 \
     --hash=sha256:194f9bef98919cc5b172d6cb4bcd2ead4d4046100ac163a04b45d5f18371cd5c \
     --hash=sha256:566dc2081c36cc98cce58fbd2bfb055ea17f2d6a15161fd64391d5db36b57327
     # via -r requirements.in
-gpustat==1.0.0 \
-    --hash=sha256:581e8ff858c32c95a322bb8f03f1d9dc3d177b4ecb33ddcbed2c373c67f4e3f1
+gpustat==1.1 \
+    --hash=sha256:c8fc105404aac11884f70ed2fa06cfd210d3cd389ccae4a9bc38579c72460cee
     # via -r requirements.in
 grip==4.6.1 \
     --hash=sha256:3feed5c3eff92a02e56bba5f7c6d8b8007752b260b5c9c6946e045c2812d9b69 \
@@ -387,9 +387,9 @@ mdurl==0.1.2 \
     --hash=sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8 \
     --hash=sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba
     # via markdown-it-py
-nvidia-ml-py==11.495.46 \
-    --hash=sha256:8a18e5c77716ffebd8eff3b2bdc6324c9825b51630280655d5478ff463f17827 \
-    --hash=sha256:8f68e1af274756067632c7e1b79fb1a93a8dddf1e04851fccaeb34adfa599625
+nvidia-ml-py==11.525.112 \
+    --hash=sha256:bcb978afc52f44a98c48b3f619e16f567abf745d8796aaa8d36093fe7665d356 \
+    --hash=sha256:c64e473953b65ec0ccc76cf3601c3130a0ac8060bbcaea912cc00fa8e4c9868d
     # via gpustat
 nvidia-ml-py3==7.352.0 \
     --hash=sha256:390f02919ee9d73fe63a98c73101061a6b37fa694a793abf56673320f1f51277
@@ -564,11 +564,11 @@ ruamel-yaml==0.17.21 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.17.0 \
-    --hash=sha256:078f021fe8a85f9d13a6b70811311b3ac3c28967fbf69dbe0b35ecfa0153b09d \
-    --hash=sha256:16e728dee77a3090419afc5fd626e15c1dcb5564e80824fe19d3fdaaa9fede8c \
-    --hash=sha256:55e65a897662615f4d4d8f0a754c952d81707ea0fc7a663fdfac40e43bf8f026 \
-    --hash=sha256:71688b9c8e5817798b33d23c6bd28608bc8e06b59008d0bb203aa7e39e0dbae7
+semgrep==1.17.1 \
+    --hash=sha256:bcedebd65a914cd593f3649fa52fbb935333c955c445aa58114e16076f184ca8 \
+    --hash=sha256:e3048ed452e46e47ddedfbbc60af3e7a5e5a6d5ee09df970c570e4b625896167 \
+    --hash=sha256:eb87ea9266bbabccaacac6975e5f084198a54db57f5c255acb3c5921d6a7a66d \
+    --hash=sha256:f3baa5fe8f55c8e92d1e6b577bde34e5e014a96019a38fd26ee23fde397ae4ae
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -576,7 +576,6 @@ six==1.16.0 \
     # via
     #   blessed
     #   configobj
-    #   gpustat
     #   html5lib
     #   proselint
 soupsieve==2.4 \
