@@ -1050,9 +1050,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:0.3.1":
-  version: 0.3.1
-  resolution: "@puppeteer/browsers@npm:0.3.1"
+"@puppeteer/browsers@npm:0.3.2":
+  version: 0.3.2
+  resolution: "@puppeteer/browsers@npm:0.3.2"
   dependencies:
     debug: 4.3.4
     extract-zip: 2.0.1
@@ -1069,7 +1069,7 @@ __metadata:
       optional: true
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: cd080ccf36653ea29566a0754f1365e4bc6a08488b3bc9ddfee38ddedab6fa2511e67c9ac7770f81201a5616b5a0c05731deac1ca4021f463dddbad9a726eba9
+  checksum: 122f0444a605a004c4f2010034f6d4fa383c093c2fe90f71f4f1f2909d6c95796feb68987d90c109c1625a82e45b16af998b7a73a50f9ca63bc7d4a5474b6f2e
   languageName: node
   linkType: hard
 
@@ -2760,9 +2760,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.8.4":
-  version: 4.8.4
-  resolution: "bash-language-server@npm:4.8.4"
+"bash-language-server@npm:4.9.0":
+  version: 4.9.0
+  resolution: "bash-language-server@npm:4.9.0"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2774,7 +2774,7 @@ __metadata:
     zod: 3.21.4
   bin:
     bash-language-server: out/cli.js
-  checksum: 931d13a33478da3011564eb4b6c238f8879d7a1c386257ba5f0920cf11022c78c1e96ce7dfa761b8ff53162c2174e9b537ade8ec466696b0a55715785ca645d6
+  checksum: 03fc8e2b018a98ec10012a65d04d003eeb9fc93ba28517e59f429e80e58b3f0e57164752161373d4e6e0a3c65845f1f96da7e240d613836b80db944685f84b6c
   languageName: node
   linkType: hard
 
@@ -5967,13 +5967,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-ci@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "env-ci@npm:8.0.0"
+"env-ci@npm:^9.0.0":
+  version: 9.0.0
+  resolution: "env-ci@npm:9.0.0"
   dependencies:
-    execa: ^6.1.0
+    execa: ^7.0.0
     java-properties: ^1.0.2
-  checksum: bef7a36d39df616264f1b64b0b1fe6794c66bbff9fdcbcd14c230cf7790e5ab68443ec6889f957a8047c84271d3a8825bdf71b80251ca29d25101e28e57ada32
+  checksum: d35cb5d4636efe12388a4b26a5c48bd9254548d57a31b28a30cc7f78c0ebe58f0f009739ceebc3b5e7e12da36de1bbe950c76b8b284e2371a15594671dbfe128
   languageName: node
   linkType: hard
 
@@ -6739,23 +6739,6 @@ __metadata:
     signal-exit: ^3.0.3
     strip-final-newline: ^2.0.0
   checksum: fba9022c8c8c15ed862847e94c252b3d946036d7547af310e344a527e59021fd8b6bb0723883ea87044dc4f0201f949046993124a42ccb0855cae5bf8c786343
-  languageName: node
-  linkType: hard
-
-"execa@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "execa@npm:6.1.0"
-  dependencies:
-    cross-spawn: ^7.0.3
-    get-stream: ^6.0.1
-    human-signals: ^3.0.1
-    is-stream: ^3.0.0
-    merge-stream: ^2.0.0
-    npm-run-path: ^5.1.0
-    onetime: ^6.0.0
-    signal-exit: ^3.0.7
-    strip-final-newline: ^3.0.0
-  checksum: 1a4af799839134f5c72eb63d525b87304c1114a63aa71676c91d57ccef2e26f2f53e14c11384ab11c4ec479be1efa83d11c8190e00040355c2c5c3364327fa8e
   languageName: node
   linkType: hard
 
@@ -8895,13 +8878,6 @@ __metadata:
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
   checksum: b87fd89fce72391625271454e70f67fe405277415b48bcc0117ca73d31fa23a4241787afdc8d67f5a116cf37258c052f59ea82daffa72364d61351423848e3b8
-  languageName: node
-  linkType: hard
-
-"human-signals@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "human-signals@npm:3.0.1"
-  checksum: f252a7769c8094a5c9dc6772816bdb417b188820b04c8b42d0fc468e03a0ba905b1dd07afabe9385cc83504af1ccc2b985cd1e4aeeeb8e0029896c5af2e6f354
   languageName: node
   linkType: hard
 
@@ -15265,9 +15241,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.8.1":
-  version: 19.8.1
-  resolution: "puppeteer-core@npm:19.8.1"
+"puppeteer-core@npm:19.8.3":
+  version: 19.8.3
+  resolution: "puppeteer-core@npm:19.8.3"
   dependencies:
     chromium-bidi: 0.4.6
     cross-fetch: 3.1.5
@@ -15284,31 +15260,31 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 83575735c35b2d7bc2e657c1ab5aa5e290b5bf4820163896d472d8eed49e11e0f0a9f7e218d7b673432b7d5fdbadda0e3fe2ffc163f744885c31265c05e1915a
+  checksum: 97f706851c9d432eb31d19f8bf05060ee5ecfe43d816e5a67a8a761dc85ffb28324e4292163717e8520093ebc4b3a9afdb6d7f447c93a37158274d97bcb40201
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.8.2":
-  version: 19.8.2
-  resolution: "puppeteer@npm:19.8.2"
+"puppeteer@npm:19.8.3":
+  version: 19.8.3
+  resolution: "puppeteer@npm:19.8.3"
   dependencies:
-    "@puppeteer/browsers": 0.3.1
+    "@puppeteer/browsers": 0.3.2
     cosmiconfig: 8.1.3
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.8.1
-  checksum: db2c832b5b92acc656ba3fb0702277a3606a9eb7c43a30dde57e71ea623af14919a52b726323bff44578d36d41ade397009533a1c538c459e9fde96c3e473d53
+    puppeteer-core: 19.8.3
+  checksum: ae19975f6448960093c8aba592e3b902896b4dd59c2abaef553d7e5bc9572e3824a0f48db7b904bb664f38aab93dcb16b60a94903cc04ab81e8c9a1f528ccb88
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.301":
-  version: 1.1.301
-  resolution: "pyright@npm:1.1.301"
+"pyright@npm:1.1.302":
+  version: 1.1.302
+  resolution: "pyright@npm:1.1.302"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 1960e8379151a663fc98b2b054513a8b28dd727ade14fba65592b241e3e11979478489acc3f8d5c77f5c1ce0e22bfbdb6a0795e589778ff7763366136225f75c
+  checksum: 191fb3108ff397740e0ab47319506fd49e7b7f38c5076b9112c1a3c91ac081495156a4992ec0a0f533f16d08061ddd0c93ef503e6f18abdeb95e84ed789b0567
   languageName: node
   linkType: hard
 
@@ -15817,9 +15793,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:15.10.0":
-  version: 15.10.0
-  resolution: "release-it@npm:15.10.0"
+"release-it@npm:15.10.1":
+  version: 15.10.1
+  resolution: "release-it@npm:15.10.1"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 19.0.7
@@ -15850,7 +15826,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     release-it: bin/release-it.js
-  checksum: 7eaa57c97d3e334dd96437523b5473a55f7731a41a8af29334f7fa33cc2674984db250cc74a5ebdd7bea936ec365fc62c29d84e2e7e89ce0cbae3be3cabebb0f
+  checksum: 421eae6756b42194da8d0ff3eff473e0e74a2d915daefe023ec8bf7175c1496fa254e4f72267ab2b8f6d53e3d85d844919700074db26ccae00166b0302b0ed84
   languageName: node
   linkType: hard
 
@@ -16309,7 +16285,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.8.4
+    bash-language-server: 4.9.0
     corepack: 0.17.1
     diff-so-fancy: 1.4.3
     eslint: 8.37.0
@@ -16326,11 +16302,11 @@ __metadata:
     markdownlint-cli2: 0.6.0
     prettier: 2.8.7
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.8.2
-    pyright: 1.1.301
-    release-it: 15.10.0
-    semantic-release: 21.0.0
-    snyk: 1.1133.0
+    puppeteer: 19.8.3
+    pyright: 1.1.302
+    release-it: 15.10.1
+    semantic-release: 21.0.1
+    snyk: 1.1139.0
     stylelint: 15.4.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16499,9 +16475,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:21.0.0":
-  version: 21.0.0
-  resolution: "semantic-release@npm:21.0.0"
+"semantic-release@npm:21.0.1":
+  version: 21.0.1
+  resolution: "semantic-release@npm:21.0.1"
   dependencies:
     "@semantic-release/commit-analyzer": ^9.0.2
     "@semantic-release/error": ^3.0.0
@@ -16511,7 +16487,7 @@ __metadata:
     aggregate-error: ^4.0.1
     cosmiconfig: ^8.0.0
     debug: ^4.0.0
-    env-ci: ^8.0.0
+    env-ci: ^9.0.0
     execa: ^7.0.0
     figures: ^5.0.0
     find-versions: ^5.1.0
@@ -16533,7 +16509,7 @@ __metadata:
     yargs: ^17.5.1
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: a832ffc3503c6e8fce44fa23a23c148f3115938767e6d499952cabb9c2290298ea283f81965c4c90891d2e68a7ada7887528f953f9908c5a140e008b2d1f78c4
+  checksum: a83cede26ac79a3fa3a55586531ea8077ea18b04a0c3bbeb6d415cf31148c6c510189cb2e9863796db8b842fc1afc5d02921325f8880db83d34be40806c0d93d
   languageName: node
   linkType: hard
 
@@ -16918,15 +16894,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1133.0":
-  version: 1.1133.0
-  resolution: "snyk@npm:1.1133.0"
+"snyk@npm:1.1139.0":
+  version: 1.1139.0
+  resolution: "snyk@npm:1.1139.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: fb18d36e3e546d4c464753677136d32fe497f9e36983dc169677914d17cfec7b9f889e1197d7298b32ce98abf09eeba1ae6dee7a1555f292c94045fa0c028ac4
+  checksum: ba39ec1e094260fd032b8d4a536f8e99dd49b6c8e562888d207976ffdda3e3b2ec83b87fb93a87c893b3bdcaf21fb63165d4eb7ea2ad2f39064b47e09c0452b9
   languageName: node
   linkType: hard
 
