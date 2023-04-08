@@ -953,9 +953,9 @@ nest-asyncio==1.5.6 \
     #   ipykernel
     #   nbclassic
     #   notebook
-notebook==6.5.3 \
-    --hash=sha256:50a334ad9d60b30cb759405168ef6fc3d60350ab5439fb1631544bb09dcb2cce \
-    --hash=sha256:b12bee3292211d85dd7e588a790ddce30cb3e8fbcfa1e803522a207f60819e05
+notebook==6.5.4 \
+    --hash=sha256:517209568bd47261e2def27a140e97d49070602eea0d226a696f42a7f16c9a4e \
+    --hash=sha256:dd17e78aefe64c768737b32bf171c1c766666a21cc79a44d37a1700771cab56f
     # via
     #   -r requirements.in
     #   jupyter-contrib-core
