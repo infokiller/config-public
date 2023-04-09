@@ -215,6 +215,7 @@
 /.config/activitywatch
 /.config/calibre
 /.config/ripgrep-all
+/.config/zoom.conf
 /.config/gcloud
 /.config/autostart
 /.config/gtk-3.0/bookmarks
