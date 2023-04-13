@@ -394,9 +394,9 @@ nvidia-ml-py==11.525.112 \
 nvidia-ml-py3==7.352.0 \
     --hash=sha256:390f02919ee9d73fe63a98c73101061a6b37fa694a793abf56673320f1f51277
     # via gpu-utils
-packaging==23.0 \
-    --hash=sha256:714ac14496c3e68c99c29b00845f7a2b85f3bb6f1078fd9f72fd20f0570002b2 \
-    --hash=sha256:b6ad297f8907de0fa2fe1ccbd26fdaf387f5f47c7275fedf8cce89f99446cf97
+packaging==23.1 \
+    --hash=sha256:994793af429502c4ea2ebf6bf664629d07c1a9fe974af92966e4b8d2df7edc61 \
+    --hash=sha256:a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f
     # via
     #   glances
     #   semgrep
@@ -450,9 +450,9 @@ pydf==12 \
     --hash=sha256:7f47a7c3abfceb1ac04fc009ded538df1ae449c31203962a1471a4eb3bf21439 \
     --hash=sha256:99cfbc6c9bb2cc366bfcc82f5123bd60cf6f0b7d7b603e3d3e671064371b85d5
     # via -r requirements.in
-pygments==2.14.0 \
-    --hash=sha256:b3ed06a9e8ac9a9aae5a6f5dbe78a8a58655d17b43b93c078f094ddc476ae297 \
-    --hash=sha256:fa7bd7bd2771287c0de303af8bfdfc731f51bd2c6a47ab69d117138893b82717
+pygments==2.15.0 \
+    --hash=sha256:77a3299119af881904cd5ecd1ac6a66214b6e9bed1f2db16993b54adede64094 \
+    --hash=sha256:f7e36cffc4c517fbc252861b9a6e4644ca0e5abadf9a113c72d1358ad09b9500
     # via
     #   cli-helpers
     #   grip
@@ -487,9 +487,9 @@ pyrsistent==0.19.3 \
     --hash=sha256:f0774bf48631f3a20471dd7c5989657b639fd2d285b861237ea9e82c36a415a9 \
     --hash=sha256:f0e7c4b2f77593871e918be000b96c8107da48444d57005b6a6bc61fb4331b2c
     # via jsonschema
-python-gitlab==3.13.0 \
-    --hash=sha256:85ae778d8953aba87ad4b78aef7fbb5dae053980d2c20ff200bea29799685743 \
-    --hash=sha256:ad502b72b5d1137f4af37d4a68ae20fe7d6c9778f67cbe2aec566f7995053c7d
+python-gitlab==3.14.0 \
+    --hash=sha256:da614c014c6860147783dde8c216218d8fc6bd83a8bd2e3929dcdf11b211aa58 \
+    --hash=sha256:ef3b8960faeee9880f82b0872d807e3fab94ace12b0d2a8418a97875c8812d3c
     # via -r requirements.in
 python-lsp-jsonrpc==1.0.0 \
     --hash=sha256:079b143be64b0a378bdb21dff5e28a8c1393fe7e8a654ef068322d754e545fc7 \
@@ -553,9 +553,9 @@ requests-toolbelt==0.10.1 \
     --hash=sha256:18565aa58116d9951ac39baa288d3adb5b3ff975c4f25eee78555d89e8f247f7 \
     --hash=sha256:62e09f7ff5ccbda92772a29f394a49c3ad6cb181d568b1337626b2abb628a63d
     # via python-gitlab
-rich==13.3.3 \
-    --hash=sha256:540c7d6d26a1178e8e8b37e9ba44573a3cd1464ff6348b99ee7061b95d1c6333 \
-    --hash=sha256:dc84400a9d842b3a9c5ff74addd8eb798d155f36c1c91303888e0a66850d2a15
+rich==13.3.4 \
+    --hash=sha256:22b74cae0278fd5086ff44144d3813be1cedc9115bdfabbfefd86400cb88b20a \
+    --hash=sha256:b5d573e13605423ec80bdd0cd5f8541f7844a0e71a13f74cf454ccb2f490708b
     # via semgrep
 ruamel-yaml==0.17.21 \
     --hash=sha256:742b35d3d665023981bd6d16b3d24248ce5df75fdb4e2924e93a05c1f8b61ca7 \

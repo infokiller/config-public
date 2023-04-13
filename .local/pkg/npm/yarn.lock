@@ -2760,9 +2760,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.9.0":
-  version: 4.9.0
-  resolution: "bash-language-server@npm:4.9.0"
+"bash-language-server@npm:4.9.1":
+  version: 4.9.1
+  resolution: "bash-language-server@npm:4.9.1"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2770,11 +2770,11 @@ __metadata:
     turndown: 7.1.2
     vscode-languageserver: 8.0.2
     vscode-languageserver-textdocument: 1.0.8
-    web-tree-sitter: 0.20.7
+    web-tree-sitter: 0.20.8
     zod: 3.21.4
   bin:
     bash-language-server: out/cli.js
-  checksum: 03fc8e2b018a98ec10012a65d04d003eeb9fc93ba28517e59f429e80e58b3f0e57164752161373d4e6e0a3c65845f1f96da7e240d613836b80db944685f84b6c
+  checksum: 293876b2874a7c5565b4d90ea20db6004a8419622c8b89ced06d8834ffa47a6157da9e7a5ec8de0e8b2ea43c601436a64facde87615a5a93dd53c4a6aa7ff431
   languageName: node
   linkType: hard
 
@@ -7115,18 +7115,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"firefox-profile@npm:4.2.2":
-  version: 4.2.2
-  resolution: "firefox-profile@npm:4.2.2"
+"firefox-profile@npm:4.3.2":
+  version: 4.3.2
+  resolution: "firefox-profile@npm:4.3.2"
   dependencies:
     adm-zip: ~0.5.x
     fs-extra: ~9.0.1
     ini: ~2.0.0
     minimist: ^1.2.5
-    xml2js: ~0.4.23
+    xml2js: ^0.5.0
   bin:
     firefox-profile: lib/cli.js
-  checksum: 21f338accb06ced2e711ba541874e39fe54a4a9f8b8b87300cd101a71e6e5d03670aa694ee07f3100f8961cc8d0795e19b1e3b3f31a8003d5615f365d9dc3107
+  checksum: 3848edeec929565213866088b7249a2836094a15fc2b940f6c62ac63504a13fe32de9eb66c867e21170eabdb858907c103277b4b0c6d8ac0268b9c9d0a718b71
   languageName: node
   linkType: hard
 
@@ -15279,13 +15279,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.302":
-  version: 1.1.302
-  resolution: "pyright@npm:1.1.302"
+"pyright@npm:1.1.303":
+  version: 1.1.303
+  resolution: "pyright@npm:1.1.303"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 191fb3108ff397740e0ab47319506fd49e7b7f38c5076b9112c1a3c91ac081495156a4992ec0a0f533f16d08061ddd0c93ef503e6f18abdeb95e84ed789b0567
+  checksum: c2554580a8567b5966f73a1a7bad4582ce9ea39c61ead94883785791f361c30cc7237bdc77430ed67243d96c79a25b88ea38a0bd25b7d3df8ce5cdd92a49b451
   languageName: node
   linkType: hard
 
@@ -16286,7 +16286,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.9.0
+    bash-language-server: 4.9.1
     corepack: 0.17.2
     diff-so-fancy: 1.4.3
     eslint: 8.38.0
@@ -16304,14 +16304,14 @@ __metadata:
     prettier: 2.8.7
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.8.5
-    pyright: 1.1.302
+    pyright: 1.1.303
     release-it: 15.10.1
     semantic-release: 21.0.1
-    snyk: 1.1140.0
+    snyk: 1.1142.0
     stylelint: 15.4.0
     tldr: 3.3.8
     uglify-js: 3.17.4
-    web-ext: 7.6.0
+    web-ext: 7.6.1
     write-good: 1.0.8
     yarn: 1.22.19
     yarn-audit-fix: 9.3.10
@@ -16895,15 +16895,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1140.0":
-  version: 1.1140.0
-  resolution: "snyk@npm:1.1140.0"
+"snyk@npm:1.1142.0":
+  version: 1.1142.0
+  resolution: "snyk@npm:1.1142.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 497963bd60a94ea8c017547ff438dec4f116f2eaae07b70ee9dad3cc948804359c59d6a7fd06b10937b592e204e5931ca83f6d294fea1b4f7ed0941570000ddd
+  checksum: ab4da7b1f6e0f22c67d08af45178a49040b6e78897a39146d4630a8271a44da6a700454948abc998cb1798543d6fc1103778239ffafcac58502a8bc19472aa90
   languageName: node
   linkType: hard
 
@@ -19295,9 +19295,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-ext@npm:7.6.0":
-  version: 7.6.0
-  resolution: "web-ext@npm:7.6.0"
+"web-ext@npm:7.6.1":
+  version: 7.6.1
+  resolution: "web-ext@npm:7.6.1"
   dependencies:
     "@babel/runtime": 7.21.0
     "@devicefarmer/adbkit": 3.2.3
@@ -19308,7 +19308,7 @@ __metadata:
     debounce: 1.2.1
     decamelize: 6.0.0
     es6-error: 4.1.1
-    firefox-profile: 4.2.2
+    firefox-profile: 4.3.2
     fs-extra: 11.1.0
     fx-runner: 1.3.0
     import-fresh: 3.3.0
@@ -19333,7 +19333,7 @@ __metadata:
     zip-dir: 2.0.0
   bin:
     web-ext: bin/web-ext.js
-  checksum: 4c2bfb9c18b5463dd25b60b8b2dc51802a36fd1fca29428b5d7154e6167df48a6920d4500411cd1fae8f719290fac050364821a157336131617dde3fe99611fa
+  checksum: 0dbac7892a11fe5407ff55072036af7f081a99f54718e9ac20b67cbae2666a2e2d43967badaedaddf1548a084503992039b3e96f3767157491cf575cf9799cde
   languageName: node
   linkType: hard
 
@@ -19351,10 +19351,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-tree-sitter@npm:0.20.7":
-  version: 0.20.7
-  resolution: "web-tree-sitter@npm:0.20.7"
-  checksum: f2949a679bbca5ecb225ab26a67ff99e6e3907fa905c6bd62bfe6d2cfa216347f8cc481efcd32f181cb6b964bc03c42f9611e16da0825bff43de389b17ff9f7f
+"web-tree-sitter@npm:0.20.8":
+  version: 0.20.8
+  resolution: "web-tree-sitter@npm:0.20.8"
+  checksum: 300c8daf438422ff92f46b3d9768d7af84c1d680331f19ce109e48b5e4e137f1be8f9e446f13fae65afabbc61b62ed1d87f942ca1ab49d1a1aa7740817f98874
   languageName: node
   linkType: hard
 
@@ -19755,13 +19755,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml2js@npm:^0.4.5, xml2js@npm:~0.4.23":
+"xml2js@npm:^0.4.5":
   version: 0.4.23
   resolution: "xml2js@npm:0.4.23"
   dependencies:
     sax: ">=0.6.0"
     xmlbuilder: ~11.0.0
   checksum: ca0cf2dfbf6deeaae878a891c8fbc0db6fd04398087084edf143cdc83d0509ad0fe199b890f62f39c4415cf60268a27a6aed0d343f0658f8779bd7add690fa98
+  languageName: node
+  linkType: hard
+
+"xml2js@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "xml2js@npm:0.5.0"
+  dependencies:
+    sax: ">=0.6.0"
+    xmlbuilder: ~11.0.0
+  checksum: 1aa71d62e5bc2d89138e3929b9ea46459157727759cbc62ef99484b778641c0cd21fb637696c052d901a22f82d092a3e740a16b4ce218e81ac59b933535124ea
   languageName: node
   linkType: hard
 
