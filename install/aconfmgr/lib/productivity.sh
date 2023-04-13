@@ -21,6 +21,7 @@ fi
 AddPackage ripgrep             # A search tool that combines the usability of ag with the raw speed of grep
 # AddPackage the_silver_searcher # Code searching tool similar to Ack, but faster
 AddPackage exa                 # ls replacement
+AddPackage git-delta           # Syntax-highlighting pager for git and diff output
 AddPackage source-highlight    # Convert source code to syntax highlighted document
 AddPackage lesspipe            # an input filter for the pager less
 AddPackage duf                 # Disk Usage/Free Utility

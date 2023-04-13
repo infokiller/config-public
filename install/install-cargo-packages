@@ -102,15 +102,21 @@ PACKAGES = [
         'git-delta',
         # https://github.com/dandavison/delta/issues/973
         # version='0.11.3',
+        # NOTE(2023-04-13): delta is in the archlinux repos.
+        distro_regex='debian|ubuntu',
         installed_binaries={'delta': 'delta'}),
-    # NOTE(2018-07-21): exa is now installed from the arch repos for Arch.
     # --git https://github.com/ogham/exa
-    PackageInstallSpec('exa', distro_regex='debian|ubuntu'),
-    # NOTE(2018-07-21): ripgrep is now installed from the arch repos for Arch.
-    PackageInstallSpec('ripgrep',
-                       installed_binaries={'rg': 'rg'},
-                       distro_regex='debian|ubuntu',
-                       install_flags=['--locked']),
+    PackageInstallSpec(
+        'exa',
+        # NOTE(2018-07-21): exa is in the archlinux repos.
+        distro_regex='debian|ubuntu',
+    ),
+    PackageInstallSpec(
+        'ripgrep',
+        installed_binaries={'rg': 'rg'},
+        # NOTE(2018-07-21): ripgrep is in the archlinux repos.
+        distro_regex='debian|ubuntu',
+        install_flags=['--locked']),
     PackageInstallSpec('ripgrep_all',
                        installed_binaries={'rga': 'rga'},
                        install_flags=[
