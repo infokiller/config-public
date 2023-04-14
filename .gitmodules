@@ -32,6 +32,9 @@
 [submodule "submodules/desktop/polybar"]
 	path = submodules/desktop/polybar
 	url = https://github.com/infokiller/polybar
+[submodule "submodules/desktop/promnesia"]
+	path = submodules/desktop/promnesia
+	url = https://github.com/infokiller/promnesia
 [submodule "submodules/gopass"]
 	path = submodules/gopass
 	url = https://github.com/gopasspw/gopass

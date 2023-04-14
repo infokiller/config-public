@@ -71,6 +71,7 @@ Wants=activitywatch.service
 Wants=selfspy.service
 # Wayland support: https://github.com/jonls/redshift/issues/55
 Wants=redshift-gtk.service
+Wants=promnesia.service
 # NOTE: Is syndaemon still needed? As mentioned in the [libinput
 # docs][1] it seems that libinput replaces its functionality, but I'm not sure
 # if I can rely on libinput always being used as the input driver.

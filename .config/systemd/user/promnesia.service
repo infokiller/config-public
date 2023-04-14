@@ -1,0 +1,10 @@
+[Unit]
+Description=Promnesia browser extension backend
+# Makes sure that this unit is stopped when the graphical session is terminated.
+# https://www.freedesktop.org/software/systemd/man/systemd.special.html#graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=env conda-run promnesia %h/submodules/desktop/promnesia/scripts/promnesia serve
