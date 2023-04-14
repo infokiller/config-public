@@ -1,46 +1,48 @@
-# infokiller: manually exported on 2023-02-09 from chrome://system
+# infokiller: manually exported on 2023-04-14 from chrome://system
 # Note that this only includes enabled extensions.
 
 acgimceffoceigocablmjdpebeodphgc : Cloudy Calculator : version 6_1_6
 aggiiclaiamajehmlfpkjmlbadmkledi : TransOver : version 1_67
 ahfgeienlihckogmohjhadlkjgocpleb : Web Store : version 0_2
-bmnlcjabgnpnenekpadlanbbkooimhnj : PayPal Honey: Automatic Coupons & Cash Back : version 15_10_1
-ccinledjceanimdkflfafdpoljflhbjf : AliPrice Price Tracker : version 11_2_111
-cjmfiochlaffhnellbhffgnjocahinnh : Vetted : version 2_9_1
-cjpalhdlnbpafiamejdnhcphjbkeiagm : uBlock Origin : version 1_46_0
+bmnlcjabgnpnenekpadlanbbkooimhnj : PayPal Honey: Automatic Coupons & Cash Back : version 15_12_3
+ccinledjceanimdkflfafdpoljflhbjf : AliPrice Price Tracker : version 11_2_116
+cjmfiochlaffhnellbhffgnjocahinnh : Vetted : version 2_9_2
+cjpalhdlnbpafiamejdnhcphjbkeiagm : uBlock Origin : version 1_48_4
 cohamjploocgoejdfanacfgkhjkhdkek : Web Search Navigator : version 0_4_22
 dgmanlpmmkibanfdgjocnabmcaclkmod : Just Read : version 5_2_14
 dphilobhebphkdjbpfohgikllaljmgbn : SimpleLogin:Receive & Send emails anonymously : version 2_9_1
 efhkcafmbonnomnimilnephjgeccffdn : Octobox Web Extension : version 1_3_0
 egpjdkipkomnmjhjmdamaniclmdlobbo : Firenvim : version 0_2_14
-eimadpbcbfnmbkopoojfekhnkhdbieeh : Dark Reader : version 4_9_62
+eimadpbcbfnmbkopoojfekhnkhdbieeh : Dark Reader : version 4_9_63
 emffkefkbkpkgpdeeooapgaicgmcbolj : Wikiwand: Wikipedia Modernized : version 8_3_2
 fdmdnnfdofijijgcbhdbnlohaabnmdkb : MonkeyECHO - GearBest Price Tracker : version 1_5_5
 fhcgjolkccmbidfldomjliifgaodjagh : Cookie AutoDelete : version 3_8_2
 gcbommkclmclpchllfjekcdonpmejbdp : HTTPS Everywhere : version 2022_5_24
 gcibdgjaladjjloeocimnijdgopejkfk : Refined Hacker News : version 22_12_17
-ghbmnnjooekpmoecnnnilnnbdlolhkhi : Google Docs Offline : version 1_53_0
-ghnomdcacenbmilgjigehppbamfndblo : The Camelizer : version 3_0_12
+ghbmnnjooekpmoecnnnilnnbdlolhkhi : Google Docs Offline : version 1_60_0
+ghnomdcacenbmilgjigehppbamfndblo : The Camelizer : version 3_0_15
 godoifjoiadanijplaghmhgfeffnblib : Url Shortener : version 14_0_4
-hdokiejnpimakedhajhdlcegeplioahd : LastPass: Free Password Manager : version 4_108_1_7
-hfjbmagddngcpeloejdejnfgbamkjaeg : Vimium C - All by Keyboard : version 1_99_97
-hlepfoohegkhhmjieoechaddaejaokhf : Refined GitHub : version 23_2_5
+hdokiejnpimakedhajhdlcegeplioahd : LastPass: Free Password Manager : version 4_112_0_2
+hfjbmagddngcpeloejdejnfgbamkjaeg : Vimium C - All by Keyboard : version 1_99_98
+hlepfoohegkhhmjieoechaddaejaokhf : Refined GitHub : version 23_4_10
 ialbpcipalajnakfondkflpkagbkdoib : Lovely forks : version 3_7_1
 iclamjopejhobafonejmigadmdbcnokf : One Click Extensions Manager : version 20_3_16_1532
 jchobbjgibcahbheicfocecmhocglkco : Neat URL : version 5_0_0
-jinjaccalgkegednnccohejagnlnfdag : Violentmonkey : version 2_13_9
+jinjaccalgkegednnccohejagnlnfdag : Violentmonkey : version 2_14_0
 jlmafbaeoofdegohdhinkhilhclaklkp : OctoLinker : version 6_10_5
-kbmfpngjjgdllneeigpgjifpgocmfgmb : Reddit Enhancement Suite : version 5_22_15
-kfimphpokifbjgmjflanmfeppcjimgah : RSS Reader Extension (by Inoreader) : version 5_1_2
+kbmfpngjjgdllneeigpgjifpgocmfgmb : Reddit Enhancement Suite : version 5_22_17
+kdmegllpofldcpaclldkopnnjjljoiio : Promnesia : version 1_2_1
+kfimphpokifbjgmjflanmfeppcjimgah : RSS Reader Extension (by Inoreader) : version 5_1_5
 ldlghkoiihaelfnggonhjnfiabmaficg : QuicKey – The quick tab switcher : version 1_7_3
 ldpochfccmkkmhdbclfhpagapcfdljkj : Decentraleyes : version 2_0_17
-lpcaedmchfhocbbapmcbpinfpgnhiddi : Google Keep Chrome Extension : version 4_23052_600_1
+lpcaedmchfhocbbapmcbpinfpgnhiddi : Google Keep Chrome Extension : version 4_23142_540_1
+meigbgdegmccdgmohajdmhlkgipanken : histre : version 3_16_11
 mgijmajocgfcbeboacabfgobmjgjcoja : Google Dictionary (by Google) : version 4_1_8
 mhjfbmdgcfjbbpaeojofohoefgiehjai : Chromium PDF Viewer : version 1
 mlanbilbnpmhobffjimijciioidbhfac : tabctl : version 0_1_2
 mpbjkejclgfgadiemmefgebjfooflfhl : Buster: Captcha Solver for Humans : version 2_0_1
 nacjakoppgmdcpemlfnfegmlhipddanj : PDF Viewer for Vimium C : version 2_15_349
-nakplnnackehceedgkgkokbgbmfghain : Fakespot Fake Amazon Reviews and eBay Sellers : version 0_9_26
+nakplnnackehceedgkgkokbgbmfghain : Fakespot Fake Amazon Reviews and eBay Sellers : version 0_9_28
 nfhdjopbhlggibjlimhdbogflgmbiahc : Better Pull Request for GitHub : version 1_0_37
 nglaklhklhcoonedhgnpgddginnjdadi : ActivityWatch Web Watcher : version 0_4_3
 niloccemoadcdkdjlinkgdfekeahmflj : Save to Pocket : version 4_0_6
