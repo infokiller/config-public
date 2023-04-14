@@ -5,7 +5,9 @@ set -o errexit -o errtrace -o nounset -o pipefail
 
 list_changed_shell_scripts() {
   local -a changed_files
-  mapfile -t changed_files < <(git diff --staged --ignore-submodules=all --name-only)
+  mapfile -t -d '' changed_files < <(
+    git diff --staged --ignore-submodules=all --name-only -z
+  )
   if [[ -z "${changed_files[*]}" ]]; then
     return 1
   fi

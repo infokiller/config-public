@@ -756,9 +756,10 @@ git-add-fzf() {
     # During a merge conflict, _git_ls_unstaged_files return duplicates, so we
     # must dedup the output.
     # --others --exclude-standard adds untracked files
-    "${_git_ls_unstaged_files[@]}" --others --exclude-standard |
+    "${_git_ls_unstaged_files[@]}" -z --others --exclude-standard |
+      tr '\0' '\n' |
       dedup |
-      fzf-shell --height=80% --multi --preview="${_git_diff_index_preview}" \
+      fzf-shell --exit-0 --height=80% --multi --preview="${_git_diff_index_preview}" \
         --prompt='Add > ' |
       sensible-xargs git add --
   )
@@ -769,8 +770,8 @@ git-reset-fzf() {
   repo_root="$(git rev-parse --show-toplevel)"
   (
     cd -- "${repo_root}" || exit
-    "${_git_ls_staged_files[@]}" |
-      fzf-shell --height=80% --multi --preview="${_git_diff_head_preview}" \
+    "${_git_ls_staged_files[@]}" -z |
+      fzf-shell --read0 --exit-0 --height=80% --multi --preview="${_git_diff_head_preview}" \
         --prompt='Reset > ' |
       sensible-xargs git reset HEAD --
   )
@@ -784,9 +785,9 @@ _git_select_changed_files_fzf() {
     {
       # Concatenate the lists of staged and unstaged modified files. See also:
       # https://unix.stackexchange.com/a/176929/126543
-      "${_git_ls_unstaged_files[@]}" "${repo_root}"
-      "${_git_ls_staged_files[@]}"
-    } | sort -u | fzf-shell --multi --preview="${_git_diff_head_preview}" "$@"
+      "${_git_ls_unstaged_files[@]}" -z "${repo_root}"
+      "${_git_ls_staged_files[@]}" -z
+    } | sort -z -u | fzf-shell --read0 --exit-0 --multi --preview="${_git_diff_head_preview}" "$@"
   )
 }
 
@@ -810,16 +811,16 @@ git-restore-files() {
     printf -- '- %s\n' "${files[@]}"
     # Check out other staged files.
     printf '%s\n' "${files[@]}" |
-      sensible-xargs "${_git_ls_staged_files[@]}" --diff-filter=A -- |
-      sensible-xargs git reset --
+      sensible-xargs "${_git_ls_staged_files[@]}" -z --diff-filter=A -- |
+      sensible-xargs --null git reset --
     # Reset new staged files.
     printf '%s\n' "${files[@]}" |
-      sensible-xargs "${_git_ls_staged_files[@]}" --diff-filter=CDMRTUXB -- |
-      sensible-xargs git checkout HEAD --
+      sensible-xargs "${_git_ls_staged_files[@]}" -z --diff-filter=CDMRTUXB -- |
+      sensible-xargs --null git checkout HEAD --
     # Check out unstaged files.
     printf '%s\n' "${files[@]}" |
-      sensible-xargs "${_git_ls_unstaged_files[@]}" -- |
-      sensible-xargs git checkout HEAD --
+      sensible-xargs "${_git_ls_unstaged_files[@]}" -z -- |
+      sensible-xargs --null git checkout HEAD --
   )
 }
 

@@ -149,7 +149,7 @@ _check_paths_blacklist() {
   local pattern
   # Search file names/paths
   local added_files
-  mapfile -t added_files < <(_git_changed_files --diff-filter=A HEAD)
+  mapfile -t -d '' added_files < <(_git_changed_files -z --diff-filter=A HEAD)
   for pattern in "${patterns[@]}"; do
     if printf '%s\n' "${added_files[@]}" |
       grep --text -Ei --color=auto -- "${pattern}"; then
@@ -168,7 +168,7 @@ _check_paths_blacklist() {
 }
 
 _list_changed_shell_scripts() {
-  _git_changed_files --diff-filter=d HEAD | filter-shell-scripts
+  _git_changed_files -z --diff-filter=d HEAD | tr '\0' '\n' | filter-shell-scripts
 }
 
 _check_shfmt() {
@@ -244,7 +244,7 @@ _run_detect_secrets() {
     _print_warning 'Warning: detect-secrets-hook not found, skipping test.'
     return
   fi
-  mapfile -t scanned_files < <(_git_changed_files HEAD |
+  mapfile -t -d '' scanned_files < <(_git_changed_files -z HEAD |
     grep --text -Ev -f <(printf '%s\n' "${SECRET_DETECTION_IGNORED_FILES[@]}"))
   if ((${#scanned_files[@]} == 0)) ||
     detect-secrets-hook -- "${scanned_files[@]}"; then
@@ -276,7 +276,7 @@ _check_secret_detection() {
 _check_deleted_file_refs() {
   echo 'Checking references to deleted files...'
   local found=0
-  while IFS='' read -r fullpath; do
+  while IFS='' read -r -d '' fullpath; do
     printf 'Searching for references to deleted file %s\n' "${fullpath}"
     # I stopped using the `--fixed-strings` option in order to be able to use
     # word delimiters, but that makes this exposed to to regex escaping issues.
@@ -286,7 +286,7 @@ _check_deleted_file_refs() {
     if git --no-pager grep --cached "\b$(basename "${fullpath}")\b"; then
       found=1
     fi
-  done < <(_git_changed_files --no-renames --diff-filter=D HEAD)
+  done < <(_git_changed_files -z --no-renames --diff-filter=D HEAD)
   if ((found == 1)); then
     _print_error 'Found references to deleted files'
     return 1
@@ -299,12 +299,12 @@ _check_broken_symlinks() {
   # If there is an added file or a file that changed its type to a symlink,
   # check those files individually.
   local file
-  while IFS='' read -r file; do
+  while IFS='' read -r -d '' file; do
     if [[ -L "${file}" && ! -e "${file}" ]]; then
       _print_error "Found broken symlink: ${file}"
       s=1
     fi
-  done < <(_git_changed_files --no-renames --diff-filter=AT HEAD)
+  done < <(_git_changed_files -z --no-renames --diff-filter=AT HEAD)
   # If there are no deleted file, we don't need to check the other files in the
   # repo.
   if [[ -z "$(_git_changed_files --no-renames --diff-filter=D HEAD)" ]]; then

@@ -103,8 +103,9 @@ _migrate_submodules_git_dirs() {
 # git help says to do a `restore --staged` but it fails with "path is unmerged"
 # https://stackoverflow.com/a/28066445/1014208
 _fix_unmerged_submodules() {
-  git --no-pager diff --diff-filter=U --name-only --no-renames "${REPO_ROOT}/.gitmodules" "${SUBMODULES_DIR}" |
-    xargs --no-run-if-empty -d '\n' git reset --
+  git --no-pager diff --diff-filter=U --name-only --no-renames -z \
+    -- "${REPO_ROOT}/.gitmodules" "${SUBMODULES_DIR}" |
+    xargs --no-run-if-empty --null git reset --
 }
 
 _move_packages_if_needed() {
@@ -184,8 +185,8 @@ _init_repo_in_existing_dir() {
     _log_info 'Repo exists, not initializing it.'
     # Not sure why, but git can delete a lot of repo files after a hard reset
     # which is needed when the history changed, so we restore them.
-    "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
-      xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
+    "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames -z |
+      xargs -0 -r "${git[@]}" checkout --
   else
     _log_info 'Repo not found, initializing it'
     mkdir -p -- "$(dirname "${work_tree}")"
@@ -196,8 +197,8 @@ _init_repo_in_existing_dir() {
     "${git[@]}" reset --quiet
     # Restore files that are marked as deleted because they are in master but
     # were not in the directory before cloning the repo.
-    "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames |
-      xargs --no-run-if-empty -d '\n' "${git[@]}" checkout --
+    "${git[@]}" --no-pager diff --diff-filter=D --name-only --no-renames -z |
+      xargs -0 -r "${git[@]}" checkout --
   fi
   # Workaround to the remote not being set correctly.
   "${git[@]}" remote remove origin
