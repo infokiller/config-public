@@ -39,20 +39,33 @@ fi
 # NOTE: target_disk will be completely nuked.
 
 # Configurable vars.
-UEFI=true
+uefi=1
+btrfs=0
+dev_name=''
 
 # Swap sizing: https://superuser.com/q/777907/407543
 case "${machine_name}" in
-  # This is what I used for my 2018 desktop with a Windows dual boot:
   zeus18)
-    target_disk="$(_disk_by_id nvme-Samsung_SSD_960_EVO_500GB_S3X4NF0JB26518N)"
-    efi_system_part="${target_disk}"p2
-    boot_part="${target_disk}"p5
-    encrypted_part="${target_disk}"p6
+    # dev_name='s960evo'
+    dev_name='s980pro'
+    btrfs=1
+    target_disk="$(_disk_by_id nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0W101737F)"
+    efi_system_part="${target_disk}"p1
+    # boot_part="${target_disk}"p2
+    encrypted_part="${target_disk}"p2
     swap_size=8G
     root_size=75G
-    # parted "${target_disk}" mkpart primary 160432128s 161363968s
-    # parted "${target_disk}" mkpart primary 161363969s 561920000s
+    # TODO: remove these comments
+    # # EFI_PARTITION_END=$((1+512+64))
+    # # BOOT_PARTITION_END=$((EFI_PARTITION_END+512))
+    # # parted --script "${target_disk}" mkpart primary "${EFI_PARTITION_END}"MiB "${BOOT_PARTITION_END}"MiB
+
+    # EFI_PARTITION_END=$((1+1024))
+    # parted --script "${target_disk}" mklabel gpt
+    # parted --script "${target_disk}" mkpart primary fat32 1MiB "${EFI_PARTITION_END}"MiB
+    # parted --script "${target_disk}" set 1 boot on
+    # parted --script "${target_disk}" set 1 esp on
+    # parted "${target_disk}" mkpart primary "${EFI_PARTITION_END}"MiB 100%
     ;;
   hera17)
     target_disk=/dev/nvme0n1
@@ -107,7 +120,7 @@ case "${machine_name}" in
     # parted --script "${target_disk}" mkpart primary "${EFI_PARTITION_END}" "${BOOT_PARTITION_END}"
     ;;
   hera11)
-    UEFI=false
+    uefi=0
     # This is what I used for a dual boot Linux installation on hera11:
     target_disk=/dev/sda
     encrypted_part="${target_disk}"5
@@ -122,69 +135,136 @@ esac
 
 # Ensure the system clock is accurate.
 timedatectl set-ntp true
-cryptsetup luksFormat "${encrypted_part}"
-cryptsetup luksOpen "${encrypted_part}" cryptlvm
-pvcreate /dev/mapper/cryptlvm
-vgcreate arch /dev/mapper/cryptlvm
-lvcreate --size "${swap_size}" arch --name swap
-lvcreate --size "${root_size}" arch --name root
-lvcreate --extents +100%FREE arch --name home
-lvdisplay
 
-# Create filesystems:
-mkswap --label swap /dev/mapper/arch-swap
-swapon /dev/mapper/arch-swap
-mkfs.ext4 /dev/mapper/arch-root
-# -m 0: ext4 reserves 5% of the blocks to root, but it's not critical to do it when
-# /home is separate, so we disable it.
-mkfs.ext4 -m 0 /dev/mapper/arch-home
+# Create encrypted partition containing root, home, etc.
+luks_dev_name='luks'
+if [[ -n "${dev_name-}" ]]; then
+  luks_dev_name="${dev_name}-${luks_dev_name}"
+fi
+luks_dev_path="/dev/mapper/${luks_dev_name}"
+cryptsetup luksFormat --type luks2 --pbkdf argon2id "${encrypted_part}"
+cryptsetup luksOpen "${encrypted_part}" "${luks_dev_name}"
+# Btrfs/LVM setup
+if ((btrfs)); then
+  mkfs.btrfs -L btrfs "${luks_dev_path}"
+  mnt="/mnt/${luks_dev_name}-btrfs"
+  mkdir -p -- "${mnt}"
+  mount "${luks_dev_path}" "${mnt}"
+  # https://github.com/maximbaz/dotfiles/blob/6904407aac6e7dbebdd4575da2a46cea17dfd5c6/install.sh#L134
+  for subvol in root home pkgs aurbuild archbuild docker logs tmp swap snapshots; do
+    # NOTE: The at symbol (@) is a common convention for subvolume names.
+    btrfs subvolume create "${mnt}/@${subvol}"
+  done
+  # btrfs subvolume create "${mnt}/root"
+  # btrfs subvolume create "${mnt}/home"
+  # btrfs subvolume create "${mnt}/pkgs"
+  # btrfs subvolume create "${mnt}/aurbuild"
+  # btrfs subvolume create "${mnt}/archbuild"
+  # btrfs subvolume create "${mnt}/docker"
+  # btrfs subvolume create "${mnt}/swap"
+  # btrfs subvolume create "${mnt}/snapshots"
+  umount "${mnt}"
+  mount -o noatime,nodiratime,compress=zstd,subvol=@root "${luks_dev_path}" "${mnt}"
+  mkdir -p -- "${mnt}"/{mnt/btrfs-root,boot/efi,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
+  # TODO: why is this needed?
+  mount -o noatime,nodiratime,compress=zstd,subvol=/ "${luks_dev_path}" "${mnt}"/mnt/btrfs-root
+  mount -o noatime,nodiratime,compress=zstd,subvol=@home "${luks_dev_path}" "${mnt}"/home
+  mount -o noatime,nodiratime,compress=zstd,subvol=@pkgs "${luks_dev_path}" "${mnt}"/var/cache/pacman
+  mount -o noatime,nodiratime,compress=zstd,subvol=@aurbuild "${luks_dev_path}" "${mnt}"/var/lib/aurbuild
+  mount -o noatime,nodiratime,compress=zstd,subvol=@archbuild "${luks_dev_path}" "${mnt}"/var/lib/archbuild
+  mount -o noatime,nodiratime,compress=zstd,subvol=@docker "${luks_dev_path}" "${mnt}"/var/lib/docker
+  mount -o noatime,nodiratime,compress=zstd,subvol=@logs "${luks_dev_path}" "${mnt}"/var/log
+  mount -o noatime,nodiratime,compress=zstd,subvol=@tmp "${luks_dev_path}" "${mnt}"/var/tmp
+  mount -o noatime,nodiratime,compress=zstd,subvol=@swap "${luks_dev_path}" "${mnt}"/swap
+  mount -o noatime,nodiratime,compress=zstd,subvol=@snapshots "${luks_dev_path}" "${mnt}"/.snapshots
+  # mkdir -p -- "${mnt}/"{boot,home,docker,swap,snapshots}
+  mkdir -p -- "${mnt}/swap"
+  btrfs filesystem mkswapfile --size "${swap_size}" "${mnt}/swap/swapfile"
+else
+  mnt="/mnt/${luks_dev_name}-lvm"
+  mkdir -p -- "${mnt}"
+  pvcreate "${luks_dev_path}"
+  vg='vg'
+  if [[ -n "${dev_name-}" ]]; then
+    vg="${dev_name}-${vg}"
+  fi
+  vgcreate "${vg}" "${luks_dev_path}"
+  lvcreate --size "${swap_size}" "${vg}" --name swap
+  lvcreate --size "${root_size}" "${vg}" --name root
+  lvcreate --extents +100%FREE "${vg}" --name home
+  lvdisplay
+  # Create root and home filesystems
+  mkfs.ext4 "/dev/${vg}/root"
+  # -m 0: ext4 reserves 5% of the blocks to root, but it's not critical to do it when
+  # /home is separate, so we disable it.
+  mkfs.ext4 -m 0 "/dev/${vg}/home"
+  # Create swap
+  swap_dev="/dev/${vg}/swap"
+  mkswap --label swap "${swap_dev}"
+  swapon "/dev/${vg}/swap"
+  # Mount partitions
+  mount "/dev/${vg}/root" "${mnt}"
+  mkdir -p -- "${mnt}/home"
+  mount "/dev/${vg}/home" "${mnt}/home"
+fi
 
-# Mount partitions:
-mount /dev/mapper/arch-root /mnt
-[[ -d /mnt/home ]] || mkdir /mnt/home
-mount /dev/mapper/arch-home /mnt/home
-
+# Create boot and efi partitions.
 # shellcheck disable=SC2237
 if [[ -n ${efi_system_part-} ]]; then
-  mkfs.ext4 "${boot_part}"
-  e2label "${boot_part}" "LinuxBoot"
-  [[ -d /mnt/boot ]] || mkdir /mnt/boot
-  mount "${boot_part}" /mnt/boot
-  [[ -d /mnt/boot/efi ]] || mkdir /mnt/boot/efi
-  mount "${efi_system_part}" /mnt/boot/efi
+  if [[ -n ${boot_part-} ]]; then
+    esp="${mnt}/efi"
+    mkfs.ext4 "${boot_part}"
+    e2label "${boot_part}" "LinuxBoot"
+    mkdir -p -- "${mnt}/boot"
+    mount "${boot_part}" "${mnt}/boot"
+  else
+    esp="${mnt}/boot"
+  fi
+  mkfs.fat -F32 "${efi_system_part}"
+  mkdir -p -- "${esp}"
+  mount "${efi_system_part}" "${esp}"
 fi
 
 # Install the base system:
-base_packages=(base linux linux-firmware lvm2 cryptsetup dhcpcd net-tools wireless_tools iw wpa_supplicant intel-ucode sudo openssh polkit ntp wget zsh git)
-if [[ ${UEFI} == true ]]; then
-  base_packages+=(refind-efi)
+base_packages=(base linux linux-firmware cryptsetup dhcpcd net-tools wireless_tools iw wpa_supplicant intel-ucode sudo openssh polkit ntp wget zsh git python)
+if ((btrfs)); then
+  base_packages+=(btrfs-progs)
+else
+  base_packages+=(lvm2)
+fi
+if ((uefi)); then
+  base_packages+=(refind)
 else
   base_packages+=(grub)
 fi
-pacstrap /mnt "${base_packages[@]}"
+pacstrap "${mnt}" "${base_packages[@]}"
 
 # Generate fstab:
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U "${mnt}" >> "${mnt}"/etc/fstab
 
 # Chroot to the new system and run the chroot script.
-cp -p /bootstrap-archlinux-chroot /mnt
-bootstrap_archlinux_chroot_args=(--machine-name "${machine_name}" --target-disk "${target_disk}" --encrypted-part "${encrypted_part}")
-if [[ ${UEFI} == true ]]; then
-  bootstrap_archlinux_chroot_args+=('--uefi')
-fi
-arch-chroot /mnt /bootstrap-archlinux-chroot "${bootstrap_archlinux_chroot_args[@]}"
+cp -p /bootstrap-archlinux-chroot "${mnt}"
+# bootstrap_archlinux_chroot_args=(--machine-name "${machine_name}" --target-disk "${target_disk}" --encrypted-part "${encrypted_part}")
+# if ((uefi)); then
+#   bootstrap_archlinux_chroot_args+=('--uefi')
+# fi
+# Export relevant variables in a subshell and run
+(
+  export machine_name target_disk encrypted_part luks_dev_name uefi btrfs swap_dev
+  arch-chroot "${mnt}" /bootstrap-archlinux-chroot
+)
 
 # This is needed only for VirtualBox
 if [[ ${machine_name} == vbox_uefi ]]; then
-  [[ -d /mnt/boot/efi/EFI/boot/ ]] || mkdir /mnt/boot/efi/EFI/boot/
-  cp /mnt/boot/efi/EFI/refind/refind_x64.efi /mnt/boot/efi/EFI/boot/bootx64.efi
+  [[ -d "${mnt}"/boot/efi/EFI/boot/ ]] || mkdir "${mnt}"/boot/efi/EFI/boot/
+  cp "${mnt}"/boot/efi/EFI/refind/refind_x64.efi "${mnt}"/boot/efi/EFI/boot/bootx64.efi
 fi
 
-cat > /mnt/etc/sudoers <<'EOF'
+cat > "${mnt}"/etc/sudoers << 'EOF'
 root ALL=(ALL) ALL
 %wheel ALL=(ALL) ALL
 EOF
 
 # Cleanup and reboot:
-# umount -R /mnt
+# umount -R "${mnt}"
 # reboot

@@ -2,16 +2,19 @@
 
 ## Table of contents
 
-- [Table of contents](#table-of-contents)
+<!-- toc -->
+
 - [High level process](#high-level-process)
-- [Partition the disk for Windows](#partition-the-disk-for-windows)
-  - [Steps](#steps)
-- [Install Windows 10](#install-windows-10)
-  - [Install Windows packages](#install-windows-packages)
-    - [winget](#winget)
-    - [Chocolately](#chocolately)
+- [Install Windows](#install-windows)
+  - [Partition the disk](#partition-the-disk)
+    - [Steps](#steps)
+  - [Run the installation media](#run-the-installation-media)
+  - [Customize](#customize)
   - [Notes](#notes)
   - [Deprecated software installation](#deprecated-software-installation)
+  - [Overview](#overview)
+    - [winget](#winget)
+    - [Chocolately](#chocolately)
     - [Ninite](#ninite)
 - [Partition the disk for Linux](#partition-the-disk-for-linux)
 - [Set up Linux](#set-up-linux)
@@ -32,20 +35,23 @@
 - [Known issues](#known-issues)
 - [Resources](#resources)
 
+<!-- tocstop -->
+
 ## High level process
 
-- [Partition the disk for Windows](#partition-the-disk-for-windows)
-- [Install and set up](#install-windows-10) Windows 10.
-- [Partition the disk for Linux](#partition-the-disk-for-linux).
-- [Install and set up Linux](#set-up-linux).
+- Optional: [Install and set up Windows](#install-windows)
+- [Partition the disk for Linux](#partition-the-disk-for-linux)
+- [Install and set up Linux](#set-up-linux)
 - [Set up Chrome](#set-up-chrome-profile)
-- Test and verify system stability.
-- Save disk image for future restore.
+- Test and verify system stability
+- Save disk image for future restore
 
-## Partition the disk for Windows
+## Install Windows
 
-The Windows 10 installation doesn't give the option to select the partition
-sizes and therefore you need to set them up beforehand. Microsoft has
+### Partition the disk
+
+The Windows installation doesn't give the option to select the partition sizes
+and therefore you need to set them up beforehand. Microsoft has
 [a short guide](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/configure-uefigpt-based-hard-drive-partitions)
 about setting up the needed partitions, which also has
 [an included script](https://goo.gl/R4fjYh) for setting up a new disk. I tweaked
@@ -64,9 +70,9 @@ The partition layout created in this step is as following:
 NOTE: As of 2018-06-22, on zeus18, the order of partitions is actually
 different, probably because it was somehow done in the Windows installation.
 
-### Steps
+#### Steps
 
-1. Boot into the Windows 10 installation media.
+1. Boot into the Windows installation media.
 2. Click Shift+F10 to go the admin cmd.
 3. Identify the number of the target disk by running `diskpart` and then
    `list disk`.
@@ -81,9 +87,9 @@ different, probably because it was somehow done in the Windows installation.
 8. Run `diskpart /s <script-path>` with `<script-path>` set to the location of
    the script.
 
-## Install Windows 10
+### Run the installation media
 
-- Boot into the Windows 10 installation media.
+- Boot into the Windows installation media.
 
 - Select the "Custom" installation type and choose the 75 GiB partition created
   for Windows.
@@ -104,13 +110,6 @@ different, probably because it was somehow done in the Windows installation.
 - If this is a VM, see also the
   [Trello card](https://trello.com/c/msnAYmXM/276-windows-10-vm).
 
-- Tweak Windows settings
-
-  - Download <https://gitlab.com/infokiller/Win10-Initial-Setup-Script> and run
-    one of the cmd scripts depending on the environment.
-
-  - Set touchpad scrolling to be non-natural.
-
 - Enable full disk encryption with Bitlocker and/or Veracrypt. Bitlocker is
   probably more secure and stable because it's supported and used internally by
   Microsoft. However, it's harder to decrypt Bitlocker encrypted partitions from
@@ -120,21 +119,52 @@ different, probably because it was somehow done in the Windows installation.
 
   - [Veracrypt Windows 10 guide](https://www.howtogeek.com/234826/how-to-enable-full-disk-encryption-on-windows-10/)
 
-### Install Windows packages
+### Customize
+
+- Download <https://gitlab.com/infokiller/Win10-Initial-Setup-Script> and run
+  one of the cmd scripts depending on the environment.
+
+  - This will also install [winget](https://github.com/microsoft/winget-cli) and
+    packages/apps that I use
+
+- Set touchpad scrolling to be non-natural.
+
+### Notes
+
+- As of 2020-01-07,
+  [DisableWinTracking](https://github.com/10se1ucgo/DisableWinTracking) is
+  almost fully contained in win10-initial-setup-script, but has two potentially
+  useful additions that I may find useful in the future:
+  - Blocking IPs in Windows Firewall that are known to be tracking.
+  - Disable known tracking domains in the hosts file.
+- As of 2020-01-07,
+  [Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10) seems
+  fully contained in Win10-Initial-Setup-Script. The latter also seems to have
+  higher quality code, better documentation, and is easier to customize.
+- TODO: Look into <https://github.com/henrypp/simplewall> for controlling
+  internet access of apps.
+
+### Deprecated software installation
+
+### Overview
 
 > NOTE: I started scripting this in my fork of Win10-Initial-Setup-Script.
 
 [winget](https://github.com/microsoft/winget-cli) is an official CLI package
-manager by Microsoft. As of 2020-11-26 it is still in preview, but in the long
-term it should be the best solution. Other Alternatives are Chocolately (see
-instructions below) and [Scoop](https://github.com/lukesampson/scoop) which
-looks interesting but I haven't tested it yet.
+manager by Microsoft. Alternatives: Chocolately (see instructions below) and
+[Scoop](https://github.com/lukesampson/scoop) which looks interesting but I
+haven't tested it yet.
 
 #### winget
 
-- Install winget: As of 2020-11-26, winget is still in preview and hence manual
-  installation is needed by downloading and installing the
-  [latest release](https://github.com/microsoft/winget-cli/releases/latest).
+NOTE: As of 2023-04-17, winget and apps are installed using
+win10-initial-setup-script.
+
+- Install winget: As of 2023-04-17, the
+  [recommended way](https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget)
+  is to install
+  [App Installer](https://apps.microsoft.com/store/detail/app-installer/9NBLGGH4NNS1)
+  from the Microsoft Store.
 
 - Install packages: open PowerShell as admin and run:
 
@@ -164,23 +194,6 @@ looks interesting but I haven't tested it yet.
     notepadplusplus git winrar googlechrome google-backup-and-sync veracrypt `
     malwarebytes qbittorrent wox ueli f.lux python vscode sysinternals handbrake
   ```
-
-### Notes
-
-- As of 2020-01-07,
-  [DisableWinTracking](https://github.com/10se1ucgo/DisableWinTracking) is
-  almost fully contained in win10-initial-setup-script, but has two potentially
-  useful additions that I may find useful in the future:
-  - Blocking IPs in Windows Firewall that are known to be tracking.
-  - Disable known tracking domains in the hosts file.
-- As of 2020-01-07,
-  [Debloat-Windows-10](https://github.com/W4RH4WK/Debloat-Windows-10) seems
-  fully contained in Win10-Initial-Setup-Script. The latter also seems to have
-  higher quality code, better documentation, and is easier to customize.
-- TODO: Look into <https://github.com/henrypp/simplewall> for controlling
-  internet access of apps.
-
-### Deprecated software installation
 
 #### Ninite
 
@@ -216,18 +229,18 @@ looks interesting but I haven't tested it yet.
 
 ## Partition the disk for Linux
 
-Installing Windows 10 partitions the disk, and this step creates additional
+Installing Windows partitions the disk, and this step creates additional
 partitions for Linux and a shared partition for Windows and Linux. This step
 should be performed from a shell in a Linux Live ISO. The Arch Linux ISO seems
 to be a good fit for this job. Partitions configured in this step:
 
 > NOTE: Consider adding a GPT partition with the Arch Linux ISO for rescue.
 
-| Number | Short description                       | Size                 | Filesystem | Comments                                                                                                                                   |
-| ------ | --------------------------------------- | -------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| 5      | Linux boot partition                    | 250 MiB - 500 MiB    | ext4       | As of 2018-06-22 my desktop uses about 200MiB of space in this partition for 3 kernels                                                     |
-| 6      | Encrypted container partition for Linux | 250 GiB - max        | crypto_LUK | Contains an LVM volume group with 3 volumes for root, home, and swap. root only needs about 40 GiB including `/var`, or 25 GiB without it. |
-| 7      | Shared data partition                   | Remaining disk space | NTFS       | Optional, only useful if sharing lots of data between Linux and Windows                                                                    |
+| Short description                       | Size                 | Filesystem | Comments                                                                                                                                   |
+| --------------------------------------- | -------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Linux boot partition (+optional EFI)    | 250 MiB - 500 MiB    | ext4       | As of 2023-04-17 the archlinux wiki recommends a single boot/efi partition as the simplest setup                                           |
+| Encrypted container partition for Linux | 250 GiB - max        | crypto_LUK | Contains an LVM volume group with 3 volumes for root, home, and swap. root only needs about 40 GiB including `/var`, or 25 GiB without it. |
+| Shared data partition                   | Remaining disk space | NTFS       | Optional, only useful if sharing lots of data between Linux and Windows                                                                    |
 
 ## Set up Linux
 
