@@ -3,6 +3,14 @@
     "tables": false,
     "code_blocks": false
   },
-  "no-blanks-blockquote": false
+  "no-blanks-blockquote": false,
+  "code-block-style": {
+    "style": "fenced"
+  }
 }
+
+// References:
+// - https://github.com/DavidAnson/markdownlint/blob/main/.markdownlint.json
+// - https://github.com/DavidAnson/markdownlint#examples
+
 // vim: set ft=jsonc :
