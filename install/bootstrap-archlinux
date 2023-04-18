@@ -165,13 +165,10 @@ if ((btrfs)); then
   # btrfs subvolume create "${mnt}/snapshots"
   umount "${mnt}"
   mount -o noatime,nodiratime,compress=zstd,subvol=@root "${luks_dev_path}" "${mnt}"
-  mkdir -p -- "${mnt}"/{mnt/btrfs-root,boot/efi,home,var/{cache/pacman,log,tmp,lib/{aurbuild,archbuild,docker}},swap,.snapshots}
-  # TODO: why is this needed?
+  mkdir -p -- "${mnt}"/{mnt/btrfs-root,boot/efi,home,var/{cache/pacman,log,tmp,lib/docker},swap,.snapshots}
   mount -o noatime,nodiratime,compress=zstd,subvol=/ "${luks_dev_path}" "${mnt}"/mnt/btrfs-root
   mount -o noatime,nodiratime,compress=zstd,subvol=@home "${luks_dev_path}" "${mnt}"/home
   mount -o noatime,nodiratime,compress=zstd,subvol=@pkgs "${luks_dev_path}" "${mnt}"/var/cache/pacman
-  mount -o noatime,nodiratime,compress=zstd,subvol=@aurbuild "${luks_dev_path}" "${mnt}"/var/lib/aurbuild
-  mount -o noatime,nodiratime,compress=zstd,subvol=@archbuild "${luks_dev_path}" "${mnt}"/var/lib/archbuild
   mount -o noatime,nodiratime,compress=zstd,subvol=@docker "${luks_dev_path}" "${mnt}"/var/lib/docker
   mount -o noatime,nodiratime,compress=zstd,subvol=@logs "${luks_dev_path}" "${mnt}"/var/log
   mount -o noatime,nodiratime,compress=zstd,subvol=@tmp "${luks_dev_path}" "${mnt}"/var/tmp
