@@ -151,32 +151,41 @@ if ((btrfs)); then
   mkdir -p -- "${mnt}"
   mount "${luks_dev_path}" "${mnt}"
   # https://github.com/maximbaz/dotfiles/blob/6904407aac6e7dbebdd4575da2a46cea17dfd5c6/install.sh#L134
-  for subvol in root home pkgs aurbuild archbuild docker logs tmp swap snapshots; do
+  for subvol in root home pkgs docker logs tmp swap snapshots; do
     # NOTE: The at symbol (@) is a common convention for subvolume names.
     btrfs subvolume create "${mnt}/@${subvol}"
   done
-  # btrfs subvolume create "${mnt}/root"
-  # btrfs subvolume create "${mnt}/home"
-  # btrfs subvolume create "${mnt}/pkgs"
-  # btrfs subvolume create "${mnt}/aurbuild"
-  # btrfs subvolume create "${mnt}/archbuild"
-  # btrfs subvolume create "${mnt}/docker"
-  # btrfs subvolume create "${mnt}/swap"
-  # btrfs subvolume create "${mnt}/snapshots"
   umount "${mnt}"
-  mount -o noatime,nodiratime,compress=zstd,subvol=@root "${luks_dev_path}" "${mnt}"
-  mkdir -p -- "${mnt}"/{mnt/btrfs-root,boot/efi,home,var/{cache/pacman,log,tmp,lib/docker},swap,.snapshots}
-  mount -o noatime,nodiratime,compress=zstd,subvol=/ "${luks_dev_path}" "${mnt}"/mnt/btrfs-root
-  mount -o noatime,nodiratime,compress=zstd,subvol=@home "${luks_dev_path}" "${mnt}"/home
-  mount -o noatime,nodiratime,compress=zstd,subvol=@pkgs "${luks_dev_path}" "${mnt}"/var/cache/pacman
-  mount -o noatime,nodiratime,compress=zstd,subvol=@docker "${luks_dev_path}" "${mnt}"/var/lib/docker
-  mount -o noatime,nodiratime,compress=zstd,subvol=@logs "${luks_dev_path}" "${mnt}"/var/log
-  mount -o noatime,nodiratime,compress=zstd,subvol=@tmp "${luks_dev_path}" "${mnt}"/var/tmp
-  mount -o noatime,nodiratime,compress=zstd,subvol=@swap "${luks_dev_path}" "${mnt}"/swap
-  mount -o noatime,nodiratime,compress=zstd,subvol=@snapshots "${luks_dev_path}" "${mnt}"/.snapshots
-  # mkdir -p -- "${mnt}/"{boot,home,docker,swap,snapshots}
-  mkdir -p -- "${mnt}/swap"
+
+  mnt_btrfs_subvol() {
+    (($# == 2)) || {
+      printf >&2 'Usage: %s subvol_name' "${FUNCNAME[0]}"
+      return 1
+    }
+    local subvol="$1"
+    local subdir="$2"
+    echo "Mounting subvolume $subvol"
+    # btrfs subvolume create "${mnt}/${subvol}"
+    mkdir -p -- "${mnt}/${subdir}"
+    local files
+    mapfile -t -d '' files < <(find "${mnt}/${subdir}" -mindepth 1 -maxdepth 1 -print0)
+    ((${#files[@]} == 0)) || {
+      printf >&2 'Directory %s is not empty (%s files)' "${mnt}/${subdir}" "${#files[@]}"
+      return 1
+    }
+    mount -o noatime,nodiratime,compress=zstd,subvol="${subvol}" "${luks_dev_path}" "${mnt}/${subdir}"
+  }
+  mnt_btrfs_subvol @root ''
+  mnt_btrfs_subvol / btrfs-root
+  mnt_btrfs_subvol @home home
+  mnt_btrfs_subvol @pkgs var/cache/pacman
+  mnt_btrfs_subvol @docker var/lib/docker
+  mnt_btrfs_subvol @logs var/log
+  mnt_btrfs_subvol @snapshots .snapshots
+  mnt_btrfs_subvol @swap swap
   btrfs filesystem mkswapfile --size "${swap_size}" "${mnt}/swap/swapfile"
+  echo '/swap/swapfile none swap defaults 0 0' >> "${mnt}/etc/fstab"
+  # swapon "${mnt}/swap/swapfile"
 else
   mnt="/mnt/${luks_dev_name}-lvm"
   mkdir -p -- "${mnt}"
@@ -198,7 +207,8 @@ else
   # Create swap
   swap_dev="/dev/${vg}/swap"
   mkswap --label swap "${swap_dev}"
-  swapon "/dev/${vg}/swap"
+  echo 'LABEL=swap none swap defaults 0 0' >> "${mnt}/etc/fstab"
+  # swapon "/dev/${vg}/swap"
   # Mount partitions
   mount "/dev/${vg}/root" "${mnt}"
   mkdir -p -- "${mnt}/home"
