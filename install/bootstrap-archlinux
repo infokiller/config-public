@@ -50,7 +50,7 @@ case "${machine_name}" in
     dev_name='s980pro'
     btrfs=1
     target_disk="$(_disk_by_id nvme-Samsung_SSD_980_PRO_1TB_S5P2NU0W101737F)"
-    efi_system_part="${target_disk}"p1
+    efi_part="${target_disk}"p1
     # boot_part="${target_disk}"p2
     encrypted_part="${target_disk}"p2
     swap_size=8G
@@ -69,7 +69,7 @@ case "${machine_name}" in
     ;;
   hera17)
     target_disk=/dev/nvme0n1
-    efi_system_part="${target_disk}"p1
+    efi_part="${target_disk}"p1
     boot_part="${target_disk}"p5
     encrypted_part="${target_disk}"p6
     swap_size=8G
@@ -79,7 +79,7 @@ case "${machine_name}" in
     ;;
   hera20-juno)
     target_disk="$(_disk_by_id nvme-SAMSUNG_MZVLB1T0HALR-000L7_S3TPNX0M715600)"
-    efi_system_part="${target_disk}"p2
+    efi_part="${target_disk}"p2
     boot_part="${target_disk}"p6
     encrypted_part="${target_disk}"p7
     swap_size=8G
@@ -89,7 +89,7 @@ case "${machine_name}" in
     ;;
   zeus20-juno)
     target_disk=/dev/nvme0n1
-    efi_system_part="${target_disk}"p1
+    efi_part="${target_disk}"p1
     boot_part="${target_disk}"p2
     encrypted_part="${target_disk}"p3
     swap_size=8G
@@ -101,7 +101,7 @@ case "${machine_name}" in
     # This is what I used for a single boot Linux installation from scratch
     # (tested on VirtualBox):
     target_disk=/dev/sda
-    efi_system_part="${target_disk}"1
+    efi_part="${target_disk}"1
     boot_part="${target_disk}"2
     encrypted_part="${target_disk}"3
     swap_size=4G
@@ -217,7 +217,7 @@ fi
 
 # Create boot and efi partitions.
 # shellcheck disable=SC2237
-if [[ -n ${efi_system_part-} ]]; then
+if [[ -n ${efi_part-} ]]; then
   if [[ -n ${boot_part-} ]]; then
     esp="${mnt}/efi"
     mkfs.ext4 "${boot_part}"
@@ -227,9 +227,9 @@ if [[ -n ${efi_system_part-} ]]; then
   else
     esp="${mnt}/boot"
   fi
-  mkfs.fat -F32 "${efi_system_part}"
+  mkfs.fat -F32 "${efi_part}"
   mkdir -p -- "${esp}"
-  mount "${efi_system_part}" "${esp}"
+  mount "${efi_part}" "${esp}"
 fi
 
 # Install the base system:

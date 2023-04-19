@@ -1,0 +1,154 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+readonly RSYNC_CMD=(
+  rsync --archive --acls --xattrs --one-file-system --hard-links --stats
+  --human-readable --partial --progress --delete --delete-excluded
+)
+
+readonly HOME_PARTIAL_EXCLUDES='
+/.cache/***
+/.local/share/Trash/***
+/.local/share/selfspy/***
+/.local/share/activitywatch/***
+/.local/share/pip/***
+/.local/share/Steam/***
+/.local/share/rustup/***
+/.local/var/libvirt/***
+/.mozilla/***
+/.npm/***
+/.tor-browser/***
+/.vscode/***
+/.vscode-oss/***
+/gdrive/***
+/src/***
+/tmp/***
+**.pt
+**.pyc
+**.pytorch
+.tox/***
+__pycache__/***
+node_modules/***
+/.config/chromium/*/Application Cache
+/.config/chromium/*/Extensions
+/.config/chromium/*/GPUCache
+/.config/chromium/*/Service Worker/*Cache*
+'
+
+declare -g mnt
+declare -g efi_device
+declare -g root_device
+
+_mnt_btrfs_subvol() {
+  (($# == 2)) || {
+    printf >&2 'Usage: %s subvol_name' "${FUNCNAME[0]}"
+    return 1
+  }
+  local subvol="$1"
+  local subdir="$2"
+  print_bold "Mounting subvolume $subvol"
+  # btrfs subvolume create "${mnt}/${subvol}"
+  mkdir -p -- "${mnt}/${subdir}"
+  local files
+  mapfile -t -d '' files < <(sudo find "${mnt}/${subdir}" -mindepth 1 -maxdepth 1 -print0)
+  ((${#files[@]} == 0)) || {
+    printf >&2 'Directory %s is not empty (%s files)' "${mnt}/${subdir}" "${#files[@]}"
+    return 1
+  }
+  sudo mount -o noatime,nodiratime,compress=zstd,subvol="${subvol}" "${root_device}" "${mnt}/${subdir}"
+}
+
+_print_usage_and_die() {
+  print_error "Usage: $0 --mnt-dir <MNT_DIR> --efi-device <EFI_DEV> --root-device <ROOT_DEV> --new-fstab <NEW_FSTAB> --mode [(minimal|partial|full)]"
+  exit 1
+}
+
+main() {
+  # mode can be one of minimal, partial, or full
+  local mode=minimal
+  local new_fstab
+  while (($# > 0)); do
+    case "$1" in
+      --mnt-dir)
+        mnt="$2"
+        shift 2
+        ;;
+      --mode)
+        mode="$2"
+        if [[ ${mode} != minimal && ${mode} != partial && ${mode} != full ]]; then
+          print_error "Invalid mode: ${mode}"
+          _print_usage_and_die
+        fi
+        shift 2
+        ;;
+      --efi-device)
+        efi_device="$2"
+        shift 2
+        ;;
+      --root-device)
+        root_device="$2"
+        shift 2
+        ;;
+      --new-fstab)
+        new_fstab="$2"
+        shift 2
+        ;;
+      *)
+        _print_usage_and_die
+        ;;
+    esac
+  done
+  if [[ -z ${mnt:-} || -z ${efi_device:-} || -z ${root_device:-} || -z ${new_fstab:-} ]]; then
+    _print_usage_and_die
+  fi
+  while grep "${mnt}" /proc/mounts; do
+    umount -R -- "${mnt}" || sleep 3
+  done
+  # grep "${mnt}" /proc/mounts | awk '{print $2}' | xargs --no-run-if-empty umount
+  local s=0
+  _mnt_btrfs_subvol @root '' || s=1
+  _mnt_btrfs_subvol / btrfs-root || s=1
+  _mnt_btrfs_subvol @home home || s=1
+  _mnt_btrfs_subvol @pkgs var/cache/pacman || s=1
+  _mnt_btrfs_subvol @docker var/lib/docker || s=1
+  _mnt_btrfs_subvol @logs var/log || s=1
+  _mnt_btrfs_subvol @snapshots .snapshots || s=1
+  _mnt_btrfs_subvol @swap swap || s=1
+  if ((s)); then
+    echo 'Errors, stopping'
+    return
+  fi
+  rm -rf "${mnt:?}/boot" && mkdir -p "${mnt}/boot"
+  mount "${efi_device}" "${mnt}/boot"
+  if [[ ${mode} == minimal ]]; then
+    "${RSYNC_CMD[@]}" /etc/ "${mnt}/etc/"
+  else
+    # https://superuser.com/a/709224
+    # The commented excludes are not needed because they are on different
+    # filesystems and we use the rsync flag -x.
+    # --exclude={/dev/'*',/proc/'*',/sys/'*',/tmp/'*',/run/'*',/mnt/'*',/lost+found}
+    "${RSYNC_CMD[@]}" --exclude=/boot --exclude=/mnt --exclude=/home --exclude=/etc/fstab / "${mnt}/"
+  fi
+  "${RSYNC_CMD[@]}" --exclude='*/' --exclude '*/*' /boot/ "${mnt}/boot"
+  "${RSYNC_CMD[@]}" /boot/efi/EFI/ "${mnt}/boot/EFI/"
+  if [[ ${mode} == full ]]; then
+    "${RSYNC_CMD[@]}" /home/ "${mnt}/home"
+  elif [[ ${mode} == partial ]]; then
+    local tmpfile
+    tmpfile="$(mktemp -t 'rsync_home_excludes.XXXXXXX')"
+    printf '%s\n' "${HOME_PARTIAL_EXCLUDES}" >> "${tmpfile}"
+    "${RSYNC_CMD[@]}" --exclude-from="${tmpfile}" /home/ "${mnt}/home"
+  fi
+  cp -- "${new_fstab}" "${mnt}/etc/fstab"
+  while grep "${mnt}" /proc/mounts; do
+    umount -R -- "${mnt}" || sleep 3
+  done
+}
+
+main "$@"
