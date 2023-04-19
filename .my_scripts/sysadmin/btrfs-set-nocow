@@ -2,10 +2,6 @@
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
-# shellcheck disable=SC2155
-readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
-# shellcheck source=../lib/base.sh
-source "${REPO_ROOT}/.my_scripts/lib/base.sh"
 
 NOCOW_ROOT=(
   '/var/cache'
@@ -28,8 +24,24 @@ NOCOW_HOME=(
   '.config/chromium/Home/Service Worker'
 )
 
+_print_warning() {
+  local warning normal
+  # Yellow color
+  warning="$(tput setaf 3 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${warning}${*}${normal}"
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
 _print_usage_and_die() {
-  print_error "Usage: $0 --root-dir <ROOT_DIR> --user <USER>"
+  _print_error "Usage: $0 --root-dir <ROOT_DIR> --user-dir <USER_DIR>"
   exit 1
 }
 
@@ -40,8 +52,8 @@ main() {
         root="$2"
         shift 2
         ;;
-      --user)
-        user="$2"
+      --user-dir)
+        user_dir="$2"
         shift 2
         ;;
       *)
@@ -49,14 +61,24 @@ main() {
         ;;
     esac
   done
-  if [[ -z ${root:-} || -z "${user:-}" ]]; then
+  if [[ -z ${root:-} || -z "${user_dir:-}" ]]; then
     _print_usage_and_die
   fi
   for dir in "${NOCOW_ROOT[@]}"; do
-    sudo chattr +C -- "${root}/${dir}"
+    local p="${root}/${dir}"
+    if [[ ! -e "${p}" ]]; then
+      _print_warning "Path ${p} does not exist"
+      continue
+    fi
+    sudo chattr +C -- "${p}"
   done
   for dir in "${NOCOW_HOME[@]}"; do
-    sudo chattr +C -- "${root}/home/${user}/${dir}"
+    local p="${user_dir}/${dir}"
+    if [[ ! -e "${p}" ]]; then
+      _print_warning "Path ${p} does not exist"
+      continue
+    fi
+    sudo chattr +C -- "${p}"
   done
 }
 

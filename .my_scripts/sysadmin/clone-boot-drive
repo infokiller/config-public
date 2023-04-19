@@ -2,10 +2,8 @@
 
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
-# shellcheck disable=SC2155
-readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
-# shellcheck source=../lib/base.sh
-source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 readonly RSYNC_CMD=(
   rsync --archive --acls --xattrs --one-file-system --hard-links --stats
@@ -35,15 +33,42 @@ readonly HOME_PARTIAL_EXCLUDES='
 .tox/***
 __pycache__/***
 node_modules/***
+*/.config/syncthing/***
 */.config/chromium/*/Application Cache
 */.config/chromium/*/Extensions
 */.config/chromium/*/GPUCache
 */.config/chromium/*/Service Worker/*Cache*
 '
 
-declare -g mnt
+declare -g src
+declare -g dst
 declare -g efi_device
 declare -g root_device
+
+_print_bold() {
+  local bold normal
+  bold="$(tput bold 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf '%s' "${bold}"
+  printf '%s' "${@}"
+  printf '%s\n' "${normal}"
+}
+
+_print_warning() {
+  local warning normal
+  # Yellow color
+  warning="$(tput setaf 3 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${warning}${*}${normal}"
+}
+
+_print_error() {
+  local error normal
+  # Red color
+  error="$(tput setaf 1 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${error}${*}${normal}"
+}
 
 _mnt_btrfs_subvol() {
   (($# == 2)) || {
@@ -52,19 +77,19 @@ _mnt_btrfs_subvol() {
   }
   local subvol="$1"
   local subdir="$2"
-  print_bold "Mounting subvolume $subvol"
-  mkdir -p -- "${mnt}/${subdir}"
+  _print_bold "Mounting subvolume $subvol"
+  mkdir -p -- "${dst}/${subdir}"
   local files
-  mapfile -t -d '' files < <(sudo find "${mnt}/${subdir}" -mindepth 1 -maxdepth 1 -print0)
+  mapfile -t -d '' files < <(sudo find "${dst}/${subdir}" -mindepth 1 -maxdepth 1 -print0)
   ((${#files[@]} == 0)) || {
-    printf >&2 'Directory %s is not empty (%s files)' "${mnt}/${subdir}" "${#files[@]}"
+    printf >&2 'Directory %s is not empty (%s files)' "${dst}/${subdir}" "${#files[@]}"
     return 1
   }
-  sudo mount -o noatime,nodiratime,compress=zstd,subvol="${subvol}" "${root_device}" "${mnt}/${subdir}"
+  sudo mount -o noatime,nodiratime,compress=zstd,subvol="${subvol}" "${root_device}" "${dst}/${subdir}"
 }
 
 _print_usage_and_die() {
-  print_error "Usage: $0 --mnt-dir <MNT_DIR> --efi-device <EFI_DEV> --root-device <ROOT_DEV> --new-fstab <NEW_FSTAB> --mode [(minimal|partial|full)]"
+  _print_error "Usage: $0 --src <SRC_DIR> --dst <DST_DIR> --efi-device <EFI_DEV> --root-device <ROOT_DEV> --new-fstab <NEW_FSTAB> --mode [(minimal|partial|full)]"
   exit 1
 }
 
@@ -74,14 +99,18 @@ main() {
   local new_fstab
   while (($# > 0)); do
     case "$1" in
-      --mnt-dir)
-        mnt="$2"
+      --src)
+        src="$2"
+        shift 2
+        ;;
+      --dst)
+        dst="$2"
         shift 2
         ;;
       --mode)
         mode="$2"
         if [[ ${mode} != minimal && ${mode} != partial && ${mode} != full ]]; then
-          print_error "Invalid mode: ${mode}"
+          _print_error "Invalid mode: ${mode}"
           _print_usage_and_die
         fi
         shift 2
@@ -103,13 +132,13 @@ main() {
         ;;
     esac
   done
-  if [[ -z ${mnt:-} || -z ${efi_device:-} || -z ${root_device:-} || -z ${new_fstab:-} ]]; then
+  if [[ -z ${dst:-} || -z ${efi_device:-} || -z ${root_device:-} || -z ${new_fstab:-} ]]; then
     _print_usage_and_die
   fi
-  while grep "${mnt}" /proc/mounts; do
-    sudo umount -R -- "${mnt}" || sleep 3
+  while grep "${dst}" /proc/mounts; do
+    sudo umount -R -- "${dst}" || sleep 3
   done
-  # grep "${mnt}" /proc/mounts | awk '{print $2}' | xargs --no-run-if-empty umount
+  # grep "${dst}" /proc/mounts | awk '{print $2}' | xargs --no-run-if-empty umount
   local s=0
   _mnt_btrfs_subvol @root '' || s=1
   _mnt_btrfs_subvol / btrfs-root || s=1
@@ -123,31 +152,34 @@ main() {
     echo 'Errors, stopping'
     return
   fi
-  chattr +C "${mnt}/var/cache"
-  rm -rf "${mnt:?}/boot" && mkdir -p "${mnt}/boot"
-  mount "${efi_device}" "${mnt}/boot"
+  for d in "${dst}/home"/*; do
+    "${DIR}/btrfs-set-nocow" --root-dir "${dst}" --user-dir "${d}"
+  done
+  chattr +C "${dst}/var/cache"
+  rm -rf "${dst:?}/boot" && mkdir -p "${dst}/boot"
+  mount "${efi_device}" "${dst}/boot"
   if [[ ${mode} == minimal ]]; then
-    sudo "${RSYNC_CMD[@]}" /etc/ "${mnt}/etc/"
+    sudo "${RSYNC_CMD[@]}" "${src}/etc/" "${dst}/etc/"
   else
     # https://superuser.com/a/709224
     # The commented excludes are not needed because they are on different
     # filesystems and we use the rsync flag -x.
     # --exclude={/dev/'*',/proc/'*',/sys/'*',/tmp/'*',/run/'*',/mnt/'*',/lost+found}
-    sudo "${RSYNC_CMD[@]}" --exclude=/boot --exclude=/mnt --exclude=/home --exclude=/etc/fstab / "${mnt}/"
+    sudo "${RSYNC_CMD[@]}" --exclude=/boot --exclude=/mnt --exclude=/home --exclude=/etc/fstab "${src}/" "${dst}/"
   fi
-  sudo "${RSYNC_CMD[@]}" --exclude='*/' --exclude '*/*' /boot/ "${mnt}/boot"
-  sudo "${RSYNC_CMD[@]}" /boot/efi/EFI/ "${mnt}/boot/EFI/"
+  sudo "${RSYNC_CMD[@]}" --exclude='*/' --exclude '*/*' "${src}/boot/" "${dst}/boot"
+  sudo "${RSYNC_CMD[@]}" "${src}/boot/efi/EFI/" "${dst}/boot/EFI/"
   if [[ ${mode} == full ]]; then
-    sudo "${RSYNC_CMD[@]}" /home/ "${mnt}/home"
+    sudo "${RSYNC_CMD[@]}" "${src}/home/" "${dst}/home"
   elif [[ ${mode} == partial ]]; then
     local tmpfile
     tmpfile="$(mktemp -t 'rsync_home_excludes.XXXXXXX')"
     printf '%s\n' "${HOME_PARTIAL_EXCLUDES}" >> "${tmpfile}"
-    sudo "${RSYNC_CMD[@]}" --exclude-from="${tmpfile}" /home/ "${mnt}/home"
+    sudo "${RSYNC_CMD[@]}" --exclude-from="${tmpfile}" "${src}/home/" "${dst}/home"
   fi
-  cp -- "${new_fstab}" "${mnt}/etc/fstab"
-  while grep "${mnt}" /proc/mounts; do
-    sudo umount -R -- "${mnt}" || sleep 3
+  cp -- "${new_fstab}" "${dst}/etc/fstab"
+  while grep "${dst}" /proc/mounts; do
+    sudo umount -R -- "${dst}" || sleep 3
   done
 }
 
