@@ -152,9 +152,9 @@ if ((btrfs)); then
   mnt="/mnt/${luks_dev_name}-btrfs"
   mkdir -p -- "${mnt}"
   mount "${luks_dev_path}" "${mnt}"
-  # https://github.com/maximbaz/dotfiles/blob/6904407aac6e7dbebdd4575da2a46cea17dfd5c6/install.sh#L134
   for subvol in root home pkgs docker logs tmp swap snapshots; do
-    # NOTE: The at symbol (@) is a common convention for subvolume names.
+    # NOTE: The at symbol (@) is a common convention for subvolume names. It's
+    # useful to be able to distinguish between directories and subvolumes.
     btrfs subvolume create "${mnt}/@${subvol}"
   done
   umount "${mnt}"
@@ -176,6 +176,10 @@ if ((btrfs)); then
     }
     mount -o noatime,nodiratime,compress=zstd,subvol="${subvol}" "${luks_dev_path}" "${mnt}/${subdir}"
   }
+  # For info about subvolumes and typical layouts, see:
+  # - https://btrfs.readthedocs.io/en/latest/Subvolumes.html#nested-subvolumes
+  # - https://fedoramagazine.org/working-with-btrfs-subvolumes/
+  # - https://github.com/maximbaz/dotfiles/blob/6904407aac6e7dbebdd4575da2a46cea17dfd5c6/install.sh#L134
   mnt_btrfs_subvol @root ''
   mnt_btrfs_subvol / btrfs-root
   mnt_btrfs_subvol @home home
