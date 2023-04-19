@@ -9,6 +9,8 @@ set -o errexit -o errtrace -o nounset -o pipefail
 # Print every command executed.
 set -x
 
+DIR="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+
 _print_error() {
   printf >&2 '%s\n' "$*"
 }
@@ -243,11 +245,11 @@ fi
 pacstrap "${mnt}" "${base_packages[@]}"
 
 # Generate fstab:
-genfstab -U "${mnt}" >> "${mnt}"/etc/fstab
+genfstab -U "${mnt}" >> "${mnt}/etc/fstab"
 printf "\n%s none swap defaults 0 0\n" "${swap_dev}" >> "${mnt}/etc/fstab"
 
 # Chroot to the new system and run the chroot script.
-cp -p /bootstrap-archlinux-chroot "${mnt}"
+cp -p "${DIR}/bootstrap-archlinux-chroot" "${mnt}"
 # bootstrap_archlinux_chroot_args=(--machine-name "${machine_name}" --target-disk "${target_disk}" --encrypted-part "${encrypted_part}")
 # if ((uefi)); then
 #   bootstrap_archlinux_chroot_args+=('--uefi')
