@@ -46,14 +46,24 @@ AddPackage device-mapper # Device mapper userspace library and tools
 AddPackage udisks2       # Disk Management Service, version 2
 AddPackage lsof          # Lists open files for running Unix processes
 AddPackage rsync         # A file transfer program to keep remote files in sync
-AddPackage btrfs-progs   # Btrfs filesystem utilities
-IgnorePath '/usr/lib/python3.*/site-packages/btrfsutil-*.egg-info/*'
 AddPackage gdu           # Fast disk usage analyzer
 AddPackage ncdu          # Disk usage analyzer with an ncurses interface
 AddPackage wipe          # Secure file wiping utility
 AddPackage ntfs-3g       # NTFS filesystem driver and utilities
 AddPackage smartmontools # Control and monitor S.M.A.R.T. enabled ATA and SCSI Hard Drives
 CreateLink /etc/systemd/system/multi-user.target.wants/smartd.service /usr/lib/systemd/system/smartd.service
+# btrfs
+AddPackage btrfs-progs # Btrfs filesystem utilities
+IgnorePath '/usr/lib/python3.*/site-packages/btrfsutil-*.egg-info/*'
+AddPackage compsize # Calculate compression ratio of a set of files on Btrfs
+# snapper
+AddPackage snapper # A tool for managing BTRFS and LVM snapshots. It can create, diff and restore snapshots and provides timelined auto-snapping.
+CopyFile /etc/snapper/configs/home 600
+CopyFile /etc/snapper/configs/root 600
+CopyFile /etc/conf.d/snapper
+CreateLink /etc/systemd/system/timers.target.wants/snapper-boot.timer /usr/lib/systemd/system/snapper-boot.timer
+CreateLink /etc/systemd/system/timers.target.wants/snapper-cleanup.timer /usr/lib/systemd/system/snapper-cleanup.timer
+CreateLink /etc/systemd/system/timers.target.wants/snapper-timeline.timer /usr/lib/systemd/system/snapper-timeline.timer
 
 AddPackage xdg-user-dirs # Manage user directories like ~/Desktop and ~/Music
 CreateLink '/etc/systemd/user/default.target.wants/xdg-user-dirs-update.service' '/usr/lib/systemd/user/xdg-user-dirs-update.service'

@@ -11,29 +11,33 @@ if ! is_wsl; then
   AddPackage systemd            # system and service manager
   AddPackage systemd-sysvcompat # sysvinit compat for systemd
   if is_uefi; then
+    ESP='/boot/efi'
+    if [[ "${HOST_ALIAS}" == zeus18 ]]; then
+      ESP='/boot'
+    fi
     AddPackage refind # Rod Smith's fork of rEFIt UEFI Boot Manager - Built with GNU-EFI libs
     CopyFileTo "/boot/refind_linux.conf.${HOST_ALIAS}" '/boot/refind_linux.conf'
-    CopyFileTo '/boot/efi/EFI/refind/refind.conf' '/boot/efi/EFI/refind/refind.conf' 755
-    CopyFileTo "/boot/efi/EFI/refind/refind_machine_specific.conf.${HOST_ALIAS}" '/boot/efi/EFI/refind/refind_machine_specific.conf' 755
+    CopyFileTo '/boot/efi/EFI/refind/refind.conf' "${ESP}/EFI/refind/refind.conf" 755
+    CopyFileTo "/boot/efi/EFI/refind/refind_machine_specific.conf.${HOST_ALIAS}" "${ESP}/EFI/refind/refind_machine_specific.conf" 755
     # Pacman hook to upgrade the refind binaries on the EFI partition after the
     # package is updated. See:
     # https://wiki.archlinux.org/index.php/REFInd#Pacman_hook
     CopyFile /etc/pacman.d/hooks/refind.hook 640
-    IgnorePath '/boot/efi/EFI/refind/BOOT.CSV'
-    IgnorePath '/boot/efi/EFI/refind/drivers*'
-    IgnorePath '/boot/efi/EFI/refind/icons/*'
-    IgnorePath '/boot/efi/EFI/refind/refind.conf-sample'
-    IgnorePath '/boot/efi/EFI/refind/icons-backup/*'
-    IgnorePath '/boot/efi/EFI/refind/keys'
-    IgnorePath '/boot/efi/EFI/refind/refind_x64.efi'
+    IgnorePath "${ESP}/EFI/refind/BOOT.CSV"
+    IgnorePath "${ESP}/EFI/refind/drivers*"
+    IgnorePath "${ESP}/EFI/refind/icons/*"
+    IgnorePath "${ESP}/EFI/refind/refind.conf-sample"
+    IgnorePath "${ESP}/EFI/refind/icons-backup/*"
+    IgnorePath "${ESP}/EFI/refind/keys"
+    IgnorePath "${ESP}/EFI/refind/refind_x64.efi"
 
-    IgnorePath '/boot/efi/EFI/Boot/bootx64.efi'
-    IgnorePath '/boot/efi/EFI/Boot/bootx64.efi.backup*'
-    IgnorePath '/boot/efi/EFI/Boot/original_bootx64.vc_backup'
-    IgnorePath '/boot/efi/EFI/Microsoft/*'
-    IgnorePath '/boot/efi/EFI/VeraCrypt/*'
-    IgnorePath '/boot/efi/EFI/tools'
-    IgnorePath '/boot/efi/System Volume Information/*'
+    IgnorePath "${ESP}/EFI/Boot/bootx64.efi"
+    IgnorePath "${ESP}/EFI/Boot/bootx64.efi.backup*"
+    IgnorePath "${ESP}/EFI/Boot/original_bootx64.vc_backup"
+    IgnorePath "${ESP}/EFI/Microsoft/*"
+    IgnorePath "${ESP}/EFI/VeraCrypt/*"
+    IgnorePath "${ESP}/EFI/tools"
+    IgnorePath "${ESP}/System Volume Information/*"
   else
     AddPackage grub # GNU GRand Unified Bootloader (2)
     CopyFileTo "/etc/default/grub.${HOST_ALIAS}" '/etc/default/grub'
@@ -83,6 +87,7 @@ CopyFile '/etc/sudoers.d/custom' 440
 
 if is_intel_cpu; then
   AddPackage intel-ucode # Microcode update files for Intel CPUs
+  IgnorePath '/boot/intel-ucode.img'
   AddPackage iucode-tool # Tool to manipulate Intel® IA-32/X86-64 microcode bundles
 fi
 

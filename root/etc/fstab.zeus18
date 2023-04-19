@@ -2,38 +2,20 @@
 # See fstab(5) for details.
 
 # <file system> <dir> <type> <options> <dump> <pass>
-# /dev/mapper/arch-root
-UUID=d64e589e-c342-4002-9e0f-91d9d0febb40	/         	ext4      	rw,relatime,data=ordered	0 1
+# /dev/mapper/s980pro-luks LABEL=btrfs
+# /dev/nvme0n1p1
+UUID=33E8-441C      	/boot     	vfat      	rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro	0 2
 
-# /dev/nvme1n1p5
-UUID=739eacab-c3a7-4ef9-8968-4305f57a4990	/boot     	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid	0 2
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/         	        btrfs   rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@root	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/home     	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@home	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/var/cache/pacman	  btrfs	  rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@pkgs	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/var/lib/docker	    btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@docker	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/var/log  	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@logs	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/swap     	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@swap	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/.snapshots	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@snapshots	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/btrfs-root	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/	0 0
 
-# /dev/nvme1n1p2
-UUID=44D0-0EF4      	/boot/efi 	vfat      	rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=iso8859-1,shortname=mixed,utf8,errors=remount-ro	0 2
-
-# /dev/nvme1n1p4
-UUID=edfff482-4b68-4d95-b1b1-5bf5974f48f9	/mnt/p4   	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid,nofail,x-systemd.device-timeout=5	0 2
-
-# /dev/mapper/arch-home
-UUID=22b8f3ee-20f2-47ef-ba60-5dcd7ec56a41	/home     	ext4      	rw,relatime,data=ordered,nodev,nosuid	0 2
-
-# /dev/mapper/arch-swap LABEL=swap
-UUID=20508873-8848-4f27-ac16-301f6f318371	none      	swap      	defaults	0 0
-
-# /dev/nvme1n1p4 LABEL=Windows
-# Mount internal Windows partition with linux compatible permissions, i.e. 755
-# for directories (dmask=022) and 644 for files (fmask=133). See also:
-# https://wiki.archlinux.org/index.php/NTFS-3G#Linux_compatible_permissions
-# NOTE: This is disabled because it's now encrypted with veracrypt.
-# UUID=FE02D13202D0F09F	/mnt/Windows      	ntfs-3g      	noauto,rw,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133	0 0
-
-# /dev/nvme1n1p7 LABEL=Data
-# NOTE: As of 2020-07-18, this partition no longer exists.
-# Mount internal Windows partition with linux compatible permissions, i.e. 755
-# for directories (dmask=022) and 644 for files (fmask=133). See also:
-# https://wiki.archlinux.org/index.php/NTFS-3G#Linux_compatible_permissions
-#UUID=5AF494BA50008898	/mnt/veracrypt      	ntfs-3g      	rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show,noauto,nofail,x-systemd.device-timeout=5	0 0
-# /dev/mapper/veracrypt1	/mnt/veracrypt      	ntfs-3g      	rw,uid=1000,gid=1000,windows_names,nodev,nosuid,noexec,relatime,dmask=022,fmask=133,x-gvfs-show,noauto,nofail,x-systemd.device-timeout=5	0 0
+/swap/swapfile none swap defaults 0 0
 
 UUID=b3aa2628-569d-4755-a0f0-de26b0de0847	/mnt/mx500         	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid,nofail,x-systemd.device-timeout=5	0 2
 UUID=9083e4c8-3459-4cd5-a16a-7afc52222ba0	/mnt/evo970       	ext4      	rw,relatime,data=ordered,nodev,noexec,nosuid,nofail,x-systemd.device-timeout=5	0 2

@@ -19,3 +19,9 @@ IgnorePath '/etc/credstore'
 IgnorePath '/usr/share/mime/*'
 IgnorePath '/usr/share/icons/*/icon-theme.cache'
 IgnorePath '/usr/share/applications/mimeinfo.cache'
+
+IgnorePath '/swap'
+
+# btrfs, snapper, etc
+IgnorePath '/btrfs-root'
+IgnorePath '/.snapshots'
