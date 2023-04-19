@@ -23,5 +23,5 @@ IgnorePath '/usr/share/applications/mimeinfo.cache'
 IgnorePath '/swap'
 
 # btrfs, snapper, etc
-IgnorePath '/btrfs-root'
+IgnorePath '/mnt/btrfs-root'
 IgnorePath '/.snapshots'

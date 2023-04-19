@@ -13,7 +13,7 @@ UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/var/lib/docker	    btrfs  	rw,noatime
 UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/var/log  	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@logs	0 0
 UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/swap     	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@swap	0 0
 UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/.snapshots	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/@snapshots	0 0
-UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/btrfs-root	        btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/	0 0
+UUID=46581348-dbb3-4cdc-877f-f6bc8522cca3	/mnt/btrfs-root	    btrfs  	rw,noatime,nodiratime,compress=zstd:3,ssd,space_cache=v2,subvol=/	0 0
 
 /swap/swapfile none swap defaults 0 0
 
