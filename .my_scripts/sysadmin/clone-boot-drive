@@ -9,36 +9,36 @@ source "${REPO_ROOT}/.my_scripts/lib/base.sh"
 
 readonly RSYNC_CMD=(
   rsync --archive --acls --xattrs --one-file-system --hard-links --stats
-  --human-readable --partial --progress --delete --delete-excluded
+  --human-readable --partial --progress --delete
 )
 
 readonly HOME_PARTIAL_EXCLUDES='
-/.cache/***
-/.local/share/Trash/***
-/.local/share/selfspy/***
-/.local/share/activitywatch/***
-/.local/share/pip/***
-/.local/share/Steam/***
-/.local/share/rustup/***
-/.local/var/libvirt/***
-/.mozilla/***
-/.npm/***
-/.tor-browser/***
-/.vscode/***
-/.vscode-oss/***
-/gdrive/***
-/src/***
-/tmp/***
+*/.cache/***
+*/.local/share/Trash/***
+*/.local/share/selfspy/***
+*/.local/share/activitywatch/***
+*/.local/share/pip/***
+*/.local/share/Steam/***
+*/.local/share/rustup/***
+*/.local/var/libvirt/***
+*/.mozilla/***
+*/.npm/***
+*/.tor-browser/***
+*/.vscode/***
+*/.vscode-oss/***
+*/gdrive/***
+*/src/***
+*/tmp/***
 **.pt
 **.pyc
 **.pytorch
 .tox/***
 __pycache__/***
 node_modules/***
-/.config/chromium/*/Application Cache
-/.config/chromium/*/Extensions
-/.config/chromium/*/GPUCache
-/.config/chromium/*/Service Worker/*Cache*
+*/.config/chromium/*/Application Cache
+*/.config/chromium/*/Extensions
+*/.config/chromium/*/GPUCache
+*/.config/chromium/*/Service Worker/*Cache*
 '
 
 declare -g mnt
@@ -53,7 +53,6 @@ _mnt_btrfs_subvol() {
   local subvol="$1"
   local subdir="$2"
   print_bold "Mounting subvolume $subvol"
-  # btrfs subvolume create "${mnt}/${subvol}"
   mkdir -p -- "${mnt}/${subdir}"
   local files
   mapfile -t -d '' files < <(sudo find "${mnt}/${subdir}" -mindepth 1 -maxdepth 1 -print0)
@@ -108,7 +107,7 @@ main() {
     _print_usage_and_die
   fi
   while grep "${mnt}" /proc/mounts; do
-    umount -R -- "${mnt}" || sleep 3
+    sudo umount -R -- "${mnt}" || sleep 3
   done
   # grep "${mnt}" /proc/mounts | awk '{print $2}' | xargs --no-run-if-empty umount
   local s=0
@@ -124,30 +123,31 @@ main() {
     echo 'Errors, stopping'
     return
   fi
+  chattr +C "${mnt}/var/cache"
   rm -rf "${mnt:?}/boot" && mkdir -p "${mnt}/boot"
   mount "${efi_device}" "${mnt}/boot"
   if [[ ${mode} == minimal ]]; then
-    "${RSYNC_CMD[@]}" /etc/ "${mnt}/etc/"
+    sudo "${RSYNC_CMD[@]}" /etc/ "${mnt}/etc/"
   else
     # https://superuser.com/a/709224
     # The commented excludes are not needed because they are on different
     # filesystems and we use the rsync flag -x.
     # --exclude={/dev/'*',/proc/'*',/sys/'*',/tmp/'*',/run/'*',/mnt/'*',/lost+found}
-    "${RSYNC_CMD[@]}" --exclude=/boot --exclude=/mnt --exclude=/home --exclude=/etc/fstab / "${mnt}/"
+    sudo "${RSYNC_CMD[@]}" --exclude=/boot --exclude=/mnt --exclude=/home --exclude=/etc/fstab / "${mnt}/"
   fi
-  "${RSYNC_CMD[@]}" --exclude='*/' --exclude '*/*' /boot/ "${mnt}/boot"
-  "${RSYNC_CMD[@]}" /boot/efi/EFI/ "${mnt}/boot/EFI/"
+  sudo "${RSYNC_CMD[@]}" --exclude='*/' --exclude '*/*' /boot/ "${mnt}/boot"
+  sudo "${RSYNC_CMD[@]}" /boot/efi/EFI/ "${mnt}/boot/EFI/"
   if [[ ${mode} == full ]]; then
-    "${RSYNC_CMD[@]}" /home/ "${mnt}/home"
+    sudo "${RSYNC_CMD[@]}" /home/ "${mnt}/home"
   elif [[ ${mode} == partial ]]; then
     local tmpfile
     tmpfile="$(mktemp -t 'rsync_home_excludes.XXXXXXX')"
     printf '%s\n' "${HOME_PARTIAL_EXCLUDES}" >> "${tmpfile}"
-    "${RSYNC_CMD[@]}" --exclude-from="${tmpfile}" /home/ "${mnt}/home"
+    sudo "${RSYNC_CMD[@]}" --exclude-from="${tmpfile}" /home/ "${mnt}/home"
   fi
   cp -- "${new_fstab}" "${mnt}/etc/fstab"
   while grep "${mnt}" /proc/mounts; do
-    umount -R -- "${mnt}" || sleep 3
+    sudo umount -R -- "${mnt}" || sleep 3
   done
 }
 

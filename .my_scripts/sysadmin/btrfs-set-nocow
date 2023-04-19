@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+# shellcheck source=../lib/base.sh
+source "${REPO_ROOT}/.my_scripts/lib/base.sh"
+
+NOCOW_ROOT=(
+  '/var/cache'
+  '/var/lib/docker'
+  '/.snapshots'
+  '/swap'
+)
+
+NOCOW_HOME=(
+  '.cache'
+  '.local/share/selfspy'
+  '.local/share/activitywatch'
+  '.local/share/pip/log'
+  'tmp'
+  '.tor-browser'
+  '.vscode'
+  '.vscode-oss'
+  'gdrive'
+  '.local/var/libvirt'
+  '.config/chromium/Home/Service Worker'
+)
+
+_print_usage_and_die() {
+  print_error "Usage: $0 --root-dir <ROOT_DIR>"
+  exit 1
+}
+
+main() {
+  while (($# > 0)); do
+    case "$1" in
+      --root-dir)
+        root="$2"
+        shift 2
+        ;;
+      *)
+        _print_usage_and_die
+        ;;
+    esac
+  done
+  if [[ -z ${root:-} ]]; then
+    _print_usage_and_die
+  fi
+  for dir in "${NOCOW_ROOT[@]}"; do
+    sudo chattr +C -- "${root}/${dir}"
+  done
+  for dir in "${NOCOW_HOME[@]}"; do
+    sudo chattr +C -- "${root}/home/${USER}/${dir}"
+  done
+}
+
+main "$@"

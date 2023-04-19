@@ -26,8 +26,8 @@ menuentry "Arch Linux s960evo" {
 
 menuentry "Arch Linux s980pro" {
     icon     /EFI/refind/icons/os_arch.png
-    volume   384a1dc5-5890-4969-b3fe-ddaad61de7ad
+    volume   657365c3-9c22-4932-8be4-98b772f73581
     loader   vmlinuz-linux
     initrd   initramfs-linux.img
-    options  "rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=2a9c097c-c7b9-4714-b99a-9f1558e20167:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760"
+    options  "rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760"
 }

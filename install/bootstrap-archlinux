@@ -148,7 +148,7 @@ cryptsetup luksFormat --type luks2 --pbkdf argon2id "${encrypted_part}"
 cryptsetup luksOpen "${encrypted_part}" "${luks_dev_name}"
 # Btrfs/LVM setup
 if ((btrfs)); then
-  mkfs.btrfs -L btrfs "${luks_dev_path}"
+  mkfs.btrfs -L "${dev_name}-btrfs" "${luks_dev_path}"
   mnt="/mnt/${luks_dev_name}-btrfs"
   mkdir -p -- "${mnt}"
   mount "${luks_dev_path}" "${mnt}"
