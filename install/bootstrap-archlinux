@@ -165,7 +165,6 @@ if ((btrfs)); then
     local subvol="$1"
     local subdir="$2"
     echo "Mounting subvolume $subvol"
-    # btrfs subvolume create "${mnt}/${subvol}"
     mkdir -p -- "${mnt}/${subdir}"
     local files
     mapfile -t -d '' files < <(find "${mnt}/${subdir}" -mindepth 1 -maxdepth 1 -print0)
@@ -184,8 +183,7 @@ if ((btrfs)); then
   mnt_btrfs_subvol @snapshots .snapshots
   mnt_btrfs_subvol @swap swap
   btrfs filesystem mkswapfile --size "${swap_size}" "${mnt}/swap/swapfile"
-  echo '/swap/swapfile none swap defaults 0 0' >> "${mnt}/etc/fstab"
-  # swapon "${mnt}/swap/swapfile"
+  swap_dev='/swap/swapfile'
 else
   mnt="/mnt/${luks_dev_name}-lvm"
   mkdir -p -- "${mnt}"
@@ -207,8 +205,6 @@ else
   # Create swap
   swap_dev="/dev/${vg}/swap"
   mkswap --label swap "${swap_dev}"
-  echo 'LABEL=swap none swap defaults 0 0' >> "${mnt}/etc/fstab"
-  # swapon "/dev/${vg}/swap"
   # Mount partitions
   mount "/dev/${vg}/root" "${mnt}"
   mkdir -p -- "${mnt}/home"
@@ -248,6 +244,7 @@ pacstrap "${mnt}" "${base_packages[@]}"
 
 # Generate fstab:
 genfstab -U "${mnt}" >> "${mnt}"/etc/fstab
+printf "\n%s none swap defaults 0 0\n" "${swap_dev}" >> "${mnt}/etc/fstab"
 
 # Chroot to the new system and run the chroot script.
 cp -p /bootstrap-archlinux-chroot "${mnt}"
