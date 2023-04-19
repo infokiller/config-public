@@ -29,7 +29,7 @@ NOCOW_HOME=(
 )
 
 _print_usage_and_die() {
-  print_error "Usage: $0 --root-dir <ROOT_DIR>"
+  print_error "Usage: $0 --root-dir <ROOT_DIR> --user <USER>"
   exit 1
 }
 
@@ -40,19 +40,23 @@ main() {
         root="$2"
         shift 2
         ;;
+      --user)
+        user="$2"
+        shift 2
+        ;;
       *)
         _print_usage_and_die
         ;;
     esac
   done
-  if [[ -z ${root:-} ]]; then
+  if [[ -z ${root:-} || -z "${user:-}" ]]; then
     _print_usage_and_die
   fi
   for dir in "${NOCOW_ROOT[@]}"; do
     sudo chattr +C -- "${root}/${dir}"
   done
   for dir in "${NOCOW_HOME[@]}"; do
-    sudo chattr +C -- "${root}/home/${USER}/${dir}"
+    sudo chattr +C -- "${root}/home/${user}/${dir}"
   done
 }
 
