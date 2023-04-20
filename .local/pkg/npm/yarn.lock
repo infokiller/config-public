@@ -98,13 +98,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/media-query-list-parser@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@csstools/media-query-list-parser@npm:2.0.1"
+"@csstools/media-query-list-parser@npm:^2.0.2":
+  version: 2.0.4
+  resolution: "@csstools/media-query-list-parser@npm:2.0.4"
   peerDependencies:
-    "@csstools/css-parser-algorithms": ^2.0.0
-    "@csstools/css-tokenizer": ^2.0.0
-  checksum: f30b2a9e1aa3c2d8e98d3ac79463ab514ba4c4577c4cc6120a69d9f4562e521766adb62fc44ffee2226a967bdcfcf86a46bdaf625d21af8f21caa99553994d60
+    "@csstools/css-parser-algorithms": ^2.1.1
+    "@csstools/css-tokenizer": ^2.1.1
+  checksum: 059b1e9bb78fc55888d5c51b55ae6a3aa89b7fde14d846a659bc2bc7f01b5a85d4baf02d36b59a44e5157a5a8eb283b24918d567eda34667e5776befbf122983
   languageName: node
   linkType: hard
 
@@ -1050,9 +1050,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:0.4.0":
-  version: 0.4.0
-  resolution: "@puppeteer/browsers@npm:0.4.0"
+"@puppeteer/browsers@npm:0.4.1":
+  version: 0.4.1
+  resolution: "@puppeteer/browsers@npm:0.4.1"
   dependencies:
     debug: 4.3.4
     extract-zip: 2.0.1
@@ -1069,7 +1069,7 @@ __metadata:
       optional: true
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: d21fce3daa739f156a2539cc1893adad7572c4253ff5a9e3785745c614ff30306b69f327c4e21c50c96cffbaa4d858037e4e72fb291065bc83caf0997f186a05
+  checksum: bd72815d0aaac66651ef775e2816703daaaceef0d94b39b5a6baf3d9f9c2242866f3e0691e9aae6409cdffd1d96f3e7e00bddb8f0c0b5b2b427e9298bcc3c8a2
   languageName: node
   linkType: hard
 
@@ -8054,6 +8054,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"globby@npm:13.1.4":
+  version: 13.1.4
+  resolution: "globby@npm:13.1.4"
+  dependencies:
+    dir-glob: ^3.0.1
+    fast-glob: ^3.2.11
+    ignore: ^5.2.0
+    merge2: ^1.4.1
+    slash: ^4.0.0
+  checksum: e8bc13879972082d590cd1b0e27080d90d2e12fff7eeb2cee9329c29115ace14cc5b9f899e3d6beb136ba826307a727016658919a6f383e1511d698acee81741
+  languageName: node
+  linkType: hard
+
 "globby@npm:^11.0.0":
   version: 11.0.1
   resolution: "globby@npm:11.0.1"
@@ -8735,10 +8748,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-tags@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "html-tags@npm:3.2.0"
-  checksum: a0c9e96ac26c84adad9cc66d15d6711a17f60acda8d987218f1d4cbaacd52864939b230e635cce5a1179f3ddab2a12b9231355617dfbae7945fcfec5e96d2041
+"html-tags@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "html-tags@npm:3.3.1"
+  checksum: b4ef1d5a76b678e43cce46e3783d563607b1d550cab30b4f511211564574770aa8c658a400b100e588bc60b8234e59b35ff72c7851cc28f3b5403b13a2c6cbce
   languageName: node
   linkType: hard
 
@@ -11415,22 +11428,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2-formatter-default@npm:0.0.3":
-  version: 0.0.3
-  resolution: "markdownlint-cli2-formatter-default@npm:0.0.3"
+"markdownlint-cli2-formatter-default@npm:0.0.4":
+  version: 0.0.4
+  resolution: "markdownlint-cli2-formatter-default@npm:0.0.4"
   peerDependencies:
     markdownlint-cli2: ">=0.0.4"
-  checksum: 9f42c30e9588c2e2f28577135ed734cfce04077a2468eabbe573f1ff738d87666168fd18594c333ca48a2caf0712d79ef07b01b54fef4e5aa758307b3ef260f4
+  checksum: 533971d6b04e5ff283af497bf13ba4a18aff582439a36e9fceeb01ab74b432085d1deccfa1e84e585fc7a12f5cd89d15fc6ccb797a8efd25d673d6d3b9a4c076
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:0.6.0":
-  version: 0.6.0
-  resolution: "markdownlint-cli2@npm:0.6.0"
+"markdownlint-cli2@npm:0.7.0":
+  version: 0.7.0
+  resolution: "markdownlint-cli2@npm:0.7.0"
   dependencies:
-    globby: 13.1.3
-    markdownlint: 0.27.0
-    markdownlint-cli2-formatter-default: 0.0.3
+    globby: 13.1.4
+    markdownlint: 0.28.1
+    markdownlint-cli2-formatter-default: 0.0.4
     micromatch: 4.0.5
     strip-json-comments: 5.0.0
     yaml: 2.2.1
@@ -11438,7 +11451,7 @@ __metadata:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: 79efe3789c90dcf5c70f67c0f55790489c4072e74045be44c54f7b7343bc18d0f02538e1cfa2b0a90be8615eab0b413409c3bdc6dba241c970ffe37e40f093d4
+  checksum: be0d937be2a6f620a85a420cce9a070c7e9e6eb669fa338837339eb8b2b1cff93acd5fcc5038a348d408f31439c95db0daf60b53d9fc38c0a2261a7823c3f73b
   languageName: node
   linkType: hard
 
@@ -11461,7 +11474,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.27.0, markdownlint@npm:~0.27.0":
+"markdownlint-micromark@npm:0.1.2":
+  version: 0.1.2
+  resolution: "markdownlint-micromark@npm:0.1.2"
+  checksum: f1ae330db8e9cad942de8f8e422287c38e94e9eb733031e73929023b03838f945776756dd7d6a4b3c9a5fa4ec1c1db6c0e0edd8b59ddc57defbdab2f01d31ce9
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:0.28.1":
+  version: 0.28.1
+  resolution: "markdownlint@npm:0.28.1"
+  dependencies:
+    markdown-it: 13.0.1
+    markdownlint-micromark: 0.1.2
+  checksum: d606e3f069d9b261b9c4ed0533f035420f38a4a19d73b238b35ff51a854be72a38e87d80eb15432aace34837a45b7da12bfbccaea4f70792d1e66ee771ded6d5
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:~0.27.0":
   version: 0.27.0
   resolution: "markdownlint@npm:0.27.0"
   dependencies:
@@ -15241,11 +15271,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.8.5":
-  version: 19.8.5
-  resolution: "puppeteer-core@npm:19.8.5"
+"puppeteer-core@npm:19.9.1":
+  version: 19.9.1
+  resolution: "puppeteer-core@npm:19.9.1"
   dependencies:
-    "@puppeteer/browsers": 0.4.0
+    "@puppeteer/browsers": 0.4.1
     chromium-bidi: 0.4.6
     cross-fetch: 3.1.5
     debug: 4.3.4
@@ -15261,31 +15291,31 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 6bad7a7279403be6b6799876e2ebafb3713d965ec4befe78207b19e05c4a06ff296b90f7f04007f32a80a41a1bf96930a86524cba27915f0b76112261d30833f
+  checksum: 731c62a3b70dd07390a91a151927b39f15d348126b0eae37e65d55988286f0f8dce5917557a500f41f9e9d529c02858d478c83bb19f49daa9d37cd3bf6ffa509
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.8.5":
-  version: 19.8.5
-  resolution: "puppeteer@npm:19.8.5"
+"puppeteer@npm:19.9.1":
+  version: 19.9.1
+  resolution: "puppeteer@npm:19.9.1"
   dependencies:
-    "@puppeteer/browsers": 0.4.0
+    "@puppeteer/browsers": 0.4.1
     cosmiconfig: 8.1.3
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.8.5
-  checksum: 3e83eff1ab650e50f708b38beadac51ba68be9a5f1b4c6227996e92d87873b99e8cc20304e72a68acd1501bdbfa222f81db0d0b20c37196a9b73523e1fcf987b
+    puppeteer-core: 19.9.1
+  checksum: 76efe8f65d564548883071de7081bb892a513e83a00f032d11c79baae84bce1582ef02316138aaccdc5a45ab028e9dad2e0ffdcc98128cfb5027fd1670f6c2b9
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.303":
-  version: 1.1.303
-  resolution: "pyright@npm:1.1.303"
+"pyright@npm:1.1.304":
+  version: 1.1.304
+  resolution: "pyright@npm:1.1.304"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: c2554580a8567b5966f73a1a7bad4582ce9ea39c61ead94883785791f361c30cc7237bdc77430ed67243d96c79a25b88ea38a0bd25b7d3df8ce5cdd92a49b451
+  checksum: 2e3b25a17654af8f4c81ae90bffee5a92dacc5f4c4138ba9c159dee57317f83454242ec2b628876166f6727bac5c201ccf5f25d1d334b6d375f1c2108be01800
   languageName: node
   linkType: hard
 
@@ -16300,15 +16330,15 @@ __metadata:
     lebab: 3.2.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.33.0
-    markdownlint-cli2: 0.6.0
+    markdownlint-cli2: 0.7.0
     prettier: 2.8.7
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.8.5
-    pyright: 1.1.303
+    puppeteer: 19.9.1
+    pyright: 1.1.304
     release-it: 15.10.1
     semantic-release: 21.0.1
-    snyk: 1.1142.0
-    stylelint: 15.4.0
+    snyk: 1.1143.0
+    stylelint: 15.5.0
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.6.1
@@ -16895,15 +16925,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1142.0":
-  version: 1.1142.0
-  resolution: "snyk@npm:1.1142.0"
+"snyk@npm:1.1143.0":
+  version: 1.1143.0
+  resolution: "snyk@npm:1.1143.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: ab4da7b1f6e0f22c67d08af45178a49040b6e78897a39146d4630a8271a44da6a700454948abc998cb1798543d6fc1103778239ffafcac58502a8bc19472aa90
+  checksum: 44128a627af4a51e846d85ee7df7b3db90529f7ff1b43b20c5d971dd822ec29eaf7fd68e4412452068a3e3c74af74b8ccbc330820463a09d5ac590bc7b9ddd52
   languageName: node
   linkType: hard
 
@@ -17654,13 +17684,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:15.4.0":
-  version: 15.4.0
-  resolution: "stylelint@npm:15.4.0"
+"stylelint@npm:15.5.0":
+  version: 15.5.0
+  resolution: "stylelint@npm:15.5.0"
   dependencies:
     "@csstools/css-parser-algorithms": ^2.1.0
     "@csstools/css-tokenizer": ^2.1.0
-    "@csstools/media-query-list-parser": ^2.0.1
+    "@csstools/media-query-list-parser": ^2.0.2
     "@csstools/selector-specificity": ^2.2.0
     balanced-match: ^2.0.0
     colord: ^2.9.3
@@ -17674,7 +17704,7 @@ __metadata:
     global-modules: ^2.0.0
     globby: ^11.1.0
     globjoin: ^0.1.4
-    html-tags: ^3.2.0
+    html-tags: ^3.3.1
     ignore: ^5.2.4
     import-lazy: ^4.0.0
     imurmurhash: ^0.1.4
@@ -17702,7 +17732,7 @@ __metadata:
     write-file-atomic: ^5.0.0
   bin:
     stylelint: bin/stylelint.js
-  checksum: f56a75ffb8ee016690b78b2d401626134317526682ce818d686096db5d33472bf5d3b2941f5b5b3f9711061e5ad123a335a6f482316a567c4c75deba6929702a
+  checksum: 330d8cceac28d0b795ffed87bca893e290a498d242cc2cfc9747e983c710db5ebb7ea22028dcbe363095cec01d51909e53572e405b7b2aadbf735738c63ee7f7
   languageName: node
   linkType: hard
 
