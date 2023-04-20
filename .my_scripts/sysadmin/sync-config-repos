@@ -161,7 +161,7 @@ _migrate_dir_if_needed() {
     return
   fi
   mkdir -p -- "${new}"
-  find -- "${old}" -mindepth 1 -maxdepth 1 |
+  find -- "${old}" -mindepth 1 -maxdepth 1 --print0 |
     xargs --no-run-if-empty --null mv -t "${new}"
   rmdir -- "${old}"
 }
