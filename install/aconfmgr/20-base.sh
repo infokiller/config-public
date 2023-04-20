@@ -12,7 +12,7 @@ if ! is_wsl; then
   AddPackage systemd-sysvcompat # sysvinit compat for systemd
   if is_uefi; then
     ESP='/boot/efi'
-    if [[ "${HOST_ALIAS}" == zeus18 ]]; then
+    if is_btrfs_machine; then
       ESP='/boot'
     AddPackage --foreign arch-secure-boot # UEFI Secure Boot for Arch Linux + btrfs snapshot recovery
     cat >| "$(CreateFile '/etc/arch-secure-boot/config')" << EOF

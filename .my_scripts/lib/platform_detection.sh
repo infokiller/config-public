@@ -74,6 +74,10 @@ is_personal_device() {
   true
 }
 
+is_btrfs_machine() {
+  [[ "$(findmnt --noheadings --output FSTYPE /)" == btrfs ]]
+}
+
 # https://github.com/microsoft/WSL/issues/423#issuecomment-221514627
 # https://github.com/microsoft/WSL/issues/4555#issuecomment-700213318
 is_wsl() {
