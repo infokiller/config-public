@@ -14,8 +14,8 @@ if ! is_wsl; then
     ESP='/boot/efi'
     if is_btrfs_machine; then
       ESP='/boot'
-    AddPackage --foreign arch-secure-boot # UEFI Secure Boot for Arch Linux + btrfs snapshot recovery
-    cat >| "$(CreateFile '/etc/arch-secure-boot/config')" << EOF
+      AddPackage --foreign arch-secure-boot # UEFI Secure Boot for Arch Linux + btrfs snapshot recovery
+      cat >| "$(CreateFile '/etc/arch-secure-boot/config')" << EOF
 ESP="${ESP}"
 SUBVOLUME_ROOT='@root'
 SUBVOLUME_SNAPSHOT='@snapshots/%1/snapshot'
@@ -25,8 +25,12 @@ EOF
       IgnorePath "${ESP}/EFI/arch"
       IgnorePath "${ESP}/recovery.nsh"
       IgnorePath "${ESP}/snapshots.txt"
+      # Because ESP=/boot /boot is formatted as FAT32, so the permissions can be
+      # different when mounted on Linux, depending on the mount options. This
+      # causes aconfmgr to think that the file has changed, so we ignore it.
+      IgnorePath "${ESP}/syslinux/syslinux.cfg"
     fi
-    AddPackage refind                     # Rod Smith's fork of rEFIt UEFI Boot Manager - Built with GNU-EFI libs
+    AddPackage refind # Rod Smith's fork of rEFIt UEFI Boot Manager - Built with GNU-EFI libs
     CopyFileTo "/boot/refind_linux.conf.${HOST_ALIAS}" '/boot/refind_linux.conf'
     CopyFileTo '/boot/efi/EFI/refind/refind.conf' "${ESP}/EFI/refind/refind.conf" 755
     CopyFileTo "/boot/efi/EFI/refind/refind_machine_specific.conf.${HOST_ALIAS}" "${ESP}/EFI/refind/refind_machine_specific.conf" 755
