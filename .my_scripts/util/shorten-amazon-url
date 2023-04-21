@@ -18,7 +18,7 @@ def shorten_amazon_url(url: str):
     new_parts = urllib.parse.ParseResult(
         scheme=parts.scheme,
         netloc=parts.netloc.replace('www.amazon', 'amzn'),
-        path=product_id,
+        path=f'dp/{product_id}',
         params=parts.params,
         query='',
         fragment=parts.fragment,
