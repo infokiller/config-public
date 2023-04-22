@@ -17,16 +17,16 @@ IgnorePath '/usr/lib/udev/hwdb.bin'
 # doesn't detect the UPS although it shows up in lsusb).
 if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   AddPackage nut # NUT is a collection of programs for monitoring and administering UPS hardware
-  CopyFile /etc/udev/rules.d/50-nut.rules
+  CopyFile '/etc/udev/rules.d/50-nut.rules'
   # Setting the /etc/nut file properties is a workaround to an issue where
   # aconfmgr doesn't detect the package permissions correctly:
   # https://github.com/CyberShadow/aconfmgr/issues/115#issuecomment-986014006
-  SetFileProperty /etc/nut/upsd.conf group nut
-  SetFileProperty /etc/nut/upsd.conf mode 640
-  SetFileProperty /etc/nut/upsd.users group nut
-  SetFileProperty /etc/nut/upsd.users mode 640
-  SetFileProperty /etc/nut/upsmon.conf group nut
-  SetFileProperty /etc/nut/upsmon.conf mode 640
+  SetFileProperty '/etc/nut/upsd.conf' group nut
+  SetFileProperty '/etc/nut/upsd.conf' mode 640
+  SetFileProperty '/etc/nut/upsd.users' group nut
+  SetFileProperty '/etc/nut/upsd.users' mode 640
+  SetFileProperty '/etc/nut/upsmon.conf' group nut
+  SetFileProperty '/etc/nut/upsmon.conf' mode 640
   cat >> "$(GetPackageOriginalFile nut '/etc/nut/ups.conf')" << 'EOF'
 
 [eaton_zeus18]
@@ -51,7 +51,7 @@ AddPackage ncdu          # Disk usage analyzer with an ncurses interface
 AddPackage wipe          # Secure file wiping utility
 AddPackage ntfs-3g       # NTFS filesystem driver and utilities
 AddPackage smartmontools # Control and monitor S.M.A.R.T. enabled ATA and SCSI Hard Drives
-CreateLink /etc/systemd/system/multi-user.target.wants/smartd.service /usr/lib/systemd/system/smartd.service
+CreateLink '/etc/systemd/system/multi-user.target.wants/smartd.service' '/usr/lib/systemd/system/smartd.service'
 # btrfs
 if is_btrfs_machine; then
   AddPackage btrfs-progs # Btrfs filesystem utilities
@@ -60,12 +60,15 @@ if is_btrfs_machine; then
   # Snapper
   AddPackage snapper  # A tool for managing BTRFS and LVM snapshots. It can create, diff and restore snapshots and provides timelined auto-snapping.
   AddPackage snap-pac # Pacman hooks that use snapper to create pre/post btrfs snapshots like openSUSE's YaST
-  CopyFile /etc/snapper/configs/home 600
-  CopyFile /etc/snapper/configs/root 600
-  CopyFile /etc/conf.d/snapper
-  CreateLink /etc/systemd/system/timers.target.wants/snapper-boot.timer /usr/lib/systemd/system/snapper-boot.timer
-  CreateLink /etc/systemd/system/timers.target.wants/snapper-cleanup.timer /usr/lib/systemd/system/snapper-cleanup.timer
-  CreateLink /etc/systemd/system/timers.target.wants/snapper-timeline.timer /usr/lib/systemd/system/snapper-timeline.timer
+  CopyFile '/etc/snapper/configs/home' 600
+  CopyFile '/etc/snapper/configs/root' 600
+  CopyFile '/etc/conf.d/snapper'
+  CreateLink '/etc/systemd/system/timers.target.wants/snapper-boot.timer' '/usr/lib/systemd/system/snapper-boot.timer'
+  CreateLink '/etc/systemd/system/timers.target.wants/snapper-cleanup.timer' '/usr/lib/systemd/system/snapper-cleanup.timer'
+  CreateLink '/etc/systemd/system/timers.target.wants/snapper-timeline.timer' '/usr/lib/systemd/system/snapper-timeline.timer'
+  # https://wiki.archlinux.org/title/System_backup#Snapshots_and_/boot_partition
+  CopyFile '/etc/pacman.d/hooks/95-bootbackup.hook' 640
+  IgnorePath '/.bootbackup'
 fi
 
 AddPackage xdg-user-dirs # Manage user directories like ~/Desktop and ~/Music

@@ -1,0 +1,15 @@
+# https://wiki.archlinux.org/title/System_backup#Snapshots_and_/boot_partition
+# NOTE: the prefix of this file must be more than 90, see:
+# https://bbs.archlinux.org/viewtopic.php?pid=2025542#p2025542
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Path
+Target = usr/lib/modules/*/vmlinuz
+
+[Action]
+Depends = rsync
+Description = Backing up /boot...
+When = PostTransaction
+Exec = /usr/bin/rsync -a --delete /boot /.bootbackup
