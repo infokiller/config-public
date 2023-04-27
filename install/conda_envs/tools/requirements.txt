@@ -23,6 +23,10 @@ blessed==1.20.0 \
     --hash=sha256:0c542922586a265e699188e52d5f5ac5ec0dd517e5a1041d90d2bbf23f906058 \
     --hash=sha256:2cdd67f8746e048f00df47a2880f4d6acbcdb399031b604e34ba8f71d5787680
     # via gpustat
+blinker==1.6.2 \
+    --hash=sha256:4afd3de66ef3a9f8067559fb7a1cbe555c17dcbe15971b05d1b625c3e7abe213 \
+    --hash=sha256:c3d739772abb7bc2860abf5f2ec284223d9ad5c76da018234f6f50d6f31ab1f0
+    # via flask
 boltons==21.0.0 \
     --hash=sha256:65e70a79a731a7fe6e98592ecfb5ccf2115873d01dbc576079874629e5c90f13 \
     --hash=sha256:b9bb7b58b2b420bbe11a6025fdef6d3e5edc9f76a42fb467afe7ca212ef9948b
@@ -263,9 +267,9 @@ face==22.0.0 \
     --hash=sha256:344fe31562d0f6f444a45982418f3793d4b14f9abb98ccca1509d22e0a3e7e35 \
     --hash=sha256:d5d692f90bc8f5987b636e47e36384b9bbda499aaf0a77aa0b0bbe834c76923d
     # via glom
-flask==2.2.3 \
-    --hash=sha256:7eb373984bf1c770023fce9db164ed0c3353cd0b53f130f4693da0ca756a2e6d \
-    --hash=sha256:c0bec9477df1cb867e5a67c9e1ab758de9cb4a3e52dd70681f59fa40a62b3f2d
+flask==2.3.1 \
+    --hash=sha256:8ba2a854608fdd603b67dccd4514a46450132227fb9df40127a8d0c1de8769ec \
+    --hash=sha256:a6059db4297106e5a64b3215fa16ae641822c1cb97ecb498573549b2478602cb
     # via grip
 future==0.18.3 \
     --hash=sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307
@@ -403,8 +407,8 @@ packaging==23.1 \
 path-and-address==2.0.1 \
     --hash=sha256:e96363d982b3a2de8531f4cd5f086b51d0248b58527227d43cf5014d045371b7
     # via grip
-peewee==3.16.1 \
-    --hash=sha256:03ba808b96bb3366fc7e949d669804d79059e01d472f0dfaddc2da5fa1614ee7
+peewee==3.16.2 \
+    --hash=sha256:10769981198c7311f84a0ca8db892fa213303a8eb1305deb795a71e7bd606a91
     # via semgrep
 pinggraph==1.2 \
     --hash=sha256:84ef182eaca8c54c1ddfb7ed578b8dc6d755f178b948f13519e0b24e42c91ae0 \
@@ -540,9 +544,9 @@ pyyaml==6.0 \
     #   detect-secrets
     #   tmuxp
     #   vim-vint
-requests==2.28.2 \
-    --hash=sha256:64299f4909223da747622c030b781c0d7811e359c37124b4bd368fb8c6518baa \
-    --hash=sha256:98b1b2782e3c6c4904938b84c0eb932721069dfdb9134313beff7c83c2df24bf
+requests==2.29.0 \
+    --hash=sha256:e8f3c9be120d3333921d213eef078af392fba3933ab7ed2d1cba3b56f2568c3b \
+    --hash=sha256:f2e34a75f4749019bb0e3effb66683630e4ffeaf75819fb51bebef1bf5aef059
     # via
     #   detect-secrets
     #   grip
@@ -564,11 +568,11 @@ ruamel-yaml==0.17.21 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.18.0 \
-    --hash=sha256:30763d1d553b71c0aa448a03be49cd7ed8664002c4e718759ac58f69aa5b3eb0 \
-    --hash=sha256:5fd51ef4f9878e979278ade357e429cc3dcd13990d2d41506371bd60386c6219 \
-    --hash=sha256:a7ee92223c498528a43ca6364272fe984ed9457a69d3d616ce2edd9ca154b174 \
-    --hash=sha256:a9692a0103bec4c4d525b045ebbd06b7114a6fa400cd38efbc8a1c0d9f336e04
+semgrep==1.19.0 \
+    --hash=sha256:5d5e32ffb1bd963e0ede87f0b801305b8367ad660a73f8e0dd8e14f0c8d3e956 \
+    --hash=sha256:723429f9548bd4c959b12c25b6f88fc48858c129d0a13f0fc7904be866f344de \
+    --hash=sha256:89cfde0b8bb5a3b0624d9710ec7ac73e74598bf227c3c61fd1fa489dd29e33eb \
+    --hash=sha256:e59784801146a8d799bc553da68e5e5acbf338a3cae1e8486a9b7aaa925cb266
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -703,9 +707,9 @@ webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
     --hash=sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923
     # via html5lib
-werkzeug==2.2.3 \
-    --hash=sha256:2e1ccc9417d4da358b9de6f174e3ac094391ea1d4fbef2d667865d819dfd0afe \
-    --hash=sha256:56433961bc1f12533306c624f3be5e744389ac61d722175d543e1751285da612
+werkzeug==2.3.0 \
+    --hash=sha256:340335057f72974d9281dbaf52c8090a9f9a59ba304ae814bf0656e6559c0020 \
+    --hash=sha256:3b6b46926d052b8ebca97c4dc73c12e47bdd07d57ab0600c039c3155450227bc
     # via
     #   flask
     #   grip

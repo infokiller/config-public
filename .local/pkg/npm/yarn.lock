@@ -82,23 +82,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@csstools/css-parser-algorithms@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@csstools/css-parser-algorithms@npm:2.1.0"
+"@csstools/css-parser-algorithms@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@csstools/css-parser-algorithms@npm:2.1.1"
   peerDependencies:
-    "@csstools/css-tokenizer": ^2.0.0
-  checksum: 197c8b0db9e721974d3850a44c73a7c1c0ebdddf981ddbc5f0a56d60c09c332bcd9f63ae391811ba3b11b9939faa50ada15c5cc38490861ba48f8933b599f660
+    "@csstools/css-tokenizer": ^2.1.1
+  checksum: 0ba3f3d38b99c933d12c6cb7fc348a9c0056a1e23b8a4b7e66b79295b5071bc443c4c3ed87ad7f155ce7e76e49c20c582dc27d804c9a45c82e5bd37585870d60
   languageName: node
   linkType: hard
 
-"@csstools/css-tokenizer@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "@csstools/css-tokenizer@npm:2.1.0"
-  checksum: af3619557e18cd348810cfb41b3b7177b36d216df8dd4cac3979f241c15416baf8cdd55fb764ecc78fab5985b085363cfc8e8b8a18aaa361d00c9b9300b7c0f3
+"@csstools/css-tokenizer@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "@csstools/css-tokenizer@npm:2.1.1"
+  checksum: d6ac4b08d7fdfc146755542f00b208af7248efd6cf2eb0f0f7d2ba3583a81f08ed9be6047d78b046925708b5bd0886f487edeeee2f90f0f34030dcbef4122d0e
   languageName: node
   linkType: hard
 
-"@csstools/media-query-list-parser@npm:^2.0.2":
+"@csstools/media-query-list-parser@npm:^2.0.4":
   version: 2.0.4
   resolution: "@csstools/media-query-list-parser@npm:2.0.4"
   peerDependencies:
@@ -224,10 +224,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.38.0":
-  version: 8.38.0
-  resolution: "@eslint/js@npm:8.38.0"
-  checksum: 1f28987aa8c9cd93e23384e16c7220863b39b5dc4b66e46d7cdbccce868040f455a98d24cd8b567a884f26545a0555b761f7328d4a00c051e7ef689cbea5fce1
+"@eslint/js@npm:8.39.0":
+  version: 8.39.0
+  resolution: "@eslint/js@npm:8.39.0"
+  checksum: 63fe36e2bfb5ff5705d1c1a8ccecd8eb2f81d9af239713489e767b0e398759c0177fcc75ad62581d02942f2776903a8496d5fae48dc2d883dff1b96fcb19e9e2
   languageName: node
   linkType: hard
 
@@ -1050,9 +1050,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:0.4.1":
-  version: 0.4.1
-  resolution: "@puppeteer/browsers@npm:0.4.1"
+"@puppeteer/browsers@npm:0.5.0":
+  version: 0.5.0
+  resolution: "@puppeteer/browsers@npm:0.5.0"
   dependencies:
     debug: 4.3.4
     extract-zip: 2.0.1
@@ -1069,7 +1069,7 @@ __metadata:
       optional: true
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: bd72815d0aaac66651ef775e2816703daaaceef0d94b39b5a6baf3d9f9c2242866f3e0691e9aae6409cdffd1d96f3e7e00bddb8f0c0b5b2b427e9298bcc3c8a2
+  checksum: d75fde03be4be106ca907834739251c2bb0b33a09fa23315c5dbe8b8b4cfed2f1b26af62e1dbe5fccc227e9bc87b51da0815461b982477eb01439bfdd6e7b01a
   languageName: node
   linkType: hard
 
@@ -3638,14 +3638,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromium-bidi@npm:0.4.6":
-  version: 0.4.6
-  resolution: "chromium-bidi@npm:0.4.6"
+"chromium-bidi@npm:0.4.7":
+  version: 0.4.7
+  resolution: "chromium-bidi@npm:0.4.7"
   dependencies:
     mitt: 3.0.0
   peerDependencies:
     devtools-protocol: "*"
-  checksum: 1d6365896bca4592ddd95233a784e4743d2c8c692d065327a416a09acddc3d05e300c360b859d7049f91924be326d801e6fe9860ace4541325b25f4ec6b94b97
+  checksum: eec7581e2eddd2c95014c6edc5aae0b036c79bbeadee05166436b16139b6932c902c5ce21d95ed919a592f58d3a47c5469dc5f3de2a300700b2748ab119ad65e
   languageName: node
   linkType: hard
 
@@ -6242,6 +6242,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-scope@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "eslint-scope@npm:7.2.0"
+  dependencies:
+    esrecurse: ^4.3.0
+    estraverse: ^5.2.0
+  checksum: 64591a2d8b244ade9c690b59ef238a11d5c721a98bcee9e9f445454f442d03d3e04eda88e95a4daec558220a99fa384309d9faae3d459bd40e7a81b4063980ae
+  languageName: node
+  linkType: hard
+
 "eslint-utils@npm:^3.0.0":
   version: 3.0.0
   resolution: "eslint-utils@npm:3.0.0"
@@ -6324,14 +6334,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.38.0":
-  version: 8.38.0
-  resolution: "eslint@npm:8.38.0"
+"eslint@npm:8.39.0":
+  version: 8.39.0
+  resolution: "eslint@npm:8.39.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.4.0
     "@eslint/eslintrc": ^2.0.2
-    "@eslint/js": 8.38.0
+    "@eslint/js": 8.39.0
     "@humanwhocodes/config-array": ^0.11.8
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6341,7 +6351,7 @@ __metadata:
     debug: ^4.3.2
     doctrine: ^3.0.0
     escape-string-regexp: ^4.0.0
-    eslint-scope: ^7.1.1
+    eslint-scope: ^7.2.0
     eslint-visitor-keys: ^3.4.0
     espree: ^9.5.1
     esquery: ^1.4.2
@@ -6370,7 +6380,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 73b6d9b650d0434aa7c07d0a1802f099b086ee70a8d8ba7be730439a26572a5eb71def12125c82942be2ec8ee5be38a6f1b42a13e40d4b67f11a148ec9e263eb
+  checksum: d7a074ff326e7ea482500dc0427a7d4b0260460f0f812d19b46b1cca681806b67309f23da9d17cd3de8eb74dd3c14cb549c4d58b05b140564d14cc1a391122a0
   languageName: node
   linkType: hard
 
@@ -13052,6 +13062,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^3.3.6":
+  version: 3.3.6
+  resolution: "nanoid@npm:3.3.6"
+  bin:
+    nanoid: bin/nanoid.cjs
+  checksum: 7d0eda657002738aa5206107bd0580aead6c95c460ef1bdd0b1a87a9c7ae6277ac2e9b945306aaa5b32c6dcb7feaf462d0f552e7f8b5718abfc6ead5c94a71b3
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -14930,7 +14949,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:8.4.21, postcss@npm:^8.4.21":
+"postcss@npm:8.4.21":
   version: 8.4.21
   resolution: "postcss@npm:8.4.21"
   dependencies:
@@ -14938,6 +14957,17 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: e39ac60ccd1542d4f9d93d894048aac0d686b3bb38e927d8386005718e6793dbbb46930f0a523fe382f1bbd843c6d980aaea791252bf5e176180e5a4336d9679
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.4.22":
+  version: 8.4.23
+  resolution: "postcss@npm:8.4.23"
+  dependencies:
+    nanoid: ^3.3.6
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 8bb9d1b2ea6e694f8987d4f18c94617971b2b8d141602725fedcc2222fdc413b776a6e1b969a25d627d7b2681ca5aabb56f59e727ef94072e1b6ac8412105a2f
   languageName: node
   linkType: hard
 
@@ -14995,12 +15025,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.7":
-  version: 2.8.7
-  resolution: "prettier@npm:2.8.7"
+"prettier@npm:2.8.8":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
   bin:
     prettier: bin-prettier.js
-  checksum: fdc8f2616f099f5f0d685907f4449a70595a0fc1d081a88919604375989e0d5e9168d6121d8cc6861f21990b31665828e00472544d785d5940ea08a17660c3a6
+  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
   languageName: node
   linkType: hard
 
@@ -15271,12 +15301,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:19.9.1":
-  version: 19.9.1
-  resolution: "puppeteer-core@npm:19.9.1"
+"puppeteer-core@npm:19.11.1":
+  version: 19.11.1
+  resolution: "puppeteer-core@npm:19.11.1"
   dependencies:
-    "@puppeteer/browsers": 0.4.1
-    chromium-bidi: 0.4.6
+    "@puppeteer/browsers": 0.5.0
+    chromium-bidi: 0.4.7
     cross-fetch: 3.1.5
     debug: 4.3.4
     devtools-protocol: 0.0.1107588
@@ -15291,31 +15321,31 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 731c62a3b70dd07390a91a151927b39f15d348126b0eae37e65d55988286f0f8dce5917557a500f41f9e9d529c02858d478c83bb19f49daa9d37cd3bf6ffa509
+  checksum: 06126e478b8b653e83b98b51cec35dceef8ab576abd1369afd45360c5bac3711443e58ebe3b852d40801a118e4cb7ddf5d3154518b5a9294ee93f7a42d9f22d4
   languageName: node
   linkType: hard
 
-"puppeteer@npm:19.9.1":
-  version: 19.9.1
-  resolution: "puppeteer@npm:19.9.1"
+"puppeteer@npm:19.11.1":
+  version: 19.11.1
+  resolution: "puppeteer@npm:19.11.1"
   dependencies:
-    "@puppeteer/browsers": 0.4.1
+    "@puppeteer/browsers": 0.5.0
     cosmiconfig: 8.1.3
     https-proxy-agent: 5.0.1
     progress: 2.0.3
     proxy-from-env: 1.1.0
-    puppeteer-core: 19.9.1
-  checksum: 76efe8f65d564548883071de7081bb892a513e83a00f032d11c79baae84bce1582ef02316138aaccdc5a45ab028e9dad2e0ffdcc98128cfb5027fd1670f6c2b9
+    puppeteer-core: 19.11.1
+  checksum: fd2b8ff106b21e5ea5b5552bc6f98e8b9b4c5b6fdb50d012268e21c1061d98f9f942cb606913376bc0cf29e80b81e0413ecbbfa8d642cb688fa96095d45c189e
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.304":
-  version: 1.1.304
-  resolution: "pyright@npm:1.1.304"
+"pyright@npm:1.1.305":
+  version: 1.1.305
+  resolution: "pyright@npm:1.1.305"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 2e3b25a17654af8f4c81ae90bffee5a92dacc5f4c4138ba9c159dee57317f83454242ec2b628876166f6727bac5c201ccf5f25d1d334b6d375f1c2108be01800
+  checksum: 494a94ea8f8a50e4410083d95e5165eadeb6a522068abc28ded1a7b93b54ac00cf52ca05d276beec4d31661f14207b22cf2b1c95513170ddc04e7b3921d90172
   languageName: node
   linkType: hard
 
@@ -16319,7 +16349,7 @@ __metadata:
     bash-language-server: 4.9.1
     corepack: 0.17.2
     diff-so-fancy: 1.4.3
-    eslint: 8.38.0
+    eslint: 8.39.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.3
@@ -16331,17 +16361,17 @@ __metadata:
     markdown-toc: 1.2.0
     markdownlint-cli: 0.33.0
     markdownlint-cli2: 0.7.0
-    prettier: 2.8.7
+    prettier: 2.8.8
     prettier-eslint-cli: 7.1.0
-    puppeteer: 19.9.1
-    pyright: 1.1.304
+    puppeteer: 19.11.1
+    pyright: 1.1.305
     release-it: 15.10.1
     semantic-release: 21.0.1
-    snyk: 1.1143.0
-    stylelint: 15.5.0
+    snyk: 1.1146.0
+    stylelint: 15.6.0
     tldr: 3.3.8
     uglify-js: 3.17.4
-    web-ext: 7.6.1
+    web-ext: 7.6.2
     write-good: 1.0.8
     yarn: 1.22.19
     yarn-audit-fix: 9.3.10
@@ -16925,15 +16955,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1143.0":
-  version: 1.1143.0
-  resolution: "snyk@npm:1.1143.0"
+"snyk@npm:1.1146.0":
+  version: 1.1146.0
+  resolution: "snyk@npm:1.1146.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 44128a627af4a51e846d85ee7df7b3db90529f7ff1b43b20c5d971dd822ec29eaf7fd68e4412452068a3e3c74af74b8ccbc330820463a09d5ac590bc7b9ddd52
+  checksum: 3709a992b3ca64e51573ff93193eb51fed697fb4b32380b8581130be15236f45ec64905e68050d3c242fb635212d52b085adfecca0c29d814baab54c751079e9
   languageName: node
   linkType: hard
 
@@ -17684,13 +17714,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:15.5.0":
-  version: 15.5.0
-  resolution: "stylelint@npm:15.5.0"
+"stylelint@npm:15.6.0":
+  version: 15.6.0
+  resolution: "stylelint@npm:15.6.0"
   dependencies:
-    "@csstools/css-parser-algorithms": ^2.1.0
-    "@csstools/css-tokenizer": ^2.1.0
-    "@csstools/media-query-list-parser": ^2.0.2
+    "@csstools/css-parser-algorithms": ^2.1.1
+    "@csstools/css-tokenizer": ^2.1.1
+    "@csstools/media-query-list-parser": ^2.0.4
     "@csstools/selector-specificity": ^2.2.0
     balanced-match: ^2.0.0
     colord: ^2.9.3
@@ -17715,7 +17745,7 @@ __metadata:
     micromatch: ^4.0.5
     normalize-path: ^3.0.0
     picocolors: ^1.0.0
-    postcss: ^8.4.21
+    postcss: ^8.4.22
     postcss-media-query-parser: ^0.2.3
     postcss-resolve-nested-selector: ^0.1.1
     postcss-safe-parser: ^6.0.0
@@ -17732,7 +17762,7 @@ __metadata:
     write-file-atomic: ^5.0.0
   bin:
     stylelint: bin/stylelint.js
-  checksum: 330d8cceac28d0b795ffed87bca893e290a498d242cc2cfc9747e983c710db5ebb7ea22028dcbe363095cec01d51909e53572e405b7b2aadbf735738c63ee7f7
+  checksum: da246969361a141a06533c57b975f6a120b7e3c8591e20057a0e561397c151d0d13f8efa423663a5c5108dc0ea9b8e73756031ea54b281f578222d1e11737263
   languageName: node
   linkType: hard
 
@@ -19325,9 +19355,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"web-ext@npm:7.6.1":
-  version: 7.6.1
-  resolution: "web-ext@npm:7.6.1"
+"web-ext@npm:7.6.2":
+  version: 7.6.2
+  resolution: "web-ext@npm:7.6.2"
   dependencies:
     "@babel/runtime": 7.21.0
     "@devicefarmer/adbkit": 3.2.3
@@ -19363,7 +19393,7 @@ __metadata:
     zip-dir: 2.0.0
   bin:
     web-ext: bin/web-ext.js
-  checksum: 0dbac7892a11fe5407ff55072036af7f081a99f54718e9ac20b67cbae2666a2e2d43967badaedaddf1548a084503992039b3e96f3767157491cf575cf9799cde
+  checksum: b5487a9fc7efd7070e3827a634559ea91986ac4722d1c95c282c3c0669c4e500e289916679d58caaeafd6146fc5fa82ecc4f00c3cd1794bf5201934667563445
   languageName: node
   linkType: hard
 
