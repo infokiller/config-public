@@ -557,9 +557,9 @@ requests-toolbelt==0.10.1 \
     --hash=sha256:18565aa58116d9951ac39baa288d3adb5b3ff975c4f25eee78555d89e8f247f7 \
     --hash=sha256:62e09f7ff5ccbda92772a29f394a49c3ad6cb181d568b1337626b2abb628a63d
     # via python-gitlab
-rich==13.3.4 \
-    --hash=sha256:22b74cae0278fd5086ff44144d3813be1cedc9115bdfabbfefd86400cb88b20a \
-    --hash=sha256:b5d573e13605423ec80bdd0cd5f8541f7844a0e71a13f74cf454ccb2f490708b
+rich==13.3.5 \
+    --hash=sha256:2d11b9b8dd03868f09b4fffadc84a6a8cda574e40dc90821bd845720ebb8e89c \
+    --hash=sha256:69cdf53799e63f38b95b9bf9c875f8c90e78dd62b2f00c13a911c7a3b9fa4704
     # via semgrep
 ruamel-yaml==0.17.21 \
     --hash=sha256:742b35d3d665023981bd6d16b3d24248ce5df75fdb4e2924e93a05c1f8b61ca7 \
@@ -568,11 +568,11 @@ ruamel-yaml==0.17.21 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.19.0 \
-    --hash=sha256:5d5e32ffb1bd963e0ede87f0b801305b8367ad660a73f8e0dd8e14f0c8d3e956 \
-    --hash=sha256:723429f9548bd4c959b12c25b6f88fc48858c129d0a13f0fc7904be866f344de \
-    --hash=sha256:89cfde0b8bb5a3b0624d9710ec7ac73e74598bf227c3c61fd1fa489dd29e33eb \
-    --hash=sha256:e59784801146a8d799bc553da68e5e5acbf338a3cae1e8486a9b7aaa925cb266
+semgrep==1.20.0 \
+    --hash=sha256:2b543d367acedaf5d3efa07d63b8f2444880255ce35d1106778db68ec559da5d \
+    --hash=sha256:517ed80d50a408d18851ffd74323f43c78650c232b6a8c1defce92ec42d9f575 \
+    --hash=sha256:613fc656ee23771d0e7ad9f093366e6446787e5ef4b84c93e106576eb1ef4cd7 \
+    --hash=sha256:db43b3fdbe427f9fe0caf8bafaf681fd3478a128e2b887a8036067cb02d3f272
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -707,9 +707,9 @@ webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
     --hash=sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923
     # via html5lib
-werkzeug==2.3.0 \
-    --hash=sha256:340335057f72974d9281dbaf52c8090a9f9a59ba304ae814bf0656e6559c0020 \
-    --hash=sha256:3b6b46926d052b8ebca97c4dc73c12e47bdd07d57ab0600c039c3155450227bc
+werkzeug==2.3.2 \
+    --hash=sha256:2f3278e9ef61511cdf82cc28fc5da0f5b501dd8f01ecf5ef6a5d810048f68702 \
+    --hash=sha256:b7b8bc1609f35ae8e45d48a9b58d7a4eb1e41eec148d37e977e5df6ebf3398b2
     # via
     #   flask
     #   grip

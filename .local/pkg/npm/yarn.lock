@@ -1153,23 +1153,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semantic-release/release-notes-generator@npm:^10.0.0":
-  version: 10.0.2
-  resolution: "@semantic-release/release-notes-generator@npm:10.0.2"
+"@semantic-release/release-notes-generator@npm:^11.0.0":
+  version: 11.0.1
+  resolution: "@semantic-release/release-notes-generator@npm:11.0.1"
   dependencies:
     conventional-changelog-angular: ^5.0.0
     conventional-changelog-writer: ^5.0.0
     conventional-commits-filter: ^2.0.0
-    conventional-commits-parser: ^3.0.0
+    conventional-commits-parser: ^3.2.3
     debug: ^4.0.0
     get-stream: ^6.0.0
     import-from: ^4.0.0
-    into-stream: ^6.0.0
-    lodash: ^4.17.4
-    read-pkg-up: ^7.0.0
+    into-stream: ^7.0.0
+    lodash-es: ^4.17.21
+    read-pkg-up: ^9.0.0
   peerDependencies:
-    semantic-release: ">=18.0.0-beta.1"
-  checksum: 6e71e8be33383fa71f68f5ca99f3143078678d7ba482fc277fcb4dc64f84f9ebaffbc798d8738a9e650f73d32ba1d0a3cf0413c25d428719a0a39238224223ce
+    semantic-release: ">=20.1.0"
+  checksum: 19bb468c96be0e642646d192d16cdcbf1aee5e60203c53c7e0148da09f47d581939cc20e7aaccd26f0198d93932254b7ab496ef3d73d59d129d38ea9e3f25c04
   languageName: node
   linkType: hard
 
@@ -3372,13 +3372,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"camelcase@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "camelcase@npm:6.0.0"
-  checksum: 28f42db097786fb9edb4a80af6cfa67331a9120e00323aaac925f0520797e79eaef9fd771c62b0403468bfd596e528e426863176ae8bb992d086dc991deabebb
-  languageName: node
-  linkType: hard
-
 "camelcase@npm:^6.3.0":
   version: 6.3.0
   resolution: "camelcase@npm:6.3.0"
@@ -4270,23 +4263,6 @@ __metadata:
     lodash.ismatch: ^4.4.0
     modify-values: ^1.0.0
   checksum: feb567f680a6da1baaa1ef3cff393b3c56a5828f77ab9df5e70626475425d109a6fee0289b4979223c62bbd63bf9c98ef532baa6fcb1b66ee8b5f49077f5d46c
-  languageName: node
-  linkType: hard
-
-"conventional-commits-parser@npm:^3.0.0":
-  version: 3.1.0
-  resolution: "conventional-commits-parser@npm:3.1.0"
-  dependencies:
-    JSONStream: ^1.0.4
-    is-text-path: ^1.0.1
-    lodash: ^4.17.15
-    meow: ^7.0.0
-    split2: ^2.0.0
-    through2: ^3.0.0
-    trim-off-newlines: ^1.0.0
-  bin:
-    conventional-commits-parser: cli.js
-  checksum: 0067f4683241440ea68de52c237f0c8aac219d004acc8c8551b95897047498a8b7f334c5008312a7e5774a373ef6a82c355d4c17539d8c7d175e46a7bae5ab0e
   languageName: node
   linkType: hard
 
@@ -9268,13 +9244,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"into-stream@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "into-stream@npm:6.0.0"
+"into-stream@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "into-stream@npm:7.0.0"
   dependencies:
     from2: ^2.3.0
     p-is-promise: ^3.0.0
-  checksum: 8df24c9eadd7cdd1cbc160bc20914b961dfd0ca29767785b69e698f799e85466b6f7c637d237dca1472d09d333399f70cc05a2fb8d08cb449dc9a80d92193980
+  checksum: 10c259101237622b2f90a3a30388f2e997f7c4cb16d7236da0380f2e5691b8f9ce32ea2614ae5d1d3b5ad4eba89e2adac0e3d3d24f8494bff69de145432c2d94
   languageName: node
   linkType: hard
 
@@ -11447,21 +11423,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:0.7.0":
-  version: 0.7.0
-  resolution: "markdownlint-cli2@npm:0.7.0"
+"markdownlint-cli2@npm:0.7.1":
+  version: 0.7.1
+  resolution: "markdownlint-cli2@npm:0.7.1"
   dependencies:
     globby: 13.1.4
-    markdownlint: 0.28.1
+    markdownlint: 0.28.2
     markdownlint-cli2-formatter-default: 0.0.4
     micromatch: 4.0.5
     strip-json-comments: 5.0.0
-    yaml: 2.2.1
+    yaml: 2.2.2
   bin:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: be0d937be2a6f620a85a420cce9a070c7e9e6eb669fa338837339eb8b2b1cff93acd5fcc5038a348d408f31439c95db0daf60b53d9fc38c0a2261a7823c3f73b
+  checksum: 665dc5cf66bade88f802bac0938a9dc828517d8362ce65f98ab0ca1abf81d3a92fcf280ad4c0990949cbab02c858b325f35ec836e0075fa2704a82e38333bf46
   languageName: node
   linkType: hard
 
@@ -11491,13 +11467,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.28.1":
-  version: 0.28.1
-  resolution: "markdownlint@npm:0.28.1"
+"markdownlint@npm:0.28.2":
+  version: 0.28.2
+  resolution: "markdownlint@npm:0.28.2"
   dependencies:
     markdown-it: 13.0.1
     markdownlint-micromark: 0.1.2
-  checksum: d606e3f069d9b261b9c4ed0533f035420f38a4a19d73b238b35ff51a854be72a38e87d80eb15432aace34837a45b7da12bfbccaea4f70792d1e66ee771ded6d5
+  checksum: 2b83ff8223d7002ebcc8228abfd34c1f85f6c9b14e591a162498140dfa6d89b5083bbc45b097e279e5ae9a2e54b8603807634eb5141f575fce601ad781ce77aa
   languageName: node
   linkType: hard
 
@@ -11933,27 +11909,6 @@ __metadata:
     type-fest: ^3.1.0
     yargs-parser: ^21.1.1
   checksum: 2e815b8d2acc6cda0ea10e0a6dcd6fbdcc2fb8b24412c3c70acd77220642ca0dc727c6fccd79d64b7ca811d099e8a9ad62ea261a8f39d4b61fcdcaf551c5c788
-  languageName: node
-  linkType: hard
-
-"meow@npm:^7.0.0":
-  version: 7.0.1
-  resolution: "meow@npm:7.0.1"
-  dependencies:
-    "@types/minimist": ^1.2.0
-    arrify: ^2.0.1
-    camelcase: ^6.0.0
-    camelcase-keys: ^6.2.2
-    decamelize-keys: ^1.1.0
-    hard-rejection: ^2.1.0
-    minimist-options: ^4.0.2
-    normalize-package-data: ^2.5.0
-    read-pkg-up: ^7.0.1
-    redent: ^3.0.0
-    trim-newlines: ^3.0.0
-    type-fest: ^0.13.1
-    yargs-parser: ^18.1.3
-  checksum: 7edd097f0e3d5b746a50a39777c9a833dbc1f9fcbec84a78b54dd409d308bb4d1d6bbbb2a81846c7aba2e9ef38963e5c2bfb52aef55653b0d12dfab7dcc904cb
   languageName: node
   linkType: hard
 
@@ -12663,7 +12618,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist-options@npm:4.1.0, minimist-options@npm:^4.0.2":
+"minimist-options@npm:4.1.0":
   version: 4.1.0
   resolution: "minimist-options@npm:4.1.0"
   dependencies:
@@ -15520,7 +15475,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"read-pkg-up@npm:^7.0.0, read-pkg-up@npm:^7.0.1":
+"read-pkg-up@npm:^7.0.1":
   version: 7.0.1
   resolution: "read-pkg-up@npm:7.0.1"
   dependencies:
@@ -15542,7 +15497,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"read-pkg-up@npm:^9.1.0":
+"read-pkg-up@npm:^9.0.0, read-pkg-up@npm:^9.1.0":
   version: 9.1.0
   resolution: "read-pkg-up@npm:9.1.0"
   dependencies:
@@ -15610,7 +15565,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:2 || 3, readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.2, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
+"readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.2, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
   version: 3.6.0
   resolution: "readable-stream@npm:3.6.0"
   dependencies:
@@ -16360,14 +16315,14 @@ __metadata:
     lebab: 3.2.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.33.0
-    markdownlint-cli2: 0.7.0
+    markdownlint-cli2: 0.7.1
     prettier: 2.8.8
     prettier-eslint-cli: 7.1.0
     puppeteer: 19.11.1
     pyright: 1.1.305
     release-it: 15.10.1
-    semantic-release: 21.0.1
-    snyk: 1.1146.0
+    semantic-release: 21.0.2
+    snyk: 1.1150.0
     stylelint: 15.6.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16536,15 +16491,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:21.0.1":
-  version: 21.0.1
-  resolution: "semantic-release@npm:21.0.1"
+"semantic-release@npm:21.0.2":
+  version: 21.0.2
+  resolution: "semantic-release@npm:21.0.2"
   dependencies:
     "@semantic-release/commit-analyzer": ^9.0.2
     "@semantic-release/error": ^3.0.0
     "@semantic-release/github": ^8.0.0
     "@semantic-release/npm": ^10.0.2
-    "@semantic-release/release-notes-generator": ^10.0.0
+    "@semantic-release/release-notes-generator": ^11.0.0
     aggregate-error: ^4.0.1
     cosmiconfig: ^8.0.0
     debug: ^4.0.0
@@ -16570,7 +16525,7 @@ __metadata:
     yargs: ^17.5.1
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: a83cede26ac79a3fa3a55586531ea8077ea18b04a0c3bbeb6d415cf31148c6c510189cb2e9863796db8b842fc1afc5d02921325f8880db83d34be40806c0d93d
+  checksum: 362f8b2b396a7b98414e9fa49c3ab0d8030c2b400718e50b1b46edd9707e8187dfcbc87b15acd0a25359fb38e5f0832337795132ea1280835c23e2403a98838d
   languageName: node
   linkType: hard
 
@@ -16955,15 +16910,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1146.0":
-  version: 1.1146.0
-  resolution: "snyk@npm:1.1146.0"
+"snyk@npm:1.1150.0":
+  version: 1.1150.0
+  resolution: "snyk@npm:1.1150.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 3709a992b3ca64e51573ff93193eb51fed697fb4b32380b8581130be15236f45ec64905e68050d3c242fb635212d52b085adfecca0c29d814baab54c751079e9
+  checksum: 308db439d49f0e58ab8bbacdabbb83f782792632d500986da2fd997c2c22e9db4084dd756279e662b14fd971e97c12f748db8f076c09944569ee615af679c890
   languageName: node
   linkType: hard
 
@@ -17200,15 +17155,6 @@ __metadata:
     event-stream: ~3.1.5
     through2: ~0.4.2
   checksum: be6df171cd63542143859ec4452f605a0f446dd00d5a6558f547de16db6039e86213b001fe8b64352e59eedacc0f28ab51cf9e11d2aa32c2194bccc59e32fd60
-  languageName: node
-  linkType: hard
-
-"split2@npm:^2.0.0":
-  version: 2.2.0
-  resolution: "split2@npm:2.2.0"
-  dependencies:
-    through2: ^2.0.2
-  checksum: 06a9fe364f1c37098539e8d9b460c8c2e00320600a5e040dd3fa006f6bdabbbe6ee983568a62a585f41862c61b9672f59b93ef0accf4add346c716edcd6d21b7
   languageName: node
   linkType: hard
 
@@ -18045,23 +17991,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"through2@npm:^2.0.0, through2@npm:^2.0.2, through2@npm:~2.0.0":
+"through2@npm:^2.0.0, through2@npm:~2.0.0":
   version: 2.0.5
   resolution: "through2@npm:2.0.5"
   dependencies:
     readable-stream: ~2.3.6
     xtend: ~4.0.1
   checksum: beb0f338aa2931e5660ec7bf3ad949e6d2e068c31f4737b9525e5201b824ac40cac6a337224856b56bd1ddd866334bbfb92a9f57cd6f66bc3f18d3d86fc0fe50
-  languageName: node
-  linkType: hard
-
-"through2@npm:^3.0.0":
-  version: 3.0.2
-  resolution: "through2@npm:3.0.2"
-  dependencies:
-    inherits: ^2.0.4
-    readable-stream: 2 || 3
-  checksum: 47c9586c735e7d9cbbc1029f3ff422108212f7cc42e06d5cc9fff7901e659c948143c790e0d0d41b1b5f89f1d1200bdd200c7b72ad34f42f9edbeb32ea49e8b7
   languageName: node
   linkType: hard
 
@@ -18300,13 +18236,6 @@ __metadata:
   version: 4.0.2
   resolution: "trim-newlines@npm:4.0.2"
   checksum: 1eef206eb77361856dff0b827e5811baf64574bb21e81b7ad643fe321c5c19b0a452dd83e9afc31206993fcff9bb90a379925d7b5915f887de1ca7da5b57933a
-  languageName: node
-  linkType: hard
-
-"trim-off-newlines@npm:^1.0.0":
-  version: 1.0.3
-  resolution: "trim-off-newlines@npm:1.0.3"
-  checksum: faf042bb7dd4cb097ab6d358cd51012a9ff5e06f7f2c6570da2ef6f01da9da3ff22ab01080866815e3927ffbf367d57c6aab4c275c67662676b60c563142a558
   languageName: node
   linkType: hard
 
@@ -19907,10 +19836,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.2.1":
-  version: 2.2.1
-  resolution: "yaml@npm:2.2.1"
-  checksum: 84f68cbe462d5da4e7ded4a8bded949ffa912bc264472e5a684c3d45b22d8f73a3019963a32164023bdf3d83cfb6f5b58ff7b2b10ef5b717c630f40bd6369a23
+"yaml@npm:2.2.2":
+  version: 2.2.2
+  resolution: "yaml@npm:2.2.2"
+  checksum: d90c235e099e30094dcff61ba3350437aef53325db4a6bcd04ca96e1bfe7e348b191f6a7a52b5211e2dbc4eeedb22a00b291527da030de7c189728ef3f2b4eb3
   languageName: node
   linkType: hard
 
@@ -19935,16 +19864,6 @@ __metadata:
     camelcase: ^5.0.0
     decamelize: ^1.2.0
   checksum: c8bb6f44d39a4acd94462e96d4e85469df865de6f4326e0ab1ac23ae4a835e5dd2ddfe588317ebf80c3a7e37e741bd5cb0dc8d92bcc5812baefb7df7c885e86b
-  languageName: node
-  linkType: hard
-
-"yargs-parser@npm:^18.1.3":
-  version: 18.1.3
-  resolution: "yargs-parser@npm:18.1.3"
-  dependencies:
-    camelcase: ^5.0.0
-    decamelize: ^1.2.0
-  checksum: 60e8c7d1b85814594d3719300ecad4e6ae3796748b0926137bfec1f3042581b8646d67e83c6fc80a692ef08b8390f21ddcacb9464476c39bbdf52e34961dd4d9
   languageName: node
   linkType: hard
 
