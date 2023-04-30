@@ -15,7 +15,7 @@
     "js-beautify": "1.14.7",
     "lebab": "3.2.1",
     "markdown-toc": "1.2.0",
-    "markdownlint-cli": "0.33.0",
+    "markdownlint-cli": "0.34.0",
     "markdownlint-cli2": "0.7.1",
     "prettier": "2.8.8",
     "prettier-eslint-cli": "7.1.0",
