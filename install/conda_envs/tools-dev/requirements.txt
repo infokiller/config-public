@@ -931,9 +931,9 @@ nbconvert==7.3.1 \
     #   jupyter-server
     #   nbclassic
     #   notebook
-nbdime==3.2.0 \
-    --hash=sha256:605dc50c6c8cf96eec61cc66d7c0dc1a0d05269ceebf1c0bcc5a435162220be1 \
-    --hash=sha256:e50d1a0cf672e02356e10e6d3d0aea8e8612a534ae6e1b9bfd59ac3b60c405eb
+nbdime==3.2.1 \
+    --hash=sha256:31409a30f848ffc6b32540697e82d5a0a1b84dcc32716ca74e78bcc4b457c453 \
+    --hash=sha256:a99fed2399fd939e2e577db4bb6e957aac860af4cf583044b723cc9a448c644e
     # via -r requirements.in
 nbformat==5.8.0 \
     --hash=sha256:46dac64c781f1c34dfd8acba16547024110348f9fc7eab0f31981c2a3dc48d1f \
@@ -1417,9 +1417,9 @@ requests==2.29.0 \
     #   python-semantic-release
     #   requests-toolbelt
     #   twine
-requests-toolbelt==0.10.1 \
-    --hash=sha256:18565aa58116d9951ac39baa288d3adb5b3ff975c4f25eee78555d89e8f247f7 \
-    --hash=sha256:62e09f7ff5ccbda92772a29f394a49c3ad6cb181d568b1337626b2abb628a63d
+requests-toolbelt==1.0.0 \
+    --hash=sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6 \
+    --hash=sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06
     # via
     #   python-gitlab
     #   twine

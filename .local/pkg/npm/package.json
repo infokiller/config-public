@@ -21,7 +21,7 @@
     "prettier-eslint-cli": "7.1.0",
     "puppeteer": "19.11.1",
     "pyright": "1.1.305",
-    "release-it": "15.10.1",
+    "release-it": "15.10.2",
     "semantic-release": "21.0.2",
     "snyk": "1.1150.0",
     "stylelint": "15.6.0",
@@ -54,5 +54,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.5.0"
+  "packageManager": "yarn@3.5.1"
 }

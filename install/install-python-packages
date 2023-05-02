@@ -291,9 +291,16 @@ _pip_compile_upgrade() {
   local compile=(pip-compile --resolver=backtracking --quiet --generate-hashes --allow-unsafe --upgrade)
   local sync_cmd=(pip-sync requirements.txt)
   "${compile[@]}"
+  local req_name extra_args
   for extra in "$@"; do
-    "${compile[@]}" --extra "${extra}" --output-file requirements-"${extra}".txt
-    sync_cmd+=(requirements-"${extra}".txt)
+    req_name="requirements-${extra}"
+    if [[ -f "${req_name}.in" ]]; then
+      extra_args=("${req_name}.in")
+    else
+      extra_args=(--extra "${extra}" --output-file "${req_name}.txt")
+    fi
+    "${compile[@]}" "${extra_args[@]}"
+    sync_cmd+=("${req_name}.txt")
   done
   "${sync_cmd[@]}"
 }
@@ -343,7 +350,7 @@ _upgrade_graphical_envs() {
     cd -- "${SUBMODULES_DIR}/desktop/i3-scratchpad"
     # shellcheck disable=SC1091
     source activate i3_scratchpad
-    _pip_compile_upgrade
+    _pip_compile_upgrade dev
   )
   (
     cd -- "${REPO_ROOT}/.my_scripts/i3"
