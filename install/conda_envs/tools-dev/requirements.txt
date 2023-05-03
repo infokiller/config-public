@@ -548,8 +548,8 @@ jupyter-lsp==2.1.0 \
     --hash=sha256:3aa2cbd81d3446256c34e3647d71b8f50617d07862a1c60fbe123f901cdb0dd2 \
     --hash=sha256:d7c058cfe8bd7a76859734f3a142edb50a2d1e265a7e323c2fdcd8b1db80a91b
     # via jupyterlab
-jupyter-nbextensions-configurator==0.6.1 \
-    --hash=sha256:4b9e1270ccc1f8e0a421efb8979a737f586813023a4855b9453f61c3ca599b82
+jupyter-nbextensions-configurator==0.6.2 \
+    --hash=sha256:e461ca7063fedb8d5009fafebacc3a8e368ca147b6619664288e1fe89dfde3e2
     # via
     #   -r requirements.in
     #   jupyter-contrib-nbextensions
