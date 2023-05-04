@@ -566,6 +566,7 @@
 [submodule "submodules/vim/vim-oscyank"]
 	path = submodules/vim/vim-oscyank
 	url = https://github.com/ojroques/vim-oscyank
+	ignore = untracked
 [submodule "submodules/vim/vim-peekaboo"]
 	path = submodules/vim/vim-peekaboo
 	url = https://github.com/junegunn/vim-peekaboo
