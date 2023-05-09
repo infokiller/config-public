@@ -17,7 +17,7 @@ require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/bazelbuild/bazelisk v1.16.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20230427141602-b182fc414c8b // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20230508144338-356eea36803a // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
