@@ -218,6 +218,7 @@
 /.config/zoom.conf
 /.config/gcloud
 /.config/autostart
+/.config/obs-studio
 /.config/gtk-3.0/bookmarks
 /.local/share/user-places.xbel
 /.gtk-bookmarks
