@@ -2,13 +2,13 @@
 
 # conda-forge instructions:
 # https://conda-forge.org/docs/user/introduction.html#how-can-i-install-packages-from-conda-forge
-
 channels:
   - conda-forge
   - defaults
-
 show_channel_urls: true
 channel_priority: strict
+# https://conda.io/projects/conda/en/latest/user-guide/configuration/use-condarc.html#configuring-number-of-threads
+default_threads: 4
 # Disables showing the environment name in the prompt. May be useful once my
 # prompt (pure) starts showing it.
 # changeps1: False
