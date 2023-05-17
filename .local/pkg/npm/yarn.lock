@@ -1057,9 +1057,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@puppeteer/browsers@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@puppeteer/browsers@npm:1.2.0"
+"@puppeteer/browsers@npm:1.3.0":
+  version: 1.3.0
+  resolution: "@puppeteer/browsers@npm:1.3.0"
   dependencies:
     debug: 4.3.4
     extract-zip: 2.0.1
@@ -1077,7 +1077,7 @@ __metadata:
       optional: true
   bin:
     browsers: lib/cjs/main-cli.js
-  checksum: 2dce31ef4b17fd33a2665a751a88cb9f9ba51e7622441e6a5380ccd3b458266721900f80bfe3c259e2f437cc13b68be8d9e2e8e1778bef70562377d917b5d5e1
+  checksum: b966546abc56d23e1546a8139a5c10137e7b67c4a7403947518bab27a47a0d8f8a0b30c12108f04014a08e345f7e5d899b174dab3605d46774bd0245295c8789
   languageName: node
   linkType: hard
 
@@ -2768,13 +2768,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.9.1":
-  version: 4.9.1
-  resolution: "bash-language-server@npm:4.9.1"
+"bash-language-server@npm:4.9.2":
+  version: 4.9.2
+  resolution: "bash-language-server@npm:4.9.2"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
-    node-fetch: 2.6.9
+    node-fetch: 2.6.11
     turndown: 7.1.2
     vscode-languageserver: 8.0.2
     vscode-languageserver-textdocument: 1.0.8
@@ -2782,7 +2782,7 @@ __metadata:
     zod: 3.21.4
   bin:
     bash-language-server: out/cli.js
-  checksum: 293876b2874a7c5565b4d90ea20db6004a8419622c8b89ced06d8834ffa47a6157da9e7a5ec8de0e8b2ea43c601436a64facde87615a5a93dd53c4a6aa7ff431
+  checksum: 3da1cf26733bfaac72401be83d72ed28bd0014ca140183de3bf710eea8f1620d4baa4e1559d236a5475d559781ec899100137129e371386dff4e2494d7f06024
   languageName: node
   linkType: hard
 
@@ -3639,14 +3639,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromium-bidi@npm:0.4.7":
-  version: 0.4.7
-  resolution: "chromium-bidi@npm:0.4.7"
+"chromium-bidi@npm:0.4.9":
+  version: 0.4.9
+  resolution: "chromium-bidi@npm:0.4.9"
   dependencies:
     mitt: 3.0.0
   peerDependencies:
     devtools-protocol: "*"
-  checksum: eec7581e2eddd2c95014c6edc5aae0b036c79bbeadee05166436b16139b6932c902c5ce21d95ed919a592f58d3a47c5469dc5f3de2a300700b2748ab119ad65e
+  checksum: cb2eea787282634718d1877bc63f00e8be33ce49369852b6e95dfe97a097f051445c8e374617d6433f8c9b578ec2d2d86a9889c152c7a850596cdae9342f81ad
   languageName: node
   linkType: hard
 
@@ -13256,6 +13256,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:2.6.11":
+  version: 2.6.11
+  resolution: "node-fetch@npm:2.6.11"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 249d0666a9497553384d46b5ab296ba223521ac88fed4d8a17d6ee6c2efb0fc890f3e8091cafe7f9fba8151a5b8d925db2671543b3409a56c3cd522b468b47b3
+  languageName: node
+  linkType: hard
+
 "node-fetch@npm:2.6.7, node-fetch@npm:^2.6.7":
   version: 2.6.7
   resolution: "node-fetch@npm:2.6.7"
@@ -13267,20 +13281,6 @@ __metadata:
     encoding:
       optional: true
   checksum: 8d816ffd1ee22cab8301c7756ef04f3437f18dace86a1dae22cf81db8ef29c0bf6655f3215cb0cdb22b420b6fe141e64b26905e7f33f9377a7fa59135ea3e10b
-  languageName: node
-  linkType: hard
-
-"node-fetch@npm:2.6.9":
-  version: 2.6.9
-  resolution: "node-fetch@npm:2.6.9"
-  dependencies:
-    whatwg-url: ^5.0.0
-  peerDependencies:
-    encoding: ^0.1.0
-  peerDependenciesMeta:
-    encoding:
-      optional: true
-  checksum: acb04f9ce7224965b2b59e71b33c639794d8991efd73855b0b250921382b38331ffc9d61bce502571f6cc6e11a8905ca9b1b6d4aeb586ab093e2756a1fd190d0
   languageName: node
   linkType: hard
 
@@ -15327,12 +15327,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:20.2.0":
-  version: 20.2.0
-  resolution: "puppeteer-core@npm:20.2.0"
+"puppeteer-core@npm:20.2.1":
+  version: 20.2.1
+  resolution: "puppeteer-core@npm:20.2.1"
   dependencies:
-    "@puppeteer/browsers": 1.2.0
-    chromium-bidi: 0.4.7
+    "@puppeteer/browsers": 1.3.0
+    chromium-bidi: 0.4.9
     cross-fetch: 3.1.5
     debug: 4.3.4
     devtools-protocol: 0.0.1120988
@@ -15342,28 +15342,28 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: cc8f4799dc757b9235a015cece3c431a3230dad30279d4f0e64f47429e6c9cf93be10a45d13d9de184160d0c930768ab22c17a58f4c1d8383ab4f177f3819c96
+  checksum: f427c645fbc011fda985772837afc2a97f3ba37dc732d46c65ff6da3635c3a2d289771d6f4b2075749b253776adcb41d5aab1c0e3962076747ca0b8f93bf4064
   languageName: node
   linkType: hard
 
-"puppeteer@npm:20.2.0":
-  version: 20.2.0
-  resolution: "puppeteer@npm:20.2.0"
+"puppeteer@npm:20.2.1":
+  version: 20.2.1
+  resolution: "puppeteer@npm:20.2.1"
   dependencies:
-    "@puppeteer/browsers": 1.2.0
+    "@puppeteer/browsers": 1.3.0
     cosmiconfig: 8.1.3
-    puppeteer-core: 20.2.0
-  checksum: b21b35e49625d227b1cf44abbf33c685e603e8eceb5ad7324119b70a40962f9901b7f73042b6ccc368b9a8667a26acc837b1ab671514ad4fbf923c95703485e5
+    puppeteer-core: 20.2.1
+  checksum: 64b4447b936d49e2b9d60bd9beeea1016879d59797b1319eac1f88d2dd7cfef7604fa2f42b6a73f12a0f636bc99317c4d050df4324219974fba3f5537e8c8340
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.308":
-  version: 1.1.308
-  resolution: "pyright@npm:1.1.308"
+"pyright@npm:1.1.309":
+  version: 1.1.309
+  resolution: "pyright@npm:1.1.309"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: ae6f3161a2a26e982acf838c9f71913cdb6427de55e96cb6859f0b6ce4aa0059f23f473aaaa340eddc874b4c026f4f3f99b008ad5c5613c68073b63488ebeaed
+  checksum: 2fdaa527eda92c082c89968a105a53ef1128987a04fd9f21483277649902dde108b017f71d5d5605a194edffca5dcc8a7ccbb7eae5336c2b16a068a9ba411c14
   languageName: node
   linkType: hard
 
@@ -16364,7 +16364,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.9.1
+    bash-language-server: 4.9.2
     corepack: 0.17.2
     diff-so-fancy: 1.4.3
     eslint: 8.40.0
@@ -16381,12 +16381,12 @@ __metadata:
     markdownlint-cli2: 0.7.1
     prettier: 2.8.8
     prettier-eslint-cli: 7.1.0
-    puppeteer: 20.2.0
-    pyright: 1.1.308
+    puppeteer: 20.2.1
+    pyright: 1.1.309
     release-it: 15.10.3
     semantic-release: 21.0.2
-    snyk: 1.1155.0
-    stylelint: 15.6.1
+    snyk: 1.1156.0
+    stylelint: 15.6.2
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.6.2
@@ -16991,15 +16991,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1155.0":
-  version: 1.1155.0
-  resolution: "snyk@npm:1.1155.0"
+"snyk@npm:1.1156.0":
+  version: 1.1156.0
+  resolution: "snyk@npm:1.1156.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 7722c1eacea7fa09b3582a883b5c735c47cafd0d3c45d8559d728f172bc30d17ea8ce192e8ccb969e9f3c85e1a57ce6a60de04beb0eb1147d091c2a3122a82a3
+  checksum: 8bbe416a6b9918a73aeacb5dcb43101a0090b5b5c7358c2ed36dde1172545e7e9ce5fcfae52bf4594ed0f394b351e137d111fe8908a349590e10fc119f19e3d3
   languageName: node
   linkType: hard
 
@@ -17741,9 +17741,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:15.6.1":
-  version: 15.6.1
-  resolution: "stylelint@npm:15.6.1"
+"stylelint@npm:15.6.2":
+  version: 15.6.2
+  resolution: "stylelint@npm:15.6.2"
   dependencies:
     "@csstools/css-parser-algorithms": ^2.1.1
     "@csstools/css-tokenizer": ^2.1.1
@@ -17789,7 +17789,7 @@ __metadata:
     write-file-atomic: ^5.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: 192ac3b5185cb59aaead62e1e2e53c42ffc9eba38e471bcb9e3a34381f688d2194a48ae5a356759e2368a9764626d2c6131dffd31933244519422ebcf76f6da6
+  checksum: b44949053b0500226d718d810af64a10b43d8faeed6c464ab1c8bebd8ace488135b47e3a6e4a97ae552d7e14f011dce82c6c69624e463476f8408751b7544b2f
   languageName: node
   linkType: hard
 

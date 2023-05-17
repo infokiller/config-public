@@ -274,9 +274,9 @@ flask==2.3.2 \
 future==0.18.3 \
     --hash=sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307
     # via proselint
-glances==3.3.1.1 \
-    --hash=sha256:30a292210cbfbf2ae77ca2016561c0358cc4a3f041f1b0d4bcf6f62bf516299a \
-    --hash=sha256:ba832eff9a6cfe1e7ac5e5b2580202ea617e7633c05ada7f4649aed58e723ce1
+glances==3.4.0 \
+    --hash=sha256:0b910f377d37961f862eb13964b2a93d6ecf6815b96016c8ab78fe3e4ac4fe53 \
+    --hash=sha256:996efb812e5769b9dec2c5de3a36851926ca6aeda438f5a710872c9f2dde6153
     # via -r requirements.in
 glom==22.1.0 \
     --hash=sha256:1510c6587a8f9c64a246641b70033cbc5ebde99f02ad245693678038e821aeb5 \
@@ -606,11 +606,11 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.21.0 \
-    --hash=sha256:01b543856062cef221d7a8c133a7e791dcc32ff94e60d95a1477fef08392f081 \
-    --hash=sha256:42f77d4cc0cf9159fdd8383a24e50cfed2d9d8fff959592ace3579fbd0e67c6d \
-    --hash=sha256:7e6f604fdc60364655498c5f11222dafdb1c24e610435ddda63c9e18f6ba6196 \
-    --hash=sha256:c01caff2b888848c98dd1af78ed011cffcb6ffc04552244cb90f8596bb6f0aac
+semgrep==1.22.0 \
+    --hash=sha256:adbcf838c45cdb0cf6a79c946c3c672cffaa96b4b3c6de2db065839a0c91b678 \
+    --hash=sha256:b6b47b32520b424c6b7fc4374034d2bede84cf70834556fc91f4e7d6d89f0cea \
+    --hash=sha256:c5d48d55fe82ed8be6603323807d9f0b3c623539cfc0562e03e1dd9b4c4e9aaf \
+    --hash=sha256:f61239738991acb551187d990815916296a7f3c7c8747092a271be6d1f1d10da
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
