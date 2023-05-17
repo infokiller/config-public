@@ -184,8 +184,9 @@ _is_solver_cmd() {
 #   (which is where mamba is installed).
 # - It doesn't install new conda dependencies in existing environments
 # As of 2023-05-17, mamba is still much faster: 4m vs 14m for installing all
-# envs (both graphical and non-graphical). I'm also looking into using conda
-# with libmamba [1] as another alternative.
+# envs (both graphical and non-graphical). Using conda with --solver=libmamba
+# [1] is much faster than "vanilla" conda, but it's still about 10% slower than
+# mamba.
 # [1] https://www.anaconda.com/blog/conda-is-fast-now
 _conda() {
   if ! [[ "${CONDA_OPT}" =~ ^(conda|mamba|libmamba)$ ]]; then
