@@ -22,7 +22,7 @@ readonly MAMBA="${CONDA_LOCAL_DIR}/envs/mamba/bin/mamba"
 readonly MINICONDA_INSTALLER='Miniconda3-py39_4.10.3-Linux-x86_64.sh'
 readonly MINICONDA_SHA256='1ea2f885b4dbc3098662845560bc64271eb17085387a70c2ba3f29fff6f8d52f' # pragma: allowlist secret
 
-: "${USE_MAMBA:=1}"
+: "${CONDA_OPT:=mamba}"
 
 # shellcheck source=../.my_scripts/lib/platform_detection.sh
 source "${REPO_ROOT}/.my_scripts/lib/platform_detection.sh"
@@ -113,12 +113,24 @@ _log_info_bold() {
   _print_bold "$(_log_info "$@")"
 }
 
+_print_warning() {
+  local warning normal
+  # Yellow color
+  warning="$(tput setaf 3 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${warning}${*}${normal}"
+}
+
 _print_error() {
   local error normal
   # Red color
   error="$(tput setaf 1 2> /dev/null)" || true
   normal="$(tput sgr0 2> /dev/null)" || true
   printf >&2 '%s\n' "${error}${*}${normal}"
+}
+
+_log_warning() {
+  _print_warning "$(printf 'bootstrap-config-repos: %s' "$*")"
 }
 
 _log_error() {
@@ -131,23 +143,63 @@ _print_usage_and_die() {
   exit 1
 }
 
-_fastest_conda() {
+# Returns 0 if the conda args are relevant for the --solver arg.
+_is_solver_cmd() {
+  while (($# > 0)); do
+    case "$1" in
+      -*)
+        shift
+        ;;
+      config | info | clean | compare | search | notices | package | list | init)
+        return 1
+        ;;
+      create | install | update | remove)
+        return 0
+        ;;
+      env)
+        shift
+        if [[ ${1-} =~ ^(create|install|update|upgrade|remove|uninstall)$ ]]; then
+          return 0
+        fi
+        return 1
+        ;;
+      *)
+        _log_warning "Unknown conda command: $1"
+        return 1
+        ;;
+    esac
+  done
+  return 1
+}
+
+# As of 2020-10-14, mamba wasn't faster than conda in this script, though I
+# think it's faster when installing envrionments from scratch. I'll consider
+# enabling it in the future.
+# As of 2021-10-16, mamba was faster: 1 minute vs 3.5 minutes. However,
+# it doesn't seem idempotent with conda, so the first time switching between
+# them will take longer.
+# As of 2021-11-05, I ran into the following issues with mamba:
+# - It doesn't register an environment when conda when installing it with
+#   `mamba update` since it sometimes installs it to the tools environment
+#   (which is where mamba is installed).
+# - It doesn't install new conda dependencies in existing environments
+# As of 2023-05-17, mamba is still much faster: 4m vs 14m for installing all
+# envs (both graphical and non-graphical). I'm also looking into using conda
+# with libmamba [1] as another alternative.
+# [1] https://www.anaconda.com/blog/conda-is-fast-now
+_conda() {
+  if ! [[ "${CONDA_OPT}" =~ ^(conda|mamba|libmamba)$ ]]; then
+    _print_error 'CONDA_OPT var must be one of: conda, mamba, libmamba'
+    _print_usage_and_die
+  fi
   local bin="${CONDA}"
-  # As of 2020-10-14, mamba wasn't faster than conda in this script, though I
-  # think it's faster when installing envrionments from scratch. I'll consider
-  # enabling it in the future.
-  # As of 2021-10-16, mamba was faster: 1 minute vs 3.5 minutes. However,
-  # it doesn't seem idempotent with conda, so the first time switching between
-  # them will take longer.
-  # As of 2021-11-05, I ran into the following issues with mamba:
-  # - It doesn't register an environment when conda when installing it with
-  #   `mamba update` since it sometimes installs it to the tools environment
-  #   (which is where mamba is installed).
-  # - It doesn't install new conda dependencies in existing environments
-  if ((USE_MAMBA)) && [[ -x "${MAMBA}" ]]; then
+  local args=("$@")
+  if [[ "${CONDA_OPT}" = libmamba ]] && _is_solver_cmd "$@"; then
+    args+=('--solver=libmamba')
+  elif [[ "${CONDA_OPT}" = mamba ]] && [[ -x "${MAMBA}" ]]; then
     bin="${MAMBA}"
   fi
-  "${bin}" "$@"
+  "${bin}" "${args[@]}"
 }
 
 _create_python_env_wrappers() {
@@ -226,7 +278,7 @@ _install_conda_env() {
       _log_info "Env ${env_name} wants python ${py_version}, " \
         "but currently has ${current_py_version} installed"
       _log_info_bold "Removing environment ${env_name}"
-      _fastest_conda env remove --name "${env_name}" || true
+      _conda env remove --name "${env_name}" || true
       rm -rf -- "${env_prefix}" 2> /dev/null || true
     fi
   fi
@@ -236,10 +288,10 @@ _install_conda_env() {
     # it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
     # One workaround is to run `conda env create --force` which will re-create
     # the environment from scratch.
-    local cmd=(_fastest_conda env update --prune -p "${env_prefix}" -f "${file}")
+    local cmd=(_conda env update --prune -p "${env_prefix}" -f "${file}")
   else
     _log_info_bold "Installing conda environment ${env_name} from ${file}"
-    local cmd=(_fastest_conda env create -p "${env_prefix}" -f "${file}")
+    local cmd=(_conda env create -p "${env_prefix}" -f "${file}")
   fi
   (
     cd -- "${dir}"
@@ -395,8 +447,11 @@ _setup_conda() {
   local base_flags=(--name base --channel defaults --override-channels --yes)
   "${CONDA}" install "${base_flags[@]}" conda-build
   "${CONDA}" update "${base_flags[@]}" conda
-  if ((USE_MAMBA)); then
-    USE_MAMBA=0 _install_conda_env "${REPO_ROOT}/install/conda_envs/mamba.yml"
+  if [[ "${CONDA_OPT}" == libmamba ]]; then
+    "${CONDA}" install "${base_flags[@]}" conda-libmamba-solver
+  fi
+  if [[ "${CONDA_OPT}" == mamba ]]; then
+    CONDA_OPT=conda _install_conda_env "${REPO_ROOT}/install/conda_envs/mamba.yml"
     symlink_binary "${MAMBA}"
     # local mamba_flags=(--name mamba --channel conda-forge --override-channel --yes)
     # conda create "${mamba_flags[@]}" python=3.8 mamba
