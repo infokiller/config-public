@@ -29,7 +29,7 @@ require (
 	github.com/containerd/containerd v1.6.20 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
 	github.com/creack/pty v1.1.18 // indirect
-	github.com/direnv/direnv/v2 v2.32.2 // indirect
+	github.com/direnv/direnv/v2 v2.32.3 // indirect
 	github.com/docker/cli v23.0.4+incompatible // indirect
 	github.com/docker/distribution v2.8.1+incompatible // indirect
 	github.com/docker/docker v23.0.4+incompatible // indirect

@@ -274,9 +274,9 @@ flask==2.3.2 \
 future==0.18.3 \
     --hash=sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307
     # via proselint
-glances==3.4.0.2 \
-    --hash=sha256:46366797d89bd97775444cc985551626d2eed2279538fd1c45744c9210034fd5 \
-    --hash=sha256:859f863bd9a961c5022c29f24898c02ec15a043034e664a9f8bc7dc1ca794e71
+glances==3.4.0.3 \
+    --hash=sha256:e7b1d54180db9961613f5485bf8e2a9fe93d0e58c1bcec0a451b4efe5687c85d \
+    --hash=sha256:f2870f108c53efef73823404456c6ba5c7075f753a05cee2de14f066232243bc
     # via -r requirements.in
 glom==22.1.0 \
     --hash=sha256:1510c6587a8f9c64a246641b70033cbc5ebde99f02ad245693678038e821aeb5 \
