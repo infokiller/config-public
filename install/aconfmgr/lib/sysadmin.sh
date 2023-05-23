@@ -83,7 +83,7 @@ CopyFile /etc/fuse.conf
 # Package management: pacman
 AddPackage pkgfile        # a pacman .files metadata explorer
 AddPackage pacman-contrib # Contributed scripts and tools for pacman systems
-AddPackage asp            # Arch Linux build source file management tool
+AddPackage devtools       # Tools for Arch Linux package maintainers
 AddPackage --foreign yay  # Yet another yogurt. Pacman wrapper and AUR helper written in go.
 # Periodically clean Pacman's cache to save disk space
 CopyFile '/etc/systemd/system/paccache.service.d/override.conf'

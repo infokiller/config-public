@@ -194,8 +194,11 @@ MAKEFLAGS+=" -j$(nproc)"
 COMPRESSXZ+=(--threads=0)
 COMPRESSZST+=(--threads=0)
 EOF
-# TODO: Move pacman.conf changes to a separate file and use the 'Include'
-# directive in order to minimize the changes to the distributed file.
+# NOTE: pacman.conf supports the 'Include' directive, but it's not easy to put
+# all my customizations there, because it must be written in the [options]
+# section (or the repo-specific sections for repo-specific customizations), and
+# there is no robust way to add the include line to the file in the correct
+# location.
 CopyFile '/etc/pacman.conf'
 # Refresh pacman mirrors if they're not up to date.
 "${REPO_ROOT}/.my_scripts/sysadmin/pacman-refresh-mirrors"
