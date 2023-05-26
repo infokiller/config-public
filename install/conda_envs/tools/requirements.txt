@@ -606,11 +606,11 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.22.0 \
-    --hash=sha256:adbcf838c45cdb0cf6a79c946c3c672cffaa96b4b3c6de2db065839a0c91b678 \
-    --hash=sha256:b6b47b32520b424c6b7fc4374034d2bede84cf70834556fc91f4e7d6d89f0cea \
-    --hash=sha256:c5d48d55fe82ed8be6603323807d9f0b3c623539cfc0562e03e1dd9b4c4e9aaf \
-    --hash=sha256:f61239738991acb551187d990815916296a7f3c7c8747092a271be6d1f1d10da
+semgrep==1.23.0 \
+    --hash=sha256:6c10a487ba437e4f22231f59b8f9bd7765608e70cf1ad41d28cad3c21a0d0f1b \
+    --hash=sha256:afec0e2211833add7604e63813bb27b024aeef5f5198c9a37719b9afcd56e544 \
+    --hash=sha256:efdd21f465abc6d72fd91d90ec2a727f760061b3b74971629e8d8443309d8dd2 \
+    --hash=sha256:f5f3dcdf897109896b163664e64a773ed373d8a3e44a5dc86a8682b06043746d
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -640,9 +640,9 @@ tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
     # via semgrep
-typing-extensions==4.6.0 \
-    --hash=sha256:6ad00b63f849b7dcc313b70b6b304ed67b2b2963b3098a33efe18056b1a9a223 \
-    --hash=sha256:ff6b238610c747e44c268aa4bb23c8c735d665a63726df3f9431ce707f2aa768
+typing-extensions==4.6.2 \
+    --hash=sha256:06006244c70ac8ee83fa8282cb188f697b8db25bc8b4df07be1873c43897060c \
+    --hash=sha256:3a8b36f13dd5fdc5d1b16fe317f5668545de77fa0b8e02006381fd49d731ab98
     # via semgrep
 ujson==5.7.0 \
     --hash=sha256:00343501dbaa5172e78ef0e37f9ebd08040110e11c12420ff7c1f9f0332d939e \
@@ -716,9 +716,9 @@ ujson==5.7.0 \
 undervolt==0.3.0 \
     --hash=sha256:ae8d49526ecb68acc15faac860404f6692208b540a0b33781d96396cac862767
     # via -r requirements.in
-urllib3==1.26.15 \
-    --hash=sha256:8a388717b9476f934a21484e8c8e61875ab60644d29b9b39e11e4b9dc1c6b305 \
-    --hash=sha256:aa751d169e23c7479ce47a0cb0da579e3ede798f994f5816a74e4f4500dcea42
+urllib3==1.26.16 \
+    --hash=sha256:8d36afa7616d8ab714608411b4a3b13e58f463aee519024578e062e141dce20f \
+    --hash=sha256:8f135f6502756bde6b2a9b28989df5fbe87c9970cecaa69041edcce7f0589b14
     # via
     #   buku
     #   requests
