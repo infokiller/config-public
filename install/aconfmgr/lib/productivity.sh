@@ -8,7 +8,6 @@ AddPackage zsh             # A very advanced and programmable command interprete
 AddPackage zsh-completions # Additional completion definitions for Zsh
 cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" <<'EOF'
 /bin/zsh
-/usr/bin/zsh
 EOF
 AddPackage tmux            # A terminal multiplexer
 AddPackage neovim          # Fork of Vim aiming to improve user experience, plugins, and GUIs
