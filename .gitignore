@@ -206,6 +206,7 @@
 /.Tribler
 /.logseq
 /.semgrep
+/.subversion
 /.config/Debauchee
 /.config/Dharkael/flameshot.ini
 /.config/JetBrains
@@ -218,6 +219,7 @@
 /.config/zoom.conf
 /.config/gcloud
 /.config/autostart
+/.config/sniffnet
 /.config/obs-studio
 /.config/gtk-3.0/bookmarks
 /.local/share/user-places.xbel
