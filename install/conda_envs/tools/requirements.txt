@@ -313,9 +313,9 @@ jsonschema==4.17.3 \
     --hash=sha256:0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d \
     --hash=sha256:a870ad254da1a8ca84b6a2905cac29d265f805acc57af304784962a2aa6508f6
     # via semgrep
-libtmux==0.21.1 \
-    --hash=sha256:184d73594c29abe53cf64909c1bad4372cc94bb74f35fe26254ea521d3520af6 \
-    --hash=sha256:76b2cf1649c6b0c293cca9a1c5d24e8ebe040e72e352925b45cb1a8a7e091b98
+libtmux==0.22.0 \
+    --hash=sha256:614ab69692264a8e201ebf6c9e7fcfd619d6c951270041784f89b2acdf51abc6 \
+    --hash=sha256:db7752be9305785b41d040202b76f42be07b8daf692f8bf5d7c0b946109ab040
     # via tmuxp
 litecli==1.9.0 \
     --hash=sha256:21af2cfa083dd4df1e3ccaa2a2117129b5f17212756f596ea090e296776c27a1 \
@@ -561,9 +561,9 @@ rich==13.3.5 \
     --hash=sha256:2d11b9b8dd03868f09b4fffadc84a6a8cda574e40dc90821bd845720ebb8e89c \
     --hash=sha256:69cdf53799e63f38b95b9bf9c875f8c90e78dd62b2f00c13a911c7a3b9fa4704
     # via semgrep
-ruamel-yaml==0.17.27 \
-    --hash=sha256:c4ffffc972d35927e715683fe1e2e47fa2aebb26ce67fe75e599fb84f115f20b \
-    --hash=sha256:cad7e3917da5c321658479f417320443b073e7b272033c799ba52e441d561ae5
+ruamel-yaml==0.17.28 \
+    --hash=sha256:3bf6df1c481d2463a633be6ee86e8aece941bb3298a9a0cd6d0865f47b1ddce6 \
+    --hash=sha256:823aff68f88260805049d6a4825e36cb7f1e273a7dd8f391e7b35a16a67a30ea
     # via semgrep
 ruamel-yaml-clib==0.2.7 \
     --hash=sha256:045e0626baf1c52e5527bd5db361bc83180faaba2ff586e763d3d5982a876a9e \
@@ -632,9 +632,9 @@ tabulate[widechars]==0.9.0 \
     --hash=sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c \
     --hash=sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f
     # via cli-helpers
-tmuxp==1.27.1 \
-    --hash=sha256:928877137b6e624155854ecd84326683b7b9747ac8434d75a109faf50b676fe0 \
-    --hash=sha256:ee8ca69828780c41f485eddd01f029602c4a13ed589e949f6ba6f9125bd0a939
+tmuxp==1.28.0 \
+    --hash=sha256:4d73d759cca254ef5e230fc4bfc928172f3dc0ad1dc47adcec6008a77ea06158 \
+    --hash=sha256:cade6363d5ef1c65d9ee99c83490c66ccdb75d5f8fe33a25da75fc309cd1cc7d
     # via -r requirements.in
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
