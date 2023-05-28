@@ -544,9 +544,9 @@ jupyter-highlight-selected-word==0.2.0 \
     --hash=sha256:9545dfa9cb057eebe3a5795604dcd3a5294ea18637e553f61a0b67c1b5903c58 \
     --hash=sha256:9fa740424859a807950ca08d2bfd28a35154cd32dd6d50ac4e0950022adc0e7b
     # via jupyter-contrib-nbextensions
-jupyter-lsp==2.1.0 \
-    --hash=sha256:3aa2cbd81d3446256c34e3647d71b8f50617d07862a1c60fbe123f901cdb0dd2 \
-    --hash=sha256:d7c058cfe8bd7a76859734f3a142edb50a2d1e265a7e323c2fdcd8b1db80a91b
+jupyter-lsp==2.2.0 \
+    --hash=sha256:8ebbcb533adb41e5d635eb8fe82956b0aafbf0fd443b6c4bfa906edeeb8635a1 \
+    --hash=sha256:9e06b8b4f7dd50300b70dd1a78c0c3b0c3d8fa68e0f2d8a5d1fbab62072aca3f
     # via jupyterlab
 jupyter-nbextensions-configurator==0.6.3 \
     --hash=sha256:cece496f3f62cf80bb0b04867ea463c32ed5db19ff5814fe18a3a7f1bb9da95b
@@ -1261,9 +1261,9 @@ python-json-logger==2.0.7 \
     --hash=sha256:23e7ec02d34237c5aa1e29a070193a4ea87583bb4e7f8fd06d3de8264c4b2e1c \
     --hash=sha256:f380b826a991ebbe3de4d897aeec42760035ac760345e57b812938dc8b35e2bd
     # via jupyter-events
-python-semantic-release==7.33.5 \
-    --hash=sha256:0d31fb7f068601ea3c4cbfd2a0075497f16ec0c07dbc36371557a0a420d12c35 \
-    --hash=sha256:83d6939bf32c4228b05dc49cf0c494cf8c7c233cf4f24c75c44fcdb34ac25616
+python-semantic-release==7.34.0 \
+    --hash=sha256:072541ecd7b9aac19095b21e6bb607cc89f77bab5cdedff1dad0b1711740f7ac \
+    --hash=sha256:087cba53c214d9eebe25b03f4e33a29703a8262dbe90fed82f893fa1f46189e4
     # via -r requirements.in
 pytz==2023.3 \
     --hash=sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588 \
