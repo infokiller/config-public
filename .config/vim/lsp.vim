@@ -250,11 +250,18 @@ Plug 'google/vim-maktaba'
 Plug 'google/vim-glaive'
 Plug 'google/vim-codefmt', { 'on':  ['FormatCode', 'FormatLines'] }
 " Plug 'Chiel92/vim-autoformat'
-" Without this setting, the cursor jumps when I'm editing a file with an
-" editorconfig file. It seems that EditorConfig runs "trim_trailing_whitespace"
-" on BufWritePre, which presumably doesn't work well with my file auto saving.
-let g:EditorConfig_disable_rules = ['trim_trailing_whitespace']
-Plug 'editorconfig/editorconfig-vim'
+" nvim 0.9 has built-in editorconfig support: 
+" https://github.com/gpanders/editorconfig.nvim#project-status
+" Disable trim_trailing_whitespace because it causes the cursor to jump when
+" using autosync.vim, since it runs on BufWritePre.
+if has('nvim-0.9')
+  lua << EOF
+    require('editorconfig').properties.trim_trailing_whitespace = false
+EOF
+else
+  let g:EditorConfig_disable_rules = ['trim_trailing_whitespace']
+  Plug 'editorconfig/editorconfig-vim'
+endif
 
 " ALE linter {{{ "
 Plug 'w0rp/ale'
