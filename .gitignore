@@ -162,7 +162,7 @@
 /.local/bin/fzf
 /.local/share/man/man1/fzf.1
 /.local/share/man/man1/fzf-tmux.1
-/.local/bin/ctags
+# /.local/bin/ctags
 /.local/bin/bfs
 /.local/bin/yank
 /.local/bin/polybar

@@ -476,7 +476,6 @@ _install_universal_ctags() {
   fi
   # As of 2021-11-16, the ctags build leaves these untracked files.
   git clean -f peg/thrift.{h,c}
-  symlink_binary ctags
 }
 
 _install_activitywatch_from_release() {

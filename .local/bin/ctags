@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+# shellcheck disable=SC2155
+readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
+readonly CTAGS_BIN="${REPO_ROOT}/submodules/terminal/ctags/ctags"
+
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
+
+_run_ctags() {
+  if [[ -x "${CTAGS_BIN}" ]]; then
+    exec -- "${CTAGS_BIN}" "$@"
+  fi
+  # shellcheck disable=SC2155
+  readonly WRAPPER_PATH="$(readlink -f "$0")"
+  mapfile -t cmd < <(get-wrapped-binary-command "${WRAPPER_PATH}")
+  if ((${#cmd[@]} == 0)); then
+    echo 1>&2 "Missing command: $(basename "${WRAPPER_PATH}")"
+    exit 1
+  fi
+  exec -- "${cmd[@]}" "$@"
+}
+
+main() {
+  # https://github.com/universal-ctags/ctags/issues/900#issuecomment-600097632
+  _run_ctags "$@" 2> >(
+    grep -Ev "^ctags: Warning: ignoring null tag in .+\.js\(line: .+\)$"
+  )
+}
+
+main "$@"
