@@ -1261,9 +1261,9 @@ python-json-logger==2.0.7 \
     --hash=sha256:23e7ec02d34237c5aa1e29a070193a4ea87583bb4e7f8fd06d3de8264c4b2e1c \
     --hash=sha256:f380b826a991ebbe3de4d897aeec42760035ac760345e57b812938dc8b35e2bd
     # via jupyter-events
-python-semantic-release==7.34.2 \
-    --hash=sha256:8927c2b5ca4ea55c9919b07971fb8c061b2ac50ba744c7ec54a48cc1debc691b \
-    --hash=sha256:9a12b8a1ebf762cb0f8338222154fd4d26975085d62243b38c1fb853dcfe090e
+python-semantic-release==7.34.3 \
+    --hash=sha256:ac62990d6c5510ae41abcae34c775ced7cba7b3ed9176578b7954eb956537dbb \
+    --hash=sha256:c3de866c4c00af45de0813efa2d37fc0a822946ce9111a3f059d011df06b6510
     # via -r requirements.in
 pytz==2023.3 \
     --hash=sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588 \
@@ -1576,9 +1576,9 @@ twine==3.8.0 \
     # via
     #   -r requirements.in
     #   python-semantic-release
-typing-extensions==4.6.2 \
-    --hash=sha256:06006244c70ac8ee83fa8282cb188f697b8db25bc8b4df07be1873c43897060c \
-    --hash=sha256:3a8b36f13dd5fdc5d1b16fe317f5668545de77fa0b8e02006381fd49d731ab98
+typing-extensions==4.6.3 \
+    --hash=sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26 \
+    --hash=sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5
     # via async-lru
 tzdata==2023.3 \
     --hash=sha256:11ef1e08e54acb0d4f95bdb1be05da659673de4acbd21bf9c69e94cc5e907a3a \

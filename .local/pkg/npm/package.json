@@ -12,7 +12,7 @@
     "html-beautify": "1.0.4",
     "improved-yarn-audit": "3.0.0",
     "instant-markdown-d": "0.2.0",
-    "js-beautify": "1.14.7",
+    "js-beautify": "1.14.8",
     "lebab": "3.2.1",
     "markdown-toc": "1.2.0",
     "markdownlint-cli": "0.34.0",
@@ -54,5 +54,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.5.1"
+  "packageManager": "yarn@3.6.0"
 }
