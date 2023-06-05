@@ -588,9 +588,9 @@ jupyterlab-widgets==3.0.7 \
     --hash=sha256:c3a50ed5bf528a0c7a869096503af54702f86dda1db469aee1c92dc0c01b43ca \
     --hash=sha256:c73f8370338ec19f1bec47254752d6505b03601cbd5a67e6a0b184532f73a459
     # via ipywidgets
-jupytext==1.14.5 \
-    --hash=sha256:976e66be8056459a2067e0ec3ff68cc31e00c31895faf9eb893022d319e8f5b4 \
-    --hash=sha256:a5dbe60d0ea158bbf82c2bce74aba8d0c220ad7edcda09e017c5eba229b34dc8
+jupytext==1.14.6 \
+    --hash=sha256:6a0f9b1d850b4173115065853b8a81956bbbe6ee7d4a7906e9817cd6f6892414 \
+    --hash=sha256:f34b045d89edcecb47772761feaf001daf270fff9470c9b2125345eae9064eb6
     # via -r requirements.in
 keyring==23.13.1 \
     --hash=sha256:771ed2a91909389ed6148631de678f82ddc73737d85a927f382a8a1b157898cd \
