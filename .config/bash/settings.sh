@@ -79,7 +79,7 @@ update_environment_from_tmux() {
     emulate -L zsh -o BASH_REMATCH -o KSH_ARRAYS
   fi
   declare -A var_to_cmd
-  while IFS='' read -r cmd; do
+  while IFS='' read -r -t 0.1 cmd; do
     if [[ "${cmd}" =~ unset\ ([a-zA-Z_][a-zA-Z_0-9]+)\;? ]] ||
       [[ "${cmd}" =~ ([a-zA-Z_][a-zA-Z_0-9]+)= ]]; then
       var_to_cmd["${BASH_REMATCH[1]}"]="${cmd}"
