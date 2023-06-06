@@ -49,6 +49,10 @@ _is_tmux() {
   [[ -n ${TMUX-} ]]
 }
 
+_is_tmate() {
+  [[ ${TMUX-} == *tmate* ]]
+}
+
 _get_real_terminal() {
   if _is_tmux; then
     tmux display-message -p '#{client_termname}'
@@ -65,7 +69,10 @@ declare -g _update_env_from_tmux_on="${_update_env_from_tmux_on:-1}"
 # TODO: This is slow because of the call to `tmux show-environment`. I measured
 # about 10ms in zeus18.
 update_environment_from_tmux() {
-  if ((!_update_env_from_tmux_on)) || ! _is_tmux; then
+  # Disable this function when running in tmate, because otherwise tmux client
+  # will probably not be compatible with the server. We also probably don't need
+  # this function when running in tmate.
+  if ((!_update_env_from_tmux_on)) || ! _is_tmux || _is_tmate; then
     return 0
   fi
   if is_zsh; then
