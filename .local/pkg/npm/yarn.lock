@@ -4265,7 +4265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:8.1.3, cosmiconfig@npm:^8.1.3":
+"cosmiconfig@npm:8.1.3":
   version: 8.1.3
   resolution: "cosmiconfig@npm:8.1.3"
   dependencies:
@@ -4286,6 +4286,18 @@ __metadata:
     parse-json: ^5.0.0
     path-type: ^4.0.0
   checksum: ff4cdf89ac1ae52e7520816622c21a9e04380d04b82d653f5139ec581aa4f7f29e096d46770bc76c4a63c225367e88a1dfa233ea791669a35101f5f9b972c7d1
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "cosmiconfig@npm:8.2.0"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
   languageName: node
   linkType: hard
 
@@ -15188,13 +15200,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.311":
-  version: 1.1.311
-  resolution: "pyright@npm:1.1.311"
+"pyright@npm:1.1.312":
+  version: 1.1.312
+  resolution: "pyright@npm:1.1.312"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: aae225c0cbf05a9e569d1b8f844693e44eb150a5d6718e921b9dbe680b22516e417d96714104e53ccd8a88dc239ca03e0daa3f4d8471c07db5cc7b73349c9f0c
+  checksum: c4db736296f34fdfb5da1a1a5cca9f3170b587e6b55a25d0db5cb564e661aacff799c5d41162083816df2ecc4aede7a59402fe972c9cad0d8dcb01b44d9b3ec2
   languageName: node
   linkType: hard
 
@@ -15679,9 +15691,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:15.10.5":
-  version: 15.10.5
-  resolution: "release-it@npm:15.10.5"
+"release-it@npm:15.11.0":
+  version: 15.11.0
+  resolution: "release-it@npm:15.11.0"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 19.0.11
@@ -15712,7 +15724,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     release-it: bin/release-it.js
-  checksum: faa9d754fc890cfcbdadd0e1d86be3c90c62270aa0777afcb8072d9908be0987b7d88b33a63194b35888c2243ddf18a7b384f6b2b850f3a682dc00c67d3de1e8
+  checksum: 1a8b3be9c94afb44fd1b921bd15fb584887c78f4a29c3f4385901d42e9f14dbffe0e1a0f401dca235b93c3bd68c97f7e6fb4f6834a9ccf6cdb41de5ed76e557d
   languageName: node
   linkType: hard
 
@@ -16189,11 +16201,11 @@ __metadata:
     prettier: 2.8.8
     prettier-eslint-cli: 7.1.0
     puppeteer: 20.5.0
-    pyright: 1.1.311
-    release-it: 15.10.5
+    pyright: 1.1.312
+    release-it: 15.11.0
     semantic-release: 21.0.3
-    snyk: 1.1173.0
-    stylelint: 15.6.3
+    snyk: 1.1175.0
+    stylelint: 15.7.0
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.6.2
@@ -16798,15 +16810,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1173.0":
-  version: 1.1173.0
-  resolution: "snyk@npm:1.1173.0"
+"snyk@npm:1.1175.0":
+  version: 1.1175.0
+  resolution: "snyk@npm:1.1175.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 3c143d84292c93bd46f5c018a0b369c9f72370d9b8d72437e062d91219e535d0b95933daa743ff783b2c3c1c1afa462d81b2e10271f3b387d177ea7d15bb2ded
+  checksum: 26a69690fda9e26c578e071d6c922d8235671f36221e5c077d91baf94c4ce9237575b8a21bf85d268bbd80d1dbf562a9384c96b87509424aba7a5ad714bd2103
   languageName: node
   linkType: hard
 
@@ -17531,9 +17543,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stylelint@npm:15.6.3":
-  version: 15.6.3
-  resolution: "stylelint@npm:15.6.3"
+"stylelint@npm:15.7.0":
+  version: 15.7.0
+  resolution: "stylelint@npm:15.7.0"
   dependencies:
     "@csstools/css-parser-algorithms": ^2.2.0
     "@csstools/css-tokenizer": ^2.1.1
@@ -17541,7 +17553,7 @@ __metadata:
     "@csstools/selector-specificity": ^2.2.0
     balanced-match: ^2.0.0
     colord: ^2.9.3
-    cosmiconfig: ^8.1.3
+    cosmiconfig: ^8.2.0
     css-functions-list: ^3.1.0
     css-tree: ^2.3.1
     debug: ^4.3.4
@@ -17579,7 +17591,7 @@ __metadata:
     write-file-atomic: ^5.0.1
   bin:
     stylelint: bin/stylelint.js
-  checksum: dfd046ebd3c90e19c1ba480e46ca7af7d949c1c4fb495f0f17e5d318185833820bfe746eb2070a6f723d631d24ea6f92e81686b7cd9bcab1db24575e5b822f55
+  checksum: 041bcb4396f5a7fd706a305d2518f4671dc93108336d31a1a717c564ebebe6fd503af9151e3d1d0cf01198e7925266911d0561eaed9c38a03becff817bf18bf3
   languageName: node
   linkType: hard
 
