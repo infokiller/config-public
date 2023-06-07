@@ -29,7 +29,7 @@ $MyKeybindings['Alt++'] = 'Redo'
 # Ctrl+j (equivalent to Ctrl+Enter) is bound to InsertLineAbove by default on
 # Windows. I'm used to Ctrl+j executing the current command, so this is
 # confusing to me, hence I'm rebinding it here.
-$MyKeybindings['Ctrl+j'] = 'AcceptLine'
+$MyKeybindings['Ctrl+Enter'] = 'AcceptLine'
 $MyKeybindings['Tab'] = 'MenuComplete'
 # On Windows, this is unbound
 $MyKeybindings['Ctrl+d'] = 'DeleteCharOrExit'
@@ -43,7 +43,7 @@ Remove-PSReadLineKeyHandler 'Escape'
 # On Windows, this is bound to Undo
 Remove-PSReadLineKeyHandler 'Ctrl+z'
 # On Windows, this is bound to ForwardDeleteInput
-Remove-PSReadLineKeyHandler 'Ctrl+Enter'
+Remove-PSReadLineKeyHandler 'Ctrl+End'
 
 $PSReadLineOptions = @{
     # EditMode = "Emacs"
