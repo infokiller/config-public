@@ -4,13 +4,46 @@
 # http://powershell-guru.com/powershell-tip-33-increase-the-number-of-commands-of-the-history/
 $MaximumHistoryCount = 32000
 
-Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardKillWord
-Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
-Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
-Set-PSReadLineKeyHandler -Key Ctrl+v -Function WhatIsKey
-# NOTE: Undo doesn't work, seems that pwsh can't recognize it.
-# Set-PSReadLineKeyHandler -Key Alt+_ -Function Undo
-Set-PSReadLineKeyHandler -Key Alt++ -Function Redo
+# Powershell hash tables are case-insensitive, so we need to use a case-sensitive one:
+# https://stackoverflow.com/a/24054257/1014208
+$MyKeybindings = New-Object System.Collections.Hashtable
+$MyKeybindings['Ctrl+w'] = 'BackwardKillWord'
+$MyKeybindings['Ctrl+Backspace'] = 'BackwardKillWord'
+$MyKeybindings['Ctrl+LeftArrow'] = 'BackwardWord'
+$MyKeybindings['Ctrl+RightArrow'] = 'ForwardWord'
+$MyKeybindings['Ctrl+c'] = 'CancelLine'
+$MyKeybindings['Ctrl+v'] = 'WhatIsKey'
+$MyKeybindings['Ctrl+V'] = 'Paste'
+# On Windows, this is unbound
+$MyKeybindings['Ctrl+p'] = 'PreviousHistory'
+# On Windows, this is unbound
+$MyKeybindings['Ctrl+n'] = 'NextHistory'
+# On Windows, this is bound to SelectAll
+$MyKeybindings['Ctrl+a'] = 'BeginningOfLine'
+# On Windows, this is unbound
+$MyKeybindings['Ctrl+e'] = 'EndOfLine'
+# On Windows, this is unbound
+$MyKeybindings['Ctrl+x,Ctrl+e'] = 'ViEditVisually'
+$MyKeybindings['Alt+_'] = 'Undo'
+$MyKeybindings['Alt++'] = 'Redo'
+# Ctrl+j (equivalent to Ctrl+Enter) is bound to InsertLineAbove by default on
+# Windows. I'm used to Ctrl+j executing the current command, so this is
+# confusing to me, hence I'm rebinding it here.
+$MyKeybindings['Ctrl+j'] = 'AcceptLine'
+$MyKeybindings['Tab'] = 'MenuComplete'
+# On Windows, this is unbound
+$MyKeybindings['Ctrl+d'] = 'DeleteCharOrExit'
+
+foreach ($k in $MyKeybindings.GetEnumerator()) {
+    Set-PSReadLineKeyHandler -Key $k.Name -Function $k.Value
+}
+
+# On Windows, this is bound to RevertLine
+Remove-PSReadLineKeyHandler 'Escape'
+# On Windows, this is bound to Undo
+Remove-PSReadLineKeyHandler 'Ctrl+z'
+# On Windows, this is bound to ForwardDeleteInput
+Remove-PSReadLineKeyHandler 'Ctrl+Enter'
 
 $PSReadLineOptions = @{
     # EditMode = "Emacs"
