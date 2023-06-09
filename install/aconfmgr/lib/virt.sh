@@ -14,7 +14,6 @@ if [[ "${HOST_ALIAS}" == zeus18 ]]; then
   # [1] https://github.com/google/gvisor
   cat >| "$(CreateFile '/etc/docker/daemon.json' 600)" << 'EOF'
 {
-    "data-root": "/mnt/evo970/docker",
     "runtimes": {
         "runsc": {
             "path": "/usr/local/bin/runsc",

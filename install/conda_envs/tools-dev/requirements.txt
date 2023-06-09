@@ -572,9 +572,9 @@ jupyter-server-terminals==0.4.4 \
     --hash=sha256:57ab779797c25a7ba68e97bcfb5d7740f2b5e8a83b5e8102b10438041a7eac5d \
     --hash=sha256:75779164661cec02a8758a5311e18bb8eb70c4e86c6b699403100f1585a12a36
     # via jupyter-server
-jupyterlab==4.0.1 \
-    --hash=sha256:4dc3901f7bbfd4704c994b7a893a49955256abf57dba9831f4825e3f3165b8bb \
-    --hash=sha256:f3ebd90e41d3ba1b8152c8eda2bd1a18e0de490192b4be1a6ec132517cfe43ef
+jupyterlab==4.0.2 \
+    --hash=sha256:0a77898aebb55da391e5f57022774c089fb075e98803ff3d514a79b727dc934d \
+    --hash=sha256:201b4f729a7dc5e22ca6c4dd8944cde792f1cb008d7c6b821e0a48d2502205c8
     # via -r requirements.in
 jupyterlab-pygments==0.2.2 \
     --hash=sha256:2405800db07c9f770863bcf8049a529c3dd4d3e28536638bd7c1c01d2748309f \
@@ -1253,9 +1253,9 @@ python-dateutil==2.8.2 \
     #   jupyter-client
     #   matplotlib
     #   pandas
-python-gitlab==3.14.0 \
-    --hash=sha256:da614c014c6860147783dde8c216218d8fc6bd83a8bd2e3929dcdf11b211aa58 \
-    --hash=sha256:ef3b8960faeee9880f82b0872d807e3fab94ace12b0d2a8418a97875c8812d3c
+python-gitlab==3.15.0 \
+    --hash=sha256:8f8d1c0d387f642eb1ac7bf5e8e0cd8b3dd49c6f34170cee3c7deb7d384611f3 \
+    --hash=sha256:c9e65eb7612a9fbb8abf0339972eca7fd7a73d4da66c9b446ffe528930aff534
     # via python-semantic-release
 python-json-logger==2.0.7 \
     --hash=sha256:23e7ec02d34237c5aa1e29a070193a4ea87583bb4e7f8fd06d3de8264c4b2e1c \
@@ -1588,9 +1588,9 @@ uri-template==1.2.0 \
     --hash=sha256:934e4d09d108b70eb8a24410af8615294d09d279ce0e7cbcdaef1bd21f932b06 \
     --hash=sha256:f1699c77b73b925cf4937eae31ab282a86dc885c333f2e942513f08f691fc7db
     # via jsonschema
-urllib3==2.0.2 \
-    --hash=sha256:61717a1095d7e155cdb737ac7bb2f4324a858a1e2e6466f6d03ff630ca68d3cc \
-    --hash=sha256:d055c2f9d38dc53c808f6fdc8eab7360b6fdbbde02340ed25cfbcd817c62469e
+urllib3==2.0.3 \
+    --hash=sha256:48e7fafa40319d358848e1bc6809b208340fafe2096f1725d05d67443d0483d1 \
+    --hash=sha256:bee28b5e56addb8226c96f7f13ac28cb4c301dd5ea8a6ca179c0b9835e032825
     # via
     #   requests
     #   twine
@@ -1608,9 +1608,9 @@ webencodings==0.5.1 \
     # via
     #   bleach
     #   tinycss2
-websocket-client==1.5.2 \
-    --hash=sha256:c7d67c13b928645f259d9b847ab5b57fd2d127213ca41ebd880de1f553b7c23b \
-    --hash=sha256:f8c64e28cd700e7ba1f04350d66422b6833b82a796b525a51e740b8cc8dab4b1
+websocket-client==1.5.3 \
+    --hash=sha256:3566f8467cd350874c4913816355642a4942f6c1ed1e9406e3d42fae6d6c072a \
+    --hash=sha256:b96f3bce3e54e3486ebe6504bc22bd4c140392bd2eb71764db29be8f2639aa65
     # via jupyter-server
 wheel==0.40.0 \
     --hash=sha256:cd1196f3faee2b31968d626e1731c94f99cbdb67cf5a46e4f5656cbee7738873 \
