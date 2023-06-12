@@ -1043,6 +1043,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@semantic-release/error@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@semantic-release/error@npm:4.0.0"
+  checksum: 01213195ae3b8e2490b0d0db79525f7abbb1cc795494b46b8022f81ab1f24f5eab6232b549528b437cff872a66d36649f2fb4f3b56eba351d947a02cccc81ecc
+  languageName: node
+  linkType: hard
+
 "@semantic-release/github@npm:^9.0.0":
   version: 9.0.2
   resolution: "@semantic-release/github@npm:9.0.2"
@@ -2685,9 +2692,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.9.2":
-  version: 4.9.2
-  resolution: "bash-language-server@npm:4.9.2"
+"bash-language-server@npm:4.10.0":
+  version: 4.10.0
+  resolution: "bash-language-server@npm:4.10.0"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2699,7 +2706,7 @@ __metadata:
     zod: 3.21.4
   bin:
     bash-language-server: out/cli.js
-  checksum: 3da1cf26733bfaac72401be83d72ed28bd0014ca140183de3bf710eea8f1620d4baa4e1559d236a5475d559781ec899100137129e371386dff4e2494d7f06024
+  checksum: 3f9d3b252a71a3e8128013ce0ca6679717f3f583155b9d9721325a0009406e2281ef785eb9229f349e518610e8c946a2157f42d0ee61179bfa439a31f864bf41
   languageName: node
   linkType: hard
 
@@ -4277,6 +4284,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cosmiconfig@npm:8.2.0, cosmiconfig@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "cosmiconfig@npm:8.2.0"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
+  languageName: node
+  linkType: hard
+
 "cosmiconfig@npm:^8.0.0":
   version: 8.0.0
   resolution: "cosmiconfig@npm:8.0.0"
@@ -4286,18 +4305,6 @@ __metadata:
     parse-json: ^5.0.0
     path-type: ^4.0.0
   checksum: ff4cdf89ac1ae52e7520816622c21a9e04380d04b82d653f5139ec581aa4f7f29e096d46770bc76c4a63c225367e88a1dfa233ea791669a35101f5f9b972c7d1
-  languageName: node
-  linkType: hard
-
-"cosmiconfig@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "cosmiconfig@npm:8.2.0"
-  dependencies:
-    import-fresh: ^3.2.1
-    js-yaml: ^4.1.0
-    parse-json: ^5.0.0
-    path-type: ^4.0.0
-  checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
   languageName: node
   linkType: hard
 
@@ -5515,10 +5522,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devtools-protocol@npm:0.0.1120988":
-  version: 0.0.1120988
-  resolution: "devtools-protocol@npm:0.0.1120988"
-  checksum: 68eb7aa6a2fe20f8321168f9381849296b203355a5c052461b7ed95e8787b34458029dd64c8d4a8640d9fd329138a6d82f41237f5331ea4267c090dcbf6581f7
+"devtools-protocol@npm:0.0.1135028":
+  version: 0.0.1135028
+  resolution: "devtools-protocol@npm:0.0.1135028"
+  checksum: ee647140ac843ba3a7a4b6436588bf81adbb1f035489a9e71985b27c1f489779c63865ddb70a98beb3f4cea9dd53f1e049f41163c46d4555a76d36868b5882d1
   languageName: node
   linkType: hard
 
@@ -11338,21 +11345,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:0.7.1":
-  version: 0.7.1
-  resolution: "markdownlint-cli2@npm:0.7.1"
+"markdownlint-cli2@npm:0.8.1":
+  version: 0.8.1
+  resolution: "markdownlint-cli2@npm:0.8.1"
   dependencies:
     globby: 13.1.4
-    markdownlint: 0.28.2
+    markdownlint: 0.29.0
     markdownlint-cli2-formatter-default: 0.0.4
     micromatch: 4.0.5
     strip-json-comments: 5.0.0
-    yaml: 2.2.2
+    yaml: 2.3.1
   bin:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: 665dc5cf66bade88f802bac0938a9dc828517d8362ce65f98ab0ca1abf81d3a92fcf280ad4c0990949cbab02c858b325f35ec836e0075fa2704a82e38333bf46
+  checksum: 38464d73d91a1abe1cc43f925112e567ee27eb20f536e4a0c1329e28cea4366db68e9c365127bbd95f2580bf2983ec8ea61e98ece1c868c17994b542e37e495d
   languageName: node
   linkType: hard
 
@@ -11382,7 +11389,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.28.2, markdownlint@npm:~0.28.2":
+"markdownlint-micromark@npm:0.1.5":
+  version: 0.1.5
+  resolution: "markdownlint-micromark@npm:0.1.5"
+  checksum: fc69c340c31a06b46cf358759348a12b60b0080d82406ec1ed2e015e96b664e4075584980cf1bf029287109503ec37d0da012ec67827bc7a21a9f7d0b5a624b8
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:0.29.0":
+  version: 0.29.0
+  resolution: "markdownlint@npm:0.29.0"
+  dependencies:
+    markdown-it: 13.0.1
+    markdownlint-micromark: 0.1.5
+  checksum: 5785f5173f553510516bf1f68a0768118dcae3a3a19234f6ed57d5d5a8f5beedcca859593fdcf0d8e90fdccb69fd0e168e77416f5712e04e2062c5bf2dca5612
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:~0.28.2":
   version: 0.28.2
   resolution: "markdownlint@npm:0.28.2"
   dependencies:
@@ -11442,12 +11466,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^4.1.0":
-  version: 4.2.5
-  resolution: "marked@npm:4.2.5"
+"marked@npm:^5.0.0":
+  version: 5.1.0
+  resolution: "marked@npm:5.1.0"
   bin:
     marked: bin/marked.js
-  checksum: dd7da20a3983c66b516463fad5dc8d15dc70e137d20b6dc491e134f671e84bd2ed5f859e2c35f21e56830a122e4356b9e574bcde49b72b7ad6bc121a215a1a98
+  checksum: ecb2b36a4758f725000400113f5107e89512b897251207e514c22605319bdddb6554fe3e68bd73b0d08f855582946e001adddfbfc7080a556a492950fb4b3a09
   languageName: node
   linkType: hard
 
@@ -15170,33 +15194,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:20.5.0":
-  version: 20.5.0
-  resolution: "puppeteer-core@npm:20.5.0"
+"puppeteer-core@npm:20.6.0":
+  version: 20.6.0
+  resolution: "puppeteer-core@npm:20.6.0"
   dependencies:
     "@puppeteer/browsers": 1.4.1
     chromium-bidi: 0.4.11
     cross-fetch: 3.1.6
     debug: 4.3.4
-    devtools-protocol: 0.0.1120988
+    devtools-protocol: 0.0.1135028
     ws: 8.13.0
   peerDependencies:
     typescript: ">= 4.7.4"
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 4b93587588294b33ff41f39cabc4fe431b75dd7488013288a7f91c46d8a55c535230eb568543e476d4b070ce1f7316b7edefb7a965cc0b8e3629b6dab6776f62
+  checksum: 6dc7a164c21c5bd39fdf6822bd3379f7068aed8f3a516abd0724a25427e06140f04d1f7e38267c1efa1cb9e398cfce15171341e57626b4c36deb8edc11361df5
   languageName: node
   linkType: hard
 
-"puppeteer@npm:20.5.0":
-  version: 20.5.0
-  resolution: "puppeteer@npm:20.5.0"
+"puppeteer@npm:20.6.0":
+  version: 20.6.0
+  resolution: "puppeteer@npm:20.6.0"
   dependencies:
     "@puppeteer/browsers": 1.4.1
-    cosmiconfig: 8.1.3
-    puppeteer-core: 20.5.0
-  checksum: 11a907a8b69df893ff8433cb0a2af731fcf732cac53f8f02e3067a7fdb14013fa223456451c1a1a690bc19e0381016de38213a49fcbcd1f9634b76f8d42ffab8
+    cosmiconfig: 8.2.0
+    puppeteer-core: 20.6.0
+  checksum: 1dffeb48dc55be80126592fe38b3f8756c682a82874d3da90a871b6b4b9a9dc79575ac02384d0161e60ae52849b562b101d483016b22f19d7cd0ea93a9d024f7
   languageName: node
   linkType: hard
 
@@ -16183,7 +16207,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.9.2
+    bash-language-server: 4.10.0
     corepack: 0.18.0
     diff-so-fancy: 1.4.3
     eslint: 8.42.0
@@ -16197,14 +16221,14 @@ __metadata:
     lebab: 3.2.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.34.0
-    markdownlint-cli2: 0.7.1
+    markdownlint-cli2: 0.8.1
     prettier: 2.8.8
     prettier-eslint-cli: 7.1.0
-    puppeteer: 20.5.0
+    puppeteer: 20.6.0
     pyright: 1.1.313
     release-it: 15.11.0
-    semantic-release: 21.0.3
-    snyk: 1.1176.0
+    semantic-release: 21.0.5
+    snyk: 1.1178.0
     stylelint: 15.7.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16380,12 +16404,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:21.0.3":
-  version: 21.0.3
-  resolution: "semantic-release@npm:21.0.3"
+"semantic-release@npm:21.0.5":
+  version: 21.0.5
+  resolution: "semantic-release@npm:21.0.5"
   dependencies:
     "@semantic-release/commit-analyzer": ^10.0.0
-    "@semantic-release/error": ^3.0.0
+    "@semantic-release/error": ^4.0.0
     "@semantic-release/github": ^9.0.0
     "@semantic-release/npm": ^10.0.2
     "@semantic-release/release-notes-generator": ^11.0.0
@@ -16401,7 +16425,7 @@ __metadata:
     hook-std: ^3.0.0
     hosted-git-info: ^6.0.0
     lodash-es: ^4.17.21
-    marked: ^4.1.0
+    marked: ^5.0.0
     marked-terminal: ^5.1.1
     micromatch: ^4.0.2
     p-each-series: ^3.0.0
@@ -16414,7 +16438,7 @@ __metadata:
     yargs: ^17.5.1
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: bbfed3497df4e4066374eca3c0162fbe4f38aa30a26fa402b5044b2d0b4dd17ec9656dd54236ba44835a6456b2d28bd196c8feca95b62cb0fcada2979526110c
+  checksum: 9b45d24392c24a7f147e4560d36a0f70447b719b0e7371c400834b9a1a98f4b6a3e23420480505f03b0b690c2eaaea2db53c870435a28f8946721ad96f63d3e1
   languageName: node
   linkType: hard
 
@@ -16810,15 +16834,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1176.0":
-  version: 1.1176.0
-  resolution: "snyk@npm:1.1176.0"
+"snyk@npm:1.1178.0":
+  version: 1.1178.0
+  resolution: "snyk@npm:1.1178.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 0912d0858f569f6cece2c31e3907f0f6bf49c3a72f73f8e3c197fcf52affb306a50f6ce264c68b8fa64059b2d2f29893082833b2c55bd52809877ddc87c94d07
+  checksum: 17ae6ec31df224c6e5d8b80356b1fba572aad1c695c1c65f63d0ea6c9f1b7fa138a51a1329104249cb308a8685363acafa95bcb7a1c42d2091ce120a3a84c5a9
   languageName: node
   linkType: hard
 
@@ -19687,10 +19711,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.2.2":
-  version: 2.2.2
-  resolution: "yaml@npm:2.2.2"
-  checksum: d90c235e099e30094dcff61ba3350437aef53325db4a6bcd04ca96e1bfe7e348b191f6a7a52b5211e2dbc4eeedb22a00b291527da030de7c189728ef3f2b4eb3
+"yaml@npm:2.3.1":
+  version: 2.3.1
+  resolution: "yaml@npm:2.3.1"
+  checksum: 2c7bc9a7cd4c9f40d3b0b0a98e370781b68b8b7c4515720869aced2b00d92f5da1762b4ffa947f9e795d6cd6b19f410bd4d15fdd38aca7bd96df59bd9486fb54
   languageName: node
   linkType: hard
 
