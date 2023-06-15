@@ -29,8 +29,8 @@ ENABLED_FEATURES=(
   'ProminentDarkModeActiveTabTitle'
   # Use a dark theme for chrome pages such as chrome://settings.
   'WebUIDarkMode'
-  # As of 2020-02-10, I stopped enabling TabGroups
-  # 'TabGroups'
+  # Force dark mode for all websites.
+  # 'WebContentsForceDark'
 )
 DISABLED_FEATURES=(
   # When an Omnibox search matches an existing tab, add a suggestions to switch
