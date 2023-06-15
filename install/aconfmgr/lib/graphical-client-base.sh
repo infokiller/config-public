@@ -51,7 +51,11 @@ _add_dreymar_xkb_mods() {
     CopyFile "${file_path}"
   done < <(find "${xkb_mods}" -type f -print0)
 }
-_add_dreymar_xkb_mods
+
+# Not used for now because:
+# 1. Dreymar's xkeyboard-config is older than the one on Arch
+# 2. I use my own self contained xkb config anyway
+# _add_dreymar_xkb_mods
 
 # NOTE: Needs to be installed both in the graphical client and server.
 AddPackage xpra # multi-platform screen and application forwarding system screen for X11
