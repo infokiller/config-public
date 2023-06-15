@@ -43,20 +43,15 @@ AddPackage wmctrl           # Control your EWMH compliant window manager from co
 # X11: XKB
 AddPackage xorg-xkbcomp   # X Keyboard description compiler
 AddPackage xorg-setxkbmap # Set the keyboard using the X Keyboard Extension
-CopyFile '/usr/share/X11/xkb/geometry/pc'
-CopyFile '/usr/share/X11/xkb/keycodes/aliases'
-CopyFile '/usr/share/X11/xkb/keycodes/evdev'
-CopyFile '/usr/share/X11/xkb/keycodes/xfree86'
-CopyFile '/usr/share/X11/xkb/rules/base'
-CopyFile '/usr/share/X11/xkb/rules/base.lst'
-CopyFile '/usr/share/X11/xkb/rules/base.xml'
-CopyFile '/usr/share/X11/xkb/rules/evdev'
-CopyFile '/usr/share/X11/xkb/rules/evdev.lst'
-CopyFile '/usr/share/X11/xkb/rules/evdev.xml'
-CopyFile '/usr/share/X11/xkb/symbols/extend'
-CopyFile '/usr/share/X11/xkb/symbols/level5'
-CopyFile '/usr/share/X11/xkb/types/level5'
-# IgnorePath '/usr/share/X11/dbak-xkb_*'
+
+_add_dreymar_xkb_mods() {
+  local xkb_mods="${SUBMODULES_DIR}/BigBagKbdTricks_XKB/xkb-data_xmod/xkb"
+  while IFS= read -r -d '' f; do
+    local file_path="/usr/share/X11/xkb/${f#"${xkb_mods}"/}"
+    CopyFile "${file_path}"
+  done < <(find "${xkb_mods}" -type f -print0)
+}
+_add_dreymar_xkb_mods
 
 # NOTE: Needs to be installed both in the graphical client and server.
 AddPackage xpra # multi-platform screen and application forwarding system screen for X11
