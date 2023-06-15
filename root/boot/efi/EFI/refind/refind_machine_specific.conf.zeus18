@@ -5,34 +5,7 @@
 # NOTE: The loader and initrd refind params and the initrd kernel param are all
 # relative to the root of the volume param.
 # NOTE: The initrd param in the kernel command line needs to use backslashes.
-menuentry "Arch Linux s960evo" {
-    icon     /EFI/refind/icons/os_arch.png
-    volume   b513ba53-66dd-4a55-a247-6a7d900c0ff6
-    loader   vmlinuz-linux-hardened
-    initrd   initramfs-linux-hardened.img
-    options  "initrd=intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192 debugfs=on"
-    submenuentry "linux-hardened: fallback initramfs" {
-        initrd initramfs-linux-hardened-fallback.img
-    }
-    submenuentry "linux-hardened: boot to terminal" {
-        add_options "systemd.unit=multi-user.target"
-    }
-    submenuentry "linux: standard" {
-        loader    vmlinuz-linux
-        initrd    initramfs-linux.img
-        options   "initrd=/intel-ucode.img rw root=/dev/mapper/arch-root resume=/dev/mapper/arch-swap cryptdevice=UUID=a5e2c683-c498-4c42-a1c6-e2fcb3f5c0df:cryptlvm consoleblank=300"
-    }
-}
-
-menuentry "Arch Linux s980pro (old)" {
-    icon     /EFI/refind/icons/os_arch.png
-    volume   657365c3-9c22-4932-8be4-98b772f73581
-    loader   vmlinuz-linux
-    initrd   initramfs-linux.img
-    options  "rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760"
-}
-
-menuentry "Arch Linux s980pro (new)" {
+menuentry "Arch Linux" {
     icon     /EFI/refind/icons/os_arch.png
     volume   657365c3-9c22-4932-8be4-98b772f73581
     loader   vmlinuz-linux-hardened
