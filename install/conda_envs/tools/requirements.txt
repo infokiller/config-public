@@ -209,9 +209,9 @@ click-option-group==0.5.6 \
     --hash=sha256:38a26d963ee3ad93332ddf782f9259c5bdfe405e73408d943ef5e7d0c3767ec7 \
     --hash=sha256:97d06703873518cc5038509443742b25069a3c7562d1ea72ff08bfadde1ce777
     # via semgrep
-codespell==2.2.4 \
-    --hash=sha256:0b4620473c257d9cde1ff8998b26b2bb209a35c2b7489f5dc3436024298ce83a \
-    --hash=sha256:7d984b8130108e6f82524b7d09f8b7bf2fb1e398c5d4b37d9e2bd310145b3e29
+codespell==2.2.5 \
+    --hash=sha256:6d9faddf6eedb692bf80c9a94ec13ab4f5fb585aabae5f3750727148d7b5be56 \
+    --hash=sha256:efa037f54b73c84f7bd14ce8e853d5f822cdd6386ef0ff32e957a3919435b9ec
     # via -r requirements.in
 colorama==0.4.6 \
     --hash=sha256:08695f5cb7ed6e0531a20572697297273c47b8cae5a63ffc6d6ed5c201be6e44 \
