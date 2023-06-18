@@ -16,6 +16,7 @@ require (
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
+	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/bazelbuild/bazelisk v1.17.0 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20230510134650-37bd1811516d // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
@@ -87,7 +88,7 @@ require (
 	github.com/moby/sys/sequential v0.5.0 // indirect
 	github.com/muesli/crunchy v0.4.0 // indirect
 	github.com/muesli/reflow v0.2.1-0.20210115123740-9e1d0d53df68 // indirect
-	github.com/muesli/termenv v0.11.1-0.20220204035834-5ac8409525e0 // indirect
+	github.com/muesli/termenv v0.15.1 // indirect
 	github.com/nbutton23/zxcvbn-go v0.0.0-20210217022336-fa2cb2858354 // indirect
 	github.com/nektos/act v0.2.46 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
@@ -126,7 +127,7 @@ require (
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.16.4 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.17.0 // indirect
 	go.etcd.io/bbolt v1.3.7 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
@@ -135,7 +136,7 @@ require (
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
+	golang.org/x/sync v0.2.0 // indirect
 	golang.org/x/sys v0.8.0 // indirect
 	golang.org/x/term v0.8.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
@@ -146,5 +147,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	mvdan.cc/editorconfig v0.2.0 // indirect
-	mvdan.cc/sh/v3 v3.6.0 // indirect
+	mvdan.cc/sh/v3 v3.7.0 // indirect
 )
