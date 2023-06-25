@@ -220,9 +220,8 @@ colorama==0.4.6 \
     #   pinggraph
     #   semgrep
     #   tmuxp
-colored==1.5.0 \
-    --hash=sha256:91c4c3e744bff70b3e48e05b86b798e2d373d3db86b118f1d9ac286392700b80 \
-    --hash=sha256:dcc1f29223b8e2e8fbace0570a4ebf888b3321373fa14db45fecd3fe0261e679
+colored==1.4.4 \
+    --hash=sha256:04ff4d4dd514274fe3b99a21bb52fb96f2688c01e93fba7bef37221e7cb56ce0
     # via gpu-utils
 configobj==5.0.8 \
     --hash=sha256:6f704434a07dc4f4dc7c9a745172c1cad449feb548febd9f7fe362629c627a97 \
@@ -608,11 +607,11 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.27.0 \
-    --hash=sha256:7118fcd5d5e9004e92d045da8ec46290e2003f39547f8d858620c25a3bfec194 \
-    --hash=sha256:7bfb8249131d6d50f496f73486e91b894ce17aa44d2088752e032ae807bb2582 \
-    --hash=sha256:8ea7c6559185fc31605e4afb91083a432a8410b4abf00284dc66bc9137ed9c86 \
-    --hash=sha256:c8796d290e497bd2e7f1fc2a415d89a7ab90a2509d9fc5b912053e557a7d7057
+semgrep==1.28.0 \
+    --hash=sha256:6387255a7adcc3aefd8ffc295e1e58a9610fde6f072fcd87e8462ea333f59822 \
+    --hash=sha256:804695261b05257713f4e1846c8a31b7c8ae9a1664ec1dd368d68ee46989bb4e \
+    --hash=sha256:e1356313a78cca7ebf5b37b52840cc4420b5111321bc5c54830d5187b6789fc1 \
+    --hash=sha256:fe182404f64ab1c243cd23f2991ad956e555ce42bc2e3d421e08bbc703c43eb8
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
