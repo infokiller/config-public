@@ -3,7 +3,7 @@
     "@google/clasp": "2.4.2",
     "alex": "11.0.0",
     "bash-language-server": "4.10.0",
-    "corepack": "0.18.1",
+    "corepack": "0.19.0",
     "diff-so-fancy": "1.4.3",
     "eslint": "8.43.0",
     "git-stats": "3.1.1",

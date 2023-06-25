@@ -4256,16 +4256,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.18.1":
-  version: 0.18.1
-  resolution: "corepack@npm:0.18.1"
+"corepack@npm:0.19.0":
+  version: 0.19.0
+  resolution: "corepack@npm:0.19.0"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: 491cdfb4675572fbf9d882c3ca4257dfd81494721e83efc4ce1ff11debfc36fcaa11202923a72de007e2eaf4d6b1d12b35e9f102228169b885d0ccc6a6f7c7c5
+  checksum: 5c8a82950972b36dd1b2327996bf20376b4dbb40a236566972d0d9c575dd7920cf2674ea189b3e6a19aca0961f8d15b48bda0a9f4fe2f6c846cd547e7c14901c
   languageName: node
   linkType: hard
 
@@ -16188,7 +16188,7 @@ __metadata:
     "@google/clasp": 2.4.2
     alex: 11.0.0
     bash-language-server: 4.10.0
-    corepack: 0.18.1
+    corepack: 0.19.0
     diff-so-fancy: 1.4.3
     eslint: 8.43.0
     git-stats: 3.1.1
