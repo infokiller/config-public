@@ -607,11 +607,11 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.29.0 \
-    --hash=sha256:00374af20127dca43ef7c0f15efcb74e276f35b4faccd1a4862b0d85898d91c8 \
-    --hash=sha256:0acc2ffb8a773499003b1d740536a18eef9f40b38d8fedeb6d3efea4d7cb25ce \
-    --hash=sha256:e232bc5367e51d40c936b160a8b49e8c845a64a0d781109339cc32f778e92a67 \
-    --hash=sha256:ea987d25f8eb8488a9acfa09f569ec9676f9c8aa6d385ff1cc9501747cf1045b
+semgrep==1.30.0 \
+    --hash=sha256:43efa2fbce6c87be3eb6b751abff81c01faee51b2c25301f6c59576453e156e2 \
+    --hash=sha256:478ff7dac08791b9e6b1ed9db8358b65bb8337009c7756b2cc2f74138b3f99f3 \
+    --hash=sha256:603d1b59fe2368f52ed1bf569f072bfe3aac8e54da2d180fefe0b03564005bb6 \
+    --hash=sha256:e0c91a5d0e797dbb3ff714c0282bbf8f035f21897bf4cfd015f039c7d549ae21
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -641,9 +641,9 @@ tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
     # via semgrep
-typing-extensions==4.6.3 \
-    --hash=sha256:88a4153d8505aabbb4e13aacb7c486c2b4a33ca3b3f807914a9b4c844c471c26 \
-    --hash=sha256:d91d5919357fe7f681a9f2b5b4cb2a5f1ef0a1e9f59c4d8ff0d3491e05c0ffd5
+typing-extensions==4.7.0 \
+    --hash=sha256:5d8c9dac95c27d20df12fb1d97b9793ab8b2af8a3a525e68c80e21060c161771 \
+    --hash=sha256:935ccf31549830cda708b42289d44b6f74084d616a00be651601a4f968e77c82
     # via semgrep
 ujson==5.8.0 \
     --hash=sha256:07d459aca895eb17eb463b00441986b021b9312c6c8cc1d06880925c7f51009c \
