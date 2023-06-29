@@ -1128,7 +1128,7 @@ if [[ "${DISTRO-}" == arch ]]; then
   # The mullvad-vpn package says to always do a clean build:
   # https://aur.archlinux.org/packages/mullvad-vpn
   alias rm-mullvad-aur-build='\rm -rf -- ${XDG_CACHE_HOME}/yay/mullvad-vpn 2> /dev/null'
-  alias aur-update='rm-mullvad-aur-build; yay -Syu --aur --answerclean=None --answeredit=All --answerdiff=All --noupgrademenu'
+  alias aur-update='rm-mullvad-aur-build; yay -Syu --aur --answerclean=None --answeredit=All --answerdiff=All --answerupgrade=None'
   alias arch-update-all='pacmate -Syu; aur-update'
   # This list used to have kmod and *-dkms packages, but based on the discussion
   # below they seem unnecessary:
