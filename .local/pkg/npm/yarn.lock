@@ -2699,9 +2699,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:4.10.0":
-  version: 4.10.0
-  resolution: "bash-language-server@npm:4.10.0"
+"bash-language-server@npm:4.10.1":
+  version: 4.10.1
+  resolution: "bash-language-server@npm:4.10.1"
   dependencies:
     fast-glob: 3.2.12
     fuzzy-search: 3.2.1
@@ -2713,7 +2713,7 @@ __metadata:
     zod: 3.21.4
   bin:
     bash-language-server: out/cli.js
-  checksum: 3f9d3b252a71a3e8128013ce0ca6679717f3f583155b9d9721325a0009406e2281ef785eb9229f349e518610e8c946a2157f42d0ee61179bfa439a31f864bf41
+  checksum: c5bbc3b2739c9a12995ac7d2bda9d243eb78e49718040b44c5af16442995a8a933916cf3498109087e2e47ea8294c51085b6add6f19387fee43d87af3d749bf6
   languageName: node
   linkType: hard
 
@@ -15197,13 +15197,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.315":
-  version: 1.1.315
-  resolution: "pyright@npm:1.1.315"
+"pyright@npm:1.1.316":
+  version: 1.1.316
+  resolution: "pyright@npm:1.1.316"
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 8d9bf612ef2e87b185af94a9c11e276b201c99a10ae63899675024418ca403e8010f80de2e711324ea338fdabe67ab8137f7df1b5a972c2ece7f3976f9d2ca83
+  checksum: 118ad420e380a2c4142ce238cfc837cb5471df9493fc73be55208ed014e51a1ab20b7c335d49e14a4cab850ac1f3d24f1f41ea8518d991c11ae8317a612a47ba
   languageName: node
   linkType: hard
 
@@ -16187,7 +16187,7 @@ __metadata:
   dependencies:
     "@google/clasp": 2.4.2
     alex: 11.0.0
-    bash-language-server: 4.10.0
+    bash-language-server: 4.10.1
     corepack: 0.19.0
     diff-so-fancy: 1.4.3
     eslint: 8.43.0
@@ -16205,10 +16205,10 @@ __metadata:
     prettier: 2.8.8
     prettier-eslint-cli: 7.1.0
     puppeteer: 20.7.3
-    pyright: 1.1.315
+    pyright: 1.1.316
     release-it: 15.11.0
     semantic-release: 21.0.5
-    snyk: 1.1184.0
+    snyk: 1.1186.0
     stylelint: 15.9.0
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16825,15 +16825,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1184.0":
-  version: 1.1184.0
-  resolution: "snyk@npm:1.1184.0"
+"snyk@npm:1.1186.0":
+  version: 1.1186.0
+  resolution: "snyk@npm:1.1186.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 008754c13316f04286f36e3319fb08469f5b83c37fae0a9af1a0199057e5b2c1e772a9ccd40ad27a7ab37625d07a9fc2c01a010a6027bba24a04e81c52f11989
+  checksum: e8ba4bb04943e7777e67482930418f9b978938e7b15202b1ea550670dccb35cd642bcbad39ae5987274b9f8a778954589a6ee285702473dcc564ad26572cf683
   languageName: node
   linkType: hard
 
