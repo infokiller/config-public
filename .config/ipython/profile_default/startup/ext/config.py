@@ -377,6 +377,25 @@ def _load_rich():
     rich.traceback.install()
 
 
+def _load_hook_file(env_var_name: str):
+    extra_file = os.environ.get(env_var_name)
+    if not extra_file:
+        return
+    if not os.path.exists(extra_file):
+        warnings.warn(f'Extra startup file not found: {extra_file}')
+    file_globals = globals()
+    file_globals['__file__'] = extra_file
+    try:
+        with open(extra_file, 'rb') as f:
+            contents = f.read()
+    except OSError as e:
+        warnings.warn(f'Could not open extra startup file: {extra_file}: {e}')
+        return
+    code_obj = compile(contents, extra_file, 'exec')
+    # pylint: disable-next=exec-used
+    exec(code_obj, file_globals, locals())
+
+
 _define_prompt_toolkit_keybindings()
 _enable_history_db_recovery()
 _define_aliases()
@@ -387,6 +406,8 @@ _load_local_extension('autotime')
 _load_local_extension('prompt')
 _load_pyflyby()
 _load_rich()
+_load_hook_file('IPYTHON_PRE')
+_load_hook_file('IPYTHON_POST')
 # Using the %pdb magic prints "Automatic pdb calling has been turned ON"
 # which I don't like, so I'm setting it directly on the IPython object.
 # %pdb on

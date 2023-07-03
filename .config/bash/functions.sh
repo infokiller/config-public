@@ -105,7 +105,7 @@ alias -- --='cd-dirstack-fzf'
 # https://github.com/ranger/ranger/blob/master/examples/shell_automatic_cd.sh
 cd-ranger() {
   local tmpfile
-  tmpfile="$(mktemp -t "ranger_cd.XXXXX")"
+  tmpfile="$(mktemp -t "ranger_cd.XXXXX")" || return
   ranger --choosedir="${tmpfile}" -- "${@:-${PWD}}"
   if chosen_dir="$(cat -- "${tmpfile}")" && [ -n "${chosen_dir}" ] &&
     [ "${chosen_dir}" != "${PWD}" ]; then
@@ -1398,7 +1398,12 @@ ssh-xpanes-script() {
 # Launch it with the python executable so that it works correctly in virtual
 # envs.
 # alias ip='EDITOR=vim-in-ipython python -c "import IPython; IPython.terminal.ipapp.launch_new_instance()"'
-alias ipy='hash -r && EDITOR=vim-in-ipython ipython'
+# alias ipy='hash -r && EDITOR=vim-in-ipython ipython'
+# Define a function so that exported env variables work, for example MYVAR=1 ipy
+ipy() {
+  hash -r
+  EDITOR=vim-in-ipython ipython "$@"
+}
 alias jnb='jupyter notebook'
 alias jlb='jupyter lab'
 
@@ -1818,6 +1823,19 @@ retry-forever() {
   done
 }
 
+mktmp() {
+  local tmpfile
+  tmpfile="$(mktemp -t 'sh_mktmp.XXXXXXXX')" || return
+  if [[ -t 0 ]] && (($#)); then
+    printf '%s\n' "$@" > "${tmpfile}"
+  elif [[ ! -t 0 ]] && (($#==0)); then
+    cat > "${tmpfile}"
+  else
+    print_error 'mktmp: must provide input via stdin or args (not both)'
+  fi
+  printf '%s\n' "${tmpfile}"
+}
+
 # Works for both libvirt and quickemu ones
 qemu-ls() {
   pgrep -f '.*/bin/qemu-system-.*' | 
@@ -2071,7 +2089,7 @@ vim-ocr-screenshot() {
     return 1
   fi
   local tmpfile
-  tmpfile="$(mktemp -t 'screenshot_ocr_edit.XXXXXX.txt')"
+  tmpfile="$(mktemp -t 'screenshot_ocr_edit.XXXXXX.txt')" || return
   printf '%s' "${text}" >| "${tmpfile}"
   if sensible-terminal --window-name vim-ocr -- \
     vim -c 'set filetype=text textwidth=0 wrapmargin=0' "${tmpfile}"; then
