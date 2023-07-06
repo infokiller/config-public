@@ -391,9 +391,9 @@ mdurl==0.1.2 \
     --hash=sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8 \
     --hash=sha256:bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba
     # via markdown-it-py
-nvidia-ml-py==11.525.112 \
-    --hash=sha256:bcb978afc52f44a98c48b3f619e16f567abf745d8796aaa8d36093fe7665d356 \
-    --hash=sha256:c64e473953b65ec0ccc76cf3601c3130a0ac8060bbcaea912cc00fa8e4c9868d
+nvidia-ml-py==11.525.131 \
+    --hash=sha256:2b7f4dad25c4bf49ab9d0a9a3d6e25abd168b91b5de8e2b6dee4703756c1bae5 \
+    --hash=sha256:ce50b1e87401960557bd31ec07f86310bd896b32824505f382e953db0f479cab
     # via gpustat
 nvidia-ml-py3==7.352.0 \
     --hash=sha256:390f02919ee9d73fe63a98c73101061a6b37fa694a793abf56673320f1f51277
@@ -414,9 +414,9 @@ pinggraph==1.2 \
     --hash=sha256:84ef182eaca8c54c1ddfb7ed578b8dc6d755f178b948f13519e0b24e42c91ae0 \
     --hash=sha256:b52bbe11a26a42620bd169f4e963f48378356ac71a84cb749cdcdd290c679ee1
     # via -r requirements.in
-prompt-toolkit==3.0.38 \
-    --hash=sha256:23ac5d50538a9a38c8bde05fecb47d0b403ecd0662857a86f886f798563d5b9b \
-    --hash=sha256:45ea77a2f7c60418850331366c81cf6b5b9cf4c7fd34616f733c5427e6abbb1f
+prompt-toolkit==3.0.39 \
+    --hash=sha256:04505ade687dc26dc4284b1ad19a83be2f2afe83e7a828ace0c72f3a1df72aac \
+    --hash=sha256:9dffbe1d8acf91e3de75f3b544e4842382fc06c6babe903ac9acb74dc6e08d88
     # via litecli
 proselint==0.13.0 \
     --hash=sha256:5799a26c79e52aed18a1b7671f74381c035b3f62a565b478306298fb134c80c4 \
@@ -641,9 +641,9 @@ tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
     # via semgrep
-typing-extensions==4.7.0 \
-    --hash=sha256:5d8c9dac95c27d20df12fb1d97b9793ab8b2af8a3a525e68c80e21060c161771 \
-    --hash=sha256:935ccf31549830cda708b42289d44b6f74084d616a00be651601a4f968e77c82
+typing-extensions==4.7.1 \
+    --hash=sha256:440d5dd3af93b060174bf433bccd69b0babc3b15b1a8dca43789fd7f61514b36 \
+    --hash=sha256:b75ddc264f0ba5615db7ba217daeb99701ad295353c45f9e95963337ceeeffb2
     # via semgrep
 ujson==5.8.0 \
     --hash=sha256:07d459aca895eb17eb463b00441986b021b9312c6c8cc1d06880925c7f51009c \
