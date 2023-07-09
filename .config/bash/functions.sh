@@ -1829,7 +1829,7 @@ mktmp() {
   if [[ -t 0 ]] && (($#)); then
     printf '%s\n' "$@" > "${tmpfile}"
   elif [[ ! -t 0 ]] && (($#==0)); then
-    cat > "${tmpfile}"
+    cat >| "${tmpfile}"
   else
     print_error 'mktmp: must provide input via stdin or args (not both)'
   fi
