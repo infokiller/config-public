@@ -18,7 +18,7 @@ require (
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/bazelbuild/bazelisk v1.17.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20230712150737-135281b3dae7 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20230713145820-b31f2c13c407 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect

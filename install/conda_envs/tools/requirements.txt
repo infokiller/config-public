@@ -197,9 +197,9 @@ cli-helpers[styles]==2.3.0 \
     --hash=sha256:2e93cda413052f38042d47b804eea049a4f7860ac9826f3763719288d77435ea \
     --hash=sha256:e7174d003a2b58fd3e31a73fbbc45d5aa513de62cbd42d437f78b9658bd5f967
     # via litecli
-click==8.1.4 \
-    --hash=sha256:2739815aaa5d2c986a88f1e9230c55e17f0caad3d958a5e13ad0797c166db9e3 \
-    --hash=sha256:b97d0c74955da062a7d4ef92fadb583806a585b2ea81958a81bd72726cbb8e37
+click==8.1.5 \
+    --hash=sha256:4be4b1af8d665c6d942909916d31a213a106800c47d0eeba73d34da3cbc11367 \
+    --hash=sha256:e576aa487d679441d7d30abb87e1b43d24fc53bffb8758443b1a9e1cee504548
     # via
     #   click-option-group
     #   flask
@@ -314,9 +314,9 @@ jinja2==3.1.2 \
     --hash=sha256:31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852 \
     --hash=sha256:6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61
     # via flask
-jsonschema==4.18.2 \
-    --hash=sha256:159fdff1443b4c5ed900d4eeac6b928a3485f4aff5fba6edd1e25cd66bb46b39 \
-    --hash=sha256:af3855bfa30e83b2200a5fe12ab5eb92460e4d3b8e4efd34094aa637f7272a87
+jsonschema==4.18.3 \
+    --hash=sha256:64b7104d72efe856bea49ca4af37a14a9eba31b40bb7238179f3803130fd34d9 \
+    --hash=sha256:aab78b34c2de001c6b692232f08c21a97b436fe18e0b817bf0511046924fceef
     # via semgrep
 jsonschema-specifications==2023.6.1 \
     --hash=sha256:3d2b82663aff01815f744bb5c7887e2121a63399b49b104a3c96145474d091d7 \
@@ -694,11 +694,11 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.31.2 \
-    --hash=sha256:0fc463f8afcc649efaf61c00f17f7c124498c2e95cca9d805fd68d203362cdeb \
-    --hash=sha256:30d0662a6ac8d7258af3b383cca1c93da646fc99b60e3247f6acf3dcf764e815 \
-    --hash=sha256:c26ce223c60688e317299f97cac9889b3e879dc4ee28097555cad6215086dcf4 \
-    --hash=sha256:cd707b74cd76ef5dff974df3fe653967faf1bd0248019f7b6777170cefa4fca5
+semgrep==1.32.0 \
+    --hash=sha256:90d8070912221c276e3fab74a9926a3ef365e1d876ba2881a8cf9c9f10c6b4a7 \
+    --hash=sha256:918f50ab756679ffbb76f29c3caf472cbfdbcdf5e806d87288b7fe67991bcd16 \
+    --hash=sha256:c8dc8e06f12ade975c00b22b86a102d7108a97bcd8a106ff1d2671ecfd2f23b2 \
+    --hash=sha256:cec99107ef3d7ab2f57297b661d20730062a70fb3a86cfa9afc753a659b9277d
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
