@@ -19,8 +19,9 @@ readonly SUBMODULES_DIR="${REPO_ROOT}/submodules"
 readonly CONDA_LOCAL_DIR="${HOME}/.local/pkg/conda"
 readonly CONDA="${CONDA_LOCAL_DIR}/bin/conda"
 readonly MAMBA="${CONDA_LOCAL_DIR}/envs/mamba/bin/mamba"
-readonly MINICONDA_INSTALLER='Miniconda3-py310_23.3.1-0-Linux-x86_64.sh'
-readonly MINICONDA_SHA256='aef279d6baea7f67940f16aad17ebe5f6aac97487c7c03466ff01f4819e5a651' # pragma: allowlist secret
+# https://docs.conda.io/en/latest/miniconda.html#linux-installers
+readonly MINICONDA_INSTALLER='Miniconda3-py311_23.5.2-0-Linux-x86_64.sh'
+readonly MINICONDA_SHA256='634d76df5e489c44ade4085552b97bebc786d49245ed1a830022b0b406de5817' # pragma: allowlist secret
 
 : "${CONDA_OPT:=mamba}"
 
@@ -341,7 +342,7 @@ _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   # 6.6.2: https://github.com/jazzband/pip-tools/issues/1617
   # 6.13.0: https://github.com/jazzband/pip-tools/releases/tag/6.13.0
-  pip install 'pip-tools>=6.13'
+  pip install 'pip-tools>=7.0'
   local compile=(pip-compile --resolver=backtracking --quiet --generate-hashes --allow-unsafe --upgrade)
   local sync_cmd=(pip-sync requirements.txt)
   "${compile[@]}"

@@ -1,5 +1,5 @@
 -c requirements.txt
-pip-tools~=6.12
+pip-tools~=7.0
 pylint~=2.15
 yapf~=0.32
 isort~=5.10
