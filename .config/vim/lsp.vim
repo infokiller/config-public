@@ -807,9 +807,9 @@ augroup END
 " don't think I need this plugin.
 " Plug 'mindriot101/vim-yapf'
 let g:ale_linters = get(g:, 'ale_linters', {})
-let g:ale_linters['python'] = ['pylint']
+let g:ale_linters['python'] = ['ruff', 'pylint']
 let g:ale_fixers = get(g:, 'ale_fixers', {})
-let g:ale_fixers['python'] = ['pyflyby', 'isort', 'yapf']
+let g:ale_fixers['python'] = ['pyflyby', 'ruff', 'isort', 'yapf']
 
 let g:ale_python_pyflyby_executable = 'pyflyby-tidy-imports'
 let g:ale_python_pyflyby_options = '--no-remove-unused'

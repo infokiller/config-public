@@ -4,6 +4,7 @@ ipdb
 yapf
 isort
 pylint
+ruff
 # pytype doesn't support 3.11 as of 2023-01-26, see:
 # https://github.com/google/pytype/issues/1308
 # pytype

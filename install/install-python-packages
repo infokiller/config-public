@@ -85,6 +85,7 @@ declare -A TOOLS_DEV_BINS=(
   ['reformat-imports']='pyflyby-reformat-imports'
   ['semantic-release']='python-semantic-release'
   ['pylint']=''
+  ['ruff']=''
   # ['pytype']=''
   ['twine']=''
   ['yapf']=''

@@ -122,6 +122,7 @@
 /.local/bin/python-semantic-release
 /.local/bin/pythonpy
 /.local/bin/pytype
+/.local/bin/ruff
 /.local/bin/s-tui
 /.local/bin/tmuxp
 /.local/bin/twine
