@@ -63,16 +63,20 @@ AddPackage pandoc-cli # Conversion between markup formats
 AddPackage hexyl     # Colored command-line hex viewer
 AddPackage moreutils # A growing collection of the unix tools that nobody thought to write thirty years ago
 
-# Latex
-AddPackage texlive-bibtexextra  # TeX Live - Additional BibTeX styles and bibliography databases
-AddPackage texlive-core         # TeX Live core distribution
-AddPackage texlive-fontsextra   # TeX Live - all sorts of extra fonts
-AddPackage texlive-formatsextra # TeX Live - collection of extra TeX 'formats'
-AddPackage texlive-latexextra   # TeX Live - Large collection of add-on packages for LaTeX
-AddPackage texlive-pictures     # TeX Live - Packages for drawings graphics
-AddPackage texlive-pstricks     # TeX Live - Additional PSTricks packages
-AddPackage texlive-publishers   # TeX Live - LaTeX classes and packages for specific publishers
-AddPackage texlive-science      # TeX Live - Typesetting for mathematics, natural and computer sciences
+add_tex_pkgs() {
+  AddPackage texlive-mathscience  # TeX Live - Mathematics, natural sciences, computer science packages
+  AddPackage texlive-bibtexextra  # TeX Live - BibTeX additional styles
+  AddPackage texlive-fontsextra   # TeX Live - Additional fonts
+  AddPackage texlive-formatsextra # TeX Live - Additional formats
+  AddPackage texlive-latexextra   # TeX Live - LaTeX additional packages
+  AddPackage texlive-pictures     # TeX Live - Graphics, pictures, diagrams
+  AddPackage texlive-pstricks     # TeX Live - PSTricks
+  AddPackage texlive-publishers   # TeX Live - Publisher styles, theses, etc.
+  AddPackage texlive-luatex       # TeX Live - LuaTeX packages
+  AddPackage texlive-xetex        # TeX Live - XeTeX and packages
+}
+
+# add_tex_pkgs
 IgnorePath '/etc/texmf/ls-R'
 IgnorePath '/etc/texmf/web2c/fmtutil.cnf'
 IgnorePath '/etc/texmf/web2c/updmap.cfg'
