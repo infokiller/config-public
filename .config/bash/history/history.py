@@ -1,4 +1,6 @@
 """History parsing."""
+from __future__ import annotations
+
 import csv
 import datetime
 import io
@@ -91,20 +93,36 @@ def parse_history_v2(max_entries=None):
     return []
 
 
-def parse_history_v3(max_entries=None):
-    hist_files_names = [
-        f for f in os.listdir(HIST_V3_DIR)
-        if os.path.isfile(os.path.join(HIST_V3_DIR, f)) and f.endswith('.csv')
-    ]
+def get_hist_file_paths(hosts=None):
+    available_hosts = os.listdir(HIST_V2_DIR)
+    if not hosts:
+        hosts = available_hosts
+    invalid_hosts = set(hosts) - set(available_hosts)
+    if invalid_hosts:
+        raise ValueError(f'Invalid hosts: {invalid_hosts}, '
+                         f'available hosts: {available_hosts}')
+    hist_file_paths = []
+    for host in hosts:
+        hist_dir = os.path.join(HIST_V2_DIR, host, 'shell')
+        if not os.path.exists(hist_dir):
+            continue
+        for filename in os.listdir(hist_dir):
+            filepath = os.path.join(hist_dir, filename)
+            if os.path.isfile(filepath) and filename.endswith('.csv'):
+                hist_file_paths.append(filepath)
+    return hist_file_paths
+
+
+def parse_history_v3(max_entries=None, hosts=None):
+    hist_file_paths = get_hist_file_paths(hosts)
     # History rows sorted from newest to oldest.
     rows = []
     # Process the files starting from the newest ones (last in lexicographic
     # sort order).
-    for filename in sorted(hist_files_names, reverse=True):
+    for filepath in sorted(hist_file_paths, reverse=True):
         if max_entries and len(rows) == max_entries:
             break
-        path = os.path.join(HIST_V3_DIR, filename)
-        with open(path, encoding='utf-8', errors='ignore') as f:
+        with open(filepath, encoding='utf-8', errors='ignore') as f:
             # Python chokes on null bytes although it's valid UTF-8, so we must
             # convert it.
             content = f.read().replace('\0', '')
