@@ -1,7 +1,7 @@
 # For a list of available options see https://prettier.io/docs/en/options.html
 
 # Options not set in this file should have defaults that already match Google's
-# style from: # https://github.com/google/ts-style
+# style from: https://github.com/google/ts-style
 
 # Note that prettier reads indentation size and type (tabs/spaces) from
 # editorconfig if it finds an editorconfig file, so these settings should only
