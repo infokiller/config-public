@@ -42,9 +42,9 @@ bracex==2.3.post1 \
 buku==4.7.1 \
     --hash=sha256:e7f3a1024a4b926e4480a32cb798f0ce3501961efcd15442616cfebeb777c916
     # via -r requirements.in
-certifi==2023.5.7 \
-    --hash=sha256:0f0d56dc5a6ad56fd4ba36484d6cc34451e1c6548c61daad8c320169f91eddc7 \
-    --hash=sha256:c6c2e98f5c7869efca1f8916fed228dd91539f9f1b444c314c06eef02980c716
+certifi==2023.7.22 \
+    --hash=sha256:539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082 \
+    --hash=sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9
     # via requests
 cffi==1.15.1 \
     --hash=sha256:00a9ed42e88df81ffae7a8ab6d9356b371399b91dbdf0c3cb1e84c03a13aceb5 \
@@ -694,11 +694,12 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.32.0 \
-    --hash=sha256:90d8070912221c276e3fab74a9926a3ef365e1d876ba2881a8cf9c9f10c6b4a7 \
-    --hash=sha256:918f50ab756679ffbb76f29c3caf472cbfdbcdf5e806d87288b7fe67991bcd16 \
-    --hash=sha256:c8dc8e06f12ade975c00b22b86a102d7108a97bcd8a106ff1d2671ecfd2f23b2 \
-    --hash=sha256:cec99107ef3d7ab2f57297b661d20730062a70fb3a86cfa9afc753a659b9277d
+semgrep==1.33.2 \
+    --hash=sha256:301ec877740a535817b9b4c74ff8cb45130da1f5b48f2fff5bbe737cf57633f0 \
+    --hash=sha256:5e457bab413ce21224ffe5e55bc170b06e2e2c4ae573e3943d852906e447b51b \
+    --hash=sha256:70fc058d9516d916108c9b5223f202774b77798d379f20eaefd28f152c03d43d \
+    --hash=sha256:d5e07dc7b24c4939908e5464d317d0f9d77c82b0fdde0eb5804240dd699a3cd7 \
+    --hash=sha256:fad13d82cd78bcec862c2036e248520a8cd68263eb03d30d60148294d9960175
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \

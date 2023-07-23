@@ -41,6 +41,9 @@ def compute_cmds_stats(cmds):
     num_complex_cmds = 0
     num_errors = 0
     for i, cmd in enumerate(cmds):
+        if len(cmd) > 500:
+            print('Command too long, skipping:\n{}'.format(cmd))
+            continue
         try:
             subcmds = split_to_sub_cmds(cmd)
         except ValueError as error:
