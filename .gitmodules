@@ -325,6 +325,9 @@
 [submodule "submodules/vim/incsearch.vim"]
 	path = submodules/vim/incsearch.vim
 	url = https://github.com/haya14busa/incsearch.vim
+[submodule "submodules/vim/indent-o-matic"]
+	path = submodules/vim/indent-o-matic
+	url = https://github.com/Darazaki/indent-o-matic
 [submodule "submodules/vim/indentLine"]
 	path = submodules/vim/indentLine
 	url = https://github.com/Yggdroot/indentLine
@@ -369,6 +372,9 @@
 [submodule "submodules/vim/nvim-solarized-lua"]
 	path = submodules/vim/nvim-solarized-lua
 	url = https://github.com/ishan9299/nvim-solarized-lua
+[submodule "submodules/vim/nvim-treesitter"]
+	path = submodules/vim/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
 [submodule "submodules/vim/quickfix-reflector.vim"]
 	path = submodules/vim/quickfix-reflector.vim
 	url = https://github.com/stefandtw/quickfix-reflector.vim
@@ -610,6 +616,9 @@
 [submodule "submodules/vim/vim-slash"]
 	path = submodules/vim/vim-slash
 	url = https://github.com/junegunn/vim-slash
+[submodule "submodules/vim/vim-sleuth"]
+	path = submodules/vim/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth
 [submodule "submodules/vim/vim-slime"]
 	path = submodules/vim/vim-slime
 	url = https://github.com/jpalardy/vim-slime

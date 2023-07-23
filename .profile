@@ -138,6 +138,14 @@ _export_history_vars() {
   _maybe_create_dir "${TMUXP_CONFIGDIR}"
 }
 
+_set_viminit() {
+  # NOTE: init.lua sources vimrc
+  nvim_init="${XDG_CONFIG_HOME}/nvim/init.lua"
+  vim_init="${XDG_CONFIG_HOME}/vim/vimrc"
+  export VIMINIT="exe has('nvim-0.9') ? 'luafile ${nvim_init}' : 'so ${vim_init}'"
+  unset nvim_init vim_init
+}
+
 # Set program specific environment variables to increase XDG conformance. The
 # downside of this approach is that this clutters the environment. Other
 # alternatives are:
@@ -166,8 +174,8 @@ _increase_xdg_conformance() {
     export TMUX_TMPDIR="${TMPDIR}"
     _maybe_create_dir "${TMPDIR}"
   fi
+  _set_viminit
   export ZDOTDIR="${ZDOTDIR:-${XDG_CONFIG_HOME}/zsh}"
-  export VIMINIT="source ${XDG_CONFIG_HOME}/vim/vimrc"
   export INPUTRC="${XDG_CONFIG_HOME}/inputrc"
   export GNUPGHOME="${XDG_CONFIG_HOME}/gnupg"
   # https://github.com/rust-lang/cargo/blob/master/src/doc/environment-variables.md

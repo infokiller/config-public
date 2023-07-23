@@ -256,11 +256,22 @@ Plug 'google/vim-codefmt', { 'on':  ['FormatCode', 'FormatLines'] }
 " using autosync.vim, since it runs on BufWritePre.
 if has('nvim-0.9')
   lua << EOF
-    require('editorconfig').properties.trim_trailing_whitespace = false
+  require('editorconfig').properties.trim_trailing_whitespace = false
 EOF
 else
   let g:EditorConfig_disable_rules = ['trim_trailing_whitespace']
   Plug 'editorconfig/editorconfig-vim'
+endif
+
+if has('nvim-0.7')
+  Plug 'Darazaki/indent-o-matic'
+else
+  Plug 'https://github.com/tpope/vim-sleuth'
+endif
+
+if has('nvim-0.9')
+  Plug 'nvim-treesitter/nvim-treesitter'
+  lua require 'user.treesitter'
 endif
 
 " ALE linter {{{ "
@@ -1110,8 +1121,10 @@ Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 let g:jsx_ext_required = 1
 let g:no_csv_maps = 1
 " Syntax, indentation, and other basic language support for many languages.
-Plug 'sheerun/vim-polyglot'
-let g:polyglot_disabled = ['ftdetect', 'sensible', 'go', 'jsonc']
+" NOTE: as of 2023-07-23, polyglot is disabled because it has too many issues
+" and seems to be unmaintained.
+" Plug 'sheerun/vim-polyglot'
+" let g:polyglot_disabled = ['ftdetect', 'sensible', 'go', 'jsonc']
 
 Plug 'jamessan/vim-gnupg'
 

@@ -62,6 +62,7 @@ let g:REPO_ROOT = resolve(expand('<sfile>:p:h') . '/../..')
 " Use config directory relative to vimrc. This will be $XDG_CONFIG_HOME/vim when
 " $HOME/.vimrc is used.
 let g:VIM_CONFIG_DIR = g:REPO_ROOT . '/.config/vim'
+let g:NVIM_CONFIG_DIR = g:REPO_ROOT . '/.config/nvim'
 
 " Reset the vimrc augroup. Autocommands are added to this group throughout the
 " file
