@@ -48,6 +48,7 @@ readonly -A _GOLANG_PACKAGES=(
   ['github.com/nektos/act']='act'
   ['github.com/bazelbuild/bazelisk']='bazelisk'
   ['github.com/bazelbuild/buildtools/buildifier']='buildifier'
+  ['github.com/boyter/scc']='scc'
   # As of 2022-07-23, the gopass build fails because of go 1.18.4:
   # https://github.com/gopasspw/gopass/issues/2280
   # Fixed in go 1.18.5.

@@ -139,6 +139,7 @@
 /.local/bin/golint
 /.local/bin/gopass
 /.local/bin/path-extractor
+/.local/bin/scc
 /.local/bin/shfmt
 /.local/bin/tag
 /.local/bin/vale
