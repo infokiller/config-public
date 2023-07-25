@@ -13,7 +13,7 @@ CreateLink '/etc/systemd/system/display-manager.service' '/usr/lib/systemd/syste
 # See also: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=837979
 AddPackage accountsservice # D-Bus interface for user account query and manipulation
 
-AddPackage i3-wm # An improved dynamic tiling window manager
+AddPackage i3-wm    # An improved dynamic tiling window manager
 AddPackage i3status # Generates status bar to use with i3bar, dzen2 or xmobar
 # Required by i3-save-tree.
 AddPackage perl-anyevent-i3 # Communicate with the i3 window manager

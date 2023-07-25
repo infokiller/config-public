@@ -6,7 +6,7 @@ id -un >| "$(CreateFile '/etc/firejail/firejail.users')"
 CopyFile '/etc/firejail/disable-common.local'
 
 # NOTE: I think apparmor isn't used right now anyway.
-cat >> "$(GetPackageOriginalFile firejail '/etc/apparmor.d/local/firejail-default')" <<'EOF'
+cat >> "$(GetPackageOriginalFile firejail '/etc/apparmor.d/local/firejail-default')" << 'EOF'
 
 #########################################################################
 # Changes by infokiller

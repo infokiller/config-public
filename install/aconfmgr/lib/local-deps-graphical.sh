@@ -3,13 +3,13 @@
 
 # All of the build tools below are required by multiple packages built in the
 # script install-crossdistro-local-packages.
-AddPackage git             # the fast distributed version control system
-AddPackage make            # GNU make utility to maintain groups of programs
-AddPackage go              # Core compiler tools for the Go programming language
-AddPackage rust            # Systems programming language focused on safety, speed and concurrency
-AddPackage nodejs          # Evented I/O for V8 javascript
-AddPackage npm             # A package manager for javascript
-AddPackage yarn            # Fast, reliable, and secure dependency management
+AddPackage git    # the fast distributed version control system
+AddPackage make   # GNU make utility to maintain groups of programs
+AddPackage go     # Core compiler tools for the Go programming language
+AddPackage rust   # Systems programming language focused on safety, speed and concurrency
+AddPackage nodejs # Evented I/O for V8 javascript
+AddPackage npm    # A package manager for javascript
+AddPackage yarn   # Fast, reliable, and secure dependency management
 
 # Polybar
 # https://github.com/polybar/polybar/wiki/Compiling
@@ -32,10 +32,10 @@ AddPackage libmpdclient    # C library to implement a MPD client
 
 # Terminal notifications dependencies.
 # https://github.com/marzocchi/zsh-notify
-AddPackage wmctrl     # Control your EWMH compliant window manager from command line
+AddPackage wmctrl # Control your EWMH compliant window manager from command line
 
 # get-window-title dependencies.
-AddPackage sed        # GNU stream editor
+AddPackage sed # GNU stream editor
 # Provides hexdump.
 AddPackage util-linux # Miscellaneous system utilities for Linux
 # Provides xxd.

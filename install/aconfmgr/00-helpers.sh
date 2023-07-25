@@ -41,7 +41,7 @@ prepend_to_file() {
   local file="$1"
   local content
   content="$(printf '%s\n' "${@:2}")"
-  printf '%s\n%s' "${content}" "$(<"${file}")" >| "${file}"
+  printf '%s\n%s' "${content}" "$(< "${file}")" >| "${file}"
 }
 
 # When using CopyFile on a symlink, aconfmgr will copy the symlink. This forces

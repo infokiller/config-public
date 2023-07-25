@@ -3,14 +3,14 @@
 
 # All of the build tools below are required by multiple packages built in the
 # script install-crossdistro-local-packages.
-AddPackage git      # the fast distributed version control system
-AddPackage make     # GNU make utility to maintain groups of programs
-AddPackage python   # Next generation of the python high-level scripting language
-AddPackage go       # Core compiler tools for the Go programming language
-AddPackage rust     # Systems programming language focused on safety, speed and concurrency
-AddPackage nodejs   # Evented I/O for V8 javascript
-AddPackage npm      # A package manager for javascript
-AddPackage yarn     # Fast, reliable, and secure dependency management
+AddPackage git    # the fast distributed version control system
+AddPackage make   # GNU make utility to maintain groups of programs
+AddPackage python # Next generation of the python high-level scripting language
+AddPackage go     # Core compiler tools for the Go programming language
+AddPackage rust   # Systems programming language focused on safety, speed and concurrency
+AddPackage nodejs # Evented I/O for V8 javascript
+AddPackage npm    # A package manager for javascript
+AddPackage yarn   # Fast, reliable, and secure dependency management
 
 # YouCompleteMe dependencies on Arch Linux- see also:
 # https://github.com/Valloric/YouCompleteMe/issues/778
@@ -19,7 +19,7 @@ AddPackage yarn     # Fast, reliable, and secure dependency management
 # to use the system clang library, which I prefer because it avoid adding
 # another AUR package. See also:
 # https://github.com/Valloric/YouCompleteMe/issues/778#issuecomment-306043611
-AddPackage clang    # C language family frontend for LLVM
+AddPackage clang # C language family frontend for LLVM
 
 # ctags is used in Vim.
 # AddPackage ctags # Generates an index file of language objects found in source files
@@ -29,12 +29,12 @@ AddPackage make
 # AddPackage --foreign universal-ctags-git # Multilanguage reimplementation of the Unix ctags utility
 
 # tmux-list-words dependencies.
-AddPackage ruby                # An object-oriented language for quick and easy programming
+AddPackage ruby # An object-oriented language for quick and easy programming
 
 # pacutils is used by the aconfmgr save command and if I don't specify to
 # install it, it will be uninstalled on every `aconfmgr apply` and then
 # reinstalled on every `aconfmgr save`.
-AddPackage pacutils            # Helper tools for libalpm
+AddPackage pacutils # Helper tools for libalpm
 
 # Needed by the vim jupyter plugin: https://github.com/wmvanvliet/jupyter-vim
 # NOTE: As of 2020-01-27, the python 2 version is needed for vim, while the

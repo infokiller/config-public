@@ -27,8 +27,8 @@ CopyFile '/etc/ufw/user6.rules'
 CopyFile '/etc/ufw/applications.d/custom'
 CreateLink '/etc/systemd/system/multi-user.target.wants/ufw.service' '/usr/lib/systemd/system/ufw.service'
 
-AddPackage tor                 # Anonymizing overlay network.
-AddPackage nyx                 # Command-line status monitor for tor
+AddPackage tor # Anonymizing overlay network.
+AddPackage nyx # Command-line status monitor for tor
 # AddPackage --foreign tor-browser # Tor Browser Bundle
 AddPackage torbrowser-launcher # Securely and easily download, verify, install, and launch Tor Browser in Linux
 
