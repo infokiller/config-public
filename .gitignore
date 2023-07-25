@@ -386,6 +386,7 @@
 /.kube
 /.lesshst
 /.local/etc/pyflyby
+/.local/state/activitywatch
 /.local/state/nvim
 /.local/state/pnpm
 /.m2/repository
