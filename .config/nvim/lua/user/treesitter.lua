@@ -33,6 +33,7 @@ vim.defer_fn(function()
       'lua',
       'make',
       'markdown',
+      'markdown_inline',
       -- 'nix',
       'python',
       -- 'r',
