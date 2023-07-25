@@ -12,6 +12,7 @@ EOF
 AddPackage tmux            # A terminal multiplexer
 AddPackage neovim          # Fork of Vim aiming to improve user experience, plugins, and GUIs
 AddPackage python-pynvim   # Python client for neovim
+AddPackage tree-sitter-cli # CLI tool for developing, testing, and using Tree-sitter parsers
 # Graphical systems will install gvim which conflicts with vim, so we only
 # install it on non-graphical ones.
 if ! uses_local_graphics; then
