@@ -33,7 +33,9 @@ vim.defer_fn(function()
       'lua',
       'make',
       'markdown',
-      'markdown_inline',
+      -- As of 2023-07-26, markdown_inline causes an error "query: invalid node
+      -- type" on some files.
+      -- 'markdown_inline',
       -- 'nix',
       'python',
       -- 'r',
