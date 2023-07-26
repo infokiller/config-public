@@ -106,6 +106,11 @@ if is_intel_cpu; then
   AddPackage iucode-tool # Tool to manipulate Intel® IA-32/X86-64 microcode bundles
 fi
 
+if is_amd_cpu; then
+  AddPackage amd-ucode # Microcode update files for AMD CPUs
+  IgnorePath '/boot/amd-ucode.img'
+fi
+
 # Generated files with no apparent benefit for managing.
 IgnorePath '/etc/machine-id'
 IgnorePath '/etc/adjtime'

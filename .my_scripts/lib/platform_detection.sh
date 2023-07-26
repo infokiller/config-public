@@ -39,7 +39,11 @@ is_desktop() {
 }
 
 is_intel_cpu() {
-  grep 'vendor' /proc/cpuinfo | grep -q Intel
+  grep -q '^\s*vendor_id.*Intel' /proc/cpuinfo
+}
+
+is_amd_cpu() {
+  grep -q '^\s*vendor_id.*AMD' /proc/cpuinfo
 }
 
 get_gpu_vendors() {

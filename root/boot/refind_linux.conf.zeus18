@@ -27,7 +27,7 @@
 #   - [2] https://lkml.org/lkml/2020/7/16/122
 #   - [3] https://github.com/igo95862/cfs-zen-tweaks
 
-"Hardened kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760 consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192 debugfs=on"
-"Regular kernel params"  "initrd=intel-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760 consoleblank=300"
+"Hardened kernel params"  "initrd=amd-ucode.img initrd=initramfs-linux-hardened.img rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760 consoleblank=300 apparmor=1 lsm=lockdown,yama,apparmor,bpf audit_backlog_limit=8192 debugfs=on"
+"Regular kernel params"  "initrd=amd-ucode.img initrd=initramfs-linux.img rw root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760 consoleblank=300"
 
 # vim: set ft=conf :
