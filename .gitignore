@@ -138,6 +138,7 @@
 /.local/bin/gitleaks
 /.local/bin/golint
 /.local/bin/gopass
+/.local/bin/mods
 /.local/bin/path-extractor
 /.local/bin/scc
 /.local/bin/shfmt

@@ -49,6 +49,8 @@ readonly -A _GOLANG_PACKAGES=(
   ['github.com/bazelbuild/bazelisk']='bazelisk'
   ['github.com/bazelbuild/buildtools/buildifier']='buildifier'
   ['github.com/boyter/scc']='scc'
+  ['github.com/charmbracelet/mods']='mods'
+  # ['github.com/charmbracelet/gum']='gum'
   # As of 2022-07-23, the gopass build fails because of go 1.18.4:
   # https://github.com/gopasspw/gopass/issues/2280
   # Fixed in go 1.18.5.
@@ -59,7 +61,7 @@ readonly -A _GOLANG_PACKAGES=(
   # [2] In my case, I ran the following from the go.mod directory:
   #     go mod edit -replace github.com/gopasspw/gopass=${SUBMODULES_DIR}/gopass
   # ["${SUBMODULES_DIR}/gopass"]='gopass'
-  ['github.com/gopasspw/gopass@v1.14.4']='gopass'
+  ['github.com/gopasspw/gopass@v1.15.5']='gopass'
   # As of 2021-10-30, installing vale fails with "module ... found ... but does
   # not contain package".
   # ['github.com/errata-ai/vale/v2']='vale'
