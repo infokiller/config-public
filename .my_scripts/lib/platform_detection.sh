@@ -68,6 +68,10 @@ is_nvidia_gpu() {
   get_gpu_vendors | grep -iq nvidia
 }
 
+has_bluetooth() {
+  rfkill list --output type | grep -q bluetooth
+}
+
 # Enables private/local overrides.
 is_primary_dev_machine() {
   true

@@ -50,8 +50,12 @@ AddPackage iw             # nl80211 based CLI configuration utility for wireless
 AddPackage wireless_tools # Tools allowing to manipulate the Wireless Extensions
 AddPackage wpa_supplicant # A utility providing key negotiation for WPA wireless networks
 # Bluetooth
-AddPackage bluez       # Daemons for the bluetooth protocol stack
-AddPackage bluez-utils # Development and debugging utilities for the bluetooth protocol stack
+if has_bluetooth; then
+  AddPackage bluez       # Daemons for the bluetooth protocol stack
+  AddPackage bluez-utils # Development and debugging utilities for the bluetooth protocol stack
+  CreateLink '/etc/systemd/system/dbus-org.bluez.service' '/usr/lib/systemd/system/bluetooth.service'
+  CreateLink '/etc/systemd/system/bluetooth.target.wants/bluetooth.service' '/usr/lib/systemd/system/bluetooth.service'
+fi
 
 AddPackage networkmanager # Network connection manager and user applications
 CopyFile /etc/NetworkManager/conf.d/dns.conf

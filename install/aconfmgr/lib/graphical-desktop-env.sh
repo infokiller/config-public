@@ -54,7 +54,7 @@ CreateLink '/etc/systemd/system/graphical.target.wants/udisks2.service' '/usr/li
 # NOTE: As of 2020-01-25, usbguard-qt is no longer in the official Arch repos,
 # and the AUR version doesn't work. I can use the CLI tools in the meantime.
 # AddPackage usbguard-qt            # Software framework for implementing USB device authorization policies - Qt frontend
-if is_laptop; then
+if has_bluetooth; then
   AddPackage blueman # GTK+ Bluetooth Manager
 fi
 
