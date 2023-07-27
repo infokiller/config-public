@@ -3,7 +3,6 @@ module gitlab.com/infokiller/config-public/.local/pkg/go/tools
 go 1.20
 
 require (
-	bitbucket.org/creachadair/stringset v0.0.10 // indirect
 	code.rocketnine.space/tslocum/cbind v0.1.5 // indirect
 	filippo.io/age v1.1.1 // indirect
 	filippo.io/edwards25519 v1.0.0 // indirect
@@ -14,15 +13,11 @@ require (
 	github.com/ProtonMail/go-crypto v0.0.0-20230518184743-7afd39499903 // indirect
 	github.com/acomagu/bufpipe v1.0.4 // indirect
 	github.com/adrg/xdg v0.4.0 // indirect
-	github.com/alecthomas/chroma/v2 v2.7.0 // indirect
-	github.com/alecthomas/kong v0.8.0 // indirect
-	github.com/alecthomas/mango-kong v0.1.0 // indirect
 	github.com/alessio/shellescape v1.4.1 // indirect
 	github.com/andreaskoch/go-fswatch v1.0.0 // indirect
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bazelbuild/bazelisk v1.17.0 // indirect
 	github.com/bazelbuild/buildtools v0.0.0-20230713145820-b31f2c13c407 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
@@ -33,12 +28,10 @@ require (
 	github.com/caspr-io/yamlpath v0.0.0-20200722075116-502e8d113a9b // indirect
 	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/cenkalti/backoff/v4 v4.2.0 // indirect
-	github.com/charmbracelet/bubbles v0.16.1 // indirect
-	github.com/charmbracelet/bubbletea v0.24.2 // indirect
-	github.com/charmbracelet/glamour v0.6.1-0.20230531150759-6d5b52861a9d // indirect
+	github.com/charmbracelet/bubbles v0.15.0 // indirect
+	github.com/charmbracelet/bubbletea v0.24.1 // indirect
 	github.com/charmbracelet/glow v1.5.1 // indirect
-	github.com/charmbracelet/gum v0.11.0 // indirect
-	github.com/charmbracelet/lipgloss v0.7.2-0.20230316100548-06dd20ee5707 // indirect
+	github.com/charmbracelet/lipgloss v0.7.1 // indirect
 	github.com/charmbracelet/mods v0.2.0 // indirect
 	github.com/chzyer/readline v1.5.1 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
@@ -49,7 +42,6 @@ require (
 	github.com/danieljoos/wincred v1.1.2 // indirect
 	github.com/dbaggerman/cuba v0.3.2 // indirect
 	github.com/direnv/direnv/v2 v2.32.3 // indirect
-	github.com/dlclark/regexp2 v1.8.1 // indirect
 	github.com/docker/cli v24.0.2+incompatible // indirect
 	github.com/docker/distribution v2.8.2+incompatible // indirect
 	github.com/docker/docker v23.0.6+incompatible // indirect
@@ -80,7 +72,6 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gopasspw/gopass v1.15.5 // indirect
 	github.com/gopasspw/gopass-hibp v1.15.4 // indirect
-	github.com/gorilla/css v1.0.0 // indirect
 	github.com/h2non/filetype v1.1.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
@@ -108,7 +99,6 @@ require (
 	github.com/mattn/go-runewidth v0.0.14 // indirect
 	github.com/mattn/go-tty v0.0.4 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
-	github.com/microcosm-cc/bluemonday v1.0.23 // indirect
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-ps v1.0.0 // indirect
@@ -120,14 +110,11 @@ require (
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect
 	github.com/muesli/cancelreader v0.2.2 // indirect
 	github.com/muesli/crunchy v0.4.0 // indirect
-	github.com/muesli/mango v0.2.0 // indirect
 	github.com/muesli/reflow v0.3.0 // indirect
-	github.com/muesli/roff v0.1.0 // indirect
-	github.com/muesli/termenv v0.15.2 // indirect
+	github.com/muesli/termenv v0.15.2-0.20230414211128-452975b1f758 // indirect
 	github.com/nbutton23/zxcvbn-go v0.0.0-20210217022336-fa2cb2858354 // indirect
 	github.com/nektos/act v0.2.48 // indirect
 	github.com/noborus/ov v0.15.0 // indirect
-	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc4 // indirect
 	github.com/opencontainers/runc v1.1.5 // indirect
@@ -146,7 +133,6 @@ require (
 	github.com/rs/zerolog v1.29.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
-	github.com/sahilm/fuzzy v0.1.1-0.20230530133925-c48e322e2a8f // indirect
 	github.com/sashabaranov/go-openai v1.9.4 // indirect
 	github.com/schollz/closestmatch v0.0.0-20190308193919-1fbe626be92e // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
@@ -169,12 +155,9 @@ require (
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
-	github.com/yuin/goldmark v1.5.4 // indirect
-	github.com/yuin/goldmark-emoji v1.0.1 // indirect
 	github.com/zalando/go-keyring v0.2.2 // indirect
 	github.com/zricethezav/gitleaks/v8 v8.17.0 // indirect
 	go.etcd.io/bbolt v1.3.7 // indirect
-	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect

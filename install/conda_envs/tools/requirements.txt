@@ -334,9 +334,9 @@ mansnip-kristopolous==0.3.7 \
     --hash=sha256:190c57e19a49d110586045b6358486bbed8993b3e152c217608125846d4892ce \
     --hash=sha256:2a2af33b5834a9ae3ff1ff70ab916ee055a2ac31394da0b9ee5aadf38db762c3
     # via -r requirements.in
-markdown==3.4.3 \
-    --hash=sha256:065fd4df22da73a625f14890dd77eb8040edcbd68794bcd35943be14490608b2 \
-    --hash=sha256:8bf101198e004dc93e84a12a7395e31aac6a9c9942848ae1d99b9d72cf9b3520
+markdown==3.4.4 \
+    --hash=sha256:225c6123522495d4119a90b3a3ba31a1e87a70369e03f14799ea9c0d7183a3d6 \
+    --hash=sha256:a4c1b65c0957b4bd9e7d86ddc7b3c9868fb9670660f6f99f6d1bca8954d5a941
     # via grip
 markdown-it-py==3.0.0 \
     --hash=sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1 \
