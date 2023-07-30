@@ -16,7 +16,8 @@ pip-tools
 # dephell is dead: https://github.com/dephell/dephell
 # dephell
 pypiserver
-pyflyby
+# As of 2023-07-30, building the pyflyby wheel fails.
+# pyflyby
 # Unused  {{{
 # Other Python dev tools I'm not using at the moment
 # pipenv
@@ -42,9 +43,7 @@ jupyter_contrib_nbextensions
 jupyter_nbextensions_configurator
 # }}} Classic notebook
 # Jupyter Lab {{{ #
-# As of 2023-02-27, dependency resolution fails for the latest stable jupyterlab
-# version (v3.6.1).
-jupyterlab>=4.0.0.a34,<5
+jupyterlab~=4.0
 # Experimental JupyterLab extensions
 # jupyterlab_github
 # jupyterlab-git

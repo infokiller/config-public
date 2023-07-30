@@ -47,9 +47,9 @@ asttokens==2.2.1 \
     --hash=sha256:4622110b2a6f30b77e1473affaa97e711bc2f07d3f10848420ff1898edbe94f3 \
     --hash=sha256:6b0ac9e93fb0335014d382b8fa9b3afa7df546984258005da0b9e7095b3deb1c
     # via stack-data
-async-lru==2.0.3 \
-    --hash=sha256:00c0a8899c20b9c88663a47732689ff98189c9fa08ad9f734d7722f934d250b1 \
-    --hash=sha256:b714c9d1415fca4e264da72a9e2abc66880ce7430e03a973341f88ea4c0d4869
+async-lru==2.0.4 \
+    --hash=sha256:b8a59a5df60805ff63220b2a0c5b5393da5521b113cd5465a44eb037d81a5627 \
+    --hash=sha256:ff02944ce3c288c5be660c42dbcca0742b32c3b279d6dceda655190240b99224
     # via jupyterlab
 attrs==23.1.0 \
     --hash=sha256:1f28b4522cdc2fb4256ac1a020c78acf9cba2c6b461ccd2c126f3aa8e8335d04 \
@@ -474,9 +474,9 @@ jaraco-classes==3.3.0 \
     --hash=sha256:10afa92b6743f25c0cf5f37c6bb6e18e2c5bb84a16527ccfc0040ea377e7aaeb \
     --hash=sha256:c063dd08e89217cee02c8d5e5ec560f2c8ce6cdc2fcdc2e68f7b2e5547ed3621
     # via keyring
-jedi==0.18.2 \
-    --hash=sha256:203c1fd9d969ab8f2119ec0a3342e0b49910045abe6af0a3ae83a5764d54639e \
-    --hash=sha256:bae794c30d07f6d910d32a7048af09b5a39ed740918da923c6b780790ebac612
+jedi==0.19.0 \
+    --hash=sha256:bcf9894f1753969cbac8022a8c2eaee06bfa3724e4192470aaffe7eb6272b0c4 \
+    --hash=sha256:cb8ce23fbccff0025e9386b5cf85e892f94c9b822378f8da49970471335ac64e
     # via ipython
 jeepney==0.8.0 \
     --hash=sha256:5efe48d255973902f6badc3ce55e2aa6c5c3b3bc642059ef3a91247bcfcc5806 \
@@ -965,9 +965,9 @@ nbformat==5.9.1 \
     #   nbclient
     #   nbconvert
     #   nbdime
-nest-asyncio==1.5.6 \
-    --hash=sha256:b9a953fb40dceaa587d109609098db21900182b16440652454a146cffb06e8b8 \
-    --hash=sha256:d267cc1ff794403f7df692964d1d2a3fa9418ffea2a3f6859a439ff482fef290
+nest-asyncio==1.5.7 \
+    --hash=sha256:5301c82941b550b3123a1ea772ba9a1c80bad3a182be8c1a5ae6ad3be57a9657 \
+    --hash=sha256:6a80f7b98f24d9083ed24608977c09dd608d83f91cccc24c9d2cba6d10e01c10
     # via ipykernel
 notebook==7.0.0 \
     --hash=sha256:38b55e6939df0ba73b53212c3b234e41102f1789e0158606cedaebf00abef6c8 \
@@ -1142,9 +1142,9 @@ pkginfo==1.9.6 \
     --hash=sha256:4b7a555a6d5a22169fcc9cf7bfd78d296b0361adad412a346c1226849af5e546 \
     --hash=sha256:8fd5896e8718a4372f0ea9cc9d96f6417c9b986e23a4d116dda26b62cc29d046
     # via twine
-platformdirs==3.9.1 \
-    --hash=sha256:1b42b450ad933e981d56e59f1b97495428c9bd60698baab9f3eb3d00d5822421 \
-    --hash=sha256:ad8291ae0ae5072f66c16945166cb11c63394c7a3ad1b1bc9828ca3162da8c2f
+platformdirs==3.10.0 \
+    --hash=sha256:b45696dab2d7cc691a3226759c0d3b00c47c8b6e293d96f6436f733303f77f6d \
+    --hash=sha256:d7c24979f292f916dc9cbf8648319032f551ea8c49a4c9bf2fb556a02070ec1d
     # via
     #   jupyter-core
     #   pylint
@@ -1225,9 +1225,6 @@ pydantic==1.10.12 \
     --hash=sha256:ef6c96b2baa2100ec91a4b428f80d8f28a3c9e53568219b6c298c1125572ebc6 \
     --hash=sha256:fdbdd1d630195689f325c9ef1a12900524dceb503b00a987663ff4f58669b93d
     # via python-semantic-release
-pyflyby==1.8.5 \
-    --hash=sha256:1efdb53a46e0385d64f4d2475aff93b7d5fc814933aa07b67451909e26cc186b
-    # via -r requirements.in
 pygments==2.15.1 \
     --hash=sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c \
     --hash=sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1
@@ -1456,9 +1453,9 @@ rfc3986-validator==0.1.1 \
     # via
     #   jsonschema
     #   jupyter-events
-rich==13.4.2 \
-    --hash=sha256:8f87bc7ee54675732fa66a05ebfe489e27264caeeff3728c945d25971b6485ec \
-    --hash=sha256:d653d6bccede5844304c605d5aac802c7cf9621efd700b46c7ec2b51ea914898
+rich==13.5.0 \
+    --hash=sha256:62c81e88dc078d2372858660e3d5566746870133e51321f852ccc20af5c7e7b2 \
+    --hash=sha256:996670a7618ccce27c55ba6fc0142e6e343773e11d34c96566a17b71b0e6f179
     # via
     #   -r requirements.in
     #   python-semantic-release
@@ -1605,7 +1602,6 @@ six==1.16.0 \
     # via
     #   asttokens
     #   bleach
-    #   pyflyby
     #   python-dateutil
     #   rfc3339-validator
 smmap==5.0.0 \
@@ -1637,16 +1633,14 @@ tinycss2==1.2.1 \
 toml==0.10.2 \
     --hash=sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b \
     --hash=sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f
-    # via
-    #   jupytext
-    #   pyflyby
+    # via jupytext
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
     --hash=sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f
     # via yapf
-tomlkit==0.11.8 \
-    --hash=sha256:8c726c4c202bdb148667835f68d68780b9a003a9ec34167b6c673b38eff2a171 \
-    --hash=sha256:9330fc7faa1db67b541b28e62018c17d20be733177d290a13b24c62d1614e0c3
+tomlkit==0.12.1 \
+    --hash=sha256:38e1ff8edb991273ec9f6181244a6a391ac30e9f5098e7535640ea6be97a7c86 \
+    --hash=sha256:712cbd236609acc6a3e2e97253dfc52d4c2082982a88f61b640ecf0817eab899
     # via
     #   pylint
     #   python-semantic-release
