@@ -543,9 +543,9 @@ requests-toolbelt==1.0.0 \
     --hash=sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6 \
     --hash=sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06
     # via python-gitlab
-rich==13.4.2 \
-    --hash=sha256:8f87bc7ee54675732fa66a05ebfe489e27264caeeff3728c945d25971b6485ec \
-    --hash=sha256:d653d6bccede5844304c605d5aac802c7cf9621efd700b46c7ec2b51ea914898
+rich==13.5.0 \
+    --hash=sha256:62c81e88dc078d2372858660e3d5566746870133e51321f852ccc20af5c7e7b2 \
+    --hash=sha256:996670a7618ccce27c55ba6fc0142e6e343773e11d34c96566a17b71b0e6f179
     # via semgrep
 rpds-py==0.9.2 \
     --hash=sha256:0173c0444bec0a3d7d848eaeca2d8bd32a1b43f3d3fde6617aac3731fa4be05f \
@@ -694,12 +694,12 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.33.2 \
-    --hash=sha256:301ec877740a535817b9b4c74ff8cb45130da1f5b48f2fff5bbe737cf57633f0 \
-    --hash=sha256:5e457bab413ce21224ffe5e55bc170b06e2e2c4ae573e3943d852906e447b51b \
-    --hash=sha256:70fc058d9516d916108c9b5223f202774b77798d379f20eaefd28f152c03d43d \
-    --hash=sha256:d5e07dc7b24c4939908e5464d317d0f9d77c82b0fdde0eb5804240dd699a3cd7 \
-    --hash=sha256:fad13d82cd78bcec862c2036e248520a8cd68263eb03d30d60148294d9960175
+semgrep==1.34.1 \
+    --hash=sha256:0409d861e516a2c028adc1e9a943294572459783500cf6d64ecca40cddf0e544 \
+    --hash=sha256:3262b0d9e281e7ae49a9385f90e191430dc5d029d36165dd26c2efe812b49c23 \
+    --hash=sha256:5e88084d966db8d99606b09f2f9aa91c9366ea3171ceb6993175a1528b570387 \
+    --hash=sha256:62357dd79499d8bf2dea1b93a04ad31d177cda6e08f9ebcfc9ebb0a55ce2dbaa \
+    --hash=sha256:e9752a2f023531d6589691d62b68467d3215689215e49d8d7ad34c8e20384c61
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -798,8 +798,8 @@ ujson==5.8.0 \
     # via
     #   glances
     #   python-lsp-jsonrpc
-undervolt==0.3.0 \
-    --hash=sha256:ae8d49526ecb68acc15faac860404f6692208b540a0b33781d96396cac862767
+undervolt==0.4.0 \
+    --hash=sha256:cd54112fffdf92986b968710f87e54228a95af4c20b462324bac5b7ebb1f505a
     # via -r requirements.in
 urllib3==1.26.16 \
     --hash=sha256:8d36afa7616d8ab714608411b4a3b13e58f463aee519024578e062e141dce20f \
