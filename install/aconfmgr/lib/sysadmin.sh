@@ -153,7 +153,7 @@ AddPackage sysstat # a collection of performance monitoring tools (iostat,isag,m
 if is_intel_cpu; then
   AddPackage i7z # A better i7 (and now i3, i5) reporting tool for Linux
 fi
-if is_nvidia_gpu; then
+if has_nvidia_gpu; then
   AddPackage nvtop # An htop like monitoring tool for NVIDIA GPUs
 fi
 

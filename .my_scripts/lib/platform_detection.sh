@@ -56,16 +56,16 @@ get_gpu_vendors() {
   # lspci | grep -e VGA -e 3D
 }
 
-is_intel_gpu() {
+has_intel_gpu() {
   get_gpu_vendors | grep -iq intel
 }
 
-is_amd_gpu() {
+has_amd_gpu() {
   get_gpu_vendors | grep -iq -e 'AMD' -e 'Advanced Micro Devices'
 }
 
-is_nvidia_gpu() {
-  get_gpu_vendors | grep -iq nvidia
+has_nvidia_gpu() {
+  get_gpu_vendors | grep -iq NVIDIA
 }
 
 has_bluetooth() {

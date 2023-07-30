@@ -4,7 +4,7 @@
 # display server) should be configured in graphical-client-base.sh.
 
 # Display drivers.
-if is_nvidia_gpu; then
+if has_nvidia_gpu; then
   AddPackage nvidia-dkms  # NVIDIA driver sources for linux
   AddPackage nvidia-utils # NVIDIA drivers utilities
   # Linux headers are required when using the NVIDIA DKMS drivers.
@@ -17,10 +17,10 @@ if is_nvidia_gpu; then
   # https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Translation_layers
   AddPackage libva-vdpau-driver # VDPAU backend for VA API
 fi
-if is_intel_gpu; then
-  # TODO: Consider removing xf86-video-intel and falling back on the modesetting
-  # driver. See note on the Arch Wiki [1] , and the Fedora announcement from
-  # 2017 [2].
+if has_intel_gpu; then
+  # NOTE: as of 2023-07-30, I removed xf86-video-intel to fall back on the
+  # modesetting driver. See note on the Arch Wiki [1] , and the Fedora
+  # announcement from 2017 [2].
   # [1] https://wiki.archlinux.org/index.php/Intel_graphics
   # [2] https://www.phoronix.com/scan.php?page=news_item&px=Fedora-Xorg-Intel-DDX-Switch
   AddPackage xf86-video-intel # X.org Intel i810/i830/i915/945G/G965+ video drivers
@@ -30,10 +30,11 @@ if is_intel_gpu; then
   AddPackage intel-media-driver # Intel Media Driver for VAAPI — Broadwell+ iGPUs
   # AddPackage libva-intel-driver # VA-API implementation for Intel G45 and HD Graphics family
 fi
-if is_amd_gpu; then
+if has_amd_gpu; then
   # NOTE: mesa-vdpau seems to only be needed for AMD GPUs.
   AddPackage xf86-video-amdgpu  # X.org amdgpu video driver
   AddPackage vulkan-radeon      # Radeon's Vulkan mesa driver
+  AddPackage amdvlk             # AMD's standalone Vulkan driver
   AddPackage libva-mesa-driver  # VA-API implementation for gallium
   AddPackage mesa-vdpau         # Mesa VDPAU drivers
   AddPackage vdpauinfo          # Command line utility for querying the capabilities of a VDPAU device
@@ -99,7 +100,7 @@ if [[ "${HOST_ALIAS}" != hera11 ]]; then
 fi
 
 CopyFile '/etc/udev/rules.d/90-backlight.rules'
-if is_laptop && is_intel_gpu; then
+if is_laptop && has_intel_gpu; then
   CopyFile '/etc/X11/xorg.conf.d/20-intel-backlight.conf'
 fi
 

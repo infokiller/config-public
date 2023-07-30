@@ -44,7 +44,7 @@ AddPackage seahorse           # GNOME application for managing PGP keys
 # deepin-clone seems to pull in a lot of dependencies so it's disabled for now.
 # AddPackage deepin-clone       # Disk and partition backup/restore tool
 
-if is_nvidia_gpu; then
+if has_nvidia_gpu; then
   AddPackage nvidia-settings # Tool for configuring the NVIDIA graphics driver
 fi
 

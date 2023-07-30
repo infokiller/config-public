@@ -54,7 +54,7 @@ GENERIC_FLAGS=(
 )
 
 _should_enable_gpu_flags() {
-  # Using is_nvidia_gpu is slow, apparently because it uses lshw, so we cache
+  # Using has_nvidia_gpu is slow, apparently because it uses lshw, so we cache
   # the result.
   local cache_file="${XDG_RUNTIME_DIR}/chrome_use_gpu"
   if [[ -r "${cache_file}" ]]; then
@@ -62,11 +62,17 @@ _should_enable_gpu_flags() {
     # and 1/failure otherwise).
     return $((!$(< "${cache_file}")))
   fi
-  # Enable GPU flags for intel and amd GPUs (but not nvidia)
+  # Enable GPU flags for Intel and AMD GPUs (but not NVIDIA)
+  # NOTE: When there are multiple GPUs, we need to detect which one is being
+  # used for the display, which [1] seems to do.
+  # [1] https://unix.stackexchange.com/a/185062/126543
   local s=0
-  if is_intel_gpu || is_amd_gpu; then
+  if glxinfo | grep -E "OpenGL vendor|OpenGL renderer" | grep -iq nvidia; then
     s=1
   fi
+  # if ! has_nvidia_gpu && (has_intel_gpu || has_amd_gpu); then
+  #   s=1
+  # fi
   echo $s >| "${cache_file}"
   # NOTE: the return status uses shell conventions (0/success for using the GPU
   # and 1/failure otherwise).
