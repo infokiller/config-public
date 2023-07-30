@@ -4,4 +4,4 @@
 syntax case match
 syntax keyword dosiniTodo contained TODO NOTE EXP FIXME XXX TBD
 highlight link dosiniTodo Todo
-syntax match dosiniComment "^[#;].*$" contains=dosiniTodo,@Spell
+syntax match dosiniComment "^[#;].*$" contains=@Spell,dosiniTodo
