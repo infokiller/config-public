@@ -543,9 +543,9 @@ requests-toolbelt==1.0.0 \
     --hash=sha256:7681a0a3d047012b5bdc0ee37d7f8f07ebe76ab08caeccfc3921ce23c88d5bc6 \
     --hash=sha256:cccfdd665f0a24fcf4726e690f65639d272bb0637b9b92dfd91a5568ccf6bd06
     # via python-gitlab
-rich==13.5.0 \
-    --hash=sha256:62c81e88dc078d2372858660e3d5566746870133e51321f852ccc20af5c7e7b2 \
-    --hash=sha256:996670a7618ccce27c55ba6fc0142e6e343773e11d34c96566a17b71b0e6f179
+rich==13.5.1 \
+    --hash=sha256:881653ee7037803559d8eae98f145e0a4c4b0ec3ff0300d2cc8d479c71fc6819 \
+    --hash=sha256:b97381b204a206e1be618f5e1215a57174a1a7732490b3bf6668cf41d30bc72d
     # via semgrep
 rpds-py==0.9.2 \
     --hash=sha256:0173c0444bec0a3d7d848eaeca2d8bd32a1b43f3d3fde6617aac3731fa4be05f \
