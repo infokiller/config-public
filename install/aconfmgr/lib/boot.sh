@@ -24,8 +24,6 @@ ESP="${esp}"
 SUBVOLUME_ROOT='@root'
 SUBVOLUME_SNAPSHOT='@snapshots/%1/snapshot'
 EOF
-  IgnorePath '/etc/arch-secure-boot/keys'
-  IgnorePath '/etc/secureboot/keys'
   IgnorePath "${esp}/EFI/arch"
   IgnorePath "${esp}/recovery.nsh"
   IgnorePath "${esp}/snapshots.txt"
@@ -33,6 +31,15 @@ EOF
   # different when mounted on Linux, depending on the mount options. This
   # causes aconfmgr to think that the file has changed, so we ignore it.
   IgnorePath "${esp}/syslinux/syslinux.cfg"
+  # EXP: Secure boot via arch-secure-boot
+  if [[ "${HOST_ALIAS}" != zeus18 ]]; then
+    return
+  fi
+  IgnorePath '/etc/arch-secure-boot/keys'
+  IgnorePath '/etc/secureboot/keys'
+  cat >| "$(CreateFile '/etc/kernel/cmdline')" << EOF
+root=/dev/mapper/s980pro-luks rootflags=subvol=@root cryptdevice=UUID=f5e23420-5f9d-4d37-90c1-eb2648a365b8:s980pro-luks resume=/dev/mapper/s980pro-luks resume_offset=533760 consoleblank=300
+EOF
 }
 
 _add_refind_config() {
