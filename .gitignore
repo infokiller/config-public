@@ -248,6 +248,7 @@
 /.config/kwalletrc
 /.config/yarn/global
 /.config/direnv
+/.config/mods
 /.config/qt5ct
 /.config/fontforge
 /.config/hub
