@@ -246,6 +246,7 @@
 /.config/keybase
 /.config/gsmartcontrol/gsmartcontrol.conf
 /.config/kwalletrc
+/.config/kwalletmanager5rc
 /.config/yarn/global
 /.config/direnv
 /.config/mods
