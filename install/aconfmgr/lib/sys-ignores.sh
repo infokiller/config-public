@@ -12,6 +12,11 @@ IgnorePath '*.pyc'
 IgnorePath '/usr/share/.mono/*'
 IgnorePath '/var/*'
 IgnorePath '/etc/credstore'
+IgnorePath '/lost+found'
+IgnorePath '/etc/.updated'
+IgnorePath '/etc/.pwd.lock'
+IgnorePath '/etc/ld.so.cache'
+IgnorePath '/usr/share/info/dir'
 
 # These paths are related to graphical programs, but are still used by programs
 # that aren't graphical or can be used without graphics (like emacs), so they

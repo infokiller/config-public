@@ -1,5 +1,11 @@
 # shellcheck shell=bash
-# Platform-specific configuration.
+
+# shellcheck source=./lib/sys-ignores.sh
+source "${ACONF_LIB}/sys-ignores.sh"
+# shellcheck source=./lib/boot.sh
+source "${ACONF_LIB}/boot.sh"
+# shellcheck source=./lib/base.sh
+source "${ACONF_LIB}/base.sh"
 
 # shellcheck source=./lib/network.sh
 source "${ACONF_LIB}/network.sh"
