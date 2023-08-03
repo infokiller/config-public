@@ -236,8 +236,8 @@ imap <C-X><C-G> <Plug>(github-complete-manual-completion)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                            Linting and formatting                            "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 80 columns by default. Filetype overrides are in after/ftplugin.
-set textwidth=80
+" 88 columns by default. Filetype overrides are in after/ftplugin.
+set textwidth=88
 set formatoptions=tcqjlron
 
 " Use * and - as as additional list patterns (by default only numbers are used).
