@@ -891,8 +891,9 @@ augroup END
 if empty($PYTHONPATH)
   let $PYTHONPATH = '.'
 endif
-let g:ale_python_pylint_options = Concat(
-    \ "--init-hook 'import sys; sys.path += [\"", $PYTHONPATH, "\"]'")
+let g:ale_python_pylint_options = join([
+    \ '--init-hook', printf("'import sys; sys.path += [\"%s\"]'", $PYTHONPATH),
+    \ '--spelling-private-dict-file', &spellfile], ' ')
 let g:ale_python_pylint_change_directory = 0
 
 " Set VIRTUALENV from CONDA_PREFIX so that jedi-vim completions will work in the
