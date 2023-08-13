@@ -314,9 +314,9 @@ jinja2==3.1.2 \
     --hash=sha256:31351a702a408a9e7595a8fc6150fc3f43bb6bf7e319770cbc0db9df9437e852 \
     --hash=sha256:6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61
     # via flask
-jsonschema==4.18.6 \
-    --hash=sha256:ce71d2f8c7983ef75a756e568317bf54bc531dc3ad7e66a128eae0d51623d8a3 \
-    --hash=sha256:dc274409c36175aad949c68e5ead0853aaffbe8e88c830ae66bb3c7a1728ad2d
+jsonschema==4.19.0 \
+    --hash=sha256:043dc26a3845ff09d20e4420d6012a9c91c9aa8999fa184e7efcfeccb41e32cb \
+    --hash=sha256:6e1e7569ac13be8139b2dd2c21a55d350066ee3f80df06c608b398cdc6f30e8f
     # via semgrep
 jsonschema-specifications==2023.7.1 \
     --hash=sha256:05adf340b659828a004220a9613be00fa3f223f2b82002e273dee62fd50524b1 \
@@ -463,9 +463,9 @@ pydf==12 \
     --hash=sha256:7f47a7c3abfceb1ac04fc009ded538df1ae449c31203962a1471a4eb3bf21439 \
     --hash=sha256:99cfbc6c9bb2cc366bfcc82f5123bd60cf6f0b7d7b603e3d3e671064371b85d5
     # via -r requirements.in
-pygments==2.15.1 \
-    --hash=sha256:8ace4d3c1dd481894b2005f560ead0f9f19ee64fe983366be1a21e171d12775c \
-    --hash=sha256:db2db3deb4b4179f399a09054b023b6a586b76499d36965813c71aa8ed7b5fd1
+pygments==2.16.1 \
+    --hash=sha256:13fc09fa63bc8d8671a6d247e1eb303c4b343eaee81d861f3404db2935653692 \
+    --hash=sha256:1daff0494820c69bc8941e407aa20f577374ee88364ee10a98fdbe0aece96e29
     # via
     #   cli-helpers
     #   grip
@@ -694,12 +694,12 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.34.1 \
-    --hash=sha256:0409d861e516a2c028adc1e9a943294572459783500cf6d64ecca40cddf0e544 \
-    --hash=sha256:3262b0d9e281e7ae49a9385f90e191430dc5d029d36165dd26c2efe812b49c23 \
-    --hash=sha256:5e88084d966db8d99606b09f2f9aa91c9366ea3171ceb6993175a1528b570387 \
-    --hash=sha256:62357dd79499d8bf2dea1b93a04ad31d177cda6e08f9ebcfc9ebb0a55ce2dbaa \
-    --hash=sha256:e9752a2f023531d6589691d62b68467d3215689215e49d8d7ad34c8e20384c61
+semgrep==1.35.0 \
+    --hash=sha256:32eb28b5e15aacf266f1e40eed3fcbad70d6515d16c789f0f3466f8c6ec71e13 \
+    --hash=sha256:4763038e3913f429b91fec7631ac0165ea53dec5375b9bfc9a5ba765670b78a7 \
+    --hash=sha256:66a49b8ae54a1a31fed9f07445e4b0d3b0b34c348adf96bc01db2dcebbe1f330 \
+    --hash=sha256:be4076b1261405be8102c82c8b9823cf66a45054ab592f88db36d6523a635cae \
+    --hash=sha256:c4df3b7e9e63a9eb3fb2632bb4b6d9a30308b937afa4324d14d796768d127aee
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
