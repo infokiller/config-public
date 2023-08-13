@@ -156,9 +156,10 @@ readonly -A _INSTALL_TASK_TO_CMD=(
   ['histcat']='_install_histcat'
   ['universal-ctags']='_install_universal_ctags'
   # onigurama is an optional dependency of bfs which improves regex performance
-  # and support but I don't need it.
+  # and support, but if it's not installed bfs can also be built with `USE_ONIGURUMA=0`:
+  # https://github.com/tavianator/bfs/blob/master/docs/BUILDING.md
   ['bfs']='(
-    cd "${SUBMODULES_DIR}/terminal/bfs" && make WITH_ONIGURUMA= release && symlink_binary bin/bfs
+    cd "${SUBMODULES_DIR}/terminal/bfs" && make release && symlink_binary bin/bfs
   )'
   ['git-quick-stats']='(
     cd "${SUBMODULES_DIR}/terminal/git-quick-stats"

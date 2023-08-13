@@ -1,7 +1,7 @@
 # vim: set ft=cfg :
 
-# This files contains all ubuntu packages needed to install a new workstation,
-# including ones that are used by submodules.
+# This files contains all debian/ubuntu packages for a new workstation.
+# Additional packages are listed in crossdistro_local_packages_deps.txt.
 
 # Installed in install-external-packages:
 # google-chrome-stable
