@@ -67,12 +67,9 @@ _should_enable_gpu_flags() {
   # used for the display, which [1] seems to do.
   # [1] https://unix.stackexchange.com/a/185062/126543
   local s=0
-  if glxinfo | grep -E "OpenGL vendor|OpenGL renderer" | grep -iq nvidia; then
+  if ! has_nvidia_gpu && (has_intel_gpu || has_amd_gpu); then
     s=1
   fi
-  # if ! has_nvidia_gpu && (has_intel_gpu || has_amd_gpu); then
-  #   s=1
-  # fi
   echo $s >| "${cache_file}"
   # NOTE: the return status uses shell conventions (0/success for using the GPU
   # and 1/failure otherwise).
