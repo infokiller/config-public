@@ -640,6 +640,15 @@ _install_doom_emacs() {
   }
 }
 
+_install_neovim_plugins() {
+  print_bold 'Installing markdown-preview'
+  (cd "${SUBMODULES_DIR}/vim/markdown-preview.nvim/app" && yarn install)
+  print_bold 'Installing NeoVim remote plugins'
+  nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins' -c 'q'
+  print_bold 'Building TreeSitter parsers'
+  nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'TSUpdate' -c 'q'
+}
+
 _install_vim_plugins() {
   # print_bold 'Installing vim plugins'
   # NOTE: As of 2018-12-8 I'm managing all my plugins via submodules, so they
@@ -647,17 +656,17 @@ _install_vim_plugins() {
   # Note that we need to exit twice in the vim command: once from the vimplug
   # window and then from the new buffer.
   # vim -u "${REPO_ROOT}/.config/vim/vimrc" -c ":PlugInstall | q | q"
-  print_bold 'Installing vim helptags'
-  vim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'call plug#helptags()' -c 'q'
+  local vim_bin
+  for vim_bin in /bin/vim nvim; do
+    print_bold "Vim variant: ${vim_bin}"
+    print_bold 'Installing vim helptags'
+    "${vim_bin}" -u "${REPO_ROOT}/.config/vim/vimrc" -c 'call plug#helptags()' -c 'q'
+    print_bold 'Installing vim-go binaries'
+    "${vim_bin}" -u "${REPO_ROOT}/.config/vim/vimrc" -c 'GoInstallBinaries' -c 'q'
+  done
   print_bold 'Installing YouCompleteMe'
-  "${REPO_ROOT}/install/build-youcompleteme" \
-    --build-dir "${XDG_CACHE_HOME}/ycm_build"
-  print_bold 'Installing vim-go binaries'
-  vim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'GoInstallBinaries' -c 'q'
-  print_bold 'Installing markdown-preview'
-  (cd "${SUBMODULES_DIR}/vim/markdown-preview.nvim/app" && yarn install)
-  print_bold 'Installing NeoVim remote plugins'
-  nvim -u "${REPO_ROOT}/.config/vim/vimrc" -c 'UpdateRemotePlugins' -c 'q'
+  "${REPO_ROOT}/install/build-youcompleteme" --build-dir "${XDG_CACHE_HOME}/ycm_build"
+  _install_neovim_plugins
 }
 
 _install_neovim_release() {
