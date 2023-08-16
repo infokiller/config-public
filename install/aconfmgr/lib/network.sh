@@ -19,9 +19,11 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/sshd.service' '/usr/lib/
 
 # As of 2023-01-14, eternalterminal requires openssl 1.x but requires the
 # openssl package which now defaults to 3.x.
-AddPackage openssl-1.1               # The Open Source toolkit for Secure Sockets Layer and Transport Layer Security
-AddPackage --foreign eternalterminal # Re-Connectable Terminal connection. Includes both client and server.
-CreateLink /etc/systemd/system/multi-user.target.wants/et.service /usr/lib/systemd/system/et.service
+# As of 2023-07-27, this seems fixed?
+# AddPackage openssl-1.1               # The Open Source toolkit for Secure Sockets Layer and Transport Layer Security
+# NOTE: as of 2023-08-16, the eternalterminal AUR package is broken.
+# AddPackage --foreign eternalterminal # Re-Connectable Terminal connection. Includes both client and server.
+# CreateLink /etc/systemd/system/multi-user.target.wants/et.service /usr/lib/systemd/system/et.service
 
 # VPN
 AddPackage tailscale # A mesh VPN that makes it easy to connect your devices, wherever they are.
