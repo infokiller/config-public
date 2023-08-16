@@ -15007,12 +15007,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:3.0.1":
-  version: 3.0.1
-  resolution: "prettier@npm:3.0.1"
+"prettier@npm:3.0.2":
+  version: 3.0.2
+  resolution: "prettier@npm:3.0.2"
   bin:
     prettier: bin/prettier.cjs
-  checksum: e1f3f16c7fe0495de3faa182597871f74927d787cce3c52095a66ff5d7eacc05173371d5f58bf12141a0a1b6bfe739a338531d6cf18b92c7256c1319f2c84e73
+  checksum: 118b59ddb6c80abe2315ab6d0f4dd1b253be5cfdb20622fa5b65bb1573dcd362e6dd3dcf2711dd3ebfe64aecf7bdc75de8a69dc2422dcd35bdde7610586b677a
   languageName: node
   linkType: hard
 
@@ -15308,9 +15308,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.322":
-  version: 1.1.322
-  resolution: "pyright@npm:1.1.322"
+"pyright@npm:1.1.323":
+  version: 1.1.323
+  resolution: "pyright@npm:1.1.323"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -15319,7 +15319,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: c4f87c39858bcba57cf0b8dab4ce506c1ab1ed279b5788e70497119ee604749c30273cd46dc9dd46acfc82add3dc9c0bf8a2c1132450fa4c3e794c8414d7f789
+  checksum: 3dc2a1ebb69796bf1546268724eabaec6e2150cb75a0f0c9e4b29e30c1d1be2f877248251835209f2e55aec488bbc90203bb1c3559fa4bbca9e55287662d6d4f
   languageName: node
   linkType: hard
 
@@ -15834,9 +15834,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:16.1.4":
-  version: 16.1.4
-  resolution: "release-it@npm:16.1.4"
+"release-it@npm:16.1.5":
+  version: 16.1.5
+  resolution: "release-it@npm:16.1.5"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 19.0.13
@@ -15867,7 +15867,7 @@ __metadata:
     yargs-parser: 21.1.1
   bin:
     release-it: bin/release-it.js
-  checksum: ea2d04ff8e1ecc446e70e1399bf051ebcdc5474ad7d87596217867493ef79bcb47671c7b934dae7d49b6176f5a67bf130c2a894e2cedde596f04650f9539aff6
+  checksum: c20dcc3b0800510ecf1d2ef4b5486c445400fbd9954c16717c75f79df181e11ad724ecd86f8ff549aeaa4288e24d5bc82bfd873390468a618c416296cbe4ca1e
   languageName: node
   linkType: hard
 
@@ -16341,13 +16341,13 @@ __metadata:
     markdown-toc: 1.2.0
     markdownlint-cli: 0.35.0
     markdownlint-cli2: 0.8.1
-    prettier: 3.0.1
+    prettier: 3.0.2
     prettier-eslint-cli: 7.1.0
     puppeteer: 21.0.3
-    pyright: 1.1.322
-    release-it: 16.1.4
+    pyright: 1.1.323
+    release-it: 16.1.5
     semantic-release: 21.0.7
-    snyk: 1.1200.0
+    snyk: 1.1202.0
     stylelint: 15.10.2
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16946,15 +16946,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1200.0":
-  version: 1.1200.0
-  resolution: "snyk@npm:1.1200.0"
+"snyk@npm:1.1202.0":
+  version: 1.1202.0
+  resolution: "snyk@npm:1.1202.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 8b5211c3cff1a816212974856ab475b858f70bc2f39f9f531c66204baaf9895ddf4307b0804624a09abfef15ee9bf69c4253d134e5f9ddaceffe77e0049fb76e
+  checksum: babd60a2b4d3399b27df43ab426ca700f069bc00228faf1f9b804b7188a191753438aed5149b31983b79a95ebe0bcbb5c07fde5cd4bd0af32fa8cb09d5f831b9
   languageName: node
   linkType: hard
 

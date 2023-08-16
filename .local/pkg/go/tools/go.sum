@@ -240,8 +240,8 @@ github.com/aymanbagabas/go-osc52/v2 v2.0.1/go.mod h1:uYgXzlJ7ZpABp8OJ+exZzJJhRNQ
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
 github.com/bazelbuild/bazelisk v1.17.0 h1:TDt+a1PYrnBF9on3WRJUisXXFhCMrhcNo8OebyS5Q34=
 github.com/bazelbuild/bazelisk v1.17.0/go.mod h1:nWNmVF7yKsUt3EWCBCrqUeMNQpbB+DAphHIeckV1ov4=
-github.com/bazelbuild/buildtools v0.0.0-20230807152244-48385dd1e219 h1:ZapXFRHO5mOeXXZentMaSmpWbMNWNxiQE8K+pm4n8Cw=
-github.com/bazelbuild/buildtools v0.0.0-20230807152244-48385dd1e219/go.mod h1:689QdV3hBP7Vo9dJMmzhoYIyo/9iMhEmHkJcnaPRCbo=
+github.com/bazelbuild/buildtools v0.0.0-20230815234107-1ccdfb63abbc h1:G7BsFe3Sd2E6bxQpl/UnLQglHr0hrScG8R0HtkxkyBA=
+github.com/bazelbuild/buildtools v0.0.0-20230815234107-1ccdfb63abbc/go.mod h1:689QdV3hBP7Vo9dJMmzhoYIyo/9iMhEmHkJcnaPRCbo=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+CedLV8=
