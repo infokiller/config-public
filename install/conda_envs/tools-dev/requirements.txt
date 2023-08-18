@@ -228,9 +228,9 @@ charset-normalizer==3.2.0 \
     --hash=sha256:f779d3ad205f108d14e99bb3859aa7dd8e9c68874617c72354d7ecaec2a054ac \
     --hash=sha256:f87f746ee241d30d6ed93969de31e5ffd09a2961a051e60ae6bddde9ec3583aa
     # via requests
-click==8.1.6 \
-    --hash=sha256:48ee849951919527a045bfe3bf7baa8a959c423134e1a5b98c05c20ba75a1cbd \
-    --hash=sha256:fa244bb30b3b5ee2cae3da8f55c9e5e0c0e86093306301fb418eb9dc40fbded5
+click==8.1.7 \
+    --hash=sha256:ae74fb96c20a0277a1d615f1e4d73c8414f5a98db8b799a7931d1582f3390c28 \
+    --hash=sha256:ca9853ad459e787e2192211578cc907e7594e294c7ccc834310722b41b9ca6de
     # via
     #   pip-tools
     #   python-semantic-release
@@ -562,9 +562,9 @@ jupyter-nbextensions-configurator==0.6.3 \
     # via
     #   -r requirements.in
     #   jupyter-contrib-nbextensions
-jupyter-server==2.7.1 \
-    --hash=sha256:59838bf20759354e2b4222fed702948a934cb21a503e21cd5b03706a456391d9 \
-    --hash=sha256:76b4ae0b568c331acc9aa904fc4a1194ef9bdefa69f232deb3f3cae802528c05
+jupyter-server==2.7.2 \
+    --hash=sha256:98a375347b580e837e7016007c24680a4261ed8ad7cd35196ac087d229f48e5a \
+    --hash=sha256:d64fb4e593907290e5df916e3c9399c15ab2cd7bdb71cbcd1d36452dbfb30523
     # via
     #   jupyter-lsp
     #   jupyter-server-mathjax
@@ -947,9 +947,9 @@ nbclient==0.8.0 \
     --hash=sha256:25e861299e5303a0477568557c4045eccc7a34c17fc08e7959558707b9ebe548 \
     --hash=sha256:f9b179cd4b2d7bca965f900a2ebf0db4a12ebff2f36a711cb66861e4ae158e55
     # via nbconvert
-nbconvert==7.7.3 \
-    --hash=sha256:3022adadff3f86578a47fab7c2228bb3ca9c56a24345642a22f917f6168b48fc \
-    --hash=sha256:4a5996bf5f3cd16aa0431897ba1aa4c64842c2079f434b3dc6b8c4b252ef3355
+nbconvert==7.7.4 \
+    --hash=sha256:1113d039fa3fc3a846ffa5a3b0a019e85aaa94c566a09fa0c400fb7638e46087 \
+    --hash=sha256:ace26f4386d08eb5c55833596a942048c5502a95e05590cb523826a749a40a37
     # via
     #   jupyter-contrib-nbextensions
     #   jupyter-server
@@ -1268,9 +1268,9 @@ python-json-logger==2.0.7 \
     --hash=sha256:23e7ec02d34237c5aa1e29a070193a4ea87583bb4e7f8fd06d3de8264c4b2e1c \
     --hash=sha256:f380b826a991ebbe3de4d897aeec42760035ac760345e57b812938dc8b35e2bd
     # via jupyter-events
-python-semantic-release==8.0.6 \
-    --hash=sha256:4f23c8794da34327d90290513b83fe630643260e41487f1c87af9853a3548ba4 \
-    --hash=sha256:ce9c557ed0f811413764639135fa55675eb4f95dc4fd40e12dc7483e5eb53f5b
+python-semantic-release==8.0.7 \
+    --hash=sha256:ba659a99d7f7ff11f7936cb9e5df117466c5161cc9a30d786270538ba0ea3798 \
+    --hash=sha256:e38a1233d04c6568c75dd9802bbd8011d7f7040b042584ed2c1f58e91349fe64
     # via -r requirements.in
 pytz==2023.3 \
     --hash=sha256:1d8ce29db189191fb55338ee6d0387d82ab59f3d00eac103412d64e0ebd0c588 \
@@ -1579,24 +1579,24 @@ rpds-py==0.9.2 \
     # via
     #   jsonschema
     #   referencing
-ruff==0.0.284 \
-    --hash=sha256:0a3218458b140ea794da72b20ea09cbe13c4c1cdb7ac35e797370354628f4c05 \
-    --hash=sha256:1292cfc764eeec3cde35b3a31eae3f661d86418b5e220f5d5dba1c27a6eccbb6 \
-    --hash=sha256:1d1f7096038961d8bc3b956ee69d73826843eb5b39a5fa4ee717ed473ed69c95 \
-    --hash=sha256:735cd62fccc577032a367c31f6a9de7c1eb4c01fa9a2e60775067f44f3fc3091 \
-    --hash=sha256:88295fd649d0aa1f1271441df75bf06266a199497afd239fd392abcfd75acd7e \
-    --hash=sha256:8b949084941232e2c27f8d12c78c5a6a010927d712ecff17231ee1a8371c205b \
-    --hash=sha256:a3930d66b35e4dc96197422381dff2a4e965e9278b5533e71ae8474ef202fab0 \
-    --hash=sha256:b2fe880cff13fffd735387efbcad54ba0ff1272bceea07f86852a33ca71276f4 \
-    --hash=sha256:b3660b85a9d84162a055f1add334623ae2d8022a84dcd605d61c30a57b436c32 \
-    --hash=sha256:bcaf85907fc905d838f46490ee15f04031927bbea44c478394b0bfdeadc27362 \
-    --hash=sha256:c4c79ae3308e308b94635cd57a369d1e6f146d85019da2fbc63f55da183ee29b \
-    --hash=sha256:d1d098ea74d0ce31478765d1f8b4fbdbba2efc532397b5c5e8e5ea0c13d7e5ae \
-    --hash=sha256:d29dfbe314e1131aa53df213fdfea7ee874dd96ea0dd1471093d93b59498384d \
-    --hash=sha256:e37e086f4d623c05cd45a6fe5006e77a2b37d57773aad96b7802a6b8ecf9c910 \
-    --hash=sha256:ebd3cc55cd499d326aac17a331deaea29bea206e01c08862f9b5c6e93d77a491 \
-    --hash=sha256:f67ed868d79fbcc61ad0fa034fe6eed2e8d438d32abce9c04b7c4c1464b2cf8e \
-    --hash=sha256:f86b2b1e7033c00de45cc176cf26778650fb8804073a0495aca2f674797becbb
+ruff==0.0.285 \
+    --hash=sha256:0d9ab6ad16742eb78919e0fba09f914f042409df40ad63423c34bb20d350162a \
+    --hash=sha256:1d2a60c102e7a5e147b58fc2cbea12a563c565383effc527c987ea2086a05742 \
+    --hash=sha256:2933cc9631f453305399c7b8fb72b113ad76b49ae1d7103cc4afd3a423bed164 \
+    --hash=sha256:45866048d1dcdcc80855998cb26c4b2b05881f9e043d2e3bfe1aa36d9a2e8f28 \
+    --hash=sha256:5473a4c6cac34f583bff08c5f63b8def5599a0ea4dc96c0302fbd2cc0b3ecbad \
+    --hash=sha256:5977ce304da35c263f5e082901bd7ac0bd2be845a8fcfd1a29e4d6680cddb307 \
+    --hash=sha256:6c48926156288b8ac005eb1db5e77c15e8a37309ae49d9fb6771d5cf5f777590 \
+    --hash=sha256:72a087712d474fa17b915d7cb9ef807e1256182b12ddfafb105eb00aeee48d1a \
+    --hash=sha256:72a3a0936369b986b0e959f9090206ed3c18f9e5e439ea5b8e6867c6707aded5 \
+    --hash=sha256:770c5eb6376de024111443022cda534fb28980a9dd3b4abc83992a8770167ba6 \
+    --hash=sha256:7ce67736cd8dfe97162d1e7adfc2d9a1bac0efb9aaaff32e4042c7cde079f54b \
+    --hash=sha256:80effdf4fe69763d69eb4ab9443e186fd09e668b59fe70ba4b49f4c077d15a1b \
+    --hash=sha256:a8c6ad6b9cd77489bf6d1510950cbbe47a843aa234adff0960bae64bd06c3b6d \
+    --hash=sha256:b02aae62f922d088bb01943e1dbd861688ada13d735b78b8348a7d90121fd292 \
+    --hash=sha256:de44fbc6c3b25fccee473ddf851416fd4e246fc6027b2197c395b1b3b3897921 \
+    --hash=sha256:e6b1c961d608d373a032f047a20bf3c55ad05f56c32e7b96dcca0830a2a72348 \
+    --hash=sha256:f572c4296d8c7ddd22c3204de4031965be524fdd1fdaaef273945932912b28c5
     # via -r requirements.in
 seaborn==0.12.2 \
     --hash=sha256:374645f36509d0dcab895cba5b47daf0586f77bfe3b36c97c607db7da5be0139 \
@@ -1610,9 +1610,9 @@ send2trash==1.8.2 \
     --hash=sha256:a384719d99c07ce1eefd6905d2decb6f8b7ed054025bb0e618919f945de4f679 \
     --hash=sha256:c132d59fa44b9ca2b1699af5c86f57ce9f4c5eb56629d5d55fbb7a35f84e2312
     # via jupyter-server
-shellingham==1.5.0.post1 \
-    --hash=sha256:368bf8c00754fd4f55afb7bbb86e272df77e4dc76ac29dbcbb81a59e9fc15744 \
-    --hash=sha256:823bc5fb5c34d60f285b624e7264f4dda254bc803a3774a147bf99c0e3004a28
+shellingham==1.5.3 \
+    --hash=sha256:419c6a164770c9c7cfcaeddfacb3d31ac7a8db0b0f3e9c1287679359734107e9 \
+    --hash=sha256:cb4a6fec583535bc6da17b647dd2330cf7ef30239e05d547d99ae3705fd0f7f8
     # via python-semantic-release
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \

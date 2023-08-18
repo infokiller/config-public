@@ -23,7 +23,7 @@
     "pyright": "1.1.323",
     "release-it": "16.1.5",
     "semantic-release": "21.0.7",
-    "snyk": "1.1202.0",
+    "snyk": "1.1203.0",
     "stylelint": "15.10.2",
     "tldr": "3.3.8",
     "uglify-js": "3.17.4",
@@ -54,5 +54,5 @@
     }
   },
   "private": true,
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@3.6.2"
 }
