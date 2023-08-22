@@ -288,7 +288,8 @@ _install_conda_env() {
   if [[ -e "${env_prefix}" ]]; then
     _log_info_bold "Updating conda environment ${env_name} from ${file}"
     # --prune should remove packages not specified in environment file, though
-    # it's broken as of 2020-11-02: https://github.com/conda/conda/issues/7279
+    # it was broken as of conda 2023-08-22 but is expected to be fixed in an upcoming
+    # release: https://github.com/conda/conda/issues/7279
     # One workaround is to run `conda env create --force` which will re-create
     # the environment from scratch.
     local cmd=(_conda env update --prune -p "${env_prefix}" -f "${file}")
