@@ -322,9 +322,9 @@ jsonschema-specifications==2023.7.1 \
     --hash=sha256:05adf340b659828a004220a9613be00fa3f223f2b82002e273dee62fd50524b1 \
     --hash=sha256:c91a50404e88a1f6ba40636778e2ee08f6e24c5613fe4c53ac24578a5a7f72bb
     # via jsonschema
-libtmux==0.22.1 \
-    --hash=sha256:794ce91bbe3c754474f06464bd0aed5e984b4d85ff105f0d0eaaaf469c02acb1 \
-    --hash=sha256:d6a553f3cbe636a011c588e11079fc1e61abf523c6fc939b37d6f0e5dab3c4da
+libtmux==0.23.0.post0 \
+    --hash=sha256:39153d9f22e4b4cb2c91c31c4e7c4a57de90698b5a174363ba6c109c3ce18000 \
+    --hash=sha256:a6f9a687c4628b0e86557a8f3d6fc30e752193c2c23ee977c12bd4aafcf4b088
     # via tmuxp
 litecli==1.9.0 \
     --hash=sha256:21af2cfa083dd4df1e3ccaa2a2117129b5f17212756f596ea090e296776c27a1 \
@@ -721,9 +721,9 @@ tabulate==0.9.0 \
     --hash=sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c \
     --hash=sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f
     # via cli-helpers
-tmuxp==1.28.1 \
-    --hash=sha256:93ebc475ce8fe59b5951c3a27ff7c7bf1e2fd329762c04d765a2c7d84b917bae \
-    --hash=sha256:b0d2ea5326ace90635d5e5bf16192a07afaee0c4ea898d62c6f0f704debd1627
+tmuxp==1.29.0 \
+    --hash=sha256:3225c6e0c573a26c9ce0b8e8bcfb2f8663e782d26ff39b3a629a3f0a6d96861a \
+    --hash=sha256:bce5ce55f06e0187d1c1fb2c5b022e06cd8a4c2a487bb873ec7d6ae4da5a6575
     # via -r requirements.in
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \
