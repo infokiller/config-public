@@ -272,9 +272,9 @@ face==22.0.0 \
     --hash=sha256:344fe31562d0f6f444a45982418f3793d4b14f9abb98ccca1509d22e0a3e7e35 \
     --hash=sha256:d5d692f90bc8f5987b636e47e36384b9bbda499aaf0a77aa0b0bbe834c76923d
     # via glom
-flask==2.3.2 \
-    --hash=sha256:77fd4e1249d8c9923de34907236b747ced06e5467ecac1a7bb7115ae0e9670b0 \
-    --hash=sha256:8c2f9abd47a9e8df7f0c3f091ce9497d011dc3b31effcf4c85a6e2b50f4114ef
+flask==2.3.3 \
+    --hash=sha256:09c347a92aa7ff4a8e7f3206795f30d826654baf38b873d0744cd571ca609efc \
+    --hash=sha256:f69fcd559dc907ed196ab9df0e48471709175e696d6e698dd4dbe940f96ce66b
     # via grip
 future==0.18.3 \
     --hash=sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307
@@ -291,8 +291,8 @@ gpu-utils==0.2.8 \
     --hash=sha256:194f9bef98919cc5b172d6cb4bcd2ead4d4046100ac163a04b45d5f18371cd5c \
     --hash=sha256:566dc2081c36cc98cce58fbd2bfb055ea17f2d6a15161fd64391d5db36b57327
     # via -r requirements.in
-gpustat==1.1 \
-    --hash=sha256:c8fc105404aac11884f70ed2fa06cfd210d3cd389ccae4a9bc38579c72460cee
+gpustat==1.1.1 \
+    --hash=sha256:c18d3ed5518fc16300c42d694debc70aebb3be55cae91f1db64d63b5fa8af9d8
     # via -r requirements.in
 grip==4.6.1 \
     --hash=sha256:3feed5c3eff92a02e56bba5f7c6d8b8007752b260b5c9c6946e045c2812d9b69 \
@@ -322,9 +322,9 @@ jsonschema-specifications==2023.7.1 \
     --hash=sha256:05adf340b659828a004220a9613be00fa3f223f2b82002e273dee62fd50524b1 \
     --hash=sha256:c91a50404e88a1f6ba40636778e2ee08f6e24c5613fe4c53ac24578a5a7f72bb
     # via jsonschema
-libtmux==0.23.0.post0 \
-    --hash=sha256:39153d9f22e4b4cb2c91c31c4e7c4a57de90698b5a174363ba6c109c3ce18000 \
-    --hash=sha256:a6f9a687c4628b0e86557a8f3d6fc30e752193c2c23ee977c12bd4aafcf4b088
+libtmux==0.23.0.post1 \
+    --hash=sha256:947cbcfb0d3d996c409b253e13c9455f94c0f2f8ff785fb858842aeb685cfab5 \
+    --hash=sha256:a6a6ffe1cbaa289e520e0be9a5b9be426bc1e3e746f5337d1c7ab53713083777
     # via tmuxp
 litecli==1.9.0 \
     --hash=sha256:21af2cfa083dd4df1e3ccaa2a2117129b5f17212756f596ea090e296776c27a1 \
@@ -694,12 +694,12 @@ ruamel-yaml-clib==0.2.7 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.36.0 \
-    --hash=sha256:26102e336a8b86872da3a062bc2f361e9b23add3a6fd24941880a549f8fec851 \
-    --hash=sha256:36c258cc0b0081cf80780fc407416a85a92d0fe22d60061dd85c808438a91110 \
-    --hash=sha256:7aa2f595e0d3d0e7b2a9a77bfdc7838d2356cdf4aae58e108287a78975682153 \
-    --hash=sha256:c7450f3659df4d929380f089fc82120a4ff535ec338ae34498eb75d05dfc31da \
-    --hash=sha256:e75f0f078a03357b5d32a11f02ee6a7bc65b0a2937513aa08da88819487f3e54
+semgrep==1.37.0 \
+    --hash=sha256:2cdaec7455125467ddafd20f99eebe4f2116dc02bf1baacce53c407bb57cbf25 \
+    --hash=sha256:4a3ffab7364cc9140024bd3d5ffdf382f7464c884d89ba8ef2eb0ab2eb3d5ecb \
+    --hash=sha256:842d385649d91ba69860d5fb96abe470ea15b257b036a9586b1fa8d675764dc3 \
+    --hash=sha256:9a9140cdfac8cb24ff5177fef39b8cf8d59255df67d93d6da5b577799ce5e3cd \
+    --hash=sha256:d05fa774ce3ed1d9f17fd69cc16bc6748cbd898592aa2c52f48ccec5af79ff23
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \

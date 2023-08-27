@@ -19,8 +19,8 @@ require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/bazelbuild/bazelisk v1.17.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20230815234107-1ccdfb63abbc // indirect
+	github.com/bazelbuild/bazelisk v1.18.0 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20230825120932-b163fcf72b7d // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
@@ -57,7 +57,7 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gdamore/encoding v1.0.0 // indirect
 	github.com/gdamore/tcell/v2 v2.6.0 // indirect
-	github.com/gitleaks/go-gitdiff v0.8.0 // indirect
+	github.com/gitleaks/go-gitdiff v0.9.0 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.4.1 // indirect
 	github.com/go-git/go-git/v5 v5.8.1 // indirect
@@ -157,7 +157,7 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	github.com/zalando/go-keyring v0.2.2 // indirect
-	github.com/zricethezav/gitleaks/v8 v8.17.0 // indirect
+	github.com/zricethezav/gitleaks/v8 v8.18.0 // indirect
 	go.etcd.io/bbolt v1.3.7 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.11.0 // indirect

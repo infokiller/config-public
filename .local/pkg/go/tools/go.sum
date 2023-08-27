@@ -238,10 +238,10 @@ github.com/aymanbagabas/go-osc52 v1.2.1/go.mod h1:zT8H+Rk4VSabYN90pWyugflM3ZhpTZ
 github.com/aymanbagabas/go-osc52/v2 v2.0.1 h1:HwpRHbFMcZLEVr42D4p7XBqjyuxQH5SMiErDT4WkJ2k=
 github.com/aymanbagabas/go-osc52/v2 v2.0.1/go.mod h1:uYgXzlJ7ZpABp8OJ+exZzJJhRNQ2ASbcXHWsFqH8hp8=
 github.com/aymerick/douceur v0.2.0/go.mod h1:wlT5vV2O3h55X9m7iVYN0TBM0NH/MmbLnd30/FjWUq4=
-github.com/bazelbuild/bazelisk v1.17.0 h1:TDt+a1PYrnBF9on3WRJUisXXFhCMrhcNo8OebyS5Q34=
-github.com/bazelbuild/bazelisk v1.17.0/go.mod h1:nWNmVF7yKsUt3EWCBCrqUeMNQpbB+DAphHIeckV1ov4=
-github.com/bazelbuild/buildtools v0.0.0-20230815234107-1ccdfb63abbc h1:G7BsFe3Sd2E6bxQpl/UnLQglHr0hrScG8R0HtkxkyBA=
-github.com/bazelbuild/buildtools v0.0.0-20230815234107-1ccdfb63abbc/go.mod h1:689QdV3hBP7Vo9dJMmzhoYIyo/9iMhEmHkJcnaPRCbo=
+github.com/bazelbuild/bazelisk v1.18.0 h1:7r258hnB0wNibJ66ihSn85eMSsnJVty2HHjamOrNBIk=
+github.com/bazelbuild/bazelisk v1.18.0/go.mod h1:ir+kyqpsrGg61Il5NAippM2oM3OBHq/osFulISOG5uc=
+github.com/bazelbuild/buildtools v0.0.0-20230825120932-b163fcf72b7d h1:skvX7icFzwe3yKdg2wZALO+aLAYs13Qua1v2iZPo2HE=
+github.com/bazelbuild/buildtools v0.0.0-20230825120932-b163fcf72b7d/go.mod h1:689QdV3hBP7Vo9dJMmzhoYIyo/9iMhEmHkJcnaPRCbo=
 github.com/benbjohnson/clock v1.1.0/go.mod h1:J11/hYXuz8f4ySSvYwY0FKfm+ezbsZBKZxNJlLklBHA=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/beorn7/perks v1.0.0/go.mod h1:KWe93zE9D1o94FZ5RNwFwVgaQK1VOXiVxmqh+CedLV8=
@@ -387,8 +387,8 @@ github.com/gdamore/tcell/v2 v2.2.0/go.mod h1:cTTuF84Dlj/RqmaCIV5p4w8uG1zWdk0SF6o
 github.com/gdamore/tcell/v2 v2.6.0 h1:OKbluoP9VYmJwZwq/iLb4BxwKcwGthaa1YNBJIyCySg=
 github.com/gdamore/tcell/v2 v2.6.0/go.mod h1:be9omFATkdr0D9qewWW3d+MEvl5dha+Etb5y65J2H8Y=
 github.com/ghodss/yaml v1.0.0/go.mod h1:4dBDuWmgqj2HViK6kFavaiC9ZROes6MMH2rRYeMEF04=
-github.com/gitleaks/go-gitdiff v0.8.0 h1:7aExTZm+K/M/EQKOyYcub8rIAdWK6ONxPGuRzxmWW+0=
-github.com/gitleaks/go-gitdiff v0.8.0/go.mod h1:pKz0X4YzCKZs30BL+weqBIG7mx0jl4tF1uXV9ZyNvrA=
+github.com/gitleaks/go-gitdiff v0.9.0 h1:SHAU2l0ZBEo8g82EeFewhVy81sb7JCxW76oSPtR/Nqg=
+github.com/gitleaks/go-gitdiff v0.9.0/go.mod h1:pKz0X4YzCKZs30BL+weqBIG7mx0jl4tF1uXV9ZyNvrA=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 h1:+zs/tPmkDkHx3U66DAb0lQFJrpS6731Oaa12ikc+DiI=
 github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376/go.mod h1:an3vInlBmSxCcxctByoQdvwPiA7DTK7jaaFDBTtu0ic=
 github.com/go-git/go-billy/v5 v5.4.1 h1:Uwp5tDRkPr+l/TnbHOQzp+tmJfLceOlbVucgpTz8ix4=
@@ -911,8 +911,8 @@ github.com/yuin/goldmark v1.5.2/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5ta
 github.com/yuin/goldmark-emoji v1.0.1/go.mod h1:2w1E6FEWLcDQkoTE+7HU6QF1F6SLlNGjRIBbIZQFqkQ=
 github.com/zalando/go-keyring v0.2.2 h1:f0xmpYiSrHtSNAVgwip93Cg8tuF45HJM6rHq/A5RI/4=
 github.com/zalando/go-keyring v0.2.2/go.mod h1:sI3evg9Wvpw3+n4SqplGSJUMwtDeROfD4nsFz4z9PG0=
-github.com/zricethezav/gitleaks/v8 v8.17.0 h1:iv9gapktM9dA7m4j4jmqKlg8DqN5Qm8Elk5LKP3LuJo=
-github.com/zricethezav/gitleaks/v8 v8.17.0/go.mod h1:/0z7cslO7d0y29YRvHgYefeTu7UIqOmx95A4wMhcQtE=
+github.com/zricethezav/gitleaks/v8 v8.18.0 h1:+zXcDpHATT9E/eA9UZqcKNW/O1mg882NLmO/6z4CFK0=
+github.com/zricethezav/gitleaks/v8 v8.18.0/go.mod h1:JulwKdEMpiOxVFQxZFFixY51QzDZPn1xJ1/p7YqX4hQ=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/bbolt v1.3.6/go.mod h1:qXsaaIqmgQH0T+OPdb99Bf+PKfBBQVAdyD6TY9G8XM4=
 go.etcd.io/bbolt v1.3.7 h1:j+zJOnnEjF/kyHlDDgGnVL/AIqIJPq8UoB2GSNfkUfQ=

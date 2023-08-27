@@ -265,10 +265,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:^8.47.0":
-  version: 8.47.0
-  resolution: "@eslint/js@npm:8.47.0"
-  checksum: 0ef57fe27b6d4c305b33f3b2d2fee1ab397a619006f1d6f4ce5ee4746b8f03d11a4e098805a7d78601ca534cf72917d37f0ac19896c992a32e26299ecb9f9de1
+"@eslint/js@npm:8.48.0":
+  version: 8.48.0
+  resolution: "@eslint/js@npm:8.48.0"
+  checksum: b2755f9c0ee810c886eba3c50dcacb184ba5a5cd1cbc01988ee506ad7340653cae0bd55f1d95c64b56dfc6d25c2caa7825335ffd2c50165bae9996fe0f396851
   languageName: node
   linkType: hard
 
@@ -6311,14 +6311,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.47.0":
-  version: 8.47.0
-  resolution: "eslint@npm:8.47.0"
+"eslint@npm:8.48.0":
+  version: 8.48.0
+  resolution: "eslint@npm:8.48.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.2
-    "@eslint/js": ^8.47.0
+    "@eslint/js": 8.48.0
     "@humanwhocodes/config-array": ^0.11.10
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6354,7 +6354,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 1988617f703eadc5c7540468d54dc8e5171cf2bb9483f6172799cd1ff54a9a5e4470f003784e8cef92687eaa14de37172732787040e67817581a20bcb9c15970
+  checksum: f20b359a4f8123fec5c033577368cc020d42978b1b45303974acd8da7a27063168ee3fe297ab5b35327162f6a93154063e3ce6577102f70f9809aff793db9bd0
   languageName: node
   linkType: hard
 
@@ -7069,13 +7069,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "find-cache-dir@npm:4.0.0"
+"find-cache-dir@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "find-cache-dir@npm:5.0.0"
   dependencies:
     common-path-prefix: ^3.0.0
     pkg-dir: ^7.0.0
-  checksum: 52a456a80deeb27daa3af6e06059b63bdb9cc4af4d845fc6d6229887e505ba913cd56000349caa60bc3aa59dacdb5b4c37903d4ba34c75102d83cab330b70d2f
+  checksum: 1be046a2d6d98698d181352139bdd2f3e45cad4a0b3c9f06a611124ca52d823b0b327f5a629d7c5268b7fad54a202104765e572f8415b89ac35f76818fb3b75e
   languageName: node
   linkType: hard
 
@@ -8071,19 +8071,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:13.1.4, globby@npm:^13.1.4":
-  version: 13.1.4
-  resolution: "globby@npm:13.1.4"
-  dependencies:
-    dir-glob: ^3.0.1
-    fast-glob: ^3.2.11
-    ignore: ^5.2.0
-    merge2: ^1.4.1
-    slash: ^4.0.0
-  checksum: e8bc13879972082d590cd1b0e27080d90d2e12fff7eeb2cee9329c29115ace14cc5b9f899e3d6beb136ba826307a727016658919a6f383e1511d698acee81741
-  languageName: node
-  linkType: hard
-
 "globby@npm:13.2.2":
   version: 13.2.2
   resolution: "globby@npm:13.2.2"
@@ -8108,6 +8095,19 @@ __metadata:
     merge2: ^1.4.1
     slash: ^3.0.0
   checksum: b4be8885e0cfa018fc783792942d53926c35c50b3aefd3fdcfb9d22c627639dc26bd2327a40a0b74b074100ce95bb7187bfeae2f236856aa3de183af7a02aea6
+  languageName: node
+  linkType: hard
+
+"globby@npm:^13.1.4":
+  version: 13.1.4
+  resolution: "globby@npm:13.1.4"
+  dependencies:
+    dir-glob: ^3.0.1
+    fast-glob: ^3.2.11
+    ignore: ^5.2.0
+    merge2: ^1.4.1
+    slash: ^4.0.0
+  checksum: e8bc13879972082d590cd1b0e27080d90d2e12fff7eeb2cee9329c29115ace14cc5b9f899e3d6beb136ba826307a727016658919a6f383e1511d698acee81741
   languageName: node
   linkType: hard
 
@@ -11484,21 +11484,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint-cli2@npm:0.8.1":
-  version: 0.8.1
-  resolution: "markdownlint-cli2@npm:0.8.1"
+"markdownlint-cli2@npm:0.9.2":
+  version: 0.9.2
+  resolution: "markdownlint-cli2@npm:0.9.2"
   dependencies:
-    globby: 13.1.4
-    markdownlint: 0.29.0
+    globby: 13.2.2
+    markdownlint: 0.30.0
     markdownlint-cli2-formatter-default: 0.0.4
     micromatch: 4.0.5
-    strip-json-comments: 5.0.0
+    strip-json-comments: 5.0.1
     yaml: 2.3.1
   bin:
     markdownlint-cli2: markdownlint-cli2.js
     markdownlint-cli2-config: markdownlint-cli2-config.js
     markdownlint-cli2-fix: markdownlint-cli2-fix.js
-  checksum: 38464d73d91a1abe1cc43f925112e567ee27eb20f536e4a0c1329e28cea4366db68e9c365127bbd95f2580bf2983ec8ea61e98ece1c868c17994b542e37e495d
+  checksum: 6927f8befa23554b66ffb3e78618596598606cd0f00f665b85a9f0c7f5a0bc818c006e96bb59919477cc3961efe7bbe65a6c32f3c9ffd56c735c26b3c95da3f4
   languageName: node
   linkType: hard
 
@@ -11528,7 +11528,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"markdownlint@npm:0.29.0, markdownlint@npm:~0.29.0":
+"markdownlint-micromark@npm:0.1.7":
+  version: 0.1.7
+  resolution: "markdownlint-micromark@npm:0.1.7"
+  checksum: 1f40938fcbd9aab1eed1a6b5907b3a9ca731568622ea7b74f722a276216997a674a92cb7c54ee13ae6d64e81e300b26f2d5edad03d98ee9b0950871e74f21254
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:0.30.0":
+  version: 0.30.0
+  resolution: "markdownlint@npm:0.30.0"
+  dependencies:
+    markdown-it: 13.0.1
+    markdownlint-micromark: 0.1.7
+  checksum: cc99517c61fe8df9af918fafad314e685a8888162c476d6f7ef51555008c4f2581231e3930ea3d29b46a29307d2e4fce1c78db8dcd6962bf7069983e72cd3bba
+  languageName: node
+  linkType: hard
+
+"markdownlint@npm:~0.29.0":
   version: 0.29.0
   resolution: "markdownlint@npm:0.29.0"
   dependencies:
@@ -15355,9 +15372,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.323":
-  version: 1.1.323
-  resolution: "pyright@npm:1.1.323"
+"pyright@npm:1.1.324":
+  version: 1.1.324
+  resolution: "pyright@npm:1.1.324"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -15366,7 +15383,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 3dc2a1ebb69796bf1546268724eabaec6e2150cb75a0f0c9e4b29e30c1d1be2f877248251835209f2e55aec488bbc90203bb1c3559fa4bbca9e55287662d6d4f
+  checksum: b2cc28a4dd6631504f65380f86554e36db88f4a3810fe7898975efb0ac61f3212709c14759543a94335305866c0d2ec92a2a8e6c25d994305c057d81744d58e8
   languageName: node
   linkType: hard
 
@@ -16376,7 +16393,7 @@ __metadata:
     bash-language-server: 5.0.0
     corepack: 0.19.0
     diff-so-fancy: 1.4.3
-    eslint: 8.47.0
+    eslint: 8.48.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.5
@@ -16387,21 +16404,21 @@ __metadata:
     lebab: 3.2.1
     markdown-toc: 1.2.0
     markdownlint-cli: 0.35.0
-    markdownlint-cli2: 0.8.1
+    markdownlint-cli2: 0.9.2
     prettier: 3.0.2
     prettier-eslint-cli: 7.1.0
     puppeteer: 21.1.0
-    pyright: 1.1.323
+    pyright: 1.1.324
     release-it: 16.1.5
-    semantic-release: 21.0.9
-    snyk: 1.1204.0
+    semantic-release: 21.1.1
+    snyk: 1.1206.0
     stylelint: 15.10.3
     tldr: 3.3.8
     uglify-js: 3.17.4
     web-ext: 7.6.2
     write-good: 1.0.8
     yarn: 1.22.19
-    yarn-audit-fix: 10.0.0
+    yarn-audit-fix: 10.0.1
   languageName: unknown
   linkType: soft
 
@@ -16570,9 +16587,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:21.0.9":
-  version: 21.0.9
-  resolution: "semantic-release@npm:21.0.9"
+"semantic-release@npm:21.1.1":
+  version: 21.1.1
+  resolution: "semantic-release@npm:21.1.1"
   dependencies:
     "@semantic-release/commit-analyzer": ^10.0.0
     "@semantic-release/error": ^4.0.0
@@ -16604,7 +16621,7 @@ __metadata:
     yargs: ^17.5.1
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: 7da69393519da1ca6f14b29c38135f5fa48bd241da07eb0705da10a1707021a935960234ada8d0e7d49b8f63c00e1001cfb93683e0d8dbe89379d4857bcfc7ef
+  checksum: 46ebaeac46d7dfe4610617a79b6ceee3b1bd5fb7025cb800ce523b91d22a1f35ff31143164dc4fe7d15a1139488652cde887946b8f33e8839e8ba9875c9f83af
   languageName: node
   linkType: hard
 
@@ -17000,15 +17017,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1204.0":
-  version: 1.1204.0
-  resolution: "snyk@npm:1.1204.0"
+"snyk@npm:1.1206.0":
+  version: 1.1206.0
+  resolution: "snyk@npm:1.1206.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 3d18ee9849d48d2d0987b31aef7d5e80adf2e191cc73cb995024e5b8ff868ee119ebd6215c59a2a4a118f2852f3c13e4c200904a41dc3e54d9708c44b5309f37
+  checksum: a3b9b4f7f646edcdc1d61716c6b30c5a6814376ab543773b30a40a8dd82bd1f9154dda796688ca94a619643bccc297e1c70c23c898df5e66f894185e362741ed
   languageName: node
   linkType: hard
 
@@ -17732,6 +17749,13 @@ __metadata:
   version: 5.0.0
   resolution: "strip-json-comments@npm:5.0.0"
   checksum: 99cad07ccc3b86cc7bb8a9274a801b0660cbd595189ad291f6e206b8d7b23d90eed3119cdae44e126d9563796024b3ef0e7de2eeee4634b3b9019bafb62803e7
+  languageName: node
+  linkType: hard
+
+"strip-json-comments@npm:5.0.1":
+  version: 5.0.1
+  resolution: "strip-json-comments@npm:5.0.1"
+  checksum: b314af70c6666a71133e309a571bdb87687fc878d9fd8b38ebed393a77b89835b92f191aa6b0bc10dfd028ba99eed6b6365985001d64c5aef32a4a82456a156b
   languageName: node
   linkType: hard
 
@@ -20005,9 +20029,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:10.0.0":
-  version: 10.0.0
-  resolution: "yarn-audit-fix@npm:10.0.0"
+"yarn-audit-fix@npm:10.0.1":
+  version: 10.0.1
+  resolution: "yarn-audit-fix@npm:10.0.1"
   dependencies:
     "@types/find-cache-dir": ^3.2.1
     "@types/fs-extra": ^11.0.1
@@ -20018,7 +20042,7 @@ __metadata:
     chalk: ^5.3.0
     commander: ^10.0.1
     fast-glob: ^3.3.1
-    find-cache-dir: ^4.0.0
+    find-cache-dir: ^5.0.0
     find-up: ^6.3.0
     fs-extra: ^11.1.1
     js-yaml: ^4.1.0
@@ -20028,7 +20052,7 @@ __metadata:
     synp: ^1.9.10
   bin:
     yarn-audit-fix: target/esm/cli.mjs
-  checksum: 2417250117f4c1d7ee746d45ee5b528b4115620c9c3ba397cba58b07fc6d4e0db5ed588ee3a02858c7a5cdfaeacaf19bcf0ff6017280aedae9e9889e3644d844
+  checksum: 6ae42976b0c691bc76f9de27ca2825dd49a330a29aa219eff62694dbc14f19f819153a95c9e750081ac8fc4e325412205641d5446bb5fcb7b7a9fd15ad25ec84
   languageName: node
   linkType: hard
 
