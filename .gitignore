@@ -377,6 +377,7 @@
 /.config/xdg-desktop-portal-kderc
 /.config/zoomus.conf
 /.config/zsh/completion/_npm
+/.azure
 /.dotnet
 /.electron-gyp
 /.elinks
