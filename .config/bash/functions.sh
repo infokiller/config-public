@@ -2038,7 +2038,7 @@ upgrade-local-packages() {
         # Zsh doesn't support mapfile.
         # shellcheck disable=SC2207
         IFS=$'\n' files=($(git diff-index --name-only --ignore-submodules=all \
-          --diff-filter=AM HEAD | grep -E 'requirements.*.txt|go\.(mod|sum)'))
+          --diff-filter=AM HEAD | grep -E '(req/|requirements-).*\.txt|go\.(mod|sum)$'))
         if ((${#files[@]})); then
           git add -- "${files[@]}" && git commit -m 'update deps'
         fi
