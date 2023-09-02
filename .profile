@@ -323,6 +323,7 @@ _export_profile_env() {
   if test "${less_version}" -ge 580; then
     LESS="${LESS} --line-num-width=4 --status-col-width=1 --incsearch"
   fi
+  export SYSTEMD_LESS="${LESS}"
   # Less version 590 added support for reading the source lesskey file, making
   # it unnecessary to generate the binary file.
   # http://greenwoodsoftware.com/less/news.590.html
