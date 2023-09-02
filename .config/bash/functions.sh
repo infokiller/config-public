@@ -2034,11 +2034,11 @@ upgrade-local-packages() {
     for sub in $(git diff-index --name-only HEAD | rg '^submodules/.*(keydope|i3-workspace-groups|i3-scratchpad|selfspy|histcat)$'); do
       (
         cd -- "${sub}" && git status
-        local files
+        local files=()
         # Zsh doesn't support mapfile.
         # shellcheck disable=SC2207
         IFS=$'\n' files=($(git diff-index --name-only --ignore-submodules=all \
-          --diff-filter=AM HEAD | grep -E '(req/|requirements-).*\.txt|go\.(mod|sum)$'))
+          --diff-filter=AM HEAD | grep -E '(req/|requirements-).*\.txt|go\.(mod|sum)$')) || true
         if ((${#files[@]})); then
           git add -- "${files[@]}" && git commit -m 'update deps'
         fi
