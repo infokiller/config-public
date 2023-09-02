@@ -340,6 +340,33 @@ _install_graphical_envs() {
   _install_conda_env "${SUBMODULES_DIR}/desktop/promnesia/environment.yml"
 }
 
+_get_pipc_input_output() {
+  local extra="$1"
+  local input_args=()
+  if [[ -f pyproject.toml ]]; then
+    input_args=('pyproject.toml')
+  elif [[ -f setup.py ]]; then
+    input_args=('setup.py')
+  fi
+  if [[ -n "${extra}" ]] && ((${#input_args[@]})); then
+    input_args+=('--extra' "${extra}")
+  fi
+  local output_file
+  if [[ ! -d req ]]; then
+    local suffix=''
+    if [[ -n ${extra-} ]]; then
+      suffix="-${extra}"
+    fi
+    input_args=("${input_args:-requirements${suffix}.in}")
+    output_file="requirements${suffix}.txt"
+  else
+    extra="${extra:-base}"
+    input_args=("${input_args:-req/${extra}.in}")
+    output_file="req/${extra}.txt"
+  fi
+  printf '%s\n' "${input_args[*]}" "${output_file}"
+}
+
 _pip_compile_upgrade() {
   # https://github.com/jazzband/pip-tools/issues/1558
   # 6.6.2: https://github.com/jazzband/pip-tools/issues/1617
@@ -349,20 +376,18 @@ _pip_compile_upgrade() {
   # Starting from 8.0, --strip-extras and --allow-unsafe should be the default, and then
   # we can remove them.
   local compile=(pip-compile --strip-extras --quiet --generate-hashes --allow-unsafe --upgrade)
-  local sync_cmd=(pip-sync requirements.txt)
-  "${compile[@]}"
-  local req_name extra_args
-  for extra in "$@"; do
-    req_name="requirements-${extra}"
-    if [[ -f "${req_name}.in" ]]; then
-      extra_args=("${req_name}.in")
-    else
-      extra_args=(--extra "${extra}" --output-file "${req_name}.txt")
-    fi
-    "${compile[@]}" "${extra_args[@]}"
-    sync_cmd+=("${req_name}.txt")
+  local input_args output_file
+  local all_outputs=()
+  local constraints_args=()
+  for extra in '' "$@"; do
+    _get_pipc_input_output "${extra}"
+    # read returns non-zero when it reaches EOF, so we use || true to avoid
+    IFS=$'\n' read -r -d '' input_args output_file <<< "$(_get_pipc_input_output "${extra}")" || true
+    "${compile[@]}" "${input_args[*]}" "${constraints_args[@]}" --output-file "${output_file}"
+    all_outputs+=("${output_file}")
+    constraints_args+=('--constraint' "${output_file}")
   done
-  "${sync_cmd[@]}"
+  pip-sync "${all_outputs[@]}"
 }
 
 _upgrade_non_graphical_envs() {
@@ -398,7 +423,7 @@ _upgrade_graphical_envs() {
     # shellcheck disable=SC1091
     source activate keydope
     # shellcheck disable=SC2119
-    _pip_compile_upgrade dev systemd
+    _pip_compile_upgrade systemd dev
   )
   (
     cd -- "${SUBMODULES_DIR}/desktop/i3-workspace-groups"
@@ -523,7 +548,6 @@ main() {
       _upgrade_graphical_envs
     fi
   else
-    _setup_conda
     for base_tool in conda activate deactivate; do
       symlink_binary "${CONDA_LOCAL_DIR}/bin/${base_tool}" "${base_tool}"
     done
