@@ -357,11 +357,15 @@ _get_pipc_input_output() {
     if [[ -n ${extra-} ]]; then
       suffix="-${extra}"
     fi
-    input_args=("${input_args:-requirements${suffix}.in}")
+    if ((!${#input_args[@]})); then
+      input_args=("${input_args:-requirements${suffix}.in}")
+    fi
     output_file="requirements${suffix}.txt"
   else
     extra="${extra:-base}"
-    input_args=("${input_args:-req/${extra}.in}")
+    if ((!${#input_args[@]})); then
+      input_args=("${input_args:-req/${extra}.in}")
+    fi
     output_file="req/${extra}.txt"
   fi
   printf '%s\n' "${input_args[*]}" "${output_file}"
@@ -376,14 +380,15 @@ _pip_compile_upgrade() {
   # Starting from 8.0, --strip-extras and --allow-unsafe should be the default, and then
   # we can remove them.
   local compile=(pip-compile --strip-extras --quiet --generate-hashes --allow-unsafe --upgrade)
-  local input_args output_file
+  local input_args input_args_str output_file
   local all_outputs=()
   local constraints_args=()
   for extra in '' "$@"; do
     _get_pipc_input_output "${extra}"
     # read returns non-zero when it reaches EOF, so we use || true to avoid
-    IFS=$'\n' read -r -d '' input_args output_file <<< "$(_get_pipc_input_output "${extra}")" || true
-    "${compile[@]}" "${input_args[*]}" "${constraints_args[@]}" --output-file "${output_file}"
+    IFS=$'\n' read -r -d '' input_args_str output_file <<< "$(_get_pipc_input_output "${extra}")" || true
+    read -r -a input_args <<< "${input_args_str}"
+    "${compile[@]}" "${input_args[@]}" "${constraints_args[@]}" --output-file "${output_file}"
     all_outputs+=("${output_file}")
     constraints_args+=('--constraint' "${output_file}")
   done
