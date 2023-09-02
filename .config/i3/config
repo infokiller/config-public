@@ -246,7 +246,7 @@ bindcode $mod+Mod1+25 exec rofi -show window -no-sort
 #                             Scratchpad management                            #
 ################################################################################
 
-set $exec_i3_scratchpad exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-scratchpad conda-run i3_scratchpad ~/submodules/desktop/i3-scratchpad/scripts/i3-scratchpad
+set $exec_i3_scratchpad exec --no-startup-id PYTHONPATH=~/submodules/desktop/i3-scratchpad conda-run i3_scratchpad python -m i3sp.cli
 
 # Kill focused window if it's not a marked scrathpad window, otherwise move it to scratchpad.
 # Key: Q
