@@ -722,6 +722,9 @@ function {
 # Understand completions written for bash.
 autoload -Uz bashcompinit && bashcompinit
 source_compiled "${BASH_CONFIG_DIR}/completion.sh"
+if [[ -r /opt/azure-cli/bin/az.completion.sh  ]]; then
+  source /opt/azure-cli/bin/az.completion.sh
+fi
 
 function {
   # Newer versions of zsh already come with npm completions.
