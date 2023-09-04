@@ -657,8 +657,12 @@ _install_vim_plugins() {
   # window and then from the new buffer.
   # vim -u "${REPO_ROOT}/.config/vim/vimrc" -c ":PlugInstall | q | q"
   local vim_bin
-  for vim_bin in /bin/vim nvim; do
+  for vim_bin in /usr/bin/vim nvim; do
     print_bold "Vim variant: ${vim_bin}"
+    if ! command_exists "${vim_bin}"; then
+      print_warning "${vim_bin} not found, skipping"
+      continue
+    fi
     print_bold 'Installing vim helptags'
     "${vim_bin}" -u "${REPO_ROOT}/.config/vim/vimrc" -c 'call plug#helptags()' -c 'q'
     print_bold 'Installing vim-go binaries'
