@@ -15346,9 +15346,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.325":
-  version: 1.1.325
-  resolution: "pyright@npm:1.1.325"
+"pyright@npm:1.1.326":
+  version: 1.1.326
+  resolution: "pyright@npm:1.1.326"
   dependencies:
     fsevents: ~2.3.2
   dependenciesMeta:
@@ -15357,7 +15357,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 957da07079d5d5416f61b2a3766882c1ce5a38f23be4244ce734282bb60eb21755a94a34c8699c74a1cc5d44707ad3bf8ae71bbd91527f820e4790d6ed0eee95
+  checksum: 70d978f677e2cc9fd4e536a401336cd4b9e5ba56c2bdd923c5a30474e01197eb98c733bf9497f758671de9e9d86a6a315e778e46e234e59a7aefea134044c311
   languageName: node
   linkType: hard
 
@@ -16382,10 +16382,10 @@ __metadata:
     prettier: 3.0.3
     prettier-eslint-cli: 7.1.0
     puppeteer: 21.1.1
-    pyright: 1.1.325
+    pyright: 1.1.326
     release-it: 16.1.5
     semantic-release: 21.1.1
-    snyk: 1.1209.0
+    snyk: 1.1212.0
     stylelint: 15.10.3
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -16991,15 +16991,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1209.0":
-  version: 1.1209.0
-  resolution: "snyk@npm:1.1209.0"
+"snyk@npm:1.1212.0":
+  version: 1.1212.0
+  resolution: "snyk@npm:1.1212.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 3f04a9fa95c2a2be109b92a1ffff24463921c4f59f31bec4eeb74e3a15d0d86d1640404feebffb79096f721ae932a628db36225bde5ebaeeb5286cfd5b72ac06
+  checksum: c0d94389071d001915799c39ba6cfb75493c4cb517e717205ffe0a58e13d6dfced5c444817e6f9e16dda8ad1eb090cae505c409627dada269e4ae43218c07b19
   languageName: node
   linkType: hard
 
