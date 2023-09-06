@@ -378,6 +378,7 @@
 /.config/zoomus.conf
 /.config/zsh/completion/_npm
 /.azure
+/.azure-devops
 /.dotnet
 /.electron-gyp
 /.elinks
