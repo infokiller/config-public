@@ -1,6 +1,6 @@
 module gitlab.com/infokiller/config-public/.local/pkg/go/tools
 
-go 1.21.0
+go 1.21.1
 
 require (
 	code.rocketnine.space/tslocum/cbind v0.1.5 // indirect
@@ -21,7 +21,7 @@ require (
 	github.com/aykamko/tag v1.4.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/bazelbuild/bazelisk v1.18.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20230831140646-386244e73fc4 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20230908120336-046e1686ec6f // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
