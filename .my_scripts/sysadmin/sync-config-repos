@@ -238,7 +238,7 @@ _get_common_excludes() {
   # Private excludes shared by both public and private repos.
   cat -- "${REPO_ROOT}/.gitignore_private"
   # DGX machines create some files in the home directory that should be ignored.
-  # In addition, as of 2020-04-12 they don't have recent versions of exa.
+  # In addition, as of 2020-04-12 they don't have recent versions of exa/eza.
   # Is this general to Ubuntu 20.04?
   if is_nvidia_dgx; then
     local dgx_excludes=(

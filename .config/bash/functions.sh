@@ -31,8 +31,8 @@ alias watch='watch --color -n1 '
 
 # Files and directories {{{
 
-# ls/exa {{{
-# Options shared by both ls and exa.
+# ls/exa/eza {{{
+# Options shared by both ls and eza.
 _default_ls_opts=(
   # show datetime as "2000-01-01 20:30"
   '--time-style=long-iso'
@@ -44,14 +44,25 @@ _default_ls_opts=(
 if command_exists dircolors; then
   _default_ls_opts+=('--color=auto')
 fi
-if command_exists exa; then
+_my_ls=ls
+if command_exists eza; then
+  _my_ls=eza
+elif command_exists exa; then
+  _my_ls=exa
+fi
+
+if [[ "${_my_ls}" =~ ^(exa|eza)$ ]]; then
   # shellcheck disable=SC2139
-  alias exa="exa ${_default_ls_opts[*]}"
-  alias ls='exa'
+  alias exa="${_my_ls} ${_default_ls_opts[*]}"
+  # shellcheck disable=SC2139
+  alias eza="${_my_ls} ${_default_ls_opts[*]}"
+  # shellcheck disable=SC2139
+  alias ls="${_my_ls}"
   alias lla='ll -a'
-  alias lt='exa --tree'
+  # shellcheck disable=SC2139
+  alias lt="${_my_ls} --tree"
   alias llt='lt -l'
-  alias tree='exa --tree'
+  alias tree='lt'
 else
   # We add two more options to make ls more compatible with exa's defaults,
   # which seems more sensible to me:
@@ -61,14 +72,14 @@ else
   alias ls="ls ${_default_ls_opts[*]} --no-group --human-readable"
   alias lla='ll -A'
 fi
-# Aliases shared by both ls and exa.
+# Aliases shared by both ls and exa/eza.
 alias l='ls'
 alias ll='ls -l'
 alias la='lla'
-# Note that exa doesn't support just specifying ls's `-t` (which sorts by time),
+# Note that eza doesn't support just specifying ls's `-t` (which sorts by time),
 # but it requires an explicit sort field. "time" means the same as "modified",
-# and is compatible with both GNU ls and exa, while "modified" is clearer but is
-# only compatible with exa.
+# and is compatible with both GNU ls and eza, while "modified" is clearer but is
+# only compatible with eza.
 alias lst='ll --reverse --sort=time'
 # }}} ls 
 
@@ -2038,7 +2049,7 @@ upgrade-local-packages() {
         # Zsh doesn't support mapfile.
         # shellcheck disable=SC2207
         IFS=$'\n' files=($(git diff-index --name-only --ignore-submodules=all \
-          --diff-filter=AM HEAD | grep -E '(req/|requirements-).*\.txt|go\.(mod|sum)$')) || true
+          --diff-filter=AM HEAD | grep -E '(req/|requirements).*\.txt|go\.(mod|sum)$')) || true
         if ((${#files[@]})); then
           git add -- "${files[@]}" && git commit -m 'update deps'
         fi

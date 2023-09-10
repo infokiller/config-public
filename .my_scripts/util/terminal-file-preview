@@ -55,7 +55,9 @@ main() {
   file="${file/\~/${HOME}}"
   if [[ -d "${file}" ]]; then
     local ls=(ls --color)
-    if _command_exists exa; then
+    if _command_exists eza; then
+      ls=(eza --color=always -l)
+    elif _command_exists exa; then
       ls=(exa --color=always -l)
     fi
     "${ls[@]}" -- "${file}"

@@ -541,7 +541,7 @@ function {
   # any file (instead of only completing zip files and pdf files respectively).
   # Therefore, I define it only for specific commands.
   # zstyle ':completion:*' file-patterns '[^.]*:non-hidden-files' '.*:hidden-files'
-  local generic_file_completers=(ls exa cd-ranger cd-fasd-fzf ranger dirsize 
+  local generic_file_completers=(ls exa eza cd-ranger cd-fasd-fzf ranger dirsize 
     vim-less swap-files)
   local generic_file_completers_context="$(printf ':completion:*:*:%s:*' \
     "("$(join_by '|' "${generic_file_completers[@]}")")")"
