@@ -231,9 +231,8 @@ checkout_if_safe() {
 }
 
 # Return values:
-# - 0: checked out the revision, it has all existing commits and new ones
-# - 1: didn't check out the revision, already pointing to same one
-# - 2: didn't check out the revision, it doesn't have all existing commits
+# - 0: checked out the revision, it has all existing commits
+# - 1: didn't check out the revision, it doesn't have all existing commits
 checkout_if_newer() {
   local rev="$1"
   local rev_desc="${2:-$1}"
@@ -241,13 +240,13 @@ checkout_if_newer() {
   num_missing_commits="$(get_num_missing_commits "${rev}")"
   if ((num_missing_commits != 0)); then
     _log_info "${rev_desc} does not have all HEAD commits, leaving HEAD as is"
-    return 2
+    return 1
   fi
   # NOTE: The ^{} part is used to dereference annotated tags, see:
   # https://stackoverflow.com/q/66913267/1014208
   if [[ "$(git rev-parse HEAD)" == "$(git rev-parse "${rev}^{}")" ]]; then
     _log_info "HEAD already pointing to ${rev_desc}, leaving HEAD as is"
-    return 1
+    return
   fi
   _log_info_bold "${rev_desc} has more commits than HEAD, checking it out"
   checkout_if_safe "${rev}"
@@ -260,26 +259,38 @@ checkout_if_newer() {
   fi
 }
 
-rollback_head() {
-  local original_head_sha1="$1"
-  local original_head_branch="$2"
-  if [[ -n "${original_head_branch}" ]]; then
-    git checkout --quiet "${original_head_branch}"
-    git reset --hard --quiet "${original_head_sha1}"
-    return
+preexit_cleanups() {
+  local s=0
+  maybe_rollback "${@:1:3}" || s=$?
+  local dirty="$4"
+  if ((dirty)) && ! git stash pop; then
+    print_error 'Could not apply stashed changes'
+    s=1
   fi
-  git checkout --quiet "${original_head_sha1}"
+  return "${s}"
 }
 
-rollback_if_lost_commits() {
-  local original_head_sha1="$1"
-  local original_head_branch="$2"
+maybe_rollback() {
+  local s="$1"
+  local original_head_sha1="$2"
+  local original_head_branch="$3"
   local num_lost_commits
   num_lost_commits="$(get_num_missing_commits 'HEAD' "${original_head_sha1}")"
   if ((num_lost_commits > 0)); then
     print_warning "Lost ${num_lost_commits} commits after update, rolling back."
-    rollback_head "${original_head_sha1}" "${original_head_branch}"
+    s=1
   fi
+  if ((s == 0)); then
+    return
+  fi
+  if [[ -n "${original_head_branch}" ]]; then
+    _log_info_bold "Rolling back HEAD to ${original_head_branch}"
+    git checkout --quiet "${original_head_branch}"
+    git reset --hard --quiet "${original_head_sha1}"
+    return
+  fi
+  _log_info_bold "Rolling back HEAD to ${original_head_sha1}"
+  git checkout --quiet "${original_head_sha1}"
 }
 
 # See: https://stackoverflow.com/a/3899339
@@ -317,13 +328,15 @@ sensible_update() {
     _log_info "$(printf 'Lastest tag reachable from origin/%s: %s, datetime: %s\n' \
       "${branch}" "${latest_tag}" "$(get_commit_datetime "${latest_tag}")")"
     # If we updated to the latest tag or we're already pointing to it, return.
-    if checkout_if_newer "${latest_tag}" || (($? == 1)); then
+    if checkout_if_newer "${latest_tag}"; then
       return
     fi
   else
     _log_info 'Did not find a tag reachable from origin/'"${branch}"
   fi
-  checkout_if_newer "${branch}"
+  # Even if the current branch is the same as the current sha1, we still want to
+  # checkout the branch to make sure we're not in a detached head state.
+  checkout_if_newer "${branch}" && git checkout --quiet "${branch}"
 }
 
 main() {
@@ -333,14 +346,15 @@ main() {
     exit 2
   fi
   _log_info_bold 'Processing repo with origin '"${origin_url}"
+  local dirty=0
+  maybe_stash_changes && dirty=1
   # Store original HEAD.
   local original_head_sha1
   original_head_sha1="$(git rev-parse HEAD)"
   # original_head_branch will be empty if on a detached head
   local original_head_branch
   original_head_branch="$(git symbolic-ref --short -q HEAD)" || true
-  # Rollback HEAD if anything goes wrong.
-  trap '(($? != 0 )) && rollback_head "${original_head_sha1}" "${original_head_branch}"' \
+  trap 'preexit_cleanups $? '"${original_head_sha1} '${original_head_branch}' ${dirty}" \
     EXIT SIGABRT SIGHUP SIGINT SIGTERM SIGPIPE SIGQUIT
   local default_branch
   if ! default_branch="$(get_default_branch origin)"; then
@@ -352,27 +366,19 @@ main() {
   # because the fetch may change the ~/.ssh/known_hosts file which could be part
   # of the repo, leading to a merge conflict.
   fetch_remotes "${default_branch}"
-  local dirty=0
-  maybe_stash_changes && dirty=1
   merge_and_maybe_push "${default_branch}"
   # Rollback HEAD since sensible_update expects the original HEAD before
   # deciding how to update.
   # NOTE: this isn't a perfect rollback because it checks out a detached head,
   # but we may have been tracking a branch. We can't just check out the branch
   # because it may have changed after fetching the remotes and merging them. We
-  # also don't want to do a full rollback like rollback_head does, since it can
+  # also don't want to do a full rollback like preexit_cleanups does, since it can
   # remove commits from the default branch which we may want to check out in the
   # update.
   git checkout --quiet "${original_head_sha1}"
-  if sensible_update "${default_branch}"; then
-    rollback_if_lost_commits "${original_head_sha1}" "${original_head_branch}"
-  else
-    # See note above, we roll back the head branch to the head commit.
-    rollback_head "${original_head_sha1}" "${default_branch}"
-  fi
-  if ((dirty)) && ! git stash pop; then
-    print_error 'Could not apply stashed changes'
-    exit 2
+  sensible_update "${default_branch}"
+  if [[ -n "${original_head_branch}" ]]; then
+    git checkout --quiet "${original_head_branch}"
   fi
 }
 
