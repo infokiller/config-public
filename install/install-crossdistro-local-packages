@@ -443,8 +443,10 @@ _build_polybar_direct() {
   local cmake_cmd=(
     cmake
     '-DENABLE_I3=ON'
+    # https://github.com/alsa-project/alsa-lib/issues/348
+    '-DCMAKE_CXX_FLAGS=-DUSE_ALSALIB_H'
     '-DENABLE_ALSA=ON'
-    '-DENABLE_PULSEAUDIO=ON'
+    # '-DENABLE_PULSEAUDIO=ON'
     '-DENABLE_NETWORK=ON'
     '-DENABLE_CURL=ON'
     '-DBUILD_POLYBAR_MSG=ON'
