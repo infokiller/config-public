@@ -29,6 +29,7 @@ if has_intel_gpu; then
   # https://wiki.archlinux.org/index.php/Hardware_video_acceleration#Intel
   AddPackage intel-media-driver # Intel Media Driver for VAAPI — Broadwell+ iGPUs
   # AddPackage libva-intel-driver # VA-API implementation for Intel G45 and HD Graphics family
+  AddPackage gstreamer-vaapi # Multimedia graph framework - vaapi plugin
 fi
 if has_amd_gpu; then
   # NOTE: mesa-vdpau seems to only be needed for AMD GPUs.
@@ -107,12 +108,15 @@ fi
 AddPackage mesa-utils # Essential Mesa utilities
 
 # Audio server base system and utils.
-AddPackage pulseaudio # A featureful, general-purpose sound server
-CreateLink '/etc/systemd/user/sockets.target.wants/pulseaudio.socket' '/usr/lib/systemd/user/pulseaudio.socket'
-AddPackage pulseaudio-alsa      # ALSA Configuration for PulseAudio
-AddPackage pulseaudio-bluetooth # Bluetooth support for PulseAudio
-AddPackage alsa-utils           # An alternative implementation of Linux sound support
-# This file causes superfluous "Restoring the following files" prompts
-IgnorePath '/usr/share/alsa/ucm2/conf.d/simple-card/Librem 5 Devkit.conf'
-
+AddPackage pipewire # Low-latency audio/video router and processor
 CreateLink '/etc/systemd/user/sockets.target.wants/pipewire.socket' '/usr/lib/systemd/user/pipewire.socket'
+AddPackage pipewire-docs # Low-latency audio/video router and processor - documentation
+AddPackage wireplumber   # Session / policy manager implementation for PipeWire
+CreateLink /etc/systemd/user/pipewire.service.wants/wireplumber.service /usr/lib/systemd/user/wireplumber.service
+CreateLink /etc/systemd/user/pipewire-session-manager.service /usr/lib/systemd/user/wireplumber.service
+AddPackage pipewire-audio # Low-latency audio/video router and processor - Audio support
+AddPackage pipewire-alsa  # Low-latency audio/video router and processor - ALSA configuration
+AddPackage pipewire-pulse # Low-latency audio/video router and processor - PulseAudio replacement
+CreateLink /etc/systemd/user/sockets.target.wants/pipewire-pulse.socket /usr/lib/systemd/user/pipewire-pulse.socket
+AddPackage gst-plugin-pipewire # Multimedia graph framework - pipewire plugin
+AddPackage alsa-utils          # An alternative implementation of Linux sound support

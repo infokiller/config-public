@@ -397,6 +397,7 @@
 /.local/state/activitywatch
 /.local/state/nvim
 /.local/state/pnpm
+/.local/state/wireplumber
 /.m2/repository
 /.mono
 /.mozilla
