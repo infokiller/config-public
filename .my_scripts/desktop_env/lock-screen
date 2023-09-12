@@ -16,7 +16,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 # delete these comments once the code is stable.
 # export XSECURELOCK_NO_COMPOSITE=1
 
-declare -g is_sound_on=0
+declare -g active_audio_sinks=()
 
 _log() {
   logger --tag 'lock-screen' --stderr "$@" 2>&1
@@ -24,6 +24,14 @@ _log() {
 
 _command_exists() {
   command -v -- "$1" &> /dev/null
+}
+
+_print_warning() {
+  local warning normal
+  # Yellow color
+  warning="$(tput setaf 3 2> /dev/null)" || true
+  normal="$(tput sgr0 2> /dev/null)" || true
+  printf >&2 '%s\n' "${warning}${*}${normal}"
 }
 
 _print_error() {
@@ -39,16 +47,24 @@ _is_fd_open() {
   eval "(command >&$1 2<> /dev/null)"
 }
 
-_save_sound_status() {
-  # TODO: This doesn't work on my desktop when the output device is the
-  # Plantronics headphones. It seems that I need to check and possibly mute/unmute
-  # all sound cards, not just Master in the default device. Snippet to list all
-  # sound cards IDs:
-  # sound_cards_ids=($(aplay --list-devices | \grep '^card' | sed -r 's/^card ([0-9]+).*/\1/' | sort -u))
-  if amixer -D pulse sget Master | 'grep' --text -q '\[on\]'; then
-    is_sound_on=1
+_save_audio_status() {
+  if ! _command_exists pactl; then
+    _print_warning 'pactl not found'
+    return
   fi
-  _log "Sound is on: ${is_sound_on}"
+  local fields sink_name is_active
+  while IFS='' read -r line; do
+    IFS=$'\t ' read -r -a fields <<< "${line}"
+    sink_name="${fields[1]}"
+    is_active=1
+    if pactl get-sink-mute "${sink_name}" | grep -q ': yes'; then
+      is_active=0
+    fi
+    _log "Audio active=${is_active} for sink ${line}"
+    if ((is_active)); then
+      active_audio_sinks+=("${sink_name}")
+    fi
+  done < <(pactl list short sinks)
 }
 
 # _kill_locker() {
@@ -56,18 +72,23 @@ _save_sound_status() {
 # }
 
 _pre_lock() {
-  _log 'Muting sound'
-  amixer -D pulse set Master 1+ mute
+  local s=0
+  local sink_name
+  for sink_name in "${active_audio_sinks[@]}"; do
+    _log "Muting audio for sink ${sink_name}"
+    pactl set-sink-mute "${sink_name}" 1 || s=$?
+  done
   _log 'Turning off monitor'
-  xset dpms force off
+  xset dpms force off || s=$?
   # _log 'Setting XKB layout to English'
   # setxkbmap us
   _log 'Resetting keyboard settings'
-  set-x11-settings
+  set-x11-settings || s=$?
   _log 'Pausing dunst'
   # Starting from dunst 1.5.0, pausing can be done using:
   # `dunstctl set-paused true`
-  killall -SIGUSR1 dunst
+  killall -SIGUSR1 dunst || s=$?
+  return "${s}"
 }
 
 _post_lock() {
@@ -75,10 +96,11 @@ _post_lock() {
   # Starting from dunst 1.5.0, resuming can be done using:
   # `dunstctl set-paused false`
   killall -SIGUSR2 dunst
-  if ((is_sound_on)); then
-    _log 'Restoring sound'
-    amixer -D pulse set Master 1+ unmute
-  fi
+  local sink_name
+  for sink_name in "${active_audio_sinks[@]}"; do
+    _log "Restoring audio for sink ${sink_name}"
+    pactl set-sink-mute "${sink_name}" 0
+  done
 }
 
 main() {
@@ -87,9 +109,13 @@ main() {
     _print_error "Locker not found: xsecurelock"
     exit 1
   fi
-  _save_sound_status
+  _save_audio_status || {
+    _print_warning 'Cannot mute audio sinks'
+  }
   trap _post_lock EXIT SIGABRT SIGHUP SIGINT SIGTERM SIGPIPE SIGQUIT
-  _pre_lock
+  _pre_lock || {
+    _print_warning 'Pre-lock errors'
+  }
   # trap _kill_locker SIGTERM SIGINT
   if [[ -e /dev/fd/${XSS_SLEEP_LOCK_FD:--1} ]]; then
     _log 'Activating locker in suspend mode'
