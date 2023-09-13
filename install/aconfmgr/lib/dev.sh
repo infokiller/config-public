@@ -74,6 +74,9 @@ add_tex_pkgs() {
   AddPackage texlive-publishers   # TeX Live - Publisher styles, theses, etc.
   AddPackage texlive-luatex       # TeX Live - LuaTeX packages
   AddPackage texlive-xetex        # TeX Live - XeTeX and packages
+  # texlive-binextra provides latexmk which is used by vimtex
+  AddPackage texlive-binextra # TeX Live - TeX auxiliary programs
+  AddPackage biber            # A Unicode-capable BibTeX replacement for biblatex users
 }
 
 # add_tex_pkgs
