@@ -1,10 +1,11 @@
-# zeus18 has a X299 SLI PLUS mobo which has two onboard NICs by Intel - i211
-# and i219. The i211 seems to have more advanced features, but is connected
-# over PCIe, while the i219 is "on chip", which doesn't consume PCIe lanes. See
-# also:
+# zeus18 originally had a X299 SLI PLUS mobo which has two onboard NICs by Intel - i211
+# and i219. The i211 seems to have more advanced features, but is connected over PCIe,
+# while the i219 is "on chip", which doesn't consume PCIe lanes. See also:
 # - https://www.computerbase.de/forum/threads/intel-i219-v-vs-intel-i211.1828627/
 # - http://ark.intel.com/compare/82186,64404
 SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="30:9c:23:21:f0:c8", NAME="eth-i211"
 SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="30:9c:23:21:f0:c9", NAME="eth-i219"
+# As of 2023-09-14, zeus18 uses a Gigabyte B650M mobo with Realtek RTL8125.
+SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="74:56:3c:6f:94:84", NAME="eth-rtl8125"
 
 # vim: set ft=udevrules :
