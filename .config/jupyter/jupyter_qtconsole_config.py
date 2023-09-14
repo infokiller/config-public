@@ -1,3 +1,5 @@
+# pylint: disable-next=undefined-variable
+c = get_config()  # noqa: F821
 #------------------------------------------------------------------------------
 # JupyterQtConsoleApp(JupyterApp,JupyterConsoleApp) configuration
 #------------------------------------------------------------------------------
@@ -26,7 +28,7 @@ c.ConsoleWidget.font_family = 'MyMono'
 #c.ConsoleWidget.font_size = 0
 
 ## The type of completer to use. Valid values are:
-#  
+#
 #  'plain'   : Show the available completion as a text list
 #              Below the editing area.
 #  'droplist': Show the completion in a drop down list navigable
@@ -38,17 +40,17 @@ c.ConsoleWidget.font_family = 'MyMono'
 
 ## Whether to include output from clients other than this one sharing the same
 #  kernel.
-#  
+#
 #  Outputs are not displayed until enter is pressed.
 c.ConsoleWidget.include_other_output = True
 
 ## Prefix to add to outputs coming from clients other than this one.
-#  
+#
 #  Only relevant if include_other_output is True.
 #c.ConsoleWidget.other_output_prefix = '[remote] '
 
 ## The type of paging to use. Valid values are:
-#  
+#
 #  'inside'
 #     The widget pages like a traditional terminal.
 #  'hsplit'
@@ -101,19 +103,19 @@ c.JupyterWidget.editor = 'sensible-terminal -- vim "{filename}"'
 #  is not specified, the line number option to the %edit magic will be ignored.
 #c.JupyterWidget.editor_line = ''
 
-## 
+##
 #c.JupyterWidget.in_prompt = 'In [<span class="in-prompt-number">%i</span>]: '
 
-## 
+##
 #c.JupyterWidget.input_sep = '\n'
 
-## 
+##
 #c.JupyterWidget.out_prompt = 'Out[<span class="out-prompt-number">%i</span>]: '
 
-## 
+##
 #c.JupyterWidget.output_sep = ''
 
-## 
+##
 #c.JupyterWidget.output_sep2 = ''
 
 ## If not empty, use this Pygments style for syntax highlighting. Otherwise, the

@@ -1,4 +1,5 @@
-# pylint: disable=undefined-variable
+# pylint: disable-next=undefined-variable
+c = get_config()  # noqa: F821
 
 _CM_CLASS = 'jupytext.TextFileContentsManager'
 if hasattr(c.ServerApp, 'contents_manager_class'):

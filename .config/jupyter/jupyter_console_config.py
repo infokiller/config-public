@@ -1,4 +1,5 @@
-# pylint: disable=undefined-variable
+# pylint: disable-next=undefined-variable
+c = get_config()  # noqa: F821
 
 ## Whether to include output from clients other than this one sharing the same
 #  kernel.

@@ -6,5 +6,17 @@
 
     // Navigate to current directory
     // Whether to automatically navigate to a document's current directory
-    "navigateToCurrentDirectory": false
+    "navigateToCurrentDirectory": false,
+
+    // Use checkboxes to select items
+    // Whether to show checkboxes next to files and folders
+    "showFileCheckboxes": true,
+
+    // Show file size column
+    // Whether to show the file size column
+    "showFileSizeColumn": true,
+
+    // When sorting by name, group notebooks before other files
+    // Whether to group the notebooks away from files
+    "sortNotebooksFirst": true
 }

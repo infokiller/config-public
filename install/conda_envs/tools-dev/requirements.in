@@ -29,18 +29,20 @@ pypiserver
 # Jupyter {{{
 jupytext
 # Classic notebook {{{
-notebook
-# jupyter_contrib_nbextensions and jupyter_contrib_nbextensions only work in
-# the classic Notebook, not JupyterLab [1][2].  However, they are still needed
-# to avoid errors in JupyterLab, because both notebook frontends share a
-# config file jupyter_notebook_config.json that specifies to load these
-# extensions. 
+notebook>=7.0
+# jupyter_contrib_nbextensions and jupyter_nbextensions_configurator only work in the
+# classic Notebook, not JupyterLab [1][2]. However, they are still needed
+# to avoid errors in JupyterLab, because both notebook frontends share a config file
+# jupyter_notebook_config.json that specifies to load these extensions. 
+# NOTE: as of 2023-09-14, I'm disabling these extensions because they are not compatible
+# with Notebook 7.0 [3].
 # [1] https://github.com/ipython-contrib/jupyter_contrib_nbextensions#jupyterlab
 # [2] https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/issues/64
+# [3] https://jupyter-notebook.readthedocs.io/en/latest/migrate_to_notebook7.html
 # As of 2020-05-09, jupyter_contrib_nbextensions caused update errors in
 # zeus18, and I needed to reinstall the environment to work around that.
-jupyter_contrib_nbextensions
-jupyter_nbextensions_configurator
+# jupyter_contrib_nbextensions
+# jupyter_nbextensions_configurator
 # }}} Classic notebook
 # Jupyter Lab {{{ #
 jupyterlab~=4.0
