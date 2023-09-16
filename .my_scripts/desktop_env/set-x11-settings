@@ -96,7 +96,7 @@ set_touchpad_settings() {
   # available_props=("${available_props:1}")
   for prop in "${!touchpad_props[@]}"; do
     if [[ ${available_props} == *"${prop}"* ]]; then
-      xinput set-prop "${touchpad_name}" "${prop}" ${touchpad_props[${prop}]}
+      xinput set-prop "${touchpad_name}" "${prop}" "${touchpad_props[${prop}]}"
     fi
   done
 }

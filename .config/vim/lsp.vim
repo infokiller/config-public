@@ -507,9 +507,10 @@ let g:doge_mapping_comment_jump_backward = '<M-p>'
 Plug 'ludovicchabant/vim-gutentags'
 " Use the file name .tags instead of tags for the tag file so that it's hidden
 " by default.
-" NOTE: This only has an effect when not using gutentags, since gutentags uses
-" g:gutentags_cache_dir to centralize the tags.
-let &tags = '.tags'
+" NOTE: This is only useful when not using gutentags, since gutentags uses
+" g:gutentags_cache_dir to centralize the tags. If using gutentags, this should not be 
+" set, since it will cause vim to read both files.
+" let &tags = '.tags'
 " json is used for storing large data in some of my projects, so I disable tags
 " generation for it.
 let s:tags_file_list_cmds = [
