@@ -741,9 +741,9 @@ tabulate==0.9.0 \
     --hash=sha256:0095b12bf5966de529c0feb1fa08671671b3368eec77d7ef7ab114be2c068b3c \
     --hash=sha256:024ca478df22e9340661486f85298cff5f6dcdba14f3813e8830015b9ed1948f
     # via cli-helpers
-tmuxp==1.30.1 \
-    --hash=sha256:0633cbe7480462d229cddf36165ee7b0d74a9649639b966b34e2a2f398b35759 \
-    --hash=sha256:c94123a0ed19c8c54b120a1d92f386aecf4adaf95184decc10d6441f36c446a3
+tmuxp==1.31.0 \
+    --hash=sha256:0bfdc1f28018d32125e18e6fc2e096e482eac73b61a4f3e10c1bddb462336a7a \
+    --hash=sha256:263977a1eea6d05ee138c232028f7ec6d4c17dea9ed8fc2eab73666ad859aa73
     # via -r requirements.in
 tomli==2.0.1 \
     --hash=sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc \

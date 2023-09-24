@@ -377,6 +377,7 @@
 /.config/wireshark
 /.config/xdg-desktop-portal-kderc
 /.config/zoomus.conf
+/.config/sf-docker
 /.config/zsh/completion/_npm
 /.azure
 /.azure-devops

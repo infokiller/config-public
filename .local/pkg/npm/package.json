@@ -21,7 +21,7 @@
     "prettier-eslint-cli": "7.1.0",
     "puppeteer": "21.3.4",
     "pyright": "1.1.328",
-    "release-it": "16.1.5",
+    "release-it": "16.2.0",
     "semantic-release": "22.0.4",
     "snyk": "1.1226.0",
     "stylelint": "15.10.3",
