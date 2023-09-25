@@ -68,7 +68,7 @@ skip-test=KRNL-5830
 # https://cisofy.com/lynis/controls/AUTH-9408
 skip-test=AUTH-9408
 # Complains about a umask of 022 set in /etc/profile, but this is set in
-# ~/.profile to 027.
+# ~/.profile to 077.
 # https://cisofy.com/lynis/controls/SHLL-6230
 skip-test=AUTH-9328
 # Complains about missing idle session killing tools, because I only set TMOUT
