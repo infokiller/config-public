@@ -27,10 +27,13 @@ fi
 
 # Podman {{{
 AddPackage podman         # Tool and library for running OCI-based containers in pods
+AddPackage slirp4netns    # User-mode networking for unprivileged network namespaces
 AddPackage fuse-overlayfs # FUSE implementation of overlayfs
 IgnorePath /etc/containers/networks/netavark.lock
-cat >| "$(CreateFile '/etc/subuid' 644)" <<< "${UID}:100000:65536"
-cat >| "$(CreateFile '/etc/subgid' 644)" <<< "${UID}:100000:65536"
+# NOTE: We allocate starting from 600000 to avoid conflicts with systemd-homed [1].
+# [1] https://rootlesscontaine.rs/getting-started/common/subuid/#specific-subuid-range-for-systemd-homed-users
+cat >| "$(CreateFile '/etc/subuid' 644)" <<< "${UID}:600000:200000"
+cat >| "$(CreateFile '/etc/subgid' 644)" <<< "${UID}:600000:200000"
 # }}} Podman
 
 # Libvirt {{{

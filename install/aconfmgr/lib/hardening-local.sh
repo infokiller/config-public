@@ -36,11 +36,21 @@ cat >> "$(GetPackageOriginalFile pambase /etc/pam.d/system-login)" << 'EOF'
 # NOTE(infokiller): this adds a delay of 5 seconds to auth failures.
 auth       optional   pam_faildelay.so     delay=5000000
 EOF
-CopyFile '/etc/pam.d/sshd'
-CopyFile '/etc/pam.d/passwd'
+# NOTE: Customizing /etc/pam.d/sshd is disabled, since it current doesn't change
+# anything. Previously, it was used to add Google Authenticator support to sshd.
+# CopyFile '/etc/pam.d/sshd'
+# NOTE: Customizing /etc/pam.d/passwd is disabled. It was used to increase the number of
+# hashing rounds for new SHA512-hashed passwords [1][2], but as of 2023-09-25 Archlinux  is
+# using yescrypt for new passwords [3].
+# [1] https://wiki.archlinux.org/title/SHA_password_hashes
+# [2] password	required	pam_unix.so sha512 shadow nullok rounds=100000
+# [3] https://archlinux.org/news/changes-to-default-password-hashing-algorithm-and-umask-settings/ 
+# CopyFile '/etc/pam.d/passwd'
 CopyFile '/etc/sysctl.d/99-hardening.conf' 600
 
-cat >> "$(GetPackageOriginalFile shadow /etc/login.defs)" << 'EOF'
+cat >> "$(GetPackageOriginalFile shadow '/etc/login.defs')" << 'EOF'
+# See documentation
+UMASK	077
 
 # NOTE(infokiller): Setting these variables was suggested by Lynis.
 SHA_CRYPT_MIN_ROUNDS 100000

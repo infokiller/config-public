@@ -6,6 +6,7 @@
 AddPackage git # the fast distributed version control system
 cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF'
 /bin/git-shell
+/usr/bin/git-shell
 EOF
 AddPackage git-filter-repo # Quickly rewrite git repository history (filter-branch replacement)
 AddPackage hub             # cli interface for Github
@@ -33,6 +34,7 @@ AddPackage android-udev  # Udev rules to connect Android devices to your linux b
 AddPackage dash # POSIX compliant shell that aims to be as small as possible
 cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF'
 /bin/dash
+/usr/bin/dash
 EOF
 
 AddPackage nodejs # Evented I/O for V8 javascript
@@ -56,6 +58,7 @@ AddPackage qrencode  # C library for encoding data in a QR Code symbol.
 AddPackage xonsh     # Python-powered, cross-platform, Unix-gazing shell
 cat >> "$(GetPackageOriginalFile --no-clobber filesystem '/etc/shells')" << 'EOF'
 /bin/xonsh
+/usr/bin/xonsh
 EOF
 AddPackage yapf       # Python style guide checker
 AddPackage pandoc-cli # Conversion between markup formats
