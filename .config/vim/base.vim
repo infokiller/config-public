@@ -86,11 +86,14 @@ if !has('nvim-0.6')
   set wildmenu
   set wildoptions=tagfile
   " https://github.com/neovim/neovim/pull/9607
-  if has('nvim-0.4.4')
+  if has('nvim-0.4.4') || has('patch-9.0.0')
     set wildoptions+=pum
   endif
   set mouse=nvi
   set mousemodel=popup_setpos
+endif
+if has('nvim-0.7.0') || has('patch-9.0.0')
+  set wildoptions+=fuzzy
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
