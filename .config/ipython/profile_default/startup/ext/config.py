@@ -1,6 +1,7 @@
 # This file contains most of the IPython/Jupyter configuration, except
 # names (including imports) that should be available interactively.
 
+# ruff: noqa: F401
 # pylint: disable=unused-import
 
 import importlib.util
@@ -217,7 +218,7 @@ def _enable_history_db_recovery():
             # history_manager can be set to None at exit?
             # I noticed this error message occasionally:
             # pylint: disable-next=line-too-long
-            #   The history saving thread hit an unexpected error (AttributeError("'NoneType' object has no attribute 'db_input_cache'")).History will not be written to the database.
+            #   The history saving thread hit an unexpected error (AttributeError("'NoneType' object has no attribute 'db_input_cache'")).History will not be written to the database. # noqa: E501
             if hm:
                 self._my_db_input_cache = list(hm.db_input_cache)
             return object.__getattribute__(self._my_conn, name)
@@ -243,7 +244,7 @@ def _enable_history_db_recovery():
                 with self._my_conn:
                     for line in self._my_db_input_cache:
                         self._my_conn.execute(
-                            "INSERT INTO history VALUES (?, ?, ?, ?)",
+                            'INSERT INTO history VALUES (?, ?, ?, ?)',
                             (hm.session_number,) + line)
             except sqlite3.Error:
                 print('sqlite error from my config')
@@ -342,8 +343,6 @@ def _configure_autoreload():
     # Loading autoreload prints a warning that we suppress:
     # "the imp module is deprecated in favour of importlib; see the module's
     # documentation for alternative uses"
-    # %reload_ext autoreload
-    # pylint: disable=undefined-variable
     ipython.run_line_magic('reload_ext', 'autoreload')
     ipython.run_line_magic('autoreload',
                            '3' if IPython.version_info[0] >= 8 else '2')

@@ -1,3 +1,4 @@
+# ruff: noqa: E402,E501
 # pylint: disable=line-too-long,too-many-lines
 # NOTE(infokiller): this file was generated on 2023-03-05 from IPython 8.11.0
 # using `ipython profile create test` and I reviewed all the options in this
