@@ -44,7 +44,7 @@ _default_ls_opts=(
 if command_exists dircolors; then
   _default_ls_opts+=('--color=auto')
 fi
-_my_ls=ls
+_my_ls='ls'
 if command_exists eza; then
   _my_ls=eza
 elif command_exists exa; then
