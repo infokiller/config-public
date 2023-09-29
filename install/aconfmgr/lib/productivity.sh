@@ -29,6 +29,7 @@ AddPackage duf              # Disk Usage/Free Utility
 AddPackage mlocate          # Merging locate/updatedb implementation
 AddPackage bc               # An arbitrary precision calculator language
 
+AddPackage ouch  # A command line utility for easily compressing and decompressing files and directories
 AddPackage atool # A script for managing file archives of various types
 AddPackage unrar # The RAR uncompression program
 # gvfs is needed for trash integration (`trash:///`).
@@ -55,5 +56,5 @@ AddPackage python-pillow # Python Imaging Library (PIL) fork
 
 AddPackage broot # Fuzzy Search + tree + cd
 
-AddPackage yt-dlp     # A youtube-dl fork with additional features and fixes
-AddPackage aria2      # Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink
+AddPackage yt-dlp # A youtube-dl fork with additional features and fixes
+AddPackage aria2  # Download utility that supports HTTP(S), FTP, BitTorrent, and Metalink

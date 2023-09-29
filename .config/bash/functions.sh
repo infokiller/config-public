@@ -251,10 +251,10 @@ alias o='open-fasd-fzf'
 # Browser
 alias b='google-chrome'
 
-alias pe=path-extractor
+alias pe='path-extractor'
 
-# Extract archives. Installed alternatives: unarchive, extract-by-extension.
-alias ext=aunpack
+# Extract archives. Installed alternatives: ouch, unarchive, extract-by-extension.
+alias ext='aunpack'
 
 # File explorer
 alias fe='ranger'
