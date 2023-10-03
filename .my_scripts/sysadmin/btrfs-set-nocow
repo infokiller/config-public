@@ -12,9 +12,11 @@ NOCOW_ROOT=(
 
 NOCOW_HOME=(
   '.cache'
+  '.local/pkg'
   '.local/share/selfspy'
   '.local/share/activitywatch'
   '.local/share/pip/log'
+  '.local/share/Trash'
   'tmp'
   '.tor-browser'
   '.vscode'
