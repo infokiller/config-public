@@ -152,6 +152,8 @@ if ((btrfs)); then
   mnt="/mnt/${luks_dev_name}-btrfs"
   mkdir -p -- "${mnt}"
   mount "${luks_dev_path}" "${mnt}"
+  # TODO: add a nested <USER>-cache subvolume for each user and mount it in the user's
+  # XDG_CONFIG_CACHE directory so that it won't be included in snapshots.
   for subvol in root home pkgs docker logs tmp swap snapshots; do
     # NOTE: The at symbol (@) is a common convention for subvolume names. It's
     # useful to be able to distinguish between directories and subvolumes.
