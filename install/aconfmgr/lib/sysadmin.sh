@@ -56,7 +56,8 @@ CreateLink '/etc/systemd/system/multi-user.target.wants/smartd.service' '/usr/li
 if is_btrfs_machine; then
   AddPackage btrfs-progs # Btrfs filesystem utilities
   IgnorePath '/usr/lib/python3.*/site-packages/btrfsutil-*.egg-info/*'
-  AddPackage compsize # Calculate compression ratio of a set of files on Btrfs
+  AddPackage --foreign btdu # sampling disk usage profiler for btrfs
+  AddPackage compsize       # Calculate compression ratio of a set of files on Btrfs
   # Snapper
   AddPackage snapper  # A tool for managing BTRFS and LVM snapshots. It can create, diff and restore snapshots and provides timelined auto-snapping.
   AddPackage snap-pac # Pacman hooks that use snapper to create pre/post btrfs snapshots like openSUSE's YaST

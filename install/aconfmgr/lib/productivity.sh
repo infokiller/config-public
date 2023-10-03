@@ -27,6 +27,7 @@ AddPackage source-highlight # Convert source code to syntax highlighted document
 AddPackage lesspipe         # an input filter for the pager less
 AddPackage duf              # Disk Usage/Free Utility
 AddPackage mlocate          # Merging locate/updatedb implementation
+CopyFile /etc/systemd/system/updatedb.service.d/override.conf
 AddPackage bc               # An arbitrary precision calculator language
 
 AddPackage ouch  # A command line utility for easily compressing and decompressing files and directories
