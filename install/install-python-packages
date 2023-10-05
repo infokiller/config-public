@@ -392,7 +392,9 @@ _pip_compile_upgrade() {
     all_outputs+=("${output_file}")
     constraints_args+=('--constraint' "${output_file}")
   done
-  pip-sync "${all_outputs[@]}"
+  # --no-deps is needed to avoid errors like:
+  # https://github.com/pypa/pip/issues/9644#issuecomment-788108944
+  pip-sync --pip-args='--no-deps' "${all_outputs[@]}"
 }
 
 _upgrade_non_graphical_envs() {
