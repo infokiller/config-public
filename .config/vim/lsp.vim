@@ -271,7 +271,12 @@ endif
 
 if has('nvim-0.9')
   Plug 'nvim-treesitter/nvim-treesitter'
-  lua require 'user.treesitter'
+  lua << EOF
+  local ok, res = pcall(require, 'user.treesitter')
+  if not ok then
+    print('vimrc: failed loading user.treesitter: ' .. res)
+  end
+EOF
 endif
 
 " ALE linter {{{ "

@@ -10,6 +10,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 readonly REPO_ROOT="$([[ ${CONFIG_GET_ROOT:-0} == 1 ]] && config-repo-root "${BASH_SOURCE[0]}" || echo "${HOME}")"
 readonly XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 readonly YCM_DIR="${REPO_ROOT}/submodules/vim/YouCompleteMe"
+readonly BUILD_DIR="${XDG_CACHE_HOME}/ycm_build"
 
 install_with_clangd() {
   echo 'Installing YCM with clangd'
@@ -48,10 +49,16 @@ main() {
   # since one of the YCM developers said it's now stable (although the docs say
   # it's experimental). See:
   # https://github.com/ycm-core/YouCompleteMe/issues/3584#issuecomment-584142715
-  local cmd=(install_with_clangd --go-completer --ts-completer --rust-completer "$@")
+  local cmd=(
+    install_with_clangd
+    --go-completer --ts-completer --rust-completer
+    --build-dir="${BUILD_DIR}"
+    # NOTE: without verbose, even a failed build can return a status of 0
+    --verbose
+    "$@")
   # If the build fail, clear the cache and try again.
   "${cmd[@]}" || {
-    rm -rf -- "${XDG_CACHE_HOME}/ycm_build"
+    rm -rf -- "${BUILD_DIR}"
     "${cmd[@]}"
   }
 }
