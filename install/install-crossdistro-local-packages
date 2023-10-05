@@ -654,6 +654,20 @@ _install_doom_emacs() {
   }
 }
 
+_is_vim_version_sufficient() {
+  local vim="$1"
+  local min_vim_version="${2-}"
+  local min_nvim_version="${3-}"
+  # batch ex-mode returns 0 when there are no error messages, so we just print an
+  # error message if the version is insufficient.
+  "${vim}" --clean -es << EOF 2> /dev/null
+  if !has('nvim-${min_nvim_version}') && !has('patch-${min_vim_version}')
+    echoerr 'Insufficient vim/neovim version'
+  fi
+  q
+EOF
+}
+
 # NOTE: the natural choice for running unattended vim commands is using batch ex-mode
 # (using the -es CLI args), but we can't use it because in this mode any error (even
 # those that are caught and expected) will cause the process to have an error status on
@@ -673,6 +687,13 @@ _run_vim_cmds() {
       return 1
     fi
   done
+  # cquit with an error code is supported since vim 8.2.0095 [1] and nvim 0.2.1 [2].
+  # [1] https://github.com/vim/vim/commit/1860bde9d31bbb0ba857f6284f6332a7134030dd
+  # [2] https://github.com/neovim/neovim/pull/7336
+  if ! _is_vim_version_sufficient "${vim}" '8.2.0095' '0.2.1'; then
+    print_warning "${vim} version insufficient, cannot run batch commands reliably"
+    return
+  fi
   # NOTE: we must use a temp file because redirecting to stdout didn't properly work for
   # me in both vim and nvim: vim only prints the last line, and nvim prints nothing.
   local tmpfile
@@ -694,13 +715,6 @@ _run_vim_cmds() {
   # We use grep to remove empty lines and ensure the last line has a newline
   grep -v '^$' -- "${tmpfile}" || true
   return $s
-  #   printf '\n'
-  # fi
-  # "${vim}" -es \
-  #   -u "${REPO_ROOT}/.config/vim/vimrc" \
-  #   -c 'set verbose=1' \
-  #   "$@" \
-  #   -c 'set verbose=0'
 }
 
 _install_neovim_plugins() {
