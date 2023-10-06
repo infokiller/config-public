@@ -17,5 +17,6 @@ s-tui
 undervolt
 detect-secrets
 semgrep
+llm
 # https://github.com/kristopolous/mansnip
 mansnip-kristopolous

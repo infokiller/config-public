@@ -97,6 +97,7 @@
 /.local/bin/jupyter-qtconsole
 /.local/bin/jupytext
 /.local/bin/litecli
+/.local/bin/llm
 /.local/bin/mamba
 /.local/bin/mansnip
 /.local/bin/nbdiff

@@ -26,9 +26,9 @@ natsort==8.4.0 \
     --hash=sha256:45312c4a0e5507593da193dedd04abb1469253b601ecaf63445ad80f0a1ea581 \
     --hash=sha256:4732914fb471f56b5cce04d7bae6f164a592c7712e1c85f9ef585e197299521c
     # via i3-resurrect
-packaging==23.1 \
-    --hash=sha256:994793af429502c4ea2ebf6bf664629d07c1a9fe974af92966e4b8d2df7edc61 \
-    --hash=sha256:a392980d2b6cffa644431898be54b0045151319d1e7ec34f0cfed48767dd334f
+packaging==23.2 \
+    --hash=sha256:048fb0e9405036518eaaf48a55953c750c11e1a1b68e0dd1a9d62ed0c092cfc5 \
+    --hash=sha256:8c491190033a9af7e1d931d0b5dacc2ef47509b34dd0de67ed209b5203fc88c7
     # via build
 pip-tools==7.3.0 \
     --hash=sha256:8717693288720a8c6ebd07149c93ab0be1fced0b5191df9e9decd3263e20d85e \
