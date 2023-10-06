@@ -125,7 +125,10 @@
 /.local/bin/pytype
 /.local/bin/ruff
 /.local/bin/s-tui
+/.local/bin/strip-tags
+/.local/bin/symbex
 /.local/bin/tmuxp
+/.local/bin/ttok
 /.local/bin/twine
 /.local/bin/undervolt
 /.local/bin/vint
