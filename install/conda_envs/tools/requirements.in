@@ -18,5 +18,8 @@ undervolt
 detect-secrets
 semgrep
 llm
+strip-tags
+ttok
+symbex
 # https://github.com/kristopolous/mansnip
 mansnip-kristopolous
