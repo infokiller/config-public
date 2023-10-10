@@ -241,10 +241,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/js@npm:8.50.0":
-  version: 8.50.0
-  resolution: "@eslint/js@npm:8.50.0"
-  checksum: 302478f2acaaa7228729ec6a04f56641590185e1d8cd1c836a6db8a6b8009f80a57349341be9fbb9aa1721a7a569d1be3ffc598a33300d22816f11832095386c
+"@eslint/js@npm:8.51.0":
+  version: 8.51.0
+  resolution: "@eslint/js@npm:8.51.0"
+  checksum: 0228bf1e1e0414843e56d9ff362a2a72d579c078f93174666f29315690e9e30a8633ad72c923297f7fd7182381b5a476805ff04dac8debe638953eb1ded3ac73
   languageName: node
   linkType: hard
 
@@ -4387,16 +4387,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.20.0":
-  version: 0.20.0
-  resolution: "corepack@npm:0.20.0"
+"corepack@npm:0.21.0":
+  version: 0.21.0
+  resolution: "corepack@npm:0.21.0"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: bcb3299cf34df1e81d3af626035420af34b77e37118a49a191d9c00e37a74a7ca51e038a6b2e763804cd9a57bfbce4b0590d3ddf8796782ead6b2753508d6a1d
+  checksum: d03b862e8c9eac00fffc14c88848139e4fa8f18d089d1a2660dc035fdf64f737e159b24d98fb1acedd95adb18500679b3ab7329230a5a54b15b1a88702c432c5
   languageName: node
   linkType: hard
 
@@ -6227,14 +6227,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:8.50.0":
-  version: 8.50.0
-  resolution: "eslint@npm:8.50.0"
+"eslint@npm:8.51.0":
+  version: 8.51.0
+  resolution: "eslint@npm:8.51.0"
   dependencies:
     "@eslint-community/eslint-utils": ^4.2.0
     "@eslint-community/regexpp": ^4.6.1
     "@eslint/eslintrc": ^2.1.2
-    "@eslint/js": 8.50.0
+    "@eslint/js": 8.51.0
     "@humanwhocodes/config-array": ^0.11.11
     "@humanwhocodes/module-importer": ^1.0.1
     "@nodelib/fs.walk": ^1.2.8
@@ -6270,7 +6270,7 @@ __metadata:
     text-table: ^0.2.0
   bin:
     eslint: bin/eslint.js
-  checksum: 9ebfe5615dc84700000d218e32ddfdcfc227ca600f65f18e5541ec34f8902a00356a9a8804d9468fd6c8637a5ef6a3897291dad91ba6579d5b32ffeae5e31768
+  checksum: 214fa5d1fcb67af1b8992ce9584ccd85e1aa7a482f8b8ea5b96edc28fa838a18a3b69456db45fc1ed3ef95f1e9efa9714f737292dc681e572d471d02fda9649c
   languageName: node
   linkType: hard
 
@@ -16352,9 +16352,9 @@ __metadata:
     "@google/clasp": 2.4.2
     alex: 11.0.1
     bash-language-server: 5.0.0
-    corepack: 0.20.0
+    corepack: 0.21.0
     diff-so-fancy: 1.4.3
-    eslint: 8.50.0
+    eslint: 8.51.0
     git-stats: 3.1.1
     git-stats-importer: 2.4.11
     gtop: 1.1.5
@@ -16372,7 +16372,7 @@ __metadata:
     pyright: 1.1.330
     release-it: 16.2.1
     semantic-release: 22.0.5
-    snyk: 1.1232.0
+    snyk: 1.1233.0
     stylelint: 15.10.3
     tldr: 3.3.8
     uglify-js: 3.17.4
@@ -17016,15 +17016,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1232.0":
-  version: 1.1232.0
-  resolution: "snyk@npm:1.1232.0"
+"snyk@npm:1.1233.0":
+  version: 1.1233.0
+  resolution: "snyk@npm:1.1233.0"
   dependencies:
     "@sentry/node": ^7.36.0
     global-agent: ^3.0.0
   bin:
     snyk: bin/snyk
-  checksum: 3c89639691cf8abb2153499d2821589b30802905f1262dc7246a72af4f7725e55c5ac7abeb7328735f3a3d08387717c449245a6dc5eb08d6d9319cbb410ee9f1
+  checksum: d495244fc5f8c28bafc8a67e6cc1d6d6116e5d376aea5cc3b443e4298d0a968562ce3ebd42f44fc30b1e06e36e9b3ae620e4d4ea37d543e7408b48fea9e36191
   languageName: node
   linkType: hard
 
