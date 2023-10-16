@@ -333,7 +333,7 @@ _install_non_graphical_envs() {
 
 _install_graphical_envs() {
   _log_info_bold 'Installing graphical conda environments'
-  _install_conda_env "${SUBMODULES_DIR}/keydope/environment.yml"
+  _install_conda_env "${SUBMODULES_DIR}/keydope/req/conda_env.yml"
   _install_conda_env "${SUBMODULES_DIR}/desktop/i3-workspace-groups/environment.yml"
   _install_conda_env "${SUBMODULES_DIR}/desktop/i3-scratchpad/environment.yml"
   _install_conda_env "${REPO_ROOT}/.my_scripts/i3/environment.yml"
