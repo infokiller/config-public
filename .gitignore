@@ -310,6 +310,8 @@
 /.config/Code - OSS
 /.config/Element
 /.config/GIMP
+/.config/Google/GECommonSettings.conf
+/.config/Google/GoogleEarthPro.conf
 /.config/Insync
 /.config/Keybase
 /.config/Logseq
@@ -393,6 +395,7 @@
 /.gconf/system
 /.git-backup*
 /.git-stats
+/.googleearth
 /.i-nex
 /.jdks
 /.joe-data
