@@ -23,7 +23,7 @@ require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/aymerick/douceur v0.2.0 // indirect
 	github.com/bazelbuild/bazelisk v1.18.0 // indirect
-	github.com/bazelbuild/buildtools v0.0.0-20231013123043-e8decc8b15d1 // indirect
+	github.com/bazelbuild/buildtools v0.0.0-20231017121127-23aa65d4e117 // indirect
 	github.com/bgentry/go-netrc v0.0.0-20140422174119-9fd32a8b3d3d // indirect
 	github.com/blang/semver/v4 v4.0.0 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
