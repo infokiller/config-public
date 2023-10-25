@@ -188,6 +188,15 @@ nnoremap <Leader>ch <Cmd>YcmCompleter GetDoc<CR>
 Plug 'github/copilot.vim'
 " Use the right key as an additional key to accept a suggestion.
 imap <silent><script><expr> <Right> copilot#Accept("\<Right>")
+" EXP: enable copilot for filetypes that are disabled by default.
+let g:copilot_filetypes = {
+    \ 'yaml': 1,
+    \ 'markdown': 1,
+    \ 'help': 1,
+    \ 'gitcommit': 1,
+    \ 'gitrebase': 1,
+    \ 'hgcommit': 1,
+\ }
 
 " Issues with CompleteParameter.vim:
 " - <C-L> mapping (same as UltiSnips) conflicts with RefreshScreenCommand. I
