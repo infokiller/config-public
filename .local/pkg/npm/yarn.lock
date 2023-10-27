@@ -15424,9 +15424,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.332":
-  version: 1.1.332
-  resolution: "pyright@npm:1.1.332"
+"pyright@npm:1.1.333":
+  version: 1.1.333
+  resolution: "pyright@npm:1.1.333"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -15435,7 +15435,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: dc03b3725dd9fa9028da5783ebdfa9b6871ed22800fa534cfe444b09b586566087a10faa10f8a5dcfe0a0a900cdce2ccae87b72a18165f10f305f61e4a445a72
+  checksum: ea1e0f58c8fd891180f673658eb34b900947514d0d6e865810dd4e70220b7a1d4e7f16ccd047f2671a6b35e5ca8d2a5f2a023f62d79879d9732c4e05fc75ff51
   languageName: node
   linkType: hard
 
@@ -16418,7 +16418,7 @@ __metadata:
     prettier: "npm:3.0.3"
     prettier-eslint-cli: "npm:8.0.1"
     puppeteer: "npm:21.4.1"
-    pyright: "npm:1.1.332"
+    pyright: "npm:1.1.333"
     release-it: "npm:16.2.1"
     semantic-release: "npm:22.0.5"
     snyk: "npm:1.1237.0"
