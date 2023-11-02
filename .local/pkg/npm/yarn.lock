@@ -6963,6 +6963,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"figures@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "figures@npm:6.0.1"
+  dependencies:
+    is-unicode-supported: "npm:^2.0.0"
+  checksum: 2fb988f01bed5ae6915a0593342f083bd1b09d0a6bf9aa58d0882c446cf13b59059f8a967acd676763278107b87b762231430d610d8f3be87c90ce87984a32a1
+  languageName: node
+  linkType: hard
+
 "file-entry-cache@npm:^6.0.1":
   version: 6.0.1
   resolution: "file-entry-cache@npm:6.0.1"
@@ -10020,6 +10029,13 @@ __metadata:
   version: 1.3.0
   resolution: "is-unicode-supported@npm:1.3.0"
   checksum: 20a1fc161afafaf49243551a5ac33b6c4cf0bbcce369fcd8f2951fbdd000c30698ce320de3ee6830497310a8f41880f8066d440aa3eb0a853e2aa4836dd89abc
+  languageName: node
+  linkType: hard
+
+"is-unicode-supported@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-unicode-supported@npm:2.0.0"
+  checksum: 000b80639dedaf59a385f1c0a57f97a4d1435e0723716f24cc19ad94253a7a0a9f838bdc9ac49b10a29ac93b01f52ae9b2ed358a8876caf1eb74d73b4ede92b2
   languageName: node
   linkType: hard
 
@@ -15424,9 +15440,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.333":
-  version: 1.1.333
-  resolution: "pyright@npm:1.1.333"
+"pyright@npm:1.1.334":
+  version: 1.1.334
+  resolution: "pyright@npm:1.1.334"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -15435,7 +15451,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: ea1e0f58c8fd891180f673658eb34b900947514d0d6e865810dd4e70220b7a1d4e7f16ccd047f2671a6b35e5ca8d2a5f2a023f62d79879d9732c4e05fc75ff51
+  checksum: 529507cfa14294715cfe20947e888d5ed36bc482c493803fbdab4f87c210aa6ff186ea5ef3eb8357a9cf6a8b4b95cea69692ca89585c6ea5b6ac6240d4cfcc70
   languageName: node
   linkType: hard
 
@@ -16418,10 +16434,10 @@ __metadata:
     prettier: "npm:3.0.3"
     prettier-eslint-cli: "npm:8.0.1"
     puppeteer: "npm:21.4.1"
-    pyright: "npm:1.1.333"
+    pyright: "npm:1.1.334"
     release-it: "npm:16.2.1"
-    semantic-release: "npm:22.0.5"
-    snyk: "npm:1.1237.0"
+    semantic-release: "npm:22.0.6"
+    snyk: "npm:1.1238.0"
     stylelint: "npm:15.11.0"
     tldr: "npm:3.3.8"
     uglify-js: "npm:3.17.4"
@@ -16607,9 +16623,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semantic-release@npm:22.0.5":
-  version: 22.0.5
-  resolution: "semantic-release@npm:22.0.5"
+"semantic-release@npm:22.0.6":
+  version: 22.0.6
+  resolution: "semantic-release@npm:22.0.6"
   dependencies:
     "@semantic-release/commit-analyzer": "npm:^11.0.0"
     "@semantic-release/error": "npm:^4.0.0"
@@ -16621,7 +16637,7 @@ __metadata:
     debug: "npm:^4.0.0"
     env-ci: "npm:^10.0.0"
     execa: "npm:^8.0.0"
-    figures: "npm:^5.0.0"
+    figures: "npm:^6.0.0"
     find-versions: "npm:^5.1.0"
     get-stream: "npm:^6.0.0"
     git-log-parser: "npm:^1.2.0"
@@ -16641,7 +16657,7 @@ __metadata:
     yargs: "npm:^17.5.1"
   bin:
     semantic-release: bin/semantic-release.js
-  checksum: c8ec10d4a6df2091a8876aa682c9b343cb8905d4cc76ac0e70bbfec5fa5ef2aad338f48ee12919bfbeba19c06d8cb2f5ff3bc963970bafdb9b5708aadd64c8b1
+  checksum: b8f86553774d9e529b5715361c6042230ad79a383f8c9874472a26dffa54698e7a3c1879aeded0c60217a77fdfe8674c32033ef45c2f954e5fcb9923e2c882fa
   languageName: node
   linkType: hard
 
@@ -17056,15 +17072,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1237.0":
-  version: 1.1237.0
-  resolution: "snyk@npm:1.1237.0"
+"snyk@npm:1.1238.0":
+  version: 1.1238.0
+  resolution: "snyk@npm:1.1238.0"
   dependencies:
     "@sentry/node": "npm:^7.36.0"
     global-agent: "npm:^3.0.0"
   bin:
     snyk: bin/snyk
-  checksum: 1724012047b5e3806f67e1c942ff12fb82337ddf3057e64c8f114d82d74a6533998b49db4091dadb5422c468a459fc40c60e0cc711952f38146a9e87d6de8fe3
+  checksum: 5a1372e4e2a31ac6c86c9c6d077d71efe50cb25ce92b5fb01da2b38178b0c33e84d0f8c5ceacc6c9ba7fce06aa45488dc31d53a186bec26b1dd8da3c337ee4fc
   languageName: node
   linkType: hard
 
