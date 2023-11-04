@@ -5,7 +5,7 @@
     "bash-language-server": "5.0.0",
     "corepack": "0.22.0",
     "diff-so-fancy": "1.4.3",
-    "eslint": "8.52.0",
+    "eslint": "8.53.0",
     "git-stats": "3.2.0",
     "git-stats-importer": "2.4.11",
     "gtop": "1.1.5",
@@ -19,10 +19,10 @@
     "markdownlint-cli2": "0.10.0",
     "prettier": "3.0.3",
     "prettier-eslint-cli": "8.0.1",
-    "puppeteer": "21.4.1",
+    "puppeteer": "21.5.0",
     "pyright": "1.1.334",
     "release-it": "16.2.1",
-    "semantic-release": "22.0.6",
+    "semantic-release": "22.0.7",
     "snyk": "1.1238.0",
     "stylelint": "15.11.0",
     "tldr": "3.3.8",
@@ -30,7 +30,7 @@
     "web-ext": "7.8.0",
     "write-good": "1.0.8",
     "yarn": "1.22.19",
-    "yarn-audit-fix": "10.0.1"
+    "yarn-audit-fix": "10.0.4"
   },
   "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
   "resolutions": {
