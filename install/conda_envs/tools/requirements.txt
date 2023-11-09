@@ -522,9 +522,9 @@ litecli==1.9.0 \
     --hash=sha256:21af2cfa083dd4df1e3ccaa2a2117129b5f17212756f596ea090e296776c27a1 \
     --hash=sha256:9190099368224a8f610ebcd55ddd3e3dd2148f083d2347b9853c89586652cb7d
     # via -r requirements.in
-llm==0.11.1 \
-    --hash=sha256:631214181e904e75795885b40e6371d56acbd238ce24d3218b5007cb13be7d7b \
-    --hash=sha256:dbb662d0ae42f87ade8b01b09eddeac3b4f6d157bcdb3774b7521db6c9e2b0b5
+llm==0.12 \
+    --hash=sha256:8873ae105ce73030fb3e0e01379eee57cc456b58373bf17a5d7cf1b0977f5041 \
+    --hash=sha256:e6a3fac275b9b80a29fe018a7b8467d97871fd4194912bcd2a8c844e9aab03d1
     # via -r requirements.in
 mansnip-kristopolous==0.3.7 \
     --hash=sha256:190c57e19a49d110586045b6358486bbed8993b3e152c217608125846d4892ce \
@@ -887,10 +887,6 @@ python-gitlab==4.1.1 \
     --hash=sha256:9da309ce97d5de56947bd8ad09e321ab7de21bb360796c6c0e083397d1ff3399 \
     --hash=sha256:e4912083d5d40a79b57875a033083e2c860e34bcc4644ef64ca377a755c5b0c9
     # via -r requirements.in
-python-lsp-jsonrpc==1.0.0 \
-    --hash=sha256:079b143be64b0a378bdb21dff5e28a8c1393fe7e8a654ef068322d754e545fc7 \
-    --hash=sha256:7bec170733db628d3506ea3a5288ff76aa33c70215ed223abdb0d95e957660bd
-    # via semgrep
 python-ulid==2.2.0 \
     --hash=sha256:9ec777177d396880d94be49ac7eb4ae2cd4a7474448bfdbfe911537add970aeb \
     --hash=sha256:ec2e69292c0b7c338a07df5e15b05270be6823675c103383e74d1d531945eab5
@@ -1228,12 +1224,12 @@ ruamel-yaml-clib==0.2.8 \
 s-tui==1.1.4 \
     --hash=sha256:b2856b9b3955cb4cebaaf39c951ed27cfa61a78c40107bfec5daf434dd7dc9ed
     # via -r requirements.in
-semgrep==1.46.0 \
-    --hash=sha256:5311e077501fe9c5345718451097939276bce483f3c918907b6151f6ec88c930 \
-    --hash=sha256:91984fb9959d29325885afad6db8149baf30a811dd0ebe6aa80507801828008d \
-    --hash=sha256:ab4662b7ee663910da71d5808178f856d94a000c74736d4a7b46520e26daa4c4 \
-    --hash=sha256:e7c40073533282378545e3467a5c74e06ddcefe7d0c9e12cec39f0a31db3710d \
-    --hash=sha256:f354e7e6ab3ccc8c0932126f30f218a12f5f254ef8ff187ec8e708887d31a215
+semgrep==1.48.0 \
+    --hash=sha256:111a0a9675735f7ba0b4a47f5c17c989c9243f2cf4a35e92cbfb0cd8ca24c497 \
+    --hash=sha256:35999402ada6cc9ae03642eb2fb1011fcaf46f23a85d56335d2a8de8a04db38f \
+    --hash=sha256:516706163a1a6d128dbcb5fec5a0d175371bf0a25a2c0afe70517f1081aa463e \
+    --hash=sha256:7a669e8b4beb977f7fe76cce887c15c5af9522f0bd8b9bc60929d3135a23b90e \
+    --hash=sha256:9db8547dadd3f65e62c96a74d756be4469559a8a9e11f39549316cbe6930e5a6
     # via -r requirements.in
 six==1.16.0 \
     --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
@@ -1397,9 +1393,7 @@ ujson==5.8.0 \
     --hash=sha256:f4511560d75b15ecb367eef561554959b9d49b6ec3b8d5634212f9fed74a6df1 \
     --hash=sha256:f504117a39cb98abba4153bf0b46b4954cc5d62f6351a14660201500ba31fe7f \
     --hash=sha256:fb87decf38cc82bcdea1d7511e73629e651bdec3a43ab40985167ab8449b769c
-    # via
-    #   glances
-    #   python-lsp-jsonrpc
+    # via glances
 undervolt==0.4.0 \
     --hash=sha256:cd54112fffdf92986b968710f87e54228a95af4c20b462324bac5b7ebb1f505a
     # via -r requirements.in
