@@ -15489,9 +15489,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:21.5.0":
-  version: 21.5.0
-  resolution: "puppeteer-core@npm:21.5.0"
+"puppeteer-core@npm:21.5.1":
+  version: 21.5.1
+  resolution: "puppeteer-core@npm:21.5.1"
   dependencies:
     "@puppeteer/browsers": "npm:1.8.0"
     chromium-bidi: "npm:0.4.33"
@@ -15499,18 +15499,18 @@ __metadata:
     debug: "npm:4.3.4"
     devtools-protocol: "npm:0.0.1203626"
     ws: "npm:8.14.2"
-  checksum: ea6694ed150d435b18462d8615aa58d151714197d5fded378ba3fe80ec8786fefdef530e46c33a073b0e795988b4ce15293c9ae20c0af307879e97c74ad70632
+  checksum: 824cde6fa2797e8f32ee3a22e4cfa66940c66e4948abb90fdb650e7764e01c77799161ec610e32e9a1e4a0e9a9ff159793c7ff11f3ce2e0b1e4c1d5a7d2fabf0
   languageName: node
   linkType: hard
 
-"puppeteer@npm:21.5.0":
-  version: 21.5.0
-  resolution: "puppeteer@npm:21.5.0"
+"puppeteer@npm:21.5.1":
+  version: 21.5.1
+  resolution: "puppeteer@npm:21.5.1"
   dependencies:
     "@puppeteer/browsers": "npm:1.8.0"
     cosmiconfig: "npm:8.3.6"
-    puppeteer-core: "npm:21.5.0"
-  checksum: 01683f2fbb35d3b466510eac8b196da9fa51fb74c86b13e8a6a7cdc8e06a738481f5022c560b1db8c96011ee573c0cf8c87a2a158e09ad6981622436faf9a609
+    puppeteer-core: "npm:21.5.1"
+  checksum: 91a6e4af38a517e3b0359a79ce2a30bcacd5256881d3f85c65a4ee322218d1fcf4f2d6536af3647c230c3375068ddc898c4fd5ac2ad5948c16c195e6035b2c02
   languageName: node
   linkType: hard
 
@@ -16530,11 +16530,11 @@ __metadata:
     markdownlint-cli2: "npm:0.10.0"
     prettier: "npm:3.0.3"
     prettier-eslint-cli: "npm:8.0.1"
-    puppeteer: "npm:21.5.0"
+    puppeteer: "npm:21.5.1"
     pyright: "npm:1.1.335"
     release-it: "npm:16.2.1"
     semantic-release: "npm:22.0.7"
-    snyk: "npm:1.1240.0"
+    snyk: "npm:1.1243.0"
     stylelint: "npm:15.11.0"
     tldr: "npm:3.3.8"
     uglify-js: "npm:3.17.4"
@@ -17169,15 +17169,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1240.0":
-  version: 1.1240.0
-  resolution: "snyk@npm:1.1240.0"
+"snyk@npm:1.1243.0":
+  version: 1.1243.0
+  resolution: "snyk@npm:1.1243.0"
   dependencies:
     "@sentry/node": "npm:^7.36.0"
     global-agent: "npm:^3.0.0"
   bin:
     snyk: bin/snyk
-  checksum: bd05da334cbba2805a8efc523914c7efc08d215abe2af8b362273010dbcef4ea8c58f633a4ed6f6f8dcf923ce950766a67b4bb61d3acc700fa36448c86bf7c01
+  checksum: 5977adeae4839f2c040bd631f5fa1c2bda6a413a122eb83e69c9eeb1eb4a4e25375a8dd53639eade710bb2e9845fcb9182eaa7c634dc04f494dd5fc64a18953c
   languageName: node
   linkType: hard
 
