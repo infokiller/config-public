@@ -1319,27 +1319,48 @@ alias ssh-et-tmxcs='_ssh-tmxcs 1'
 alias ssh-et-tmxns='_ssh-tmxns 1'
 
 # Reads bash shell commands from a file and runs them from tmux
-ssh-xpanes-script() {
+ssh-run-script() {
   if (($# < 2)); then
-    print_error 'Usage: ssh-xpanes-script SCRIPT REMOTE...'
+    print_error 'Usage: ssh-run-script FILE <SSH_ARGS>...'
     return 1
   fi
   src="$(printf '%s' "$(<"$1")")"
-  printf 'Running bash commands:\n%s\n' "${src}"
-  # Quote the source to pass it as a shell argument
-  src="$(printf '%q' "${src}")"
+  printf 'Running bash commands:\n```bash\n%s\n```\n' "${src}"
+  local src_words=()
+  while IFS='' read -d $'\n' -r line; do
+    src_words+=("$(printf '%q' "${line}")" "$(printf '%q' $'\n')")
+  done <<< "${src}"
   # We can pipe the script to ssh which will forward it to bash, but the problem
   # with that approach is that stdin of bash is no longer connected to the
   # terminal, which means that things like sudo and terminal pin entries won't
-  # work.
+  # worbck.
   # To avoid this issue (and trying to figure out how to restore stdin to the
   # terminal) We pass the source as an argument and then eval it.
-  local main='eval "$*"'
-  # Quote twice, because both SSH and tmux-xpanes seem to split words.
-  main="$(printf '%q' "$(printf '%q' "${main}")")"
-  # NOTE: The space before the ssh command is intentional- it avoids saving the
-  # command in the shell history (which can get very long because of src).
-  tmux-xpanes -t -c " ssh -t {} bash -c ${main} my-ssh-script ${src}" "${@:2}"
+  # local main='eval "$*"'
+  # shellcheck disable=SC2016
+  # shellcheck disable=SC2016
+  local main='\
+    echo "Program name: $0"; \
+    echo "Bash version: ${BASH_VERSION:-not bash}"; \
+    printf "Read %d args: %s\n" $# "$(cat -A <<< "$@")"; \
+    eval "$@"'
+  ssh -t "${@:2}" bash -c "$(printf '%q' "${main}")" my-ssh-script "${src_words[@]}"
+}
+
+# Reads bash shell commands from a file and runs them from tmux
+ssh-xpanes-script() {
+  if (($# < 2)); then
+    print_error 'Usage: ssh-xpanes-script FILE REMOTE...'
+    return 1
+  fi
+  local src_file
+  # shellcheck disable=SC2119
+  src_file="$(mktmp < "$1")"
+  # echo "tmp source file: ${src_file}"
+  # cat -- "${src_file}"
+  # NOTE: The space before the command is intentional- it avoids saving the command in
+  # the shell history (which won't be useful since it uses a temp file).
+  tmux-xpanes -t -c " rif ssh-run-script $(printf '%q' "${src_file}") {}" -- "${@:2}"
 }
 
 # # Accepts shell commands in stdin and passes them to ssh in tmux-xpanes
@@ -1834,6 +1855,7 @@ retry-forever() {
   done
 }
 
+# shellcheck disable=SC2120
 mktmp() {
   local tmpfile
   tmpfile="$(mktemp -t 'sh_mktmp.XXXXXXXX')" || return
