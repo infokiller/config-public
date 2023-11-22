@@ -450,9 +450,9 @@ ipdb==0.13.13 \
     --hash=sha256:45529994741c4ab6d2388bfa5d7b725c2cf7fe9deffabdb8a6113aa5ed449ed4 \
     --hash=sha256:e3ac6018ef05126d442af680aad863006ec19d02290561ac88b8b1c0b0cfc726
     # via -r requirements.in
-ipykernel==6.26.0 \
-    --hash=sha256:3ba3dc97424b87b31bb46586b5167b3161b32d7820b9201a9e698c71e271602c \
-    --hash=sha256:553856658eb8430bbe9653ea041a41bff63e9606fc4628873fc92a6cf3abd404
+ipykernel==6.27.0 \
+    --hash=sha256:4388caa3c2cba0a381e20d289545e88a8aef1fe57a884d4c018718ec8c23c121 \
+    --hash=sha256:7f4986f606581be73bfb32dc7a1ac9fa0e804c9be50ddf1c7a119413e982693f
     # via
     #   -r requirements.in
     #   jupyterlab
@@ -550,9 +550,9 @@ jupyter-lsp==2.2.0 \
     --hash=sha256:8ebbcb533adb41e5d635eb8fe82956b0aafbf0fd443b6c4bfa906edeeb8635a1 \
     --hash=sha256:9e06b8b4f7dd50300b70dd1a78c0c3b0c3d8fa68e0f2d8a5d1fbab62072aca3f
     # via jupyterlab
-jupyter-server==2.10.1 \
-    --hash=sha256:20519e355d951fc5e1b6ac5952854fe7620d0cfb56588fa4efe362a758977ed3 \
-    --hash=sha256:e6da2657a954a7879eed28cc08e0817b01ffd81d7eab8634660397b55f926472
+jupyter-server==2.11.0 \
+    --hash=sha256:78c97ec8049f9062f0151725bc8a1364dfed716646a66819095e0e8a24793eba \
+    --hash=sha256:c9bd6e6d71dc5a2a25df167dc323422997f14682b008bfecb5d7920a55020ea7
     # via
     #   jupyter-lsp
     #   jupyter-server-mathjax
@@ -1207,9 +1207,9 @@ pydantic-core==2.14.3 \
     --hash=sha256:fe272a72c7ed29f84c42fedd2d06c2f9858dc0c00dae3b34ba15d6d8ae0fbaaf \
     --hash=sha256:fe863491664c6720d65ae438d4efaa5eca766565a53adb53bf14bc3246c72fe0
     # via pydantic
-pygments==2.17.1 \
-    --hash=sha256:1b37f1b1e1bff2af52ecaf28cc601e2ef7077000b227a0675da25aef85784bc4 \
-    --hash=sha256:e45a0e74bf9c530f564ca81b8952343be986a29f6afe7f5ad95c5f06b7bdf5e8
+pygments==2.17.2 \
+    --hash=sha256:b27c2826c47d0f3219f29554824c30c5e8945175d888647acd804ddd04af846c \
+    --hash=sha256:da46cec9fd2de5be3a8a784f434e4c4ab670b4ff54d605c4c2717e9d49c4c367
     # via
     #   ipython
     #   nbconvert
@@ -1720,9 +1720,9 @@ urllib3==2.1.0 \
     # via
     #   requests
     #   twine
-wcwidth==0.2.11 \
-    --hash=sha256:25eb3ecbec328cdb945f56f2a7cfe784bdf7a73a8197398c7a7c65e7fe93e9ae \
-    --hash=sha256:c4b153acf29f1f0d7fb1b00d097cce82b73de7a2016321c8d7ca71bd76dd848b
+wcwidth==0.2.12 \
+    --hash=sha256:f01c104efdf57971bcb756f054dd58ddec5204dd15fa31d6503ea57947d97c02 \
+    --hash=sha256:f26ec43d96c8cbfed76a5075dac87680124fa84e0855195a6184da9c187f133c
     # via prompt-toolkit
 webcolors==1.13 \
     --hash=sha256:29bc7e8752c0a1bd4a1f03c14d6e6a72e93d82193738fa860cbff59d0fcc11bf \
@@ -1762,7 +1762,7 @@ pip==23.3.1 \
     # via
     #   pip-tools
     #   pypiserver
-setuptools==69.0.1 \
-    --hash=sha256:6875bbd06382d857b1b90cd07cee6a2df701a164f241095706b5192bc56c5c62 \
-    --hash=sha256:f25195d54deb649832182d6455bffba7ac3d8fe71d35185e738d2198a4310044
+setuptools==69.0.2 \
+    --hash=sha256:1e8fdff6797d3865f37397be788a4e3cba233608e9b509382a2777d25ebde7f2 \
+    --hash=sha256:735896e78a4742605974de002ac60562d286fa8051a7e2299445e8e8fbb01aa6
     # via pip-tools
