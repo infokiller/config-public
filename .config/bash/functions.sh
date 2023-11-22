@@ -1318,14 +1318,43 @@ alias ssh-tmxns='_ssh-tmxns 0'
 alias ssh-et-tmxcs='_ssh-tmxcs 1'
 alias ssh-et-tmxns='_ssh-tmxns 1'
 
+render-script() {
+  local lang="${1:-bash}"
+  if command_exists highlight; then
+    highlight \
+      --syntax-by-name="${lang}" \
+      --line-numbers \
+      --line-number-length=0 \
+      --out-format=truecolor
+    return
+  fi
+  if command_exists bat; then
+    bat --language="${lang}" --paging=never --style=grid,numbers
+    return
+  fi
+  {
+    printf '```%s\n' "${lang}"
+    cat
+    printf '```\n'
+  } | {
+    if command_exists glow; then
+      glow -
+    else
+      cat
+    fi
+  }
+}
+
 # Reads bash shell commands from a file and runs them from tmux
 ssh-run-script() {
   if (($# < 2)); then
     print_error 'Usage: ssh-run-script FILE <SSH_ARGS>...'
     return 1
   fi
-  src="$(printf '%s' "$(<"$1")")"
-  printf 'Running bash commands:\n```bash\n%s\n```\n' "${src}"
+  src="$(printf '%s' "$(< "$1")")"
+  # shellcheck disable=SC2016
+  echo 'Running script:'
+  render-script bash <<< "${src}"
   local src_words=()
   while IFS='' read -d $'\n' -r line; do
     src_words+=("$(printf '%q' "${line}")" "$(printf '%q' $'\n')")
@@ -1340,9 +1369,11 @@ ssh-run-script() {
   # shellcheck disable=SC2016
   # shellcheck disable=SC2016
   local main='\
-    echo "Program name: $0"; \
+    echo "Hostname: $(hostname)"; \
+    echo "Program: $0"; \
     echo "Bash version: ${BASH_VERSION:-not bash}"; \
-    printf "Read %d args: %s\n" $# "$(cat -A <<< "$@")"; \
+    echo; \
+    # printf "Read %d args: %s\n" $# "$(cat -A <<< "$@")"; \
     eval "$@"'
   ssh -t "${@:2}" bash -c "$(printf '%q' "${main}")" my-ssh-script "${src_words[@]}"
 }
