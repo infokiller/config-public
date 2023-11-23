@@ -70,10 +70,10 @@ class LineWatcher:
     def __init__(self):
         self.start_time = None
 
-    def start(self):
+    def start(self, *_):
         self.start_time = time.monotonic()
 
-    def stop(self):
+    def stop(self, *_):
         delta = time.monotonic() - self.start_time
         if delta < 1:
             return
