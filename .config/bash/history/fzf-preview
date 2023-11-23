@@ -25,31 +25,43 @@ _grep_line() {
 }
 
 _run_bat() {
-  local is_multi_select="${1}"
   # When there are multiple lines we need to match, print the datetime of the first line
   # so we can see the context.
-  local first_match="${2}"
+  local is_multi_select="${1}"
+  local datetime_str="${2}"
   local cmd=(bat '--color=always' '--paging=never' '--wrap=character'
     "--terminal-width=${FZF_PREVIEW_COLUMNS}" '--language=sh'
     "--highlight-line=$((LINES_BEFORE + 1))")
   if ((is_multi_select)); then
-    cmd+=('--style=grid,header' "--file-name=${first_match:0:20}")
+    cmd+=('--style=grid,header' "--file-name=${datetime_str}")
   else
     cmd+=(--style=plain)
   fi
   "${cmd[@]}"
 }
 
+_get_highlight_marklines_plugin() {
+  for dir in "${HOME}/.local" '/usr/local' '/usr'; do
+    local file="${dir}/share/highlight/plugins/mark_lines.lua"
+    if [[ -r "${file}" ]]; then
+      printf '%s' "${file}"
+      return
+    fi
+  done
+  return 1
+}
+
 _run_highlight() {
   local is_multi_select="${1}"
-  local first_match="${2}"
-  cmd=(highlight --force=sh --out-format=truecolor --quiet)
-  local cmd=(highlight --out-format=ansi --force)
-  # if ((is_multi_select)); then
-  #   cmd+=('--style=grid' "--title=${first_match:0:20}")
-  # else
-  #   cmd+=(--style=plain)
-  # fi
+  local datetime_str="${2}"
+  local cmd=(highlight --force --syntax-by-name=bash --out-format=truecolor --quiet)
+  local mark_lines_plugin
+  if mark_lines_plugin="$(_get_highlight_marklines_plugin)"; then
+    cmd+=("--plug-in=${mark_lines_plugin}" "--plug-in-param=$((LINES_BEFORE + 1))")
+  fi
+  if ((is_multi_select)); then
+    printf '<--- %s --->\n' "${datetime_str}"
+  fi
   "${cmd[@]}"
 }
 
@@ -67,9 +79,11 @@ main() {
       echo "ERROR: no matches for line: ${line}"
       continue
     fi
+    local first_match="${matches[0]}"
     printf '%s\n' "${matches[@]}" |
       cut -c 23- |
-      _run_bat "${is_multi_select}" "${matches[0]}"
+      # _run_highlight "${is_multi_select}" "${first_match:0:20}"
+      _run_bat "${is_multi_select}" "${first_match:0:20}"
   done
 }
 
