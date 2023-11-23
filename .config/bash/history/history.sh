@@ -16,17 +16,42 @@ histcat-list-decode() {
   cut -c 23- | sed -r 's/↵/\n/g'
 }
 
-# shellcheck disable=SC2016,SC1004
 # TODO: Consider using a separate preview process that communicates with the
 # preview script using a fifo file, which should improve performance by
 # eliminating any latency in starting the preview process. For an example see:
 # ~/.config/ipython/profile_default/startup/10-keybindings.py
-_HISTCAT_FZF_PREVIEW_SCRIPT='
-histcat_list_output_path=%q
-rg --text --context=5 --fixed-strings --file={+f} < "${histcat_list_output_path}" |
-  cut -c 23- |
-  highlight --force=sh --out-format=truecolor --quiet
-'
+IFS='' read -r -d '' _HISTCAT_FZF_PREVIEW_SCRIPT << 'EOF'
+  lines=({+})
+  highlight_cmd=(bat --color=always --paging=never '--wrap=character' 
+    "--terminal-width=${FZF_PREVIEW_COLUMNS}" '--language=sh' '--highlight-line=4')
+  is_multi_select=$((${#lines[@]} > 1))
+  if ((is_multi_select)); then
+    highlight_cmd+=(--style=grid,header)
+  else
+    highlight_cmd+=(--style=plain)
+  fi
+  for line in "${lines[@]}"; do
+    matches=()
+    while IFS='' read -r match; do
+      matches+=("${match}")
+    done < <(rg --text --context=3 --fixed-strings "${line}" < "${histcat_list_output_path}")
+    if ((${#matches[@]} == 0)); then
+      echo "ERROR: no matches for line: ${line}"
+      continue
+    fi
+    # When there are multiple lines we need to match, print the datetime of the first
+    # line so we can see the context.
+    extra_args=()
+    if ((is_multi_select)); then
+      first_match="${matches[@]:0:1}"
+      extra_args+=('--file-name' "${first_match:0:20}")
+      # printf '# %s\n' "${first_match:0:20}"
+    fi
+    printf '%s\n' "${matches[@]}" |
+      cut -c 23- |
+      "${highlight_cmd[@]}" "${extra_args[@]}"
+  done 
+EOF
 
 _get_histcat_multihosts_cmd() {
   local this_hostname
@@ -41,6 +66,11 @@ _get_histcat_multihosts_cmd() {
   printf '%s\n' "${cmd[@]}"
 }
 
+# https://superuser.com/a/380778
+_remove_escape_chars() {
+  sed 's/\x1b\[[0-9;]*[a-zA-Z]//g'
+}
+
 histcat-select() {
   local XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
   local histcat_cache_dir="${XDG_CACHE_HOME}/histcat"
@@ -51,15 +81,13 @@ histcat-select() {
   # shellcheck disable=SC2064
   trap "\rm -- '${histcat_list_output_path}' &> /dev/null || true" ERR INT HUP EXIT TERM
   local preview_script
-  # shellcheck disable=SC2059
-  preview_script="$(printf "${_HISTCAT_FZF_PREVIEW_SCRIPT}" \
-    "${histcat_list_output_path}")"
-  local selector=(fzf '--height=40%' '--reverse' '--no-sort' '--multi'
+  preview_script="$(printf 'histcat_list_output_path=%q\n%s' "${histcat_list_output_path}" "${_HISTCAT_FZF_PREVIEW_SCRIPT}")"
+  local selector=(
+    'fzf-tmux' '-p' '80%' '--' '--scheme=history' '--reverse' '--no-sort' '--multi'
     '-n3..,..' '--ansi' '--bind=ctrl-r:toggle-sort' '--exact'
-    "--preview=${preview_script}" '--preview-window=up:30%:hidden'
+    "--preview=${preview_script}" '--preview-window=up:50%:hidden'
     '--bind=ctrl-t:toggle-preview'
   )
-
   local histcat_cmd=()
   while IFS='' read -r line; do
     histcat_cmd+=("$line")
@@ -68,7 +96,9 @@ histcat-select() {
   # variable with the value of $?.
   local s=0
   ("${histcat_cmd[@]}" list --max-entries 500000 |
-    tee "${histcat_list_output_path}" |
+    # Remove escape characters when piping to the file caching the list, otherwise
+    # searching for a line that originally had newlines will fail.
+    tee >(_remove_escape_chars > "${histcat_list_output_path}") |
     "${selector[@]}" "$@" |
     histcat-list-decode) || s=$?
   \rm -- "${histcat_list_output_path}" &> /dev/null
