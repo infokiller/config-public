@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Fzf preview script used for shell history
+
+# TODO: Consider using a separate preview process that communicates with the
+# preview script using a fifo file, which should improve performance by
+# eliminating any latency in starting the preview process. For an example see:
+# ~/.config/ipython/profile_default/startup/10-keybindings.py
+
+# See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
+set -o errexit -o errtrace -o nounset -o pipefail
+
+LINES_BEFORE=4
+LINES_AFTER=4
+
+_print_usage_and_die() {
+  printf >&2 'Usage: fzf-preview <list_file> <lines>+\n'
+  exit 1
+}
+
+_grep_line() {
+  local line="${1}"
+  rg --text --fixed-strings "${line}" \
+    --before-context="${LINES_BEFORE}" \
+    --after-context="${LINES_AFTER}"
+}
+
+_run_bat() {
+  local is_multi_select="${1}"
+  # When there are multiple lines we need to match, print the datetime of the first line
+  # so we can see the context.
+  local first_match="${2}"
+  local cmd=(bat '--color=always' '--paging=never' '--wrap=character'
+    "--terminal-width=${FZF_PREVIEW_COLUMNS}" '--language=sh'
+    "--highlight-line=$((LINES_BEFORE + 1))")
+  if ((is_multi_select)); then
+    cmd+=('--style=grid,header' "--file-name=${first_match:0:20}")
+  else
+    cmd+=(--style=plain)
+  fi
+  "${cmd[@]}"
+}
+
+_run_highlight() {
+  local is_multi_select="${1}"
+  local first_match="${2}"
+  cmd=(highlight --force=sh --out-format=truecolor --quiet)
+  local cmd=(highlight --out-format=ansi --force)
+  # if ((is_multi_select)); then
+  #   cmd+=('--style=grid' "--title=${first_match:0:20}")
+  # else
+  #   cmd+=(--style=plain)
+  # fi
+  "${cmd[@]}"
+}
+
+main() {
+  if (($# < 2)); then
+    _print_usage_and_die
+  fi
+  local list_file="${1}"
+  local lines=("${@:2}")
+  is_multi_select=$((${#lines[@]} > 1))
+  local matches=()
+  for line in "${lines[@]}"; do
+    mapfile -t matches < <(_grep_line "${line}" < "${list_file}")
+    if ((${#matches[@]} == 0)); then
+      echo "ERROR: no matches for line: ${line}"
+      continue
+    fi
+    printf '%s\n' "${matches[@]}" |
+      cut -c 23- |
+      _run_bat "${is_multi_select}" "${matches[0]}"
+  done
+}
+
+main "$@"
