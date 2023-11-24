@@ -98,7 +98,7 @@ main() {
     local datetime_str="${first_output:0:19}"
     printf '%s\n' "${match_output[@]}" |
       cut -c 23- |
-      # _run_highlight "${is_multi_select}" "${datetime_str}"
+      # _run_highlight "${match_index}" "${is_multi_select}" "${datetime_str}"
       _run_bat "${match_index}" "${is_multi_select}" "${datetime_str}"
   done
 }
