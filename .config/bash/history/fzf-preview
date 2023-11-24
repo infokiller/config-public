@@ -9,8 +9,10 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-LINES_BEFORE=4
-LINES_AFTER=4
+: "${PREVIEW_LINES_BEFORE:=4}"
+: "${PREVIEW_LINES_AFTER:=4}"
+MAX_COLUMNS="${FZF_PREVIEW_COLUMNS:-${COLUMNS:-80}}"
+PREVIEW_COLUMNS=$((MAX_COLUMNS > 120 ? 120 : MAX_COLUMNS))
 
 _print_usage_and_die() {
   printf >&2 'Usage: fzf-preview <list_file> <lines>+\n'
@@ -20,18 +22,20 @@ _print_usage_and_die() {
 _grep_line() {
   local line="${1}"
   rg --text --fixed-strings "${line}" \
-    --before-context="${LINES_BEFORE}" \
-    --after-context="${LINES_AFTER}"
+    --max-count=1 \
+    --before-context="${PREVIEW_LINES_BEFORE}" \
+    --after-context="${PREVIEW_LINES_AFTER}"
 }
 
 _run_bat() {
+  local match_index="${1}"
+  local is_multi_select="${2}"
+  local datetime_str="${3}"
+  local cmd=(bat '--color=always' '--paging=never' '--wrap=character'
+    "--terminal-width=${PREVIEW_COLUMNS}" '--language=sh'
+    "--highlight-line=$((match_index + 1))")
   # When there are multiple lines we need to match, print the datetime of the first line
   # so we can see the context.
-  local is_multi_select="${1}"
-  local datetime_str="${2}"
-  local cmd=(bat '--color=always' '--paging=never' '--wrap=character'
-    "--terminal-width=${FZF_PREVIEW_COLUMNS}" '--language=sh'
-    "--highlight-line=$((LINES_BEFORE + 1))")
   if ((is_multi_select)); then
     cmd+=('--style=grid,header' "--file-name=${datetime_str}")
   else
@@ -52,13 +56,17 @@ _get_highlight_marklines_plugin() {
 }
 
 _run_highlight() {
-  local is_multi_select="${1}"
-  local datetime_str="${2}"
-  local cmd=(highlight --force --syntax-by-name=bash --out-format=truecolor --quiet)
+  local match_index="${1}"
+  local is_multi_select="${2}"
+  local datetime_str="${3}"
+  local cmd=(highlight --force --syntax-by-name=bash --out-format=truecolor --quiet
+    --line-length="${PREVIEW_COLUMNS}")
   local mark_lines_plugin
   if mark_lines_plugin="$(_get_highlight_marklines_plugin)"; then
-    cmd+=("--plug-in=${mark_lines_plugin}" "--plug-in-param=$((LINES_BEFORE + 1))")
+    cmd+=("--plug-in=${mark_lines_plugin}" "--plug-in-param=$((match_index + 1))")
   fi
+  # When there are multiple lines we need to match, print the datetime of the first line
+  # so we can see the context.
   if ((is_multi_select)); then
     printf '<--- %s --->\n' "${datetime_str}"
   fi
@@ -72,18 +80,26 @@ main() {
   local list_file="${1}"
   local lines=("${@:2}")
   is_multi_select=$((${#lines[@]} > 1))
-  local matches=()
+  local match_output=()
   for line in "${lines[@]}"; do
-    mapfile -t matches < <(_grep_line "${line}" < "${list_file}")
-    if ((${#matches[@]} == 0)); then
-      echo "ERROR: no matches for line: ${line}"
+    mapfile -t match_output < <(_grep_line "${line}" < "${list_file}")
+    if ((${#match_output[@]} == 0)); then
+      echo "ERROR: no match for line: ${line}"
       continue
     fi
-    local first_match="${matches[0]}"
-    printf '%s\n' "${matches[@]}" |
+    local match_index=0
+    for ((i = 0; i < ${#match_output[@]}; i++)); do
+      if [[ "${match_output[i]}" == "${line}" ]]; then
+        match_index="${i}"
+        break
+      fi
+    done
+    local first_output="${match_output[0]}"
+    local datetime_str="${first_output:0:19}"
+    printf '%s\n' "${match_output[@]}" |
       cut -c 23- |
-      # _run_highlight "${is_multi_select}" "${first_match:0:20}"
-      _run_bat "${is_multi_select}" "${first_match:0:20}"
+      # _run_highlight "${is_multi_select}" "${datetime_str}"
+      _run_bat "${match_index}" "${is_multi_select}" "${datetime_str}"
   done
 }
 
