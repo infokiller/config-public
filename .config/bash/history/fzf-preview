@@ -12,7 +12,7 @@ set -o errexit -o errtrace -o nounset -o pipefail
 : "${PREVIEW_LINES_BEFORE:=4}"
 : "${PREVIEW_LINES_AFTER:=4}"
 MAX_COLUMNS="${FZF_PREVIEW_COLUMNS:-${COLUMNS:-80}}"
-PREVIEW_COLUMNS=$((MAX_COLUMNS > 120 ? 120 : MAX_COLUMNS))
+PREVIEW_COLUMNS=$((MAX_COLUMNS > 300 ? 300 : MAX_COLUMNS))
 
 _print_usage_and_die() {
   printf >&2 'Usage: fzf-preview <list_file> <lines>+\n'
@@ -105,6 +105,8 @@ main() {
         formatted_output="${formatted_output//↵/$'\n'}"
         mapfile -t match_lines <<< "${formatted_output}"
         match_end=$((match_begin + ${#match_lines[@]}))
+      elif ((${#formatted_output} > PREVIEW_COLUMNS)); then
+        formatted_output="${formatted_output:0:PREVIEW_COLUMNS-3}..."
       fi
       match_output[i]="${formatted_output}"
     done
