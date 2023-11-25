@@ -111,8 +111,8 @@ main() {
       match_output[i]="${formatted_output}"
     done
     printf '%s\n' "${match_output[@]}" |
-      # _run_highlight "${match_begin}" "${match_end}" "${is_multi_select}" "${datetime_str}"
-      _run_bat "${match_begin}" "${match_end}" "${is_multi_select}" "${datetime_str}"
+      _run_highlight "${match_begin}" "${match_end}" "${is_multi_select}" "${datetime_str}"
+    # _run_bat "${match_begin}" "${match_end}" "${is_multi_select}" "${datetime_str}"
   done
 }
 
