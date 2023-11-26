@@ -18,6 +18,12 @@ source "${REPO_ROOT}/.config/bash/functions.sh"
 
 shopt -s expand_aliases
 
+if (($# == 0)); then
+  printf >&2 'Usage: %s <function or alias name> [args...]\n' \
+    "$(basename "${BASH_SOURCE[0]}")"
+  exit 1
+fi
+
 # The first argument must not be single quoted, since otherwise alias expansion
 # will not work. However, the latter arguments must be single quoted, or
 # otherwise word splitting will occur.
