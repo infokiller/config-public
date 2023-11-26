@@ -382,7 +382,7 @@ let g:autolint_git_remotes_whitelist = get(g:, 'autolint_git_remotes_whitelist',
 "    once and let the user the option to override it without interference
 " let g:autolint_paths_blacklist = printf('\V\C\^%s/.local/\(bin/\)\@!',
 "     \ escape($HOME, '\'))
-let g:autolint_paths_blacklist = 'a^'
+let g:autolint_paths_blacklist = get(g:, 'autolint_paths_blacklist', 'a^')
 let s:file_to_lint_enabled = {}
 let s:autolint_jobid_to_file = {}
 function! s:MaybeEnableLinting(filepath) abort
