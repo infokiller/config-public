@@ -23,14 +23,14 @@
     "pyright": "1.1.337",
     "release-it": "17.0.0",
     "semantic-release": "22.0.8",
-    "snyk": "1.1252.0",
+    "snyk": "1.1253.0",
     "stylelint": "15.11.0",
     "tldr": "3.4.0",
     "uglify-js": "3.17.4",
     "web-ext": "7.8.0",
     "write-good": "1.0.8",
     "yarn": "1.22.21",
-    "yarn-audit-fix": "10.0.5"
+    "yarn-audit-fix": "10.0.7"
   },
   "//1": "https://classic.yarnpkg.com/en/docs/selective-version-resolutions/",
   "resolutions": {

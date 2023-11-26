@@ -1656,13 +1656,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/find-cache-dir@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "@types/find-cache-dir@npm:3.2.1"
-  checksum: bf5c4e96da40247cd9e6327f54dfccda961a0fb2d70e3c71bd05def94de4c2e6fb310fe8ecb0f04ecf5dbc52214e184b55a2337b0f87250d4ae1e2e7d58321e4
-  languageName: node
-  linkType: hard
-
 "@types/fs-extra@npm:^11.0.1":
   version: 11.0.1
   resolution: "@types/fs-extra@npm:11.0.1"
@@ -4343,13 +4336,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^10.0.1":
-  version: 10.0.1
-  resolution: "commander@npm:10.0.1"
-  checksum: 8799faa84a30da985802e661cc9856adfaee324d4b138413013ef7f087e8d7924b144c30a1f1405475f0909f467665cd9e1ce13270a2f41b141dab0b7a58f3fb
-  languageName: node
-  linkType: hard
-
 "commander@npm:^11.0.0, commander@npm:~11.0.0":
   version: 11.0.0
   resolution: "commander@npm:11.0.0"
@@ -4389,13 +4375,6 @@ __metadata:
   version: 1.0.1
   resolution: "common-ancestor-path@npm:1.0.1"
   checksum: 1d2e4186067083d8cc413f00fc2908225f04ae4e19417ded67faa6494fb313c4fcd5b28a52326d1a62b466e2b3a4325e92c31133c5fee628cdf8856b3a57c3d7
-  languageName: node
-  linkType: hard
-
-"common-path-prefix@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "common-path-prefix@npm:3.0.0"
-  checksum: 09c180e8d8495d42990d617f4d4b7522b5da20f6b236afe310192d401d1da8147a7835ae1ea37797ba0c2238ef3d06f3492151591451df34539fdb4b2630f2b3
   languageName: node
   linkType: hard
 
@@ -7164,16 +7143,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"find-cache-dir@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "find-cache-dir@npm:5.0.0"
-  dependencies:
-    common-path-prefix: "npm:^3.0.0"
-    pkg-dir: "npm:^7.0.0"
-  checksum: 1be046a2d6d98698d181352139bdd2f3e45cad4a0b3c9f06a611124ca52d823b0b327f5a629d7c5268b7fad54a202104765e572f8415b89ac35f76818fb3b75e
-  languageName: node
-  linkType: hard
-
 "find-up-simple@npm:^1.0.0":
   version: 1.0.0
   resolution: "find-up-simple@npm:1.0.0"
@@ -7207,17 +7176,6 @@ __metadata:
     locate-path: "npm:^7.1.0"
     path-exists: "npm:^5.0.0"
   checksum: 4f3bdc30d41778c647e53f4923e72de5e5fb055157031f34501c5b36c2eb59f77b997edf9cb00165c6060cda7eaa2e3da82cb6be2e61d68ad3e07c4bc4cce67e
-  languageName: node
-  linkType: hard
-
-"find-up@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "find-up@npm:7.0.0"
-  dependencies:
-    locate-path: "npm:^7.2.0"
-    path-exists: "npm:^5.0.0"
-    unicorn-magic: "npm:^0.1.0"
-  checksum: 7e6b08fbc05a10677e25e74bb0a020054a86b31d1806c5e6a9e32e75472bbf177210bc16e5f97453be8bda7ae2e3d97669dbb2901f8c30b39ce53929cbea6746
   languageName: node
   linkType: hard
 
@@ -11210,15 +11168,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"locate-path@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "locate-path@npm:7.2.0"
-  dependencies:
-    p-locate: "npm:^6.0.0"
-  checksum: 1c6d269d4efec555937081be964e8a9b4a136319c79ca1d45ac6382212a8466113c75bd89e44521ca8ecd1c47fb08523b56eee5c0712bc7d14fec5f729deeb42
-  languageName: node
-  linkType: hard
-
 "lodash-es@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash-es@npm:4.17.21"
@@ -15193,24 +15142,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-dir@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "pkg-dir@npm:7.0.0"
-  dependencies:
-    find-up: "npm:^6.3.0"
-  checksum: 94298b20a446bfbbd66604474de8a0cdd3b8d251225170970f15d9646f633e056c80520dd5b4c1d1050c9fed8f6a9e5054b141c93806439452efe72e57562c03
-  languageName: node
-  linkType: hard
-
-"pkg-dir@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "pkg-dir@npm:8.0.0"
-  dependencies:
-    find-up-simple: "npm:^1.0.0"
-  checksum: e589abebd1b76cbc3669a45df64f63cc1b041fd3a6588b45d4c692207df126f2a67478a804e5beeb729e75efea06cd405fb84445c879e7af346ba46a4a30b1ff
-  languageName: node
-  linkType: hard
-
 "pluralize@npm:^8.0.0":
   version: 8.0.0
   resolution: "pluralize@npm:8.0.0"
@@ -16643,14 +16574,14 @@ __metadata:
     pyright: "npm:1.1.337"
     release-it: "npm:17.0.0"
     semantic-release: "npm:22.0.8"
-    snyk: "npm:1.1252.0"
+    snyk: "npm:1.1253.0"
     stylelint: "npm:15.11.0"
     tldr: "npm:3.4.0"
     uglify-js: "npm:3.17.4"
     web-ext: "npm:7.8.0"
     write-good: "npm:1.0.8"
     yarn: "npm:1.22.21"
-    yarn-audit-fix: "npm:10.0.5"
+    yarn-audit-fix: "npm:10.0.7"
   languageName: unknown
   linkType: soft
 
@@ -17270,15 +17201,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1252.0":
-  version: 1.1252.0
-  resolution: "snyk@npm:1.1252.0"
+"snyk@npm:1.1253.0":
+  version: 1.1253.0
+  resolution: "snyk@npm:1.1253.0"
   dependencies:
     "@sentry/node": "npm:^7.36.0"
     global-agent: "npm:^3.0.0"
   bin:
     snyk: bin/snyk
-  checksum: 45068ce3f8d041638486f5771327f4b765c1b5a75b9559b1619c1dfd96435f92944b3d1962df506176643d33b3db6833927246f37a103a346e96e8994ba2d95f
+  checksum: 2984a6cc9f5a544c352f58907513b4134149624a8528e18000a9cf5149f8653bcc1d48d0326aaa9dc390536af23b15f2ca91b26d7e27de89dd33346964dd4447
   languageName: node
   linkType: hard
 
@@ -20378,30 +20309,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yarn-audit-fix@npm:10.0.5":
-  version: 10.0.5
-  resolution: "yarn-audit-fix@npm:10.0.5"
+"yarn-audit-fix@npm:10.0.7":
+  version: 10.0.7
+  resolution: "yarn-audit-fix@npm:10.0.7"
   dependencies:
-    "@types/find-cache-dir": "npm:^3.2.1"
     "@types/fs-extra": "npm:^11.0.1"
     "@types/lodash-es": "npm:^4.17.8"
     "@types/semver": "npm:^7.5.0"
     "@types/yarnpkg__lockfile": "npm:^1.1.6"
     "@yarnpkg/lockfile": "npm:^1.1.0"
     chalk: "npm:^5.3.0"
-    commander: "npm:^10.0.1"
+    commander: "npm:^11.0.0"
     fast-glob: "npm:^3.3.1"
-    find-cache-dir: "npm:^5.0.0"
-    find-up: "npm:^7.0.0"
     fs-extra: "npm:^11.1.1"
     js-yaml: "npm:^4.1.0"
     lodash-es: "npm:^4.17.21"
-    pkg-dir: "npm:^8.0.0"
     semver: "npm:^7.5.4"
     synp: "npm:^1.9.10"
   bin:
     yarn-audit-fix: target/esm/cli.mjs
-  checksum: 69c1011e4d71780fb16ab906f1b170fb9c31d2b1d7e64cf8126d81f9d3ae72043521182555ea131a7062a1f5967b653d9f69861bf35e8bc79a76baf94941c51c
+  checksum: 90cae23f8055801427124d7970c9c6801acf2c3dab691568344e182ceb289e15ec0f081df880952654708fd473ad4f211d91c9a805f5138c230e12fc46329c58
   languageName: node
   linkType: hard
 
