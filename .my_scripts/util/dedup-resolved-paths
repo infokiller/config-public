@@ -24,7 +24,8 @@ def dedup_resolved_paths():
         print(path)
     for path in symlinks:
         resolved = os.path.realpath(path)
-        if resolved in seen or not os.path.isfile(resolved):
+        is_same_basename = os.path.basename(path) == os.path.basename(resolved)
+        if not os.path.isfile(resolved) or (resolved in seen and is_same_basename):
             continue
         seen.add(resolved)
         print(path)
