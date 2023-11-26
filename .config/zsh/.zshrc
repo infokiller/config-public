@@ -894,6 +894,7 @@ function {
   _set_same_completion shenv gfexp
   _set_same_completion shenv gfrexp
   _set_same_completion xargs sensible-xargs
+  _set_same_completion watch watch-quoted
   if [[ "${DISTRO}" == arch ]]; then
     _set_same_completion pacman pacmate
   fi

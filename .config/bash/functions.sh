@@ -27,7 +27,17 @@ fzf-shell() {
 # end of the alias value seems to do the trick.
 alias sudo='sudo '
 alias xargs='sensible-xargs '
-alias watch='watch --color -n1 '
+# Watch doesn't quote its args before passing them to the shell, so we need to do it 
+# ourselves.
+# Test case: `watch echo '('`
+watch-quoted() {
+  local quoted_args=()
+  for arg in "$@"; do
+    quoted_args+=("$(printf '%q' "${arg}")")
+  done
+  watch "${quoted_args[@]}"
+}
+alias watch='watch-quoted --color -n1 '
 
 # Files and directories {{{
 
