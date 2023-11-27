@@ -267,6 +267,9 @@
 [submodule "submodules/vim/copilot.vim"]
 	path = submodules/vim/copilot.vim
 	url = https://github.com/github/copilot.vim
+[submodule "submodules/vim/coverage-highlight.vim"]
+	path = submodules/vim/coverage-highlight.vim
+	url = https://github.com/mgedmin/coverage-highlight.vim
 [submodule "submodules/vim/ctrlsf.vim"]
 	path = submodules/vim/ctrlsf.vim
 	url = https://github.com/dyng/ctrlsf.vim

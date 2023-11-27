@@ -893,6 +893,10 @@ function! s:RefreshScreen() abort
   if exists(':ALELint') && get(g:, 'ale_enabled', 1) && get(b:, 'ale_enabled', 1)
     ALELint
   endif
+  if &filetype is# 'python' && exists('*coverage_highlight#get_current') &&
+        \ !empty(coverage_highlight#get_current())
+    HighlightCoverage
+  endif
   " This must be the last command, otherwise the cursor jumps to the first char
   " on the line.
   mode

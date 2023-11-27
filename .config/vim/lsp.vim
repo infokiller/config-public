@@ -925,6 +925,9 @@ augroup END
 
 Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
 
+" Python test coverage
+Plug 'mgedmin/coverage-highlight.vim', {'for': 'python'}
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                    Golang                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
