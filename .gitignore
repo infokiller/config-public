@@ -329,6 +329,7 @@
 /.config/Trolltech.conf
 /.config/Yubico/YKPersonalization.conf
 /.config/Yubico/YubiKey Manager.conf
+/.config/azure
 /.config/borg/security
 /.config/btop/btop.log
 /.config/cni/net.d/cni.lock
@@ -386,8 +387,6 @@
 /.config/xdg-desktop-portal-kderc
 /.config/zoomus.conf
 /.config/zsh/completion/_npm
-/.azure
-/.azure-devops
 /.dotnet
 /.electron-gyp
 /.elinks
