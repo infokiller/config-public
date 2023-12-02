@@ -50,7 +50,7 @@ require (
 	github.com/cyphar/filepath-securejoin v0.2.4 // indirect
 	github.com/danieljoos/wincred v1.2.0 // indirect
 	github.com/dbaggerman/cuba v0.3.2 // indirect
-	github.com/direnv/direnv/v2 v2.32.3 // indirect
+	github.com/direnv/direnv/v2 v2.33.0 // indirect
 	github.com/distribution/reference v0.5.0 // indirect
 	github.com/dlclark/regexp2 v1.10.0 // indirect
 	github.com/docker/cli v24.0.7+incompatible // indirect
@@ -131,7 +131,7 @@ require (
 	github.com/muesli/reflow v0.3.0 // indirect
 	github.com/muesli/termenv v0.15.2 // indirect
 	github.com/nbutton23/zxcvbn-go v0.0.0-20210217022336-fa2cb2858354 // indirect
-	github.com/nektos/act v0.2.54 // indirect
+	github.com/nektos/act v0.2.55 // indirect
 	github.com/noborus/guesswidth v0.3.4 // indirect
 	github.com/noborus/ov v0.31.0 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
@@ -184,7 +184,7 @@ require (
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20230801115018-d63ba01acd4b // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
-	golang.org/x/mod v0.12.0 // indirect
+	golang.org/x/mod v0.13.0 // indirect
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sync v0.3.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect

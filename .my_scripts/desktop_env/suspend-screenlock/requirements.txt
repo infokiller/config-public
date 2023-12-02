@@ -28,9 +28,9 @@ pytimeparse==1.1.8 \
     --hash=sha256:04b7be6cc8bd9f5647a6325444926c3ac34ee6bc7e69da4367ba282f076036bd \
     --hash=sha256:e86136477be924d7e670646a98561957e8ca7308d44841e21f5ddea757556a0a
     # via -r requirements.in
-wheel==0.41.3 \
-    --hash=sha256:488609bc63a29322326e05560731bf7bfea8e48ad646e1f5e40d366607de0942 \
-    --hash=sha256:4d4987ce51a49370ea65c0bfd2234e8ce80a12780820d9dc462597a6e60d0841
+wheel==0.42.0 \
+    --hash=sha256:177f9c9b0d45c47873b619f5b650346d632cdc35fb5e4d25058e09c9e581433d \
+    --hash=sha256:c45be39f7882c9d34243236f2d63cbd58039e360f85d0913425fbd7ceea617a8
     # via pip-tools
 
 # The following packages are considered to be unsafe in a requirements file:
