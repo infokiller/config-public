@@ -4,8 +4,6 @@
 
 import argparse
 import logging
-import pprint
-from typing import List, Optional
 
 import i3ipc
 
