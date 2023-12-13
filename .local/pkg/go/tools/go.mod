@@ -1,6 +1,6 @@
 module gitlab.com/infokiller/config-public/.local/pkg/go/tools
 
-go 1.21.4
+go 1.21.5
 
 require (
 	code.rocketnine.space/tslocum/cbind v0.1.5 // indirect
