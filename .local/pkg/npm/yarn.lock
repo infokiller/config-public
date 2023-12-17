@@ -293,6 +293,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/js@npm:8.56.0":
+  version: 8.56.0
+  resolution: "@eslint/js@npm:8.56.0"
+  checksum: 97a4b5ccf7e24f4d205a1fb0f21cdcd610348ecf685f6798a48dd41ba443f2c1eedd3050ff5a0b8f30b8cf6501ab512aa9b76e531db15e59c9ebaa41f3162e37
+  languageName: node
+  linkType: hard
+
 "@fluent/syntax@npm:0.19.0":
   version: 0.19.0
   resolution: "@fluent/syntax@npm:0.19.0"
@@ -6366,6 +6373,54 @@ __metadata:
   bin:
     eslint: bin/eslint.js
   checksum: afd016cfbe9e9d667b3f98c14c681a7e518808f6c30856e56cbb02248900eac5bf6dc5e577a7eaec259539486db48ef7d16ef58fb14b1585ba7c84b35490c53c
+  languageName: node
+  linkType: hard
+
+"eslint@npm:8.56.0":
+  version: 8.56.0
+  resolution: "eslint@npm:8.56.0"
+  dependencies:
+    "@eslint-community/eslint-utils": "npm:^4.2.0"
+    "@eslint-community/regexpp": "npm:^4.6.1"
+    "@eslint/eslintrc": "npm:^2.1.4"
+    "@eslint/js": "npm:8.56.0"
+    "@humanwhocodes/config-array": "npm:^0.11.13"
+    "@humanwhocodes/module-importer": "npm:^1.0.1"
+    "@nodelib/fs.walk": "npm:^1.2.8"
+    "@ungap/structured-clone": "npm:^1.2.0"
+    ajv: "npm:^6.12.4"
+    chalk: "npm:^4.0.0"
+    cross-spawn: "npm:^7.0.2"
+    debug: "npm:^4.3.2"
+    doctrine: "npm:^3.0.0"
+    escape-string-regexp: "npm:^4.0.0"
+    eslint-scope: "npm:^7.2.2"
+    eslint-visitor-keys: "npm:^3.4.3"
+    espree: "npm:^9.6.1"
+    esquery: "npm:^1.4.2"
+    esutils: "npm:^2.0.2"
+    fast-deep-equal: "npm:^3.1.3"
+    file-entry-cache: "npm:^6.0.1"
+    find-up: "npm:^5.0.0"
+    glob-parent: "npm:^6.0.2"
+    globals: "npm:^13.19.0"
+    graphemer: "npm:^1.4.0"
+    ignore: "npm:^5.2.0"
+    imurmurhash: "npm:^0.1.4"
+    is-glob: "npm:^4.0.0"
+    is-path-inside: "npm:^3.0.3"
+    js-yaml: "npm:^4.1.0"
+    json-stable-stringify-without-jsonify: "npm:^1.0.1"
+    levn: "npm:^0.4.1"
+    lodash.merge: "npm:^4.6.2"
+    minimatch: "npm:^3.1.2"
+    natural-compare: "npm:^1.4.0"
+    optionator: "npm:^0.9.3"
+    strip-ansi: "npm:^6.0.1"
+    text-table: "npm:^0.2.0"
+  bin:
+    eslint: bin/eslint.js
+  checksum: ef6193c6e4cef20774b985a5cc2fd4bf6d3c4decd423117cbc4a0196617861745db291217ad3c537bc3a160650cca965bc818f55e1f3e446af1fcb293f9940a5
   languageName: node
   linkType: hard
 
@@ -15419,36 +15474,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"puppeteer-core@npm:21.6.0":
-  version: 21.6.0
-  resolution: "puppeteer-core@npm:21.6.0"
+"puppeteer-core@npm:21.6.1":
+  version: 21.6.1
+  resolution: "puppeteer-core@npm:21.6.1"
   dependencies:
     "@puppeteer/browsers": "npm:1.9.0"
     chromium-bidi: "npm:0.5.1"
     cross-fetch: "npm:4.0.0"
     debug: "npm:4.3.4"
     devtools-protocol: "npm:0.0.1203626"
-    ws: "npm:8.14.2"
-  checksum: 4ea348b2ad5a33985f1b11012bde0d263b59bbc068e49a640906a079d5a69ec83fecc45cb5115263ecef4b4054bc1c71be13667357ff08f33a2105c87b8020d1
+    ws: "npm:8.15.1"
+  checksum: a3293c3b97dc14ae3b78c30ba8d4d52847c7052064f795884f1318a77480d67cc297507e382ee5546962a191c31919e66d667e6ad52ce96fd0760c334038bee6
   languageName: node
   linkType: hard
 
-"puppeteer@npm:21.6.0":
-  version: 21.6.0
-  resolution: "puppeteer@npm:21.6.0"
+"puppeteer@npm:21.6.1":
+  version: 21.6.1
+  resolution: "puppeteer@npm:21.6.1"
   dependencies:
     "@puppeteer/browsers": "npm:1.9.0"
     cosmiconfig: "npm:8.3.6"
-    puppeteer-core: "npm:21.6.0"
+    puppeteer-core: "npm:21.6.1"
   bin:
     puppeteer: lib/esm/puppeteer/node/cli.js
-  checksum: 2b4075bff9f5e9c742e3f43f0826fbb2a49fd8619aea5f5f7c68088350973f781b9652b2a76dc3d53a0ad71a96dc0e3cad332b4d18a1d7df5310f38aada1f0ff
+  checksum: ea9490a79df5de9a6f65aff7cc7a1d1071237e6446ab5f7a2c79ebb7c82337a9863e6078710ea7fab029d7be6ad19bad308f82d9571d3468044d467c8cbe0864
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.340":
-  version: 1.1.340
-  resolution: "pyright@npm:1.1.340"
+"pyright@npm:1.1.341":
+  version: 1.1.341
+  resolution: "pyright@npm:1.1.341"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -15457,7 +15512,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 2f85aefff9a1678ac1b7fafe1b3da44bbd1bafb9ddd85512a9505405328ff44c7ed1168c17fc40a55a15e84412b58f429001c632432a3b11933ffc6a5faa5985
+  checksum: ee227f66d6a62d8584b36f22c6b5f0ae38a8197ec976aa705c22f8332e90186d37c94df9f1419c4347e5971e5b994b57102ad17e0f6940eaa184d7a4cb5eb725
   languageName: node
   linkType: hard
 
@@ -16437,7 +16492,7 @@ __metadata:
     bash-language-server: "npm:5.0.0"
     corepack: "npm:0.23.0"
     diff-so-fancy: "npm:1.4.3"
-    eslint: "npm:8.55.0"
+    eslint: "npm:8.56.0"
     git-stats: "npm:3.2.0"
     git-stats-importer: "npm:2.4.11"
     gtop: "npm:1.1.5"
@@ -16451,11 +16506,11 @@ __metadata:
     markdownlint-cli2: "npm:0.11.0"
     prettier: "npm:3.1.1"
     prettier-eslint-cli: "npm:8.0.1"
-    puppeteer: "npm:21.6.0"
-    pyright: "npm:1.1.340"
+    puppeteer: "npm:21.6.1"
+    pyright: "npm:1.1.341"
     release-it: "npm:17.0.1"
     semantic-release: "npm:22.0.12"
-    snyk: "npm:1.1261.0"
+    snyk: "npm:1.1264.0"
     stylelint: "npm:16.0.2"
     tldr: "npm:3.4.0"
     uglify-js: "npm:3.17.4"
@@ -17082,15 +17137,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"snyk@npm:1.1261.0":
-  version: 1.1261.0
-  resolution: "snyk@npm:1.1261.0"
+"snyk@npm:1.1264.0":
+  version: 1.1264.0
+  resolution: "snyk@npm:1.1264.0"
   dependencies:
     "@sentry/node": "npm:^7.36.0"
     global-agent: "npm:^3.0.0"
   bin:
     snyk: bin/snyk
-  checksum: 55a9c0e8dd8cc33a8ecb86770224f46a1b9ce258fd90df93b1b1cb3c5db67e7a64af7da714534ae3a477981f149450dac0bd06af846bb664248c095cd56f6705
+  checksum: 54fd5d85bcdd9d43cd6a03462558f66e07488bf8ebb2cfcead20df21425dd6112d830cd197f6317de469fe5fa1ad81e0f43d8cfd1e210af94ce493073a996cf8
   languageName: node
   linkType: hard
 
@@ -19956,9 +20011,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:8.14.2":
-  version: 8.14.2
-  resolution: "ws@npm:8.14.2"
+"ws@npm:8.15.1":
+  version: 8.15.1
+  resolution: "ws@npm:8.15.1"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -19967,7 +20022,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 815ff01d9bc20a249b2228825d9739268a03a4408c2e0b14d49b0e2ae89d7f10847e813b587ba26992bdc33e9d03bed131e4cae73ff996baf789d53e99c31186
+  checksum: 746a3102d43e8df7b09f5814bec858f12d10185a7abd655537f3291b687d440bb80fc9d1e082f8dee42d4d74307f78a96810e18a2c8e13053b003c6608c1c648
   languageName: node
   linkType: hard
 
