@@ -5,14 +5,47 @@
 # See https://vaneyckt.io/posts/safer_bash_scripts_with_set_euxo_pipefail/
 set -o errexit -o errtrace -o nounset -o pipefail
 
-tmpfile_dir=/tmp/vim-anywhere
-tmpfile="${tmpfile_dir}/doc-$(date +"%y%m%d%H%M%S")"
+XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
 
-[[ -d ${tmpfile_dir} ]] || mkdir -p -- ${tmpfile_dir}
-touch -- "${tmpfile}"
+_command_exists() {
+  command -v -- "$1" &> /dev/null
+}
 
-chmod o-rwx -- "${tmpfile}" # Make file only readable by you
+_print_error() {
+  printf >&2 '%s\n' "$*"
+}
 
-if sensible-terminal --window-name 'vim-anywhere' -- vim "${tmpfile}"; then
-  xclip -selection clipboard < "${tmpfile}"
-fi
+_stdin_to_clipboard() {
+  if _command_exists xsel; then
+    xsel --input --clipboard
+    return
+  fi
+  if _command_exists xclip; then
+    xclip -selection clipboard
+    return
+  fi
+  _print_error 'No clipboard utility found, please install xsel or xclip'
+}
+
+main() {
+  local ext='txt'
+  local window_name='vim-anywhere'
+  local vim_opts=('--cmd' 'let g:autolint_paths_blacklist = ".*"')
+  if [[ "${1-}" == 'markdown' ]]; then
+    ext='md'
+    window_name='vim-anywhere-markdown'
+    vim_opts+=('-c' 'set filetype=markdown textwidth=0 wrapmargin=0')
+    shift
+  fi
+  local dir="${XDG_DATA_HOME}/vim-anywhere"
+  [[ -d "${dir}" ]] || mkdir -p -- "${dir}"
+  local filename_tmpl
+  filename_tmpl="$(date +"%Y-%m-%d-%H%M%S")-XXX.${ext}"
+  local filename
+  filename="$(mktemp --tmpdir="${dir}" "${filename_tmpl}")"
+  if sensible-terminal --window-name "${window_name}" -- vim "${vim_opts[@]}" "${filename}"; then
+    _stdin_to_clipboard < "${filename}"
+  fi
+}
+
+main "$@"

@@ -475,7 +475,7 @@ mode "Launcher" {
     # Vim editing from anywhere: v
     bindcode 55 $launcher_exec_cli vim-anywhere
     # Vim markdown editing from anywhere (mostly for emails): Shift+v
-    bindcode Shift+55 $launcher_exec_cli vim-anywhere-markdown
+    bindcode Shift+55 $launcher_exec_cli vim-anywhere markdown
     # Password manager: p
     # NOTE: launcher_exec_cli not used since rofi can run with fullscreen.
     bindcode 33 mode "default", $exec_cli rofi-lastpass
