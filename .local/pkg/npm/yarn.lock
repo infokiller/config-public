@@ -3015,21 +3015,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bash-language-server@npm:5.0.0":
-  version: 5.0.0
-  resolution: "bash-language-server@npm:5.0.0"
+"bash-language-server@npm:5.1.1":
+  version: 5.1.1
+  resolution: "bash-language-server@npm:5.1.1"
   dependencies:
-    fast-glob: "npm:3.3.0"
+    fast-glob: "npm:3.3.2"
     fuzzy-search: "npm:3.2.1"
-    node-fetch: "npm:2.6.12"
+    node-fetch: "npm:2.7.0"
     turndown: "npm:7.1.2"
     vscode-languageserver: "npm:8.0.2"
-    vscode-languageserver-textdocument: "npm:1.0.8"
+    vscode-languageserver-textdocument: "npm:1.0.11"
     web-tree-sitter: "npm:0.20.8"
-    zod: "npm:3.21.4"
+    zod: "npm:3.22.4"
   bin:
     bash-language-server: out/cli.js
-  checksum: d5d2845512c2a53f72d79cd67fc5b037395c5b6c5d6bad7738ad2b99a9b85acfff8306e165c507e83f8dc7be4f480ec49261b476756aa30f770f60c42a29d0b6
+  checksum: 87f5eaf1e577c3e2be9e584ef423d23c38dd712530696b14e9c814a56689a306a64ee1591b3d6de678f4fe5fef2f947cca36ba9839a3035258eb2776e095c238
   languageName: node
   linkType: hard
 
@@ -4537,16 +4537,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"corepack@npm:0.23.0":
-  version: 0.23.0
-  resolution: "corepack@npm:0.23.0"
+"corepack@npm:0.24.0":
+  version: 0.24.0
+  resolution: "corepack@npm:0.24.0"
   bin:
     corepack: ./dist/corepack.js
     pnpm: ./dist/pnpm.js
     pnpx: ./dist/pnpx.js
     yarn: ./dist/yarn.js
     yarnpkg: ./dist/yarnpkg.js
-  checksum: b51ce487dedb774b565866b6fb1d3079d4a9e5bd77f6adfea18dd5f95feeb69ce4f9a4aea5339df5ee4cbc68cb16c853369eb01888c44238c10771847ec33e75
+  checksum: cf78f113b067df8ad665ba0debab79ca2e64f4557214dd7fae90bacc0e7370834fdec7375cdac3f675efc17783fa008730d3fa96abf8b78a94bc79bc2f0e717f
   languageName: node
   linkType: hard
 
@@ -6911,16 +6911,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:3.3.0":
-  version: 3.3.0
-  resolution: "fast-glob@npm:3.3.0"
+"fast-glob@npm:3.3.2, fast-glob@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "fast-glob@npm:3.3.2"
   dependencies:
     "@nodelib/fs.stat": "npm:^2.0.2"
     "@nodelib/fs.walk": "npm:^1.2.3"
     glob-parent: "npm:^5.1.2"
     merge2: "npm:^1.3.0"
     micromatch: "npm:^4.0.4"
-  checksum: 4cd74914f13eab48dd1a0d16051aa102c13d30ea8a79c991563ea3111a37ff6d888518964291d52d723e7ad2a946149ce9f13d27ad9a07a1e4e1aefb4717ed29
+  checksum: 222512e9315a0efca1276af9adb2127f02105d7288fa746145bf45e2716383fb79eb983c89601a72a399a56b7c18d38ce70457c5466218c5f13fad957cee16df
   languageName: node
   linkType: hard
 
@@ -6947,19 +6947,6 @@ __metadata:
     merge2: "npm:^1.3.0"
     micromatch: "npm:^4.0.4"
   checksum: 51bcd15472879dfe51d4b01c5b70bbc7652724d39cdd082ba11276dbd7d84db0f6b33757e1938af8b2768a4bf485d9be0c89153beae24ee8331d6dcc7550379f
-  languageName: node
-  linkType: hard
-
-"fast-glob@npm:^3.3.2":
-  version: 3.3.2
-  resolution: "fast-glob@npm:3.3.2"
-  dependencies:
-    "@nodelib/fs.stat": "npm:^2.0.2"
-    "@nodelib/fs.walk": "npm:^1.2.3"
-    glob-parent: "npm:^5.1.2"
-    merge2: "npm:^1.3.0"
-    micromatch: "npm:^4.0.4"
-  checksum: 222512e9315a0efca1276af9adb2127f02105d7288fa746145bf45e2716383fb79eb983c89601a72a399a56b7c18d38ce70457c5466218c5f13fad957cee16df
   languageName: node
   linkType: hard
 
@@ -13393,9 +13380,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:2.6.12, node-fetch@npm:^2.6.12":
-  version: 2.6.12
-  resolution: "node-fetch@npm:2.6.12"
+"node-fetch@npm:2.7.0":
+  version: 2.7.0
+  resolution: "node-fetch@npm:2.7.0"
   dependencies:
     whatwg-url: "npm:^5.0.0"
   peerDependencies:
@@ -13403,7 +13390,7 @@ __metadata:
   peerDependenciesMeta:
     encoding:
       optional: true
-  checksum: 370ed4d906edad9709a81b54a0141d37d2973a27dc80c723d8ac14afcec6dc67bc6c70986a96992b64ec75d08159cc4b65ce6aa9063941168ea5ac73b24df9f8
+  checksum: b24f8a3dc937f388192e59bcf9d0857d7b6940a2496f328381641cb616efccc9866e89ec43f2ec956bbd6c3d3ee05524ce77fe7b29ccd34692b3a16f237d6676
   languageName: node
   linkType: hard
 
@@ -13433,6 +13420,20 @@ __metadata:
   version: 2.6.1
   resolution: "node-fetch@npm:2.6.1"
   checksum: 0b54e56681a99e1b511f8e94dc56b971104834c99c0368cdf5a9e43b3355d77e8aa92842602cf2c08e60654c32ae439d84946eccb38427e6dc2e9d7d90fc787c
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.12":
+  version: 2.6.12
+  resolution: "node-fetch@npm:2.6.12"
+  dependencies:
+    whatwg-url: "npm:^5.0.0"
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 370ed4d906edad9709a81b54a0141d37d2973a27dc80c723d8ac14afcec6dc67bc6c70986a96992b64ec75d08159cc4b65ce6aa9063941168ea5ac73b24df9f8
   languageName: node
   linkType: hard
 
@@ -15508,9 +15509,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:1.1.343":
-  version: 1.1.343
-  resolution: "pyright@npm:1.1.343"
+"pyright@npm:1.1.344":
+  version: 1.1.344
+  resolution: "pyright@npm:1.1.344"
   dependencies:
     fsevents: "npm:~2.3.2"
   dependenciesMeta:
@@ -15519,7 +15520,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 74daf0a022e3571e2f203922b7c2d6a3d41c1680225707942520e97141c72926e79be108f11804751b501d92b1a8007a390d4c7ed5f1d8f1fd10502355b5867b
+  checksum: 8fe63abae1ba3800ecc25d8066c2afb16710c890e856ec5e2e4da6dc408dc6358c07a693837fefcfc12833c67059606536d4d6d7f7057be5c41a15d4cb77c107
   languageName: node
   linkType: hard
 
@@ -16507,8 +16508,8 @@ __metadata:
   dependencies:
     "@google/clasp": "npm:2.4.2"
     alex: "npm:11.0.1"
-    bash-language-server: "npm:5.0.0"
-    corepack: "npm:0.23.0"
+    bash-language-server: "npm:5.1.1"
+    corepack: "npm:0.24.0"
     diff-so-fancy: "npm:1.4.3"
     eslint: "npm:8.56.0"
     git-stats: "npm:3.2.0"
@@ -16525,7 +16526,7 @@ __metadata:
     prettier: "npm:3.1.1"
     prettier-eslint-cli: "npm:8.0.1"
     puppeteer: "npm:21.6.1"
-    pyright: "npm:1.1.343"
+    pyright: "npm:1.1.344"
     release-it: "npm:17.0.1"
     semantic-release: "npm:22.0.12"
     snyk: "npm:1.1266.0"
@@ -19514,10 +19515,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-languageserver-textdocument@npm:1.0.8":
-  version: 1.0.8
-  resolution: "vscode-languageserver-textdocument@npm:1.0.8"
-  checksum: 2bb2b8ecbf683e3e56c225b24cfed7ed898ad24b1c8c9f6633f440c43d9329e83e43e5b529385c7ff88e4b418cb5721ec225a826d2e2a420f792cfe11078a9b8
+"vscode-languageserver-textdocument@npm:1.0.11":
+  version: 1.0.11
+  resolution: "vscode-languageserver-textdocument@npm:1.0.11"
+  checksum: 6096d2a85570e819e01ff406de7c88c48211e6874c6fc71df92193aa8b5aadf40591e44f033d634a95d04975d7aad29049d3eccab617ca41c189ae325aadb913
   languageName: node
   linkType: hard
 
@@ -20307,10 +20308,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:3.21.4":
-  version: 3.21.4
-  resolution: "zod@npm:3.21.4"
-  checksum: 03c79fa4610a35e24119771970be764c6e177a271a225587f86a7fc35d55e94a154d8e1970d23ffe35b567c147262bedbcb53b31aa30eeef2493fbd13e1b4aca
+"zod@npm:3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 73622ca36a916f785cf528fe612a884b3e0f183dbe6b33365a7d0fc92abdbedf7804c5e2bd8df0a278e1472106d46674281397a3dd800fa9031dc3429758c6ac
   languageName: node
   linkType: hard
 
