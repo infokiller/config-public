@@ -3,7 +3,7 @@ pip-tools~=7.0
 pylint~=2.15
 yapf~=0.32
 isort~=5.10
-ipython~=8.8
+ipython~=8.10
 jupytext~=1.0
 # ipykernel is required for the VSCode interactive window
 ipykernel~=6.13
