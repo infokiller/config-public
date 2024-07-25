@@ -1,6 +1,6 @@
 # TODO: Fix this Dockerfile
 
-FROM node:lts-alpine AS build-stage
+FROM node:20.15.1-alpine3.20 AS build-stage
 # SHELL ["/bin/sh", "-o", "pipefail", "-c"]
 RUN apk add git curl bash openssh-client
 ARG ssh_key_file
